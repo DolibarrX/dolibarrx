@@ -293,8 +293,8 @@ class PaiementFourn extends Paiement
 								if ($remaintopay == 0) {
 									// If invoice is a down payment, we also convert down payment to discount
 									if ($invoice->type == FactureFournisseur::TYPE_DEPOSIT) {
-										$amount_ht = $amount_tva = $amount_ttc = array();
-										$multicurrency_amount_ht = $multicurrency_amount_tva = $multicurrency_amount_ttc = array();
+										$amount_ht = $amount_tva = $amount_ttc = [];
+										$multicurrency_amount_ht = $multicurrency_amount_tva = $multicurrency_amount_ttc = [];
 										'
 										@phan-var-force array<string,float> $amount_ht
 										@phan-var-force array<string,float> $amount_tva
@@ -586,7 +586,7 @@ class PaiementFourn extends Paiement
 		if ($resql) {
 			$i = 0;
 			$num = $this->db->num_rows($resql);
-			$billsarray = array();
+			$billsarray = [];
 
 			while ($i < $num) {
 				$obj = $this->db->fetch_object($resql);
@@ -687,7 +687,7 @@ class PaiementFourn extends Paiement
 		$result = '';
 
 		$text = $this->ref; // Sometimes ref contains label
-		$reg = array();
+		$reg = [];
 		if (preg_match('/^\((.*)\)$/i', $text, $reg)) {
 			// Label generique car entre parentheses. On l'affiche en le traduisant
 			if ($reg[1] == 'paiement') {

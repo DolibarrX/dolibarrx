@@ -112,7 +112,7 @@ if (!$sortorder) {
 
 
 // Initialize array of search criteria
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha') !== '') {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -178,7 +178,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -216,8 +216,8 @@ if (empty($resHook)) {
 		$fourn_id = '';
 		$sbarcode = '';
 		$search_stock_physique = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
@@ -245,8 +245,8 @@ $now = dol_now();
 
 $helpurl = 'EN:Module_Stocks_En|FR:Module_Stock|ES:M&oacute;dulo_Stocks';
 $title = $langs->trans("ProductsAndServices");
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 $sql = 'SELECT p.rowid, p.ref, p.label, p.barcode, p.price, p.price_ttc, p.price_base_type, p.entity,';
 $sql .= ' p.fk_product_type, p.tms as datem,';
@@ -257,7 +257,7 @@ $sql .= ' pb.batch, pb.eatby as oldeatby, pb.sellby as oldsellby,';
 $sql .= ' pl.rowid as lotid, pl.eatby, pl.sellby,';
 $sql .= ' SUM(pb.qty) as stock_physique, COUNT(pb.rowid) as nbinbatchtable';
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= ' FROM '.MAIN_DB_PREFIX.'product as p';
@@ -266,7 +266,7 @@ $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'entrepot as e on ps.fk_entrepot = e.rowid'
 $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_batch as pb on pb.fk_product_stock = ps.rowid'; // Detail for each lot on each warehouse
 $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_lot as pl on pl.fk_product = p.rowid AND pl.batch = pb.batch'; // Link on unique key
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " WHERE p.entity IN (".getEntity('product').") AND e.entity IN (".getEntity('stock').")";
@@ -374,7 +374,7 @@ foreach ($search as $key => $val) {
 	}
 }
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -386,7 +386,7 @@ $sql .= " e.ref, e.lieu, e.fk_parent,";
 $sql .= " pb.batch, pb.eatby, pb.sellby,";
 $sql .= " pl.rowid, pl.eatby, pl.sellby";
 // Add GROUP BY from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListGroupBy', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql_having = '';
@@ -404,7 +404,7 @@ if ($search_stock_physique != '') {
 	$sql_having .= $natural_search_physique;
 }
 // Add HAVING from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object); // Note that $action and $object may have been modified by hook
 if (!empty($hookManager->resPrint)) {
 	if (!empty($sql_having)) {
@@ -590,7 +590,7 @@ $moreforfilter .= '<label for="search_subjecttolotserial">'.$langs->trans("Subje
 
 print '<div class="liste_titre liste_titre_bydiv centpercent">';
 print $moreforfilter;
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 print '</div>';
@@ -651,7 +651,7 @@ print '</td>';
 print '<td class="liste_titre">&nbsp;</td>';
 print '<td class="liste_titre">&nbsp;</td>';
 print '<td class="liste_titre">&nbsp;</td>';
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 // Action column
@@ -663,7 +663,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -781,7 +781,7 @@ while ($i < $imaxinloop) {
 
 	if (isModEnabled("service") && $type == 1) {
 		print '<td class="center">';
-		$regs = array();
+		$regs = [];
 		if (preg_match('/([0-9]+)y/i', $objp->duration, $regs)) {
 			print $regs[1].' '.$langs->trans("DurationYear");
 		} elseif (preg_match('/([0-9]+)m/i', $objp->duration, $regs)) {

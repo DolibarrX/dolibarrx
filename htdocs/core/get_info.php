@@ -67,8 +67,8 @@ $title = $langs->trans("Info");
 
 // URL http://mydolibarr/core/get_info.php?dol_use_jmobile=1 can be used for tests
 $head = '<!-- Info user page -->'."\n";
-$arrayofjs = array();
-$arrayofcss = array();
+$arrayofjs = [];
+$arrayofcss = [];
 top_htmlhead($head, $title, 0, 0, $arrayofjs, $arrayofcss);
 
 
@@ -130,7 +130,7 @@ $toprightmenu .= '</div>'."\n";
 $toprightmenu .= '<div class="login_block_other">';
 
 // Execute hook printTopRightMenu (hooks should output string like '<div class="login"><a href="">mylink</a></div>')
-$parameters = array();
+$parameters = [];
 $result = $hookManager->executeHooks('printTopRightMenu', $parameters); // Note that $action and $object may have been modified by some hooks
 if (is_numeric($result)) {
 	if (empty($result)) {

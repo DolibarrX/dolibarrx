@@ -155,7 +155,7 @@ $server->wsdl->addComplexType(
 	)
 );
 
-$project_elements = array();
+$project_elements = [];
 foreach ($listofreferent as $key => $label) {
 	$project_elements[$key] = array('name' => $key, 'type' => 'tns:elementsArray');
 }
@@ -191,7 +191,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($elementtype, true);
 $extrafield_array = null;
 if (is_array($extrafields->attributes) && $extrafields->attributes[$elementtype]['count'] > 0) {
-	$extrafield_array = array();
+	$extrafield_array = [];
 }
 if (isset($extrafields->attributes[$elementtype]['label']) && is_array($extrafields->attributes[$elementtype]['label']) && count($extrafields->attributes[$elementtype]['label'])) {
 	foreach ($extrafields->attributes[$elementtype]['label'] as $key => $label) {
@@ -272,7 +272,7 @@ function createProject($authentication, $project)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -368,7 +368,7 @@ function getProject($authentication, $id = '', $ref = '')
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -416,9 +416,9 @@ function getProject($authentication, $id = '', $ref = '')
 
 				//Get linked elements
 				global $listofreferent;
-				$elements = array();
+				$elements = [];
 				foreach ($listofreferent as $key => $tablename) {
-					$elements[$key] = array();
+					$elements[$key] = [];
 					$element_array = $project->get_element_list($key, $tablename);
 					if (count($element_array) > 0 && is_array($element_array)) {
 						foreach ($element_array as $element) {

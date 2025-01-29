@@ -88,12 +88,12 @@ class AdvanceTargetingMailing extends CommonObject
 	/**
 	 * @var array<int,string> select target type
 	 */
-	public $select_target_type = array();
+	public $select_target_type = [];
 
 	/**
 	 * @var array<int,string> type status comm prospect
 	 */
-	public $type_statuscommprospect = array();
+	public $type_statuscommprospect = [];
 
 	/**
 	 * @var int[]
@@ -545,7 +545,7 @@ class AdvanceTargetingMailing extends CommonObject
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe as t";
 		$sql .= " LEFT OUTER JOIN ".MAIN_DB_PREFIX."societe_extrafields as te ON te.fk_object=t.rowid ";
 
-		$sqlwhere = array();
+		$sqlwhere = [];
 
 		$sqlwhere[] = 't.entity IN ('.getEntity('societe').')';
 
@@ -660,7 +660,7 @@ class AdvanceTargetingMailing extends CommonObject
 		dol_syslog(get_class($this)."::query_thirdparty", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->thirdparty_lines = array();
+			$this->thirdparty_lines = [];
 			$num = $this->db->num_rows($resql);
 			$i = 0;
 
@@ -705,7 +705,7 @@ class AdvanceTargetingMailing extends CommonObject
 			$sql .= " LEFT OUTER JOIN ".MAIN_DB_PREFIX."societe_extrafields as tse ON tse.fk_object=ts.rowid ";
 		}
 
-		$sqlwhere = array();
+		$sqlwhere = [];
 
 		$sqlwhere[] = 't.entity IN ('.getEntity('contact').')';
 
@@ -907,7 +907,7 @@ class AdvanceTargetingMailing extends CommonObject
 		dol_syslog(get_class($this)."::query_contact", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->contact_lines = array();
+			$this->contact_lines = [];
 			$num = $this->db->num_rows($resql);
 			$i = 0;
 
@@ -946,8 +946,8 @@ class AdvanceTargetingMailing extends CommonObject
 
 		//This is a multiple value test
 		if (preg_match('/;/', $criteria)) {
-			$return_sql_not_like = array();
-			$return_sql_like = array();
+			$return_sql_not_like = [];
+			$return_sql_like = [];
 
 			$criteria_array = explode(';', $criteria);
 			foreach ($criteria_array as $inter_criteria) {

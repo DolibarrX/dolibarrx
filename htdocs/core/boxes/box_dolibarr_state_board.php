@@ -70,9 +70,9 @@ class box_dolibarr_state_board extends ModeleBoxes
 			$hookManager->initHooks(array('index'));
 			$object = new stdClass();
 			$action = '';
-			$parameters = array();
+			$parameters = [];
 			$hookManager->executeHooks('addStatisticLine', $parameters, $object, $action);
-			$boxstatItems = array();
+			$boxstatItems = [];
 			$boxstatFromHook = '';
 			$boxstatFromHook = $hookManager->resPrint;
 			$boxstat = '';
@@ -238,7 +238,7 @@ class box_dolibarr_state_board extends ModeleBoxes
 				'expensereports' => "trips",
 				'holidays' => "holiday",
 			);
-			$boardloaded = array();
+			$boardloaded = [];
 
 			foreach ($keys as $val) {
 				if ($conditions[$val]) {

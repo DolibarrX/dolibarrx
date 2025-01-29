@@ -92,7 +92,7 @@ $php_self = str_replace('action=validatenewpassword', '', $php_self);
 $titleofpage = $langs->trans('SendNewPassword');
 
 // Javascript code on logon page only to detect user tz, dst_observed, dst_first, dst_second
-$arrayofjs = array();
+$arrayofjs = [];
 
 $disablenofollow = 1;
 if (!preg_match('/'.constant('DOL_APPLICATION_TITLE').'/', $title)) {
@@ -102,7 +102,7 @@ if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 	$disablenofollow = 0;
 }
 
-top_htmlhead('', $titleofpage, 0, 0, $arrayofjs, array(), 1, $disablenofollow);
+top_htmlhead('', $titleofpage, 0, 0, $arrayofjs, [], 1, $disablenofollow);
 
 
 $colorbackhmenu1 = '60,70,100'; // topmenu
@@ -192,7 +192,7 @@ if (!empty($captcha)) {
 	}
 
 	// List of directories where we can find captcha handlers
-	$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), is_array($config->modules_parts['captcha']) ? $config->modules_parts['captcha'] : array());
+	$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), is_array($config->modules_parts['captcha']) ? $config->modules_parts['captcha'] : []);
 	$fullpathclassfile = '';
 	foreach ($dirModCaptcha as $dir) {
 		$fullpathclassfile = dol_buildpath($dir."modCaptcha".ucfirst($captcha).'.class.php', 0, 2);
@@ -309,9 +309,9 @@ if ($message) {
 			$message = str_replace('<!-- warning -->', '', $message);
 			$message = preg_replace('/<div class="[^"]*">/', '', $message);
 			$message = preg_replace('/<\/div>/', '', $message);
-			dol_htmloutput_mesg($message, array(), 'warning');
+			dol_htmloutput_mesg($message, [], 'warning');
 		} else {
-			dol_htmloutput_mesg($message, array(), 'error');
+			dol_htmloutput_mesg($message, [], 'error');
 		}
 		print '<script>
 			$(document).ready(function() {
@@ -349,7 +349,7 @@ if (!empty($morelogincontent) && is_array($morelogincontent)) {
 }
 
 // Can add extra content
-$parameters = array();
+$parameters = [];
 $dummyobject = new stdClass();
 $result = $hookManager->executeHooks('getPasswordForgottenPageExtraContent', $parameters, $dummyobject, $action);
 print $hookManager->resPrint;

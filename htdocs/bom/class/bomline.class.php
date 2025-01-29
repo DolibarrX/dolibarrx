@@ -179,7 +179,7 @@ class BOMLine extends CommonObjectLine
 	/**
 	 * @var BOM[]     array of Bom in line
 	 */
-	public $childBom = array();
+	public $childBom = [];
 
 
 
@@ -268,7 +268,7 @@ class BOMLine extends CommonObjectLine
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList();

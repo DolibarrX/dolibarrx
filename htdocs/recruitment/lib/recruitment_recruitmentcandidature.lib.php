@@ -36,7 +36,7 @@ function recruitmentCandidaturePrepareHead($object)
 	$langs->load("recruitment");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/recruitment/recruitmentcandidature_card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("RecruitmentCandidature");

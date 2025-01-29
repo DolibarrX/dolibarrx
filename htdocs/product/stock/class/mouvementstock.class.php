@@ -795,8 +795,8 @@ class MouvementStock extends CommonObject
 		global $langs;
 
 		$error = 0;
-		$pids = array();
-		$pqtys = array();
+		$pids = [];
+		$pqtys = [];
 
 		$sql = "SELECT fk_product_pere, fk_product_fils, qty";
 		$sql .= " FROM ".$this->db->prefix()."product_association";

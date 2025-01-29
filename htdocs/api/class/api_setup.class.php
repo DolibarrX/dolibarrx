@@ -74,7 +74,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfActionTriggers($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $elementtype = '', $lang = '', $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		if ($elementtype == 'thirdparty') {
 			$elementtype = 'societe';
@@ -144,7 +144,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getOrderingMethods($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('order', 'lire')) {
 			throw new RestException(403);
@@ -208,7 +208,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getOrderingOrigins($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('order', 'lire')) {
 			throw new RestException(403);
@@ -273,7 +273,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getPaymentTypes($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('propal', 'lire') && !DolibarrApiAccess::$user->hasRight('order', 'lire') && !DolibarrApiAccess::$user->hasRight('facture', 'lire')) {
 			throw new RestException(403);
@@ -339,7 +339,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfRegions($sortfield = "code_region", $sortorder = 'ASC', $limit = 100, $page = 0, $country = 0, $filter = '', $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		// Note: The filter is not applied in the SQL request because it must
 		// be applied to the translated names, not to the names in database.
@@ -446,7 +446,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfStates($sortfield = "code_departement", $sortorder = 'ASC', $limit = 100, $page = 0, $country = 0, $filter = '', $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		// Note: The filter is not applied in the SQL request because it must
 		// be applied to the translated names, not to the names in database.
@@ -555,7 +555,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfCountries($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $filter = '', $lang = '', $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		// Note: The filter is not applied in the SQL request because it must
 		// be applied to the translated names, not to the names in database.
@@ -751,7 +751,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getAvailability($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('order', 'lire')) {
 			throw new RestException(403);
@@ -864,7 +864,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfEventTypes($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $type = '', $module = '', $active = 1, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT id, code, type, libelle as label, module";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_actioncomm as t";
@@ -931,7 +931,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfExpenseReportsTypes($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $module = '', $active = 1, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT id, code, label, accountancy_code, active, module, position";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_type_fees as t";
@@ -997,7 +997,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfContactTypes($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $type = '', $module = '', $active = 1, $lang = '', $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT rowid, code, element as type, libelle as label, source, module, position";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_type_contact as t";
@@ -1066,7 +1066,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfCivilities($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $module = '', $active = 1, $lang = '', $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT rowid, code, label, module";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_civility as t";
@@ -1131,7 +1131,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfCurrencies($multicurrency = 0, $sortfield = "code_iso", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 		$sql = "SELECT t.code_iso, t.label, t.unicode";
 		if (!empty($multicurrency)) {
 			$sql .= " , cr.date_sync, cr.rate ";
@@ -1201,7 +1201,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfExtrafields($sortfield = "t.pos", $sortorder = 'ASC', $elementtype = '', $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		if (!DolibarrApiAccess::$user->admin
 			&& (!getDolGlobalString('API_LOGINS_ALLOWED_FOR_GET_EXTRAFIELDS') || DolibarrApiAccess::$user->login != getDolGlobalString('API_LOGINS_ALLOWED_FOR_GET_EXTRAFIELDS'))) {
@@ -1323,7 +1323,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getExtrafields($attrname, $elementtype)
 	{
-		$answer = array();
+		$answer = [];
 
 		if (!DolibarrApiAccess::$user->admin) {
 			throw new RestException(403, 'Only an admin user can get list of extrafields');
@@ -1447,7 +1447,7 @@ class Setup extends DolibarrApi
 		$list = $request_data['list'];
 		$help = $request_data['help'];
 		$pos = $request_data['pos'];
-		$moreparams = array();
+		$moreparams = [];
 
 		if (0 > $extrafields->addExtraField($attrname, $label, $type, $pos, $size, $elementtype, $unique, $required, $default_value, $param, $alwayseditable, $perms, $list, $help, $computed, $entity, $langfile, $enabled, $totalizable, $printable, $moreparams)) {
 			throw new RestException(500, 'Error creating extrafield', array_merge(array($extrafields->errno), $extrafields->errors));
@@ -1532,7 +1532,7 @@ class Setup extends DolibarrApi
 		$list = $request_data['list'];
 		$help = $request_data['help'];
 		$pos = $request_data['pos'];
-		$moreparams = array();
+		$moreparams = [];
 
 		dol_syslog(get_class($this).'::updateExtraField', LOG_DEBUG);
 		if (0 > $extrafields->updateExtraField($attrname, $label, $type, $pos, $size, $elementtype, $unique, $required, $default_value, $param, $alwayseditable, $perms, $list, $help, $computed, $entity, $langfile, $enabled, $totalizable, $printable, $moreparams)) {
@@ -1579,7 +1579,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfTowns($sortfield = "zip,town", $sortorder = 'ASC', $limit = 100, $page = 0, $zipcode = '', $town = '', $active = 1, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT rowid AS id, zip, town, fk_county, fk_pays AS fk_country";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_ziptown as t";
@@ -1646,7 +1646,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getPaymentTerms($sortfield = "sortorder", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('propal', 'lire') && !DolibarrApiAccess::$user->hasRight('order', 'lire') && !DolibarrApiAccess::$user->hasRight('facture', 'lire')) {
 			throw new RestException(403);
@@ -1710,7 +1710,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getShippingModes($limit = 100, $page = 0, $active = 1, $lang = '', $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT rowid as id, code, libelle as label, description, tracking, module";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_shipment_mode as t";
@@ -1772,7 +1772,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfMeasuringUnits($sortfield = "rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT t.rowid, t.code, t.label,t.short_label, t.active, t.scale, t.unit_type";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_units as t";
@@ -1832,7 +1832,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfLegalForm($sortfield = "rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $country = 0, $active = 1, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT t.rowid, t.code, t.fk_pays, t.libelle, t.isvatexempted, t.active, t.module, t.position";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_forme_juridique as t";
@@ -1894,7 +1894,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfStaff($sortfield = "id", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT t.id, t.code, t.libelle, t.active, t.module";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_effectif as t";
@@ -1959,7 +1959,7 @@ class Setup extends DolibarrApi
 			throw new RestException(400, 'API not available: this dictionary is not enabled by setup');
 		}
 
-		$list = array();
+		$list = [];
 		//TODO link with multicurrency module
 		$sql = "SELECT t.rowid, t.entity, t.code, t.label, t.url, t.icon, t.active";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_socialnetworks as t";
@@ -2020,7 +2020,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getTicketsCategories($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $lang = '', $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT rowid, code, pos,  label, use_default, description";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_ticket_category as t";
@@ -2083,7 +2083,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getTicketsSeverities($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $lang = '', $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT rowid, code, pos,  label, use_default, color, description";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_ticket_severity as t";
@@ -2146,7 +2146,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getTicketsTypes($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $lang = '', $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT rowid, code, pos,  label, use_default, description";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_ticket_type as t";
@@ -2209,7 +2209,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfIncoterms($sortfield = "code", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $lang = '', $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT rowid, code, active";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_incoterms as t";
@@ -2319,7 +2319,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getEstablishments()
 	{
-		$list = array();
+		$list = [];
 
 		$limit = 0;
 
@@ -2432,7 +2432,7 @@ class Setup extends DolibarrApi
 		$outcurrentchecksum = '';
 
 		// Modified or missing files
-		$file_list = array('missing' => array(), 'updated' => array());
+		$file_list = array('missing' => [], 'updated' => []);
 
 		// Local file to compare to
 		$xmlshortfile = dol_sanitizeFileName('filelist-'.DOL_VERSION.getDolGlobalString('MAIN_FILECHECK_LOCAL_SUFFIX').'.xml'.getDolGlobalString('MAIN_FILECHECK_LOCAL_EXT'));
@@ -2477,7 +2477,7 @@ class Setup extends DolibarrApi
 				throw new RestException(500, $langs->trans('XmlNotFound').': /install/'.$xmlshortfile);
 			}
 		} else {
-			$xmlarray = getURLContent($xmlremote, 'GET', '', 1, array(), array('http', 'https'), 0);	// Accept http or https links on external remote server only. Same is used into filecheck.php.
+			$xmlarray = getURLContent($xmlremote, 'GET', '', 1, [], array('http', 'https'), 0);	// Accept http or https links on external remote server only. Same is used into filecheck.php.
 
 			// Return array('content'=>response,'curl_error_no'=>errno,'curl_error_msg'=>errmsg...)
 			if (!$xmlarray['curl_error_no'] && $xmlarray['http_code'] != '400' && $xmlarray['http_code'] != '404') {
@@ -2491,8 +2491,8 @@ class Setup extends DolibarrApi
 		}
 
 		if ($xml) {
-			$checksumconcat = array();
-			$file_list = array();
+			$checksumconcat = [];
+			$file_list = [];
 			$out = '';
 
 			// Forced constants

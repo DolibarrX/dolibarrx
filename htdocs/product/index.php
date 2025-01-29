@@ -121,7 +121,7 @@ print load_fiche_titre($transAreaType, $resultBoxes['selectboxlist'], 'product')
 if (getDolGlobalString('MAIN_SEARCH_FORM_ON_HOME_AREAS')) {     // This may be useless due to the global search combo
 	if (!isset($listofsearchfields) || !is_array($listofsearchfields)) {
 		// Ensure $listofsearchfields is set and array
-		$listofsearchfields = array();
+		$listofsearchfields = [];
 	}
 	// Search contract
 	if ((isModEnabled("product") || isModEnabled("service")) && ($user->hasRight('produit', 'lire') || $user->hasRight('service', 'lire'))) {
@@ -159,7 +159,7 @@ if (getDolGlobalString('MAIN_SEARCH_FORM_ON_HOME_AREAS')) {     // This may be u
  */
 $graph = '';
 if ((isModEnabled("product") || isModEnabled("service")) && ($user->hasRight("produit", "lire") || $user->hasRight("service", "lire"))) {
-	$prodser = array();
+	$prodser = [];
 	$prodser[0][0] = $prodser[0][1] = $prodser[0][2] = $prodser[0][3] = 0;
 	$prodser[0]['sell'] = 0;
 	$prodser[0]['buy'] = 0;
@@ -173,7 +173,7 @@ if ((isModEnabled("product") || isModEnabled("service")) && ($user->hasRight("pr
 	$sql .= " FROM ".MAIN_DB_PREFIX."product as p";
 	$sql .= ' WHERE p.entity IN ('.getEntity($product_static->element, 1).')';
 	// Add where from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $product_static); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 	$sql .= " GROUP BY p.fk_product_type, p.tosell, p.tobuy";
@@ -214,12 +214,12 @@ if ((isModEnabled("product") || isModEnabled("service")) && ($user->hasRight("pr
 		$SommeE = $prodser[1]['buy'];
 		$SommeF = $prodser[1]['none'];
 		$total = 0;
-		$dataval = array();
-		$datalabels = array();
+		$dataval = [];
+		$datalabels = [];
 		$i = 0;
 
 		$total = $SommeA + $SommeB + $SommeC + $SommeD + $SommeE + $SommeF;
-		$dataseries = array();
+		$dataseries = [];
 		if (isModEnabled("product")) {
 			$dataseries[] = array($langs->transnoentitiesnoconv("ProductsOnSale"), round($SommeA));
 			$dataseries[] = array($langs->transnoentitiesnoconv("ProductsOnPurchase"), round($SommeB));
@@ -268,7 +268,7 @@ if (isModEnabled('category') && getDolGlobalString('CATEGORY_GRAPHSTATS_ON_PRODU
 		$num = $db->num_rows($result);
 		$i = 0;
 		if (!empty($config->use_javascript_ajax)) {
-			$dataseries = array();
+			$dataseries = [];
 			$rest = 0;
 			$nbmax = 10;
 
@@ -334,7 +334,7 @@ if ((isModEnabled("product") || isModEnabled("service")) && ($user->hasRight("pr
 	}
 
 	// Add where from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $product_static); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 	$sql .= $db->order("p.tms", "DESC");

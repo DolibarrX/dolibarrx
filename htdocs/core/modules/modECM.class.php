@@ -69,15 +69,15 @@ class modECM extends DolibarrModules
 		$this->config_page_url = array('ecm.php');
 
 		// Dependencies
-		$this->depends = array(); // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of modules id to disable if this one is disabled
+		$this->depends = []; // List of modules id that must be enabled if this module is enabled
+		$this->requiredby = []; // List of modules id to disable if this one is disabled
 
 		// Constants
-		$this->const = array(); // List of parameters
+		$this->const = []; // List of parameters
 		$r = 0;
 
 		// Boxes
-		$this->boxes = array(); // List of boxes
+		$this->boxes = []; // List of boxes
 		$r = 0;
 
 		// Add here list of php file(s) stored in core/boxes that contains class to show a box.
@@ -89,7 +89,7 @@ class modECM extends DolibarrModules
 
 		// Permissions
 		$this->rightsClass = 'ecm'; // Permission key
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 
 		$r++;
 		$this->rights[$r][0] = 2501;
@@ -115,7 +115,7 @@ class modECM extends DolibarrModules
 
 		// Menus
 		//------
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 
 		// Top menu

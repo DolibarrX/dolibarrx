@@ -150,7 +150,7 @@ class Zapier extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		$socid = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : 0;
 
@@ -321,7 +321,7 @@ class Zapier extends DolibarrApi
 	 */
 	private function validate($data, $fields)
 	{
-		$hook = array();
+		$hook = [];
 		foreach ($fields as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, $field." field missing");

@@ -106,7 +106,7 @@ if (!empty($extrafieldsobjectkey) && !empty($extrafields->attributes[$extrafield
 						$totalarray['pos'][$totalarray['nbfield']] = $extrafieldsobjectprefix.$tmpkey;
 					}
 					if (!isset($totalarray['val'])) {
-						$totalarray['val'] = array();
+						$totalarray['val'] = [];
 					}
 					if (!isset($totalarray['val'][$extrafieldsobjectprefix.$tmpkey])) {
 						$totalarray['val'][$extrafieldsobjectprefix.$tmpkey] = 0;

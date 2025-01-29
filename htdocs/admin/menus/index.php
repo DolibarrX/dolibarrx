@@ -41,8 +41,8 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/treeview.lib.php';
 // Load translation files required by the page
 $langs->loadLangs(array("other", "admin"));
 
-$dirstandard = array();
-$dirsmartphone = array();
+$dirstandard = [];
+$dirsmartphone = [];
 $dirmenus = array_merge(array("/core/menus/"), (array) $config->modules_parts['menus']);
 foreach ($dirmenus as $dirmenu) {
 	$dirstandard[] = $dirmenu.'standard';
@@ -78,8 +78,8 @@ if (empty($user->admin)) {
  */
 
 if ($action == 'up') {
-	$current = array();
-	$previous = array();
+	$current = [];
+	$previous = [];
 
 	// Get current position
 	$sql = "SELECT m.rowid, m.position, m.type, m.fk_menu";
@@ -129,8 +129,8 @@ if ($action == 'up') {
 	dol_syslog("admin/menus/index.php ".$sql);
 	$db->query($sql);
 } elseif ($action == 'down') {
-	$current = array();
-	$next = array();
+	$current = [];
+	$next = [];
 
 	// Get current position
 	$sql = "SELECT m.rowid, m.position, m.type, m.fk_menu";
@@ -218,7 +218,7 @@ print load_fiche_titre($langs->trans("Menus"), '', 'title_setup');
 
 
 $h = 0;
-$head = array();
+$head = [];
 
 $head[$h][0] = DOL_URL_ROOT."/admin/menus.php";
 $head[$h][1] = $langs->trans("MenuHandlers");
@@ -284,7 +284,7 @@ i.e.: data[]= array (index, parent index, string )
 
 // First the root item of the tree must be declared:
 
-$data = array();
+$data = [];
 $data[] = array('rowid' => 0, 'fk_menu' => -1, 'title' => 'racine', 'mainmenu' => '', 'leftmenu' => '', 'fk_mainmenu' => '', 'fk_leftmenu' => '');
 
 // Then all child items must be declared
@@ -369,7 +369,7 @@ print '</table>';
 print '</div>';
 
 // Process remaining records (records that are not linked to root by any path)
-$remainingdata = array();
+$remainingdata = [];
 foreach ($data as $datar) {
 	if (empty($datar['rowid']) || !empty($tree_recur_alreadyadded[$datar['rowid']])) {
 		continue;

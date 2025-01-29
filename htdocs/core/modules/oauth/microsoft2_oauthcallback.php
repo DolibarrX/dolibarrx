@@ -92,7 +92,7 @@ $credentials = new Credentials(
 
 $state = GETPOST('state');
 
-$requestedpermissionsarray = array();
+$requestedpermissionsarray = [];
 if ($state) {
 	$requestedpermissionsarray = explode(',', $state); // Example: 'user'. 'state' parameter is standard to retrieve some parameters back
 }

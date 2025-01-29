@@ -35,7 +35,7 @@ class CUnits extends CommonDict
 	/**
 	 * @var CUnits[]
 	 */
-	public $records = array();
+	public $records = [];
 
 	// public $element = 'cunits';			//!< Id that identify managed objects
 	// public $table_element = 'c_units';	//!< Name of table without prefix where object is stored
@@ -182,7 +182,7 @@ class CUnits extends CommonDict
 		$sql .= " t.unit_type,";
 		$sql .= " t.active";
 		$sql .= " FROM ".$this->db->prefix()."c_units as t";
-		$sql_where = array();
+		$sql_where = [];
 		if ($id) {
 			$sql_where[] = " t.rowid = ".((int) $id);
 		}
@@ -251,7 +251,7 @@ class CUnits extends CommonDict
 
 		// Manage filter
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.rowid' || $key == 't.active' || $key == 't.scale') {
@@ -290,7 +290,7 @@ class CUnits extends CommonDict
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->records = array();
+			$this->records = [];
 			$num = $this->db->num_rows($resql);
 			if ($num > 0) {
 				while ($obj = $this->db->fetch_object($resql)) {

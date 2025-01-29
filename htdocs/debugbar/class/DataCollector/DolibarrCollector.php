@@ -49,7 +49,7 @@ class DolibarrCollector extends DataCollector implements Renderable, AssetProvid
 	 */
 	public function collect()
 	{
-		return array();
+		return [];
 	}
 
 	/**

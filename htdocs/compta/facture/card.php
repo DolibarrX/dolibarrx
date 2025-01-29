@@ -135,7 +135,7 @@ $displayWarranty = false;
 $statusreplacement = 0;
 $type_fac = 0;
 $price_base_type = '';
-$array_options = array();
+$array_options = [];
 
 // Load object
 if ($id > 0 || !empty($ref)) {
@@ -183,7 +183,7 @@ $permissiontoedit = $usercancreate; // Used by the include of actions_lineupdonw
 $permissiontoadd = $usercancreate; // Used by the include of actions_addupdatedelete.inc.php
 
 // retained warranty invoice available type
-$retainedWarrantyInvoiceAvailableType = array();
+$retainedWarrantyInvoiceAvailableType = [];
 if (getDolGlobalString('INVOICE_USE_RETAINED_WARRANTY')) {
 	$retainedWarrantyInvoiceAvailableType = explode('+', getDolGlobalString('INVOICE_USE_RETAINED_WARRANTY'));
 }
@@ -250,7 +250,7 @@ if (empty($resHook)) {
 			$objectutil->socid = $socid;
 			$result = $objectutil->createFromClone($user, $id);
 			if ($result > 0) {
-				$warningMsgLineList = array();
+				$warningMsgLineList = [];
 				// check all product lines are to sell otherwise add a warning message for each product line is not to sell
 				foreach ($objectutil->lines as $line) {
 					if (!is_object($line->product)) {
@@ -393,8 +393,8 @@ if (empty($resHook)) {
 			// Note that we can accept the negative line if sum with other lines with same vat makes total positive: Because all the lines will be merged together
 			// when converted into 'available credit' and we will get a positive available credit line.
 			// Note: Other solution if you want to add a negative line on invoice, is to create a discount for customer and consumme it (but this is possible on standard invoice only).
-			$array_of_total_ht_per_vat_rate = array();
-			$array_of_total_ht_devise_per_vat_rate = array();
+			$array_of_total_ht_per_vat_rate = [];
+			$array_of_total_ht_devise_per_vat_rate = [];
 			foreach ($object->lines as $line) {
 				//$vat_src_code_for_line = $line->vat_src_code;		// TODO We check sign of total per vat without taking into account the vat code because for the moment the vat code is lost/unknown when we add a down payment.
 				$vat_src_code_for_line = '';
@@ -882,8 +882,8 @@ if (empty($resHook)) {
 		if ($canconvert) {
 			$db->begin();
 
-			$amount_ht = $amount_tva = $amount_ttc = array();
-			$multicurrency_amount_ht = $multicurrency_amount_tva = $multicurrency_amount_ttc = array();
+			$amount_ht = $amount_tva = $amount_ttc = [];
+			$multicurrency_amount_ht = $multicurrency_amount_tva = $multicurrency_amount_ttc = [];
 
 			// Loop on each vat rate
 			$i = 0;
@@ -994,7 +994,7 @@ if (empty($resHook)) {
 					$discount->multicurrency_amount_ttc = abs((float) $multicurrency_amount_ttc[$tva_tx]);
 
 					// Clean vat code
-					$reg = array();
+					$reg = [];
 					$vat_src_code = '';
 					if (preg_match('/\((.*)\)/', $tva_tx, $reg)) {
 						$vat_src_code = $reg[1];
@@ -1229,7 +1229,7 @@ if (empty($resHook)) {
 								if (!empty($facture_source->tab_previous_situation_invoice)) {
 									// search the last standard invoice in cycle and the possible credit note between this last and facture_source
 									// TODO Move this out of loop of $facture_source->lines
-									$tab_jumped_credit_notes = array();
+									$tab_jumped_credit_notes = [];
 									$lineIndex = count($facture_source->tab_previous_situation_invoice) - 1;
 									$searchPreviousInvoice = true;
 									while ($searchPreviousInvoice) {
@@ -1521,7 +1521,7 @@ if (empty($resHook)) {
 
 				// If creation from another object of another module (Example: origin=propal, originid=1)
 				if (!empty($origin) && !empty($originid)) {
-					$regs = array();
+					$regs = [];
 					// Parse element/subelement (ex: project_task)
 					$element = $subelement = $origin;
 					if (preg_match('/^([^_]+)_([^_]+)/i', $origin, $regs)) {
@@ -1586,8 +1586,8 @@ if (empty($resHook)) {
 						// If deposit invoice - down payment with 1 line (fixed amount or percent)
 						if (GETPOST('type') == Facture::TYPE_DEPOSIT && in_array($typeamount, array('amount', 'variable'))) {
 							// Define the array $amountdeposit
-							$amountdeposit = array();
-							$lines = array();
+							$amountdeposit = [];
+							$lines = [];
 							if (getDolGlobalString('MAIN_DEPOSIT_MULTI_TVA')) {	// We want to split the discount line into several lines, one per vat rate.
 								if ($typeamount == 'amount') {
 									$amount = (float) $valuedeposit;
@@ -1595,7 +1595,7 @@ if (empty($resHook)) {
 									$amount = $srcobject->total_ttc * ((float) $valuedeposit / 100);
 								}
 
-								$TTotalByTva = array();
+								$TTotalByTva = [];
 								foreach ($srcobject->lines as &$line) {
 									if (empty($line->qty)) {
 										continue; // We discard qty=0, it is an option
@@ -1692,7 +1692,7 @@ if (empty($resHook)) {
 									0,
 									0,
 									'',
-									array(), // array_options
+									[], // array_options
 									100,
 									0,
 									null,
@@ -1707,13 +1707,13 @@ if (empty($resHook)) {
 							if (getDolGlobalString('MAIN_DEPOSIT_MULTI_TVA') && $diff != 0) {
 								$object->fetch_lines();
 								$subprice_diff = $object->lines[0]->subprice - $diff / (1 + $object->lines[0]->tva_tx / 100);
-								$object->updateline($object->lines[0]->id, $object->lines[0]->desc, $subprice_diff, $object->lines[0]->qty, $object->lines[0]->remise_percent, $object->lines[0]->date_start, $object->lines[0]->date_end, $object->lines[0]->tva_tx, 0, 0, 'HT', $object->lines[0]->info_bits, $object->lines[0]->product_type, 0, 0, 0, $object->lines[0]->pa_ht, $object->lines[0]->label, 0, array(), 100);
+								$object->updateline($object->lines[0]->id, $object->lines[0]->desc, $subprice_diff, $object->lines[0]->qty, $object->lines[0]->remise_percent, $object->lines[0]->date_start, $object->lines[0]->date_end, $object->lines[0]->tva_tx, 0, 0, 'HT', $object->lines[0]->info_bits, $object->lines[0]->product_type, 0, 0, 0, $object->lines[0]->pa_ht, $object->lines[0]->label, 0, [], 100);
 							}
 						}
 
 						// standard invoice, credit note, or down payment from a percent of all lines
 						if (GETPOST('type') != Facture::TYPE_DEPOSIT || (GETPOST('type') == Facture::TYPE_DEPOSIT && $typeamount == 'variablealllines')) {
-							$lines = array();
+							$lines = [];
 
 							if ($result > 0) {
 								$lines = $srcobject->lines;
@@ -1830,7 +1830,7 @@ if (empty($resHook)) {
 											$fk_parent_line = 0;
 										}
 
-										$array_options = array();
+										$array_options = [];
 										// Extrafields
 										if (method_exists($lines[$i], 'fetch_optionals')) {
 											$lines[$i]->fetch_optionals();
@@ -1949,7 +1949,7 @@ if (empty($resHook)) {
 							$product->fetch(GETPOSTINT('idprod'.$i));
 							$startday = dol_mktime(12, 0, 0, GETPOSTINT('date_start'.$i.'month'), GETPOSTINT('date_start'.$i.'day'), GETPOSTINT('date_start'.$i.'year'));
 							$endday = dol_mktime(12, 0, 0, GETPOSTINT('date_end'.$i.'month'), GETPOSTINT('date_end'.$i.'day'), GETPOSTINT('date_end'.$i.'year'));
-							$result = $object->addline($product->description, $product->price, price2num(GETPOST('qty'.$i), 'MS'), $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, GETPOSTINT('idprod'.$i), price2num(GETPOST('remise_percent'.$i), '', 2), $startday, $endday, 0, 0, 0, $product->price_base_type, $product->price_ttc, $product->type, -1, 0, '', 0, 0, 0, 0, '', array(), 100, 0, $product->fk_unit, 0, '', 1);
+							$result = $object->addline($product->description, $product->price, price2num(GETPOST('qty'.$i), 'MS'), $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, GETPOSTINT('idprod'.$i), price2num(GETPOST('remise_percent'.$i), '', 2), $startday, $endday, 0, 0, 0, $product->price_base_type, $product->price_ttc, $product->type, -1, 0, '', 0, 0, 0, 0, '', [], 100, 0, $product->fk_unit, 0, '', 1);
 						}
 					}
 
@@ -2017,7 +2017,7 @@ if (empty($resHook)) {
 						}
 
 						// The $line->situation_percent has been modified, so we must recalculate all amounts
-						$tabprice = calcul_price_total($line->qty, $line->subprice, $line->remise_percent, $line->tva_tx, $line->localtax1_tx, $line->localtax2_tx, 0, 'HT', 0, $line->product_type, $mysoc, array(), $line->situation_percent);
+						$tabprice = calcul_price_total($line->qty, $line->subprice, $line->remise_percent, $line->tva_tx, $line->localtax1_tx, $line->localtax2_tx, 0, 'HT', 0, $line->product_type, $mysoc, [], $line->situation_percent);
 						$line->total_ht = (float) $tabprice[0];
 						$line->total_tva = (float) $tabprice[1];
 						$line->total_ttc = (float) $tabprice[2];
@@ -2936,7 +2936,7 @@ if (empty($resHook)) {
 				// Search credit notes
 				$lastCycle = $object->situation_cycle_ref;
 				$lastSituationCounter = $object->situation_counter;
-				$linkedCreditNotesList = array();
+				$linkedCreditNotesList = [];
 
 				if (count($object->tab_next_situation_invoice) > 0) {
 					foreach ($object->tab_next_situation_invoice as $next_invoice) {
@@ -3010,13 +3010,13 @@ if (empty($resHook)) {
 						setEventMessages($langs->trans('Updated'), null, 'mesgs');
 						header("Location: ".$_SERVER['PHP_SELF']."?id=".$id);
 					} else {
-						setEventMessages($langs->trans('ErrorOutingSituationInvoiceCreditNote'), array(), 'errors');
+						setEventMessages($langs->trans('ErrorOutingSituationInvoiceCreditNote'), [], 'errors');
 					}
 				} else {
-					setEventMessages($langs->trans('ErrorOutingSituationInvoiceOnUpdate'), array(), 'errors');
+					setEventMessages($langs->trans('ErrorOutingSituationInvoiceOnUpdate'), [], 'errors');
 				}
 			} else {
-				setEventMessages($langs->trans('ErrorFindNextSituationInvoice'), array(), 'errors');
+				setEventMessages($langs->trans('ErrorFindNextSituationInvoice'), [], 'errors');
 			}
 		}
 	} elseif ($action == 'import_lines_from_object' && $usercancreate && $object->status == Facture::STATUS_DRAFT
@@ -3248,7 +3248,7 @@ if ($action == 'create') {
 	if (!empty($origin) && !empty($originid)) {
 		// Parse element/subelement (ex: project_task)
 		$element = $subelement = $origin;
-		$regs = array();
+		$regs = [];
 		if (preg_match('/^([^_]+)_([^_]+)/i', $origin, $regs)) {
 			$element = $regs[1];
 			$subelement = $regs[2];
@@ -3442,7 +3442,7 @@ if ($action == 'create') {
 	print dol_get_fiche_head();
 
 	// Call Hook tabContentCreateInvoice
-	$parameters = array();
+	$parameters = [];
 	// Note that $action and $object may be modified by hook
 	$resHook = $hookManager->executeHooks('tabContentCreateInvoice', $parameters, $object, $action);
 	if (empty($resHook)) {
@@ -3478,7 +3478,7 @@ if ($action == 'create') {
 			print '<tr><td class="fieldrequired">'.$langs->trans('Customer').'</td>';
 			print '<td colspan="2">';
 			$filter = '((s.client:IN:1,2,3) AND (s.status:=:1))';
-			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company($soc->id, 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
+			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company($soc->id, 'socid', $filter, 'SelectThirdParty', 1, 0, [], 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
 			// Option to reload page to retrieve customer information.
 			if (!getDolGlobalString('RELOAD_PAGE_ON_CUSTOMER_CHANGE_DISABLED')) {
 				print '<script>
@@ -4350,7 +4350,7 @@ if ($action == 'create') {
 	// Confirmation to delete invoice
 	if ($action == 'delete') {
 		$text = $langs->trans('ConfirmDeleteBill', $object->ref);
-		$formquestion = array();
+		$formquestion = [];
 
 		if ($object->type != Facture::TYPE_DEPOSIT && getDolGlobalString('STOCK_CALCULATE_ON_BILL') && $object->status >= 1) {
 			$qualified_for_stock_change = 0;
@@ -4388,7 +4388,7 @@ if ($action == 'create') {
 	if ($action == 'situationout') {
 		$text = $langs->trans('ConfirmRemoveSituationFromCycle', $object->ref);
 		$label = $langs->trans("ConfirmOuting");
-		$formquestion = array();
+		$formquestion = [];
 		// remove situation from cycle
 		if (in_array($object->status, array(Facture::STATUS_CLOSED, Facture::STATUS_VALIDATED))
 			&& $usercancreate
@@ -4423,7 +4423,7 @@ if ($action == 'create') {
 			$text .= '<br>';
 			$text .= $notify->confirmMessage('BILL_VALIDATE', $object->socid, $object);
 		}
-		$formquestion = array();
+		$formquestion = [];
 
 		if ($object->type != Facture::TYPE_DEPOSIT && getDolGlobalString('STOCK_CALCULATE_ON_BILL')) {
 			$qualified_for_stock_change = 0;
@@ -4439,7 +4439,7 @@ if ($action == 'create') {
 				require_once DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
 				$formproduct = new FormProduct($db);
 				$warehouse = new Entrepot($db);
-				$warehouse_array = $warehouse->list_array();
+				$warehouse_array = $warehouse->list_[];
 				if (count($warehouse_array) == 1) {
 					$label = $object->type == Facture::TYPE_CREDIT_NOTE ? $langs->trans("WarehouseForStockIncrease", current($warehouse_array)) : $langs->trans("WarehouseForStockDecrease", current($warehouse_array));
 					$value = '<input type="hidden" id="idwarehouse" name="idwarehouse" value="'.key($warehouse_array).'">';
@@ -4488,7 +4488,7 @@ if ($action == 'create') {
 	// Confirm back to draft status
 	if ($action == 'modif') {
 		$text = $langs->trans('ConfirmUnvalidateBill', $object->ref);
-		$formquestion = array();
+		$formquestion = [];
 
 		if ($object->type != Facture::TYPE_DEPOSIT && getDolGlobalString('STOCK_CALCULATE_ON_BILL')) {
 			$qualified_for_stock_change = 0;
@@ -4504,7 +4504,7 @@ if ($action == 'create') {
 				require_once DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
 				$formproduct = new FormProduct($db);
 				$warehouse = new Entrepot($db);
-				$warehouse_array = $warehouse->list_array();
+				$warehouse_array = $warehouse->list_[];
 				if (count($warehouse_array) == 1) {
 					$label = $object->type == Facture::TYPE_CREDIT_NOTE ? $langs->trans("WarehouseForStockDecrease", current($warehouse_array)) : $langs->trans("WarehouseForStockIncrease", current($warehouse_array));
 					$value = '<input type="hidden" id="idwarehouse" name="idwarehouse" value="'.key($warehouse_array).'">';
@@ -4530,7 +4530,7 @@ if ($action == 'create') {
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?facid='.$object->id, $langs->trans('ClassifyPaid'), $langs->trans('ConfirmClassifyPaidBill', $object->ref), 'confirm_paid', '', "yes", 1);
 	}
 	if ($action == 'paid' && $resteapayer > 0 && (!getDolGlobalString('INVOICE_CAN_SET_PAID_EVEN_IF_PARTIALLY_PAID') || $resteapayer != $object->total_ttc)) {
-		$close = array();
+		$close = [];
 		// Code
 		$i = 0;
 		$close[$i]['code'] = 'discount_vat'; // escompte
@@ -4713,7 +4713,7 @@ if ($action == 'create') {
 	dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'ref', $morehtmlref, '', 0, '', '');
 
 	// Call Hook tabContentViewInvoice
-	$parameters = array();
+	$parameters = [];
 	// Note that $action and $object may be modified by hook
 	$resHook = $hookManager->executeHooks('tabContentViewInvoice', $parameters, $object, $action);
 	if (empty($resHook)) {
@@ -5226,7 +5226,7 @@ if ($action == 'create') {
 			if (count($object->tab_previous_situation_invoice) > 0) {
 				// List of previous invoices
 
-				$current_situation_counter = array();
+				$current_situation_counter = [];
 				foreach ($object->tab_previous_situation_invoice as $prev_invoice) {
 					$tmptotalallpayments = $prev_invoice->getSommePaiement(0);
 					$tmptotalallpayments += $prev_invoice->getSumDepositsUsed(0);
@@ -5753,7 +5753,7 @@ if ($action == 'create') {
 			if ($action != 'editline' && $action != 'selectlines') {
 				// Add free products/services
 
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -5762,7 +5762,7 @@ if ($action == 'create') {
 					$object->formAddObjectLine(1, $mysoc, $soc);
 				}
 			} else {
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('formEditObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			}
 		}
@@ -5780,7 +5780,7 @@ if ($action == 'create') {
 	if ($action != 'prerelance' && $action != 'presend' && $action != 'valid' && $action != 'editline') {
 		print '<div class="tabsAction">';
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($resHook)) {
 			$params = array(
@@ -6124,7 +6124,7 @@ if ($action == 'create') {
 		$somethingshown = $formfile->numoffiles;
 
 		// Show links to link elements
-		$tmparray = $form->showLinkToObjectBlock($object, array(), array('invoice'), 1);
+		$tmparray = $form->showLinkToObjectBlock($object, [], array('invoice'), 1);
 		$linktoelem = $tmparray['linktoelem'];
 		$htmltoenteralink = $tmparray['htmltoenteralink'];
 		print $htmltoenteralink;

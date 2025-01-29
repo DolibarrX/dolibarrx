@@ -69,14 +69,14 @@ class modSociete extends DolibarrModules
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
 		$this->requiredby = array("modExpedition", "modFacture", "modFournisseur", "modFicheinter", "modPropale", "modContrat", "modOrder"); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->langfiles = array("companies", 'bills', "compta", "admin", "banks");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 		$r = 0;
 
 		$this->const[$r][0] = "SOCIETE_CODECLIENT_ADDON";
@@ -133,7 +133,7 @@ class modSociete extends DolibarrModules
 		);
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'societe';
 		$r = 0;
 
@@ -492,7 +492,7 @@ class modSociete extends DolibarrModules
 				}
 			}
 		}
-		$this->export_examplevalues_array[$r] = array();
+		$this->export_examplevalues_array[$r] = [];
 		$this->export_TypeFields_array[$r] = array(
 			's.nom' => "Text",
 			's.entity' => "List:entity:label:rowid",
@@ -547,7 +547,7 @@ class modSociete extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'ImportDataset_company_1';
 		$this->import_icon[$r] = 'company';
-		$this->import_entities_array[$r] = array(); // We define here only fields that use a different icon from the one defined in import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use a different icon from the one defined in import_icon
 		$this->import_tables_array[$r] = array(
 			's' => MAIN_DB_PREFIX.'societe',
 			'extra' => MAIN_DB_PREFIX.'societe_extrafields'
@@ -946,7 +946,7 @@ class modSociete extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "ImportDataset_company_3"; // Translation key
 		$this->import_icon[$r] = 'company';
-		$this->import_entities_array[$r] = array(); // We define here only fields that use a different icon to the one defined in import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use a different icon to the one defined in import_icon
 		$this->import_tables_array[$r] = array('sr' => MAIN_DB_PREFIX.'societe_rib');
 		$this->import_fields_array[$r] = array(//field order as per structure of table llx_societe_rib
 			'sr.label' => "Label*",
@@ -1048,7 +1048,7 @@ class modSociete extends DolibarrModules
 			}
 		}
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

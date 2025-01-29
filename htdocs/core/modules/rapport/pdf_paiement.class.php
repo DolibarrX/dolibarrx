@@ -225,7 +225,7 @@ class pdf_paiement extends CommonDocGenerator
 		$pdf->SetFont(pdf_getPDFFont($outputlangs));
 
 		$num = 0;
-		$lines = array();
+		$lines = [];
 
 		// count number of lines of payment
 		$sql = "SELECT p.rowid as prowid";
@@ -534,7 +534,7 @@ class pdf_paiement extends CommonDocGenerator
 			if ($oldprowid != $lines[$j][7]) {
 				if ($yp > $this->tab_height - 15) {
 					$pdf->SetFillColor(255, 255, 255);
-					$pdf->Rect($this->marge_gauche + 1, $this->tab_top + 10 + $yp, $this->posxpaymentamount - $this->marge_droite - 3, $this->line_height, 'F', array(), array());
+					$pdf->Rect($this->marge_gauche + 1, $this->tab_top + 10 + $yp, $this->posxpaymentamount - $this->marge_droite - 3, $this->line_height, 'F', [], []);
 					$pdf->line($this->marge_gauche, $this->tab_top + 10 + $yp, $this->page_largeur - $this->marge_droite, $this->tab_top + 10 + $yp, array('dash' => 1));
 					$pdf->line($this->marge_gauche, $this->tab_top + 15 + $yp, $this->page_largeur - $this->marge_droite, $this->tab_top + 15 + $yp);
 					$pdf->SetFont('', 'B', $default_font_size - 1);
@@ -595,7 +595,7 @@ class pdf_paiement extends CommonDocGenerator
 			// Add line to add total by payment mode if mode reglement for nex line change
 			if ((($this->doc_type == 'client' && getDolGlobalString('PAYMENTS_REPORT_GROUP_BY_MOD')) || ($this->doc_type == 'fourn' && getDolGlobalString('PAYMENTS_FOURN_REPORT_GROUP_BY_MOD'))) && ($mod != $lines[$j + 1][2])) {
 				$pdf->SetFillColor(245, 245, 245);
-				$pdf->Rect($this->marge_gauche + 1, $this->tab_top + 10 + $yp, $this->posxpaymentamount - $this->marge_droite - 3, $this->line_height, 'F', array(), array());
+				$pdf->Rect($this->marge_gauche + 1, $this->tab_top + 10 + $yp, $this->posxpaymentamount - $this->marge_droite - 3, $this->line_height, 'F', [], []);
 				$pdf->line($this->marge_gauche, $this->tab_top + 10 + $yp, $this->page_largeur - $this->marge_droite, $this->tab_top + 10 + $yp, array('dash' => 1));
 				$pdf->line($this->marge_gauche, $this->tab_top + 15 + $yp, $this->page_largeur - $this->marge_droite, $this->tab_top + 15 + $yp);
 				$pdf->SetXY($this->posxdate - 1, $this->tab_top + 10 + $yp);
@@ -619,7 +619,7 @@ class pdf_paiement extends CommonDocGenerator
 		}
 		$total += $total_page;
 		$pdf->SetFillColor(255, 255, 255);
-		$pdf->Rect($this->marge_gauche + 1, $this->tab_top + 10 + $yp, $this->posxpaymentamount - $this->marge_droite - 3, $this->line_height, 'F', array(), array());
+		$pdf->Rect($this->marge_gauche + 1, $this->tab_top + 10 + $yp, $this->posxpaymentamount - $this->marge_droite - 3, $this->line_height, 'F', [], []);
 		$pdf->line($this->marge_gauche, $this->tab_top + 10 + $yp, $this->page_largeur - $this->marge_droite, $this->tab_top + 10 + $yp, array('dash' => 1));
 		$pdf->line($this->marge_gauche, $this->tab_top + 15 + $yp, $this->page_largeur - $this->marge_droite, $this->tab_top + 15 + $yp);
 		$pdf->SetXY($this->posxdate - 1, $this->tab_top + 10 + $yp);

@@ -38,7 +38,7 @@ function partnershipAdminPrepareHead()
 	$extrafields->fetch_name_optionals_label('partnership');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/partnership/admin/setup.php';
 	$head[$h][1] = $langs->trans("Settings");
@@ -88,7 +88,7 @@ function partnershipPrepareHead($object)
 	$langs->load("partnership");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/partnership/partnership_card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Card");

@@ -112,7 +112,7 @@ if ($rss) {
 
 	$MAXNEWS = ($limit ? $limit : 20);
 	$arrayofblogs = $websitepage->fetchAll($website->id, 'DESC', 'date_creation', $MAXNEWS, 0, $filters);
-	$eventarray = array();
+	$eventarray = [];
 	if (is_array($arrayofblogs)) {
 		foreach ($arrayofblogs as $blog) {
 			$blog->fullpageurl = $website->virtualhost.'/'.$blog->pageurl.'.php';

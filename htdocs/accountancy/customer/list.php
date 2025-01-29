@@ -144,7 +144,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -277,7 +277,7 @@ if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 	$sql .= " s.code_compta_fournisseur,";
 	$sql .= " s.accountancy_code_sell as company_code_sell";
 }
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
@@ -366,7 +366,7 @@ if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
 $sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We don't share object for accountancy
 
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -397,7 +397,7 @@ if ($result) {
 	$num_lines = $db->num_rows($result);
 	$i = 0;
 
-	$arrayofselected = is_array($toselect) ? $toselect : array();
+	$arrayofselected = is_array($toselect) ? $toselect : [];
 
 	$param = '';
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
@@ -462,7 +462,7 @@ if ($result) {
 		//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 	);
 	//if ($user->hasRight('mymodule', 'supprimer')) $arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
-	//if (in_array($massaction, array('presend','predelete'))) $arrayofmassactions=array();
+	//if (in_array($massaction, array('presend','predelete'))) $arrayofmassactions=[];
 	$massactionbutton = '';
 	if ($massaction !== 'set_default_account') {
 		$massactionbutton = $form->selectMassAction('ventil', $arrayofmassactions, 1);
@@ -483,11 +483,11 @@ if ($result) {
 	print_barre_liste($langs->trans("InvoiceLines").'<br><span class="opacitymedium small">'.$langs->trans("DescVentilTodoCustomer").'</span>', $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num_lines, $nbtotalofrecords, 'title_accountancy', 0, '', '', $limit, 0, 0, 1);
 
 	if ($massaction == 'set_default_account') {
-		$formquestion = array();
+		$formquestion = [];
 		$formquestion[] = array('type' => 'other',
 			'name' => 'set_default_account',
 			'label' => $langs->trans("AccountancyCode"),
-			'value' => $formaccounting->select_account('', 'default_account', 1, array(), 0, 0, 'maxwidth200 maxwidthonsmartphone', 'cachewithshowemptyone'));
+			'value' => $formaccounting->select_account('', 'default_account', 1, [], 0, 0, 'maxwidth200 maxwidthonsmartphone', 'cachewithshowemptyone'));
 		print $form->formconfirm($_SERVER["PHP_SELF"], $langs->trans("ConfirmPreselectAccount"), $langs->trans("ConfirmPreselectAccountQuestion", count($toselect)), "confirm_set_default_account", $formquestion, 1, 0, 200, 500, 1);
 	}
 
@@ -557,7 +557,7 @@ if ($result) {
 	$product_static = new Product($db);
 
 
-	$accountingaccount_codetotid_cache = array();
+	$accountingaccount_codetotid_cache = [];
 	$suggestedaccountingaccountfor = '';  // Initialise (for static analysis)
 	$suggestedaccountingaccountbydefaultfor = '';
 
@@ -781,7 +781,7 @@ if ($result) {
 
 		// Suggested accounting account
 		print '<td>';
-		print $formaccounting->select_account(($default_account > 0 && $confirm === 'yes' && in_array($objp->rowid."_".$i, $toselect)) ? $default_account : $suggestedid, 'codeventil'.$facture_static_det->id, 1, array(), 0, 0, 'codeventil maxwidth150 maxwidthonsmartphone', 'cachewithshowemptyone');
+		print $formaccounting->select_account(($default_account > 0 && $confirm === 'yes' && in_array($objp->rowid."_".$i, $toselect)) ? $default_account : $suggestedid, 'codeventil'.$facture_static_det->id, 1, [], 0, 0, 'codeventil maxwidth150 maxwidthonsmartphone', 'cachewithshowemptyone');
 		print '</td>';
 
 		// Column with checkbox

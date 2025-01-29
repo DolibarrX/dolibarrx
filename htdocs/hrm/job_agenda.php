@@ -222,7 +222,7 @@ if ($object->id > 0) {
 		print load_fiche_titre($langs->trans("ActionsOnJob"), $newcardbutton, '');
 
 		// List of all actions
-		$filters = array();
+		$filters = [];
 		$filters['search_agenda_label'] = $search_agenda_label;
 		$filters['search_rowid'] = $search_rowid;
 

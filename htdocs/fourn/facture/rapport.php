@@ -142,7 +142,7 @@ print '<br>';
 clearstatcache();
 
 // Show link on other years
-$linkforyear = array();
+$linkforyear = [];
 $found = 0;
 if (is_dir($dir)) {
 	$handle = opendir($dir);

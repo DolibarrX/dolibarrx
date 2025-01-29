@@ -327,7 +327,7 @@ print '</table></div><br>';
 print load_fiche_titre($langs->trans("BillsPDFModules"), '', '');
 
 // Defini tableau def de modele
-$def = array();
+$def = [];
 
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";

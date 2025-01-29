@@ -77,8 +77,8 @@ if (getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) {
 }
 $levelofmaincategories = $levelofrootcategory + 1;
 
-$maincategories = array();
-$subcategories = array();
+$maincategories = [];
+$subcategories = [];
 foreach ($categories as $key => $categorycursor) {
 	if ($categorycursor['level'] == $levelofmaincategories) {
 		$maincategories[$key] = $categorycursor;

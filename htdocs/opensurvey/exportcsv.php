@@ -71,7 +71,7 @@ $now = dol_now();
 
 $nbcolonnes = substr_count($object->sujet, ',') + 1;
 $toutsujet = explode(",", $object->sujet);
-$somme = array();
+$somme = [];
 // affichage des sujets du sondage
 $input = $langs->trans("Name").";";
 for ($i = 0; $toutsujet[$i]; $i++) {

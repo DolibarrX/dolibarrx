@@ -103,7 +103,7 @@ if (!$sortorder) {
 
 // Initialize array of search criteria
 $search_all = GETPOST('search_all', 'alphanohtml');
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha') !== '') {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -115,7 +115,7 @@ foreach ($object->fields as $key => $val) {
 }
 
 // List of fields to search into when doing a "search in all"
-$fieldstosearchall = array();
+$fieldstosearchall = [];
 foreach ($object->fields as $key => $val) {
 	if (!empty($val['searchall'])) {
 		$fieldstosearchall['t.'.$key] = $val['label'];
@@ -123,7 +123,7 @@ foreach ($object->fields as $key => $val) {
 }
 
 // Definition of array of fields for columns
-$arrayfields = array();
+$arrayfields = [];
 foreach ($object->fields as $key => $val) {
 	// If $val['visible']==0, then we never show the field
 	if (!empty($val['visible'])) {
@@ -201,7 +201,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend'
 
 
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -220,8 +220,8 @@ if (empty($resHook)) {
 				$search[$key.'_dtend'] = '';
 			}
 		}
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
@@ -285,8 +285,8 @@ $now = dol_now();
 $title = $langs->trans("EventOrganizationConfOrBoothes");
 $help_url = "EN:Module_Event_Organization";
 
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 if ($projectid > 0 || $projectref) {
 	$result = $project->fetch($projectid, $projectref);
@@ -588,7 +588,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -602,7 +602,7 @@ if (isset($extrafields->attributes[$object->table_element]['label']) && is_array
 }
 $sql .= " INNER JOIN ".MAIN_DB_PREFIX."c_actioncomm as cact ON cact.id=t.fk_action AND cact.module LIKE '%@eventorganization'";
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 if ($object->ismultientitymanaged == 1) {
@@ -649,7 +649,7 @@ if ($search_all) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -696,7 +696,7 @@ if ($num == 1 && getDolGlobalInt('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $sear
 	exit;
 }
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -751,7 +751,7 @@ if (!empty($permissiontoadd)) {
 	$arrayofmassactions['presetstatus'] = img_picture('', 'edit', 'class="picturefixedwidth"').$langs->trans("ModifyStatus");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -788,8 +788,8 @@ $withmaindocfilemail = 0;
 include DOL_DOCUMENT_ROOT.'/core/tpl/massactions_pre.tpl.php';
 
 if ($massaction == 'presetstatus') {
-	$formquestion = array();
-	$statuslist = array();
+	$formquestion = [];
+	$statuslist = [];
 	$statuslist[$objecttmp::STATUS_DRAFT] = $objecttmp->LibStatutEvent($objecttmp::STATUS_DRAFT);
 	$statuslist[$objecttmp::STATUS_SUGGESTED] = $objecttmp->LibStatutEvent($objecttmp::STATUS_SUGGESTED);
 	$statuslist[$objecttmp::STATUS_CONFIRMED] = $objecttmp->LibStatutEvent($objecttmp::STATUS_CONFIRMED);
@@ -818,7 +818,7 @@ $moreforfilter = '';
 $moreforfilter.= $langs->trans('MyFilter') . ': <input type="text" name="search_myfield" value="'.dol_escape_htmltag($search_myfield).'">';
 $moreforfilter.= '</div>';*/
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -903,7 +903,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -960,7 +960,7 @@ if (isset($extrafields->attributes[$object->table_element]['computed']) && is_ar
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {
@@ -1051,7 +1051,7 @@ while ($i < $imaxinloop) {
 						$totalarray['pos'][$totalarray['nbfield']] = 't.'.$key;
 					}
 					if (!isset($totalarray['val'])) {
-						$totalarray['val'] = array();
+						$totalarray['val'] = [];
 					}
 					if (!isset($totalarray['val']['t.'.$key])) {
 						$totalarray['val']['t.'.$key] = 0;

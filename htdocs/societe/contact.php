@@ -70,7 +70,7 @@ if (isModEnabled('notification')) {
 }
 
 $error = 0;
-$errors = array();
+$errors = [];
 
 
 // Get parameters

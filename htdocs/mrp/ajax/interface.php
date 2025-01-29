@@ -67,7 +67,7 @@ $permissiontoproduce = $user->hasRight('mrp', 'write');
 top_httphead("application/json");
 
 if ($action == 'updateselectbatchbywarehouse' && $permissiontoproduce) {
-	$TRes = array();
+	$TRes = [];
 
 	$sql = "SELECT pb.batch, pb.rowid, ps.fk_entrepot, pb.qty, e.ref as label, ps.fk_product";
 	$sql .= " FROM " . MAIN_DB_PREFIX . "product_batch as pb";

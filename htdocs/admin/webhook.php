@@ -210,7 +210,7 @@ if ($action == 'edit') {
 					$tmp = explode(':', $val['type']);
 					$nboftemplates = $formmail->fetchAllEMailTemplate($tmp[1], $user, null, 1); // We set lang=null to get in priority record with no lang
 					//$arraydefaultmessage = $formmail->getEMailTemplate($db, $tmp[1], $user, null, 0, 1, '');
-					$arrayofmessagename = array();
+					$arrayofmessagename = [];
 					if (is_array($formmail->lines_model)) {
 						foreach ($formmail->lines_model as $modelmail) {
 							//var_dump($modelmail);
@@ -307,7 +307,7 @@ if ($action == 'edit') {
 							setEventMessages(null, $c->errors, 'errors');
 						} elseif ($result > 0) {
 							$ways = $c->print_all_ways(' &gt;&gt; ', 'none', 0, 1); // $ways[0] = "ccc2 >> ccc2a >> ccc2a1" with html formatted text
-							$toprint = array();
+							$toprint = [];
 							foreach ($ways as $way) {
 								$toprint[] = '<li class="select2-search-choice-dolibarr noborderoncategories"' . ($c->color ? ' style="background: #' . $c->color . ';"' : ' style="background: #bbb"') . '>' . $way . '</li>';
 							}

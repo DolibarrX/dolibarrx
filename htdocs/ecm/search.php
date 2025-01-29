@@ -123,7 +123,7 @@ $userstatic = new User($db);
 
 // Ajout rubriques automatiques
 $rowspan = 0;
-$sectionauto = array();
+$sectionauto = [];
 if (isModEnabled("product") || isModEnabled("service")) {
 	$langs->load("products");
 	$rowspan++;

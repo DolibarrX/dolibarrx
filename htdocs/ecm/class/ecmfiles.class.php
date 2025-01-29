@@ -591,7 +591,7 @@ class EcmFiles extends CommonObject
 
 		// Manage filter
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.src_object_id') {
@@ -628,7 +628,7 @@ class EcmFiles extends CommonObject
 			$sql .= $this->db->plimit($limit, $offset);
 		}
 
-		$this->lines = array();
+		$this->lines = [];
 
 		$resql = $this->db->query($sql);
 		if ($resql) {

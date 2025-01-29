@@ -232,7 +232,7 @@ if ($action == 'add' && $permissiontoadd) {
 	if ($newfichinterid > 0) {
 		// Now we add line of details
 		foreach ($object->lines as $line) {
-			$newinter->addline($user, $newfichinterid, $line->desc, $line->datei, $line->duree, array());
+			$newinter->addline($user, $newfichinterid, $line->desc, $line->datei, $line->duree, []);
 		}
 
 		// on update le nombre d'inter crée à partir du modèle

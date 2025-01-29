@@ -208,7 +208,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -232,7 +232,7 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_num_releve = '';
 	$search_conciliated = '';
 	$search_fk_bordereau = '';
-	$toselect = array();
+	$toselect = [];
 
 	$search_account = "";
 	if ($id > 0 || !empty($ref)) {
@@ -527,7 +527,7 @@ $totalarray = array(
 // Add $param from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 
-$options = array();
+$options = [];
 
 $buttonreconcile = '';
 $morehtmlref = '';
@@ -539,7 +539,7 @@ if ($id > 0 || !empty($ref)) {
 }
 $help_url = '';
 
-llxHeader('', $title, $help_url, '', 0, 0, array(), array(), $param);
+llxHeader('', $title, $help_url, '', 0, 0, [], [], $param);
 
 
 if ($id > 0 || !empty($ref)) {
@@ -615,7 +615,7 @@ if (!empty($extrafields->attributes[$extrafieldsobjectkey]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " FROM ";
@@ -629,7 +629,7 @@ if (!empty($extrafields->attributes[$extrafieldsobjectkey]['label']) && is_array
 }
 
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListJoin', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -723,7 +723,7 @@ if ($search_credit) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -796,7 +796,7 @@ $resql = $db->query($sql);
 if ($resql) {
 	$num = $db->num_rows($resql);
 
-	$arrayofselected = (!empty($toselect) && is_array($toselect)) ? $toselect : array();
+	$arrayofselected = (!empty($toselect) && is_array($toselect)) ? $toselect : [];
 
 	// List of mass actions available
 	$arrayofmassactions = array(
@@ -804,7 +804,7 @@ if ($resql) {
 		//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 	);
 	if (in_array($massaction, array('presend', 'predelete'))) {
-		$arrayofmassactions = array();
+		$arrayofmassactions = [];
 	}
 	$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -976,7 +976,7 @@ if ($resql) {
 		$sql .= $db->order("num_releve", "DESC");
 		$sql .= $db->plimit($nbmax + 1);
 
-		$last_receipts = array();
+		$last_receipts = [];
 		$last_releve = '';
 		$last_ok = 0;
 		$numr = 0;
@@ -1113,7 +1113,7 @@ if ($resql) {
 		}
 	}
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($resHook)) {
 		$moreforfilter .= $hookManager->resPrint;
@@ -1245,7 +1245,7 @@ if ($resql) {
 	}
 	print "</tr>\n";
 
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
 
 	// Fields title
@@ -1338,14 +1338,14 @@ if ($resql) {
 	$balancebefore = 0; // For balance
 	$balancecalculated = false;
 	$posconciliatecol = 0;
-	$cachebankaccount = array();
+	$cachebankaccount = [];
 
 	$sign = 1;
 
 	// Loop on each record
 	$i = 0;
 	$savnbfield = $totalarray['nbfield'];
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
 	$totalarray['totaldeb'] = 0;
 	$totalarray['totalcred'] = 0;
@@ -1539,7 +1539,7 @@ if ($resql) {
 		if (!empty($arrayfields['b.label']['checked'])) {
 			$labeltoshow = '';
 			$titletoshow = '';
-			$reg = array();
+			$reg = [];
 			preg_match('/\((.+)\)/i', $objp->label, $reg); // Si texte entoure de parenthee on tente recherche de traduction
 			if (!empty($reg[1]) && $langs->trans($reg[1]) != $reg[1]) {
 				// Example: $reg[1] = 'CustomerInvoicePayment', 'SupplierInvoicePayment', ... (or on old version: 'WithdrawalPayment', 'BankTransferPayment')
@@ -1557,7 +1557,7 @@ if ($resql) {
 			print '<td class="tdoverflowmax250"'.($titletoshow ? ' title="'.dol_escape_htmltag($titletoshow).'"' : '').'>';
 
 			// Add info about links after description
-			$cachebankaccount = array();
+			$cachebankaccount = [];
 			foreach ($links as $key => $val) {
 				print '<!-- '.$links[$key]['type'].' -->';
 				if ($links[$key]['type'] == 'withdraw') {

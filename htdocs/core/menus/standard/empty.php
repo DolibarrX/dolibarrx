@@ -92,7 +92,7 @@ class MenuManager
 	public function loadMenu($forcemainmenu = '', $forceleftmenu = '')
 	{
 		// Do nothing
-		$this->tabMenu = array();
+		$this->tabMenu = [];
 	}
 
 
@@ -190,7 +190,7 @@ class MenuManager
 
 			// $this->menu->liste is top menu
 			//var_dump($this->menu->liste);exit;
-			$lastlevel = array();
+			$lastlevel = [];
 			$showmenu = true;  // Is current menu shown - define here to keep static code checker happy
 			print '<!-- Generate menu list from menu handler '.$this->name.' -->'."\n";
 			foreach ($this->menu->liste as $key => $val) {		// $val['url','titre','level','enabled'=0|1|2,'target','mainmenu','leftmenu'
@@ -277,7 +277,7 @@ class MenuManager
 						}
 					}
 
-					$lastlevel2 = array();
+					$lastlevel2 = [];
 					foreach ($submenu->liste as $key2 => $val2) {		// $val['url','titre','level','enabled'=0|1|2,'target','mainmenu','leftmenu'
 						$showmenu = true;
 						if (getDolGlobalString('MAIN_MENU_HIDE_UNAUTHORIZED') && empty($val2['enabled'])) {
@@ -377,8 +377,8 @@ class MenuManager
 
 			// ***** END *****
 
-			$menu_array_before = array();
-			$menu_array_after = array();
+			$menu_array_before = [];
+			$menu_array_after = [];
 
 			// do not change code after this
 
@@ -535,7 +535,7 @@ function print_start_menu_entry_empty($idsel, $classname, $showmode)
  * @param	array{}|array{rowid:string,fk_menu:string,langs:string,enabled:int<0,2>,type:string,fk_mainmenu:string,fk_leftmenu:string,url:string,titre:string,perms:string,target:string,mainmenu:string,leftmenu:string,position:int,level?:int,prefix:string} 	$menuval		All the $menuval array
  * @return	void
  */
-function print_text_menu_entry_empty($text, $showmode, $url, $id, $idsel, $classname, $atarget, $menuval = array())
+function print_text_menu_entry_empty($text, $showmode, $url, $id, $idsel, $classname, $atarget, $menuval = [])
 {
 	global $config, $langs;
 

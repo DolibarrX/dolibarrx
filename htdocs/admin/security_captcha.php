@@ -91,10 +91,10 @@ print load_fiche_titre($langs->trans("SecuritySetup"), '', 'title_setup');
 print '<span class="opacitymedium">'.$langs->trans("CaptchaDesc")."</span><br>\n";
 print "<br>\n";
 
-$dirModCaptcha = array_merge(array('/core/modules/security/captcha/'), (isset($config->modules_parts['captcha']) && is_array($config->modules_parts['captcha'])) ? $config->modules_parts['captcha'] : array());
+$dirModCaptcha = array_merge(array('/core/modules/security/captcha/'), (isset($config->modules_parts['captcha']) && is_array($config->modules_parts['captcha'])) ? $config->modules_parts['captcha'] : []);
 
 // Load array with all captcha generation modules
-$arrayhandler = array();
+$arrayhandler = [];
 
 foreach ($dirModCaptcha as $dirroot) {
 	$dir = dol_buildpath($dirroot, 0);
@@ -104,7 +104,7 @@ foreach ($dirModCaptcha as $dirroot) {
 	$i = 1;
 	if (is_resource($handle)) {
 		while (($file = readdir($handle)) !== false) {
-			$reg = array();
+			$reg = [];
 			if (preg_match('/(modCaptcha[a-z]+)\.class\.php$/i', $file, $reg)) {
 				// Charging the numbering class
 				$classname = $reg[1];
@@ -137,7 +137,7 @@ print '<br>';
 
 print $langs->trans("UseCaptchaCode");
 if (!empty($config->use_javascript_ajax)) {
-	print ajax_constantonoff('MAIN_SECURITY_ENABLECAPTCHA', array(), null, 0, 0, 1);
+	print ajax_constantonoff('MAIN_SECURITY_ENABLECAPTCHA', [], null, 0, 0, 1);
 } else {
 	if (!getDolGlobalString('MAIN_SECURITY_ENABLECAPTCHA')) {
 		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MAIN_SECURITY_ENABLECAPTCHA&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
@@ -150,7 +150,7 @@ if (isModEnabled('ticket')) {
 	print '<br>';
 	print $langs->trans("TicketUseCaptchaCodeHelp");
 	if (!empty($config->use_javascript_ajax)) {
-		print ajax_constantonoff('MAIN_SECURITY_ENABLECAPTCHA_TICKET', array(), null, 0, 0, 1);
+		print ajax_constantonoff('MAIN_SECURITY_ENABLECAPTCHA_TICKET', [], null, 0, 0, 1);
 	} else {
 		if (!getDolGlobalString('MAIN_SECURITY_ENABLECAPTCHA_TICKET')) {
 			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MAIN_SECURITY_ENABLECAPTCHA_TICKET&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';

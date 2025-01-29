@@ -30,7 +30,7 @@ class FormSetup
 	public $entity;
 
 	/** @var FormSetupItem[]  */
-	public $items = array();
+	public $items = [];
 
 	/**
 	 * @var int
@@ -78,12 +78,12 @@ class FormSetup
 	 * an list of hidden inputs used only in edit mode
 	 * @var array<string,string>  Currently array{token:string,action:string}
 	 */
-	public $formHiddenInputs = array();
+	public $formHiddenInputs = [];
 
 	/**
 	 * @var string[] $errors
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -121,7 +121,7 @@ class FormSetup
 	 */
 	public static function generateAttributesStringFromArray($attributes)
 	{
-		$Aattr = array();
+		$Aattr = [];
 		if (is_array($attributes)) {
 			foreach ($attributes as $attribute => $value) {
 				if (is_array($value) || is_object($value)) {
@@ -261,7 +261,7 @@ class FormSetup
 	{
 		global $hookManager, $config;
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formSetupBeforeSaveConfFromPost', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 		if ($resHook < 0) {
 			$this->errors = $hookManager->errors;
@@ -426,7 +426,7 @@ class FormSetup
 	 */
 	public function exportItemsAsParamsArray()
 	{
-		$arrayofparameters = array();
+		$arrayofparameters = [];
 		foreach ($this->items as $item) {
 			$arrayofparameters[$item->confKey] = array(
 				'type' => $item->getType(),
@@ -625,7 +625,7 @@ class FormSetupItem
 	public $defaultFieldValue = null;
 
 	/** @var array{name?:string,id?:string,value?:mixed,class?:string,disabled?:?int<0,1>,type?:string,size?:int,placeholder?:string,step?:float|string,min?:int,max?:int}  fields attribute only for compatible fields like input text */
-	public $fieldAttr = array();
+	public $fieldAttr = [];
 
 	/** @var bool|string set this var to override field output will override $fieldInputOverride and $fieldOutputOverride too */
 	public $fieldOverride = false;
@@ -640,10 +640,10 @@ class FormSetupItem
 	public $rank = 0;
 
 	/** @var array<string,string|array{id:string,label:string,color:string,picture:string,labelhtml:string}> set this var for options on select and multiselect items   */
-	public $fieldOptions = array();
+	public $fieldOptions = [];
 
 	/** @var array<string,string|int|array{id:string,label:string,color:string,picture:string,labelhtml:string}> set this var to add more parameters */
-	public $fieldParams = array();
+	public $fieldParams = [];
 
 	/** @var callable $saveCallBack  */
 	public $saveCallBack;
@@ -654,7 +654,7 @@ class FormSetupItem
 	/**
 	 * @var string[] $errors
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * TODO each type must have setAs{type} method to help configuration
@@ -735,7 +735,7 @@ class FormSetupItem
 	{
 		global $hookManager;
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formSetupBeforeSaveConfValue', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 		if ($resHook < 0) {
 			$this->setErrors($hookManager->errors);
@@ -905,7 +905,7 @@ class FormSetupItem
 			$out .=  $this->generateInputFieldColor();
 		} elseif ($this->type == 'yesno') {
 			if (!empty($config->use_javascript_ajax)) {
-				$input = $this->fieldParams['input'] ?? array();
+				$input = $this->fieldParams['input'] ?? [];
 				$revertonoff = isset($this->fieldParams['revertonoff']) ? 1 : 0;
 				$forcereload = isset($this->fieldParams['forcereload']) ? 1 : 0;
 
@@ -926,7 +926,7 @@ class FormSetupItem
 		} elseif ($this->type == 'product') {
 			if (isModEnabled("product") || isModEnabled("service")) {
 				$selected = (empty($this->fieldValue) ? '' : $this->fieldValue);
-				$out .= $this->form->select_produits($selected, $this->confKey, '', 0, 0, 1, 2, '', 0, array(), 0, '1', 0, $this->cssClass, 0, '', null, 1);
+				$out .= $this->form->select_produits($selected, $this->confKey, '', 0, 0, 1, 2, '', 0, [], 0, '1', 0, $this->cssClass, 0, '', null, 1);
 			}
 		} elseif ($this->type == 'selectBankAccount') {
 			if (isModEnabled("bank")) {
@@ -1021,7 +1021,7 @@ class FormSetupItem
 
 			$tmp = explode(':', $this->type);
 			$nboftemplates = $formmail->fetchAllEMailTemplate($tmp[1], $user, null, 1); // We set lang=null to get in priority record with no lang
-			$arrayOfMessageName = array();
+			$arrayOfMessageName = [];
 			if (is_array($formmail->lines_model)) {
 				foreach ($formmail->lines_model as $modelMail) {
 					$moreonlabel = '';
@@ -1106,7 +1106,7 @@ class FormSetupItem
 	 */
 	public function generateInputFieldMultiSelect()
 	{
-		$TSelected = array();
+		$TSelected = [];
 		if ($this->fieldValue) {
 			$TSelected = explode(',', $this->fieldValue);
 		}
@@ -1226,7 +1226,7 @@ class FormSetupItem
 				$revertonoff = $this->fieldParams['revertonoff'] ? 1 : 0;
 				$forcereload = $this->fieldParams['forcereload'] ? 1 : 0;
 
-				$out .= ajax_constantonoff($this->confKey, array(), $this->entity, $revertonoff, 0, $forcereload);
+				$out .= ajax_constantonoff($this->confKey, [], $this->entity, $revertonoff, 0, $forcereload);
 			} else {
 				if ($this->fieldValue == 1) {
 					$out .= $langs->trans('yes');
@@ -1255,7 +1255,7 @@ class FormSetupItem
 				$this->setErrors($c->errors);
 			}
 			$ways = $c->print_all_ways(' &gt;&gt; ', 'none', 0, 1); // $ways[0] = "ccc2 >> ccc2a >> ccc2a1" with html formatted text
-			$toprint = array();
+			$toprint = [];
 			foreach ($ways as $way) {
 				$toprint[] = '<li class="select2-search-choice-dolibarr noborderoncategories"' . ($c->color ? ' style="background: #' . $c->color . ';"' : ' style="background: #bbb"') . '>' . $way . '</li>';
 			}
@@ -1308,7 +1308,7 @@ class FormSetupItem
 	public function generateOutputFieldMultiSelect()
 	{
 		$outPut = '';
-		$TSelected = array();
+		$TSelected = [];
 		if (!empty($this->fieldValue)) {
 			$TSelected = explode(',', $this->fieldValue);
 		}
@@ -1333,7 +1333,7 @@ class FormSetupItem
 		global $langs;
 		$out = '';
 		$this->fieldAttr['disabled'] = null;
-		$color = colorArrayToHex(colorStringToArray($this->fieldValue, array()), '');
+		$color = colorArrayToHex(colorStringToArray($this->fieldValue, []), '');
 		$useDefaultColor = false;
 		if (!$color && !empty($this->defaultFieldValue)) {
 			$color = $this->defaultFieldValue;
@@ -1362,7 +1362,7 @@ class FormSetupItem
 		$default = $this->defaultFieldValue;
 		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 		$formother = new FormOther($this->db);
-		return $formother->selectColor(colorArrayToHex(colorStringToArray($this->fieldAttr['value'], array()), ''), $this->fieldAttr['name'], '', 1, array(), '', '', $default).' ';
+		return $formother->selectColor(colorArrayToHex(colorStringToArray($this->fieldAttr['value'], []), ''), $this->fieldAttr['name'], '', 1, [], '', '', $default).' ';
 	}
 
 	/**

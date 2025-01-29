@@ -54,7 +54,7 @@ $action = GETPOST('action', 'aZ09');
  * Actions
  */
 
-$reg = array();
+$reg = [];
 if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
 	$value = GETPOST($code, 'alpha');
@@ -97,9 +97,9 @@ if ($action == 'add_currency') {
 	if (!$error) {
 		if ($currency->create($user) > 0) {
 			if ($currency->addRate($rate)) {
-				setEventMessages($langs->trans('RecordSaved'), array());
+				setEventMessages($langs->trans('RecordSaved'), []);
 			} else {
-				setEventMessages($langs->trans('ErrorAddRateFail'), array(), 'errors');
+				setEventMessages($langs->trans('ErrorAddRateFail'), [], 'errors');
 			}
 		} else {
 			setEventMessages($langs->trans('ErrorAddCurrencyFail'), $currency->errors, 'errors');
@@ -131,9 +131,9 @@ if ($action == 'add_currency') {
 
 		if ($currency->fetch($fk_multicurrency) > 0) {
 			if ($currency->delete($user) > 0) {
-				setEventMessages($langs->trans('RecordDeleted'), array());
+				setEventMessages($langs->trans('RecordDeleted'), []);
 			} else {
-				setEventMessages($langs->trans('ErrorDeleteCurrencyFail'), array(), 'errors');
+				setEventMessages($langs->trans('ErrorDeleteCurrencyFail'), [], 'errors');
 			}
 		}
 	}
@@ -152,7 +152,7 @@ if ($action == 'add_currency') {
 }
 
 
-$TAvailableCurrency = array();
+$TAvailableCurrency = [];
 $sql = "SELECT code_iso, label, unicode, active FROM ".MAIN_DB_PREFIX."c_currencies";
 $resql = $db->query($sql);
 if ($resql) {
@@ -161,7 +161,7 @@ if ($resql) {
 	}
 }
 
-$TCurrency = array();
+$TCurrency = [];
 $sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."multicurrency WHERE entity = ".((int) $config->entity);
 $resql = $db->query($sql);
 if ($resql) {
@@ -216,7 +216,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->transnoentitiesnoconv("multicurrency_useOriginTx").'</td>';
 print '<td class="center">';
 if ($config->use_javascript_ajax) {
-	print ajax_constantonoff('MULTICURRENCY_USE_ORIGIN_TX', array(), null, 0, 0, 0, 2, 0, 1);
+	print ajax_constantonoff('MULTICURRENCY_USE_ORIGIN_TX', [], null, 0, 0, 0, 2, 0, 1);
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
 	print $form->selectarray("MULTICURRENCY_USE_ORIGIN_TX", $arrval, $config->global->MULTICURRENCY_USE_ORIGIN_TX);

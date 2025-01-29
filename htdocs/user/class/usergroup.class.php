@@ -98,7 +98,7 @@ class UserGroup extends CommonObject
 	/**
 	 * @var User[]  Array of users
 	 */
-	public $members = array();
+	public $members = [];
 
 	/**
 	 * @var int Number of rights granted to the user
@@ -118,7 +118,7 @@ class UserGroup extends CommonObject
 	/**
 	 * @var array<string,int> Cache array of already loaded permissions
 	 */
-	private $_tab_loaded = array(); // Array of cache of already loaded permissions
+	private $_tab_loaded = []; // Array of cache of already loaded permissions
 
 	/**
 	 * @var int all_permissions_are_loaded
@@ -143,7 +143,7 @@ class UserGroup extends CommonObject
 	/**
 	 * @var array<string, array<string>>	List of child tables. To test if we can delete object.
 	 */
-	protected $childtables = array();
+	protected $childtables = [];
 
 	/**
 	 * @var string[]	List of child tables. To know object to delete on cascade.
@@ -209,7 +209,7 @@ class UserGroup extends CommonObject
 	{
 		global $config, $user;
 
-		$ret = array();
+		$ret = [];
 
 		$sql = "SELECT g.rowid, ug.entity as usergroup_entity";
 		$sql .= " FROM ".$this->db->prefix()."usergroup as g,";
@@ -233,7 +233,7 @@ class UserGroup extends CommonObject
 					$ret[$obj->rowid] = $newgroup;
 				}
 				if (!is_array($ret[$obj->rowid]->usergroup_entity)) {
-					$ret[$obj->rowid]->usergroup_entity = array();
+					$ret[$obj->rowid]->usergroup_entity = [];
 				}
 				// $ret[$obj->rowid] is instance of UserGroup
 				$ret[$obj->rowid]->usergroup_entity[] = (int) $obj->usergroup_entity;
@@ -259,7 +259,7 @@ class UserGroup extends CommonObject
 	{
 		global $config, $user;
 
-		$ret = array();
+		$ret = [];
 
 		$sql = "SELECT u.rowid, u.login, u.lastname, u.firstname, u.photo, u.fk_soc, u.entity, u.employee, u.email, u.statut as status";
 		if (!empty($this->id)) {
@@ -313,7 +313,7 @@ class UserGroup extends CommonObject
 				if ($mode != 1 && !empty($obj->usergroup_entity)) {
 					// $ret[$obj->rowid] is instance of User
 					if (!is_array($ret[$obj->rowid]->usergroup_entity)) {
-						$ret[$obj->rowid]->usergroup_entity = array();
+						$ret[$obj->rowid]->usergroup_entity = [];
 					}
 					$ret[$obj->rowid]->usergroup_entity[] = (int) $obj->usergroup_entity;
 				}
@@ -946,7 +946,7 @@ class UserGroup extends CommonObject
 		// phpcs:enable
 		global $config;
 
-		$info = array();
+		$info = [];
 
 		// Object classes
 		$info["objectclass"] = explode(',', getDolGlobalString('LDAP_GROUP_OBJECT_CLASS'));
@@ -960,7 +960,7 @@ class UserGroup extends CommonObject
 			$info[getDolGlobalString('LDAP_GROUP_FIELD_DESCRIPTION')] = dol_string_nohtmltag($this->note, 2);
 		}
 		if (getDolGlobalString('LDAP_GROUP_FIELD_GROUPMEMBERS')) {
-			$valueofldapfield = array();
+			$valueofldapfield = [];
 			foreach ($this->members as $key => $val) {    // This is array of users for group into dolibarr database.
 				$muser = new User($this->db);
 				$muser->fetch($val->id);

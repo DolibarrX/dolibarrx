@@ -78,7 +78,7 @@ if ($object->id > 0) {
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');

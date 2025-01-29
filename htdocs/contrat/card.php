@@ -384,7 +384,7 @@ if (empty($resHook)) {
 								}
 
 								// Extrafields
-								$array_options = array();
+								$array_options = [];
 								// For avoid conflicts if trigger used
 								if (method_exists($lines[$i], 'fetch_optionals')) {
 									$lines[$i]->fetch_optionals();
@@ -784,7 +784,7 @@ if (empty($resHook)) {
 			$txtva = $vat_rate;
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -1154,7 +1154,7 @@ if ($action == 'create') {
 
 	if (GETPOST('origin') && GETPOSTINT('originid')) {
 		// Parse element/subelement (ex: project_task)
-		$regs = array();
+		$regs = [];
 		$element = $subelement = GETPOST('origin');
 		if (preg_match('/^([^_]+)_([^_]+)/i', GETPOST('origin'), $regs)) {
 			$element = $regs[1];
@@ -1250,7 +1250,7 @@ if ($action == 'create') {
 	} else {
 		print '<td>';
 		print img_picture('', 'company', 'class="picturefixedwidth"');
-		print $form->select_company('', 'socid', '', 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
+		print $form->select_company('', 'socid', '', 'SelectThirdParty', 1, 0, [], 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
 		print ' <a href="'.DOL_URL_ROOT.'/societe/card.php?action=create&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create').'"><span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("AddThirdParty").'"></span></a>';
 		print '</td>';
 	}
@@ -1826,7 +1826,7 @@ if ($action == 'create') {
 								} else {
 									$filtertype = '1';
 								}
-								print $form->select_produits($currentLineProductId, 'idprod', $filtertype, 0, 0, 1, 2, '', 0, array(), 0, 1, 0, 'minwidth250onall maxwidth500 widthcentpercentminusx');
+								print $form->select_produits($currentLineProductId, 'idprod', $filtertype, 0, 0, 1, 2, '', 0, [], 0, 1, 0, 'minwidth250onall maxwidth500 widthcentpercentminusx');
 							} else {
 								$form->select_produits_fournisseurs($currentLineProductId, 'idprod');
 							}
@@ -1958,7 +1958,7 @@ if ($action == 'create') {
 			 * Confirmation to move service toward another contract
 			 */
 			if ($action == 'move' && !$cancel && $user->hasRight('contrat', 'creer') && $object->lines[$cursorline - 1]->id == $idline) {
-				$arraycontractid = array();
+				$arraycontractid = [];
 				foreach ($arrayothercontracts as $contractcursor) {
 					$arraycontractid[$contractcursor->id] = $contractcursor->ref;
 				}
@@ -2181,7 +2181,7 @@ if ($action == 'create') {
 
 				// Add free products/services
 
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -2209,7 +2209,7 @@ if ($action == 'create') {
 		if ($user->socid == 0 && $action != 'presend' && $action != 'editline') {
 			print '<div class="tabsAction">';
 
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 			if (empty($resHook)) {
@@ -2251,7 +2251,7 @@ if ($action == 'create') {
 				}
 
 				// Create ... buttons
-				$arrayofcreatebutton = array();
+				$arrayofcreatebutton = [];
 				if (isModEnabled('order') && $object->status > 0 && $object->nbofservicesclosed < $nbofservices) {
 					$arrayofcreatebutton[] = array(
 						'url' => '/order/card.php?action=create&token='.newToken().'&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->thirdparty->id,
@@ -2285,7 +2285,7 @@ if ($action == 'create') {
 					print dolGetButtonAction('', $langs->trans("Create"), 'default', $arrayofcreatebutton, '', true, $params);
 				}
 
-				$arrayforbutaction = array();
+				$arrayforbutaction = [];
 				if ($object->nbofservicesclosed > 0 || $object->nbofserviceswait > 0) {
 					$arrayforbutaction[] = array(
 						'url' => '/contrat/card.php?id='.$object->id.'&action=activate&token='.newToken(),
@@ -2358,7 +2358,7 @@ if ($action == 'create') {
 
 
 			// Show links to link elements
-			$tmparray = $form->showLinkToObjectBlock($object, array(), array('contrat'), 1);
+			$tmparray = $form->showLinkToObjectBlock($object, [], array('contrat'), 1);
 			$linktoelem = $tmparray['linktoelem'];
 			$htmltoenteralink = $tmparray['htmltoenteralink'];
 			print $htmltoenteralink;

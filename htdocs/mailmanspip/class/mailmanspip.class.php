@@ -53,7 +53,7 @@ class MailmanSpip
 	/**
 	 * @var string[]	Array of error strings
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var array<string,string>
@@ -316,8 +316,8 @@ class MailmanSpip
 
 		dol_syslog(get_class($this)."::add_to_mailman");
 
-		$this->mladded_ok = array();
-		$this->mladded_ko = array();
+		$this->mladded_ok = [];
+		$this->mladded_ko = [];
 
 		if (!function_exists("curl_init")) {
 			$langs->load("errors");
@@ -386,8 +386,8 @@ class MailmanSpip
 
 		dol_syslog(get_class($this)."::del_to_mailman");
 
-		$this->mlremoved_ok = array();
-		$this->mlremoved_ko = array();
+		$this->mlremoved_ok = [];
+		$this->mlremoved_ko = [];
 
 		if (!function_exists("curl_init")) {
 			$langs->load("errors");

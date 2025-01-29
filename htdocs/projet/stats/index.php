@@ -72,7 +72,7 @@ if (!$user->hasRight('projet', 'lire')) {
 $form = new Form($db);
 $formproject = new FormProjets($db);
 
-$includeuserlist = array();
+$includeuserlist = [];
 
 llxHeader('', $langs->trans('Projects'), '', '', 0, 0, '', '', '', 'mod-project page-stats');
 
@@ -115,7 +115,7 @@ $mesg = $px1->isGraphKo();
 if (!$mesg) {
 	$px1->SetData($data);
 	$i = $startyear;
-	$legend = array();
+	$legend = [];
 	while ($i <= $endyear) {
 		$legend[] = $i;
 		$i++;
@@ -147,7 +147,7 @@ if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 	$mesg = $px2->isGraphKo();
 	if (!$mesg) {
 		$i = $startyear;
-		$legend = array();
+		$legend = [];
 		while ($i <= $endyear) {
 			$legend[] = $i;
 			$i++;
@@ -184,7 +184,7 @@ if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 	if (!$mesg) {
 		$px3->SetData($data);
 		$i = $startyear;
-		$legend = array();
+		$legend = [];
 		while ($i <= $endyear) {
 			$legend[] = $i;
 			$i++;
@@ -212,7 +212,7 @@ $data_all_year = $stats_project->getAllByYear();
 if (!empty($year)) {
 	$stats_project->year = $year;
 }
-$arrayyears = array();
+$arrayyears = [];
 foreach ($data_all_year as $val) {
 	$arrayyears[$val['year']] = $val['year'];
 }
@@ -222,7 +222,7 @@ if (!count($arrayyears)) {
 
 
 $h = 0;
-$head = array();
+$head = [];
 $head[$h][0] = DOL_URL_ROOT.'/projet/stats/index.php';
 $head[$h][1] = $langs->trans("ByMonthYear");
 $head[$h][2] = 'byyear';
@@ -243,7 +243,7 @@ print '<tr class="liste_titre"><td class="liste_titre" colspan="2">'.$langs->tra
 // Company
 print '<tr><td>'.$langs->trans("ThirdParty").'</td><td>';
 print img_picture('', 'company', 'class="picturefixedwidth"');
-print $form->select_company($socid, 'socid', '', 1, 0, 0, array(), 0, 'widthcentpercentminusx maxwidth300', '');
+print $form->select_company($socid, 'socid', '', 1, 0, 0, [], 0, 'widthcentpercentminusx maxwidth300', '');
 print '</td></tr>';
 // Opportunity status
 if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
@@ -254,7 +254,7 @@ if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 
 // User
 /*print '<tr><td>'.$langs->trans("ProjectCommercial").'</td><td>';
-print $form->select_dolusers($userId, 'userid', 1, array(),0,$includeuserlist);
+print $form->select_dolusers($userId, 'userid', 1, [],0,$includeuserlist);
 print '</td></tr>';*/
 // Year
 print '<tr><td>'.$langs->trans("Year").' <span class="opacitymedium">('.$langs->trans("DateCreation").')</span></td><td>';

@@ -59,7 +59,7 @@ class modBlockedLog extends DolibarrModules
 		$this->picture = 'technic';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Config pages
 		//-------------
@@ -69,19 +69,19 @@ class modBlockedLog extends DolibarrModules
 		//-------------
 		$this->hidden = false; // A condition to disable module
 		$this->depends = array('always'=>'modFacture'); // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of modules id to disable if this one is disabled
-		$this->conflictwith = array(); // List of modules id this module is in conflict with
+		$this->requiredby = []; // List of modules id to disable if this one is disabled
+		$this->conflictwith = []; // List of modules id this module is in conflict with
 		$this->langfiles = array('blockedlog');
 
-		$this->warnings_activation = array(); // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
-		$this->warnings_activation_ext = array(); // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		$this->warnings_unactivation = array('FR'=>'BlockedLogAreRequiredByYourCountryLegislation');
 
 		// Currently, activation is not automatic because only companies (in France) making invoices to non business customers must
 		// enable this module.
 		/*if (getDolGlobalString('BLOCKEDLOG_DISABLE_NOT_ALLOWED_FOR_COUNTRY')) {
 			$tmp=explode(',', getDolGlobalString('BLOCKEDLOG_DISABLE_NOT_ALLOWED_FOR_COUNTRY'));
-			$this->automatic_activation = array();
+			$this->automatic_activation = [];
 			foreach($tmp as $key)
 			{
 				$this->automatic_activation[$key]='BlockedLogActivatedBecauseRequiredByYourCountryLegislation';
@@ -102,15 +102,15 @@ class modBlockedLog extends DolibarrModules
 
 		// New pages on tabs
 		// -----------------
-		$this->tabs = array();
+		$this->tabs = [];
 
 		// Boxes
 		//------
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
 		// -----------------
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 
 		$r = 1;
 		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
@@ -166,7 +166,7 @@ class modBlockedLog extends DolibarrModules
 	{
 		global $config, $user;
 
-		$sql = array();
+		$sql = [];
 
 		// If already used, we add an entry to show we enable module
 		require_once DOL_DOCUMENT_ROOT . '/blockedlog/class/blockedlog.class.php';
@@ -211,7 +211,7 @@ class modBlockedLog extends DolibarrModules
 	{
 		global $config, $user;
 
-		$sql = array();
+		$sql = [];
 
 		// If already used, we add an entry to show we enable module
 		require_once DOL_DOCUMENT_ROOT.'/blockedlog/class/blockedlog.class.php';

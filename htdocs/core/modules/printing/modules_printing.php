@@ -45,7 +45,7 @@ class PrintingDriver
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -85,9 +85,9 @@ class PrintingDriver
 		global $config;
 
 		$type = 'printing';
-		$list = array();
+		$list = [];
 
-		$listoffiles = array();
+		$listoffiles = [];
 		if (!empty($config->modules_parts['printing'])) {
 			$dirmodels = array_merge(array('/core/modules/printing/'), (array) $config->modules_parts['printing']);
 		} else {

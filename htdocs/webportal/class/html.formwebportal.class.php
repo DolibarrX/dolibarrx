@@ -267,13 +267,13 @@ class FormWebPortal extends Form
 			return '';
 		}
 
-		$this->infofiles = array('nboffiles' => 0, 'extensions' => array(), 'files' => array());
+		$this->infofiles = array('nboffiles' => 0, 'extensions' => [], 'files' => []);
 
 		$entity = 1; // Without multicompany
 
 		// Get object entity
 		if (isModEnabled('multicompany')) {
-			$regs = array();
+			$regs = [];
 			preg_match('/\/([0-9]+)\/[^\/]+\/' . preg_quote($modulesubdir, '/') . '$/', $filedir, $regs);
 			$entity = ((!empty($regs[1]) && $regs[1] > 1) ? $regs[1] : 1); // If entity id not found in $filedir this is entity 1 by default
 		}
@@ -403,7 +403,7 @@ class FormWebPortal extends Form
 		// Bom:bom/class/bom.class.php:0:(t.status:=:1):ref
 		$InfoFieldList = explode(":", $objectdesc, 4);
 		$vartmp = (empty($InfoFieldList[3]) ? '' : $InfoFieldList[3]);
-		$reg = array();
+		$reg = [];
 		if (preg_match('/^.*:(\w*)$/', $vartmp, $reg)) {
 			$InfoFieldList[4] = $reg[1];    // take the sort field
 		}
@@ -504,8 +504,8 @@ class FormWebPortal extends Form
 		}
 
 		$out = '';
-		$outarray = array();
-		$tmparray = array();
+		$outarray = [];
+		$tmparray = [];
 
 		$num = 0;
 
@@ -641,8 +641,8 @@ class FormWebPortal extends Form
 		global $config, $langs;
 
 		$out = '';
-		$param = array();
-		$reg = array();
+		$param = [];
+		$reg = [];
 		$size = !empty($val['size']) ? $val['size'] : 0;
 		// see common object class
 		if (preg_match('/^(integer|link):(.*):(.*):(.*):(.*)/i', $val['type'], $reg)) {
@@ -664,17 +664,17 @@ class FormWebPortal extends Form
 			$param['options'] = array($reg[2] . ':' . $reg[3] => 'N');
 			$type = 'sellist';
 		} elseif (preg_match('/^varchar\((\d+)\)/', $val['type'], $reg)) {
-			$param['options'] = array();
+			$param['options'] = [];
 			$type = 'text';
 			$size = $reg[1];
 		} elseif (preg_match('/^varchar/', $val['type'])) {
-			$param['options'] = array();
+			$param['options'] = [];
 			$type = 'text';
 		} elseif (preg_match('/^double(\([0-9],[0-9]\)){0,1}/', $val['type'])) {
-			$param['options'] = array();
+			$param['options'] = [];
 			$type = 'double';
 		} else {
-			$param['options'] = array();
+			$param['options'] = [];
 			$type = $val['type'];
 		}
 
@@ -997,7 +997,7 @@ class FormWebPortal extends Form
 		$type = empty($val['type']) ? '' : $val['type'];
 		$css = empty($val['css']) ? '' : $val['css'];
 		$picture = empty($val['picture']) ? '' : $val['picture'];
-		$reg = array();
+		$reg = [];
 
 		// Convert var to be able to share same code than showOutputField of extrafields
 		if (preg_match('/varchar\((\d+)\)/', $type, $reg)) {
@@ -1017,8 +1017,8 @@ class FormWebPortal extends Form
 		$computed = empty($val['computed']) ? '' : $val['computed'];
 		$unique = empty($val['unique']) ? '' : $val['unique'];
 		$required = empty($val['required']) ? '' : $val['required'];
-		$param = array();
-		$param['options'] = array();
+		$param = [];
+		$param['options'] = [];
 
 		if (!empty($val['arrayofkeyval']) && is_array($val['arrayofkeyval'])) {
 			$param['options'] = $val['arrayofkeyval'];
@@ -1215,7 +1215,7 @@ class FormWebPortal extends Form
 				} else {
 					require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 
-					$toprint = array();
+					$toprint = [];
 					$obj = $this->db->fetch_object($resql);
 					$c = new Category($this->db);
 					$c->fetch($obj->rowid);
@@ -1234,7 +1234,7 @@ class FormWebPortal extends Form
 			$value_arr = explode(',', $value);
 			$value = '';
 			if (is_array($value_arr) && count($value_arr) > 0) {
-				$toprint = array();
+				$toprint = [];
 				foreach ($value_arr as $valueval) {
 					if (!empty($valueval)) {
 						$toprint[] = '<li>' . $param['options'][$valueval] . '</li>';
@@ -1284,7 +1284,7 @@ class FormWebPortal extends Form
 			if ($resql) {
 				if (!$filter_category) {
 					$value = ''; // value was used, so now we reset it to use it to build final output
-					$toprint = array();
+					$toprint = [];
 					while ($obj = $this->db->fetch_object($resql)) {
 						// Several field into label (eq table:code|libelle:rowid)
 						$fields_label = explode('|', $InfoFieldList[1]);
@@ -1317,7 +1317,7 @@ class FormWebPortal extends Form
 				} else {
 					require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 
-					$toprint = array();
+					$toprint = [];
 					while ($obj = $this->db->fetch_object($resql)) {
 						if (is_array($value_arr) && in_array($obj->rowid, $value_arr)) {
 							$c = new Category($this->db);

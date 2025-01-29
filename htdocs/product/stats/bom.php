@@ -141,8 +141,8 @@ if ($id > 0 || !empty($ref)) {
 		//Calcul total qty and amount for global if full scan list
 		$total_qty_toconsume = 0;
 		$total_qty_toproduce = 0;
-		$product_cache = array();
-		$bom_data_result = array();
+		$product_cache = [];
+		$bom_data_result = [];
 
 		//Qauntity  to produce
 		$sql = "SELECT b.rowid as rowid, b.ref, b.status, b.date_valid, b.fk_product,";

@@ -67,16 +67,16 @@ class modFacture extends DolibarrModules
 		// Dependencies
 		$this->depends = array('always' => "modSociete");
 		$this->requiredby = array("modSimpleAccounting", "modAccounting");
-		$this->conflictwith = array();
+		$this->conflictwith = [];
 		$this->langfiles = array("bills", "companies", "compta", "products");
-		$this->warnings_activation = array(); // Warning to show when we activate module. array('always'='text') or array('FR'='text')
-		$this->warnings_activation_ext = array(); // Warning to show when we activate an external module. array('always'='text') or array('FR'='text')
+		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='text')
+		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='text')
 
 		// Config pages
 		$this->config_page_url = array("invoice.php");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 		$r = 0;
 
 		$this->const[$r][0] = "FACTURE_ADDON";
@@ -146,7 +146,7 @@ class modFacture extends DolibarrModules
 		);
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'facture';
 		$r = 0;
 
@@ -233,7 +233,7 @@ class modFacture extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "Invoices"; // Translation key
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('f' => MAIN_DB_PREFIX.'facture', 'extra' => MAIN_DB_PREFIX.'facture_extrafields');
 		$this->import_tables_creator_array[$r] = array('f' => 'fk_user_author'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(
@@ -272,7 +272,7 @@ class modFacture extends DolibarrModules
 			$this->import_fields_array[$r]['f.multicurrency_total_ttc'] = 'MulticurrencyAmountTTC';
 		}
 		// Add extra fields
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'facture' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -350,7 +350,7 @@ class modFacture extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "InvoiceLine"; // Translation key
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('fd' => MAIN_DB_PREFIX.'facturedet', 'extra' => MAIN_DB_PREFIX.'facturedet_extrafields');
 		$this->import_fields_array[$r] = array(
 			'fd.fk_facture' => 'InvoiceRef*',
@@ -400,7 +400,7 @@ class modFacture extends DolibarrModules
 			$this->import_fields_array[$r]['fd.multicurrency_total_ttc'] = 'MulticurrencyAmountTTC';
 		}
 		// Add extra fields
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'facture_det' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {

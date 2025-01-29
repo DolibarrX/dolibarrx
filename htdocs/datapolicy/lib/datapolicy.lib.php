@@ -35,7 +35,7 @@ function datapolicyAdminPrepareHead()
 	$langs->load("datapolicy");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT."/datapolicy/admin/setup.php";
 	$head[$h][1] = $langs->trans("DataAnonymization");

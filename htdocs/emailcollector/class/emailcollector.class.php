@@ -81,7 +81,7 @@ class EmailCollector extends CommonObject
 	/**
 	 * @var array<string, array<string>>	List of child tables. To test if we can delete object.
 	 */
-	protected $childtables = array();
+	protected $childtables = [];
 
 	/**
 	 * @var string[]	List of child tables. To know object to delete on cascade.
@@ -126,7 +126,7 @@ class EmailCollector extends CommonObject
 		'acces_type'     => array('type' => 'integer', 'label' => 'AuthenticationMethod', 'visible' => -1, 'enabled' => "getDolGlobalInt('MAIN_IMAP_USE_PHPIMAP')", 'position' => 101, 'notnull' => 1, 'index' => 1, 'comment' => "IMAP login type", 'arrayofkeyval' => array(0 => 'loginPassword', 1 => 'oauthToken'), 'default' => '0', 'help' => ''),
 		'login'         => array('type' => 'varchar(128)', 'label' => 'Login', 'visible' => -1, 'enabled' => 1, 'position' => 102, 'notnull' => -1, 'index' => 1, 'comment' => "IMAP login", 'help' => 'Example: myaccount@gmail.com'),
 		'password'      => array('type' => 'password', 'label' => 'Password', 'visible' => -1, 'enabled' => "1", 'position' => 103, 'notnull' => -1, 'comment' => "IMAP password", 'help' => 'WithGMailYouCanCreateADedicatedPassword'),
-		'oauth_service' => array('type' => 'varchar(128)', 'label' => 'oauthService', 'visible' => -1, 'enabled' => "getDolGlobalInt('MAIN_IMAP_USE_PHPIMAP')", 'position' => 104, 'notnull' => 0, 'index' => 1, 'comment' => "IMAP login oauthService", 'arrayofkeyval' => array(), 'help' => 'TokenMustHaveBeenCreated'),
+		'oauth_service' => array('type' => 'varchar(128)', 'label' => 'oauthService', 'visible' => -1, 'enabled' => "getDolGlobalInt('MAIN_IMAP_USE_PHPIMAP')", 'position' => 104, 'notnull' => 0, 'index' => 1, 'comment' => "IMAP login oauthService", 'arrayofkeyval' => [], 'help' => 'TokenMustHaveBeenCreated'),
 		'source_directory' => array('type' => 'varchar(255)', 'label' => 'MailboxSourceDirectory', 'visible' => -1, 'enabled' => 1, 'position' => 109, 'notnull' => 1, 'default' => 'Inbox', 'csslist' => 'tdoverflowmax100', 'help' => 'Example: INBOX, [Gmail]/Spam, [Gmail]/Draft, [Gmail]/Brouillons, [Gmail]/Sent Mail, [Gmail]/Messages envoyés, ...'),
 		'target_directory' => array('type' => 'varchar(255)', 'label' => 'MailboxTargetDirectory', 'visible' => 1, 'enabled' => 1, 'position' => 110, 'notnull' => 0, 'csslist' => 'tdoverflowmax100', 'help' => "EmailCollectorTargetDir"),
 		'maxemailpercollect' => array('type' => 'integer', 'label' => 'MaxEmailCollectPerCollect', 'visible' => -1, 'enabled' => 1, 'position' => 111, 'default' => '50'),
@@ -300,7 +300,7 @@ class EmailCollector extends CommonObject
 		}
 
 		// List of oauth services
-		$oauthservices = array();
+		$oauthservices = [];
 
 		foreach ($config->global as $key => $val) {
 			if (!empty($val) && preg_match('/^OAUTH_.*_ID$/', $key)) {
@@ -492,7 +492,7 @@ class EmailCollector extends CommonObject
 	/*
 	 public function fetchLines()
 	 {
-	 $this->lines=array();
+	 $this->lines=[];
 
 	 // Load lines with object EmailCollectorLine
 
@@ -515,7 +515,7 @@ class EmailCollector extends CommonObject
 	{
 		global $langs;
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		$sql = "SELECT s.rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."emailcollector_emailcollector as s";
@@ -764,7 +764,7 @@ class EmailCollector extends CommonObject
 	 */
 	public function fetchFilters()
 	{
-		$this->filters = array();
+		$this->filters = [];
 
 		$sql = 'SELECT rowid, type, rulevalue, status';
 		$sql .= ' FROM '.MAIN_DB_PREFIX.'emailcollector_emailcollectorfilter';
@@ -796,7 +796,7 @@ class EmailCollector extends CommonObject
 	 */
 	public function fetchActions()
 	{
-		$this->actions = array();
+		$this->actions = [];
 
 		$sql = 'SELECT rowid, type, actionparam, status';
 		$sql .= ' FROM '.MAIN_DB_PREFIX.'emailcollector_emailcollectoraction';
@@ -952,7 +952,7 @@ class EmailCollector extends CommonObject
 		// $this->actionparam = 'opportunity_status=123;abc=EXTRACT:BODY:....'
 		$arrayvaluetouse = dolExplodeIntoArray($actionparam, '(\n\r|\r|\n|;)', '=');
 
-		$tmp = array();
+		$tmp = [];
 
 		// Loop on each property set into actionparam
 		foreach ($arrayvaluetouse as $propertytooverwrite => $valueforproperty) {
@@ -975,7 +975,7 @@ class EmailCollector extends CommonObject
 				$sourcefield = '';
 				$regexstring = '';
 				//$transformationstring='';
-				$regforregex = array();
+				$regforregex = [];
 				if (preg_match('/^EXTRACT:([a-zA-Z0-9_]+):(.*):([^:])$/', $valueforproperty, $regforregex)) {
 					$sourcefield = $regforregex[1];
 					$regexstring = $regforregex[2];
@@ -995,7 +995,7 @@ class EmailCollector extends CommonObject
 					}
 
 					if ($sourcestring) {
-						$regforval = array();
+						$regforval = [];
 						$regexoptions = '';
 						if (strtolower($sourcefield) == 'body') {
 							$regexoptions = 'ms'; // The m means ^ and $ char is valid at each new line. The s means the char '.' is valid for new lines char too
@@ -1073,7 +1073,7 @@ class EmailCollector extends CommonObject
 						$valuetouse = $regforregex[2];
 						$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
 						complete_substitutions_array($substitutionArray, $outputlangs, $object);
-						$matcharray = array();
+						$matcharray = [];
 						preg_match_all('/__([a-z0-9]+(?:_[a-z0-9]+)?)__/i', $valuetouse, $matcharray);
 						//var_dump($tmpproperty.' - '.$object->$tmpproperty.' - '.$valuetouse); var_dump($matcharray);
 						if (is_array($matcharray[1])) {    // $matcharray[1] is an array with the list of substitution key found without the __X__ syntax into the SET entry
@@ -1155,14 +1155,14 @@ class EmailCollector extends CommonObject
 		$searchfilterisanswer = 0;
 		$searchfilterisnotanswer = 0;
 		$searchfilterreplyto = 0;
-		$searchfilterexcludebodyarray = array();
-		$searchfilterexcludesubjectarray = array();
+		$searchfilterexcludebodyarray = [];
+		$searchfilterexcludesubjectarray = [];
 		$operationslog = '';
-		$rulesreplyto = array();
+		$rulesreplyto = [];
 		$connectstringsource = '';
 		$connectstringtarget = '';
 		$connection = false;
-		$arrayofemail = array();
+		$arrayofemail = [];
 
 		$now = dol_now();
 
@@ -1247,7 +1247,7 @@ class EmailCollector extends CommonObject
 						$oauthname = explode('-', $OAUTH_SERVICENAME);
 						// ex service is Google-Emails we need only the first part Google
 
-						$scopes = array();
+						$scopes = [];
 						if (preg_match('/^Microsoft/', $OAUTH_SERVICENAME)) {
 							//$extraparams = $tokenobj->getExtraParams();
 							$tmp = explode('-', $OAUTH_SERVICENAME);
@@ -1355,7 +1355,7 @@ class EmailCollector extends CommonObject
 			//$search='ALL';
 		}
 
-		$criteria = array();
+		$criteria = [];
 		if (getDolGlobalString('MAIN_IMAP_USE_PHPIMAP')) {
 			// Use PHPIMAP external library
 			$criteria = array(array('UNDELETED')); // Seems not supported by some servers
@@ -1641,7 +1641,7 @@ class EmailCollector extends CommonObject
 		$nbemailok = 0;
 		$nbactiondone = 0;
 		$charset = ($this->hostcharset ? $this->hostcharset : "UTF-8");
-		$arrayofemail = array();
+		$arrayofemail = [];
 
 		if (getDolGlobalString('MAIN_IMAP_USE_PHPIMAP') && is_object($client)) {
 			try {
@@ -1714,7 +1714,7 @@ class EmailCollector extends CommonObject
 			}
 		}
 
-		$arrayofemailtodelete = array();	// Track email to delete to make the deletion at end.
+		$arrayofemailtodelete = [];	// Track email to delete to make the deletion at end.
 
 		// Loop on each email found
 		if (!$error && !empty($arrayofemail) && count($arrayofemail) > 0 && $connection !== false) {
@@ -1736,7 +1736,7 @@ class EmailCollector extends CommonObject
 			 */
 			dol_syslog("Start of loop on email", LOG_INFO, 1);
 
-			$richarrayofemail = array();
+			$richarrayofemail = [];
 
 			foreach ($arrayofemail as $imapemail) {
 				if ($nbemailprocessed > 1000) {
@@ -1755,7 +1755,7 @@ class EmailCollector extends CommonObject
 
 				$header = preg_replace('/\r\n\s+/m', ' ', $header); // When a header line is on several lines, merge lines
 
-				$matches = array();
+				$matches = [];
 				preg_match_all('/([^: ]+): (.+?(?:\r\n\s(?:.+?))*)(\r\n|\s$)/m', $header, $matches);
 				$headers = array_combine($matches[1], $matches[2]);
 
@@ -1820,7 +1820,7 @@ class EmailCollector extends CommonObject
 
 				$trackidfoundintorecipienttype = '';
 				$trackidfoundintorecipientid = 0;
-				$reg = array();
+				$reg = [];
 				// See also later list of all supported tags...
 				// Note: "th[i]" to avoid matching a codespell suggestion to convert to "this".
 				// TODO Add host after the @'.preg_quote($host, '/')
@@ -1834,7 +1834,7 @@ class EmailCollector extends CommonObject
 
 				$trackidfoundintomsgidtype = '';
 				$trackidfoundintomsgidid = 0;
-				$reg = array();
+				$reg = [];
 				// See also later list of all supported tags...
 				// Note: "th[i]" to avoid matching a codespell suggestion to convert to "this".
 				// TODO Add host after the @
@@ -2109,7 +2109,7 @@ class EmailCollector extends CommonObject
 					}
 				}
 
-				$reg = array();
+				$reg = [];
 				if (preg_match('/^(.*)<(.*)>$/', $fromstring, $reg)) {
 					$from = $reg[2];
 					$fromtext = $reg[1];
@@ -2144,8 +2144,8 @@ class EmailCollector extends CommonObject
 				$objectid = 0;
 				$objectemail = null;
 
-				$reg = array();
-				$arrayofreferences = array();
+				$reg = [];
+				$arrayofreferences = [];
 				if (!empty($headers['References'])) {
 					$arrayofreferences = preg_split('/(,|\s+)/', $headers['References']);
 				}
@@ -2551,7 +2551,7 @@ class EmailCollector extends CommonObject
 									$sourcestring = '';
 									$sourcefield = '';
 									$regexstring = '';
-									$regforregex = array();
+									$regforregex = [];
 
 									if (preg_match('/^EXTRACT:([a-zA-Z0-9_]+):(.*)$/', $valueforproperty, $regforregex)) {
 										$sourcefield = $regforregex[1];
@@ -2568,7 +2568,7 @@ class EmailCollector extends CommonObject
 										}
 
 										if ($sourcestring) {
-											$regforval = array();
+											$regforval = [];
 											//var_dump($regexstring);var_dump($sourcestring);
 											if (preg_match('/'.$regexstring.'/ms', $sourcestring, $regforval)) {
 												//var_dump($regforval[count($regforval)-1]);exit;
@@ -2902,7 +2902,7 @@ class EmailCollector extends CommonObject
 								$actioncomm->percentage  = -1; // Not applicable
 								$actioncomm->socid       = $thirdpartystatic->id;
 								$actioncomm->contact_id = $contactstatic->id;
-								$actioncomm->socpeopleassigned = (!empty($contactstatic->id) ? array($contactstatic->id) : array());
+								$actioncomm->socpeopleassigned = (!empty($contactstatic->id) ? array($contactstatic->id) : []);
 								$actioncomm->authorid    = $user->id; // User saving action
 								$actioncomm->userownerid = $user->id; // Owner of action
 								// Fields when action is an email (content should be added into note)
@@ -3102,7 +3102,7 @@ class EmailCollector extends CommonObject
 									$arrayobject = $hookManager->resArray;
 								}
 
-								$resultobj = array();
+								$resultobj = [];
 
 								foreach ($arrayobject as $key => $objectdesc) {
 									$sql = 'SELECT DISTINCT t.rowid ';
@@ -3120,7 +3120,7 @@ class EmailCollector extends CommonObject
 										}
 									}
 								}
-								$dirs = array();
+								$dirs = [];
 								foreach ($resultobj as $mod => $ids) {
 									$moddesc = $arrayobject[$mod];
 									$elementpath = $mod;
@@ -3771,7 +3771,7 @@ class EmailCollector extends CommonObject
 		// output all the following:
 		global $charset, $htmlmsg, $plainmsg, $attachments;
 		$htmlmsg = $plainmsg = $charset = '';
-		$attachments = array();
+		$attachments = [];
 
 		// HEADER
 		//$h = imap_header($mbox,$mid);
@@ -3836,7 +3836,7 @@ class EmailCollector extends CommonObject
 
 		// PARAMETERS
 		// get all parameters, like charset, filenames of attachments, etc.
-		$params = array();
+		$params = [];
 		if ($p->parameters) {
 			foreach ($p->parameters as $x) {
 				$params[strtolower($x->attribute)] = $x->value;

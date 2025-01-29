@@ -209,7 +209,7 @@ print '<div class="clearboth"></div>';
 
 $showpromotemessage = 1;
 if ($showpromotemessage) {
-	$tmp = versiondolibarrarray();
+	$tmp = versiondolibarr[];
 	if (is_numeric($tmp[2])) {    // Not alpha, beta or rc
 		print '<br>';
 		print '<br>';

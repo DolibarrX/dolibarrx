@@ -126,7 +126,7 @@ if (function_exists('curl_init')) {
 			$i = 0;
 			while (!empty($sfurl->channel[0]->item[$i]->title) && $i < 10000) {
 				$title = $sfurl->channel[0]->item[$i]->title;
-				$reg = array();
+				$reg = [];
 				if (preg_match('/([0-9]+\.([0-9\.]+))/', $title, $reg)) {
 					$newversion = $reg[1];
 					$newversionarray = explode('.', $newversion);

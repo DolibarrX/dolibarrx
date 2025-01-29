@@ -178,7 +178,7 @@ if (empty($resHook)) {
 		$search_label = '';
 		$search_number = '';
 		$search_status = '';
-		$search_category_list = array();
+		$search_category_list = [];
 	}
 
 	// Mass actions
@@ -198,7 +198,7 @@ $title = $langs->trans('BankAccounts');
 $help_url = 'EN:Module_Banks_and_Cash|FR:Module_Banks_et_Caisses|ES:M&oacute;dulo_Bancos_y_Cajas';
 
 // Load array of financial accounts (opened by default)
-$accounts = array();
+$accounts = [];
 
 
 // Build and execute select
@@ -211,7 +211,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -242,7 +242,7 @@ if ($search_number != '') {
 $searchCategoryBankList = $search_category_list;
 $searchCategoryBankOperator = 0;
 if (!empty($searchCategoryBankList)) {
-	$searchCategoryBankSqlList = array();
+	$searchCategoryBankSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryBankList as $searchCategoryBank) {
 		if (intval($searchCategoryBank) == -2) {
@@ -271,7 +271,7 @@ if (!empty($searchCategoryBankList)) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -321,7 +321,7 @@ if ($resql) {
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'bodyforlist');
 
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -370,7 +370,7 @@ if (isModEnabled('category') && $user->hasRight('bank', 'modifier')) {
 	$arrayofmassactions['preaffecttag'] = img_picture('', 'category', 'class="picturefixedwidth"').$langs->trans("AffectTag");
 }
 if (in_array($massaction, array('presend', 'predelete','preaffecttag'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -418,7 +418,7 @@ if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 }
 
 // Bank accounts
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -533,7 +533,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -611,10 +611,10 @@ print '</tr>'."\n";
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $totalarray['val'] = array('balance' => 0);
-$total = array();
+$total = [];
 $found = 0;
 $lastcurrencycode = '';
 $imaxinloop = ($limit ? min($num, $limit) : $num);

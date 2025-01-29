@@ -224,7 +224,7 @@ if ($user->hasRight('member', 'cotisation', 'creer') && $action == 'edit') {
 	print '<tr>';
 	print '<td>'.$langs->trans("Type").'</td>';
 	print '<td class="valeur">';
-	print $form->selectarray("typeid", $adht->liste_array(), (GETPOSTISSET("typeid") ? GETPOST("typeid") : $object->fk_type));
+	print $form->selectarray("typeid", $adht->liste_[], (GETPOSTISSET("typeid") ? GETPOST("typeid") : $object->fk_type));
 	print'</td></tr>';
 
 	// Date start subscription
@@ -290,7 +290,7 @@ if ($rowid && $action != 'edit') {
 
 	// Confirmation to delete subscription
 	if ($action == 'delete') {
-		$formquestion=array();
+		$formquestion=[];
 		//$formquestion['text']='<b>'.$langs->trans("ThisWillAlsoDeleteBankRecord").'</b>';
 		$text = $langs->trans("ConfirmDeleteSubscription");
 		if (isModEnabled("bank") && getDolGlobalString('ADHERENT_BANK_USE')) {

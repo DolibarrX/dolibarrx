@@ -153,7 +153,7 @@ if ($object->id > 0) {
 	print dol_get_fiche_head($head, 'rights', $title, -1, 'group');
 
 	// Charge les modules soumis a permissions
-	$modules = array();
+	$modules = [];
 	$modulesdir = dolGetModulesDirs();
 
 	$db->begin();
@@ -189,7 +189,7 @@ if ($object->id > 0) {
 	$db->commit();
 
 	// Read permissions of group
-	$permsgroupbyentity = array();
+	$permsgroupbyentity = [];
 
 	$sql = "SELECT DISTINCT r.id, r.libelle, r.module, gr.entity";
 	$sql .= " FROM ".MAIN_DB_PREFIX."rights_def as r,";
@@ -206,7 +206,7 @@ if ($object->id > 0) {
 		while ($i < $num) {
 			$obj = $db->fetch_object($result);
 			if (!isset($permsgroupbyentity[$obj->entity])) {
-				$permsgroupbyentity[$obj->entity] = array();
+				$permsgroupbyentity[$obj->entity] = [];
 			}
 			array_push($permsgroupbyentity[$obj->entity], $obj->id);
 			$i++;
@@ -268,7 +268,7 @@ if ($object->id > 0) {
 		print info_admin($langs->trans("WarningOnlyPermissionOfActivatedModules"));
 	}
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('insertExtraHeader', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -555,7 +555,7 @@ if ($object->id > 0) {
 	print '</style>';
 	print '</div>';
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('insertExtraFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');

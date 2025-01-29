@@ -59,7 +59,7 @@ $hookManager->initHooks(array('adminldap', 'globaladmin'));
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -180,19 +180,19 @@ if (isModEnabled('societe')) {
 // Synchro member active
 if (isModEnabled('member')) {
 	print '<tr class="oddeven"><td>' . $langs->trans("LDAPDnMemberActive") . '</td><td>';
-	print $formldap->selectLdapDnSynchroActive(getDolGlobalInt('LDAP_MEMBER_ACTIVE'), 'activemembers', array(), 2);
+	print $formldap->selectLdapDnSynchroActive(getDolGlobalInt('LDAP_MEMBER_ACTIVE'), 'activemembers', [], 2);
 	print '</td><td><span class="opacitymedium">' . $langs->trans("LDAPDnMemberActiveExample") . '</span></td></tr>';
 }
 
 // Synchro member type active
 if (isModEnabled('member')) {
 	print '<tr class="oddeven"><td>' . $langs->trans("LDAPDnMemberTypeActive") . '</td><td>';
-	print $formldap->selectLdapDnSynchroActive(getDolGlobalInt('LDAP_MEMBER_TYPE_ACTIVE'), 'activememberstypes', array(), 2);
+	print $formldap->selectLdapDnSynchroActive(getDolGlobalInt('LDAP_MEMBER_TYPE_ACTIVE'), 'activememberstypes', [], 2);
 	print '</td><td><span class="opacitymedium">' . $langs->trans("LDAPDnMemberTypeActiveExample") . '</span></td></tr>';
 }
 
 // Fields from hook
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('addAdminLdapOptions', $parameters); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 

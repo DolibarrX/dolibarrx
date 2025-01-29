@@ -87,7 +87,7 @@ if ($action == 'getConnexionToken') {
 		\Stripe\Stripe::setApiKey($stripearrayofkeysbyenv[$servicestatus]['secret_key']);
 		// The ConnectionToken's secret let's you connect to any Stripe Terminal reader
 		// and take payments with your Stripe account.
-		$array = array();
+		$array = [];
 		if (isset($location) && !empty($location)) {
 			$array['location'] = $location;
 		}

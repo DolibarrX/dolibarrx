@@ -87,7 +87,7 @@ $error = 0;
  */
 
 
-$parameters = array();
+$parameters = [];
 // Note that $action and $object may be modified by some hooks
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($resHook < 0) {
@@ -187,7 +187,7 @@ if ($action == 'create') {
 		print '<input type="hidden" name="backtopageforcancel" value="' . $backtopageforcancel . '">';
 	}
 
-	print dol_get_fiche_head(array(), '');
+	print dol_get_fiche_head([], '');
 
 	print '<table class="border centpercent tableforfieldcreate">' . "\n";
 
@@ -308,7 +308,7 @@ if ($action == 'create') {
 	// Buttons for actions
 	if ($action != 'editline') {
 		print '<div class="tabsAction">' . "\n";
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);    // Note that $action and $object may have been modified by hook
 		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');

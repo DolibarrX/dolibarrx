@@ -68,7 +68,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 
 // Initialize array of search criteria
 $search_all = GETPOST("search_all", 'alpha');
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha')) {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -119,7 +119,7 @@ if (!$permissiontoread) {
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -224,7 +224,7 @@ $arrayofjs = array(
 	//'/includes/ace/src/ext-chromevox.js'
 	//'/includes/jquery/plugins/jqueryscoped/jquery.scoped.js',
 );
-$arrayofcss = array();
+$arrayofcss = [];
 
 $title = $langs->trans("Target");
 $help_url = '';
@@ -249,7 +249,7 @@ if ($action == 'create') {
 		print '<input type="hidden" name="backtopageforcancel" value="'.$backtopageforcancel.'">';
 	}
 
-	print dol_get_fiche_head(array(), '');
+	print dol_get_fiche_head([], '');
 
 
 	print '<table class="border centpercent tableforfieldcreate">'."\n";
@@ -326,7 +326,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Clone confirmation
 	if ($action == 'clone') {
 		// Create an array for form
-		$formquestion = array();
+		$formquestion = [];
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('ToClone'), $langs->trans('ConfirmCloneAsk', $object->ref), 'confirm_clone', $formquestion, 'yes', 1);
 	}
 
@@ -341,7 +341,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			$text .= $notify->confirmMessage('TARGET_CLOSE', $object->socid, $object);
 		}*/
 
-		$formquestion = array();
+		$formquestion = [];
 		/*
 		$forcecombo=0;
 		if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
@@ -471,7 +471,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			if ($action != 'editline') {
 				// Add products/services form
 
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -495,7 +495,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	if ($action != 'presend' && $action != 'editline') {
 		print '<div class="tabsAction">'."\n";
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -551,7 +551,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 if ($action == "test") {
 	print '<div id="formtesttarget" name="formtesttarget"></div>';
 	print load_fiche_titre($langs->trans("TestWebhookTarget"));
-	print dol_get_fiche_head(array(), '', '', -1);
+	print dol_get_fiche_head([], '', '', -1);
 
 	print "\n".'<!-- Begin form test target --><div id="targettestform"></div>'."\n";
 	print '<form method="POST" name="testtargetform" id="testtargetform" enctype="multipart/form-data" action="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'">';

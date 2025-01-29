@@ -543,7 +543,7 @@ class Cronjob extends CommonObject
 	 */
 	public function fetchAll(string $sortorder = 'DESC', string $sortfield = 't.rowid', int $limit = 0, int $offset = 0, int $status = 1, $filter = '', int $processing = -1)
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$sql = "SELECT";
 		$sql .= " t.rowid,";
@@ -1320,7 +1320,7 @@ class Cronjob extends CommonObject
 					$object->entity = $this->entity; // We work on a dedicated entity
 				}
 
-				$params_arr = array();
+				$params_arr = [];
 				if (!empty($this->params) || $this->params === '0') {
 					$params_arr = array_map('trim', explode(",", $this->params));
 				}
@@ -1559,8 +1559,8 @@ class Cronjob extends CommonObject
 	public function LibStatut(int $status, int $mode = 0, int $processing = 0, string $lastResult = '')
 	{
 		// phpcs:enable
-		$this->labelStatus = array(); // Force reset o array because label depends on other fields
-		$this->labelStatusShort = array();
+		$this->labelStatus = []; // Force reset o array because label depends on other fields
+		$this->labelStatusShort = [];
 
 		if (empty($this->labelStatus) || empty($this->labelStatusShort)) {
 			global $langs;

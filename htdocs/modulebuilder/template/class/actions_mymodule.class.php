@@ -44,13 +44,13 @@ class ActionsMyModule extends CommonHookActions
 	/**
 	 * @var string[] Errors
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
 	 * @var mixed[] Hook results. Propagated to $hookManager->resArray for later reuse
 	 */
-	public $results = array();
+	public $results = [];
 
 	/**
 	 * @var ?string String displayed by executeHook() immediately after return
@@ -211,7 +211,7 @@ class ActionsMyModule extends CommonHookActions
 		$outputlangs = $langs;
 
 		$ret = 0;
-		$deltemp = array();
+		$deltemp = [];
 		dol_syslog(get_class($this).'::executeHooks action='.$action);
 
 		/* print_r($parameters); print_r($object); echo "action: " . $action; */
@@ -240,7 +240,7 @@ class ActionsMyModule extends CommonHookActions
 		$outputlangs = $langs;
 
 		$ret = 0;
-		$deltemp = array();
+		$deltemp = [];
 		dol_syslog(get_class($this).'::executeHooks action='.$action);
 
 		/* print_r($parameters); print_r($object); echo "action: " . $action; */
@@ -268,9 +268,9 @@ class ActionsMyModule extends CommonHookActions
 
 		$langs->load("mymodule@mymodule");
 
-		$this->results = array();
+		$this->results = [];
 
-		$head = array();
+		$head = [];
 		$h = 0;
 
 		if ($parameters['tabfamily'] == 'mymodule') {
@@ -289,7 +289,7 @@ class ActionsMyModule extends CommonHookActions
 
 		$this->results['head'] = $head;
 
-		$arrayoftypes = array();
+		$arrayoftypes = [];
 		//$arrayoftypes['mymodule_myobject'] = array('label' => 'MyObject', 'picture'=>'myobject@mymodule', 'ObjectClassName' => 'MyObject', 'enabled' => isModEnabled('mymodule'), 'ClassPath' => "/mymodule/class/myobject.class.php", 'langs'=>'mymodule@mymodule')
 
 		$this->results['arrayoftype'] = $arrayoftypes;

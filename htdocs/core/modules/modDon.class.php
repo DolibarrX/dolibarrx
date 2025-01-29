@@ -60,8 +60,8 @@ class modDon extends DolibarrModules
 		$this->dirs = array("/don/temp");
 
 		// Dependencies
-		$this->depends = array();
-		$this->requiredby = array();
+		$this->depends = [];
+		$this->requiredby = [];
 
 		// Config pages
 		$this->config_page_url = array("donation.php@don");
@@ -113,10 +113,10 @@ class modDon extends DolibarrModules
 		];
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'don';
 
 		$this->rights[1][0] = 701;

@@ -38,7 +38,7 @@ function intracommreportAdminPrepareHead()
 	$langs->load("intracommreport");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath("/intracommreport/admin/setup.php", 1);
 	$head[$h][1] = $langs->trans("Settings");
@@ -90,7 +90,7 @@ function intracommreportPrepareHead($object)
 	$showtabofpageagenda = 0;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath("/intracommreport/card.php", 1).'?id='.$object->id;
 	$head[$h][1] = $langs->trans("IntraCommReport");

@@ -112,7 +112,7 @@ $linkback .= '<span class="hideonsmartphone">'.$langs->trans("ViewPerUser").'</s
 $linkback .= '</a>';
 
 // Add more views from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
 if (empty($resHook)) {
 	$linkback .= $hookManager->resPrint;

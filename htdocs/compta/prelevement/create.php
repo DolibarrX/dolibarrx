@@ -216,12 +216,12 @@ if ($type != 'bank-transfer') {
 	$invoicestatic = new FactureFournisseur($db);
 }
 $bprev = new BonPrelevement($db);
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 // List of mass actions available
 $arrayofmassactions = array(
 );
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 

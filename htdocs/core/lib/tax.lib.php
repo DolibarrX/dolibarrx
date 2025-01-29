@@ -42,7 +42,7 @@ function tax_prepare_head(ChargeSociales $object)
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/compta/sociales/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('SocialContribution');
@@ -120,7 +120,7 @@ function tax_by_thirdparty($type, $db, $y, $date_start, $date_end, $modetax, $di
 		dol_print_error(null, 'Bad value of input parameter for tax_by_thirdparty');
 	}
 
-	$list = array();
+	$list = [];
 	if ($direction == 'sell') {
 		$invoicetable = 'facture';
 		$invoicedettable = 'facturedet';
@@ -715,7 +715,7 @@ function tax_by_rate($type, $db, $y, $q, $date_start, $date_end, $modetax, $dire
 		dol_print_error(null, 'Bad value of input parameter for tax_by_rate');
 	}
 
-	$list = array();
+	$list = [];
 
 	if ($direction == 'sell') {
 		$invoicetable = 'facture';

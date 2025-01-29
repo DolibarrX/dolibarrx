@@ -74,7 +74,7 @@ class Comment extends CommonObject
 	 */
 	public $import_key;
 
-	public $comments = array();
+	public $comments = [];
 
 
 	/**
@@ -350,7 +350,7 @@ class Comment extends CommonObject
 	{
 		global $db, $config;
 
-		$this->comments = array();
+		$this->comments = [];
 
 		if (!empty($element_type) && !empty($fk_element)) {
 			$sql = "SELECT";

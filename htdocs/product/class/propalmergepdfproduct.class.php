@@ -75,7 +75,7 @@ class Propalmergepdfproduct extends CommonObject
 	/**
 	 * @var PropalmergepdfproductLine[]
 	 */
-	public $lines = array();
+	public $lines = [];
 
 
 	/**

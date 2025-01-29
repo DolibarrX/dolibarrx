@@ -34,7 +34,7 @@ function expensereport_prepare_head($object)
 	global $db, $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/expensereport/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("ExpenseReport");
@@ -101,7 +101,7 @@ function payment_expensereport_prepare_head(PaymentExpenseReport $object)
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/expensereport/payment/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("ExpenseReportPayment");
@@ -137,7 +137,7 @@ function expensereport_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('expensereport');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/expensereport.php";
 	$head[$h][1] = $langs->trans("ExpenseReports");

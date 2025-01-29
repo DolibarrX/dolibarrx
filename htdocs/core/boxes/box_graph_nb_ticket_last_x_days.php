@@ -64,7 +64,7 @@ class box_graph_nb_ticket_last_x_days extends ModeleBoxes
 	public function loadBox($max = 5)
 	{
 		global $config, $user, $langs;
-		$dataseries = array();
+		$dataseries = [];
 		$graphtoshow = "";
 
 		$badgeStatus0 = '#cbd3d3'; // draft
@@ -161,7 +161,7 @@ class box_graph_nb_ticket_last_x_days extends ModeleBoxes
 			$mesg = $px1->isGraphKo();
 			$totalnb = 0;
 			if (!$mesg) {
-				$data = array();
+				$data = [];
 				foreach ($dataseries as $value) {
 					$data[] = array($value['label'], $value['data']);
 					$totalnb += $value['data'];

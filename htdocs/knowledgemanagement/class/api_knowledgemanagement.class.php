@@ -137,7 +137,7 @@ class KnowledgeManagement extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $category = 0, $sqlfilters = '', $properties = '', $pagination_data = false)
 	{
-		$obj_ret = array();
+		$obj_ret = [];
 		$tmpobject = new KnowledgeRecord($this->db);
 
 		if (!DolibarrApiAccess::$user->hasRight('knowledgemanagement', 'knowledgerecord', 'read')) {
@@ -441,7 +441,7 @@ class KnowledgeManagement extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$knowledgerecord = array();
+		$knowledgerecord = [];
 		foreach ($this->knowledgerecord->fields as $field => $propfield) {
 			if (in_array($field, array('rowid', 'entity', 'date_creation', 'tms', 'fk_user_creat')) || $propfield['notnull'] != 1) {
 				continue; // Not a mandatory field

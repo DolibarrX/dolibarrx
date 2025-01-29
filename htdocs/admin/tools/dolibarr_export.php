@@ -496,7 +496,7 @@ print '<br>';
 print '<br>';
 
 // Define compressions array
-$compression = array();
+$compression = [];
 if (in_array($type, array('mysql', 'mysqli'))) {
 	$compression['gz'] = array(
 		'function' => 'gzopen',

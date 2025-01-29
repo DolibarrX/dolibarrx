@@ -34,7 +34,7 @@ class mailing_xinputuser extends MailingTargets
 	public $name = 'EmailsFromUser'; // Identifiant du module mailing
 	// This label is used if no translation is found for key XXX neither MailingModuleDescXXX where XXX=name is found
 	public $desc = 'EMails input by user'; // Libelle utilise si aucune traduction pour MailingModuleDescXXX ou XXX=name trouv�e
-	public $require_module = array(); // Module mailing actif si modules require_module actifs
+	public $require_module = []; // Module mailing actif si modules require_module actifs
 	public $require_admin = 0; // Module mailing actif pour user admin ou non
 
 	/**
@@ -68,7 +68,7 @@ class mailing_xinputuser extends MailingTargets
 		global $langs;
 		$langs->load("users");
 
-		$statssql = array();
+		$statssql = [];
 		return $statssql;
 	}
 
@@ -134,7 +134,7 @@ class mailing_xinputuser extends MailingTargets
 		$firstname = empty($tmparray[2]) ? '' : $tmparray[2];
 		$other = empty($tmparray[3]) ? '' : $tmparray[3];
 
-		$cibles = array();
+		$cibles = [];
 		if (!empty($email)) {
 			if (isValidEmail($email)) {
 				$cibles[] = array(

@@ -121,7 +121,7 @@ if (!$sortorder) {
 
 // Initialize array of search criteria
 $search_all = GETPOST('search_all', 'alphanohtml');
-$search = array();
+$search = [];
 foreach ($all_fields_list as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha') !== '') {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -138,7 +138,7 @@ if ($filter) {
 }
 
 // List of fields to search into when doing a "search in all"
-$fieldstosearchall = array();
+$fieldstosearchall = [];
 foreach ($non_object_fields as $key => $val) {
 	if (!empty($val['searchall'])) {
 		$fieldstosearchall['t.'.$key] = $val['label'];
@@ -146,7 +146,7 @@ foreach ($non_object_fields as $key => $val) {
 }
 
 // Definition of array of fields for columns
-$arrayfields = array();
+$arrayfields = [];
 foreach ($all_fields_list as $key => $val) {
 	// If $val['visible']==0, then we never show the field
 	if (!empty($val['visible'])) {
@@ -201,7 +201,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -220,8 +220,8 @@ if (empty($resHook)) {
 				$search[$key.'_dtend'] = '';
 			}
 		}
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
@@ -321,8 +321,8 @@ $now = dol_now();
 //$help_url="EN:Module_Partnership|FR:Module_Partnership_FR|ES:Módulo_Partnership";
 $help_url = '';
 $title = $langs->trans("Partnerships");
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 
 // Build and execute select
@@ -339,7 +339,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -357,7 +357,7 @@ if ($managedfor == 'member') {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as d on (d.rowid = t.fk_soc)";
 }
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 if ($object->ismultientitymanaged == 1) {
@@ -439,7 +439,7 @@ if ($search_all) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -455,7 +455,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add where from hooks
-$parameters=array();
+$parameters=[];
 $resHook=$hookManager->executeHooks('printFieldListGroupBy',$parameters, $object, $action);    // Note that $action and $object may have been modified by hook
 $sql.=$hookManager->resPrint;
 $sql=preg_replace('/,\s*$/','', $sql);
@@ -617,7 +617,7 @@ if ($managedfor == "member") {
 	}
 }
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -676,7 +676,7 @@ if ($permissiontodelete) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('prevalidate', 'presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -731,7 +731,7 @@ $moreforfilter = '';
 $moreforfilter.= $langs->trans('MyFilter') . ': <input type="text" name="search_myfield" value="'.dol_escape_htmltag($search_myfield).'">';
 $moreforfilter.= '</div>';*/
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -796,7 +796,7 @@ foreach ($all_fields_list as $key => $val) {
 		} elseif ($key == 'lang') {
 			require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 			$formadmin = new FormAdmin($db);
-			print $formadmin->select_language($search[$key], 'search_lang', 0, array(), 1, 0, 0, 'minwidth100imp maxwidth125', 2);
+			print $formadmin->select_language($search[$key], 'search_lang', 0, [], 1, 0, 0, 'minwidth100imp maxwidth125', 2);
 		} elseif ($key == 'country') {
 			print $form->select_country(in_array($key, $search) ? $search[$key] : 0, 'search_country', '', 0, 'minwidth100imp maxwidth100');
 		} else {
@@ -828,7 +828,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -890,7 +890,7 @@ if (isset($extrafields->attributes[$object->table_element]['computed']) && is_ar
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 $textlate = '';
@@ -1016,7 +1016,7 @@ while ($i < $imaxinloop) {
 						$totalarray['pos'][$totalarray['nbfield']] = 't.'.$key;
 					}
 					if (!isset($totalarray['val'])) {
-						$totalarray['val'] = array();
+						$totalarray['val'] = [];
 					}
 					if (!isset($totalarray['val']['t.'.$key])) {
 						$totalarray['val']['t.'.$key] = 0;

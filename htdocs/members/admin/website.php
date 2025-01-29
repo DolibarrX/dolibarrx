@@ -230,14 +230,14 @@ if (getDolGlobalString('MEMBER_ENABLE_PUBLIC')) {
 	print '<tr class="oddeven drag" id="trforcetype"><td>';
 	print $langs->trans("ForceMemberType");
 	print '</td><td>';
-	$listofval = array();
+	$listofval = [];
 	$listofval += $adht->liste_array(1);
 	$forcetype = getDolGlobalInt('MEMBER_NEWFORM_FORCETYPE', -1);
 	print $form->selectarray("MEMBER_NEWFORM_FORCETYPE", $listofval, $forcetype, count($listofval) > 1 ? 1 : 0);
 	print "</td></tr>\n";
 
 	// Force nature of member (mor/phy)
-	$morphys = array();
+	$morphys = [];
 	$morphys["phy"] = $langs->trans("Physical");
 	$morphys["mor"] = $langs->trans("Moral");
 	print '<tr class="oddeven drag" id="trforcenature"><td>';
@@ -288,7 +288,7 @@ if (getDolGlobalString('MEMBER_ENABLE_PUBLIC')) {
 	print '<tr class="oddeven" id="trpayment"><td>';
 	print $langs->trans("MEMBER_NEWFORM_PAYONLINE");
 	print '</td><td>';
-	$listofval = array();
+	$listofval = [];
 	$listofval['-1'] = $langs->trans('No');
 	$listofval['all'] = $langs->trans('Yes').' ('.$langs->trans("VisitorCanChooseItsPaymentMode").')';
 	if (isModEnabled('paybox')) {

@@ -58,11 +58,11 @@ class modDebugBar extends DolibarrModules
 		$this->module_parts = array('moduleforexternal' => 0);
 
 		// Data directories to create when module is enabled
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Dependencies
-		$this->depends = array(); // May be used for product or service or third party module
-		$this->requiredby = array();
+		$this->depends = []; // May be used for product or service or third party module
+		$this->requiredby = [];
 
 		// Config pages
 		$this->config_page_url = array("debugbar.php");
@@ -70,13 +70,13 @@ class modDebugBar extends DolibarrModules
 		// Constants
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
 		//							  1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
-		$this->const = array();
+		$this->const = [];
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 
 		$this->rights[1][0] = 431; // id de la permission
 		$this->rights[1][1] = 'Use Debug Bar'; // libelle de la permission

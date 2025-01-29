@@ -190,7 +190,7 @@ class KnowledgeRecord extends CommonObject
 	// /**
 	//  * @var array	List of child tables. To test if we can delete object.
 	//  */
-	// protected $childtables = array();
+	// protected $childtables = [];
 
 	// /**
 	//  * @var array    List of child tables. To know object to delete on cascade.
@@ -202,7 +202,7 @@ class KnowledgeRecord extends CommonObject
 	// /**
 	//  * @var KnowledgeRecordLine[]     Array of subtable lines
 	//  */
-	// public $lines = array();
+	// public $lines = [];
 
 
 
@@ -383,7 +383,7 @@ class KnowledgeRecord extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -405,7 +405,7 @@ class KnowledgeRecord extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList('t');
@@ -418,7 +418,7 @@ class KnowledgeRecord extends CommonObject
 
 		// Manage filter
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.rowid') {
@@ -768,7 +768,7 @@ class KnowledgeRecord extends CommonObject
 
 		$langs->loadLangs(['knowledgemanagement', 'languages']);
 
-		$datas = array();
+		$datas = [];
 		$nofetch = !empty($params['nofetch']);
 
 		$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("KnowledgeRecord").'</u>';
@@ -1008,7 +1008,7 @@ class KnowledgeRecord extends CommonObject
 	 */
 	public function getLinesArray()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectline = new KnowledgeRecordLine($this->db);
 		$result = $objectline->fetchAll('ASC', 'position', 0, 0, '(fk_knowledgerecord:=:'.((int) $this->id).')');

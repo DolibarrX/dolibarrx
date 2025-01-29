@@ -87,7 +87,7 @@ $accountstatic = new Account($db);
 // Example: BANK_PAYMENT_MODES_FOR_DEPOSIT_MANAGEMENT = 'CHQ','TRA'
 $arrayofpaymentmodetomanage = explode(',', getDolGlobalString('BANK_PAYMENT_MODES_FOR_DEPOSIT_MANAGEMENT', 'CHQ'));
 
-$arrayoflabels = array();
+$arrayoflabels = [];
 foreach ($arrayofpaymentmodetomanage as $key => $val) {
 	$labelval = ($langs->trans("PaymentType".$val) != "PaymentType".$val ? $langs->trans("PaymentType".$val) : $val);
 	$arrayoflabels[$key] = $labelval;
@@ -117,7 +117,7 @@ $result = restrictedArea($user, 'bank', '', '');
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -159,7 +159,7 @@ $sql .= " bc.nbcheque, bc.amount, bc.statut, bc.type,";
 $sql .= " ba.rowid as bid, ba.label";
 
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -188,7 +188,7 @@ if ($search_date_end) {
 }
 
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -370,7 +370,7 @@ if ($resql) {
 
 	print "</tr>\n";
 
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
 
 	// Fields title label
@@ -433,7 +433,7 @@ if ($resql) {
 		$savnbfield = 8;
 
 		$i = 0;
-		$totalarray = array();
+		$totalarray = [];
 		$totalarray['nbfield'] = 0;
 		$imaxinloop = ($limit ? min($num, $limit) : $num);
 		while ($i < $imaxinloop) {

@@ -102,7 +102,7 @@ if (isModEnabled('productbatch')) {
 
 $mesg = '';
 $error = 0;
-$errors = array();
+$errors = [];
 
 $refalreadyexists = 0;
 $formbarcode = null;
@@ -547,7 +547,7 @@ if (empty($resHook)) {
 			$localtax1_type = '0';
 			$localtax2_type = '0';
 			// If value contains the unique code of vat line (new recommended method), we use it to find npr and local taxes
-			$reg = array();
+			$reg = [];
 			if (preg_match('/\((.*)\)/', $tva_tx_txt, $reg)) {
 				// We look into database using code (we can't use get_localtax() because it depends on buyer that is not known). Same in update price.
 				$vatratecode = $reg[1];
@@ -1191,7 +1191,7 @@ if (empty($resHook)) {
 					'',
 					'',
 					'',
-					array(),
+					[],
 					$object->fk_unit
 				);
 				if ($result > 0) {
@@ -1232,7 +1232,7 @@ if (empty($resHook)) {
 					0,
 					$buyprice,
 					'',
-					array(),
+					[],
 					$object->fk_unit
 				);
 
@@ -1277,7 +1277,7 @@ if (empty($resHook)) {
 					0,
 					$buyprice,
 					'',
-					array(),
+					[],
 					100,
 					0,
 					$object->fk_unit
@@ -1432,7 +1432,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 		print dol_get_fiche_head();
 
 		// Call Hook tabContentCreateProduct
-		$parameters = array();
+		$parameters = [];
 		// Note that $action and $object may be modified by hook
 		$resHook = $hookManager->executeHooks('tabContentCreateProduct', $parameters, $object, $action);
 		if (empty($resHook)) {
@@ -1580,7 +1580,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				// Default warehouse
 				print '<tr><td>'.$langs->trans("DefaultWarehouse").'</td><td>';
 				print img_picture($langs->trans("DefaultWarehouse"), 'stock', 'class="picturefixedwidth"');
-				print $formproduct->selectWarehouses(GETPOSTINT('fk_default_warehouse'), 'fk_default_warehouse', 'warehouseopen', 1, 0, 0, '', 0, 0, array(), 'minwidth300 widthcentpercentminusxx maxwidth500');
+				print $formproduct->selectWarehouses(GETPOSTINT('fk_default_warehouse'), 'fk_default_warehouse', 'warehouseopen', 1, 0, 0, '', 0, 0, [], 'minwidth300 widthcentpercentminusxx maxwidth500');
 				print ' <a href="'.DOL_URL_ROOT.'/product/stock/card.php?action=create&token='.newToken().'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?&action=create&type='.GETPOSTINT('type')).'">';
 				print '<span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("AddWarehouse").'"></span>';
 				print '</a>';
@@ -1821,7 +1821,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					} else {
 						$accountancy_code_sell = (GETPOSTISSET('accountancy_code_sell') ? GETPOST('accountancy_code_sell', 'alpha') : getDolGlobalString("ACCOUNTING_SERVICE_SOLD_ACCOUNT"));
 					}
-					print $formaccounting->select_account($accountancy_code_sell, 'accountancy_code_sell', 1, array(), 1, 1, 'minwidth150 maxwidth300', 1);
+					print $formaccounting->select_account($accountancy_code_sell, 'accountancy_code_sell', 1, [], 1, 1, 'minwidth150 maxwidth300', 1);
 					print '</td></tr>';
 
 					// Accountancy_code_sell_intra
@@ -1833,7 +1833,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 						} else {
 							$accountancy_code_sell_intra = (GETPOSTISSET('accountancy_code_sell_intra') ? GETPOST('accountancy_code_sell_intra', 'alpha') : getDolGlobalString("ACCOUNTING_SERVICE_SOLD_INTRA_ACCOUNT"));
 						}
-						print $formaccounting->select_account($accountancy_code_sell_intra, 'accountancy_code_sell_intra', 1, array(), 1, 1, 'minwidth150 maxwidth300', 1);
+						print $formaccounting->select_account($accountancy_code_sell_intra, 'accountancy_code_sell_intra', 1, [], 1, 1, 'minwidth150 maxwidth300', 1);
 						print '</td></tr>';
 					}
 
@@ -1845,7 +1845,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					} else {
 						$accountancy_code_sell_export = (GETPOST('accountancy_code_sell_export') ? GETPOST('accountancy_code_sell_export', 'alpha') : getDolGlobalString("ACCOUNTING_SERVICE_SOLD_EXPORT_ACCOUNT"));
 					}
-					print $formaccounting->select_account($accountancy_code_sell_export, 'accountancy_code_sell_export', 1, array(), 1, 1, 'minwidth150 maxwidth300', 1);
+					print $formaccounting->select_account($accountancy_code_sell_export, 'accountancy_code_sell_export', 1, [], 1, 1, 'minwidth150 maxwidth300', 1);
 					print '</td></tr>';
 
 					// Accountancy_code_buy
@@ -1856,7 +1856,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					} else {
 						$accountancy_code_buy = (GETPOST('accountancy_code_buy', 'alpha') ? (GETPOST('accountancy_code_buy', 'alpha')) : getDolGlobalString("ACCOUNTING_SERVICE_BUY_ACCOUNT"));
 					}
-					print $formaccounting->select_account($accountancy_code_buy, 'accountancy_code_buy', 1, array(), 1, 1, 'minwidth150 maxwidth300', 1);
+					print $formaccounting->select_account($accountancy_code_buy, 'accountancy_code_buy', 1, [], 1, 1, 'minwidth150 maxwidth300', 1);
 					print '</td></tr>';
 
 					// Accountancy_code_buy_intra
@@ -1868,7 +1868,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 						} else {
 							$accountancy_code_buy_intra = (GETPOSTISSET('accountancy_code_buy_intra') ? GETPOST('accountancy_code_buy_intra', 'alpha') : getDolGlobalString("ACCOUNTING_SERVICE_BUY_INTRA_ACCOUNT"));
 						}
-						print $formaccounting->select_account($accountancy_code_buy_intra, 'accountancy_code_buy_intra', 1, array(), 1, 1, 'minwidth150 maxwidth300', 1);
+						print $formaccounting->select_account($accountancy_code_buy_intra, 'accountancy_code_buy_intra', 1, [], 1, 1, 'minwidth150 maxwidth300', 1);
 						print '</td></tr>';
 					}
 
@@ -1880,7 +1880,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					} else {
 						$accountancy_code_buy_export = (GETPOST('accountancy_code_buy_export') ? GETPOST('accountancy_code_buy_export', 'alpha') : getDolGlobalString("ACCOUNTING_SERVICE_BUY_EXPORT_ACCOUNT"));
 					}
-					print $formaccounting->select_account($accountancy_code_buy_export, 'accountancy_code_buy_export', 1, array(), 1, 1, 'minwidth150 maxwidth300', 1);
+					print $formaccounting->select_account($accountancy_code_buy_export, 'accountancy_code_buy_export', 1, [], 1, 1, 'minwidth150 maxwidth300', 1);
 					print '</td></tr>';
 				} else {// For external software
 					if (!empty($accountancy_code_sell)) {
@@ -1993,7 +1993,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			print dol_get_fiche_head($head, 'card', $titre, 0, $picture, 0, '', '', 0, '', 1);
 
 			// Call Hook tabContentEditProduct
-			$parameters = array();
+			$parameters = [];
 			// Note that $action and $object may be modified by hook
 			$resHook = $hookManager->executeHooks('tabContentEditProduct', $parameters, $object, $action);
 
@@ -2213,7 +2213,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					// Default warehouse
 					print '<tr><td>'.$langs->trans("DefaultWarehouse").'</td><td>';
 					print img_picture($langs->trans("DefaultWarehouse"), 'stock', 'class="picturefixedwidth"');
-					print $formproduct->selectWarehouses((GETPOSTISSET('fk_default_warehouse') ? GETPOST('fk_default_warehouse') : $object->fk_default_warehouse), 'fk_default_warehouse', 'warehouseopen', 1, 0, 0, '', 0, 0, array(), 'maxwidth500 widthcentpercentminusxx');
+					print $formproduct->selectWarehouses((GETPOSTISSET('fk_default_warehouse') ? GETPOST('fk_default_warehouse') : $object->fk_default_warehouse), 'fk_default_warehouse', 'warehouseopen', 1, 0, 0, '', 0, 0, [], 'maxwidth500 widthcentpercentminusxx');
 					print ' <a href="'.DOL_URL_ROOT.'/product/stock/card.php?action=create&amp;backtopage='.urlencode($_SERVER['PHP_SELF'].'?action=edit&id='.((int) $object->id)).'">';
 					print '<span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("AddWarehouse").'"></span></a>';
 					print '</td></tr>';
@@ -2378,7 +2378,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					$cate_arbo = $form->select_all_categories(Category::TYPE_PRODUCT, '', 'parent', 64, 0, 3);
 					$c = new Category($db);
 					$cats = $c->containing($object->id, Category::TYPE_PRODUCT);
-					$arrayselected = array();
+					$arrayselected = [];
 					if (is_array($cats)) {
 						foreach ($cats as $cat) {
 							$arrayselected[] = $cat->id;
@@ -2415,41 +2415,41 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 						// Accountancy_code_sell
 						print '<tr><td class="titlefieldcreate">'.$langs->trans("ProductAccountancySellCode").'</td>';
 						print '<td>';
-						print $formaccounting->select_account((GETPOSTISSET('accountancy_code_sell') ? GETPOST('accountancy_code_sell') : $object->accountancy_code_sell), 'accountancy_code_sell', 1, array(), 1, 1, 'minwidth150 maxwidth300');
+						print $formaccounting->select_account((GETPOSTISSET('accountancy_code_sell') ? GETPOST('accountancy_code_sell') : $object->accountancy_code_sell), 'accountancy_code_sell', 1, [], 1, 1, 'minwidth150 maxwidth300');
 						print '</td></tr>';
 
 						// Accountancy_code_sell_intra
 						if ($mysoc->isInEEC()) {
 							print '<tr><td class="titlefieldcreate">'.$langs->trans("ProductAccountancySellIntraCode").'</td>';
 							print '<td>';
-							print $formaccounting->select_account((GETPOSTISSET('accountancy_code_sell_intra') ? GETPOST('accountancy_code_sell_intra') : $object->accountancy_code_sell_intra), 'accountancy_code_sell_intra', 1, array(), 1, 1, 'minwidth150 maxwidth300');
+							print $formaccounting->select_account((GETPOSTISSET('accountancy_code_sell_intra') ? GETPOST('accountancy_code_sell_intra') : $object->accountancy_code_sell_intra), 'accountancy_code_sell_intra', 1, [], 1, 1, 'minwidth150 maxwidth300');
 							print '</td></tr>';
 						}
 
 						// Accountancy_code_sell_export
 						print '<tr><td class="titlefieldcreate">'.$langs->trans("ProductAccountancySellExportCode").'</td>';
 						print '<td>';
-						print $formaccounting->select_account((GETPOSTISSET('accountancy_code_sell_export') ? GETPOST('accountancy_code_sell_export') : $object->accountancy_code_sell_export), 'accountancy_code_sell_export', 1, array(), 1, 1, 'minwidth150 maxwidth300');
+						print $formaccounting->select_account((GETPOSTISSET('accountancy_code_sell_export') ? GETPOST('accountancy_code_sell_export') : $object->accountancy_code_sell_export), 'accountancy_code_sell_export', 1, [], 1, 1, 'minwidth150 maxwidth300');
 						print '</td></tr>';
 
 						// Accountancy_code_buy
 						print '<tr><td>'.$langs->trans("ProductAccountancyBuyCode").'</td>';
 						print '<td>';
-						print $formaccounting->select_account((GETPOSTISSET('accountancy_code_buy') ? GETPOST('accountancy_code_buy') : $object->accountancy_code_buy), 'accountancy_code_buy', 1, array(), 1, 1, 'minwidth150 maxwidth300');
+						print $formaccounting->select_account((GETPOSTISSET('accountancy_code_buy') ? GETPOST('accountancy_code_buy') : $object->accountancy_code_buy), 'accountancy_code_buy', 1, [], 1, 1, 'minwidth150 maxwidth300');
 						print '</td></tr>';
 
 						// Accountancy_code_buy_intra
 						if ($mysoc->isInEEC()) {
 							print '<tr><td class="titlefieldcreate">'.$langs->trans("ProductAccountancyBuyIntraCode").'</td>';
 							print '<td>';
-							print $formaccounting->select_account((GETPOSTISSET('accountancy_code_buy_intra') ? GETPOST('accountancy_code_buy_intra') : $object->accountancy_code_buy_intra), 'accountancy_code_buy_intra', 1, array(), 1, 1, 'minwidth150 maxwidth300');
+							print $formaccounting->select_account((GETPOSTISSET('accountancy_code_buy_intra') ? GETPOST('accountancy_code_buy_intra') : $object->accountancy_code_buy_intra), 'accountancy_code_buy_intra', 1, [], 1, 1, 'minwidth150 maxwidth300');
 							print '</td></tr>';
 						}
 
 						// Accountancy_code_buy_export
 						print '<tr><td class="titlefieldcreate">'.$langs->trans("ProductAccountancyBuyExportCode").'</td>';
 						print '<td>';
-						print $formaccounting->select_account((GETPOSTISSET('accountancy_code_buy_export') ? GETPOST('accountancy_code_buy_export') : $object->accountancy_code_buy_export), 'accountancy_code_buy_export', 1, array(), 1, 1, 'minwidth150 maxwidth300');
+						print $formaccounting->select_account((GETPOSTISSET('accountancy_code_buy_export') ? GETPOST('accountancy_code_buy_export') : $object->accountancy_code_buy_export), 'accountancy_code_buy_export', 1, [], 1, 1, 'minwidth150 maxwidth300');
 						print '</td></tr>';
 					} else {
 						// For external software
@@ -2521,7 +2521,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			dol_banner_tab($object, 'ref', $linkback, $shownav, 'ref');
 
 			// Call Hook tabContentViewProduct
-			$parameters = array();
+			$parameters = [];
 			// Note that $action and $object may be modified by hook
 			$resHook = $hookManager->executeHooks('tabContentViewProduct', $parameters, $object, $action);
 			if (empty($resHook)) {
@@ -2914,7 +2914,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				}
 
 				// Other attributes
-				$parameters = array();
+				$parameters = [];
 				include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_view.tpl.php';
 
 				// Categories
@@ -2963,7 +2963,7 @@ if ($action == 'merge') {
 			'name' => 'product_origin',
 			'label' => $langs->trans('MergeOriginProduct'),
 			'type' => 'other',
-			'value' => $form->select_produits(0, 'product_origin', '', 0, 0, 1, 2, '', 1, array(), 0, 1, 0, 'minwidth200', 0, '', null, 1),
+			'value' => $form->select_produits(0, 'product_origin', '', 0, 0, 1, 2, '', 1, [], 0, 1, 0, 'minwidth200', 0, '', null, 1),
 		)
 	);
 	$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"]."?id=".$object->id, $langs->trans("MergeProducts"), $langs->trans("ConfirmMergeProducts"), "confirm_merge", $formquestion, 'no', 1, 250);
@@ -3019,7 +3019,7 @@ if ($action != 'create' && $action != 'edit') {
 
 	print "\n".'<div class="tabsAction">'."\n";
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($resHook)) {
 		if ($usercancreate) {

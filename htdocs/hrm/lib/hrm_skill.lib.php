@@ -38,7 +38,7 @@ function skillPrepareHead($object)
 	$langs->load("hrm");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath("/hrm/skill_card.php", 1).'?id='.$object->id;
 	$head[$h][1] = $langs->trans("SkillCard");

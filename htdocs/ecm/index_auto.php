@@ -301,7 +301,7 @@ $maxheightwin = (isset($_SESSION["dol_screenheight"]) && $_SESSION["dol_screenhe
 $moreheadcss = '';
 $moreheadjs = '';
 
-//$morejs=array();
+//$morejs=[];
 $morejs = array('includes/jquery/plugins/blockUI/jquery.blockUI.js', 'core/js/blockUI.js'); // Used by ecm/tpl/enabledfiletreeajax.tpl.pgp
 if (!getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
 	$morejs[] = "includes/jquery/plugins/jqueryFileTree/jqueryFileTree.js";
@@ -316,7 +316,7 @@ llxHeader($moreheadcss.$moreheadjs, $langs->trans("ECMArea"), '', '', 0, 0, $mor
 
 // Add sections to manage
 $rowspan = 0;
-$sectionauto = array();
+$sectionauto = [];
 if (!getDolGlobalString('ECM_AUTO_TREE_HIDEN')) {
 	if (isModEnabled("product") || isModEnabled("service")) {
 		$langs->load("products");
@@ -409,7 +409,7 @@ if (!getDolGlobalString('ECM_AUTO_TREE_HIDEN')) {
 	$rowspan++;
 	$sectionauto[] = array('position' => 220, 'level' => 1, 'module' => 'user', 'test' => 1, 'label' => $langs->trans("Users"), 'desc' => $langs->trans("ECMDocsBy", $langs->transnoentitiesnoconv("Users")));
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
 	if ($resHook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
 		$sectionauto[] = $hookManager->resArray;

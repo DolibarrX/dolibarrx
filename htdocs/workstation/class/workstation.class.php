@@ -396,7 +396,7 @@ class Workstation extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -419,7 +419,7 @@ class Workstation extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList();
@@ -484,7 +484,7 @@ class Workstation extends CommonObject
 		// Usergroups
 		$groups = GETPOST('groups', 'array:int');
 		WorkstationUserGroup::deleteAllGroupsOfWorkstation($this->id);
-		$this->usergroups = array();
+		$this->usergroups = [];
 
 		foreach ($groups as $id_group) {
 			$ws_usergroup = new WorkstationUserGroup($this->db);
@@ -497,7 +497,7 @@ class Workstation extends CommonObject
 		// Resources
 		$resources = GETPOST('resources', 'array:int');
 		WorkstationResource::deleteAllResourcesOfWorkstation($this->id);
-		$this->resources = array();
+		$this->resources = [];
 		if (!empty($resources)) {
 			foreach ($resources as $id_resource) {
 				$ws_resource = new WorkstationResource($this->db);

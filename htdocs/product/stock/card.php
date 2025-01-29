@@ -621,10 +621,10 @@ if ($action == 'create') {
 
 			// Show list of products into warehouse
 
-			$totalarray = array();
-			$totalarray['val'] = array();
-			$totalarray['pos'] = array();
-			$totalarray['type'] = array();
+			$totalarray = [];
+			$totalarray['val'] = [];
+			$totalarray['pos'] = [];
+			$totalarray['type'] = [];
 			$totalarray['nbfield'] = 0;
 
 			// TODO Create $arrayfields with all fields to show
@@ -989,7 +989,7 @@ if ($action == 'create') {
 				$cate_arbo = $form->select_all_categories(Category::TYPE_WAREHOUSE, '', 'parent', 64, 0, 3);
 				$c = new Category($db);
 				$cats = $c->containing($object->id, Category::TYPE_WAREHOUSE);
-				$arrayselected = array();
+				$arrayselected = [];
 				foreach ($cats as $cat) {
 					$arrayselected[] = $cat->id;
 				}

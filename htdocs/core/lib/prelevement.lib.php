@@ -41,7 +41,7 @@ function prelevement_prepare_head(BonPrelevement $object)
 	$langs->loadLangs(array("bills", "withdrawals"));
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$titleoftab = "WithdrawalsReceipts";
 	if ($object->type == 'bank-transfer') {
@@ -130,7 +130,7 @@ function bon_prelevement_prepare_head(BonPrelevement $object, $nbOfInvoices, $nb
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT.'/compta/prelevement/create.php?type=bank-transfer';
 	$head[$h][1] = ($nbOfInvoices <= 0 ? $langs->trans("Invoices") : $langs->trans("Invoices").'<span class="badge marginleftonlyshort">'.$nbOfInvoices.'</span>');

@@ -168,7 +168,7 @@ $item = $formSetup->newItem('MYMODULE_MYPARAM10');
 $item->setAsColor();
 $item->defaultFieldValue = '#FF0000';
 //$item->fieldValue = '';
-//$item->fieldAttr = array() ; // fields attribute only for compatible fields like input text
+//$item->fieldAttr = [] ; // fields attribute only for compatible fields like input text
 //$item->fieldOverride = false; // set this var to override field output will override $fieldInputOverride and $fieldOutputOverride too
 //$item->fieldInputOverride = false; // set this var to override field input
 //$item->fieldOutputOverride = false; // set this var to override field output
@@ -194,7 +194,7 @@ $setupnotempty += count($formSetup->items);
 $dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 $moduledir = 'mymodule';
-$myTmpObjects = array();
+$myTmpObjects = [];
 // TODO Scan list of objects to fill this array
 $myTmpObjects['myobject'] = array('label' => 'MyObject', 'includerefgeneration' => 0, 'includedocgeneration' => 0, 'class' => 'MyObject');
 
@@ -476,7 +476,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 		print load_fiche_titre($langs->trans("DocumentModules", $myTmpObjectKey), '', '');
 
 		// Load array def with activated templates
-		$def = array();
+		$def = [];
 		$sql = "SELECT nom";
 		$sql .= " FROM ".$db->prefix()."document_model";
 		$sql .= " WHERE type = '".$db->escape($type)."'";
@@ -514,7 +514,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 				if (is_dir($dir)) {
 					$handle = opendir($dir);
 					if (is_resource($handle)) {
-						$filelist = array();
+						$filelist = [];
 						while (($file = readdir($handle)) !== false) {
 							$filelist[] = $file;
 						}

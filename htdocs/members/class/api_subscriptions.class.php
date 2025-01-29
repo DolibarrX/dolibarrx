@@ -97,7 +97,7 @@ class Subscriptions extends DolibarrApi
 	{
 		global $config;
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('member', 'cotisation', 'lire')) {
 			throw new RestException(403);
@@ -300,7 +300,7 @@ class Subscriptions extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$subscription = array();
+		$subscription = [];
 		foreach (Subscriptions::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

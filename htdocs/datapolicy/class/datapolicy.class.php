@@ -199,7 +199,7 @@ class DataPolicy
 		$linka = getDolGlobalString($la);
 		$linkr = getDolGlobalString($lr);
 		$sendtocc = $sendtobcc = '';
-		$filepath = $mimetype = $filename = array();
+		$filepath = $mimetype = $filename = [];
 		$deliveryreceipt = 0;
 
 		$substitutionArray = array(
@@ -278,7 +278,7 @@ class DataPolicy
 		$linka = getDolGlobalString($la);
 		$linkr = getDolGlobalString($lr);
 		$sendtocc = $sendtobcc = '';
-		$filepath = $mimetype = $filename = array();
+		$filepath = $mimetype = $filename = [];
 		$deliveryreceipt = 0;
 
 		$substitutionArray = array(
@@ -353,7 +353,7 @@ class DataPolicy
 		$linka = getDolGlobalString($la);
 		$linkr = getDolGlobalString($lr);
 		$sendtocc = $sendtobcc = '';
-		$filepath = $mimetype = $filename = array();
+		$filepath = $mimetype = $filename = [];
 		$deliveryreceipt = 0;
 
 		$substitutionArray = array(

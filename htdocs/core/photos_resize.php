@@ -294,7 +294,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 }
 
 if (empty($backtourl)) {
-	$regs = array();
+	$regs = [];
 
 	if (in_array($modulepart, array('product', 'produit', 'service', 'produit|service'))) {
 		$backtourl = DOL_URL_ROOT."/product/document.php?id=".((int) $id).'&file='.urlencode($file);

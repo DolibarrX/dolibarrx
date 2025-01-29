@@ -327,7 +327,7 @@ $manifestjsoncontentdefault .= '{
 	}]
 }';
 
-$listofpages = array();
+$listofpages = [];
 
 $algo = '';
 if (GETPOST('optionmeta')) {
@@ -355,7 +355,7 @@ $searchkey = GETPOST('searchstring', 'restricthtmlallowunvalid');	// or 'none', 
 if ($action == 'replacesite' || $mode == 'replacesite') {	// Test on permission not required
 	$containertype = GETPOST('optioncontainertype', 'aZ09') != '-1' ? GETPOST('optioncontainertype', 'aZ09') : '';
 	$langcode = GETPOST('optionlanguage', 'aZ09');
-	$otherfilters = array();
+	$otherfilters = [];
 	if (GETPOSTINT('optioncategory') > 0) {
 		$otherfilters['category'] = GETPOSTINT('optioncategory');
 	}
@@ -665,7 +665,7 @@ if ($massaction == 'replace' && GETPOST('confirmmassaction', 'alpha') && $userca
 
 		$containertype = GETPOST('optioncontainertype', 'aZ09') != '-1' ? GETPOST('optioncontainertype', 'aZ09') : '';
 		$langcode = GETPOST('optionlanguage', 'aZ09');
-		$otherfilters = array();
+		$otherfilters = [];
 		if (GETPOSTINT('optioncategory') > 0) {
 			$otherfilters['category'] = GETPOSTINT('optioncategory');
 		}
@@ -825,7 +825,7 @@ if ($action == 'addcontainer' && $usercanedit) {
 		}
 
 		if (!$error) {
-			$tmp = getURLContent($urltograb, 'GET', '', 1, array(), array('http', 'https'), 0);
+			$tmp = getURLContent($urltograb, 'GET', '', 1, [], array('http', 'https'), 0);
 
 			// Test charset of result and convert it into UTF-8 if not in this encoding charset
 			if (!empty($tmp['content_type']) && preg_match('/ISO-8859-1/', $tmp['content_type'])) {
@@ -878,7 +878,7 @@ if ($action == 'addcontainer' && $usercanedit) {
 			}
 
 			if (!$error) {
-				$regs = array();
+				$regs = [];
 
 				preg_match('/<head>(.*)<\/head>/ims', $tmp['content'], $regs);
 				$head = $regs[1];
@@ -896,7 +896,7 @@ if ($action == 'addcontainer' && $usercanedit) {
 					$objectpage->aliasalt = $regs[1];
 				}
 
-				$regtmp = array();
+				$regtmp = [];
 				if (preg_match('/<title>(.*)<\/title>/ims', $head, $regtmp)) {
 					$objectpage->title = $regtmp[1];
 				}
@@ -979,7 +979,7 @@ if ($action == 'addcontainer' && $usercanedit) {
 					}
 
 					/*
-					$tmpgeturl = getURLContent($urltograbbis, 'GET', '', 1, array(), array('http', 'https'), 0);
+					$tmpgeturl = getURLContent($urltograbbis, 'GET', '', 1, [], array('http', 'https'), 0);
 					if ($tmpgeturl['curl_error_no'])
 					{
 						$error++;
@@ -1043,7 +1043,7 @@ if ($action == 'addcontainer' && $usercanedit) {
 						continue;
 					}
 
-					$tmpgeturl = getURLContent($urltograbbis, 'GET', '', 1, array(), array('http', 'https'), 0);
+					$tmpgeturl = getURLContent($urltograbbis, 'GET', '', 1, [], array('http', 'https'), 0);
 					if ($tmpgeturl['curl_error_no']) {
 						$errorforsubresource++;
 						setEventMessages('Error getting link tag url '.$urltograbbis.': '.$tmpgeturl['curl_error_msg'], null, 'errors');
@@ -1170,7 +1170,7 @@ if ($action == 'addcontainer' && $usercanedit) {
 		$objectpage->author_alias = GETPOST('WEBSITE_AUTHORALIAS', 'alphanohtml');
 		$objectpage->object_type = GETPOST('WEBSITE_OBJECTCLASS');
 		$objectpage->fk_object = GETPOST('WEBSITE_OBJECTID');
-		$substitutionArray = array();
+		$substitutionArray = [];
 		$substitutionArray['__WEBSITE_CREATED_BY__'] = $user->getFullName($langs);
 
 		// Define id of the page the new page is translation of
@@ -1514,7 +1514,7 @@ if (!GETPOSTISSET('pageid')) {
 
 		$containertype = GETPOST('optioncontainertype', 'aZ09') != '-1' ? GETPOST('optioncontainertype', 'aZ09') : '';
 		$langcode = GETPOST('optionlanguage', 'aZ09');
-		$otherfilters = array();
+		$otherfilters = [];
 		if (GETPOSTINT('optioncategory') > 0) {
 			$otherfilters['category'] = GETPOSTINT('optioncategory');
 		}
@@ -1569,17 +1569,17 @@ if ($action == 'updatecss' && $usercanedit) {
 				$uploadfolder = $config->website->dir_output.'/'.$websitekey;
 				if ($_FILES['addedfile']['type'] != 'image/png') {
 					$error++;
-					setEventMessages($langs->trans('ErrorFaviconType'), array(), 'errors');
+					setEventMessages($langs->trans('ErrorFaviconType'), [], 'errors');
 				}
 				$filetoread = realpath(dol_osencode($_FILES['addedfile']['tmp_name']));
 				$filesize = getimagesize($filetoread);
 				if ($filesize[0] != $filesize[1]) {
 					$error++;
-					setEventMessages($langs->trans('ErrorFaviconMustBeASquaredImage'), array(), 'errors');
+					setEventMessages($langs->trans('ErrorFaviconMustBeASquaredImage'), [], 'errors');
 				}
 				if (! $error && ($filesize[0] != 16 && $filesize[0] != 32 && $filesize[0] != 64)) {
 					$error++;
-					setEventMessages($langs->trans('ErrorFaviconSize'), array(), 'errors');
+					setEventMessages($langs->trans('ErrorFaviconSize'), [], 'errors');
 				}
 				if (!$error) {
 					dol_add_file_process($uploadfolder, 1, 0, 'addedfile', 'favicon.png');
@@ -2886,7 +2886,7 @@ $arrayofjs = array(
 	//'/includes/ace/src/ext-chromevox.js'
 	//'/includes/jquery/plugins/jqueryscoped/jquery.scoped.js',
 );
-$arrayofcss = array();
+$arrayofcss = [];
 
 $moreheadcss = '';
 $moreheadjs = '';
@@ -2974,7 +2974,7 @@ if (!GETPOST('hide_websitemenu')) {
 		}
 	}
 
-	$array = array();
+	$array = [];
 	if ($object->id > 0) {
 		$array = $objectpage->fetchAll($object->id, 'ASC,ASC', 'type_container,pageurl');
 		$object->lines = $array;
@@ -3065,7 +3065,7 @@ if (!GETPOST('hide_websitemenu')) {
 			print '<span class="websiteselection">';
 			// Do not use ajax, we need a refresh of full page when we change status of a website
 			//print '<div class="inline-block marginrightonly">';
-			//print ajax_object_onoff($object, 'status', 'status', 'Online', 'Offline', array(), 'valignmiddle inline-block', 'statuswebsite');
+			//print ajax_object_onoff($object, 'status', 'status', 'Online', 'Offline', [], 'valignmiddle inline-block', 'statuswebsite');
 			//print '</div>';
 			if ($website->status == $website::STATUS_DRAFT) {
 				$text_off = 'Offline';
@@ -3345,7 +3345,7 @@ if (!GETPOST('hide_websitemenu')) {
 					print '<span class="valignmiddle disabled opacitymedium">'.img_picture($langs->trans($text_off), 'switch_on').'</span>';
 				}
 			} else {
-				print ajax_object_onoff($websitepage, 'status', 'status', 'Online', 'Offline', array(), 'valignmiddle inline-block'.(empty($websitepage->id) ? ' opacitymedium disabled' : ''), 'statuswebsitepage', 1, 'website='.urlencode($website->ref).'&pageid='.((int) $websitepage->id));
+				print ajax_object_onoff($websitepage, 'status', 'status', 'Online', 'Offline', [], 'valignmiddle inline-block'.(empty($websitepage->id) ? ' opacitymedium disabled' : ''), 'statuswebsitepage', 1, 'website='.urlencode($website->ref).'&pageid='.((int) $websitepage->id));
 			}
 			//print '</div>';
 			print '</span>';
@@ -3437,7 +3437,7 @@ if (!GETPOST('hide_websitemenu')) {
 				if ($action == 'createpagefromclone') {
 					// Create an array for form
 					$preselectedlanguage = GETPOST('newlang', 'aZ09') ? GETPOST('newlang', 'aZ09') : ''; // Dy default, we do not force any language on pages
-					$onlylang = array();
+					$onlylang = [];
 					if ($website->otherlang) {
 						if (!empty($website->lang)) {
 							$onlylang[$website->lang] = $website->lang.' ('.$langs->trans("Default").')';
@@ -3463,7 +3463,7 @@ if (!GETPOST('hide_websitemenu')) {
 						$formquestion[] = array('type' => 'checkbox', 'tdclass' => 'maxwidth200', 'name' => 'is_a_translation', 'label' => $langs->trans("PageIsANewTranslation"), 'value' => 0, 'morecss' => 'margintoponly');
 					}
 
-					$value = $formadmin->select_language($preselectedlanguage, 'newlang', 0, array(), $textifempty, 0, 0, 'minwidth200', 1, 0, 0, $onlylang, 1);
+					$value = $formadmin->select_language($preselectedlanguage, 'newlang', 0, [], $textifempty, 0, 0, 'minwidth200', 1, 0, 0, $onlylang, 1);
 					$formquestion[] = array('type' => 'other', 'name' => 'newlang', 'label' => $form->textWithPicture($langs->trans("Language"), $langs->trans("DefineListOfAltLanguagesInWebsiteProperties")), 'value' => $value);
 
 					$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?website='.$object->ref.'&pageid='.$pageid, $langs->trans('ClonePage'), '', 'confirm_createpagefromclone', $formquestion, 0, 1, 300, 550);
@@ -3858,7 +3858,7 @@ if (!GETPOST('hide_websitemenu')) {
 }
 
 
-$head = array();
+$head = [];
 
 
 /*
@@ -3994,7 +3994,7 @@ if ($action == 'editcss') {
 	print $form->textWithPicture($langs->trans('MainLanguage'), $htmltext, 1, 'help', '', 0, 2, 'WEBSITE_LANG');
 	print '</td><td>';
 	print img_picture('', 'language', 'class="picotfixedwidth"');
-	print $formadmin->select_language((GETPOSTISSET('WEBSITE_LANG') ? GETPOST('WEBSITE_LANG', 'aZ09comma') : ($object->lang ? $object->lang : '0')), 'WEBSITE_LANG', 0, array(), 1, 0, 0, 'minwidth300', 2, 0, 0, array(), 1);
+	print $formadmin->select_language((GETPOSTISSET('WEBSITE_LANG') ? GETPOST('WEBSITE_LANG', 'aZ09comma') : ($object->lang ? $object->lang : '0')), 'WEBSITE_LANG', 0, [], 1, 0, 0, 'minwidth300', 2, 0, 0, [], 1);
 	print '</td>';
 	print '</tr>';
 
@@ -4168,7 +4168,7 @@ if ($action == 'createsite') {
 	print '<br>';
 
 	/*$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath('/website/index.php',1).'?id='.$object->id;
 	$head[$h][1] = $langs->trans("AddSite");
@@ -4211,7 +4211,7 @@ if ($action == 'createsite') {
 	print '</td><td>';
 	$shortlangcode = preg_replace('/[_-].*$/', '', trim($langs->defaultlang));
 	print img_picture('', 'language', 'class="picturefixedwidth"');
-	print $formadmin->select_language((GETPOSTISSET('WEBSITE_LANG') ? GETPOST('WEBSITE_LANG', 'aZ09comma') : $shortlangcode), 'WEBSITE_LANG', 0, array(), 1, 0, 0, 'minwidth300', 2, 0, 0, array(), 1);
+	print $formadmin->select_language((GETPOSTISSET('WEBSITE_LANG') ? GETPOST('WEBSITE_LANG', 'aZ09comma') : $shortlangcode), 'WEBSITE_LANG', 0, [], 1, 0, 0, 'minwidth300', 2, 0, 0, [], 1);
 	print '</td></tr>';
 
 	print '<tr><td>';
@@ -4274,7 +4274,7 @@ if ($action == 'importsite') {
 
 	print load_fiche_titre($langs->trans("ImportSite"));
 
-	print dol_get_fiche_head(array(), '0', '', -1);
+	print dol_get_fiche_head([], '0', '', -1);
 
 	print '<span class="opacitymedium">'.$langs->trans("ZipOfWebsitePackageToImport").'</span><br><br>';
 
@@ -4324,7 +4324,7 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 	print '<br>';
 
 	/*$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath('/website/index.php',1).'?id='.$object->id;
 	$head[$h][1] = $langs->trans("AddPage");
@@ -4569,7 +4569,7 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 	print '<tr><td>';
 	print $langs->trans('Language');
 	print '</td><td>';
-	$onlykeys = array();
+	$onlykeys = [];
 	if ($object->lang) {
 		$onlykeys[$object->lang] = $object->lang;
 	} else {
@@ -4588,7 +4588,7 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 	if (empty($object->lang) && empty($object->otherlang)) {
 		$onlykeys = null; // We keep full list of languages
 	}
-	print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language($pagelang ? $pagelang : '', 'WEBSITE_LANG', 0, array(), '1', 0, 0, 'minwidth200', 0, 0, 0, $onlykeys, 1);
+	print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language($pagelang ? $pagelang : '', 'WEBSITE_LANG', 0, [], '1', 0, 0, 'minwidth200', 0, 0, 0, $onlykeys, 1);
 	$htmltext = $langs->trans("AvailableLanguagesAreDefinedIntoWebsiteProperties");
 	print $form->textWithPicture('', $htmltext);
 	print '</td></tr>';
@@ -4667,7 +4667,7 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 		if (!GETPOSTISSET('categories')) {
 			$c = new Category($db);
 			$cats = $c->containing($objectpage->id, Category::TYPE_WEBSITE_PAGE);
-			$arrayselected = array();
+			$arrayselected = [];
 			if (is_array($cats)) {
 				foreach ($cats as $cat) {
 					$arrayselected[] = $cat->id;
@@ -4995,7 +4995,7 @@ if ($action == 'editcontent') {
 	//$contentforedit.='</style>'."\n";
 	$contentforedit .= $objectpage->content;
 
-	$nbrep = array();
+	$nbrep = [];
 	// If contentforedit has a string <img src="xxx", we replace the xxx with /viewimage.php?modulepart=medias&file=xxx except if xxx starts
 	// with http, /viewimage.php or DOL_URL_ROOT./viewimage.phps
 	$contentforedit = preg_replace('/(<img.*\ssrc=")(?!http|\/viewimage\.php|'.preg_quote(DOL_URL_ROOT, '/').'\/viewimage\.php)/', '\1'.DOL_URL_ROOT.'/viewimage.php?modulepart=medias&file=', $contentforedit, -1, $nbrep);
@@ -5068,7 +5068,7 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 	print $langs->trans("Language");
 	print '</div>';
 	print '<div class="tagtd">';
-	print img_picture('', 'language', 'class="paddingrightonly"').' '.$formadmin->select_language(GETPOSTISSET('optionlanguage') ? GETPOST('optionlanguage') : '', 'optionlanguage', 0, array(), '1', 0, 0, 'minwidth125 maxwidth400 widthcentpercentminusx', 2, 0, 0, array(), 1);
+	print img_picture('', 'language', 'class="paddingrightonly"').' '.$formadmin->select_language(GETPOSTISSET('optionlanguage') ? GETPOST('optionlanguage') : '', 'optionlanguage', 0, [], '1', 0, 0, 'minwidth125 maxwidth400 widthcentpercentminusx', 2, 0, 0, [], 1);
 	print '</div>';
 	print '</div>';
 
@@ -5100,14 +5100,14 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 		print '<br>';
 
 		if ($listofpages['code'] == 'OK') {
-			$arrayofselected = is_array($toselect) ? $toselect : array();
+			$arrayofselected = is_array($toselect) ? $toselect : [];
 			$param = '';
 			$nbtotalofrecords = count($listofpages['list']);
 			$num = $limit;
 			$permissiontodelete = $user->hasRight('website', 'delete');
 
 			// List of mass actions available
-			$arrayofmassactions = array();
+			$arrayofmassactions = [];
 			if ($user->hasRight('website', 'writephp') && $searchkey) {
 				$arrayofmassactions['replace'] = img_picture('', 'replacement', 'class="picturefixedwidth"').$langs->trans("Replace");
 			}
@@ -5121,7 +5121,7 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 				$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 			}
 			if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-				$arrayofmassactions = array();
+				$arrayofmassactions = [];
 			}
 
 			$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
@@ -5322,7 +5322,7 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 					print '<a class="editfielda  marginleftonly marginrightonly '.$disabled.'" href="'.$urltoedithtmlsource.'" title="'.$langs->trans("EditHTMLSource").'">'.img_picture($langs->trans("EditHTMLSource"), 'edit').'</a>';
 
 					print '<span class="marginleftonly marginrightonly"></span>';
-					print ajax_object_onoff($answerrecord, 'status', 'status', 'Enabled', 'Disabled', array(), 'valignmiddle inline-block');
+					print ajax_object_onoff($answerrecord, 'status', 'status', 'Enabled', 'Disabled', [], 'valignmiddle inline-block');
 
 					print '</td>';
 

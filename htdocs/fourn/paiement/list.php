@@ -175,8 +175,8 @@ if (empty($resHook)) {
 		$search_bank_account = '';
 		$search_amount = '';
 		$option = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 }
 
@@ -376,7 +376,7 @@ if ($search_all) {
 
 $moreforfilter = '';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -486,7 +486,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -560,7 +560,7 @@ if (isset($extrafields->attributes[$object->table_element]['computed']) && is_ar
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {

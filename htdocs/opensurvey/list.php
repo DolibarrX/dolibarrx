@@ -93,7 +93,7 @@ if (!$user->hasRight('opensurvey', 'read')) {
 }
 
 // Definition of fields for list
-$arrayfields = array();
+$arrayfields = [];
 // TODO
 /* foreach ($arrayfields as $key => $val) {
 	// If $val['visible']==0, then we never show the field
@@ -135,7 +135,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -150,8 +150,8 @@ if (empty($resHook)) {
 		$search_status = '';
 		$search_title = '';
 		$search_ref = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
@@ -202,7 +202,7 @@ if (!empty($search_title)) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -247,7 +247,7 @@ if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $s
 
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'bodyforlist');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (/* !empty($contextpage) && */ $contextpage != $_SERVER["PHP_SELF"]) { // $contextpage can't be empty
@@ -273,7 +273,7 @@ if ($permissiontodelete) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -307,7 +307,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/massactions_pre.tpl.php';
 if ($search_all) {
 	// Ensure $fieldstosearchall is set and array
 	if (!isset($fieldstosearchall) || !is_array($fieldstosearchall)) {
-		$fieldstosearchall = array();
+		$fieldstosearchall = [];
 	}
 	foreach ($fieldstosearchall as $key => $val) {
 		$fieldstosearchall[$key] = $langs->trans($val);
@@ -320,7 +320,7 @@ $moreforfilter = '';
 $moreforfilter.= $langs->trans('MyFilter') . ': <input type="text" name="search_myfield" value="'.dol_escape_htmltag($search_myfield).'">';
 $moreforfilter.= '</div>';*/
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -410,7 +410,7 @@ print '</tr>'."\n";
 // Loop on record
 // --------------------------------------------------------------------
 $i = 0;
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 while ($i < min($num, $limit)) {
 	$obj = $db->fetch_object($resql);

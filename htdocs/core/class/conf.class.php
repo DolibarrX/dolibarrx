@@ -132,12 +132,12 @@ class Config extends stdClass
 	/**
 	 * @var string[]
 	 */
-	public $logbuffer = array();
+	public $logbuffer = [];
 
 	/**
 	 * @var LogHandler[]
 	 */
-	public $loghandlers = array();
+	public $loghandlers = [];
 
 	/**
 	 * @var int Used to store running instance for multi-company (default 1)
@@ -147,7 +147,7 @@ class Config extends stdClass
 	/**
 	 * @var int[] Used to store list of entities to use for each element
 	 */
-	public $entities = array();
+	public $entities = [];
 
 	/**
 	 * @var int Set if we force param dol_hide_topmenu into login url
@@ -358,28 +358,28 @@ class Config extends stdClass
 		$this->browser = new stdClass();
 
 		// Common arrays
-		$this->cache = array();
-		$this->modules = array();
+		$this->cache = [];
+		$this->modules = [];
 		$this->modules_parts = array(
-			'css' => array(),
-			'js' => array(),
-			'tabs' => array(),
-			'triggers' => array(),
-			'login' => array(),
-			'substitutions' => array(),
-			'menus' => array(),
-			'theme' => array(),
-			'sms' => array(),
-			'tpl' => array(),
-			'barcode' => array(),
-			'models' => array(),
-			'societe' => array(),
-			'member' => array(),
-			'hooks' => array(),
-			'dir' => array(),
-			'syslog' => array(),
-			'websitetemplates' => array(),
-			//'captcha' => array()	// Can be removed,this does not generates warning
+			'css' => [],
+			'js' => [],
+			'tabs' => [],
+			'triggers' => [],
+			'login' => [],
+			'substitutions' => [],
+			'menus' => [],
+			'theme' => [],
+			'sms' => [],
+			'tpl' => [],
+			'barcode' => [],
+			'models' => [],
+			'societe' => [],
+			'member' => [],
+			'hooks' => [],
+			'dir' => [],
+			'syslog' => [],
+			'websitetemplates' => [],
+			//'captcha' => []	// Can be removed,this does not generates warning
 		);
 
 		// First level object that are modules.
@@ -473,27 +473,27 @@ class Config extends stdClass
 		$this->productbatch = new stdClass();
 
 		// Common arrays
-		$this->cache = array();
-		$this->modules = array();
+		$this->cache = [];
+		$this->modules = [];
 		$this->modules_parts = array(
-			'css' => array(),
-			'js' => array(),
-			'tabs' => array(),
-			'triggers' => array(),
-			'login' => array(),
-			'substitutions' => array(),
-			'menus' => array(),
-			'theme' => array(),
-			'sms' => array(),
-			'tpl' => array(),
-			'barcode' => array(),
-			'models' => array(),
-			'societe' => array(),
-			'member' => array(),
-			'hooks' => array(),
-			'dir' => array(),
-			'syslog' => array(),
-			'websitetemplates' => array(),
+			'css' => [],
+			'js' => [],
+			'tabs' => [],
+			'triggers' => [],
+			'login' => [],
+			'substitutions' => [],
+			'menus' => [],
+			'theme' => [],
+			'sms' => [],
+			'tpl' => [],
+			'barcode' => [],
+			'models' => [],
+			'societe' => [],
+			'member' => [],
+			'hooks' => [],
+			'dir' => [],
+			'syslog' => [],
+			'websitetemplates' => [],
 		);
 
 		if (!is_null($db) && is_object($db)) {
@@ -525,13 +525,13 @@ class Config extends stdClass
 						$this->global->$key = dolDecrypt($value);	// decrypt data excrypted with dolibarr_set_const($db, $name, $value)
 
 						if ($value && strpos($key, 'MAIN_MODULE_') === 0) {
-							$reg = array();
+							$reg = [];
 							// If this is constant for a new tab page activated by a module. It initializes modules_parts['tabs'].
 							if (preg_match('/^MAIN_MODULE_([0-9A-Z_]+)_TABS_/i', $key)) {
 								$partname = 'tabs';
 								$params = explode(':', $value, 2);
 								if (!is_array($this->modules_parts[$partname])) {
-									$this->modules_parts[$partname] = array();
+									$this->modules_parts[$partname] = [];
 								}
 								$this->modules_parts[$partname][$params[0]][] = $value; // $value may be a string or an array
 							} elseif (preg_match('/^MAIN_MODULE_([0-9A-Z_]+)_([A-Z]+)$/i', $key, $reg)) {
@@ -544,7 +544,7 @@ class Config extends stdClass
 								$modulename = strtolower($reg[1]);
 								$partname = strtolower($reg[2]);
 								if (!isset($this->modules_parts[$partname]) || !is_array($this->modules_parts[$partname])) {
-									$this->modules_parts[$partname] = array();
+									$this->modules_parts[$partname] = [];
 								}
 
 								//$arrValue = json_decode($value, true, null, JSON_BIGINT_AS_STRING|JSON_THROW_ON_ERROR);
@@ -1333,7 +1333,7 @@ class Config extends stdClass
 				if (!empty($this->global->SYSLOG_HANDLERS)) {
 					$handlers = json_decode($this->global->SYSLOG_HANDLERS);
 				} else {
-					$handlers = array();
+					$handlers = [];
 				}
 				foreach ($handlers as $handler) {
 					$handler_file_found = '';

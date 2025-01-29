@@ -79,7 +79,7 @@ class Users extends DolibarrApi
 			throw new RestException(403, "You are not allowed to read list of users");
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $societe param is ignored and replaced by user's socid
 		//$socid = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $societe;
@@ -530,7 +530,7 @@ class Users extends DolibarrApi
 
 		$usergroup = new UserGroup($this->db);
 		$groups = $usergroup->listGroupsForUser($id, false);
-		$obj_ret = array();
+		$obj_ret = [];
 		foreach ($groups as $group) {
 			$obj_ret[] = $this->_cleanObjectDatas($group);
 		}
@@ -609,7 +609,7 @@ class Users extends DolibarrApi
 	 */
 	public function listGroups($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $group_ids = '0', $sqlfilters = '', $properties = '')
 	{
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !DolibarrApiAccess::$user->hasRight('user', 'user', 'lire') && empty(DolibarrApiAccess::$user->admin)) ||
 			getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !DolibarrApiAccess::$user->hasRight('user', 'group_advance', 'read') && empty(DolibarrApiAccess::$user->admin)) {
@@ -800,7 +800,7 @@ class Users extends DolibarrApi
 	 */
 	private function _cleanUserGroupListDatas($objectList)
 	{
-		$cleanObjectList = array();
+		$cleanObjectList = [];
 
 		foreach ($objectList as $object) {
 			$cleanObject = parent::_cleanObjectDatas($object);
@@ -848,7 +848,7 @@ class Users extends DolibarrApi
 	 */
 	private function _validate($data) // @phpstan-ignore-line
 	{
-		$account = array();
+		$account = [];
 		foreach (Users::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

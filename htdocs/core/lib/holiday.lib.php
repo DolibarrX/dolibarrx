@@ -34,7 +34,7 @@ function holiday_prepare_head($object)
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/holiday/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Leave");
@@ -87,7 +87,7 @@ function holiday_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('holiday');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/holiday.php';
 	$head[$h][1] = $langs->trans("Setup");

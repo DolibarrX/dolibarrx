@@ -51,7 +51,7 @@ abstract class ModelePDFEvaluation extends CommonDocGenerator
 	{
 		// phpcs:enable
 		$type = 'evaluation';
-		$list = array();
+		$list = [];
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 		$list = getListOfModels($db, $type, $maxfilenamelength);

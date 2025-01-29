@@ -142,7 +142,7 @@ class ProductAttribute extends CommonObject
 	/**
 	 * @var ProductAttributeValue[]
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @var ProductAttributeValue
@@ -340,7 +340,7 @@ class ProductAttribute extends CommonObject
 	 */
 	public function fetchAll()
 	{
-		$return = array();
+		$return = [];
 
 		$sql = "SELECT rowid, ref, ref_ext, label, position";
 		$sql .= " FROM " . MAIN_DB_PREFIX . $this->table_element;
@@ -537,7 +537,7 @@ class ProductAttribute extends CommonObject
 		// phpcs:enable
 		global $langs;
 
-		$this->lines = array();
+		$this->lines = [];
 
 		$error = 0;
 
@@ -910,7 +910,7 @@ class ProductAttribute extends CommonObject
 		}
 		if ($nl > 0) {
 			// The goal of this part is to reorder all attributes.
-			$rows = array();
+			$rows = [];
 
 			// We first search all attributes
 			$sql = "SELECT rowid FROM " . MAIN_DB_PREFIX . $this->table_element;
@@ -1405,7 +1405,7 @@ class ProductAttribute extends CommonObject
 				if ($action != 'editline') {
 					// Add products/services form
 
-					$parameters = array();
+					$parameters = [];
 					$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 					if ($resHook < 0) {
 						setEventMessages($hookManager->error, $hookManager->errors, 'errors');

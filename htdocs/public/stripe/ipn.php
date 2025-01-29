@@ -204,9 +204,9 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 			$sendto,
 			$replyto,
 			$message,
-			array(),
-			array(),
-			array(),
+			[],
+			[],
+			[],
 			$sendtocc,
 			'',
 			0,
@@ -304,9 +304,9 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 					$sendto,
 					$replyto,
 					$message,
-					array(),
-					array(),
-					array(),
+					[],
+					[],
+					[],
 					$sendtocc,
 					'',
 					0,
@@ -426,7 +426,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 		$payment_amount = $payment_amountInDolibarr;
 		// TODO Check payment_amount in Stripe (received) is same than the one in Dolibarr
 
-		$postactionmessages = array();
+		$postactionmessages = [];
 
 		if ($paymentTypeCode == "CB" && ($paymentTypeCodeInDolibarr == 'card' || empty($paymentTypeCodeInDolibarr))) {
 			// Case payment type in Stripe and into prelevement_demande are both CARD.
@@ -625,7 +625,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 	$paymentmethodstripeid = $object->payment_method;
 	$customer_id = $object->customer;
 
-	$chargesdataarray = array();
+	$chargesdataarray = [];
 	$objpayid = '';
 	$objpaydesc = '';
 	$objinvoiceid = 0;
@@ -894,7 +894,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 	// Now we add a negative payment
 	$paiement = new Paiement($db);
 
-	$amounts = array();
+	$amounts = [];
 	$amounts[$tmpinvoice->id] = -1 * $payment_amountInDolibarr;
 
 	$paiement->datepaye = dol_now();

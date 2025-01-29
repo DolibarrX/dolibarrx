@@ -76,7 +76,7 @@ class mailing_contacts1 extends MailingTargets
 
 		$langs->load("commercial");
 
-		$statssql = array();
+		$statssql = [];
 		$statssql[0] = "SELECT '".$this->db->escape($langs->trans("NbOfCompaniesContacts"))."' as label,";
 		$statssql[0] .= " count(distinct(c.email)) as nb";
 		$statssql[0] .= " FROM ".MAIN_DB_PREFIX."socpeople as c";
@@ -352,10 +352,10 @@ class mailing_contacts1 extends MailingTargets
 		$filter_category_supplier = GETPOST('filter_category_supplier', 'alpha');
 		$filter_lang = GETPOST('filter_lang', 'alpha');
 
-		$cibles = array();
+		$cibles = [];
 
 		// List prospects levels
-		$prospectlevel = array();
+		$prospectlevel = [];
 		$sql = "SELECT code, label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_prospectlevel";
 		$sql .= " WHERE active > 0";

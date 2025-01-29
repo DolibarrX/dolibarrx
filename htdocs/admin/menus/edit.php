@@ -49,8 +49,8 @@ if (!$user->admin) {
 	accessforbidden();
 }
 
-$dirstandard = array();
-$dirsmartphone = array();
+$dirstandard = [];
+$dirsmartphone = [];
 $dirmenus = array_merge(array("/core/menus/"), (array) $config->modules_parts['menus']);
 foreach ($dirmenus as $dirmenu) {
 	$dirstandard[] = $dirmenu.'standard';

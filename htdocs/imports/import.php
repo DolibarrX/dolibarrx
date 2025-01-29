@@ -152,7 +152,7 @@ $hexa = GETPOST('hexa');
 $importmodelid = GETPOSTINT('importmodelid');
 $excludefirstline = (GETPOST('excludefirstline') ? GETPOST('excludefirstline') : 2);
 $endatlinenb = (GETPOST('endatlinenb') ? GETPOST('endatlinenb') : '');
-$updatekeys			= (GETPOST('updatekeys', 'array') ? GETPOST('updatekeys', 'array') : array());
+$updatekeys			= (GETPOST('updatekeys', 'array') ? GETPOST('updatekeys', 'array') : []);
 $separator			= (GETPOST('separator', 'nohtml') ? GETPOST('separator', 'nohtml', 3) : '');
 $enclosure			= (GETPOST('enclosure', 'nohtml') ? GETPOST('enclosure', 'nohtml') : '"');	// We must use 'nohtml' and not 'alphanohtml' because we must accept "
 $charset            = GETPOST('charset', 'aZ09');
@@ -175,7 +175,7 @@ $formfile = new FormFile($db);
 // Init $array_match_file_to_database from _SESSION
 if (empty($array_match_file_to_database)) {
 	$serialized_array_match_file_to_database = isset($_SESSION["dol_array_match_file_to_database_select"]) ? $_SESSION["dol_array_match_file_to_database_select"] : '';
-	$array_match_file_to_database = array();
+	$array_match_file_to_database = [];
 	$fieldsarray = explode(',', $serialized_array_match_file_to_database);
 	foreach ($fieldsarray as $elem) {
 		$tabelem = explode('=', $elem, 2);
@@ -275,7 +275,7 @@ if ($step == 4 && $action == 'select_model' && $user->hasRight('import', 'run'))
 	// Reinit match arrays
 	$_SESSION["dol_array_match_file_to_database"] = '';
 	$serialized_array_match_file_to_database = '';
-	$array_match_file_to_database = array();
+	$array_match_file_to_database = [];
 
 	// Load model from $importmodelid and set $array_match_file_to_database
 	// and $_SESSION["dol_array_match_file_to_database"]
@@ -323,7 +323,7 @@ $help_url = 'EN:Module_Imports_En|FR:Module_Imports|ES:M&oacute;dulo_Importacion
 if ($step == 1 || !$datatoimport) {
 	// Clean saved file-database matching
 	$serialized_array_match_file_to_database = '';
-	$array_match_file_to_database = array();
+	$array_match_file_to_database = [];
 	$_SESSION["dol_array_match_file_to_database"] = '';
 	$_SESSION["dol_array_match_file_to_database_select"] = '';
 
@@ -741,7 +741,7 @@ if ($step == 4 && $datatoimport) {
 	//var_dump($_SESSION["dol_array_match_file_to_database_select"]);
 	$serialized_array_match_file_to_database = isset($_SESSION["dol_array_match_file_to_database_select"]) ? $_SESSION["dol_array_match_file_to_database_select"] : '';
 	$fieldsarray = explode(',', $serialized_array_match_file_to_database);
-	$array_match_file_to_database = array();		// Same than $fieldsarray but with mapped value only  (col1 => 's.fielda', col2 => 's.fieldb'...)
+	$array_match_file_to_database = [];		// Same than $fieldsarray but with mapped value only  (col1 => 's.fielda', col2 => 's.fieldb'...)
 	foreach ($fieldsarray as $elem) {
 		$tabelem = explode('=', $elem, 2);
 		$key = $tabelem[0];
@@ -821,11 +821,11 @@ if ($step == 4 && $datatoimport) {
 	}
 
 	if (GETPOST('update')) {
-		$array_match_file_to_database = array();
+		$array_match_file_to_database = [];
 	}
 
 	// Load the source fields from input file into variable $arrayrecord
-	$fieldssource = array();
+	$fieldssource = [];
 	/** @var array<string,string> $fieldssource */
 	$result = $obj->import_open_file($config->import->dir_temp.'/'.$filetoimport);
 	if ($result >= 0) {
@@ -886,7 +886,7 @@ if ($step == 4 && $datatoimport) {
 	//var_dump($array_match_database_to_file);
 	//var_dump($_SESSION["dol_array_match_file_to_database_select"]);
 
-	$fieldstarget_tmp = array();
+	$fieldstarget_tmp = [];
 	$arraykeysfieldtarget = array_keys($fieldstarget);
 	$position = 0;
 	foreach ($fieldstarget as $key => $label) {
@@ -1074,9 +1074,9 @@ if ($step == 4 && $datatoimport) {
 
 	print '<tr valign="top"><td width="50%" class="nopaddingleftimp">';
 
-	$fieldsplaced = array();
-	$valforsourcefieldnb = array();
-	$listofkeys = array();
+	$fieldsplaced = [];
+	$valforsourcefieldnb = [];
+	$listofkeys = [];
 	foreach ($array_match_file_to_database as $key => $val) {
 		$listofkeys[$key] = 1;
 	}
@@ -1109,7 +1109,7 @@ if ($step == 4 && $datatoimport) {
 
 	// Set the list of all possible target fields in Dolibarr.
 
-	$optionsall = array();
+	$optionsall = [];
 	foreach ($fieldstarget as $code => $line) {
 		$tmparray = explode('|', $line["label"]);	// If label of field is several translation keys separated with |
 		$labeltoshow = '';
@@ -1175,7 +1175,7 @@ if ($step == 4 && $datatoimport) {
 		}
 
 		$j = 0;
-		$codeselectedarray = array();
+		$codeselectedarray = [];
 		foreach ($optionsall as $tmpcode => $tmpval) {	// Loop on each entry to add into each combo list.
 			$label = '';
 			if (!empty($tmpval['picture'])) {
@@ -1237,7 +1237,7 @@ if ($step == 4 && $datatoimport) {
 			} elseif ($modetoautofillmapping == 'guess') {
 				// The mode where we try to guess which value to preselect from the name in first column of source file.
 				// $line['example1'] is the label of the column found on first line
-				$regs = array();
+				$regs = [];
 				if (preg_match('/^(.+)\((.+\..+)\)$/', $line['example1'], $regs)) {	// If text is "Label (x.abc)"
 					$tmpstring1 = $regs[1];
 					$tmpstring2 = $regs[2];
@@ -1581,7 +1581,7 @@ if ($step == 5 && $datatoimport) {
 	}
 
 	// Load source fields in input file
-	$fieldssource = array();
+	$fieldssource = [];
 	$result = $obj->import_open_file($config->import->dir_temp.'/'.$filetoimport);
 
 	if ($result >= 0) {
@@ -1776,7 +1776,7 @@ if ($step == 5 && $datatoimport) {
 	print '<tr><td class="titlefieldcreate">';
 	print $langs->trans("TablesTarget");
 	print '</td><td>';
-	$listtables = array();
+	$listtables = [];
 	$sort_array_match_file_to_database = $array_match_file_to_database;
 	foreach ($array_match_file_to_database as $code => $label) {
 		//var_dump($fieldssource);
@@ -1816,7 +1816,7 @@ if ($step == 5 && $datatoimport) {
 	// Fields imported
 	print '<tr><td>';
 	print $langs->trans("FieldsTarget").'</td><td>';
-	$listfields = array();
+	$listfields = [];
 	$i = 0;
 	//print 'fieldsource='.$fieldssource;
 	$sort_array_match_file_to_database = $array_match_file_to_database;
@@ -1857,8 +1857,8 @@ if ($step == 5 && $datatoimport) {
 		print '</div>';
 	} else {
 		// Launch import
-		$arrayoferrors = array();
-		$arrayofwarnings = array();
+		$arrayoferrors = [];
+		$arrayofwarnings = [];
 		$maxnboferrors = !getDolGlobalString('IMPORT_MAX_NB_OF_ERRORS') ? 50 : $config->global->IMPORT_MAX_NB_OF_ERRORS;
 		$maxnbofwarnings = !getDolGlobalString('IMPORT_MAX_NB_OF_WARNINGS') ? 50 : $config->global->IMPORT_MAX_NB_OF_WARNINGS;
 		$nboferrors = 0;
@@ -1876,7 +1876,7 @@ if ($step == 5 && $datatoimport) {
 		$result = $obj->import_open_file($pathfile);
 		if ($result > 0) {
 			global $tablewithentity_cache;
-			$tablewithentity_cache = array();
+			$tablewithentity_cache = [];
 			$sourcelinenb = 0;
 			$endoffile = 0;
 
@@ -2078,7 +2078,7 @@ if ($step == 6 && $datatoimport) {
 	}
 
 	// Load source fields in input file
-	$fieldssource = array();
+	$fieldssource = [];
 	$result = $obj->import_open_file($config->import->dir_temp.'/'.$filetoimport);
 	if ($result >= 0) {
 		// Read first line
@@ -2216,7 +2216,7 @@ if ($step == 6 && $datatoimport) {
 	print '<tr><td width="25%">';
 	print $langs->trans("TablesTarget");
 	print '</td><td>';
-	$listtables = array();
+	$listtables = [];
 	foreach ($array_match_file_to_database as $code => $label) {
 		//var_dump($fieldssource);
 		if ($code > count($fieldssource)) {
@@ -2254,7 +2254,7 @@ if ($step == 6 && $datatoimport) {
 	// Fields imported
 	print '<tr><td>';
 	print $langs->trans("FieldsTarget").'</td><td>';
-	$listfields = array();
+	$listfields = [];
 	$i = 0;
 	$sort_array_match_file_to_database = $array_match_file_to_database;
 	ksort($sort_array_match_file_to_database);
@@ -2276,8 +2276,8 @@ if ($step == 6 && $datatoimport) {
 	print '</div>';
 
 	// Launch import
-	$arrayoferrors = array();
-	$arrayofwarnings = array();
+	$arrayoferrors = [];
+	$arrayofwarnings = [];
 	$maxnboferrors = !getDolGlobalString('IMPORT_MAX_NB_OF_ERRORS') ? 50 : $config->global->IMPORT_MAX_NB_OF_ERRORS;
 	$maxnbofwarnings = !getDolGlobalString('IMPORT_MAX_NB_OF_WARNINGS') ? 50 : $config->global->IMPORT_MAX_NB_OF_WARNINGS;
 	$nboferrors = 0;
@@ -2295,7 +2295,7 @@ if ($step == 6 && $datatoimport) {
 	$result = $obj->import_open_file($pathfile);
 	if ($result > 0) {
 		global $tablewithentity_cache;
-		$tablewithentity_cache = array();
+		$tablewithentity_cache = [];
 		$sourcelinenb = 0;
 		$endoffile = 0;
 

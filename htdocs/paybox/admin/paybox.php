@@ -150,7 +150,7 @@ $linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_valu
 print load_fiche_titre($langs->trans("PayBoxSetup"), $linkback, 'title_setup');
 
 $h = 0;
-$head = array();
+$head = [];
 
 $head[$h][0] = DOL_URL_ROOT."/paybox/admin/paybox.php";
 $head[$h][1] = $langs->trans("PayBox");

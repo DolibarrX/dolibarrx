@@ -49,7 +49,7 @@ class ReceptionLineBatch extends CommonObjectLine
 	 * @var string Name of table without prefix where object is stored
 	 */
 	public $table_element = 'receptiondet_batch'; //!< Name of table without prefix where object is stored
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @var int ID
@@ -732,7 +732,7 @@ class ReceptionLineBatch extends CommonObjectLine
 
 		// Manage filter
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.comment') {
@@ -768,7 +768,7 @@ class ReceptionLineBatch extends CommonObjectLine
 		if (!empty($limit)) {
 			$sql .= $this->db->plimit($limit, $offset);
 		}
-		$this->lines = array();
+		$this->lines = [];
 
 		$resql = $this->db->query($sql);
 		if ($resql) {

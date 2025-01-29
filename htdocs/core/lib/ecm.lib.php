@@ -35,7 +35,7 @@ function ecm_prepare_dasboard_head()
 	global $langs, $config, $user, $form;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$showmediasection = 0;
 	if (isModEnabled('mailing') || isModEnabled('website')) {
@@ -92,7 +92,7 @@ function ecm_prepare_head($object, $module = 'ecm', $section = '')
 {
 	global $langs, $config, $user;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	if ($module == 'ecm') {
 		$head[$h][0] = DOL_URL_ROOT . '/ecm/dir_card.php?section=' . $object->id;
@@ -119,7 +119,7 @@ function ecm_file_prepare_head($object)
 {
 	global $langs;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/ecm/file_card.php?section=' . $object->section_id . '&urlfile=' . urlencode($object->label);
 	$head[$h][1] = $langs->trans("File");
@@ -155,7 +155,7 @@ function ecm_prepare_head_fm($object)
 {
 	global $langs, $config;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/ecm/index.php?action=file_manager';
 	$head[$h][1] = $langs->trans('ECMFileManager');
@@ -186,7 +186,7 @@ function ecm_admin_prepare_head()
 	$langs->load("ecm");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/ecm.php";
 	$head[$h][1] = $langs->trans("Setup");

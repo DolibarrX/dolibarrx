@@ -86,7 +86,7 @@ class mailing_advthirdparties extends MailingTargets
 
 		dol_syslog(get_class($this)."::add_to_target_spec socid=".var_export($socid, true).' contactid='.var_export($contactid, true));
 
-		$cibles = array();
+		$cibles = [];
 
 		if (($type_of_target == 1) || ($type_of_target == 3)) {
 			// Select the third parties from category
@@ -208,9 +208,9 @@ class mailing_advthirdparties extends MailingTargets
 	{
 		// CHANGE THIS: Optional
 
-		//var $statssql=array();
+		//var $statssql=[];
 		//$this->statssql[0]="SELECT field1 as label, count(distinct(email)) as nb FROM mytable WHERE email IS NOT NULL";
-		return array();
+		return [];
 	}
 
 

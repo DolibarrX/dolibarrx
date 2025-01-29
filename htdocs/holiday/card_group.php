@@ -265,7 +265,7 @@ if (empty($resHook)) {
 
 
 		if (!$error) {
-			$TusersToProcess = array();
+			$TusersToProcess = [];
 			// usergroup  select
 			// better perf on single sql
 			/** GROUPS */
@@ -414,7 +414,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 					break;
 			}
 
-			setEventMessages($errors, array(), 'errors');
+			setEventMessages($errors, [], 'errors');
 		}
 
 
@@ -503,7 +503,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 
 		$sql = ' SELECT rowid, nom from '.MAIN_DB_PREFIX.'usergroup WHERE entity IN ('.getEntity('usergroup').')';
 		$resql = $db->query($sql);
-		$Tgroup = array();
+		$Tgroup = [];
 		while ($obj = $db->fetch_object($resql)) {
 			$Tgroup[$obj->rowid] = $obj->nom;
 		}
@@ -523,7 +523,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 		$sql .= ' WHERE 1 = 1';
 		$sql .= empty($morefilter) ? '' : $morefilter;
 
-		$userlist = array();
+		$userlist = [];
 		$userstatic = new User($db);
 
 		$resql = $db->query($sql);
@@ -551,7 +551,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 		print '<td class="fieldrequired">'.$langs->trans("Type").'</td>';
 		print '<td>';
 		$typeleaves = $object->getTypes(1, -1);
-		$arraytypeleaves = array();
+		$arraytypeleaves = [];
 		foreach ($typeleaves as $key => $val) {
 			$labeltoshow = ($langs->trans($val['code']) != $val['code'] ? $langs->trans($val['code']) : $val['label']);
 			$labeltoshow .= ($val['delay'] > 0 ? ' ('.$langs->trans("NoticePeriod").': '.$val['delay'].' '.$langs->trans("days").')' : '');
@@ -795,7 +795,7 @@ function sendMail($id, $cancreate, $now, $autoValidation)
 
 				$sendtobcc = getDolGlobalString('MAIN_MAIL_AUTOCOPY_HOLIDAY_TO');
 
-				$mail = new CMailFile($subject, $emailTo, $emailFrom, $message, array(), array(), array(), '', $sendtobcc, 0, 1, '', '', $trackid);
+				$mail = new CMailFile($subject, $emailTo, $emailFrom, $message, [], [], [], '', $sendtobcc, 0, 1, '', '', $trackid);
 
 				// Sending the email
 				$result = $mail->sendfile();

@@ -68,7 +68,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($object->table_element);
 $search_array_options = $extrafields->getOptionalsFromPost($object->table_element, '', 'search_');
 if (!is_array($search_array_options)) {
-	$search_array_options = array();
+	$search_array_options = [];
 }
 $search_ref			= GETPOST("search_ref", 'alpha');
 $search_type		= GETPOST("search_type", 'alpha');
@@ -82,7 +82,7 @@ $search_email		= GETPOST("search_email", 'alpha');
 $search_max_users	= GETPOST("search_max_users", 'alpha');
 $search_url			= GETPOST("search_url", 'alpha');
 
-$filter = array();
+$filter = [];
 
 $hookManager->initHooks(array('resourcelist'));
 
@@ -183,8 +183,8 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_email = "";
 	$search_max_users = "";
 	$search_url = "";
-	$toselect = array();
-	$search_array_options = array();
+	$toselect = [];
+	$search_array_options = [];
 }
 
 $permissiontoread = $user->hasRight('resource', 'read');
@@ -212,7 +212,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -227,8 +227,8 @@ $objectstatic = new Dolresource($db);
 
 $help_url = '';
 $title = $langs->trans('Resources');
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 $varpage = empty($contextpage) ? $_SERVER["PHP_SELF"] : $contextpage;
 $selectedfields = $form->multiSelectArrayWithCheckbox('selectedfields', $arrayfields, $varpage); // This also change content of $arrayfields
@@ -260,7 +260,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -275,7 +275,7 @@ if (isset($extrafields->attributes[$object->table_element]['label']) && is_array
 }
 
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -317,7 +317,7 @@ if ($search_url) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -368,7 +368,7 @@ if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && !$
 
 llxHeader('', $title, $help_url, '', 0, 0, $morejs, $morecss, '', 'mod-resource page-list bodyforlist');	// Can use also classforhorizontalscrolloftabs instead of bodyforlist for no horizontal scroll
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
@@ -415,12 +415,12 @@ if ($search_url != '') {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 
 // List of mass actions available
-$arrayofmassactions = array();
+$arrayofmassactions = [];
 if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -527,7 +527,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -579,7 +579,7 @@ print "</tr>\n";
 
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {

@@ -108,7 +108,7 @@ class Boms extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 		$tmpobject = new BOM($this->db);
 
 		$socid = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : '';
@@ -328,7 +328,7 @@ class Boms extends DolibarrApi
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 		$this->bom->getLinesArray();
-		$result = array();
+		$result = [];
 		foreach ($this->bom->lines as $line) {
 			array_push($result, $this->_cleanObjectDatas($line));
 		}
@@ -574,7 +574,7 @@ class Boms extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$myobject = array();
+		$myobject = [];
 		foreach ($this->bom->fields as $field => $propfield) {
 			if (in_array($field, array('rowid', 'entity', 'date_creation', 'tms', 'fk_user_creat')) || $propfield['notnull'] != 1) {
 				continue; // Not a mandatory field

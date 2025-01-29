@@ -40,7 +40,7 @@ function facture_prepare_head($object)
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/compta/facture/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('CustomerInvoice');
@@ -177,7 +177,7 @@ function invoice_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('facturedet_rec');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/invoice.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
@@ -255,7 +255,7 @@ function invoice_rec_prepare_head($object)
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/compta/facture/card-rec.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("RepeatableInvoice");
@@ -355,7 +355,7 @@ function supplier_invoice_rec_prepare_head($object)
 	global $db, $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/fourn/facture/card-rec.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("RepeatableSupplierInvoice");
@@ -468,7 +468,7 @@ function getNumberInvoicesPieChart($mode)
 			$num = $db->num_rows($resql);
 			$i = 0;
 			$total = 0;
-			$dataseries = array();
+			$dataseries = [];
 
 			while ($i < $num) {
 				$obj = $db->fetch_object($resql);
@@ -596,7 +596,7 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 			$sql .= " AND f.fk_soc = " . ((int) $socid);
 		}
 		// Add where from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListWhereCustomerDraft', $parameters);
 		$sql .= $hookManager->resPrint;
 
@@ -608,7 +608,7 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 		}
 
 		// Add Group from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListGroupByCustomerDraft', $parameters);
 		$sql .= $hookManager->resPrint;
 
@@ -743,7 +743,7 @@ function getDraftSupplierTable($maxCount = 500, $socid = 0)
 			$sql .= " AND f.fk_soc = " . ((int) $socid);
 		}
 		// Add where from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListWhereSupplierDraft', $parameters);
 		$sql .= $hookManager->resPrint;
 		$resql = $db->query($sql);
@@ -1103,7 +1103,7 @@ function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 			$sql .= " AND f.fk_soc = " . ((int) $socid);
 		}
 		// Add where from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListWhereCustomerUnpaid', $parameters);
 		$sql .= $hookManager->resPrint;
 
@@ -1293,7 +1293,7 @@ function getPurchaseInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 			$sql .= " AND ff.fk_soc = " . ((int) $socid);
 		}
 		// Add where from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListWhereSupplierUnpaid', $parameters);
 		$sql .= $hookManager->resPrint;
 

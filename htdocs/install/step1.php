@@ -449,7 +449,7 @@ if (!$error && $db->connected && $action == "set") {	// Test on permission not r
 			}
 
 			// Documents are stored above the web pages root to prevent being downloaded without authentication
-			$dir = array();
+			$dir = [];
 			$dir[] = $main_data_dir."/mycompany";
 			$dir[] = $main_data_dir."/medias";
 			$dir[] = $main_data_dir."/users";

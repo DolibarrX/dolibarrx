@@ -109,7 +109,7 @@ if ($labeluser && $labelgroup) {
 }
 // Web user group real (detected by 'id' external command)
 if (function_exists('exec')) {
-	$arrayout = array();
+	$arrayout = [];
 	$varout = 0;
 	exec('id', $arrayout, $varout);
 	if (empty($varout)) {	// Test command is ok. Work only on Linux OS.
@@ -241,7 +241,7 @@ print '<div class="divsection wordbreak">';
 
 print '<strong>'.$langs->trans("PermissionsOnFilesInWebRoot").'</strong>: ';
 $arrayoffilesinroot = dol_dir_list(DOL_DOCUMENT_ROOT, 'all', 1, '', array('\/custom'), 'name', SORT_ASC, 4, 1, '', 1);
-$fileswithwritepermission = array();
+$fileswithwritepermission = [];
 foreach ($arrayoffilesinroot as $fileinroot) {
 	// Test if there is at least one write permission file. If yes, add the entry into array $fileswithwritepermission
 	if (isset($fileinroot['perm']) && ($fileinroot['perm'] & 0222)) {

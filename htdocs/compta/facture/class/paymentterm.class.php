@@ -42,14 +42,14 @@ class PaymentTerm // extends CommonObject
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	//public  $element='c_payment_term';			//!< Id that identify managed objects
 	//public  $table_element='c_payment_term';	//!< Name of table without prefix where object is stored
 	/**
 	 * @var array<string,string>
 	 */
-	public $context = array();
+	public $context = [];
 
 	/**
 	 * @var int ID

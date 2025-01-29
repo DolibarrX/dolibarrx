@@ -185,7 +185,7 @@ class Position extends CommonObject
 	// /**
 	//  * @var array	List of child tables. To test if we can delete object.
 	//  */
-	// protected $childtables = array();
+	// protected $childtables = [];
 
 	// /**
 	//  * @var array    List of child tables. To know object to delete on cascade.
@@ -197,7 +197,7 @@ class Position extends CommonObject
 	// /**
 	//  * @var PositionLine[]     Array of subtable lines
 	//  */
-	// public $lines = array();
+	// public $lines = [];
 
 
 	/**
@@ -383,7 +383,7 @@ class Position extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -406,7 +406,7 @@ class Position extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList('t');
@@ -991,7 +991,7 @@ class Position extends CommonObject
 	 */
 	public function getLinesArray()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectline = new PositionLine($this->db);
 		$result = $objectline->fetchAll('ASC', 'position', 0, 0, '(fk_position:=:'.((int) $this->id).')');
@@ -1069,7 +1069,7 @@ class Position extends CommonObject
 	 */
 	public function getForUser($userId)
 	{
-		$TPosition = array();
+		$TPosition = [];
 
 		$TPosition = $this->fetchAll('ASC', 't.rowid', 0, 0, '(fk_user:=:'.((int) $userId).')');
 

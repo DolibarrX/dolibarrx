@@ -119,10 +119,10 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 
 		$this->tabTitleHeight = 5; // default height
 
-		$this->tva = array();
-		$this->tva_array = array();
-		$this->localtax1 = array();
-		$this->localtax2 = array();
+		$this->tva = [];
+		$this->tva_array = [];
+		$this->localtax1 = [];
+		$this->localtax2 = [];
 		$this->atleastoneratenotnull = 0;
 		$this->atleastonediscount = 0;
 
@@ -183,7 +183,7 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 		}
 
 		// Loop on each lines to detect if there is at least one image to show
-		$realpatharray = array();
+		$realpatharray = [];
 		if (getDolGlobalString('MAIN_GENERATE_SUPPLIER_ORDER_WITH_PICTURE')) {
 			for ($i = 0; $i < $nblines; $i++) {
 				if (empty($object->lines[$i]->fk_product)) {
@@ -513,7 +513,7 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 					$pdf->SetTextColor(0, 0, 0);
 
 					// Define size of image if we need it
-					$imglinesize = array();
+					$imglinesize = [];
 					if (!empty($realpatharray[$i])) {
 						$imglinesize = pdf_getSizeForImage($realpatharray[$i]);
 					}

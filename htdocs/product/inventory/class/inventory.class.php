@@ -193,7 +193,7 @@ class Inventory extends CommonObject
 	/**
 	 * @var array<string, array<string>>	List of child tables. To test if we can delete object.
 	 */
-	protected $childtables = array();
+	protected $childtables = [];
 	/**
 	 * @var string[]	List of child tables. To know object to delete on cascade.
 	 */
@@ -202,7 +202,7 @@ class Inventory extends CommonObject
 	/**
 	 * @var InventoryLine[]     Array of subtable lines
 	 */
-	public $lines = array();
+	public $lines = [];
 
 
 
@@ -291,7 +291,7 @@ class Inventory extends CommonObject
 			if ($this->fk_warehouse > 0) {
 				$sql .= " AND (ps.fk_entrepot = ".((int) $this->fk_warehouse);
 				if (!empty($include_sub_warehouse) && getDolGlobalInt('INVENTORY_INCLUDE_SUB_WAREHOUSE')) {
-					$TChildWarehouses = array();
+					$TChildWarehouses = [];
 					$this->getChildWarehouse($this->fk_warehouse, $TChildWarehouses);
 					if (!empty($TChildWarehouses)) {
 						$sql .= " OR ps.fk_entrepot IN (" . $this->db->sanitize(implode(',', $TChildWarehouses)) . ")";
@@ -520,7 +520,7 @@ class Inventory extends CommonObject
 	 */
 	/*public function fetchLines()
 	 {
-	 $this->lines=array();
+	 $this->lines=[];
 
 	 // Load lines with object MyObjectLine
 
@@ -651,8 +651,8 @@ class Inventory extends CommonObject
 		// phpcs:enable
 		global $langs, $hookManager;
 
-		$labelStatus = array();
-		$labelStatusShort = array();
+		$labelStatus = [];
+		$labelStatusShort = [];
 		$labelStatus[self::STATUS_DRAFT] = $langs->transnoentitiesnoconv('Draft');
 		$labelStatus[self::STATUS_VALIDATED] = $langs->transnoentitiesnoconv('Validated').' ('.$langs->transnoentitiesnoconv('InventoryStartedShort').')';
 		$labelStatus[self::STATUS_CANCELED] = $langs->transnoentitiesnoconv('Canceled');

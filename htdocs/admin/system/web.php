@@ -78,7 +78,7 @@ if ($labeluser && $labelgroup) {
 }
 // Web user group real (detected by 'id' external command)
 if (function_exists('exec')) {
-	$arrayout = array();
+	$arrayout = [];
 	$varout = 0;
 	exec('id', $arrayout, $varout);
 	print '<tr><td>'.$langs->trans("WebUserGroup")." (real, 'id' command)</td><td>";

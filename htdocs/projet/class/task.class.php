@@ -237,7 +237,7 @@ class Task extends CommonObjectLine
 	 */
 	public $timespent_invoicelineid;
 
-	public $comments = array();
+	public $comments = [];
 
 	// Properties calculated from sum of llx_element_time linked to task
 	/**
@@ -1119,11 +1119,11 @@ class Task extends CommonObjectLine
 	 * @param	string	$sortorder				Sort order
 	 * @return 	Task[]|string					Array of tasks
 	 */
-	public function getTasksArray($usert = null, $userp = null, $projectid = 0, $socid = 0, $mode = 0, $filteronproj = '', $filteronprojstatus = '-1', $morewherefilter = '', $filteronprojuser = 0, $filterontaskuser = 0, $extrafields = null, $includebilltime = 0, $search_array_options = array(), $loadextras = 0, $loadRoleMode = 1, $sortfield = '', $sortorder = '')
+	public function getTasksArray($usert = null, $userp = null, $projectid = 0, $socid = 0, $mode = 0, $filteronproj = '', $filteronprojstatus = '-1', $morewherefilter = '', $filteronprojuser = 0, $filterontaskuser = 0, $extrafields = null, $includebilltime = 0, $search_array_options = [], $loadextras = 0, $loadRoleMode = 1, $sortfield = '', $sortorder = '')
 	{
 		global $hookManager;
 
-		$tasks = array();
+		$tasks = [];
 
 		//print $usert.'-'.$userp.'-'.$projectid.'-'.$socid.'-'.$mode.'<br>';
 
@@ -1242,7 +1242,7 @@ class Task extends CommonObjectLine
 		include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 
 		// Add where from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		if ($includebilltime) {
@@ -1385,7 +1385,7 @@ class Task extends CommonObjectLine
 	 */
 	public function getUserRolesForProjectsOrTasks($userp, $usert, $projectid = '', $taskid = 0, $filteronprojstatus = -1)
 	{
-		$arrayroles = array();
+		$arrayroles = [];
 
 		dol_syslog(get_class($this)."::getUserRolesForProjectsOrTasks userp=".json_encode(is_object($userp))." usert=".json_encode(is_object($usert))." projectid=".$projectid." taskid=".$taskid);
 
@@ -1493,7 +1493,7 @@ class Task extends CommonObjectLine
 	 */
 	public function getListContactId($source = 'internal')
 	{
-		$contactAlreadySelected = array();
+		$contactAlreadySelected = [];
 		$tab = $this->liste_contact(-1, $source);
 		//var_dump($tab);
 		$num = count($tab);
@@ -1702,7 +1702,7 @@ class Task extends CommonObjectLine
 	 */
 	public function fetchTimeSpentOnTask($morewherefilter = '')
 	{
-		$arrayres = array();
+		$arrayres = [];
 
 		$sql = "SELECT";
 		$sql .= " s.rowid as socid,";
@@ -1807,7 +1807,7 @@ class Task extends CommonObjectLine
 			return -1;
 		}
 
-		$result = array();
+		$result = [];
 
 		$sql = "SELECT";
 		$sql .= " MIN(t.element_datehour) as min_date,";
@@ -1863,7 +1863,7 @@ class Task extends CommonObjectLine
 	{
 		$id = $this->id;
 
-		$result = array();
+		$result = [];
 
 		$sql = "SELECT";
 		$sql .= " SUM(t.element_duration) as nbseconds,";
@@ -1940,7 +1940,7 @@ class Task extends CommonObjectLine
 	 */
 	public function fetchAllTimeSpent(User $userobj, $morewherefilter = '')
 	{
-		$arrayres = array();
+		$arrayres = [];
 
 		$sql = "SELECT";
 		$sql .= " s.rowid as socid,";

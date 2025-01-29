@@ -68,7 +68,7 @@ class AssetDepreciationOptions extends CommonObject
 	/**
 	 * @var array<string,array{type:string,label:string,enabled:int<0,2>|string,position:int,notnull?:int,visible:int<-5,5>|string,alwayseditable?:int<0,1>,noteditable?:int<0,1>,default?:string,index?:int,foreignkey?:string,searchall?:int<0,1>,isameasure?:int<0,1>,css?:string,csslist?:string,help?:string,showoncombobox?:int<0,4>,disabled?:int<0,1>,arrayofkeyval?:array<int|string,string>,autofocusoncreate?:int<0,1>,comment?:string,copytoclipboard?:int<1,2>,validate?:int<0,1>,showonheader?:int<0,1>}>  Array with all fields and their property. Do not use it as a static var. It may be modified by constructor.
 	 */
-	public $fields = array();
+	public $fields = [];
 
 	/**
 	 * @var array<string,array{label:string,table:string,fields:array<string,array{type:string,label:string,enabled:int<0,2>|string,position:int,notnull?:int,visible:int<-2,5>|string,noteditable?:int<0,1>,default?:string,index?:int,foreignkey?:string,searchall?:int<0,1>,isameasure?:int<0,1>,css?:string,csslist?:string,help?:string,showoncombobox?:int<0,2>,disabled?:int<0,1>,arrayofkeyval?:array<int|string,string>,comment?:string,validate?:int<0,1>}>}>
@@ -122,7 +122,7 @@ class AssetDepreciationOptions extends CommonObject
 	/**
 	 * @var array<string,array<string,null|int|float|string>>  Array with all deprecation options by mode.
 	 */
-	public $deprecation_options = array();
+	public $deprecation_options = [];
 
 	/**
 	 * @var int
@@ -229,7 +229,7 @@ class AssetDepreciationOptions extends CommonObject
 
 		$error = 0;
 
-		$deprecation_options = array();
+		$deprecation_options = [];
 		foreach ($this->deprecation_options_fields as $mode_key => $mode_info) {
 			$this->setInfosForMode($mode_key, $class_type);
 
@@ -273,7 +273,7 @@ class AssetDepreciationOptions extends CommonObject
 					$value = ((GETPOST($html_name) == '1' || GETPOST($html_name) == 'on') ? 1 : 0);
 				} elseif ($field_info['type'] == 'reference') {
 					// todo to check
-					$tmparraykey = array(); //array_keys($object->param_list);
+					$tmparraykey = []; //array_keys($object->param_list);
 					$value = $tmparraykey[GETPOST($html_name)] . ',' . GETPOST($html_name . '2');
 				} else {
 					if ($field_key == 'lang') {
@@ -343,8 +343,8 @@ class AssetDepreciationOptions extends CommonObject
 		dol_syslog(__METHOD__ . " asset_id=$asset_id, asset_model_id=$asset_model_id");
 
 		$error = 0;
-		$this->errors = array();
-		$this->deprecation_options = array();
+		$this->errors = [];
+		$this->deprecation_options = [];
 
 		// Clean parameters
 		$asset_id = $asset_id > 0 ? $asset_id : 0;
@@ -368,7 +368,7 @@ class AssetDepreciationOptions extends CommonObject
 		}
 
 		$class_type = $asset_id > 0 ? 0 : 1;
-		$deprecation_options = array();
+		$deprecation_options = [];
 		foreach ($this->deprecation_options_fields as $mode_key => $mode_info) {
 			$this->setInfosForMode($mode_key, $class_type);
 
@@ -415,7 +415,7 @@ class AssetDepreciationOptions extends CommonObject
 		global $hookManager;
 		dol_syslog(__METHOD__ . " mode=$mode");
 
-		$this->errors = array();
+		$this->errors = [];
 
 		// Clean parameters
 		$mode = strtolower(trim($mode));
@@ -454,7 +454,7 @@ class AssetDepreciationOptions extends CommonObject
 		dol_syslog(__METHOD__ . " user_id=".$user->id.", asset_id=".$asset_id.", asset_model_id=".$asset_model_id.", notrigger=".$notrigger);
 
 		$error = 0;
-		$this->errors = array();
+		$this->errors = [];
 
 		// Clean parameters
 		$asset_id = $asset_id > 0 ? $asset_id : 0;

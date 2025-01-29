@@ -381,7 +381,7 @@ class TimeSpent extends CommonObject
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = "SELECT ";
 		$sql .= $this->getFieldList('t');

@@ -248,7 +248,7 @@ class EmailSenderProfile extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		// Load lines with object EmailSenderProfileLine
 

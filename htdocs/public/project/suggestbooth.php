@@ -199,7 +199,7 @@ function llxFooterVierge()
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 // Note that $action and $object may have been modified by some hooks
 $resHook = $hookManager->executeHooks('doActions', $parameters, $project, $action);
 if ($resHook < 0) {
@@ -541,7 +541,7 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 
 		$ishtml = dol_textishtml($texttosend); // May contain urls
 
-		$mailfile = new CMailFile($subjecttosend, $sendto, $from, $texttosend, array(), array(), array(), '', '', 0, $ishtml ? 1 : 0, '', '', $trackid);
+		$mailfile = new CMailFile($subjecttosend, $sendto, $from, $texttosend, [], [], [], '', '', 0, $ishtml ? 1 : 0, '', '', $trackid);
 
 		$result = $mailfile->sendfile();
 		if ($result) {

@@ -161,22 +161,22 @@ if (in_array($db->type, array('mysql', 'mysqli'))) {
 	$db->query('SET SQL_BIG_SELECTS=1');
 }
 
-$tabfac = array();
+$tabfac = [];
 
 $result = $db->query($sql);
 if ($result) {
-	$tabht = array();
-	$tabtva = array();
-	$tablocaltax1 = array();
-	$tablocaltax2 = array();
-	$tabttc = array();
-	$tabcompany = array();
+	$tabht = [];
+	$tabtva = [];
+	$tablocaltax1 = [];
+	$tablocaltax2 = [];
+	$tabttc = [];
+	$tabcompany = [];
 	$account_localtax1 = 0;
 	$account_localtax2 = 0;
 
 	$num = $db->num_rows($result);
 	$i = 0;
-	$resligne = array();
+	$resligne = [];
 	while ($i < $num) {
 		$obj = $db->fetch_object($result);
 		// les variables

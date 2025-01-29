@@ -39,7 +39,7 @@ function printDropdownBookmarksList()
 
 	$authorized_var=array('limit','optioncss','contextpage');
 	$url = $_SERVER["PHP_SELF"];
-	$url_param = array();
+	$url_param = [];
 	if (!empty($_SERVER["QUERY_STRING"])) {
 		if (is_array($_GET)) {	// Parse the original GET URL. So we must keep $_GET here.
 			foreach ($_GET as $key => $val) {

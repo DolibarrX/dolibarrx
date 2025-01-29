@@ -117,7 +117,7 @@ if (!empty($field) && !empty($element) && !empty($table_element) && !empty($fk_e
 
 	$view = '';
 	$format = 'text';
-	$return = array();
+	$return = [];
 	$error = 0;
 
 	if ($element != 'order_supplier' && $element != 'invoice_supplier' && preg_match('/^([^_]+)_([^_]+)/i', $element, $regs)) {

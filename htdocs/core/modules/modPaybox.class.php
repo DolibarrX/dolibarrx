@@ -71,24 +71,24 @@ class modPaybox extends DolibarrModules
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(2, 6); // Minimum version of Dolibarr required by module
 		$this->langfiles = array("paybox");
 
 		// Constants
-		$this->const = array(); // List of particular constants to add when module is enabled
+		$this->const = []; // List of particular constants to add when module is enabled
 		//Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',0),
 		//                            1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',0) );
 
 		// New pages on tabs
-		$this->tabs = array();
+		$this->tabs = [];
 
 
 		// Boxes
-		$this->boxes = array(); // List of boxes
+		$this->boxes = []; // List of boxes
 		$r = 0;
 
 		// Add here list of php file(s) stored in core/boxes that contains class to show a box.
@@ -100,7 +100,7 @@ class modPaybox extends DolibarrModules
 
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$r = 0;
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
@@ -114,7 +114,7 @@ class modPaybox extends DolibarrModules
 
 
 		// Main menu entries
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 
 		// Add here entries to declare new menus

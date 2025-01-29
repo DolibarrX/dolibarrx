@@ -37,7 +37,7 @@ function ldap_prepare_head()
 	$langs->load("ldap");
 
 	// Onglets
-	$head = array();
+	$head = [];
 	$h = 0;
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/ldap.php";
@@ -141,7 +141,7 @@ function show_ldap_content($result, $level, $count, $var, $hide = 0, $subcount =
 		return -1;
 	}
 
-	$lastkey = array();
+	$lastkey = [];
 
 	foreach ($result as $key => $val) {
 		if ("$key" == "objectclass") {

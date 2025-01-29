@@ -72,7 +72,7 @@ class box_scheduled_jobs extends ModeleBoxes
 		if ($user->hasRight('cron', 'read')) {
 			include_once DOL_DOCUMENT_ROOT . '/cron/class/cronjob.class.php';
 			$cronstatic = new Cronjob($this->db);
-			$resultarray = array();
+			$resultarray = [];
 
 			$result = 0;
 			$sql = "SELECT t.rowid, t.datelastrun, t.datenextrun, t.datestart,";

@@ -33,7 +33,7 @@ function trip_prepare_head(Deplacement $object)
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/compta/deplacement/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Trip");

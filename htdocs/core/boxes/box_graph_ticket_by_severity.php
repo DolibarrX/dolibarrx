@@ -90,9 +90,9 @@ class box_graph_ticket_by_severity extends ModeleBoxes
 			'limit' => dol_strlen($text)
 		);
 
-		$listofopplabel = array();
-		$listofoppcode = array();
-		$colorseriesstat = array();
+		$listofopplabel = [];
+		$listofoppcode = [];
+		$colorseriesstat = [];
 		if ($user->hasRight('ticket', 'read')) {
 			$sql = "SELECT cts.rowid, cts.label, cts.code";
 			$sql .= " FROM " . MAIN_DB_PREFIX . "c_ticket_severity as cts";
@@ -129,8 +129,8 @@ class box_graph_ticket_by_severity extends ModeleBoxes
 				dol_print_error($this->db);
 			}
 
-			$dataseries = array();
-			$data = array();
+			$dataseries = [];
+			$data = [];
 			$sql = "SELECT t.severity_code, COUNT(t.severity_code) as nb";
 			$sql .= " FROM " . MAIN_DB_PREFIX . "ticket as t";
 			$sql .= " WHERE t.fk_statut <> 8";
@@ -162,8 +162,8 @@ class box_graph_ticket_by_severity extends ModeleBoxes
 				$totalnb = 0;
 				if (!$mesg) {
 					//$px1->SetDataColor(array_values($colorseriesstat));
-					$data = array();
-					$legend = array();
+					$data = [];
+					$legend = [];
 					foreach ($dataseries as $value) {
 						$data[] = array($value['label'], $value['data']);
 						$totalnb += $value['data'];

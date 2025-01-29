@@ -74,20 +74,20 @@ class modMultiCurrency extends DolibarrModules
 		// for default path (eg: /multicurrency/core/xxxxx) (0=disable, 1=enable)
 		// for specific path of parts (eg: /multicurrency/core/modules/barcode)
 		// for specific css file (eg: /multicurrency/css/multicurrency.css.php)
-		$this->module_parts = array();
+		$this->module_parts = [];
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/multicurrency/temp");
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Config pages. Put here list of php page, stored into multicurrency/admin directory, to use to setup module.
 		$this->config_page_url = array("multicurrency.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of modules id to disable if this one is disabled
-		$this->conflictwith = array(); // List of modules id this module is in conflict with
+		$this->depends = []; // List of modules id that must be enabled if this module is enabled
+		$this->requiredby = []; // List of modules id to disable if this one is disabled
+		$this->conflictwith = []; // List of modules id this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3, 0); // Minimum version of Dolibarr required by module
 		$this->langfiles = array("multicurrency");
@@ -97,7 +97,7 @@ class modMultiCurrency extends DolibarrModules
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = [];
 
 		// Array to add new pages in new tabs
 		// Example: $this->tabs = array('objecttype:+tabname1:Title1:mylangfile@multicurrency:$user->rights->multicurrency->read:/multicurrency/mynewtab1.php?id=__ID__',  					// To add a new tab identified by code tabname1
@@ -123,19 +123,19 @@ class modMultiCurrency extends DolibarrModules
 		// 'stock'            to add a tab in stock view
 		// 'thirdparty'       to add a tab in third party view
 		// 'user'             to add a tab in user view
-		$this->tabs = array();
+		$this->tabs = [];
 
 		// Dictionaries
 		if (!isset($config->multicurrency->enabled)) {
 			$config->multicurrency = new stdClass();
 			$config->multicurrency->enabled = 0;
 		}
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 
 
 		// Boxes
 		// Add here list of php file(s) stored in core/boxes that contains class to show a box.
-		$this->boxes = array(); // List of boxes
+		$this->boxes = []; // List of boxes
 		// Example:
 		//$this->boxes=array(
 		//    0=>array('file'=>'myboxa.php@multicurrency','note'=>'','enabledbydefaulton'=>'Home'),
@@ -168,7 +168,7 @@ class modMultiCurrency extends DolibarrModules
 		);
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$r = 0;
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
@@ -205,7 +205,7 @@ class modMultiCurrency extends DolibarrModules
 		$r++;
 
 		// Main menu entries
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 
 		// Add here entries to declare new menus
@@ -296,7 +296,7 @@ class modMultiCurrency extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		$sql = array();
+		$sql = [];
 
 		$res = $this->_init($sql, $options);
 
@@ -317,7 +317,7 @@ class modMultiCurrency extends DolibarrModules
 	 */
 	public function remove($options = '')
 	{
-		$sql = array();
+		$sql = [];
 
 		return $this->_remove($sql, $options);
 	}

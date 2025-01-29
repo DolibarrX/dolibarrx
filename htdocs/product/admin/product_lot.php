@@ -398,7 +398,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2) {
 }
 
 // Module to build doc
-$def = array();
+$def = [];
 $sql = "SELECT nom";
 $sql .= " FROM " . MAIN_DB_PREFIX . "document_model";
 $sql .= " WHERE type = '" . $db->escape($type) . "'";
@@ -435,7 +435,7 @@ print "</tr>\n";
 
 clearstatcache();
 
-$filelist = array();
+$filelist = [];
 foreach ($dirmodels as $reldir) {
 	foreach (array('', '/doc') as $valdir) {
 		$dir = dol_buildpath($reldir . "core/modules/product_batch" . $valdir);

@@ -69,9 +69,9 @@ class modWorkflow extends DolibarrModules
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(2, 8); // Minimum version of Dolibarr required by module
 		$this->langfiles = array("@workflow");
@@ -100,10 +100,10 @@ class modWorkflow extends DolibarrModules
 		);
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$r = 0;
 
 		/*
@@ -116,7 +116,7 @@ class modWorkflow extends DolibarrModules
 		*/
 
 		// Main menu entries
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 		/*
 		$this->menu[$r]=array('fk_menu'=>0,
@@ -161,7 +161,7 @@ class modWorkflow extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

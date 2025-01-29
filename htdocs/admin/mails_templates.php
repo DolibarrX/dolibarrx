@@ -80,8 +80,8 @@ $search_fk_user = GETPOST('search_fk_user', 'intcomma');
 $search_topic = GETPOST('search_topic', 'alpha');
 $search_module = GETPOST('search_module', 'alpha');
 
-$acts = array();
-$actl = array();
+$acts = [];
+$actl = [];
 $acts[0] = "activate";
 $acts[1] = "disable";
 $actl[0] = img_picture($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
@@ -113,25 +113,25 @@ $hookManager->initHooks(array('emailtemplates'));
 
 
 // Name of SQL tables of dictionaries
-$tabname = array();
+$tabname = [];
 $tabname[25] = MAIN_DB_PREFIX."c_email_templates";
 
 // Nom des champs en resultat de select pour affichage du dictionnaire
-$tabfield = array();
+$tabfield = [];
 $tabfield[25] = "label,lang,type_template,fk_user,private,position,module,topic,joinfiles,defaultfortype,content";
 if (getDolGlobalString('MAIN_EMAIL_TEMPLATES_FOR_OBJECT_LINES')) {
 	$tabfield[25] .= ',content_lines';
 }
 
 // Nom des champs d'edition pour modification d'un enregistrement
-$tabfieldvalue = array();
+$tabfieldvalue = [];
 $tabfieldvalue[25] = "label,lang,type_template,fk_user,private,position,topic,email_from,joinfiles,defaultfortype,content";
 if (getDolGlobalString('MAIN_EMAIL_TEMPLATES_FOR_OBJECT_LINES')) {
 	$tabfieldvalue[25] .= ',content_lines';
 }
 
 // Nom des champs dans la table pour insertion d'un enregistrement
-$tabfieldinsert = array();
+$tabfieldinsert = [];
 $tabfieldinsert[25] = "label,lang,type_template,fk_user,private,position,topic,email_from,joinfiles,defaultfortype,content";
 if (getDolGlobalString('MAIN_EMAIL_TEMPLATES_FOR_OBJECT_LINES')) {
 	$tabfieldinsert[25] .= ',content_lines';
@@ -139,7 +139,7 @@ if (getDolGlobalString('MAIN_EMAIL_TEMPLATES_FOR_OBJECT_LINES')) {
 $tabfieldinsert[25] .= ',entity'; // Must be at end because not into other arrays
 
 // Condition to show dictionary in setup page
-$tabcond = array();
+$tabcond = [];
 $tabcond[25] = true;
 
 // List of help for fields
@@ -170,7 +170,7 @@ if (!getDolGlobalString('MAIN_EMAIL_TEMPLATES_FOR_OBJECT_LINES')) {
 }
 
 
-$tabhelp = array();
+$tabhelp = [];
 $tabhelp[25] = array(
 	'label' => $langs->trans('EnterAnyCode'),
 	'type_template' => $langs->trans("TemplateForElement"),
@@ -186,7 +186,7 @@ $tabhelp[25] = array(
 
 
 // We save list of template email Dolibarr can manage. This list can found by a grep into code on "->param['models']"
-$elementList = array();
+$elementList = [];
 // Add all and none after the sort
 
 $elementList['all'] = '-- '.dol_escape_htmltag($langs->trans("All")).' --';
@@ -295,7 +295,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -314,8 +314,8 @@ if (empty($resHook)) {
 		$search_fk_user = '';
 		$search_topic = '';
 		$search_module = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 
 	// Actions add or modify an email template
@@ -607,8 +607,8 @@ if (!empty($user->admin) && (empty($_SESSION['leftmenu']) || $_SESSION['leftmenu
 } else {
 	$title = $langs->trans("EMailTemplates");
 }
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 $sql = "SELECT rowid as rowid, module, label, type_template, lang, fk_user, private, position, topic, email_from,joinfiles, defaultfortype, content_lines, content, enabled, active";
 $sql .= " FROM ".MAIN_DB_PREFIX."c_email_templates";
@@ -651,7 +651,7 @@ $sql .= $db->plimit($listlimit + 1, $offset);
 
 llxHeader('', $title, $help_url, '', 0, 0, $morejs, $morecss, '', 'mod-admin page-mails_templates');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -682,7 +682,7 @@ if ($optioncss != '') {
 // Add $param from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 // Add $param from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object); // Note that $action and $object may have been modified by hook
 $param .= $hookManager->resPrint;
 
@@ -972,11 +972,11 @@ foreach ($fieldlist as $field => $value) {
 		print '<td class="liste_titre"><input type="text" name="search_label" class="maxwidth75" value="'.dol_escape_htmltag($search_label).'"></td>';
 	} elseif ($value == 'lang') {
 		print '<td class="liste_titre">';
-		print $formadmin->select_language($search_lang, 'search_lang', 0, array(), 1, 0, 0, 'maxwidth100');
+		print $formadmin->select_language($search_lang, 'search_lang', 0, [], 1, 0, 0, 'maxwidth100');
 		print '</td>';
 	} elseif ($value == 'fk_user') {
 		print '<td class="liste_titre">';
-		print $form->select_dolusers($search_fk_user, 'search_fk_user', 1, null, 0, ($user->admin ? '' : 'hierarchyme'), array(), 0, 0, 0, '', 0, '', 'maxwidth100', 1);
+		print $form->select_dolusers($search_fk_user, 'search_fk_user', 1, null, 0, ($user->admin ? '' : 'hierarchyme'), [], 0, 0, 0, '', 0, '', 'maxwidth100', 1);
 		print '</td>';
 	} elseif ($value == 'topic') {
 		print '<td class="liste_titre"><input type="text" name="search_topic" value="'.dol_escape_htmltag($search_topic).'"></td>';
@@ -1412,7 +1412,7 @@ function fieldList($fieldlist, $obj = null, $tabname = '', $context = '')
 		} elseif ($value == 'fk_user') {
 			print '<td>';
 			if ($user->admin && $context != 'preview') {
-				print $form->select_dolusers(GETPOSTISSET('fk_user') ? GETPOSTINT('fk_user') : (empty($obj->$value) ? '' : $obj->$value), 'fk_user', 1, array(), 0, ($user->admin ? '' : 'hierarchyme'), array(), 0, 0, 0, '', 0, '', 'minwidth75 maxwidth100');
+				print $form->select_dolusers(GETPOSTISSET('fk_user') ? GETPOSTINT('fk_user') : (empty($obj->$value) ? '' : $obj->$value), 'fk_user', 1, [], 0, ($user->admin ? '' : 'hierarchyme'), [], 0, 0, 0, '', 0, '', 'minwidth75 maxwidth100');
 			} else {
 				if ($context == 'add') {	// I am not admin and we show the add form
 					print $user->getNomUrl(-1); // Me
@@ -1438,7 +1438,7 @@ function fieldList($fieldlist, $obj = null, $tabname = '', $context = '')
 				if ($context == 'edit') {
 					$selectedlang = $obj->lang;
 				}
-				print $formadmin->select_language($selectedlang, 'langcode', 0, array(), 1, 0, 0, 'maxwidth100');
+				print $formadmin->select_language($selectedlang, 'langcode', 0, [], 1, 0, 0, 'maxwidth100');
 			} else {
 				if (!empty($obj->lang)) {
 					print $obj->lang.' - '.$langs->trans('Language_'.$obj->lang);

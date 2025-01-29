@@ -152,12 +152,12 @@ $tmpe = dol_getdate($date_end);
 $year_end = $tmpe['year'];
 $nbofyear = ($year_end - $year_start) + 1;
 
-$commonparams = array();
+$commonparams = [];
 $commonparams['modecompta'] = $modecompta;
 $commonparams['sortorder'] = $sortorder;
 $commonparams['sortfield'] = $sortfield;
 
-$headerparams = array();
+$headerparams = [];
 $headerparams['date_startyear'] = $date_startyear;
 $headerparams['date_startmonth'] = $date_startmonth;
 $headerparams['date_startday'] = $date_startday;
@@ -165,7 +165,7 @@ $headerparams['date_endyear'] = $date_endyear;
 $headerparams['date_endmonth'] = $date_endmonth;
 $headerparams['date_endday'] = $date_endday;
 
-$tableparams = array();
+$tableparams = [];
 $tableparams['search_categ'] = $selected_cat;
 $tableparams['search_societe'] = $search_societe;
 $tableparams['search_zip'] = $search_zip;
@@ -283,12 +283,12 @@ if (isModEnabled('accounting')) {
 // Show Array
 $catotal = 0;
 $catotal_ht = 0;
-$name = array();
-$amount = array();
-$amount_ht = array();
-$address_zip = array();
-$address_town = array();
-$address_pays = array();
+$name = [];
+$amount = [];
+$amount_ht = [];
+$address_zip = [];
+$address_town = [];
+$address_pays = [];
 
 if ($modecompta == 'CREANCES-DETTES') {
 	$sql = "SELECT DISTINCT s.rowid as socid, s.nom as name, s.zip, s.town, s.fk_pays,";

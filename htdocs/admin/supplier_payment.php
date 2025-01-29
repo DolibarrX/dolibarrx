@@ -188,7 +188,7 @@ if (!getDolGlobalString('SUPPLIER_PAYMENT_ADDON')) {
 print load_fiche_titre($langs->trans("PaymentsNumberingModule"), '', '');
 
 // Load array def with activated templates
-$def = array();
+$def = [];
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
@@ -234,7 +234,7 @@ foreach ($dirmodels as $reldir) {
 						$classname = "mod_supplier_payment_".$file;
 					}
 					// Check if there is a filter on country
-					$reg = array();
+					$reg = [];
 					preg_match('/\-(.*)_(.*)$/', $classname, $reg);
 					if (!empty($reg[2]) && $reg[2] != strtoupper($mysoc->country_code)) {
 						continue;
@@ -311,7 +311,7 @@ foreach ($dirmodels as $reldir) {
 
 							if (getDolGlobalString("PAYMENT_ADDON").'.php' == $file) {  // If module is the one used, we show existing errors
 								if (!empty($module->error)) {
-									dol_htmloutput_mesg($module->error, array(), 'error', 1);
+									dol_htmloutput_mesg($module->error, [], 'error', 1);
 								}
 							}
 

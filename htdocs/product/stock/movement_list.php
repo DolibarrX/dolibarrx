@@ -207,7 +207,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -239,8 +239,8 @@ if (empty($resHook)) {
 		$search_qty = '';
 		$search_fk_project = "";
 		$search_all = "";
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
@@ -262,7 +262,7 @@ if (empty($resHook)) {
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 		$objecttmp = new MouvementStock($db);
-		$listofobjectid = array();
+		$listofobjectid = [];
 		foreach ($toselect as $toselectid) {
 			$objecttmp = new MouvementStock($db); // must create new instance because instance is saved into $listofobjectref array for future use
 			$result = $objecttmp->fetch($toselectid);
@@ -271,7 +271,7 @@ if (empty($resHook)) {
 			}
 		}
 
-		$arrayofinclusion = array();
+		$arrayofinclusion = [];
 		foreach ($listofobjectref as $tmppdf) {
 			$arrayofinclusion[] = '^'.preg_quote(dol_sanitizeFileName($tmppdf), '/').'\.pdf$';
 		}
@@ -688,7 +688,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -705,7 +705,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON m.fk_user_author = u.rowid";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product_lot as pl ON m.batch = pl.batch AND m.fk_product = pl.fk_product";
 
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -769,7 +769,7 @@ if ($search_type_mouvement != '' && $search_type_mouvement != '-1') {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -1001,7 +1001,7 @@ if ($action == "transfert") {
 if ((empty($action) || $action == 'list') && $id > 0) {
 	print "<div class=\"tabsAction\">\n";
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $warehouse, $action); // Note that $action and $warehouse may have been
 	// modified by hook
 	if (empty($resHook)) {
@@ -1017,7 +1017,7 @@ if ((empty($action) || $action == 'list') && $id > 0) {
 	print '</div><br>';
 }
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -1091,7 +1091,7 @@ $resHook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, 
 $param .= $hookManager->resPrint;
 
 // List of mass actions available
-$arrayofmassactions = array();
+$arrayofmassactions = [];
 if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 	$arrayofmassactions['builddoc'] = img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("GeneratePDF");
 }
@@ -1103,7 +1103,7 @@ if (!empty($permissiontoadd)) {
 	$arrayofmassactions['prereverse'] = img_picture('', 'add', 'class="picturefixedwidth"').$langs->trans("Reverse");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete', 'prereverse'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
@@ -1146,7 +1146,7 @@ if ($search_all) {
 	$setupstring = '';
 	if (!isset($fieldstosearchall) || !is_array($fieldstosearchall)) {
 		// Ensure $fieldstosearchall is array
-		$fieldstosearchall = array();
+		$fieldstosearchall = [];
 	}
 	foreach ($fieldstosearchall as $key => $val) {
 		$fieldstosearchall[$key] = $langs->trans($val);
@@ -1235,7 +1235,7 @@ if (!empty($arrayfields['pl.sellby']['checked'])) {
 if (!empty($arrayfields['e.ref']['checked'])) {
 	print '<td class="liste_titre maxwidthonsmartphone left">';
 	//print '<input class="flat" type="text" size="8" name="search_warehouse" value="'.($search_warehouse).'">';
-	print $formproduct->selectWarehouses($search_warehouse, 'search_warehouse', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, array(), 'maxwidth150');
+	print $formproduct->selectWarehouses($search_warehouse, 'search_warehouse', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, [], 'maxwidth150');
 	print '</td>';
 }
 if (!empty($arrayfields['m.fk_user_author']['checked'])) {
@@ -1323,7 +1323,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1405,14 +1405,14 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 print '</tr>'."\n";
 
 
-$arrayofuniqueproduct = array();
+$arrayofuniqueproduct = [];
 
 
 // Loop on record
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {

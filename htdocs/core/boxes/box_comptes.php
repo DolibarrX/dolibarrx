@@ -103,7 +103,7 @@ class box_comptes extends ModeleBoxes
 				$num = $this->db->num_rows($result);
 
 				$line = 0;
-				$solde_total = array();
+				$solde_total = [];
 
 				$account_static = new Account($this->db);
 				while ($line < $num) {

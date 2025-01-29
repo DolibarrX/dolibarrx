@@ -62,7 +62,7 @@ class modAccounting extends DolibarrModules
 
 		// Dependencies
 		$this->depends = array("modFacture", "modBank", "modTax"); // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of modules id to disable if this one is disabled
+		$this->requiredby = []; // List of modules id to disable if this one is disabled
 		$this->conflictwith = array("modSimpleAccounting"); // List of modules are in conflict with this module
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3, 9); // Minimum version of Dolibarr required by module
@@ -73,7 +73,7 @@ class modAccounting extends DolibarrModules
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = [];
 		$this->const[1] = array(
 				"MAIN_COMPANY_CODE_ALWAYS_REQUIRED",
 				"chaine",
@@ -142,10 +142,10 @@ class modAccounting extends DolibarrModules
 		);
 
 		// Tabs
-		$this->tabs = array();
+		$this->tabs = [];
 
 		// Css
-		$this->module_parts = array();
+		$this->module_parts = [];
 
 		// Boxes
 		$this->boxes = array(
@@ -156,7 +156,7 @@ class modAccounting extends DolibarrModules
 		// Permissions
 		$this->rightsClass = 'accounting';
 
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$r = 0;
 
 		$this->rights[$r][0] = 50440;
@@ -246,7 +246,7 @@ class modAccounting extends DolibarrModules
 		$this->export_permission[$r] = array(array("accounting", "chartofaccount"));
 		$this->export_fields_array[$r] = array('ac.rowid'=>'ChartofaccountsId', 'ac.pcg_version'=>'Chartofaccounts', 'aa.rowid'=>'ID', 'aa.account_number'=>"AccountAccounting", 'aa.label'=>"Label", 'aa2.account_number'=>"Accountparent", 'aa.pcg_type'=>"Pcgtype", 'aa.active'=>'Status');
 		$this->export_TypeFields_array[$r] = array('ac.rowid'=>'List:accounting_system:pcg_version', 'ac.pcg_version'=>'Text', 'aa.rowid'=>'Numeric', 'aa.account_number'=>"Text", 'aa.label'=>"Text", 'aa2.account_number'=>"Text", 'aa.pcg_type'=>'Text', 'aa.active'=>'Status');
-		$this->export_entities_array[$r] = array(); // We define here only fields that use another picture
+		$this->export_entities_array[$r] = []; // We define here only fields that use another picture
 
 		$this->export_sql_start[$r] = 'SELECT DISTINCT ';
 		$this->export_sql_end[$r]  = ' FROM '.MAIN_DB_PREFIX.'accounting_account as aa';
@@ -265,7 +265,7 @@ class modAccounting extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "Chartofaccounts"; // Translation key
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('aa'=>MAIN_DB_PREFIX.'accounting_account');
 		$this->import_tables_creator_array[$r] = array('aa'=>'fk_user_author'); // Fields to store import user id
 		$this->import_fields_array[$r] = array('aa.fk_pcg_version'=>"Chartofaccounts*", 'aa.account_number'=>"AccountAccounting*", 'aa.label'=>"Label*", 'aa.account_parent'=>"Accountparent", "aa.fk_accounting_category"=>"AccountingCategory", "aa.pcg_type"=>"Pcgtype*", 'aa.active'=>'Status*', 'aa.datec'=>"DateCreation");
@@ -283,7 +283,7 @@ class modAccounting extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'ImportAccountingEntries';
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('b'=>MAIN_DB_PREFIX.'accounting_bookkeeping'); // List of tables to insert into (insert done in same order)
 		$this->import_fields_array[$r] = array(
 			'b.piece_num'=>"TransactionNumShort",
@@ -329,7 +329,7 @@ class modAccounting extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'ImportAccountingEntriesFECFormat';
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('b'=>MAIN_DB_PREFIX.'accounting_bookkeeping'); // List of tables to insert into (insert done in same order)
 		$this->import_fields_array[$r] = array(
 			'b.code_journal'=>'FECFormatJournalCode*',
@@ -416,7 +416,7 @@ class modAccounting extends DolibarrModules
 			return -1; // Do not activate module if error 'not allowed' returned when loading module SQL queries (the _load_table run sql with run_sql with the error allowed parameter set to 'default')
 		}
 
-		$sql = array();
+		$sql = [];
 		return $this->_init($sql, $options);
 	}
 
@@ -430,7 +430,7 @@ class modAccounting extends DolibarrModules
 	 */
 	public function remove($options = '')
 	{
-		$sql = array();
+		$sql = [];
 		return $this->_remove($sql, $options);
 	}
 }

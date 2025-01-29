@@ -33,7 +33,7 @@
  *
  *  @return     array<int<-11,13>,string>   Array with timezone values
  */
-function get_tz_array()
+function get_tz_[]
 {
 	$tzarray = array(
 		-11 => "Pacific/Pago_Pago",
@@ -430,7 +430,7 @@ function dolSqlDateFilter($datefield, $day_date, $month_date, $year_date, $exclu
  */
 function dol_stringtotime($string, $gm = 1)
 {
-	$reg = array();
+	$reg = [];
 	// Convert date with format DD/MM/YYY HH:MM:SS. This part of code should not be used.
 	if (preg_match('/^([0-9]+)\/([0-9]+)\/([0-9]+)\s?([0-9]+)?:?([0-9]+)?:?([0-9]+)?/i', $string, $reg)) {
 		dol_syslog("dol_stringtotime call to function with deprecated parameter format", LOG_WARNING);
@@ -798,7 +798,7 @@ function num_public_holiday($timestampStart, $timestampEnd, $country_code = '', 
 
 	if (empty($config->cache['arrayOfActivePublicHolidays_' . $country_id])) {
 		// Loop on public holiday defined into hrm_public_holiday for the day, month and year analyzed
-		$tmpArrayOfPublicHolidays = array();
+		$tmpArrayOfPublicHolidays = [];
 		$sql = "SELECT id, code, entity, fk_country, dayrule, year, month, day, active";
 		$sql .= " FROM " . MAIN_DB_PREFIX . "c_hrm_public_holiday";
 		$sql .= " WHERE active = 1 and fk_country IN (0" . ($country_id > 0 ? ", " . $country_id : 0) . ")";
@@ -829,7 +829,7 @@ function num_public_holiday($timestampStart, $timestampEnd, $country_code = '', 
 		&& ($i < 50000)
 	) {		// Loop end when equals (Test on i is a security loop to avoid infinite loop)
 		$ferie = false;
-		$specialdayrule = array();
+		$specialdayrule = [];
 
 		$jour  = (int) gmdate("d", $timestampStart);
 		$mois  = (int) gmdate("m", $timestampStart);
@@ -1158,7 +1158,7 @@ function monthArray($outputlangs, $short = 0)
 function getWeekNumbersOfMonth($month, $year)
 {
 	$nb_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-	$TWeek = array();
+	$TWeek = [];
 	for ($day = 1; $day < $nb_days; $day++) {
 		$week_number = getWeekNumber($day, $month, $year);
 		$TWeek[$week_number] = $week_number;
@@ -1175,7 +1175,7 @@ function getWeekNumbersOfMonth($month, $year)
  */
 function getFirstDayOfEachWeek($TWeek, $year)
 {
-	$TFirstDayOfWeek = array();
+	$TFirstDayOfWeek = [];
 	foreach ($TWeek as $weekNb) {
 		if (in_array('01', $TWeek) && in_array('52', $TWeek) && $weekNb == '01') {
 			$year++; //Si on a la 1re semaine et la semaine 52 c'est qu'on change d'année
@@ -1194,7 +1194,7 @@ function getFirstDayOfEachWeek($TWeek, $year)
  */
 function getLastDayOfEachWeek($TWeek, $year)
 {
-	$TLastDayOfWeek = array();
+	$TLastDayOfWeek = [];
 	foreach ($TWeek as $weekNb) {
 		$TLastDayOfWeek[$weekNb] = date('d', strtotime($year . 'W' . $weekNb . '+6 days'));
 	}

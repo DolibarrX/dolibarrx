@@ -60,7 +60,7 @@ if (GETPOST('confirmation')) {
 	// We save hours entered
 	if (issetAndNoEmpty('totalchoixjour', $_SESSION) === true && issetAndNoEmpty('nbrecaseshoraires', $_SESSION) === true) {
 		$nbofchoice = count($_SESSION["totalchoixjour"]);
-		$errheure = array();
+		$errheure = [];
 
 		if ($nbofchoice * $_SESSION["nbrecaseshoraires"] > 200) {
 			setEventMessages($langs->trans("ErrorFieldTooLong"), null, 'errors');
@@ -81,8 +81,8 @@ if (GETPOST('confirmation')) {
 					}
 
 					// A range like 8:00-11:00
-					$creneaux = array();
-					$heures = array();
+					$creneaux = [];
+					$heures = [];
 					if (preg_match("/(\d{1,2}:\d{2})-(\d{1,2}:\d{2})/", $tmphorairesi[$j], $creneaux)) {
 						//on recupere les deux parties du preg_match qu'on redécoupe autour des ":"
 						$debutcreneau = explode(":", $creneaux[1]);
@@ -152,7 +152,7 @@ if (GETPOST('confirmation')) {
 						if (issetAndNoEmpty('horaires'.$i, $_SESSION) === true) {
 							$_SESSION["horaires$i"][$j] = '';
 						} else {
-							$_SESSION["horaires$i"] = array();
+							$_SESSION["horaires$i"] = [];
 							$_SESSION["horaires$i"][$j] = '';
 						}
 					}
@@ -222,7 +222,7 @@ if (!isset($_SESSION['description']) && !isset($_SESSION['mail'])) {
 	exit;
 }
 
-$arrayofjs = array();
+$arrayofjs = [];
 $arrayofcss = array('/opensurvey/css/style.css');
 llxHeader('', $langs->trans("OpenSurvey"), "", '', 0, 0, $arrayofjs, $arrayofcss);
 
@@ -418,7 +418,7 @@ print '</tr>'."\n";
 //ajout d'une entrée dans la variable de session qui contient toutes les dates
 if (issetAndNoEmpty('choixjourajout')) {
 	if (!isset($_SESSION["totalchoixjour"])) {
-		$_SESSION["totalchoixjour"] = array();
+		$_SESSION["totalchoixjour"] = [];
 	}
 
 	// Test pour éviter les doublons dans la variable qui contient toutes les dates

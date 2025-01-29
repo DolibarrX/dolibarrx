@@ -52,7 +52,7 @@ class BlockedLog
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * Unique fingerprint of the log
@@ -140,7 +140,7 @@ class BlockedLog
 	 * Array of tracked event codes
 	 * @var string[]
 	 */
-	public $trackedevents = array();
+	public $trackedevents = [];
 
 
 
@@ -164,7 +164,7 @@ class BlockedLog
 	{
 		global $config;
 
-		$this->trackedevents = array();
+		$this->trackedevents = [];
 
 		// Customer Invoice/Facture / Payment
 		if (isModEnabled('invoice')) {
@@ -375,7 +375,7 @@ class BlockedLog
 		global $langs, $cachedUser;
 
 		if (empty($cachedUser)) {
-			$cachedUser = array();
+			$cachedUser = [];
 		}
 
 		if (empty($cachedUser[$this->fk_user])) {
@@ -1166,7 +1166,7 @@ class BlockedLog
 		//global $cachedlogs;
 
 		/* $cachedlogs allow fastest search */
-		//if (empty($cachedlogs)) $cachedlogs = array();
+		//if (empty($cachedlogs)) $cachedlogs = [];
 
 		if ($element == 'all') {
 			$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."blockedlog
@@ -1215,7 +1215,7 @@ class BlockedLog
 
 		$res = $this->db->query($sql);
 		if ($res) {
-			$results = array();
+			$results = [];
 
 			$i = 0;
 			while ($obj = $this->db->fetch_object($res)) {

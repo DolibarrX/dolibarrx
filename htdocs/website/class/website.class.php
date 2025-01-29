@@ -50,7 +50,7 @@ class Website extends CommonObject
 	/**
 	 * @var string[]	List of child tables. To know object to delete on cascade.
 	 */
-	protected $childtablesoncascade = array();
+	protected $childtablesoncascade = [];
 
 	/**
 	 * @var string String with name of icon for website. Must be the part after the 'object_' into object_myobject.png
@@ -392,7 +392,7 @@ class Website extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = "SELECT";
 		$sql .= " t.rowid,";
@@ -413,7 +413,7 @@ class Website extends CommonObject
 
 		// Manage filter
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					$sqlwhere[] = $this->db->sanitize($key)." LIKE '%".$this->db->escape($value)."%'";
@@ -1027,8 +1027,8 @@ class Website extends CommonObject
 			return '';
 		}
 
-		$arrayreplacementinfilename = array();
-		$arrayreplacementincss = array();
+		$arrayreplacementinfilename = [];
+		$arrayreplacementincss = [];
 		$arrayreplacementincss['file=image/'.$website->ref.'/'] = "file=image/__WEBSITE_KEY__/";
 		$arrayreplacementincss['file=js/'.$website->ref.'/'] = "file=js/__WEBSITE_KEY__/";
 		$arrayreplacementincss['medias/image/'.$website->ref.'/'] = "medias/image/__WEBSITE_KEY__/";
@@ -1273,7 +1273,7 @@ class Website extends CommonObject
 		dol_mkdir($config->website->dir_temp.'/'.$object->ref);
 
 		$filename = basename($pathtofile);
-		$reg = array();
+		$reg = [];
 		if (!preg_match('/^website_(.*)-(.*)$/', $filename, $reg)) {
 			$this->errors[] = 'Bad format for filename '.$filename.'. Must be website_XXX-VERSION.';
 			return -3;
@@ -1287,7 +1287,7 @@ class Website extends CommonObject
 			return -4;
 		}
 
-		$arrayreplacement = array();
+		$arrayreplacement = [];
 		$arrayreplacement['__WEBSITE_ID__'] = $object->id;
 		$arrayreplacement['__WEBSITE_KEY__'] = $object->ref;
 		$arrayreplacement['__N__'] = $this->db->escape("\n"); // Restore \n
@@ -1363,7 +1363,7 @@ class Website extends CommonObject
 		$fp = fopen($sqlfile, "r");
 		if ($fp) {
 			while (!feof($fp)) {
-				$reg = array();
+				$reg = [];
 
 				// Warning fgets with second parameter that is null or 0 hang.
 				$buf = fgets($fp, 65000);
@@ -1610,7 +1610,7 @@ class Website extends CommonObject
 
 		// Fill $languagecodes array with existing translation, nothing if none
 		if (!is_array($languagecodes) && $pageid > 0) {
-			$languagecodes = array();
+			$languagecodes = [];
 
 			$sql = "SELECT wp.rowid, wp.lang, wp.pageurl, wp.fk_page";
 			$sql .= " FROM ".MAIN_DB_PREFIX."website_page as wp";
@@ -1942,7 +1942,7 @@ class Website extends CommonObject
 		}
 
 		//search numPage where was declared
-		$filesFound = array();
+		$filesFound = [];
 		foreach ($fichierWithNoPage as $filesource) {
 			$fileContent = file_get_contents($filesource['fullname']);
 			if (strpos($fileContent, "require './page".$numOfPageSource.".tpl.php'") !== false) {
@@ -1962,7 +1962,7 @@ class Website extends CommonObject
 			}
 		}
 		//search file with the number of pages found
-		$fileNeeded = array();
+		$fileNeeded = [];
 		foreach ($fichiersDestination as $index => $file) {
 			if ($file['name'] == $numPagesFound) {
 				$fileNeeded = $file;
@@ -1979,11 +1979,11 @@ class Website extends CommonObject
 				$differences = $this->showDifferences($destContent, $sourceContent, array($numOfPageDest,$numOfPageSource));
 				$differences['file_destination'] = $fileNeeded;
 			} else {
-				$differences = array();
+				$differences = [];
 			}
 			return $differences;
 		}
-		return array();
+		return [];
 	}
 
 	/**
@@ -2005,22 +2005,22 @@ class Website extends CommonObject
 	 * @param int[]  $exceptNumPge    num of page files we don't want to change
 	 * @return array<mixed,mixed|mixed>      Array
 	 */
-	protected function showDifferences($str1, $str2, $exceptNumPge = array())
+	protected function showDifferences($str1, $str2, $exceptNumPge = [])
 	{
-		$diff = array();
+		$diff = [];
 		$str1 = $this->normalizeString($str1);
 		$str2 = $this->normalizeString($str2);
 
 		$lines1 = explode("\n", $str1);
 		$lines2 = explode("\n", $str2);
 
-		$linesShouldChange = array();
-		$linesShouldNotChange = array();
-		$linefound = array();
+		$linesShouldChange = [];
+		$linesShouldNotChange = [];
+		$linefound = [];
 		$countNumPage = count($exceptNumPge);
 
 		for ($i = 0;$i < $countNumPage; $i++) {
-			$linefound[$i] = array();
+			$linefound[$i] = [];
 			$linefound[$i]['meta'] = '/content="' . preg_quote((string) $exceptNumPge[$i], '/') . '" \/>/';
 			$linefound[$i]['output'] = '/dolWebsiteOutput\(\$tmp, "html", ' . preg_quote((string) $exceptNumPge[$i], '/') . '\);/';
 		}
@@ -2063,7 +2063,7 @@ class Website extends CommonObject
 			$linesShouldChange[1] = '$tmp = ob_get_contents(); ob_end_clean(); dolWebsiteOutput($tmp, "html", '.$exceptNumPge[0].');';
 		}
 
-		$replacementMapping = array();
+		$replacementMapping = [];
 		if (!empty($linesShouldNotChange)) {
 			$i = 0;
 			foreach ($linesShouldNotChange as $numLigne => $ligneRemplacement) {
@@ -2110,7 +2110,7 @@ class Website extends CommonObject
 		unset($differences['file_destination']);
 		$contentDest = file($inplaceFile, FILE_IGNORE_NEW_LINES);
 		foreach ($differences as $key => $ligneSource) {
-			$matches = array();
+			$matches = [];
 			if (preg_match('/(Ajoutée|Modifiée) à la ligne (\d+)/', $key, $matches)) {
 				$typeModification = $matches[1];
 				$numLigne = (int) $matches[2] - 1;

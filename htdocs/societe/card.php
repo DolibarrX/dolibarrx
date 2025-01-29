@@ -108,7 +108,7 @@ if (isModEnabled('accounting')) {
 }
 
 $error = 0;
-$errors = array();
+$errors = [];
 
 
 // Get parameters
@@ -347,7 +347,7 @@ if (empty($resHook)) {
 			$object->country_id				= GETPOSTINT('country_id');
 			$object->state_id				= GETPOSTINT('state_id');
 
-			$object->socialnetworks = array();
+			$object->socialnetworks = [];
 			if (isModEnabled('socialnetworks')) {
 				foreach ($socialnetworks as $key => $value) {
 					if (GETPOSTISSET($key) && GETPOST($key, 'alphanohtml') != '') {
@@ -1087,7 +1087,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 		$object->town = GETPOST('town', 'alphanohtml');
 		$object->state_id = GETPOSTINT('state_id');
 
-		$object->socialnetworks = array();
+		$object->socialnetworks = [];
 		if (isModEnabled('socialnetworks')) {
 			foreach ($socialnetworks as $key => $value) {
 				if (GETPOSTISSET($key) && GETPOST($key, 'alphanohtml') != '') {
@@ -1328,10 +1328,10 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			print '<input type="hidden" name="code_auto" value="1">';
 		}
 
-		print dol_get_fiche_head(array(), 'card', '', 0, '');
+		print dol_get_fiche_head([], 'card', '', 0, '');
 
 		// Call Hook tabContentCreateThirdparty
-		$parameters = array();
+		$parameters = [];
 		// Note that $action and $object may be modified by hook
 		$resHook = $hookManager->executeHooks('tabContentCreateThirdparty', $parameters, $object, $action);
 		if (empty($resHook)) {
@@ -1881,7 +1881,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			}
 			if (getDolGlobalInt('MAIN_MULTILANGS')) {
 				print '<tr><td>'.$form->editfieldkey('DefaultLang', 'default_lang', '', $object, 0).'</td><td colspan="3" class="maxwidthonsmartphone">'."\n";
-				print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language(GETPOST('default_lang', 'alpha') ? GETPOST('default_lang', 'alpha') : ($object->default_lang ? $object->default_lang : ''), 'default_lang', 0, array(), 1, 0, 0, 'maxwidth200onsmartphone');
+				print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language(GETPOST('default_lang', 'alpha') ? GETPOST('default_lang', 'alpha') : ($object->default_lang ? $object->default_lang : ''), 'default_lang', 0, [], 1, 0, 0, 'maxwidth200onsmartphone');
 				print '</td>';
 				print '</tr>';
 			}
@@ -1955,7 +1955,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				print '<td>'.$langs->trans('ParentCompany').'</td>';
 				print '<td colspan="3" class="maxwidthonsmartphone">';
 				print img_picture('', 'company', 'class="paddingrightonly"');
-				print $form->select_company(GETPOST('parent_company_id'), 'parent_company_id', '', 'SelectThirdParty', 0, 0, array(), 0, 'minwidth300 maxwidth500 widthcentpercentminusxx');
+				print $form->select_company(GETPOST('parent_company_id'), 'parent_company_id', '', 'SelectThirdParty', 0, 0, [], 0, 'minwidth300 maxwidth500 widthcentpercentminusxx');
 				print '</td></tr>';
 			}
 
@@ -1990,14 +1990,14 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					print '<tr><td class="titlefieldcreate">'.$langs->trans("ProductAccountancySellCode").'</td>';
 					print '<td>';
 					$accountancy_code_sell = GETPOST('accountancy_code_sell', 'alpha');
-					print $formaccounting->select_account($accountancy_code_sell, 'accountancy_code_sell', 1, array(), 1, 1, '');
+					print $formaccounting->select_account($accountancy_code_sell, 'accountancy_code_sell', 1, [], 1, 1, '');
 					print '</td></tr>';
 
 					// Accountancy_code_buy
 					print '<tr><td class="titlefieldcreate">'.$langs->trans("ProductAccountancyBuyCode").'</td>';
 					print '<td>';
 					$accountancy_code_buy = GETPOST('accountancy_code_buy', 'alpha');
-					print $formaccounting->select_account($accountancy_code_buy, 'accountancy_code_buy', 1, array(), 1, 1, '');
+					print $formaccounting->select_account($accountancy_code_buy, 'accountancy_code_buy', 1, [], 1, 1, '');
 					print '</td></tr>';
 				} else { // For external software
 					// Accountancy_code_sell
@@ -2017,7 +2017,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 		print dol_get_fiche_end();
 
-		print $form->buttonsSaveCancel('AddThirdParty', 'Cancel', array(), 0, '', $dol_openinpopup);
+		print $form->buttonsSaveCancel('AddThirdParty', 'Cancel', [], 0, '', $dol_openinpopup);
 
 		print '</form>'."\n";
 	} elseif ($action == 'edit') {
@@ -2087,7 +2087,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				$object->state_id = GETPOSTINT('state_id');
 				$object->parent = GETPOSTINT('parent_company_id');
 
-				$object->socialnetworks = array();
+				$object->socialnetworks = [];
 				if (isModEnabled('socialnetworks')) {
 					foreach ($socialnetworks as $key => $value) {
 						if (GETPOSTISSET($key) && GETPOST($key, 'alphanohtml') != '') {
@@ -2274,7 +2274,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 			print '<div class="fichecenter2">';
 			// Call Hook tabContentEditThirdparty
-			$parameters = array();
+			$parameters = [];
 			// Note that $action and $object may be modified by hook
 			$resHook = $hookManager->executeHooks('tabContentEditThirdparty', $parameters, $object, $action);
 			if (empty($resHook)) {
@@ -2713,7 +2713,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				// Default language
 				if (getDolGlobalInt('MAIN_MULTILANGS')) {
 					print '<tr><td>'.$form->editfieldkey('DefaultLang', 'default_lang', '', $object, 0).'</td><td colspan="3">'."\n";
-					print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language($object->default_lang, 'default_lang', 0, array(), '1', 0, 0, 'maxwidth300 widthcentpercentminusx');
+					print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language($object->default_lang, 'default_lang', 0, [], '1', 0, 0, 'maxwidth300 widthcentpercentminusx');
 					print '</td>';
 					print '</tr>';
 				}
@@ -2735,7 +2735,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					$cate_arbo = $form->select_all_categories(Category::TYPE_CUSTOMER, '', '', 64, 0, 3);
 					$c = new Category($db);
 					$cats = $c->containing($object->id, Category::TYPE_CUSTOMER);
-					$arrayselected = array();
+					$arrayselected = [];
 					foreach ($cats as $cat) {
 						$arrayselected[] = $cat->id;
 					}
@@ -2749,7 +2749,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 						$cate_arbo = $form->select_all_categories(Category::TYPE_SUPPLIER, '', '', 64, 0, 3);
 						$c = new Category($db);
 						$cats = $c->containing($object->id, Category::TYPE_SUPPLIER);
-						$arrayselected = array();
+						$arrayselected = [];
 						foreach ($cats as $cat) {
 							$arrayselected[] = $cat->id;
 						}
@@ -2778,7 +2778,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					print '<td>'.$langs->trans('ParentCompany').'</td>';
 					print '<td colspan="3" class="maxwidthonsmartphone">';
 					print img_picture('', 'company', 'class="picturefixedwidth"');
-					print $form->select_company(GETPOST('parent_company_id') ? GETPOST('parent_company_id') : $object->parent, 'parent_company_id', '', 'SelectThirdParty', 0, 0, array(), 0, 'minwidth300 maxwidth500 widthcentpercentminusxx');
+					print $form->select_company(GETPOST('parent_company_id') ? GETPOST('parent_company_id') : $object->parent, 'parent_company_id', '', 'SelectThirdParty', 0, 0, [], 0, 'minwidth300 maxwidth500 widthcentpercentminusxx');
 					print '</td></tr>';
 				}
 
@@ -2835,13 +2835,13 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 						// Accountancy_code_sell
 						print '<tr><td>'.$langs->trans("ProductAccountancySellCode").'</td>';
 						print '<td>';
-						print $formaccounting->select_account($object->accountancy_code_sell, 'accountancy_code_sell', 1, array(), 1, 1);
+						print $formaccounting->select_account($object->accountancy_code_sell, 'accountancy_code_sell', 1, [], 1, 1);
 						print '</td></tr>';
 
 						// Accountancy_code_buy
 						print '<tr><td>'.$langs->trans("ProductAccountancyBuyCode").'</td>';
 						print '<td>';
-						print $formaccounting->select_account($object->accountancy_code_buy, 'accountancy_code_buy', 1, array(), 1, 1);
+						print $formaccounting->select_account($object->accountancy_code_buy, 'accountancy_code_buy', 1, [], 1, 1);
 						print '</td></tr>';
 					} else { // For external software
 						// Accountancy_code_sell
@@ -2891,7 +2891,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					'name' => 'soc_origin',
 					'label' => $langs->trans('MergeOriginThirdparty'),
 					'type' => 'other',
-					'value' => $form->select_company('', 'soc_origin', '', 'SelectThirdParty', 1, 0, array(), 0, 'minwidth200', '', '', 1, array(), false, array($object->id))
+					'value' => $form->select_company('', 'soc_origin', '', 'SelectThirdParty', 1, 0, [], 0, 'minwidth200', '', '', 1, [], false, array($object->id))
 				)
 			);
 
@@ -2928,7 +2928,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 		dol_banner_tab($object, 'socid', $linkback, ($user->socid ? 0 : 1), 'rowid', 'nom');
 
 		// Call Hook tabContentViewThirdparty
-		$parameters = array();
+		$parameters = [];
 		// Note that $action and $object may be modified by hook
 		$resHook = $hookManager->executeHooks('tabContentViewThirdparty', $parameters, $object, $action);
 		if (empty($resHook)) {
@@ -3346,7 +3346,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				print '</tr></table>';
 				print '</td><td>';
 				$html_name = ($action == 'editparentcompany') ? 'parent_id' : 'none';
-				$form->form_thirdparty($_SERVER['PHP_SELF'].'?socid='.$object->id, $object->parent, $html_name, '', 1, 0, 0, array(), 0, array($object->id));
+				$form->form_thirdparty($_SERVER['PHP_SELF'].'?socid='.$object->id, $object->parent, $html_name, '', 1, 0, 0, [], 0, array($object->id));
 				print '</td></tr>';
 			}
 
@@ -3401,7 +3401,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 		if ($action != 'presend') {
 			print '<div class="tabsAction">'."\n";
 
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if (empty($resHook)) {
 				$at_least_one_email_contact = false;

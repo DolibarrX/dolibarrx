@@ -222,7 +222,7 @@ class ConferenceOrBoothAttendee extends CommonObject
 	// /**
 	//  * @var array	List of child tables. To test if we can delete object.
 	//  */
-	// protected $childtables = array();
+	// protected $childtables = [];
 
 	// /**
 	//  * @var array    List of child tables. To know object to delete on cascade.
@@ -234,7 +234,7 @@ class ConferenceOrBoothAttendee extends CommonObject
 	// /**
 	//  * @var ConferenceOrBoothAttendeeLine[]     Array of subtable lines
 	//  */
-	// public $lines = array();
+	// public $lines = [];
 
 
 
@@ -447,7 +447,7 @@ class ConferenceOrBoothAttendee extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -470,7 +470,7 @@ class ConferenceOrBoothAttendee extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList('t');
@@ -485,7 +485,7 @@ class ConferenceOrBoothAttendee extends CommonObject
 		// Manage filter
 		if (is_array($filter)) {	// deprecated, use $filter = USF syntax
 			dol_syslog("You are using a deprecated use of fetchAll. filter parameter mus be an USF string now.", LOG_WARNING);
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.rowid' || $key == 't.fk_soc' || $key == 't.fk_project' || $key == 't.fk_actioncomm') {

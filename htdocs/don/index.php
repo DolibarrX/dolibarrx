@@ -67,8 +67,8 @@ $help_url = 'EN:Module_Donations|FR:Module_Dons|ES:M&oacute;dulo_Donaciones|DE:M
 
 llxHeader('', $langs->trans("Donations"), $help_url, '', 0, 0, '', '', '', 'mod-donation page-index');
 
-$nb = array();
-$somme = array();
+$nb = [];
+$somme = [];
 $total = 0;
 
 $sql = "SELECT count(d.rowid) as nb, sum(d.amount) as somme , d.fk_statut";
@@ -101,7 +101,7 @@ print '<div class="fichecenter"><div class="fichethirdleft">';
 
 if (!isset($listofsearchfields) || !is_array($listofsearchfields)) {
 	// Ensure $listofsearchfields is an array
-	$listofsearchfields = array();
+	$listofsearchfields = [];
 }
 if (getDolGlobalString('MAIN_SEARCH_FORM_ON_HOME_AREAS')) {     // TODO Add a search into global search combo so we can remove this
 	if (isModEnabled('don') && $user->hasRight('don', 'lire')) {
@@ -131,8 +131,8 @@ if (getDolGlobalString('MAIN_SEARCH_FORM_ON_HOME_AREAS')) {     // TODO Add a se
 	}
 }
 
-$dataseries = array();
-$colorseries = array();
+$dataseries = [];
+$colorseries = [];
 
 include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 

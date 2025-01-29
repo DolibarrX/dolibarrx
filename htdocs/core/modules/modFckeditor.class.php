@@ -64,12 +64,12 @@ class modFckeditor extends DolibarrModules
 
 		// Dependencies
 		$this->disabled = (defined('JS_CKEDITOR') && in_array(constant('JS_CKEDITOR'), array('disabled', 'disabled/')));
-		$this->depends = array();
+		$this->depends = [];
 		$this->requiredby = array('modWebsites');
 		$this->enabled_bydefault = true; // Will be enabled during install
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 		$this->const[0] = array("FCKEDITOR_ENABLE_SOCIETE", "yesno", "1", "WYSIWYG for the fields descriptions of elements (except products/services)");
 		$this->const[2] = array("FCKEDITOR_ENABLE_DETAILS", "yesno", "1", "WYSIWYG for products details lines for all entities");
 		$this->const[3] = array("FCKEDITOR_ENABLE_USERSIGN", "yesno", "1", "WYSIWYG for user signature");
@@ -77,10 +77,10 @@ class modFckeditor extends DolibarrModules
 		$this->const[5] = array("FCKEDITOR_ENABLE_MAIL", "yesno", "1", "WYSIWYG for products details lines for all entities");
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'fckeditor';
 	}
 }

@@ -64,22 +64,22 @@ class modWebsite extends DolibarrModules
 		// Dependencies
 		$this->hidden = getDolGlobalInt('MODULE_WEBSITE_DISABLED'); // A condition to disable module
 		$this->depends = array('modFckeditor'); // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of modules id to disable if this one is disabled
-		$this->conflictwith = array(); // List of modules id this module is in conflict with
+		$this->requiredby = []; // List of modules id to disable if this one is disabled
+		$this->conflictwith = []; // List of modules id this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->langfiles = array("website");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 
 		// New pages on tabs
-		//$this->tabs[] = array();  					// To add a new tab identified by code tabname1
+		//$this->tabs[] = [];  					// To add a new tab identified by code tabname1
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$this->rightsClass = 'website';
 		$r = 0;
 
@@ -237,7 +237,7 @@ class modWebsite extends DolibarrModules
 			return 0;
 		}
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

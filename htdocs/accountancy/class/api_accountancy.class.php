@@ -33,7 +33,7 @@ class Accountancy extends DolibarrApi
 	 *
 	 * @var string[] $FIELDS Mandatory fields, checked when create and update object
 	 */
-	public static $FIELDS = array();
+	public static $FIELDS = [];
 
 	/**
 	 * @var BookKeeping $bookkeeping {@type BookKeeping}
@@ -136,7 +136,7 @@ class Accountancy extends DolibarrApi
 		$sortfield = 't.piece_num, t.rowid'; // by default
 
 		// set filter for each period available
-		$filter = array();
+		$filter = [];
 		$doc_date_start = null;
 		$doc_date_end = null;
 		$now = dol_now();
@@ -171,7 +171,7 @@ class Accountancy extends DolibarrApi
 				// last 6 months
 				$nb_prev_month = 6;
 			}
-			$prev_month_date_list = array();
+			$prev_month_date_list = [];
 			$prev_month_date_list[] = dol_get_prev_month($now_month, $now_year); // get previous month for index = 0
 			for ($i = 1; $i < $nb_prev_month; $i++) {
 				$prev_month_date_list[] = dol_get_prev_month($prev_month_date_list[$i - 1]['month'], $prev_month_date_list[$i - 1]['year']); // get i+1 previous month for index=i

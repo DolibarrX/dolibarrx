@@ -49,7 +49,7 @@ require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.product.class.php';
 
 $idprod = GETPOSTINT('idprod');
 
-$prices = array();
+$prices = [];
 
 // Load translation files required by the page
 $langs->loadLangs(array("stocks", "margins", "products"));

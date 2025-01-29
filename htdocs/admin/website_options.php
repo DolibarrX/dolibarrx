@@ -106,7 +106,7 @@ $linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/module
 print load_fiche_titre($titre, $linkback, 'title_setup');
 
 // Onglets
-$head = array();
+$head = [];
 $h = 0;
 
 $head[$h][0] = DOL_URL_ROOT."/admin/website.php";

@@ -67,11 +67,11 @@ $type = 'action';
  */
 
 $error = 0;
-$errors = array();
+$errors = [];
 
 include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 
-$reg = array();
+$reg = [];
 if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
 	$value = (GETPOST($code, 'alpha') ? GETPOST($code, 'alpha') : 1);
@@ -217,7 +217,7 @@ print dol_get_fiche_head($head, 'other', $langs->trans("Agenda"), -1, 'action');
  */
 
 // Define an array def of models
-$def = array();
+$def = [];
 
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";

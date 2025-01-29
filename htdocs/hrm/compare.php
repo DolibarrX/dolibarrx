@@ -79,7 +79,7 @@ $css = array('/hrm/css/style.css');
 
 llxHeader('', $langs->trans('SkillComparison'), '', '', 0, 0, '', $css);
 
-$head = array();
+$head = [];
 
 $h = 0;
 $head[$h][0] = $_SERVER["PHP_SELF"];
@@ -167,7 +167,7 @@ $fk_usergroup1 = GETPOSTINT('fk_usergroup1');
 							echo $langs->trans('OrJobToCompare') . '</td><td>';
 							$j = new Job($db);
 							$jobs = $j->fetchAll();
-							$TJobs = array();
+							$TJobs = [];
 
 							foreach ($jobs as &$j) {
 								$TJobs[$j->id] = $j->label;
@@ -232,7 +232,7 @@ $fk_usergroup1 = GETPOSTINT('fk_usergroup1');
 						<?php
 						echo '<tr><td id="list-user-left" style="width:30%" valign="top">';
 
-						$TUser1 = $TUser2 = array();
+						$TUser1 = $TUser2 = [];
 
 						$userlist1 = displayUsersListWithPicto($TUser1, $fk_usergroup1, 'list1');
 
@@ -400,7 +400,7 @@ function skillList(&$TMergedSkills)
  */
 function mergeSkills($TSkill1, $TSkill2)
 {
-	$Tab = array();
+	$Tab = [];
 
 	foreach ($TSkill1 as &$sk) {
 		if (empty($Tab[$sk->fk_skill])) {
@@ -522,7 +522,7 @@ function getSkillForUsers($TUser)
 
 	//I go back to the user with the highest score in a given group for all the skills assessed in that group
 	if (empty($TUser)) {
-		return array();
+		return [];
 	}
 
 	$sql = 'SELECT sk.rowid, sk.label, sk.description, sk.skill_type, sr.fk_object, sr.objecttype, sr.fk_skill, ';
@@ -534,7 +534,7 @@ function getSkillForUsers($TUser)
 	$sql .= " GROUP BY sk.rowid, sk.label, sk.description, sk.skill_type, sr.fk_object, sr.objecttype, sr.fk_skill "; // group par competence
 
 	$resql = $db->query($sql);
-	$Tab = array();
+	$Tab = [];
 
 	if ($resql) {
 		//For each skill, we count the number of times that the max score has been reached within a given group
@@ -579,7 +579,7 @@ function getSkillForJob($fk_job)
 	global $db;
 
 	if (empty($fk_job)) {
-		return array();
+		return [];
 	}
 
 	$sql = 'SELECT sk.rowid, sk.label, sk.description, sk.skill_type, sr.fk_object, sr.objecttype, sr.fk_skill,';
@@ -591,7 +591,7 @@ function getSkillForJob($fk_job)
 	$sql .= ' GROUP BY sk.rowid, sk.label, sk.description, sk.skill_type, sr.fk_object, sr.objecttype, sr.fk_skill'; // group par competence*/
 
 	$resql = $db->query($sql);
-	$Tab = array();
+	$Tab = [];
 
 	if ($resql) {
 		$num = 0;

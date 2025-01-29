@@ -116,7 +116,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 
 // Initialize array of search criteria
 $search_all = GETPOST("search_all", 'alpha');
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_' . $key, 'alpha')) {
 		$search[$key] = GETPOST('search_' . $key, 'alpha');
@@ -135,7 +135,7 @@ include DOL_DOCUMENT_ROOT . '/core/actions_fetchobject.inc.php'; // Must be 'inc
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -338,7 +338,7 @@ function displayPositionCard(&$object)
 		 */
 		print '<div class="tabsAction">';
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 
@@ -393,7 +393,7 @@ if ($action !== 'edit' && $action !== 'create') {
 	print '<div class="fichecenter"><div class="fichehalfleft">';
 
 	// Show links to link elements
-	$tmparray = $form->showLinkToObjectBlock($object, array(), array('position'), 1);
+	$tmparray = $form->showLinkToObjectBlock($object, [], array('position'), 1);
 	$linktoelem = $tmparray['linktoelem'];
 	$htmltoenteralink = $tmparray['htmltoenteralink'];
 	print $htmltoenteralink;

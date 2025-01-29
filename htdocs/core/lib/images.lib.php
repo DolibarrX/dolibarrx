@@ -87,7 +87,7 @@ function image_format_supported($file, $acceptsvg = 0)
 	$regeximgext = getListOfPossibleImageExt();
 
 	// Case filename is not a format image
-	$reg = array();
+	$reg = [];
 	if (!preg_match('/('.$regeximgext.')$/i', $file, $reg)) {
 		return -1;
 	}
@@ -144,7 +144,7 @@ function image_format_supported($file, $acceptsvg = 0)
  */
 function dol_getImageSize($file, $url = false)
 {
-	$ret = array();
+	$ret = [];
 
 	if (image_format_supported($file) < 0) {
 		return $ret;

@@ -366,7 +366,7 @@ function oauthadmin_prepare_head()
 {
 	global $langs, $config;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath('/admin/oauth.php', 1);
 	$head[$h][1] = $langs->trans("OAuthServices");

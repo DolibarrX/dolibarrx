@@ -79,7 +79,7 @@ class PaymentVAT extends CommonObject
 	/**
 	 * @var array<float|int>
 	 */
-	public $amounts = array(); // Array of amounts
+	public $amounts = []; // Array of amounts
 
 	/**
 	 * @var int ID
@@ -632,7 +632,7 @@ class PaymentVAT extends CommonObject
 				}
 
 				// Add link 'company' in bank_url between invoice and bank transaction (for each invoice concerned by payment)
-				$linkaddedforthirdparty = array();
+				$linkaddedforthirdparty = [];
 				foreach ($this->amounts as $key => $value) {
 					if ($mode == 'payment_vat') {
 						$tva = new Tva($this->db);
@@ -764,7 +764,7 @@ class PaymentVAT extends CommonObject
 		$label .= '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
 		if (!empty($this->label)) {
 			$labeltoshow = $this->label;
-			$reg = array();
+			$reg = [];
 			if (preg_match('/^\((.*)\)$/i', $this->label, $reg)) {
 				// Label generique car entre parentheses. On l'affiche en le traduisant
 				if ($reg[1] == 'paiement') {

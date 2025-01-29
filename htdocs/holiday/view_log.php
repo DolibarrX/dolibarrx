@@ -95,8 +95,8 @@ $extrafields = new ExtraFields($db);
 //$diroutputmassaction = $config->mymodule->dir_output . '/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('leavemovementlist')); // Note that conf->hooks_modules contains array
 
-$arrayfields = array();
-$arrayofmassactions = array();
+$arrayfields = [];
+$arrayofmassactions = [];
 
 if (!isModEnabled('holiday')) {
 	accessforbidden('Module not enabled');
@@ -120,7 +120,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -141,8 +141,8 @@ if (empty($resHook)) {
 		$search_type = '';
 		$search_prev_solde = '';
 		$search_new_solde = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 
 	if (GETPOST('button_removefilter_x', 'alpha')
@@ -357,7 +357,7 @@ if (!empty($arrayfields['cpl.fk_user_action']['checked'])) {
 	$validator = new UserGroup($db);
 	$excludefilter = $user->admin ? '' : 'u.rowid <> '.((int) $user->id);
 	$valideurobjects = $validator->listUsersForGroup($excludefilter, 1);
-	$valideurarray = array();
+	$valideurarray = [];
 	foreach ($valideurobjects as $val) {
 		$valideurarray[$val] = $val;
 	}
@@ -383,7 +383,7 @@ if (!empty($arrayfields['cpl.type_action']['checked'])) {
 
 // Filter: Type
 if (!empty($arrayfields['cpl.fk_type']['checked'])) {
-	$arraytypeleaves = array();
+	$arraytypeleaves = [];
 	foreach ($alltypeleaves as $key => $val) {
 		$labeltoshow = ($langs->trans($val['code']) != $val['code'] ? $langs->trans($val['code']) : $val['label']);
 		$arraytypeleaves[$val['rowid']] = $labeltoshow;

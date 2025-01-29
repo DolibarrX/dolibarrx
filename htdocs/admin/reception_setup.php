@@ -303,7 +303,7 @@ print load_fiche_titre($langs->trans("ReceptionsReceiptModel"));
 
 // Defini tableau def de modele invoice
 $type = "reception";
-$def = array();
+$def = [];
 
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
@@ -346,7 +346,7 @@ foreach ($dirmodels as $reldir) {
 		if (is_dir($dir)) {
 			$handle = opendir($dir);
 			if (is_resource($handle)) {
-				$filelist = array();
+				$filelist = [];
 				while (($file = readdir($handle)) !== false) {
 					$filelist[] = $file;
 				}

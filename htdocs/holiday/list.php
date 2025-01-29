@@ -216,8 +216,8 @@ if (empty($resHook)) {
 		$search_valideur = "";
 		$search_status = "";
 		$search_type = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
@@ -315,7 +315,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -370,7 +370,7 @@ if ($id > 0) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -410,7 +410,7 @@ if (!$resql) {
 
 $num = $db->num_rows($resql);
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -483,7 +483,7 @@ if (!empty($permissiontoapprove)) {
 	$arrayofmassactions['preapproveleave'] = img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("Approve");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -572,7 +572,7 @@ if ($search_all) {
 
 $moreforfilter = '';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -641,7 +641,7 @@ if (!empty($arrayfields['cp.fk_validator']['checked'])) {
 		$validator = new UserGroup($db);
 		$excludefilter = $user->admin ? '' : 'u.rowid <> '.((int) $user->id);
 		$valideurobjects = $validator->listUsersForGroup($excludefilter, 1);
-		$valideurarray = array();
+		$valideurarray = [];
 		foreach ($valideurobjects as $val) {
 			$valideurarray[$val] = $val;
 		}
@@ -659,7 +659,7 @@ if (!empty($arrayfields['cp.fk_type']['checked'])) {
 		setEventMessages(null, array($langs->trans("ErrorSetACountryFirst"), $langs->trans("CompanyFoundation")), 'errors');
 	} else {
 		$typeleaves = $holidaystatic->getTypes(1, -1);
-		$arraytypeleaves = array();
+		$arraytypeleaves = [];
 		foreach ($typeleaves as $key => $val) {
 			$labeltoshow = ($langs->trans($val['code']) != $val['code'] ? $langs->trans($val['code']) : $val['label']);
 			//$labeltoshow .= ($val['delay'] > 0 ? ' ('.$langs->trans("NoticePeriod").': '.$val['delay'].' '.$langs->trans("days").')':'');
@@ -744,7 +744,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -835,7 +835,7 @@ if ($id && !$user->hasRight('holiday', 'readall') && !in_array($id, $childids)) 
 
 	$i = 0;
 	$savnbfield = $totalarray['nbfield'];
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
 	$totalduration = 0;
 	$imaxinloop = ($limit ? min($num, $limit) : $num);

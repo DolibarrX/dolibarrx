@@ -277,7 +277,7 @@ if (empty($resHook)) {
 		$search_accountancy_aux_code_end = '';
 		$search_mvt_label = '';
 		$search_direction = '';
-		$search_ledger_code = array();
+		$search_ledger_code = [];
 		$search_date_startyear = '';
 		$search_date_startmonth = '';
 		$search_date_startday = '';
@@ -333,11 +333,11 @@ if (empty($resHook)) {
 		$search_lettering_code = '';
 		$search_not_reconciled = '';
 		$search_import_key = '';
-		$toselect = array();
+		$toselect = [];
 	}
 
 	// Must be after the remove filter action, before the export.
-	$filter = array();
+	$filter = [];
 	if (!empty($search_date_start)) {
 		$filter['t.doc_date>='] = $search_date_start;
 		$tmp = dol_getdate($search_date_start);
@@ -366,7 +366,7 @@ if (empty($resHook)) {
 		$accountingcategory = new AccountancyCategory($db);
 
 		$listofaccountsforgroup = $accountingcategory->getCptsCat(0, 'fk_accounting_category = '.((int) $search_account_category));
-		$listofaccountsforgroup2 = array();
+		$listofaccountsforgroup2 = [];
 		if (is_array($listofaccountsforgroup)) {
 			foreach ($listofaccountsforgroup as $tmpval) {
 				$listofaccountsforgroup2[] = "'".$db->escape($tmpval['id'])."'";
@@ -567,12 +567,12 @@ if (empty($resHook)) {
 				$nb_lettering = max(0, abs($nb_lettering) - 2);
 			} elseif ($nb_lettering == 0) {
 				$nb_lettering = 0;
-				setEventMessages($langs->trans('AccountancyNoLetteringModified'), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyNoLetteringModified'), [], 'mesgs');
 			}
 			if ($nb_lettering == 1) {
-				setEventMessages($langs->trans('AccountancyOneLetteringModifiedSuccessfully'), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyOneLetteringModifiedSuccessfully'), [], 'mesgs');
 			} elseif ($nb_lettering > 1) {
-				setEventMessages($langs->trans('AccountancyLetteringModifiedSuccessfully', $nb_lettering), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyLetteringModifiedSuccessfully', $nb_lettering), [], 'mesgs');
 			}
 
 			if (!$error) {
@@ -585,7 +585,7 @@ if (empty($resHook)) {
 			if ($result < 0) {
 				setEventMessages('', $lettering->errors, 'errors');
 			} else {
-				setEventMessages($langs->trans('AccountancyOneLetteringModifiedSuccessfully'), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyOneLetteringModifiedSuccessfully'), [], 'mesgs');
 				header('Location: ' . $_SERVER['PHP_SELF'] . '?noreset=1' . $param);
 				exit();
 			}
@@ -598,12 +598,12 @@ if (empty($resHook)) {
 				$nb_lettering = max(0, abs($nb_lettering) - 2);
 			} elseif ($nb_lettering == 0) {
 				$nb_lettering = 0;
-				setEventMessages($langs->trans('AccountancyNoUnletteringModified'), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyNoUnletteringModified'), [], 'mesgs');
 			}
 			if ($nb_lettering == 1) {
-				setEventMessages($langs->trans('AccountancyOneUnletteringModifiedSuccessfully'), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyOneUnletteringModifiedSuccessfully'), [], 'mesgs');
 			} elseif ($nb_lettering > 1) {
-				setEventMessages($langs->trans('AccountancyUnletteringModifiedSuccessfully', $nb_lettering), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyUnletteringModifiedSuccessfully', $nb_lettering), [], 'mesgs');
 			}
 
 			if (!$error) {
@@ -616,7 +616,7 @@ if (empty($resHook)) {
 			if ($nb_lettering < 0) {
 				setEventMessages('', $lettering->errors, 'errors');
 			} else {
-				setEventMessages($langs->trans('AccountancyOneUnletteringModifiedSuccessfully'), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyOneUnletteringModifiedSuccessfully'), [], 'mesgs');
 				header('Location: ' . $_SERVER['PHP_SELF'] . '?noreset=1' . $param);
 				exit();
 			}
@@ -662,7 +662,7 @@ $sqlfields = $sql; // $sql fields to remove for count total
 
 $sql .= ' FROM '.MAIN_DB_PREFIX.$object->table_element.' as t';
 // Manage filter
-$sqlwhere = array();
+$sqlwhere = [];
 if (count($filter) > 0) {
 	foreach ($filter as $key => $value) {
 		if ($key == 't.doc_date') {
@@ -777,7 +777,7 @@ if (!$resql) {
 
 $num = $db->num_rows($resql);
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 // Output page
 // --------------------------------------------------------------------
@@ -798,7 +798,7 @@ if ($limit > 0 && $limit != $config->liste_limit) {
 }
 
 // List of mass actions available
-$arrayofmassactions = array();
+$arrayofmassactions = [];
 if (getDolGlobalInt('ACCOUNTING_ENABLE_LETTERING') && $user->hasRight('accounting', 'mouvements', 'creer')) {
 	$arrayofmassactions['letteringauto'] = img_picture('', 'check', 'class="picturefixedwidth"') . $langs->trans('LetteringAuto');
 	$arrayofmassactions['preunletteringauto'] = img_picture('', 'uncheck', 'class="picturefixedwidth"') . $langs->trans('UnletteringAuto');
@@ -809,7 +809,7 @@ if ($user->hasRight('accounting', 'mouvements', 'supprimer')) {
 	$arrayofmassactions['predeletebookkeepingwriting'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('preunletteringauto', 'preunletteringmanual', 'predeletebookkeepingwriting'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction($massaction, $arrayofmassactions);
 
@@ -881,7 +881,7 @@ $moreforfilter .= $formaccounting->select_accounting_category($search_account_ca
 $moreforfilter .= '</div>';
 $moreforfilter .= '</div>';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -934,10 +934,10 @@ if (!empty($arrayfields['t.doc_ref']['checked'])) {
 if (!empty($arrayfields['t.number_compte']['checked'])) {
 	print '<td class="liste_titre">';
 	print '<div class="nowrap">';
-	print $formaccounting->select_account($search_accountancy_code_start, 'search_accountancy_code_start', $langs->trans('From'), array(), 1, 1, 'maxwidth150', 'account');
+	print $formaccounting->select_account($search_accountancy_code_start, 'search_accountancy_code_start', $langs->trans('From'), [], 1, 1, 'maxwidth150', 'account');
 	print '</div>';
 	print '<div class="nowrap">';
-	print $formaccounting->select_account($search_accountancy_code_end, 'search_accountancy_code_end', $langs->trans('to'), array(), 1, 1, 'maxwidth150', 'account');
+	print $formaccounting->select_account($search_accountancy_code_end, 'search_accountancy_code_end', $langs->trans('to'), [], 1, 1, 'maxwidth150', 'account');
 	print '</div>';
 	print '</td>';
 }
@@ -1127,9 +1127,9 @@ $line = new BookKeepingLine($db);
 // Loop on record
 // --------------------------------------------------------------------
 $i = 0;
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
-$totalarray['val'] = array();
+$totalarray['val'] = [];
 $totalarray['val']['totaldebit'] = 0;
 $totalarray['val']['totalcredit'] = 0;
 

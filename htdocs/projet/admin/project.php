@@ -283,7 +283,7 @@ print '<td width="80">&nbsp;</td></tr>'."\n";
 print '<tr class="oddeven">';
 print '<td width="80%">'.$langs->trans("ManageOpportunitiesStatus").'</td>';
 print '<td width="60" class="right">';
-print ajax_constantonoff("PROJECT_USE_OPPORTUNITIES", array(), null, 0, 0, 1);
+print ajax_constantonoff("PROJECT_USE_OPPORTUNITIES", [], null, 0, 0, 1);
 print '</td><td class="right">';
 print "</td>";
 print '</tr>';
@@ -292,7 +292,7 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td width="80%">'.$langs->trans("ManageTasks").'</td>';
 print '<td width="60" class="right">';
-print ajax_constantonoff("PROJECT_HIDE_TASKS", array(), null, 1);
+print ajax_constantonoff("PROJECT_HIDE_TASKS", [], null, 1);
 print '</td><td class="right">';
 print "</td>";
 print '</tr>';
@@ -514,7 +514,7 @@ print load_fiche_titre($langs->trans("ProjectsModelModule"), '', '');
 
 // Defini tableau def de modele
 $type = 'project';
-$def = array();
+$def = [];
 
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
@@ -549,7 +549,7 @@ print "</tr>\n";
 
 clearstatcache();
 
-$filelist = array();
+$filelist = [];
 foreach ($dirmodels as $reldir) {
 	foreach (array('', '/doc') as $valdir) {
 		$dir = dol_buildpath($reldir."core/modules/project/".$valdir);
@@ -661,7 +661,7 @@ if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
 
 	// Defini tableau def de modele
 	$type = 'project_task';
-	$def = array();
+	$def = [];
 
 	$sql = "SELECT nom";
 	$sql .= " FROM ".MAIN_DB_PREFIX."document_model";

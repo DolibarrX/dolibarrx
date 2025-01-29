@@ -43,7 +43,7 @@ $stripearrayofkeysbyenv = array(
 	)
 );
 
-$stripearrayofkeys = array();
+$stripearrayofkeys = [];
 if (!getDolGlobalString('STRIPE_LIVE') || GETPOST('forcesandbox', 'alpha')) {
 	$stripearrayofkeys = $stripearrayofkeysbyenv[0]; // Test
 } else {

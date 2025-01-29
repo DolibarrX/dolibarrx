@@ -324,9 +324,9 @@ if (empty($resHook)) {
 					$multicurrency_price = GETPOSTFLOAT("multicurrency_price");
 					$multicurrency_code = GETPOST("multicurrency_code", 'alpha');
 
-					$ret = $object->update_buyprice($quantity, $newprice, $user, GETPOST("price_base_type"), $supplier, GETPOST("oselDispo"), $ref_fourn, $tva_tx, GETPOST("charges"), $remise_percent, 0, $npr, $delivery_time_days, $supplier_reputation, array(), '', $multicurrency_price, GETPOST("multicurrency_price_base_type"), $multicurrency_tx, $multicurrency_code, $supplier_description, $barcode, $fk_barcode_type, $extrafield_values);
+					$ret = $object->update_buyprice($quantity, $newprice, $user, GETPOST("price_base_type"), $supplier, GETPOST("oselDispo"), $ref_fourn, $tva_tx, GETPOST("charges"), $remise_percent, 0, $npr, $delivery_time_days, $supplier_reputation, [], '', $multicurrency_price, GETPOST("multicurrency_price_base_type"), $multicurrency_tx, $multicurrency_code, $supplier_description, $barcode, $fk_barcode_type, $extrafield_values);
 				} else {
-					$ret = $object->update_buyprice($quantity, $newprice, $user, GETPOST("price_base_type"), $supplier, GETPOST("oselDispo"), $ref_fourn, $tva_tx, GETPOST("charges"), $remise_percent, 0, $npr, $delivery_time_days, $supplier_reputation, array(), '', 0, 'HT', 1, '', $supplier_description, $barcode, $fk_barcode_type, $extrafield_values);
+					$ret = $object->update_buyprice($quantity, $newprice, $user, GETPOST("price_base_type"), $supplier, GETPOST("oselDispo"), $ref_fourn, $tva_tx, GETPOST("charges"), $remise_percent, 0, $npr, $delivery_time_days, $supplier_reputation, [], '', 0, 'HT', 1, '', $supplier_description, $barcode, $fk_barcode_type, $extrafield_values);
 				}
 				if ($ret < 0) {
 					$error++;
@@ -514,8 +514,8 @@ if ($id > 0 || $ref) {
 					print '<input type="hidden" name="rowid" value="'.$rowid.'">';
 					print '<input type="hidden" name="socid" value="'.$socid.'">';
 				} else {
-					$events = array();
-					$events[] = array('method' => 'getVatRates', 'url' => dol_buildpath('/core/ajax/vatrates.php', 1), 'htmlname' => 'tva_tx', 'params' => array());
+					$events = [];
+					$events[] = array('method' => 'getVatRates', 'url' => dol_buildpath('/core/ajax/vatrates.php', 1), 'htmlname' => 'tva_tx', 'params' => []);
 					$filter = '(fournisseur:=:1) AND (status:=:1)';
 					print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company(GETPOST("id_fourn", 'alpha'), 'id_fourn', $filter, $langs->transnoentitiesnoconv('SelectThirdParty'), 0, 0, $events);
 
@@ -727,7 +727,7 @@ if ($id > 0 || $ref) {
 					print $form->selectPriceBaseType('', "disabled_price_base_type", 1);
 					print '</td></tr>';
 
-					$currencies = array();
+					$currencies = [];
 					$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."multicurrency WHERE entity = ".((int) $config->entity);
 					$resql = $db->query($sql);
 					if ($resql) {
@@ -925,7 +925,7 @@ if ($id > 0 || $ref) {
 			print '<div class="tabsAction">'."\n";
 
 			if ($action != 'create_price' && $action != 'edit_price') {
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if (empty($resHook)) {
 					if ($usercancreate) {

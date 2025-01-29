@@ -387,7 +387,7 @@ if ($action == 'update' && !empty($permissiontoadd)) {
 }
 
 // Action to update one modulebuilder field
-$reg = array();
+$reg = [];
 if (preg_match('/^set(\w+)$/', $action, $reg) && GETPOSTINT('id') > 0 && !empty($permissiontoadd)) {
 	$object->fetch(GETPOSTINT('id'));
 

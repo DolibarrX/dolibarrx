@@ -36,7 +36,7 @@ function member_prepare_head(Member $object)
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/members/card.php?rowid=' . $object->id;
 	$head[$h][1] = $langs->trans("Member");
@@ -179,7 +179,7 @@ function member_type_prepare_head(MemberType $object)
 	global $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/members/type.php?rowid=' . $object->id;
 	$head[$h][1] = $langs->trans("MemberType");
@@ -230,7 +230,7 @@ function member_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('member_type');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/members/admin/member.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
@@ -288,7 +288,7 @@ function member_stats_prepare_head($object)
 	global $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/members/stats/index.php';
 	$head[$h][1] = $langs->trans("Subscriptions");
@@ -342,7 +342,7 @@ function subscription_prepare_head(Subscription $object)
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/members/subscription/card.php?rowid=' . $object->id;
 	$head[$h][1] = $langs->trans("Subscription");

@@ -312,8 +312,8 @@ if (empty($resHook)) {
 		$search_datelimit_endyear = '';
 		$search_datelimit_start = '';
 		$search_datelimit_end = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 		$search_categ_sup = 0;
 		$filter = '';
 		$option = '';
@@ -338,8 +338,8 @@ if (empty($resHook)) {
 			//Checking error
 			$error = 0;
 
-			$arrayofselected = is_array($toselect) ? $toselect : array();
-			$listofbills = array();
+			$arrayofselected = is_array($toselect) ? $toselect : [];
+			$listofbills = [];
 			foreach ($arrayofselected as $toselectid) {
 				$objecttmp = new FactureFournisseur($db);
 				$result = $objecttmp->fetch($toselectid);
@@ -475,7 +475,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -509,7 +509,7 @@ if ($search_user > 0) {
 	$sql .= ", ".MAIN_DB_PREFIX."c_type_contact as tc";
 }
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= ' WHERE f.fk_soc = s.rowid';
@@ -666,11 +666,11 @@ if ($search_sale && $search_sale != '-1') {
 		$sql .= " AND EXISTS (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_soc = f.fk_soc AND sc.fk_user = ".((int) $search_sale).")";
 	}
 }
-$searchCategorySupplierList = $search_categ_sup ? array($search_categ_sup) : array();
+$searchCategorySupplierList = $search_categ_sup ? array($search_categ_sup) : [];
 $searchCategorySupplierOperator = 0;
 // Search for tag/category ($searchCategorySupplierList is an array of ID)
 if (!empty($searchCategorySupplierList)) {
-	$searchCategorySupplierSqlList = array();
+	$searchCategorySupplierSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategorySupplierList as $searchCategorySupplier) {
 		if (intval($searchCategorySupplier) == -2) {
@@ -697,10 +697,10 @@ if (!empty($searchCategorySupplierList)) {
 	}
 }
 // Search for tag/category ($searchCategoryProductList is an array of ID)
-$searchCategoryProductList = $search_product_category ? array($search_product_category) : array();
+$searchCategoryProductList = $search_product_category ? array($search_product_category) : [];
 $searchCategoryProductOperator = 0;
 if (!empty($searchCategoryProductList)) {
-	$searchCategoryProductSqlList = array();
+	$searchCategoryProductSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
@@ -743,7 +743,7 @@ if ($search_user > 0) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -775,7 +775,7 @@ if (!$search_all) {
 }
 
 // Add HAVING from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= empty($hookManager->resPrint) ? "" : " HAVING 1=1 ".$hookManager->resPrint;
 
@@ -849,7 +849,7 @@ if ($socid) {
 	}
 }
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '&socid='.$socid;
 if (!empty($mode)) {
@@ -999,7 +999,7 @@ if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -1084,7 +1084,7 @@ if (isModEnabled('category')) {
 	$moreforfilter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"').$formother->select_categories('supplier', $search_categ_sup, 'search_categ_sup', 1, $tmptitle);
 	$moreforfilter .= '</div>';
 }
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -1351,7 +1351,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 
 print "</tr>\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1533,9 +1533,9 @@ $discount = new DiscountAbsolute($db);
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
-$totalarray['val'] = array();
+$totalarray['val'] = [];
 $totalarray['val']['f.total_ht'] = 0;
 $totalarray['val']['f.total_vat'] = 0;
 $totalarray['val']['f.total_localtax1'] = 0;

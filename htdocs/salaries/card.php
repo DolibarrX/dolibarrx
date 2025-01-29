@@ -128,7 +128,7 @@ $upload_dir = $config->salaries->multidir_output[$config->entity];
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 // Note that $action and $object may be modified by some hooks
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($resHook < 0) {
@@ -678,7 +678,7 @@ if ($action == 'create' && $permissiontoadd) {
 	*/
 
 	// Other attributes
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	if (empty($resHook)) {
@@ -1125,7 +1125,7 @@ if ($id > 0) {
 	print '<div class="tabsAction">'."\n";
 	if ($action != 'edit') {
 		// Dynamic send mail button
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($resHook)) {
 			if (empty($user->socid)) {
@@ -1201,7 +1201,7 @@ if ($id > 0) {
 
 		// Show links to link elements
 		/*
-		$tmparray = $form->showLinkToObjectBlock($object, array(), array('salaries'), 1);
+		$tmparray = $form->showLinkToObjectBlock($object, [], array('salaries'), 1);
 		$linktoelem = $tmparray['linktoelem'];
 		$htmltoenteralink = $tmparray['htmltoenteralink'];
 		print $htmltoenteralink;
@@ -1237,7 +1237,7 @@ if ($id > 0) {
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';
 
 	// Hook to add more things on page
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('salaryCardTabAddMore', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 }
 

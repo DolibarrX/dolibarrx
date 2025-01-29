@@ -39,7 +39,7 @@ function eventorganizationAdminPrepareHead()
 	$langs->load("eventorganization");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/eventorganization.php';
 	$head[$h][1] = $langs->trans("Settings");

@@ -211,7 +211,7 @@ if (empty($config->use_javascript_ajax) || getDolGlobalString('MAIN_ECM_DISABLE_
 	//print "fullpathselected=".$fullpathselected."<br>";
 
 	// Update expandedsectionarray in session
-	$expandedsectionarray = array();
+	$expandedsectionarray = [];
 	if (isset($_SESSION['dol_ecmexpandedsectionarray'])) {
 		$expandedsectionarray = explode(',', $_SESSION['dol_ecmexpandedsectionarray']);
 	}
@@ -229,7 +229,7 @@ if (empty($config->use_javascript_ajax) || getDolGlobalString('MAIN_ECM_DISABLE_
 	if ($section && GETPOST('sectionexpand') == 'false') {
 		// We removed all expanded sections that are child of the closed section
 		$oldexpandedsectionarray = $expandedsectionarray;
-		$expandedsectionarray = array(); // Reset
+		$expandedsectionarray = []; // Reset
 		// @phan-suppress-next-line PhanEmptyForeachBody
 		foreach ($oldexpandedsectionarray as $sectioncursor) {
 			// TODO is_in_subtree(fulltree,sectionparent,sectionchild) does nox exists. Enable or remove this...
@@ -412,7 +412,7 @@ function treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, 
 					$nbofsubdir = 0;
 					$nboffilesinsubdir = 0;
 
-					$val = array();
+					$val = [];
 
 					// Loop on all database entries (sqltree) to find the one matching the subdir found into dir to scan
 					foreach ($sqltree as $key => $tmpval) {

@@ -149,8 +149,8 @@ $entitytolang = array(
 	'inventory_line' => 'InventoryLine'
 );
 
-$array_selected = isset($_SESSION["export_selected_fields"]) ? $_SESSION["export_selected_fields"] : array();
-$array_filtervalue = isset($_SESSION["export_filtered_fields"]) ? $_SESSION["export_filtered_fields"] : array();
+$array_selected = isset($_SESSION["export_selected_fields"]) ? $_SESSION["export_selected_fields"] : [];
+$array_filtervalue = isset($_SESSION["export_filtered_fields"]) ? $_SESSION["export_filtered_fields"] : [];
 $datatoexport = GETPOST("datatoexport", "aZ09");
 $action = GETPOST('action', 'aZ09');
 $confirm = GETPOST('confirm', 'alpha');
@@ -169,7 +169,7 @@ $htmlother = new FormOther($db);
 $formfile = new FormFile($db);
 $sqlusedforexport = '';
 
-$head = array();
+$head = [];
 $upload_dir = $config->export->dir_temp.'/'.$user->id;
 
 $usefilters = 1;
@@ -197,14 +197,14 @@ if ($action == 'selectfield' && $user->hasRight('export', 'creer')) {     // Sel
 			$_SESSION["export_selected_fields"] = $array_selected;
 		}
 	} else {
-		$warnings = array();
+		$warnings = [];
 
 		$array_selected[$field] = count($array_selected) + 1; // We tag the key $field as "selected"
 		// We check if there is a dependency to activate
 		/*var_dump($field);
 		 var_dump($fieldsentitiesarray[$field]);
 		 var_dump($fieldsdependenciesarray);*/
-		$listofdependencies = array();
+		$listofdependencies = [];
 		if (!empty($fieldsentitiesarray[$field]) && !empty($fieldsdependenciesarray[$fieldsentitiesarray[$field]])) {
 			// We found a dependency on the type of field
 			$tmp = $fieldsdependenciesarray[$fieldsentitiesarray[$field]]; // $fieldsdependenciesarray=array('element'=>'fd.rowid') or array('element'=>array('fd.rowid','ab.rowid'))
@@ -239,7 +239,7 @@ if ($action == 'selectfield' && $user->hasRight('export', 'creer')) {     // Sel
 }
 if ($action == 'unselectfield' && $user->hasRight('export', 'creer')) {
 	if (GETPOST("field") == 'all') {
-		$array_selected = array();
+		$array_selected = [];
 		$_SESSION["export_selected_fields"] = $array_selected;
 	} else {
 		unset($array_selected[GETPOST("field")]);
@@ -282,10 +282,10 @@ if (($action == 'downfield' || $action == 'upfield') && $user->hasRight('export'
 }
 
 if ($step == 1 || $action == 'cleanselect') {	// Test on permission here not required
-	$_SESSION["export_selected_fields"] = array();
-	$_SESSION["export_filtered_fields"] = array();
-	$array_selected = array();
-	$array_filtervalue = array();
+	$_SESSION["export_selected_fields"] = [];
+	$_SESSION["export_filtered_fields"] = [];
+	$array_selected = [];
+	$array_filtervalue = [];
 }
 
 if ($action == 'builddoc' && $user->hasRight('export', 'lire')) {
@@ -397,11 +397,11 @@ if ($action == 'add_export_model' && $user->hasRight('export', 'lire')) {
 
 // Reload a predefined export model
 if ($step == 2 && $action == 'select_model' && $user->hasRight('export', 'lire')) {
-	$_SESSION["export_selected_fields"] = array();
-	$_SESSION["export_filtered_fields"] = array();
+	$_SESSION["export_selected_fields"] = [];
+	$_SESSION["export_filtered_fields"] = [];
 
-	$array_selected = array();
-	$array_filtervalue = array();
+	$array_selected = [];
+	$array_filtervalue = [];
 
 	$result = $objexport->fetch($exportmodelid);
 	if ($result > 0) {
@@ -433,7 +433,7 @@ if ($step == 4 && $action == 'submitFormField' && $user->hasRight('export', 'lir
 
 	// on boucle sur les champs selectionne pour recuperer la valeur
 	if (is_array($objexport->array_export_TypeFields[0])) {
-		$_SESSION["export_filtered_fields"] = array();
+		$_SESSION["export_filtered_fields"] = [];
 		foreach ($objexport->array_export_TypeFields[0] as $code => $type) {	// $code: s.fieldname $value: Text|Boolean|List:ccc
 			$newcode = (string) preg_replace('/\./', '_', $code);
 			//print 'xxx '.$code."=".$newcode."=".$type."=".GETPOST($newcode)."\n<br>";
@@ -601,7 +601,7 @@ if ($step == 2 && $datatoexport) {
 	// Champs exportables
 	$fieldsarray = $objexport->array_export_fields[0];
 	// Select request if all fields are selected
-	$sqlmaxforexport = $objexport->build_sql(0, array(), array());
+	$sqlmaxforexport = $objexport->build_sql(0, [], []);
 
 	//    $this->array_export_module[0]=$module;
 	//    $this->array_export_code[0]=$module->export_code[$r];
@@ -804,7 +804,7 @@ if ($step == 3 && $datatoexport) {
 	// valeur des filtres
 	$ValueFiltersarray = (!empty($objexport->array_export_FilterValue[0]) ? $objexport->array_export_FilterValue[0] : '');
 	// Select request if all fields are selected
-	$sqlmaxforexport = $objexport->build_sql(0, array(), array());
+	$sqlmaxforexport = $objexport->build_sql(0, [], []);
 
 	$i = 0;
 	// on boucle sur les champs
@@ -1002,7 +1002,7 @@ if ($step == 4 && $datatoexport) {
 	print '<br>';
 
 	// Select request if all fields are selected
-	$sqlmaxforexport = $objexport->build_sql(0, array(), array());
+	$sqlmaxforexport = $objexport->build_sql(0, [], []);
 
 	print '<div class="marginbottomonly"><span class="opacitymedium">'.$langs->trans("ChooseFieldsOrdersAndTitle").'</span></div>';
 

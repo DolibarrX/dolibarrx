@@ -152,8 +152,8 @@ if (!$base) {
 		print "</tr>\n";
 
 		$arrayoffilesrich = dol_dir_list(DOL_DOCUMENT_ROOT.'/install/mysql/tables/', 'files', 0, '\.sql$');
-		$arrayoffiles = array();
-		$arrayoftablesautocreated = array();
+		$arrayoffiles = [];
+		$arrayoftablesautocreated = [];
 		foreach ($arrayoffilesrich as $value) {
 			//print $shortsqlfilename.' ';
 			$shortsqlfilename = preg_replace('/\-[a-z]+\./', '.', $value['name']);

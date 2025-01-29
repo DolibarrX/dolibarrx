@@ -861,7 +861,7 @@ if ($object->id > 0) {
 		}
 	}
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreBoxStatsCustomer', $parameters, $object, $action);
 	if (empty($resHook)) {
 		$boxstat .= $hookManager->resPrint;
@@ -1664,7 +1664,7 @@ if ($object->id > 0) {
 	}
 
 	// Allow external modules to add their own shortlist of recent objects
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreRecentObjects', $parameters, $object, $action);
 	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -1683,7 +1683,7 @@ if ($object->id > 0) {
 	 */
 	print '<div class="tabsAction">';
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 
 	if (empty($resHook)) {

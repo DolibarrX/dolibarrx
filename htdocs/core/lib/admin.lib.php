@@ -53,10 +53,10 @@ function versiontostring($versionarray)
 
 /**
  *	Compare 2 versions (stored into 2 arrays).
- *  To check if Dolibarr version is lower than (x,y,z), do "if versioncompare(versiondolibarrarray(), array(x.y.z)) <= 0"
- *  For example: if (versioncompare(versiondolibarrarray(),array(4,0,-5)) >= 0) is true if version is 4.0 alpha or higher.
- *  For example: if (versioncompare(versiondolibarrarray(),array(4,0,0)) >= 0) is true if version is 4.0 final or higher.
- *  For example: if (versioncompare(versiondolibarrarray(),array(4,0,1)) >= 0) is true if version is 4.0.1 or higher.
+ *  To check if Dolibarr version is lower than (x,y,z), do "if versioncompare(versiondolibarr[], array(x.y.z)) <= 0"
+ *  For example: if (versioncompare(versiondolibarr[],array(4,0,-5)) >= 0) is true if version is 4.0 alpha or higher.
+ *  For example: if (versioncompare(versiondolibarr[],array(4,0,0)) >= 0) is true if version is 4.0 final or higher.
+ *  For example: if (versioncompare(versiondolibarr[],array(4,0,1)) >= 0) is true if version is 4.0.1 or higher.
  *  Alternative way to compare: if ((float) DOL_VERSION >= 4.0) is true if version is 4.0 alpha or higher (works only to compare first and second level)
  *
  *	@param      array<int|string>	$versionarray1	Array of version (vermajor,verminor,patch)
@@ -128,7 +128,7 @@ function versioncompare($versionarray1, $versionarray2)
  *	@return     array<int<0,2>,string>	Tableau de version (vermajeur,vermineur,autre)
  *  @see versioncompare()
  */
-function versionphparray()
+function versionphp[]
 {
 	return explode('.', PHP_VERSION);
 }
@@ -139,7 +139,7 @@ function versionphparray()
  *	@return     array<int<0,2>,string>	Tableau de version (vermajeur,vermineur,autre)
  *  @see versioncompare()
  */
-function versiondolibarrarray()
+function versiondolibarr[]
 {
 	return explode('.', DOL_VERSION);
 }
@@ -183,7 +183,7 @@ function run_sql($sqlfile, $silent = 1, $entity = 0, $usesavepoint = 1, $handler
 	$error = 0;
 	$i = 0;
 	$buffer = '';
-	$arraysql = array();
+	$arraysql = [];
 
 	// Get version of database
 	$versionarray = $db->getVersionArray();
@@ -199,7 +199,7 @@ function run_sql($sqlfile, $silent = 1, $entity = 0, $usesavepoint = 1, $handler
 			}
 
 			// Test if request must be ran only for particular database or version (if yes, we must remove the -- comment)
-			$reg = array();
+			$reg = [];
 			if (preg_match('/^--\sV(MYSQL|PGSQL)([^\s]*)/i', $buf, $reg)) {
 				$qualified = 1;
 
@@ -271,7 +271,7 @@ function run_sql($sqlfile, $silent = 1, $entity = 0, $usesavepoint = 1, $handler
 	}
 
 	// Loop on each request to see if there is a __+MAX_table__ key
-	$listofmaxrowid = array(); // This is a cache table
+	$listofmaxrowid = []; // This is a cache table
 	foreach ($arraysql as $i => $sql) {
 		$newsql = $sql;
 
@@ -325,7 +325,7 @@ function run_sql($sqlfile, $silent = 1, $entity = 0, $usesavepoint = 1, $handler
 
 	// Loop on each request to execute request
 	$cursorinsert = 0;
-	$listofinsertedrowid = array();
+	$listofinsertedrowid = [];
 	$keyforsql = md5($sqlfile);
 	foreach ($arraysql as $i => $sql) {
 		if ($sql) {
@@ -508,7 +508,7 @@ function run_sql($sqlfile, $silent = 1, $entity = 0, $usesavepoint = 1, $handler
 					'DB_ERROR_22P02'
 				);
 				if ($okerror == 'none') {
-					$okerrors = array();
+					$okerrors = [];
 				}
 
 				// Is it an error we accept
@@ -768,7 +768,7 @@ function modules_prepare_head($nbofactivatedmodules, $nboftotalmodules, $nbModul
 	$desc = str_replace('{picture}', img_picture('', 'switch_off'), $desc);
 
 	$h = 0;
-	$head = array();
+	$head = [];
 	$mode = getDolGlobalString('MAIN_MODULE_SETUP_ON_LIST_BY_DEFAULT', 'commonkanban');
 	$head[$h][0] = DOL_URL_ROOT . "/admin/modules.php?mode=" . $mode;
 	if ($nbModulesNotAutoEnabled <= getDolGlobalInt('MAIN_MIN_NB_ENABLED_MODULE_FOR_WARNING', 1)) {	// If only minimal initial modules enabled)
@@ -809,7 +809,7 @@ function ihm_prepare_head()
 {
 	global $langs, $config, $user;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/ihm.php?mode=other";
 	$head[$h][1] = $langs->trans("LanguageAndPresentation");
@@ -854,7 +854,7 @@ function security_prepare_head()
 {
 	global $db, $langs, $config, $user;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/security_other.php";
 	$head[$h][1] = $langs->trans("Miscellaneous");
@@ -937,7 +937,7 @@ function modulehelp_prepare_head($object)
 {
 	global $langs, $config;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	// FIX for compatibility habitual tabs
 	$object->id = $object->number;
@@ -975,7 +975,7 @@ function translation_prepare_head()
 {
 	global $langs, $config;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/translation.php?mode=searchkey";
 	$head[$h][1] = $langs->trans("TranslationKeySearch");
@@ -1005,7 +1005,7 @@ function defaultvalues_prepare_head()
 {
 	global $langs, $config, $user;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/defaultvalues.php?mode=createform";
 	$head[$h][1] = $langs->trans("DefaultCreateForm");
@@ -1057,7 +1057,7 @@ function listOfSessions()
 {
 	global $config;
 
-	$arrayofSessions = array();
+	$arrayofSessions = [];
 	// session.save_path can be returned empty so we set a default location and work from there
 	$sessPath = '/tmp';
 	$iniPath = ini_get("session.save_path");
@@ -1086,7 +1086,7 @@ function listOfSessions()
 					) { // limit to company name
 						$tmp = explode('_', $file);
 						$idsess = $tmp[1];
-						$regs = array();
+						$regs = [];
 						$loginfound = preg_match('/dol_login\|s:[0-9]+:"([A-Za-z0-9]+)"/i', $sessValues, $regs);
 						if ($loginfound) {
 							$arrayofSessions[$idsess]["login"] = $regs[1];
@@ -1170,7 +1170,7 @@ function activateModule($value, $withdeps = 1, $noconfverification = 0)
 {
 	global $db, $langs, $config, $mysoc;
 
-	$ret = array();
+	$ret = [];
 
 	// Check parameters
 	if (empty($value)) {
@@ -1178,7 +1178,7 @@ function activateModule($value, $withdeps = 1, $noconfverification = 0)
 		return $ret;
 	}
 
-	$ret = array('nbmodules' => 0, 'errors' => array(), 'nbperms' => 0);
+	$ret = array('nbmodules' => 0, 'errors' => [], 'nbperms' => 0);
 	$modName = $value;
 	$modFile = $modName . ".class.php";
 
@@ -1200,7 +1200,7 @@ function activateModule($value, $withdeps = 1, $noconfverification = 0)
 	'@phan-var-force DolibarrModules $objMod';
 
 	// Test if PHP version ok
-	$verphp = versionphparray();
+	$verphp = versionphp[];
 	$vermin = isset($objMod->phpmin) ? $objMod->phpmin : 0;
 	if (is_array($vermin) && versioncompare($verphp, $vermin) < 0) {
 		$ret['errors'][] = $langs->trans("ErrorModuleRequirePHPVersion", versiontostring($vermin));
@@ -1208,7 +1208,7 @@ function activateModule($value, $withdeps = 1, $noconfverification = 0)
 	}
 
 	// Test if Dolibarr version ok
-	$verdol = versiondolibarrarray();
+	$verdol = versiondolibarr[];
 	$vermin = isset($objMod->need_dolibarr_version) ? $objMod->need_dolibarr_version : 0;
 	//print 'version: '.versioncompare($verdol,$vermin).' - '.join(',',$verdol).' - '.join(',',$vermin);exit;
 	if (is_array($vermin) && versioncompare($verdol, $vermin) < 0) {
@@ -1455,7 +1455,7 @@ function complete_dictionary_with_modules(&$taborder, &$tabname, &$tablib, &$tab
 							if (!empty($objMod->dictionaries)) {
 								//var_dump($objMod->dictionaries['tabname']);
 								$nbtabname = $nbtablib = $nbtabsql = $nbtabsqlsort = $nbtabfield = $nbtabfieldvalue = $nbtabfieldinsert = $nbtabrowid = $nbtabcond = $nbtabfieldcheck = $nbtabhelp = 0;
-								$tabnamerelwithkey = array();
+								$tabnamerelwithkey = [];
 								foreach ($objMod->dictionaries['tabname'] as $key => $val) {
 									$tmptablename = preg_replace('/' . MAIN_DB_PREFIX . '/', '', $val);
 									$nbtabname++;
@@ -1629,11 +1629,11 @@ function complete_elementList_with_modules(&$elementList)
 	global $db, $modules, $config, $langs;
 
 	// Search modules
-	$filename = array();
-	$modules = array();
-	$orders = array();
-	$categ = array();
-	$dirmod = array();
+	$filename = [];
+	$modules = [];
+	$orders = [];
+	$categ = [];
+	$dirmod = [];
 
 	$i = 0; // is a sequencer of modules found
 	$j = 0; // j is module number. Automatically affected if module number not defined.
@@ -1860,7 +1860,7 @@ function form_constantes($tableau, $strictw3c = 2, $helptext = '', $text = 'Valu
 				print '<td>';
 				// List of possible labels (defined into $_Avery_Labels variable set into format_cards.lib.php)
 				require_once DOL_DOCUMENT_ROOT . '/core/lib/format_cards.lib.php';
-				$arrayoflabels = array();
+				$arrayoflabels = [];
 				foreach (array_keys($_Avery_Labels) as $codecards) {
 					$arrayoflabels[$codecards] = $_Avery_Labels[$codecards]['name'];
 				}
@@ -1890,7 +1890,7 @@ function form_constantes($tableau, $strictw3c = 2, $helptext = '', $text = 'Valu
 
 					$nboftemplates = $formmail->fetchAllEMailTemplate($tmp[1], $user, null, -1); // We set lang=null to get in priority record with no lang
 					//$arraydefaultmessage = $formmail->getEMailTemplate($db, $tmp[1], $user, null, 0, 1, '');
-					$arrayofmessagename = array();
+					$arrayofmessagename = [];
 					if (is_array($formmail->lines_model)) {
 						foreach ($formmail->lines_model as $modelmail) {
 							//var_dump($modelmail);
@@ -2053,21 +2053,21 @@ function delDocumentModel($name, $type)
  *
  *	@return	array<string,array<string,string|array{local:string,master:string}>>	Array with PHP info
  */
-function phpinfo_array()
+function phpinfo_[]
 {
 	ob_start();
 	phpinfo();
 	$phpinfostring = ob_get_contents();
 	ob_end_clean();
 
-	$info_arr = array();
+	$info_arr = [];
 	$info_lines = explode("\n", strip_tags($phpinfostring, "<tr><td><h2>"));
 	$cat = "General";
 	foreach ($info_lines as $line) {
 		// new cat?
-		$title = array();
+		$title = [];
 		preg_match("~<h2>(.*)</h2>~", $line, $title) ? $cat = $title[1] : null;
-		$val = array();
+		$val = [];
 		if (preg_match("~<tr><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td></tr>~", $line, $val)) {
 			$info_arr[trim($cat)][trim($val[1])] = $val[2];
 		} elseif (preg_match("~<tr><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td></tr>~", $line, $val)) {
@@ -2087,7 +2087,7 @@ function company_admin_prepare_head()
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/company.php";
 	$head[$h][1] = $langs->trans("Company");
@@ -2126,7 +2126,7 @@ function email_admin_prepare_head()
 	global $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	if (!empty($user->admin) && (empty($_SESSION['leftmenu']) || $_SESSION['leftmenu'] != 'email_templates')) {
 		$head[$h][0] = DOL_URL_ROOT . "/admin/mails.php";

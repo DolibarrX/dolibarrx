@@ -122,7 +122,7 @@ class Dolistore
 			// conf MAIN_MODULE_DOLISTORE_API_KEY is for the login of basic auth. There is no password as it is public data.
 
 			// Here we set the option array for the Webservice : we want categories resources
-			$opt              = array();
+			$opt              = [];
 			$opt['resource']  = 'categories';
 			$opt['display']   = '[id,id_parent,nb_products_recursive,active,is_root_category,name,description]';
 			$opt['sort']      = 'id_asc';
@@ -173,9 +173,9 @@ class Dolistore
 			// conf MAIN_MODULE_DOLISTORE_API_KEY is for the login of basic auth. There is no password as it is public data.
 
 			// Here we set the option array for the Webservice : we want products resources
-			$opt             = array();
+			$opt             = [];
 			$opt['resource'] = 'products';
-			$opt2            = array();
+			$opt2            = [];
 
 			// make a search to limit the id returned.
 			if ($this->search != '') {
@@ -185,7 +185,7 @@ class Dolistore
 				dol_syslog("Call API with opt2 = ".var_export($opt2, true));
 				$xml         = $this->api->get($opt2);
 
-				$products    = array();
+				$products    = [];
 				// @phan-suppress-next-line PhanPluginUnknownObjectMethodCall
 				foreach ($xml->products->children() as $product) {
 					$products[] = (int) $product['id'];
@@ -200,7 +200,7 @@ class Dolistore
 				dol_syslog("Call API with opt2 = ".var_export($opt2, true));
 				$xml              = $this->api->get($opt2);
 
-				$products         = array();
+				$products         = [];
 				// @phan-suppress-next-line PhanPluginUnknownObjectMethodCall
 				foreach ($xml->category->associations->products->children() as $product) {
 					$products[] = (int) $product->id;
@@ -451,7 +451,7 @@ class Dolistore
 	public function get_previous_url()
 	{
 		// phpcs:enable
-		$param_array = array();
+		$param_array = [];
 		if ($this->start < $this->per_page) {
 			$sub = 0;
 		} else {
@@ -475,7 +475,7 @@ class Dolistore
 	public function get_next_url()
 	{
 		// phpcs:enable
-		$param_array = array();
+		$param_array = [];
 		if ($this->products !== null && count($this->products) < $this->per_page) {
 			$add = 0;
 		} else {

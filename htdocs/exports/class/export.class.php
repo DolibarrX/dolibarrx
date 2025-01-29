@@ -68,64 +68,64 @@ class Export
 	/**
 	 * @var array<int,string>
 	 */
-	public $array_export_code = array(); // Tableau de "idmodule_numexportprofile"
+	public $array_export_code = []; // Tableau de "idmodule_numexportprofile"
 	/**
 	 * @var string[]
 	 */
-	public $array_export_code_for_sort = array(); // Tableau de "idmodule_numexportprofile"
+	public $array_export_code_for_sort = []; // Tableau de "idmodule_numexportprofile"
 	/**
 	 * @var DolibarrModules[]
 	 */
-	public $array_export_module = array(); // Tableau de "nom de modules"
+	public $array_export_module = []; // Tableau de "nom de modules"
 	/**
 	 * @var string[]
 	 */
-	public $array_export_label = array(); // Tableau de "libelle de lots"
+	public $array_export_label = []; // Tableau de "libelle de lots"
 	/**
 	 * @var string[]
 	 */
-	public $array_export_sql_start = array(); // Tableau des "requetes sql"
+	public $array_export_sql_start = []; // Tableau des "requetes sql"
 	/**
 	 * @var string[]
 	 */
-	public $array_export_sql_end = array(); // Tableau des "requetes sql"
+	public $array_export_sql_end = []; // Tableau des "requetes sql"
 	/**
 	 * @var string[]
 	 */
-	public $array_export_sql_order = array(); // Tableau des "requetes sql"
+	public $array_export_sql_order = []; // Tableau des "requetes sql"
 
 	/**
 	 * @var array<int,array<string,string>>
 	 */
-	public $array_export_fields = array(); // Tableau des listes de champ+libelle a exporter
+	public $array_export_fields = []; // Tableau des listes de champ+libelle a exporter
 	/**
 	 * @var array<int,array<string,string>>
 	 */
-	public $array_export_TypeFields = array(); // Tableau des listes de champ+Type de filtre
+	public $array_export_TypeFields = []; // Tableau des listes de champ+Type de filtre
 	/**
 	 * @var array<int,array<string,string>>
 	 */
-	public $array_export_FilterValue = array(); // Tableau des listes de champ+Valeur a filtrer
+	public $array_export_FilterValue = []; // Tableau des listes de champ+Valeur a filtrer
 	/**
 	 * @var array<int,array<string,string>>
 	 */
-	public $array_export_entities = array(); // Tableau des listes de champ+alias a exporter
+	public $array_export_entities = []; // Tableau des listes de champ+alias a exporter
 	/**
 	 * @var array<int,array<string,string>>
 	 */
-	public $array_export_dependencies = array(); // array of list of entities that must take care of the DISTINCT if a field is added into export
+	public $array_export_dependencies = []; // array of list of entities that must take care of the DISTINCT if a field is added into export
 	/**
 	 * @var array<array<array{rule:string,file:string,classfile:string,class:string,method:string,method_params:string[]}>>
 	 */
-	public $array_export_special = array(); // array of special operations to do on field
+	public $array_export_special = []; // array of special operations to do on field
 	/**
 	 * @var array<array<string,string>>
 	 */
-	public $array_export_examplevalues = array(); // array with examples for fields
+	public $array_export_examplevalues = []; // array with examples for fields
 	/**
 	 * @var array<int,array<string,string>|''>
 	 */
-	public $array_export_help = array(); // array with tooltip help for fields
+	public $array_export_help = []; // array with tooltip help for fields
 
 	// To store export templates
 	/**
@@ -194,7 +194,7 @@ class Export
 			if (is_resource($handle)) {
 				// Search module files
 				while (($file = readdir($handle)) !== false) {
-					$reg = array();
+					$reg = [];
 					if (is_readable($dir.$file) && preg_match("/^(mod.*)\.class\.php$/i", $file, $reg)) {
 						$modulename = $reg[1];
 

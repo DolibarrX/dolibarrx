@@ -124,9 +124,9 @@ class pdf_standard_asset extends ModelePDFAsset
 
 		//  Use new system for position of columns, view  $this->defineColumnField()
 
-		$this->tva = array();
-		$this->localtax1 = array();
-		$this->localtax2 = array();
+		$this->tva = [];
+		$this->localtax1 = [];
+		$this->localtax2 = [];
 		$this->atleastoneratenotnull = 0;
 		$this->atleastonediscount = 0;
 		$this->situationinvoice = false;

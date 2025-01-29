@@ -220,7 +220,7 @@ class ExportTsv extends ModeleExports
 		// phpcs:enable
 		$outputlangs->charset_output = getDolGlobalString('EXPORT_TSV_FORCE_CHARSET');
 
-		$selectlabel = array();
+		$selectlabel = [];
 		foreach ($array_selected_sorted as $code => $value) {
 			if (strpos($code, ' as ') == 0) {
 				$alias = str_replace(array('.', '-', '(', ')'), '_', $code);
@@ -268,8 +268,8 @@ class ExportTsv extends ModeleExports
 
 		$this->col = 0;
 
-		$reg = array();
-		$selectlabelvalues = array();
+		$reg = [];
+		$selectlabelvalues = [];
 		foreach ($array_selected_sorted as $code => $value) {
 			if (strpos($code, ' as ') == 0) {
 				$alias = str_replace(array('.', '-', '(', ')'), '_', $code);

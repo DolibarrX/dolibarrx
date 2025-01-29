@@ -347,7 +347,7 @@ if (empty($numref)) {
 			//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 		);
 		//if (in_array($massaction, array('presend', 'predelete'))) {
-		//	$arrayofmassactions = array();
+		//	$arrayofmassactions = [];
 		//}
 		$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -374,8 +374,8 @@ if (empty($numref)) {
 		print '<td></td>';
 		print '</tr>';
 
-		$balancestart = array();
-		$content = array();
+		$balancestart = [];
+		$content = [];
 
 		$imaxinloop = ($limit ? min($num, $limit) : $num);
 		while ($i < $imaxinloop) {
@@ -554,7 +554,7 @@ if (empty($numref)) {
 			// Description
 			print '<td valign="center">';
 			print '<a href="'.DOL_URL_ROOT.'/compta/bank/line.php?rowid='.$objp->rowid.'&account='.$object->id.'">';
-			$reg = array();
+			$reg = [];
 
 			preg_match('/\((.+)\)/i', $objp->label, $reg); // If text rounded by parenthesis, we try to search translation
 			if (!empty($reg[1]) && $langs->trans($reg[1]) != $reg[1]) {

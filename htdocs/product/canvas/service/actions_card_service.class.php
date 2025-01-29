@@ -95,10 +95,10 @@ class ActionsCardService
 	public $object;
 
 	//! Template container
-	public $tpl = array();
+	public $tpl = [];
 
 	// List of fields for action=list
-	public $field_list = array();
+	public $field_list = [];
 
 	/**
 	 * @var string
@@ -133,7 +133,7 @@ class ActionsCardService
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -291,7 +291,7 @@ class ActionsCardService
 			}
 
 			// Duration
-			$dur = array();
+			$dur = [];
 			if ($this->object->duration_value > 1) {
 				$dur = array("h" => $langs->trans("Hours"), "d" => $langs->trans("Days"), "w" => $langs->trans("Weeks"), "m" => $langs->trans("Months"), "y" => $langs->trans("Years"));
 			} elseif ($this->object->duration_value > 0) {
@@ -313,7 +313,7 @@ class ActionsCardService
 	{
 		global $config, $langs;
 
-		$this->field_list = array();
+		$this->field_list = [];
 
 		$sql = "SELECT rowid, name, alias, title, align, sort, search, visible, enabled, rang";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_field_list";
@@ -327,7 +327,7 @@ class ActionsCardService
 
 			$i = 0;
 			while ($i < $num) {
-				$fieldlist = array();
+				$fieldlist = [];
 
 				$obj = $this->db->fetch_object($resql);
 

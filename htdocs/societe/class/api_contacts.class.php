@@ -177,7 +177,7 @@ class Contacts extends DolibarrApi
 	{
 		global $db, $config;
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('societe', 'contact', 'lire')) {
 			throw new RestException(403, 'No permission to read contacts');
@@ -211,11 +211,11 @@ class Contacts extends DolibarrApi
 		// Select contacts of given category
 		if ($category > 0) {
 			// Search Contact Categories
-			$searchCategoryContactList = $category ? array($category) : array();
+			$searchCategoryContactList = $category ? array($category) : [];
 			// $searchCategoryContactOperator = 0;
 			// Search for tag/category ($searchCategoryContactList is an array of ID)
 			if (!empty($searchCategoryContactList)) {
-				$searchCategoryContactSqlList = array();
+				$searchCategoryContactSqlList = [];
 				// $listofcategoryid = '';
 				foreach ($searchCategoryContactList as $searchCategoryContact) {
 					if (intval($searchCategoryContact) == -2) {
@@ -650,7 +650,7 @@ class Contacts extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$contact = array();
+		$contact = [];
 		foreach (Contacts::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

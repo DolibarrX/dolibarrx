@@ -119,7 +119,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("NewCompanyToDolibarr", $object->name);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 			$object->socid = $object->id;
 		} elseif ($action == 'COMPANY_MODIFY') {
 			'@phan-var-force Societe $object';
@@ -142,7 +142,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = dol_concatdesc($object->actionmsg, $langs->trans("DataFromWasMerged", $object->context['mergefromname'].' (id='.$object->context['mergefromname'].')'));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 			$object->socid = $object->id;
 		} elseif ($action == 'COMPANY_SENTBYMAIL') {
 			'@phan-var-force Societe $object';
@@ -158,7 +158,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'CONTACT_CREATE') {
 			'@phan-var-force Contact $object';
 			// Load translation files required by the page
@@ -211,7 +211,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("ContractValidatedInDolibarr", ($object->newref ? $object->newref : $object->ref));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'CONTRACT_SENTBYMAIL') {
 			'@phan-var-force Contrat $object';
 			// Load translation files required by the page
@@ -229,7 +229,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'PROPAL_VALIDATE') {
 			'@phan-var-force Propal $object';
 			// Load translation files required by the page
@@ -246,7 +246,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("PropalValidatedInDolibarr", ($object->newref ? $object->newref : $object->ref));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'PROPAL_MODIFY') {
 			'@phan-var-force Propal $object';
 			// Load translation files required by the page
@@ -263,7 +263,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("PropalBackToDraftInDolibarr", ($object->newref ? $object->newref : $object->ref));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'PROPAL_SENTBYMAIL') {
 			'@phan-var-force Propal $object';
 			// Load translation files required by the page
@@ -281,7 +281,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'PROPAL_CLOSE_SIGNED') {
 			'@phan-var-force Propal $object';
 			// Load translation files required by the page
@@ -298,7 +298,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("PropalClosedSignedInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'PROPAL_CLASSIFY_BILLED') {
 			'@phan-var-force Propal $object';
 			// Load translation files required by the page
@@ -315,7 +315,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("PropalClassifiedBilledInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'PROPAL_CLOSE_REFUSED') {
 			'@phan-var-force Propal $object';
 			// Load translation files required by the page
@@ -332,7 +332,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("PropalClosedRefusedInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_VALIDATE') {
 			'@phan-var-force Order $object';
 			// Load translation files required by the page
@@ -349,7 +349,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("OrderValidatedInDolibarr", ($object->newref ? $object->newref : $object->ref));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_CLOSE') {
 			'@phan-var-force Order $object';
 			// Load translation files required by the page
@@ -366,7 +366,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("OrderDeliveredInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_CLASSIFY_BILLED') {
 			'@phan-var-force Order $object';
 			// Load translation files required by the page
@@ -383,7 +383,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("OrderBilledInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_CANCEL') {
 			'@phan-var-force Order $object';
 			// Load translation files required by the page
@@ -400,7 +400,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("OrderCanceledInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_SENTBYMAIL') {
 			'@phan-var-force Order $object';
 			// Load translation files required by the page
@@ -418,7 +418,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'BILL_VALIDATE') {
 			'@phan-var-force Facture $object';
 			// Load translation files required by the page
@@ -435,7 +435,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InvoiceValidatedInDolibarr", ($object->newref ? $object->newref : $object->ref));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'BILL_UNVALIDATE') {
 			'@phan-var-force Facture $object';
 			// Load translation files required by the page
@@ -452,7 +452,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InvoiceBackToDraftInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'BILL_SENTBYMAIL') {
 			'@phan-var-force Facture $object';
 			// Load translation files required by the page
@@ -470,7 +470,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'BILL_PAYED') {
 			'@phan-var-force Facture $object';
 			// Load translation files required by the page
@@ -488,7 +488,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InvoicePaidInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'BILL_CANCEL') {
 			'@phan-var-force Facture $object';
 			// Load translation files required by the page
@@ -505,7 +505,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InvoiceCanceledInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'FICHINTER_CREATE') {
 			'@phan-var-force Fichinter $object';
 			// Load translation files required by the page
@@ -522,7 +522,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InterventionCreatedInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 			$object->fk_element = 0;
 			$object->elementtype = '';
 		} elseif ($action == 'FICHINTER_VALIDATE') {
@@ -541,7 +541,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InterventionValidatedInDolibarr", ($object->newref ? $object->newref : $object->ref));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 			$object->fk_element = 0;
 			$object->elementtype = '';
 		} elseif ($action == 'FICHINTER_MODIFY') {
@@ -560,7 +560,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InterventionModifiedInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 			$object->fk_element = 0;
 			$object->elementtype = '';
 		} elseif ($action == 'FICHINTER_SENTBYMAIL') {
@@ -580,7 +580,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'FICHINTER_CLASSIFY_BILLED') {
 			'@phan-var-force Fichinter $object';
 			// Load translation files required by the page
@@ -597,7 +597,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InterventionClassifiedBilledInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'FICHINTER_CLASSIFY_UNBILLED') {
 			'@phan-var-force Fichinter $object';
 			// Load translation files required by the page
@@ -614,7 +614,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InterventionClassifiedUnbilledInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'FICHINTER_CLOSE') {
 			'@phan-var-force Fichinter $object';
 			// Load translation files required by the page
@@ -631,7 +631,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InterventionClosedInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 			$object->fk_element = 0;
 			$object->elementtype = '';
 		} elseif ($action == 'FICHINTER_DELETE') {
@@ -650,7 +650,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InterventionDeletedInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 			$object->fk_element = 0;
 			$object->elementtype = '';
 		} elseif ($action == 'SHIPPING_VALIDATE') {
@@ -670,7 +670,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'SHIPPING_SENTBYMAIL') {
 			'@phan-var-force Expedition $object';
 			// Load translation files required by the page
@@ -688,7 +688,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'RECEPTION_VALIDATE') {
 			'@phan-var-force Reception $object';
 			$langs->load("agenda");
@@ -707,7 +707,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'RECEPTION_SENTBYMAIL') {
 			'@phan-var-force Reception $object';
 			$langs->load("agenda");
@@ -726,7 +726,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'PROPOSAL_SUPPLIER_VALIDATE') {
 			'@phan-var-force SupplierProposal $object';
 			// Load translation files required by the page
@@ -743,7 +743,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("PropalValidatedInDolibarr", ($object->newref ? $object->newref : $object->ref));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'PROPOSAL_SUPPLIER_SENTBYMAIL') {
 			'@phan-var-force SupplierProposal $object';
 			// Load translation files required by the page
@@ -761,7 +761,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'PROPOSAL_SUPPLIER_CLOSE_SIGNED') {
 			'@phan-var-force SupplierProposal $object';
 			// Load translation files required by the page
@@ -778,7 +778,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("PropalClosedSignedInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'PROPOSAL_SUPPLIER_CLOSE_REFUSED') {
 			'@phan-var-force SupplierProposal $object';
 			// Load translation files required by the page
@@ -795,7 +795,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("PropalClosedRefusedInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_SUPPLIER_CREATE') {
 			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
@@ -812,7 +812,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("OrderCreatedInDolibarr", ($object->newref ? $object->newref : $object->ref));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_SUPPLIER_VALIDATE') {
 			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
@@ -829,7 +829,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("OrderValidatedInDolibarr", ($object->newref ? $object->newref : $object->ref));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_SUPPLIER_APPROVE') {
 			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
@@ -846,7 +846,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("OrderApprovedInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_SUPPLIER_REFUSE') {
 			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
@@ -868,7 +868,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= $langs->trans("Reason") . ': '.$object->refuse_note;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_SUPPLIER_CANCEL') {
 			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
@@ -890,7 +890,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= $langs->trans("Reason") . ': '.$object->cancel_note;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_SUPPLIER_SUBMIT') {
 			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
@@ -912,7 +912,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= $langs->trans("Comment") . ': '.$object->context['comments'];
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_SUPPLIER_RECEIVE') {
 			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
@@ -929,7 +929,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("SupplierOrderReceivedInDolibarr", ($object->newref ? $object->newref : $object->ref));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'ORDER_SUPPLIER_SENTBYMAIL') {
 			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
@@ -947,7 +947,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'ORDER_SUPPLIER_CLASSIFY_BILLED') {
 			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
@@ -964,7 +964,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("SupplierOrderClassifiedBilled", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'BILL_SUPPLIER_CREATE') {
 			'@phan-var-force FactureFournisseur $object';
 			// Load translation files required by the page
@@ -981,7 +981,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InvoiceCreatedInDolibarr", ($object->newref ? $object->newref : $object->ref));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'BILL_SUPPLIER_VALIDATE') {
 			'@phan-var-force FactureFournisseur $object';
 			// Load translation files required by the page
@@ -998,7 +998,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InvoiceValidatedInDolibarr", ($object->newref ? $object->newref : $object->ref));
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'BILL_SUPPLIER_UNVALIDATE') {
 			'@phan-var-force FactureFournisseur $object';
 			// Load translation files required by the page
@@ -1015,7 +1015,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InvoiceBackToDraftInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'BILL_SUPPLIER_SENTBYMAIL') {
 			'@phan-var-force FactureFournisseur $object';
 			// Load translation files required by the page
@@ -1033,7 +1033,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'BILL_SUPPLIER_PAYED') {
 			'@phan-var-force FactureFournisseur $object';
 			// Load translation files required by the page
@@ -1050,7 +1050,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InvoicePaidInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'BILL_SUPPLIER_CANCELED') {
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "bills"));
@@ -1066,7 +1066,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("InvoiceCanceledInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'MEMBER_VALIDATE') {
 			'@phan-var-force Member $object';
 			// Members
@@ -1086,7 +1086,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Type").': '.$object->type;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'MEMBER_MODIFY') {
 			'@phan-var-force Member $object';
 			// Load translation files required by the page
@@ -1105,7 +1105,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Type").': '.$object->type;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'MEMBER_SUBSCRIPTION_CREATE') {
 			'@phan-var-force Subscription $object';
 			// Load translation files required by the page
@@ -1134,7 +1134,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Period").': '.dol_print_date($object->dateh, 'day').' - '.dol_print_date($object->datef, 'day');
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 			if (isset($object->fk_soc) && $object->fk_soc > 0) {
 				$object->socid = $object->fk_soc;
 			}
@@ -1165,7 +1165,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Period").': '.dol_print_date($object->dateh, 'day').' - '.dol_print_date($object->datef, 'day');
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 			if (isset($object->fk_soc) && $object->fk_soc > 0) {
 				$object->socid = $object->fk_soc;
 			}
@@ -1197,7 +1197,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Period").': '.dol_print_date($object->dateh, 'day').' - '.dol_print_date($object->datef, 'day');
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 			if (isset($object->fk_soc) && $object->fk_soc > 0) {
 				$object->socid = $object->fk_soc;
 			}
@@ -1219,7 +1219,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Type").': '.$object->type;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'MEMBER_DELETE') {
 			'@phan-var-force Member $object';
 			// Load translation files required by the page
@@ -1238,7 +1238,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Type").': '.$object->type;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'MEMBER_EXCLUDE') {
 			'@phan-var-force Member $object';
 			// Load translation files required by the page
@@ -1257,7 +1257,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Type").': '.$object->type;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'PROJECT_CREATE') {
 			'@phan-var-force Project $object';
 			// Projects
@@ -1276,7 +1276,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Project").': '.$object->ref;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'PROJECT_VALIDATE') {
 			'@phan-var-force Project $object';
 			// Load translation files required by the page
@@ -1294,7 +1294,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Project").': '.$object->ref;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'PROJECT_MODIFY') {
 			'@phan-var-force Project $object';
 			// Load translation files required by the page
@@ -1316,7 +1316,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentitiesnoconv("OpportunityStatus").': '.$object->oldcopy->opp_status.' -> '.$object->opp_status;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'PROJECT_SENTBYMAIL') {
 			'@phan-var-force Project $object';
 			// Load translation files required by the page
@@ -1334,7 +1334,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			// Parameters $object->sendtoid defined by caller
-			//$object->sendtoid = array();
+			//$object->sendtoid = [];
 		} elseif ($action == 'PROJECT_DELETE') {
 			'@phan-var-force Project $object';
 			// Load translation files required by the page
@@ -1345,7 +1345,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 			$object->actionmsg = $langs->transnoentities("ProjectDeletedInDolibarr", $object->ref);
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'PROJECT_CLOSE') {
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "projects"));
@@ -1361,7 +1361,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg = $langs->transnoentities("ProjectClosedInDolibarr", $object->ref);
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'TASK_CREATE') {
 			'@phan-var-force Task $object';
 			// Project tasks
@@ -1380,7 +1380,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Task").': '.$object->ref;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'TASK_MODIFY') {
 			'@phan-var-force Task $object';
 			// Load translation files required by the page
@@ -1398,7 +1398,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Task").': '.$object->ref;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'TASK_DELETE') {
 			'@phan-var-force Task $object';
 			// Load translation files required by the page
@@ -1416,7 +1416,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("Task").': '.$object->ref;
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} elseif ($action == 'TICKET_ASSIGNED') {
 			'@phan-var-force Ticket $object';
 			// Load translation files required by the page
@@ -1448,7 +1448,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->actionmsg .= "\n".$langs->transnoentities("NewUser").': '.$langs->trans("None");
 			}
 
-			$object->sendtoid = array();
+			$object->sendtoid = [];
 		} else {
 			// TODO Merge all previous cases into this generic one
 			// $action = PASSWORD, BILL_DELETE, TICKET_CREATE, TICKET_MODIFY, TICKET_DELETE, CONTACT_SENTBYMAIL, RECRUITMENTCANDIDATURE_MODIFY, ...
@@ -1498,7 +1498,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			}
 
 			if (!isset($object->sendtoid) || !is_array($object->sendtoid)) {
-				$object->sendtoid = array();
+				$object->sendtoid = [];
 			}
 		}
 

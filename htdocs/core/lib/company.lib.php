@@ -46,7 +46,7 @@ function societe_prepare_head(Societe $object)
 	global $hookManager;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/societe/card.php?socid=' . $object->id;
 	$head[$h][1] = $langs->trans("ThirdParty");
@@ -263,7 +263,7 @@ function societe_prepare_head(Societe $object)
 	}
 
 	if ((isModEnabled('website') || isModEnabled('webportal')) && $user->hasRight('societe', 'lire')) {
-		$site_filter_list = array();
+		$site_filter_list = [];
 		if (isModEnabled('website')) {
 			$site_filter_list[] = 'dolibarr_website';
 		}
@@ -503,7 +503,7 @@ function societe_prepare_head2($object)
 {
 	global $langs;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/societe/card.php?socid=' . $object->id;
 	$head[$h][1] = $langs->trans("ThirdParty");
@@ -534,7 +534,7 @@ function societe_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('socpeople');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/societe/admin/societe.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
@@ -832,7 +832,7 @@ function getCountriesInEEC()
 	// List of all country codes that are in europe for european vat rules
 	// List found on https://ec.europa.eu/taxation_customs/territorial-status-eu-countries-and-certain-territories_en
 	global $config, $db;
-	$country_code_in_EEC = array();
+	$country_code_in_EEC = [];
 
 	if (!empty($config->cache['country_code_in_EEC'])) {
 		// Use of cache to reduce number of database requests
@@ -1263,7 +1263,7 @@ function show_contacts($config, $langs, $db, $object, $backtopage = '', $showuse
 	}
 
 	// Initialize array of search criteria
-	$search = array();
+	$search = [];
 	foreach ($arrayfields as $key => $val) {
 		$queryName = 'search_' . substr($key, 2);
 		if (GETPOST($queryName, 'alpha')) {
@@ -1277,14 +1277,14 @@ function show_contacts($config, $langs, $db, $object, $backtopage = '', $showuse
 		$search_rowid = '';
 		$search_status = '';
 		$search_name = '';
-		$search_roles = array();
+		$search_roles = [];
 		$search_address = '';
 		$search_poste = '';
 		$search_note_private = '';
 		$search_birthday_dtstart = '';
 		$search_birthday_dtend = '';
-		$search = array();
-		$search_array_options = array();
+		$search = [];
+		$search_array_options = [];
 
 		foreach ($contactstatic->fields as $key => $val) {
 			$search[$key] = '';
@@ -1313,7 +1313,7 @@ function show_contacts($config, $langs, $db, $object, $backtopage = '', $showuse
 	print '<input type="hidden" name="sortfield" value="' . $sortfield . '">';
 	print '<input type="hidden" name="page" value="' . $page . '">';
 
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 	$mode = 'view';
 
 	$varpage = empty($contextpage) ? $_SERVER["PHP_SELF"] : $contextpage;
@@ -1771,7 +1771,7 @@ function show_actions_todo($config, $langs, $db, $filterobj, $objcon = null, $no
  *      @param	string				$module			You can add module name here if elementtype in table llx_actioncomm is objectkey@module
  *      @return	?string								Return html part or void if noprint is 1
  */
-function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $noprint = 0, $actioncode = '', $donetodo = 'done', $filters = array(), $sortfield = 'a.datep,a.id', $sortorder = 'DESC', $module = '')
+function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $noprint = 0, $actioncode = '', $donetodo = 'done', $filters = [], $sortfield = 'a.datep,a.id', $sortorder = 'DESC', $module = '')
 {
 	global $user, $config, $hookManager;
 	global $form;
@@ -1804,14 +1804,14 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 	}
 
 	$out = '';
-	$histo = array();
+	$histo = [];
 	$numaction = 0;
 	$now = dol_now('tzuser');
 
 	// Open DSI -- Fix order by -- Begin
 	$sortfield_list = explode(',', $sortfield);
 	$sortfield_label_list = array('a.id' => 'id', 'a.datep' => 'dp', 'a.percent' => 'percent');
-	$sortfield_new_list = array();
+	$sortfield_new_list = [];
 	foreach ($sortfield_list as $sortfield_value) {
 		$sortfield_new_list[] = $sortfield_label_list[trim($sortfield_value)];
 	}
@@ -2167,9 +2167,9 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 
 		$actionstatic = new ActionComm($db);
 		$userstatic = new User($db);
-		$userlinkcache = array();
+		$userlinkcache = [];
 		$contactstatic = new Contact($db);
-		$elementlinkcache = array();
+		$elementlinkcache = [];
 
 		$out .= '<form name="listactionsfilter" class="listactionsfilter" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
 		$out .= '<input type="hidden" name="token" value="' . newToken() . '">';
@@ -2416,7 +2416,7 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 					$link = $elementlinkcache[$histo[$key]['elementtype']][$histo[$key]['fk_element']];
 				} else {
 					if (!isset($elementlinkcache[$histo[$key]['elementtype']])) {
-						$elementlinkcache[$histo[$key]['elementtype']] = array();
+						$elementlinkcache[$histo[$key]['elementtype']] = [];
 					}
 					$link = dolGetElementUrl($histo[$key]['fk_element'], $histo[$key]['elementtype'], 1);
 					$elementlinkcache[$histo[$key]['elementtype']][$histo[$key]['fk_element']] = $link;
@@ -2699,7 +2699,7 @@ function htmlPrintOnlineFooter($fromcompany, $langs, $addformmessage = 0, $suffi
 {
 	global $config;
 
-	$reg = array();
+	$reg = [];
 
 	// Juridical status
 	$line1 = "";

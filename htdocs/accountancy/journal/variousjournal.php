@@ -67,7 +67,7 @@ if ($result > 0) {
 }
 
 $hookManager->initHooks(array('globaljournal', $object->nature.'journal'));
-$parameters = array();
+$parameters = [];
 
 $date_start = dol_mktime(0, 0, 0, $date_startmonth, $date_startday, $date_startyear);
 $date_end = dol_mktime(23, 59, 59, $date_endmonth, $date_endday, $date_endyear);

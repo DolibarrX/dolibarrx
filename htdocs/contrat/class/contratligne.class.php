@@ -394,8 +394,8 @@ class ContratLigne extends CommonObjectLine
 			$statusType = 'status6';
 		}
 
-		$params = array();
-		$reg = array();
+		$params = [];
+		$reg = [];
 		if (preg_match('/class="(.*)"/', $moreatt, $reg)) {
 			$params = array('badgeParams' => array('css' => $reg[1]));
 		}

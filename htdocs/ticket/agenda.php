@@ -214,7 +214,7 @@ if (isModEnabled("societe")) {
 	if ($action != 'editcustomer' && $permissiontoadd) {
 		$morehtmlref .= '<a class="editfielda" href="'.$url_page_current.'?action=editcustomer&token='.newToken().'&track_id='.$object->track_id.'">'.img_edit($langs->transnoentitiesnoconv('SetThirdParty'), 0).'</a> ';
 	}
-	$morehtmlref .= $form->form_thirdparty($url_page_current.'?track_id='.$object->track_id, $object->socid, $action == 'editcustomer' ? 'editcustomer' : 'none', '', 1, 0, 0, array(), 1);
+	$morehtmlref .= $form->form_thirdparty($url_page_current.'?track_id='.$object->track_id, $object->socid, $action == 'editcustomer' ? 'editcustomer' : 'none', '', 1, 0, 0, [], 1);
 }
 
 // Project
@@ -294,7 +294,7 @@ if (!empty($object->id)) {
 	print_barre_liste($titlelist, 0, $_SERVER["PHP_SELF"], '', $sortfield, $sortorder, '', 0, -1, '', 0, $morehtmlright, '', 0, 1, 0);
 
 	// List of all actions
-	$filters = array();
+	$filters = [];
 	$filters['search_agenda_label'] = $search_agenda_label;
 	$filters['search_rowid'] = $search_rowid;
 

@@ -94,7 +94,7 @@ if (!preg_match('/#[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]$/', $manifes
 }
 $manifest->display = getDolGlobalString('MAIN_MANIFEST_DISPLAY', "minimal-ui");
 $manifest->splash_pages = null;
-$manifest->icons = array();
+$manifest->icons = [];
 $manifest->start_url = constant('DOL_MAIN_URL_ROOT');
 $manifest->id = constant('DOL_MAIN_URL_ROOT');
 

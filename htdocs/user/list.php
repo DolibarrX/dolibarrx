@@ -97,7 +97,7 @@ if (!$sortorder) {
 
 // Initialize array of search criteria
 $search_all = trim(GETPOST('search_all', 'alphanohtml'));
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha') !== '') {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -288,8 +288,8 @@ if (empty($resHook)) {
 		$search_date_creation = "";
 		$search_date_modification = "";
 		$search_categ = 0;
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 		if (getDolGlobalInt('MAIN_ENABLE_LOGINS_PRIVACY') == 0) {
 			$search_datelastlogin = "";
 			$search_datepreviouslogin = "";
@@ -380,8 +380,8 @@ if ($contextpage == 'employeelist' && $search_employee == 1) {
 } else {
 	$title = $langs->trans("Users");
 }
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 $morehtmlright = "";
 
 // Build and execute select
@@ -402,7 +402,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -417,7 +417,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON u.fk_soc = s.rowid";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u2 ON u.fk_user = u2.rowid";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co ON u.fk_country = co.rowid";
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 if ($resHook > 0) {
@@ -485,7 +485,7 @@ if ($search_all) {
 // Search for tag/category ($searchCategoryUserList is an array of ID)
 $searchCategoryUserList = array($search_categ);
 if (!empty($searchCategoryUserList)) {
-	$searchCategoryUserSqlList = array();
+	$searchCategoryUserSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryUserList as $searchCategoryUser) {
 		if (intval($searchCategoryUser) == -2) {
@@ -520,7 +520,7 @@ if (isModEnabled('salaries') && $contextpage == 'employeelist' && !$user->hasRig
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -572,7 +572,7 @@ if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $s
 
 llxHeader('', $title, $help_url, '', 0, 0, $morejs, $morecss, '', 'bodyforlist mod-product page-list');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -645,7 +645,7 @@ if ($search_warehouse > 0) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 
 // List of mass actions available
-$arrayofmassactions = array();
+$arrayofmassactions = [];
 if ($permissiontoadd) {
 	$arrayofmassactions['disable'] = img_picture('', 'close_title', 'class="picturefixedwidth"').$langs->trans("DisableUser");
 }
@@ -661,7 +661,7 @@ if ($permissiontoadd) {
 //if ($permissiontodelete) $arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete', 'preaffecttag', 'presetsupervisor'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -746,7 +746,7 @@ if (isModEnabled('stock') && getDolGlobalString('MAIN_DEFAULT_WAREHOUSE_USER')) 
 	$moreforfilter .= '</div>';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -804,7 +804,7 @@ if (!empty($arrayfields['u.employee']['checked'])) {
 // Supervisor
 if (!empty($arrayfields['u.fk_user']['checked'])) {
 	print '<td class="liste_titre">';
-	print $form->select_dolusers($search_supervisor, 'search_supervisor', 1, array(), 0, '', 0, 0, 0, 0, '', 0, '', 'maxwidth125');
+	print $form->select_dolusers($search_supervisor, 'search_supervisor', 1, [], 0, '', 0, 0, 0, 0, '', 0, '', 'maxwidth125');
 	print '</td>';
 }
 if (!empty($arrayfields['u.accountancy_code']['checked'])) {
@@ -882,7 +882,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1332,7 +1332,7 @@ while ($i < $imaxinloop) {
 				$totalarray['pos'][$totalarray['nbfield']] = 'u.salary';
 			}
 			if (!isset($totalarray['val'])) {
-				$totalarray['val'] = array();
+				$totalarray['val'] = [];
 			}
 			if (!isset($totalarray['val']['u.salary'])) {
 				$totalarray['val']['u.salary'] = 0;

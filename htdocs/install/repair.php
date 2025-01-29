@@ -221,12 +221,12 @@ if ($ok && $oneoptionset) {
 if ($ok && GETPOST('standard', 'alpha')) {
 	$dir = "mysql/migration/";
 
-	$filelist = array();
+	$filelist = [];
 	$i = 0;
 	$ok = 0;
 
 	// Recupere list fichier
-	$filesindir = array();
+	$filesindir = [];
 	$handle = opendir($dir);
 	if (is_resource($handle)) {
 		while (($file = readdir($handle)) !== false) {
@@ -282,7 +282,7 @@ if ($ok && GETPOST('standard', 'alpha')) {
 		$arrayoffieldsdesc = $extrafields->fetch_name_optionals_label($elementtype);
 
 		// Define $arrayoffieldsfound
-		$arrayoffieldsfound = array();
+		$arrayoffieldsfound = [];
 		$resql = $db->DDLDescTable($tableextra);
 		if ($resql) {
 			print '<tr><td>Check availability of extra field for '.$tableextra;
@@ -407,7 +407,7 @@ if ($ok && GETPOST('standard', 'alpha')) {
 			while ($i < $num) {
 				$obj = $db->fetch_object($resql);
 
-				$reg = array();
+				$reg = [];
 				if (preg_match('/MAIN_MODULE_([^_]+)_(.+)/i', $obj->name, $reg)) {
 					$name = $reg[1];
 					$type = $reg[2];
@@ -465,7 +465,7 @@ if ($ok && GETPOST('standard', 'alpha')) {
 			while ($i < $num) {
 				$obj = $db->fetch_object($resql);
 
-				$reg = array();
+				$reg = [];
 				if (preg_match('/^(.+)@(.+)$/i', $obj->file, $reg)) {
 					$name = $reg[1];
 					$module = $reg[2];
@@ -828,7 +828,7 @@ if ($ok && GETPOST('clean_menus', 'alpha')) {
 if ($ok && GETPOST('clean_orphelin_dir', 'alpha')) {
 	$listmodulepart = array('company', 'invoice', 'invoice_supplier', 'propal', 'order', 'order_supplier', 'contract', 'tax');
 	foreach ($listmodulepart as $modulepart) {
-		$filearray = array();
+		$filearray = [];
 		$upload_dir = isset($config->$modulepart->dir_output) ? $config->$modulepart->dir_output : '';
 		if ($modulepart == 'company') {
 			$upload_dir = $config->societe->dir_output; // TODO change for multicompany sharing
@@ -1165,7 +1165,7 @@ if ($ok && GETPOST('force_disable_of_modules_not_found', 'alpha')) {
 
 					$db->begin();
 
-					$reg = array();
+					$reg = [];
 					if (preg_match('/MAIN_MODULE_(.*)_'.strtoupper($key).'/i', $constantname, $reg)) {
 						$name = strtolower($reg[1]);
 
@@ -1186,7 +1186,7 @@ if ($ok && GETPOST('force_disable_of_modules_not_found', 'alpha')) {
 								$value = $obj->value;
 								$valuearray = (array) json_decode($value);	// Force cast into array because sometimes it is a stdClass
 								if ($value && (!is_array($valuearray) || count($valuearray) == 0)) {
-									$valuearray = array();
+									$valuearray = [];
 									$valuearray[0] = $value; // If value was not a json array but a string
 								}
 								$reloffile = preg_replace('/^\//', '', $valuearray[0]);
@@ -1312,7 +1312,7 @@ if ($ok && GETPOST('force_utf8_on_tables', 'alpha')) {
 			$resql = $db->query($sql);
 		}
 
-		$foreignkeystorestore = array();
+		$foreignkeystorestore = [];
 
 		// First loop to delete foreign keys
 		foreach ($listoftables as $table) {
@@ -1442,7 +1442,7 @@ if ($ok && GETPOST('force_utf8mb4_on_tables', 'alpha')) {
 			$resql = $db->query($sql);
 		}
 
-		$foreignkeystorestore = array();
+		$foreignkeystorestore = [];
 
 		// First loop to delete foreign keys
 		foreach ($listoftables as $table) {
@@ -1662,7 +1662,7 @@ if ($ok && GETPOST('repair_link_dispatch_lines_supplier_order_lines')) {
 	$db->begin();
 	$resql_dispatch = $db->query($sql_dispatch);
 	$n_processed_rows = 0;
-	$errors = array();
+	$errors = [];
 	if ($resql_dispatch) {
 		if ($db->num_rows($resql_dispatch) == 0) {
 			echo '<tr><td>Nothing to do.</td></tr>';

@@ -39,7 +39,7 @@
  * @param	int<-1,1>  $ssl_verifypeer		-1=Auto (no ssl check on dev, check on prod), 0=No ssl check, 1=Always ssl check
  * @return	array{http_code:int,content:string,curl_error_no:int,curl_error_msg:string}    Returns an associative array containing the response from the server array('http_code'=>http response code, 'content'=>response, 'curl_error_no'=>errno, 'curl_error_msg'=>errmsg...)
  */
-function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 1, $addheaders = array(), $allowedschemes = array('http', 'https'), $localurl = 0, $ssl_verifypeer = -1)
+function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 1, $addheaders = [], $allowedschemes = array('http', 'https'), $localurl = 0, $ssl_verifypeer = -1)
 {
 	//declaring of global variables
 	global $config;
@@ -92,7 +92,7 @@ function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 
 
 	// Restrict use to some protocols only
 	$protocols = 0;
-	$redir_list = array();
+	$redir_list = [];
 	if (is_array($allowedschemes)) {
 		foreach ($allowedschemes as $allowedscheme) {
 			if ($allowedscheme == 'http') {
@@ -165,7 +165,7 @@ function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 
 
 	$newUrl = $url;
 	$maxRedirection = 5;
-	$info = array();
+	$info = [];
 	$response = '';
 
 	do {
@@ -262,7 +262,7 @@ function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 
 	}
 	dol_syslog("getURLContent response size=" . strlen($response)); // This may contains binary data, so we don't output it
 
-	$rep = array();
+	$rep = [];
 	if (curl_errno($ch)) {
 		// Add keys to $rep
 		$rep['content'] = $response;

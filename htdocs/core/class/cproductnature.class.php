@@ -35,7 +35,7 @@ class CProductNature extends CommonDict
 	/**
 	 * @var CProductNature[] record
 	 */
-	public $records = array();
+	public $records = [];
 
 	/**
 	 * @var string element
@@ -118,7 +118,7 @@ class CProductNature extends CommonDict
 		$sql .= " t.label,";
 		$sql .= " t.active";
 		$sql .= " FROM ".$this->db->prefix().$this->table_element." as t";
-		$sql_where = array();
+		$sql_where = [];
 		if ($id) {
 			$sql_where[] = " t.rowid = ".((int) $id);
 		}
@@ -174,7 +174,7 @@ class CProductNature extends CommonDict
 
 		// Manage filter
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.rowid' || $key == 't.active' || $key == 't.code') {
@@ -213,7 +213,7 @@ class CProductNature extends CommonDict
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->records = array();
+			$this->records = [];
 			$num = $this->db->num_rows($resql);
 			if ($num > 0) {
 				while ($obj = $this->db->fetch_object($resql)) {

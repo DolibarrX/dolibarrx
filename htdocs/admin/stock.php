@@ -63,7 +63,7 @@ $error = 0;
 
 include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 
-$reg = array();
+$reg = [];
 
 if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
@@ -240,7 +240,7 @@ if (isModEnabled('invoice')) {
 		if ($disabled) {
 			print img_picture($langs->trans("Disabled"), 'off', 'class="opacitymedium"');
 		} else {
-			print ajax_constantonoff('STOCK_CALCULATE_ON_BILL', array(), null, 0, 0, 0, 2, 1, 0, '', '', 'reposition');
+			print ajax_constantonoff('STOCK_CALCULATE_ON_BILL', [], null, 0, 0, 0, 2, 1, 0, '', '', 'reposition');
 		}
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -262,7 +262,7 @@ if (isModEnabled('order')) {
 		if ($disabled) {
 			print img_picture($langs->trans("Disabled"), 'off', 'class="opacitymedium"');
 		} else {
-			print ajax_constantonoff('STOCK_CALCULATE_ON_VALIDATE_ORDER', array(), null, 0, 0, 0, 2, 1, 0, '', 'reposition');
+			print ajax_constantonoff('STOCK_CALCULATE_ON_VALIDATE_ORDER', [], null, 0, 0, 0, 2, 1, 0, '', 'reposition');
 		}
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -283,7 +283,7 @@ print '<td>'.$langs->trans("DeStockOnShipment").'</td>';
 print '<td class="right">';
 if (isModEnabled("shipping")) {
 	if ($config->use_javascript_ajax) {
-		print ajax_constantonoff('STOCK_CALCULATE_ON_SHIPMENT', array(), null, 0, 0, 0, 2, 1, 0, '', 'reposition');
+		print ajax_constantonoff('STOCK_CALCULATE_ON_SHIPMENT', [], null, 0, 0, 0, 2, 1, 0, '', 'reposition');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
 		print $form->selectarray("STOCK_CALCULATE_ON_SHIPMENT", $arrval, $config->global->STOCK_CALCULATE_ON_SHIPMENT);
@@ -300,7 +300,7 @@ print '<td>'.$langs->trans("DeStockOnShipmentOnClosing").'</td>';
 print '<td class="right">';
 if (isModEnabled("shipping")) {
 	if ($config->use_javascript_ajax) {
-		print ajax_constantonoff('STOCK_CALCULATE_ON_SHIPMENT_CLOSE', array(), null, 0, 0, 0, 2, 1, 0, '', 'reposition');
+		print ajax_constantonoff('STOCK_CALCULATE_ON_SHIPMENT_CLOSE', [], null, 0, 0, 0, 2, 1, 0, '', 'reposition');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
 		print $form->selectarray("STOCK_CALCULATE_ON_SHIPMENT_CLOSE", $arrval, getDolGlobalString('STOCK_CALCULATE_ON_SHIPMENT_CLOSE'));
@@ -336,7 +336,7 @@ if (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
 		if ($disabled) {
 			print img_picture($langs->trans("Disabled"), 'off', 'class="opacitymedium"');
 		} else {
-			print ajax_constantonoff('STOCK_CALCULATE_ON_SUPPLIER_BILL', array(), null, 0, 0, 0, 2, 1, 0, '', 'reposition');
+			print ajax_constantonoff('STOCK_CALCULATE_ON_SUPPLIER_BILL', [], null, 0, 0, 0, 2, 1, 0, '', 'reposition');
 		}
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -358,7 +358,7 @@ if (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
 		if ($disabled) {
 			print img_picture($langs->trans("Disabled"), 'off', 'class="opacitymedium"');
 		} else {
-			print ajax_constantonoff('STOCK_CALCULATE_ON_SUPPLIER_VALIDATE_ORDER', array(), null, 0, 0, 0, 2, 1, 0, '', 'reposition');
+			print ajax_constantonoff('STOCK_CALCULATE_ON_SUPPLIER_VALIDATE_ORDER', [], null, 0, 0, 0, 2, 1, 0, '', 'reposition');
 		}
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -377,7 +377,7 @@ if (isModEnabled("reception")) {
 	print '<td class="right">';
 
 	if ($config->use_javascript_ajax) {
-		print ajax_constantonoff('STOCK_CALCULATE_ON_RECEPTION', array(), null, 0, 0, 0, 2, 1, 0, '', 'reposition');
+		print ajax_constantonoff('STOCK_CALCULATE_ON_RECEPTION', [], null, 0, 0, 0, 2, 1, 0, '', 'reposition');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
 		print $form->selectarray("STOCK_CALCULATE_ON_RECEPTION", $arrval, $config->global->STOCK_CALCULATE_ON_RECEPTION);
@@ -392,7 +392,7 @@ if (isModEnabled("reception")) {
 	print '<td class="right">';
 
 	if ($config->use_javascript_ajax) {
-		print ajax_constantonoff('STOCK_CALCULATE_ON_RECEPTION_CLOSE', array(), null, 0, 0, 0, 2, 1, 0, '', 'reposition');
+		print ajax_constantonoff('STOCK_CALCULATE_ON_RECEPTION_CLOSE', [], null, 0, 0, 0, 2, 1, 0, '', 'reposition');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
 		print $form->selectarray("STOCK_CALCULATE_ON_RECEPTION_CLOSE", $arrval, $config->global->STOCK_CALCULATE_ON_RECEPTION_CLOSE);
@@ -406,7 +406,7 @@ if (isModEnabled("reception")) {
 	print '<td class="right">';
 	if (isModEnabled("supplier_order")) {
 		if ($config->use_javascript_ajax) {
-			print ajax_constantonoff('STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER', array(), null, 0, 0, 0, 2, 1, 0, '', 'reposition');
+			print ajax_constantonoff('STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER', [], null, 0, 0, 0, 2, 1, 0, '', 'reposition');
 		} else {
 			$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
 			print $form->selectarray("STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER", $arrval, $config->global->STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER);
@@ -542,7 +542,7 @@ print '<input type="hidden" name="action" value="warehouse">';
 print load_fiche_titre($langs->trans("WarehouseModelModules"), '', '');
 
 // Load array def with activated templates
-$def = array();
+$def = [];
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
@@ -584,7 +584,7 @@ foreach ($dirmodels as $reldir) {
 		if (is_dir($dir)) {
 			$handle = opendir($dir);
 			if (is_resource($handle)) {
-				$filelist = array();
+				$filelist = [];
 				while (($file = readdir($handle)) !== false) {
 					$filelist[] = $file;
 				}
@@ -703,7 +703,7 @@ print '</tr>'."\n";
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("MainDefaultWarehouse").'</td>';
 print '<td class="right">';
-print $formproduct->selectWarehouses(getDolGlobalString('MAIN_DEFAULT_WAREHOUSE') ? $config->global->MAIN_DEFAULT_WAREHOUSE : -1, 'default_warehouse', '', 1, 0, 0, '', 0, 0, array(), 'left reposition');
+print $formproduct->selectWarehouses(getDolGlobalString('MAIN_DEFAULT_WAREHOUSE') ? $config->global->MAIN_DEFAULT_WAREHOUSE : -1, 'default_warehouse', '', 1, 0, 0, '', 0, 0, [], 'left reposition');
 print '<input type="submit" class="button button-edit smallpaddingimp" value="'.$langs->trans("Modify").'">';
 print "</td>";
 print "</tr>\n";
@@ -712,7 +712,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("UserDefaultWarehouse").'</td>';
 print '<td class="right">';
 if ($config->use_javascript_ajax) {
-	print ajax_constantonoff('MAIN_DEFAULT_WAREHOUSE_USER', array(), null, 0, 0, 1);
+	print ajax_constantonoff('MAIN_DEFAULT_WAREHOUSE_USER', [], null, 0, 0, 1);
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
 	print $form->selectarray("MAIN_DEFAULT_WAREHOUSE_USER", $arrval, $config->global->MAIN_DEFAULT_WAREHOUSE_USER);

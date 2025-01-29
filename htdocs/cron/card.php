@@ -311,7 +311,7 @@ if ($action == 'execute') {
 // Clone confirmation
 if ($action == 'clone') {
 	// Create an array for form
-	$formquestion = array();
+	$formquestion = [];
 	$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('ToClone'), $langs->trans('ConfirmCloneAsk', $object->ref), 'confirm_clone', $formquestion, 'yes', 1);
 }
 
@@ -574,7 +574,7 @@ if (($action == "create") || ($action == "edit")) {
 
 	$linkback = '<a href="'.DOL_URL_ROOT.'/cron/list.php?restore_lastsearch_values=1">'.$langs->trans("BackToList").'</a>';
 
-	$reg = array();
+	$reg = [];
 	if (preg_match('/:(.*)$/', $object->label, $reg)) {
 		$langs->load($reg[1]);
 	}

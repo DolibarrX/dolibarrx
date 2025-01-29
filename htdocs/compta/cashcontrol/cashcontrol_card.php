@@ -80,7 +80,7 @@ if ($contextpage == 'takepos') {
 
 $arrayofpaymentmode = array('cash' => 'Cash', 'cheque' => 'Cheque', 'card' => 'CreditCard');
 
-$arrayofposavailable = array();
+$arrayofposavailable = [];
 if (isModEnabled('cashdesk')) {
 	$arrayofposavailable['cashdesk'] = $langs->trans('CashDesk').' (cashdesk)';
 }
@@ -272,9 +272,9 @@ if ($action == 'confirm_delete' && !empty($permissiontodelete)) {
 
 $form = new Form($db);
 
-$initialbalanceforterminal = array();
-$theoricalamountforterminal = array();
-$theoricalnbofinvoiceforterminal = array();
+$initialbalanceforterminal = [];
+$theoricalamountforterminal = [];
+$theoricalnbofinvoiceforterminal = [];
 
 
 llxHeader('', $langs->trans("CashControl"));
@@ -428,7 +428,7 @@ if ($action == "create" || $action == "start" || $action == 'close') {
 		print '<td>'.$form->selectarray('posmodule', $arrayofposavailable, GETPOST('posmodule', 'alpha'), (count($arrayofposavailable) > 1 ? 1 : 0)).'</td>';
 		print '<td>';
 
-		$arrayofpos = array();
+		$arrayofpos = [];
 		$numterminals = max(1, getDolGlobalString('TAKEPOS_NUM_TERMINALS'));
 		for ($i = 1; $i <= $numterminals; $i++) {
 			$nameofterminal = getDolGlobalString("TAKEPOS_TERMINAL_NAME_".$i);
@@ -617,7 +617,7 @@ if (empty($action) || $action == "view" || $action == "close") {
 	if ($result <= 0) {
 		print $langs->trans("ErrorRecordNotFound");
 	} else {
-		$head = array();
+		$head = [];
 		$head[0][0] = DOL_URL_ROOT.'/compta/cashcontrol/cashcontrol_card.php?id='.$object->id;
 		$head[0][1] = $langs->trans("CashControl");
 		$head[0][2] = 'cashcontrol';
@@ -746,7 +746,7 @@ if (empty($action) || $action == "view" || $action == "close") {
 			print '<input type="hidden" name="posmodule" value="'.$object->posmodule.'">';
 			print '<td>';
 
-			$array = array();
+			$array = [];
 			$numterminals = max(1, $config->global->TAKEPOS_NUM_TERMINALS);
 			for($i = 1; $i <= $numterminals; $i++) {
 				$array[$i] = $i;

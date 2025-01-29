@@ -31,7 +31,7 @@ function openid_connect_prepare_head()
 {
 	global $langs, $config, $user;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath("/admin/openid_connect.php", 1);
 	$head[$h][1] = $langs->trans("Parameters");

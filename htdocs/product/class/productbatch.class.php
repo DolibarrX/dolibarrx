@@ -410,7 +410,7 @@ class Productbatch extends CommonObject
 	 */
 	public function find($fk_product_stock = 0, $eatby = null, $sellby = null, $batch_number = '', $fk_warehouse = 0)
 	{
-		$where = array();
+		$where = [];
 
 		$sql = "SELECT";
 		$sql .= " t.rowid,";
@@ -480,7 +480,7 @@ class Productbatch extends CommonObject
 	{
 		global $config;
 
-		$ret = array();
+		$ret = [];
 
 		$sql = "SELECT";
 		$sql .= " t.rowid,";
@@ -583,7 +583,7 @@ class Productbatch extends CommonObject
 	 */
 	public function findAllForProduct($fk_product, $fk_warehouse = 0, $qty_min = null, $sortfield = null, $sortorder = null)
 	{
-		$productBatchList = array();
+		$productBatchList = [];
 
 		dol_syslog(__METHOD__.' fk_product='.$fk_product.', fk_warehouse='.$fk_warehouse.', qty_min='.$qty_min.', sortfield='.$sortfield.', sortorder='.$sortorder, LOG_DEBUG);
 

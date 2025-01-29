@@ -110,7 +110,7 @@ if (!$sortorder) {
 
 // Initialize array of search criteria
 $search_all = GETPOST('search_all', 'alphanohtml');
-$search = array();
+$search = [];
 foreach ($objectposition->fields as $key => $val) {
 	if (GETPOST('search_' . $key, 'alpha') !== '') {
 		$search[$key] = GETPOST('search_' . $key, 'alpha');
@@ -122,7 +122,7 @@ foreach ($objectposition->fields as $key => $val) {
 }
 
 // List of fields to search into when doing a "search in all"
-$fieldstosearchall = array();
+$fieldstosearchall = [];
 foreach ($objectposition->fields as $key => $val) {
 	if (!empty($val['searchall'])) {
 		$fieldstosearchall['t.' . $key] = $val['label'];
@@ -130,7 +130,7 @@ foreach ($objectposition->fields as $key => $val) {
 }
 
 // Definition of array of fields for columns
-$arrayfields = array();
+$arrayfields = [];
 foreach ($objectposition->fields as $key => $val) {
 	// If $val['visible']==0, then we never show the field
 	if (!empty($val['visible'])) {
@@ -179,7 +179,7 @@ if (!$permissiontoread || ($action === 'create' && !$permissiontoadd)) {
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -224,8 +224,8 @@ if (empty($resHook)) {
 				$search[$key . '_dtend'] = '';
 			}
 		}
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
@@ -272,7 +272,7 @@ if ($action == 'create') {
 		print '<input type="hidden" name="backtopageforcancel" value="' . $backtopageforcancel . '">';
 	}
 
-	print dol_get_fiche_head(array(), '');
+	print dol_get_fiche_head([], '');
 
 	print '<table class="border centpercent tableforfieldcreate">' . "\n";
 
@@ -359,7 +359,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 		}
 	}
 	// Add fields from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 	$sql = preg_replace('/,\s*$/', '', $sql);
@@ -368,7 +368,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 		$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . $object->table_element . "_extrafields as ef on (t.rowid = ef.fk_object)";
 	}
 	// Add table from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 	if ($object->ismultientitymanaged == 1) {
@@ -414,7 +414,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	// Add where from extra fields
 	include DOL_DOCUMENT_ROOT . '/core/tpl/extrafields_list_search_sql.tpl.php';
 	// Add where from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 
@@ -455,7 +455,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 		exit;
 	}
 
-	$arrayofselected = is_array($toselect) ? $toselect : array();
+	$arrayofselected = is_array($toselect) ? $toselect : [];
 
 	$param = 'fk_job=' . $fk_job;
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
@@ -494,7 +494,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 		$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"') . $langs->trans("Delete");
 	}
 	if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-		$arrayofmassactions = array();
+		$arrayofmassactions = [];
 	}
 	$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -535,7 +535,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	 $moreforfilter.= $langs->trans('MyFilter') . ': <input type="text" name="search_myfield" value="'.dol_escape_htmltag($search_myfield).'">';
 	 $moreforfilter.= '</div>';*/
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
 	if (empty($resHook)) {
 		$moreforfilter .= $hookManager->resPrint;
@@ -646,7 +646,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	// Loop on record
 	// --------------------------------------------------------------------
 	$i = 0;
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
 	while ($i < ($limit ? min($num, $limit) : $num)) {
 		$obj = $db->fetch_object($resql);
@@ -696,7 +696,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 						$totalarray['pos'][$totalarray['nbfield']] = 't.' . $key;
 					}
 					if (!isset($totalarray['val'])) {
-						$totalarray['val'] = array();
+						$totalarray['val'] = [];
 					}
 					if (!isset($totalarray['val']['t.' . $key])) {
 						$totalarray['val']['t.' . $key] = 0;

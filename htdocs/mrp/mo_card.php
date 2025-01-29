@@ -83,7 +83,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 
 // Initialize array of search criteria
 $search_all = GETPOST("search_all", 'alpha');
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha')) {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -128,7 +128,7 @@ $upload_dir = $config->mrp->multidir_output[isset($object->entity) ? $object->en
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -364,7 +364,7 @@ if ($action == 'create') {
 		print '<input type="hidden" name="backtopageforcancel" value="'.$backtopageforcancel.'">';
 	}
 
-	print dol_get_fiche_head(array(), '');
+	print dol_get_fiche_head([], '');
 
 	print '<table class="border centpercent tableforfieldcreate">'."\n";
 
@@ -445,7 +445,7 @@ if ($action == 'create') {
 		print '<div class="div-table-responsive-no-min">';
 		print '<table class="noborder centpercent">';
 
-		$arrayOfMoLines = array();
+		$arrayOfMoLines = [];
 		foreach ($objectbom->lines as $key => $val) {
 			$moLine = new MoLine($db);
 			$moLine->id = $objectbom->lines[$key]->id;
@@ -462,7 +462,7 @@ if ($action == 'create') {
 		$object->mrptype = $objectbom->bomtype;
 		$object->bom = $objectbom;
 
-		$object->printOriginLinesList('', array());
+		$object->printOriginLinesList('', []);
 
 		print '</table>';
 		print '</div>';
@@ -563,7 +563,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		 $text .= $notify->confirmMessage('BOM_VALIDATE', $object->socid, $object);
 		 }*/
 
-		$formquestion = array();
+		$formquestion = [];
 		if (isModEnabled('mrp')) {
 			$langs->load("mrp");
 			require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
@@ -598,7 +598,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Clone confirmation
 	if ($action == 'clone') {
 		// Create an array for form
-		$formquestion = array();
+		$formquestion = [];
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('ToClone'), $langs->trans('ConfirmCloneMo', $object->ref), 'confirm_clone', $formquestion, 'yes', 1);
 	}
 
@@ -774,7 +774,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	if ($action != 'presend' && $action != 'editline') {
 		print '<div class="tabsAction">'."\n";
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -868,7 +868,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		print $formfile->showdocuments('mrp:mo', $objref, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', '', '', $mysoc->default_lang);
 
 		// Show links to link elements
-		$tmparray = $form->showLinkToObjectBlock($object, array(), array('mo'), 1);
+		$tmparray = $form->showLinkToObjectBlock($object, [], array('mo'), 1);
 		$linktoelem = $tmparray['linktoelem'];
 		$htmltoenteralink = $tmparray['htmltoenteralink'];
 		print $htmltoenteralink;

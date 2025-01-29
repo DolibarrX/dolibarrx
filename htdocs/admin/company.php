@@ -79,7 +79,7 @@ $hookManager->initHooks(array('admincompany', 'globaladmin'));
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -145,7 +145,7 @@ if (($action == 'update' && !GETPOST("cancel", 'alpha'))
 
 		// Remove to check file size to large
 		/*if ($_FILES[$varforimage]["tmp_name"]) {*/
-		$reg = array();
+		$reg = [];
 		if (preg_match('/([^\\/:]+)$/i', $_FILES[$varforimage]["name"], $reg)) {
 			$original_file = $reg[1];
 
@@ -303,7 +303,7 @@ if ($action == 'addthumb' || $action == 'addthumbsquarred') {  // Regenerate thu
 				$constant = "MAIN_INFO_SOCIETE_LOGO_SQUARRED";
 			}
 
-			$reg = array();
+			$reg = [];
 
 			// Create thumbs
 			//$object->addThumbs($newfile);    // We can't use addThumbs here yet because we need name of generated thumbs to add them into constants. TODO Check if need such constants. We should be able to retrieve value with get...
@@ -570,7 +570,7 @@ print '</td></tr>';
 
 print '</table>';
 
-print $form->buttonsSaveCancel("Save", '', array(), false, 'reposition');
+print $form->buttonsSaveCancel("Save", '', [], false, 'reposition');
 
 print '<br><br>';
 
@@ -741,7 +741,7 @@ print $formother->select_month(getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? $
 
 print "</table>";
 
-print $form->buttonsSaveCancel("Save", '', array(), false, 'reposition');
+print $form->buttonsSaveCancel("Save", '', [], false, 'reposition');
 
 print '<br>';
 
@@ -928,7 +928,7 @@ if ($mysoc->country_code == 'GR') {
 	print "</table>";
 }
 
-print $form->buttonsSaveCancel("Save", '', array(), false, 'reposition');
+print $form->buttonsSaveCancel("Save", '', [], false, 'reposition');
 
 print '</form>';
 

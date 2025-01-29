@@ -49,7 +49,7 @@ if (!is_object($form)) {
 <!-- BEGIN PHP TEMPLATE extrafields_view.tpl.php -->
 <?php
 if (!isset($parameters) || !is_array($parameters)) {
-	$parameters = array();
+	$parameters = [];
 }
 if (!empty($cols)) {
 	$parameters['colspan'] = ' colspan="'.$cols.'"';

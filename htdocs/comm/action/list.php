@@ -241,8 +241,8 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$filter = '';
 	$filtert = '';
 	$usergroup = '';
-	$toselect = array();
-	$search_array_options = array();
+	$toselect = [];
+	$search_array_options = [];
 }
 
 if (empty($resHook) && !empty($massaction)) {
@@ -308,7 +308,7 @@ $title = $langs->trans("Agenda");
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'bodyforlist');
 
 // Define list of all external calendars
-// $listofextcals = array(); Not used yet in lists
+// $listofextcals = []; Not used yet in lists
 
 $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
@@ -423,7 +423,7 @@ if (isModEnabled('category') && $user->hasRight('agenda', 'myactions', 'create')
 	$arrayofmassactions['preaffecttag'] = img_picture('', 'category', 'class="picturefixedwidth"').$langs->trans("AffectTag");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete','preaffecttag'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -447,7 +447,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 }
 
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -599,7 +599,7 @@ if ($search_categ_cus != -1) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -639,7 +639,7 @@ if (!$resql) {
 
 $num = $db->num_rows($resql);
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 // Local calendar
 $newtitle = '<div class="nowrap clear inline-block minheight30">';
@@ -679,7 +679,7 @@ print $nav;
 $s = $newtitle;
 
 // Calendars from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('addCalendarChoice', $parameters, $object, $action);
 if (empty($resHook)) {
 	$s .= $hookManager->resPrint;
@@ -724,7 +724,7 @@ $viewmode .= img_picture($langs->trans("ViewPerUser"), 'object_calendarperuser',
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow" title="'.dolPrintHTML($langs->trans("ViewPerUser")).'">'.$langs->trans("ViewPerUser").'</span></a>';
 
 // Add more views from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
 if (empty($resHook)) {
 	$viewmode .= $hookManager->resPrint;
@@ -855,7 +855,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -939,7 +939,7 @@ $today_start_time = dol_mktime(0, 0, 0, (int) date('m', $now), (int) date('d', $
 require_once DOL_DOCUMENT_ROOT.'/comm/action/class/cactioncomm.class.php';
 $caction = new CActionComm($db);
 $arraylist = $caction->liste_array(1, 'code', '', (!getDolGlobalString('AGENDA_USE_EVENT_TYPE') ? 1 : 0), '', 1);
-$contactListCache = array();
+$contactListCache = [];
 
 // Loop on record
 // --------------------------------------------------------------------
@@ -947,7 +947,7 @@ $i = 0;
 //$savnbfield = $totalarray['nbfield'];
 //$totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
-$cache_user_list = array();
+$cache_user_list = [];
 while ($i < $imaxinloop) {
 	$obj = $db->fetch_object($resql);
 	if (empty($obj)) {
@@ -1164,7 +1164,7 @@ while ($i < $imaxinloop) {
 		print '<td class="tdoverflowmax100">';
 
 		if (!empty($actionstatic->socpeopleassigned)) {
-			$contactList = array();
+			$contactList = [];
 			foreach ($actionstatic->socpeopleassigned as $socpeopleassigned) {
 				if (!isset($contactListCache[$socpeopleassigned['id']])) {
 					// if no cache found we fetch it

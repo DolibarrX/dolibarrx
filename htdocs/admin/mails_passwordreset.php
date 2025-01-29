@@ -66,7 +66,7 @@ $substitutionArrayfortest = array(
 complete_substitutions_array($substitutionArrayfortest, $langs);
 
 // List of sending methods
-$listofmethods = array();
+$listofmethods = [];
 $listofmethods['default'] = $langs->trans('DefaultOutgoingEmailSetup');
 $listofmethods['mail'] = 'PHP mail function';
 //$listofmethods['simplemail']='Simplemail class';
@@ -164,7 +164,7 @@ print load_fiche_titre($langs->trans("EMailsSetup"), '', 'title_setup');
 $head = email_admin_prepare_head();
 
 // List of oauth services
-$oauthservices = array();
+$oauthservices = [];
 
 foreach ($config->global as $key => $val) {
 	if (!empty($val) && preg_match('/^OAUTH_.*_ID$/', $key)) {
@@ -741,7 +741,7 @@ if ($action == 'edit') {
 		print load_fiche_titre($langs->trans("DoTestServerAvailability"));
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-		$mail = new CMailFile('', '', '', '', array(), array(), array(), '', '', 0, 0, '', '', '', $trackid, $sendcontext);
+		$mail = new CMailFile('', '', '', '', [], [], [], '', '', 0, 0, '', '', '', $trackid, $sendcontext);
 
 		$result = $mail->check_server_port($server, $port);
 		if ($result) {
@@ -763,7 +763,7 @@ if ($action == 'edit') {
 		print '<div id="formmailbeforetitle" name="formmailbeforetitle"></div>';
 		print load_fiche_titre($action == 'testhtml' ? $langs->trans("DoTestSendHTML") : $langs->trans("DoTestSend"));
 
-		print dol_get_fiche_head(array(), '', '', -1);
+		print dol_get_fiche_head([], '', '', -1);
 
 		// Cree l'objet formulaire mail
 		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';

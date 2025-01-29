@@ -88,8 +88,8 @@ if (!empty($ref)) {
 }
 
 $annee = '';
-$totentrees = array();
-$totsorties = array();
+$totentrees = [];
+$totsorties = [];
 
 $title = $object->ref.' - '.$langs->trans("IOMonthlyReporting");
 $helpurl = "";
@@ -111,8 +111,8 @@ if (!empty($id)) {
 $sql .= " GROUP BY dm";
 
 $resql = $db->query($sql);
-$encaiss = array();
-$decaiss = array();
+$encaiss = [];
+$decaiss = [];
 if ($resql) {
 	$num = $db->num_rows($resql);
 	$i = 0;
@@ -313,11 +313,11 @@ if ($result < 0) {
 
 	// CRED PART
 	// Chargement du tableau des années
-	$tblyear = array();
+	$tblyear = [];
 	'@phan-var-force array<array<string,int|float>> $tblyear';
-	$tblyear[0] = array();
-	$tblyear[1] = array();
-	$tblyear[2] = array();
+	$tblyear[0] = [];
+	$tblyear[1] = [];
+	$tblyear[2] = [];
 
 	for ($annee = 0; $annee < 3; $annee++) {
 		$sql = "SELECT date_format(b.datev, '%m')";
@@ -349,11 +349,11 @@ if ($result < 0) {
 		}
 	}
 	// Chargement de labels et data_xxx pour tableau 4 Movements
-	$labels = array();
-	$data_year_0 = array();
-	$data_year_1 = array();
-	$data_year_2 = array();
-	$datamin = array();
+	$labels = [];
+	$data_year_0 = [];
+	$data_year_1 = [];
+	$data_year_2 = [];
+	$datamin = [];
 
 	for ($i = 0; $i < 12; $i++) {
 		$data_year_0[$i] = isset($tblyear[0][substr("0".($i + 1), -2)]) ? $tblyear[0][substr("0".($i + 1), -2)] : 0;
@@ -367,7 +367,7 @@ if ($result < 0) {
 	$file = $config->bank->dir_temp."/credmovement".$id."-".$year.".png";
 	$fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=bank_temp&file='."/credmovement".$id."-".$year.".png";
 	$title = $langs->transnoentities("Credit").' - '.$langs->transnoentities("Year").': '.($year - 2).' - '.($year - 1)." - ".$year;
-	$graph_datas = array();
+	$graph_datas = [];
 	for ($i = 0; $i < 12; $i++) {
 		$graph_datas[$i] = array($labels[$i], $data_year_2[$i], $data_year_1[$i], $data_year_0[$i]);
 	}
@@ -398,9 +398,9 @@ if ($result < 0) {
 
 	// DEDBT PART
 	// Chargement du tableau des années
-	$tblyear[0] = array();
-	$tblyear[1] = array();
-	$tblyear[2] = array();
+	$tblyear[0] = [];
+	$tblyear[1] = [];
+	$tblyear[2] = [];
 
 	for ($annee = 0; $annee < 3; $annee++) {
 		$sql = "SELECT date_format(b.datev, '%m')";
@@ -433,10 +433,10 @@ if ($result < 0) {
 	}
 
 	// Chargement de labels et data_xxx pour tableau 4 Movements
-	$labels = array();
-	$data_year_0 = array();
-	$data_year_1 = array();
-	$data_year_2 = array();
+	$labels = [];
+	$data_year_0 = [];
+	$data_year_1 = [];
+	$data_year_2 = [];
 
 	for ($i = 0; $i < 12; $i++) {
 		$data_year_0[$i] = isset($tblyear[0][substr("0".($i + 1), -2)]) ? $tblyear[0][substr("0".($i + 1), -2)] : 0;
@@ -449,7 +449,7 @@ if ($result < 0) {
 	$file = $config->bank->dir_temp."/debmovement".$id."-".$year.".png";
 	$fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=bank_temp&file='."/debmovement".$id."-".$year.".png";
 	$title = $langs->transnoentities("Debit").' - '.$langs->transnoentities("Year").': '.($year - 2).' - '.($year - 1)." - ".$year;
-	$graph_datas = array();
+	$graph_datas = [];
 	for ($i = 0; $i < 12; $i++) {
 		$graph_datas[$i] = array($labels[$i], $data_year_2[$i], $data_year_1[$i], $data_year_0[$i]);
 	}

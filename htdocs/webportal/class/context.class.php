@@ -82,7 +82,7 @@ class Context
 	/**
 	 * @var stdClass[]
 	 */
-	private $controllers = array();
+	private $controllers = [];
 
 	/**
 	 * @var Controller $controllerInstance
@@ -98,7 +98,7 @@ class Context
 	/**
 	 * @var string[] errors
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string Action
@@ -128,12 +128,12 @@ class Context
 	/**
 	 * @var string[]
 	 */
-	public $menu_active = array();
+	public $menu_active = [];
 
 	/**
 	 * @var array{mesgs:string[],warnings:string[],errors:string[]}|array{} event messages
 	 */
-	public $eventMessages = array();
+	public $eventMessages = [];
 
 	/**
 	 * @var string token key
@@ -353,7 +353,7 @@ class Context
 			return $url;
 		}
 
-		$Tparams = array();
+		$Tparams = [];
 
 		$Tparams['controller'] = $controller;
 
@@ -374,7 +374,7 @@ class Context
 	 * @param	array<string,mixed>			$Tparams		Parameters
 	 * @return	string
 	 */
-	public static function getPublicControllerUrl($controller = '', $moreParams = '', $Tparams = array())
+	public static function getPublicControllerUrl($controller = '', $moreParams = '', $Tparams = [])
 	{
 		$url = self::getRootConfigUrl();
 
@@ -398,7 +398,7 @@ class Context
 		}
 
 		if (!empty($Tparams)) {
-			$TCompiledAttr = array();
+			$TCompiledAttr = [];
 			foreach ($Tparams as $key => $value) {
 				$TCompiledAttr[] = $key . '=' . $value;
 			}
@@ -486,7 +486,7 @@ class Context
 			$errors = array($errors);
 		}
 		if (!isset($_SESSION['webportal_errors'])) {
-			$_SESSION['webportal_errors'] = array();
+			$_SESSION['webportal_errors'] = [];
 		}
 		foreach ($errors as $msg) {
 			if (!in_array($msg, $_SESSION['webportal_errors'])) {
@@ -518,7 +518,7 @@ class Context
 	public function clearErrors()
 	{
 		unset($_SESSION['webportal_errors']);
-		$this->errors = array();
+		$this->errors = [];
 	}
 
 	/**
@@ -542,7 +542,7 @@ class Context
 		}
 		if (!isset($_SESSION['webportal_events'])) {
 			$_SESSION['webportal_events'] = array(
-				'mesgs' => array(), 'warnings' => array(), 'errors' => array()
+				'mesgs' => [], 'warnings' => [], 'errors' => []
 			);
 		}
 
@@ -604,7 +604,7 @@ class Context
 	public function clearEventMessages()
 	{
 		unset($_SESSION['webportal_events']);
-		$this->eventMessages = array();
+		$this->eventMessages = [];
 	}
 
 	/**

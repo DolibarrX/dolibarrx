@@ -63,8 +63,8 @@ $id = 31;
 $rowid = GETPOST('rowid', 'alpha');
 $code = GETPOST('code', 'alpha');
 
-$acts = array();
-$actl = array();
+$acts = [];
+$actl = [];
 $acts[0] = "activate";
 $acts[1] = "disable";
 $actl[0] = img_picture($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
@@ -104,42 +104,42 @@ $hookManager->initHooks(array('admin'));
 // Put here declaration of dictionaries properties
 
 // Name of SQL tables of dictionaries
-$tabname = array();
+$tabname = [];
 
 $tabname[31] = MAIN_DB_PREFIX."accounting_system";
 
 // Dictionary labels
-$tablib = array();
+$tablib = [];
 $tablib[31] = "Pcg_version";
 
 // Requests to extract data
-$tabsql = array();
+$tabsql = [];
 $tabsql[31] = "SELECT s.rowid as rowid, pcg_version, s.label, s.fk_country as country_id, c.code as country_code, c.label as country, s.active FROM ".MAIN_DB_PREFIX."accounting_system as s, ".MAIN_DB_PREFIX."c_country as c WHERE s.fk_country=c.rowid and c.active=1";
 
 // Criteria to sort dictionaries
-$tabsqlsort = array();
+$tabsqlsort = [];
 $tabsqlsort[31] = "pcg_version ASC";
 
 // Nom des champs en resultat de select pour affichage du dictionnaire
-$tabfield = array();
+$tabfield = [];
 $tabfield[31] = "pcg_version,label,country_id,country";
 
 // Nom des champs d'edition pour modification d'un enregistrement
-$tabfieldvalue = array();
+$tabfieldvalue = [];
 $tabfieldvalue[31] = "pcg_version,label,country";
 
 // Nom des champs dans la table pour insertion d'un enregistrement
-$tabfieldinsert = array();
+$tabfieldinsert = [];
 $tabfieldinsert[31] = "pcg_version,label,fk_country";
 
 // Nom du rowid si le champ n'est pas de type autoincrement
 // Example: "" if id field is "rowid" and has autoincrement on
 //          "nameoffield" if id field is not "rowid" or has not autoincrement on
-$tabrowid = array();
+$tabrowid = [];
 $tabrowid[31] = "";
 
 // List of help for fields
-$tabhelp = array();
+$tabhelp = [];
 $tabhelp[31] = array('pcg_version' => $langs->trans("EnterAnyCode"));
 
 

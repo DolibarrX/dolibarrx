@@ -41,7 +41,7 @@ function order_prepare_head(Order $object)
 	$langs->load("orders");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 		$head[$h][0] = DOL_URL_ROOT . '/order/card.php?id=' . $object->id;
@@ -186,7 +186,7 @@ function order_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('orderdet');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/order.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
@@ -265,9 +265,9 @@ function getCustomerOrderPieChart($socid = 0)
 
 		$total = 0;
 		$totalinprocess = 0;
-		$dataseries = array();
-		$colorseries = array();
-		$vals = array();
+		$dataseries = [];
+		$colorseries = [];
+		$vals = [];
 		// -1=Canceled, 0=Draft, 1=Validated, 2=Accepted/On process, 3=Closed (Sent/Received, billed or not)
 		while ($i < $num) {
 			$row = $db->fetch_row($resql);

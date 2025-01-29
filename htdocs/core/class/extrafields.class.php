@@ -49,7 +49,7 @@ class ExtraFields
 	/**
 	 * @var array<string,array{label:array<string,string>,type:array<string,string>,size:array<string,string>,default:array<string,string>,computed:array<string,string>,unique:array<string,int>,required:array<string,int>,param:array<string,mixed>,perms:array<string,mixed>,list:array<string,int|string>,pos:array<string,int>,totalizable:array<string,int>,help:array<string,string>,printable:array<string,int>,enabled:array<string,int>,langfile:array<string,string>,css:array<string,string>,csslist:array<string,string>,cssview:array<string,string>,hidden:array<string,int>,mandatoryfieldsofotherentities:array<string,string>,alwayseditable:array<string,int<0,1>>,loaded?:int,count:int}> New array to store extrafields definition  Note: count set as present to avoid static analysis notices
 	 */
-	public $attributes = array();
+	public $attributes = [];
 
 	/**
 	 * @var array<string,bool|int<0,1>>|null	Array with boolean of status of groups
@@ -64,7 +64,7 @@ class ExtraFields
 	/**
 	 * @var string[] Array of Error code (or message)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string 	DB Error number
@@ -143,7 +143,7 @@ class ExtraFields
 	 *  @param	array<string,mixed>	$moreparams		More parameters. Example: array('css'=>, 'csslist'=>Css on list, 'cssview'=>...)
 	 *  @return int      							Return integer <=0 if KO, >0 if OK
 	 */
-	public function addExtraField($attrname, $label, $type, $pos, $size, $elementtype, $unique = 0, $required = 0, $default_value = '', $param = '', $alwayseditable = 0, $perms = '', $list = '-1', $help = '', $computed = '', $entity = '', $langfile = '', $enabled = '1', $totalizable = 0, $printable = 0, $moreparams = array())
+	public function addExtraField($attrname, $label, $type, $pos, $size, $elementtype, $unique = 0, $required = 0, $default_value = '', $param = '', $alwayseditable = 0, $perms = '', $list = '-1', $help = '', $computed = '', $entity = '', $langfile = '', $enabled = '1', $totalizable = 0, $printable = 0, $moreparams = [])
 	{
 		if (empty($attrname)) {
 			return -1;
@@ -221,7 +221,7 @@ class ExtraFields
 	 *  @param  array<string,mixed>	$moreparams		More parameters. Example: array('css'=>, 'csslist'=>Css on list, 'cssview'=>...)
 	 *  @return int      							Return integer <=0 if KO, >0 if OK
 	 */
-	public function updateExtraField($attrname, $label, $type, $pos, $size, $elementtype, $unique = 0, $required = 0, $default_value = '', $param = '', $alwayseditable = 0, $perms = '', $list = '-1', $help = '', $computed = '', $entity = '', $langfile = '', $enabled = '1', $totalizable = 0, $printable = 0, $moreparams = array())
+	public function updateExtraField($attrname, $label, $type, $pos, $size, $elementtype, $unique = 0, $required = 0, $default_value = '', $param = '', $alwayseditable = 0, $perms = '', $list = '-1', $help = '', $computed = '', $entity = '', $langfile = '', $enabled = '1', $totalizable = 0, $printable = 0, $moreparams = [])
 	{
 		if (empty($attrname)) {
 			return -1;
@@ -286,7 +286,7 @@ class ExtraFields
 	 *  @param	array<string,mixed>	$moreparams		More parameters. Example: array('css'=>, 'csslist'=>, 'cssview'=>...)
 	 *  @return int      	           		Return integer <=0 if KO, >0 if OK
 	 */
-	private function create($attrname, $type = 'varchar', $length = '255', $elementtype = '', $unique = 0, $required = 0, $default_value = '', $param = array(), $perms = '', $list = '0', $computed = '', $help = '', $moreparams = array())
+	private function create($attrname, $type = 'varchar', $length = '255', $elementtype = '', $unique = 0, $required = 0, $default_value = '', $param = [], $perms = '', $list = '0', $computed = '', $help = '', $moreparams = [])
 	{
 		if ($elementtype == 'thirdparty') {
 			$elementtype = 'societe';
@@ -408,7 +408,7 @@ class ExtraFields
 	 *  @return	int								Return integer <=0 if KO, >0 if OK
 	 *  @throws Exception
 	 */
-	private function create_label($attrname, $label = '', $type = '', $pos = 0, $size = '', $elementtype = '', $unique = 0, $required = 0, $param = '', $alwayseditable = 0, $perms = '', $list = '-1', $help = '', $default = '', $computed = '', $entity = '', $langfile = '', $enabled = '1', $totalizable = 0, $printable = 0, $moreparams = array())
+	private function create_label($attrname, $label = '', $type = '', $pos = 0, $size = '', $elementtype = '', $unique = 0, $required = 0, $param = '', $alwayseditable = 0, $perms = '', $list = '-1', $help = '', $default = '', $computed = '', $entity = '', $langfile = '', $enabled = '1', $totalizable = 0, $printable = 0, $moreparams = [])
 	{
 		// phpcs:enable
 		global $config, $user;
@@ -666,7 +666,7 @@ class ExtraFields
 	 * 	@return	int							>0 if OK, <=0 if KO
 	 *  @throws Exception
 	 */
-	public function update($attrname, $label, $type, $length, $elementtype, $unique = 0, $required = 0, $pos = 0, $param = array(), $alwayseditable = 0, $perms = '', $list = '', $help = '', $default = '', $computed = '', $entity = '', $langfile = '', $enabled = '1', $totalizable = 0, $printable = 0, $moreparams = array())
+	public function update($attrname, $label, $type, $length, $elementtype, $unique = 0, $required = 0, $pos = 0, $param = [], $alwayseditable = 0, $perms = '', $list = '', $help = '', $default = '', $computed = '', $entity = '', $langfile = '', $enabled = '1', $totalizable = 0, $printable = 0, $moreparams = [])
 	{
 		global $action, $hookManager;
 
@@ -824,7 +824,7 @@ class ExtraFields
 	 *  @return	int							Return integer <=0 if KO, >0 if OK
 	 *  @throws Exception
 	 */
-	private function update_label($attrname, $label, $type, $size, $elementtype, $unique = 0, $required = 0, $pos = 0, $param = array(), $alwayseditable = 0, $perms = '', $list = '0', $help = '', $default = '', $computed = '', $entity = '', $langfile = '', $enabled = '1', $totalizable = 0, $printable = 0, $moreparams = array())
+	private function update_label($attrname, $label, $type, $size, $elementtype, $unique = 0, $required = 0, $pos = 0, $param = [], $alwayseditable = 0, $perms = '', $list = '0', $help = '', $default = '', $computed = '', $entity = '', $langfile = '', $enabled = '1', $totalizable = 0, $printable = 0, $moreparams = [])
 	{
 		// phpcs:enable
 		global $config, $user;
@@ -985,7 +985,7 @@ class ExtraFields
 		global $config;
 
 		if (empty($elementtype)) {
-			return array();
+			return [];
 		}
 
 		if ($elementtype == 'thirdparty') {
@@ -1001,7 +1001,7 @@ class ExtraFields
 		// Test cache $this->attributes[$elementtype]['loaded'] to see if we must do something
 		// TODO
 
-		$array_name_label = array();
+		$array_name_label = [];
 
 		// We should not have several time this request. If we have, there is some optimization to do by calling a simple $extrafields->fetch_optionals() in top of code and not into subcode
 		$sql = "SELECT rowid, name, label, type, size, elementtype, fieldunique, fieldrequired, param, pos, alwayseditable, perms, langs, list, printable, totalizable, fielddefault, fieldcomputed, entity, enabled, help,";
@@ -1310,7 +1310,7 @@ class ExtraFields
 		} elseif ($type == 'select') {
 			$out = '';
 			if ($mode) {
-				$options = array();
+				$options = [];
 				foreach ($param['options'] as $okey => $val) {
 					if ((string) $okey == '') {
 						continue;
@@ -1325,7 +1325,7 @@ class ExtraFields
 						$options[$okey] = $val;
 					}
 				}
-				$selected = array();
+				$selected = [];
 				if (!is_array($value)) {
 					$selected = explode(',', $value);
 				}
@@ -1334,7 +1334,7 @@ class ExtraFields
 			} else {
 				if (!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLE_SELECT2')) {
 					include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
-					$out .= ajax_combobox($keyprefix.$key.$keysuffix, array(), 0);
+					$out .= ajax_combobox($keyprefix.$key.$keysuffix, [], 0);
 				}
 
 				$out .= '<select class="flat '.$morecss.' maxwidthonsmartphone" name="'.$keyprefix.$key.$keysuffix.'" id="'.$keyprefix.$key.$keysuffix.'" '.($moreparam ? $moreparam : '').'>';
@@ -1366,7 +1366,7 @@ class ExtraFields
 			$out = '';
 			if (!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLE_SELECT2')) {
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
-				$out .= ajax_combobox($keyprefix.$key.$keysuffix, array(), 0);
+				$out .= ajax_combobox($keyprefix.$key.$keysuffix, [], 0);
 			}
 
 			$out .= '<select class="flat '.$morecss.' maxwidthonsmartphone" name="'.$keyprefix.$key.$keysuffix.'" id="'.$keyprefix.$key.$keysuffix.'" '.($moreparam ? $moreparam : '').'>';
@@ -1407,7 +1407,7 @@ class ExtraFields
 					}
 
 					// Fix better compatibility with some old extrafield syntax filter "(field=123)"
-					$reg = array();
+					$reg = [];
 					if (preg_match('/^\(?([a-z0-9]+)([=<>]+)(\d+)\)?$/i', $InfoFieldList[4], $reg)) {
 						$InfoFieldList[4] = '('.$reg[1].':'.$reg[2].':'.$reg[3].')';
 					}
@@ -1632,7 +1632,7 @@ class ExtraFields
 					}
 
 					// Fix better compatibility with some old extrafield syntax filter "(field=123)"
-					$reg = array();
+					$reg = [];
 					if (preg_match('/^\(?([a-z0-9]+)([=<>]+)(\d+)\)?$/i', $InfoFieldList[4], $reg)) {
 						$InfoFieldList[4] = '('.$reg[1].':'.$reg[2].':'.$reg[3].')';
 					}
@@ -1716,7 +1716,7 @@ class ExtraFields
 							}
 
 							// In case there is AND ou OR, before or after
-							$matchCondition = array();
+							$matchCondition = [];
 							preg_match('#(AND|OR|) *('.$word.') *(AND|OR|)#', $InfoFieldList[4], $matchCondition);
 							while (!empty($matchCondition[0])) {
 								// If the two sides differ but are not empty
@@ -1784,7 +1784,7 @@ class ExtraFields
 						$num = $this->db->num_rows($resql);
 						$i = 0;
 
-						$data = array();
+						$data = [];
 
 						while ($i < $num) {
 							$labeltoshow = '';
@@ -2166,7 +2166,7 @@ class ExtraFields
 						}
 					}
 				} else {
-					$toprint = array();
+					$toprint = [];
 					$obj = $this->db->fetch_object($resql);
 					if ($obj->rowid) {
 						require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
@@ -2194,7 +2194,7 @@ class ExtraFields
 		} elseif ($type == 'checkbox') {
 			$value_arr = explode(',', $value);
 			$value = '';
-			$toprint = array();
+			$toprint = [];
 			if (is_array($value_arr)) {
 				foreach ($value_arr as $keyval => $valueval) {
 					if (!empty($valueval)) {
@@ -2243,7 +2243,7 @@ class ExtraFields
 			if ($resql) {
 				if (!$filter_category) {
 					$value = ''; // value was used, so now we reset it to use it to build final output
-					$toprint = array();
+					$toprint = [];
 					while ($obj = $this->db->fetch_object($resql)) {
 						// Several field into label (eq table:code|label:rowid)
 						$fields_label = explode('|', $InfoFieldList[1]);
@@ -2279,7 +2279,7 @@ class ExtraFields
 				} else {
 					require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
-					$toprint = array();
+					$toprint = [];
 					while ($obj = $this->db->fetch_object($resql)) {
 						if (is_array($value_arr) && in_array($obj->rowid, $value_arr)) {
 							$c = new Category($this->db);
@@ -2481,7 +2481,7 @@ class ExtraFields
 		}
 
 		$extrafield_param = $this->attributes[$object->table_element]['param'][$key];
-		$extrafield_param_list = array();
+		$extrafield_param_list = [];
 		if (!empty($extrafield_param) && is_array($extrafield_param)) {
 			$extrafield_param_list = array_keys($extrafield_param['options']);
 		}
@@ -2571,7 +2571,7 @@ class ExtraFields
 		global $langs;
 
 		$nofillrequired = 0; // For error when required field left blank
-		$error_field_required = array();
+		$error_field_required = [];
 
 		if (isset($this->attributes[$object->table_element]['label']) && is_array($this->attributes[$object->table_element]['label'])) {
 			$extralabels = $this->attributes[$object->table_element]['label'];
@@ -2744,7 +2744,7 @@ class ExtraFields
 		}
 
 		if (is_array($extralabels)) {
-			$array_options = array();
+			$array_options = [];
 
 			// Get extra fields
 			foreach ($extralabels as $key => $value) {
@@ -2758,7 +2758,7 @@ class ExtraFields
 					$dateparamname_end   = $keyprefix . 'options_' . $key . $keysuffix . '_end';
 
 					if (GETPOST($dateparamname_start . 'year') || GETPOST($dateparamname_end . 'year')) {
-						$value_key = array();
+						$value_key = [];
 						// values provided as a component year, month, day, etc.
 						if (GETPOST($dateparamname_start . 'year')) {
 							$value_key['start'] = dol_mktime(0, 0, 0, GETPOSTINT($dateparamname_start . 'month'), GETPOSTINT($dateparamname_start . 'day'), GETPOSTINT($dateparamname_start . 'year'));

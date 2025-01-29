@@ -329,7 +329,7 @@ if (empty($resHook)) {
 			// If creation from another object of another module (Example: origin=propal, originid=1)
 			if (!empty($origin) && !empty($originid)) {
 				// Parse element/subelement (ex: project_task)
-				$regs = array();
+				$regs = [];
 				$element = $subelement = GETPOST('origin', 'alphanohtml');
 				if (preg_match('/^([^_]+)_([^_]+)/i', GETPOST('origin', 'alphanohtml'), $regs)) {
 					$element = $regs[1];
@@ -910,7 +910,7 @@ if ($action == 'create') {
 
 	if (GETPOST('origin', 'alphanohtml') && GETPOSTINT('originid')) {
 		// Parse element/subelement (ex: project_task)
-		$regs = array();
+		$regs = [];
 		$element = $subelement = GETPOST('origin', 'alphanohtml');
 		if (preg_match('/^([^_]+)_([^_]+)/i', GETPOST('origin', 'alphanohtml'), $regs)) {
 			$element = $regs[1];
@@ -1065,7 +1065,7 @@ if ($action == 'create') {
 		}
 
 		// Other attributes
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		if (empty($resHook)) {
@@ -1150,7 +1150,7 @@ if ($action == 'create') {
 		}
 		print '<table class="border centpercent">';
 		print '<tr><td class="fieldrequired">'.$langs->trans("ThirdParty").'</td><td>';
-		print $form->select_company('', 'socid', '', 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300');
+		print $form->select_company('', 'socid', '', 'SelectThirdParty', 1, 0, [], 0, 'minwidth300');
 		print ' <a href="'.DOL_URL_ROOT.'/societe/card.php?action=create&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create').'"><span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("AddThirdParty").'"></span></a>';
 		print '</td></tr>';
 		print '</table>';
@@ -1278,7 +1278,7 @@ if ($action == 'create') {
 							// 1),
 							// array('type' => 'checkbox', 'name' => 'update_prices', 'label' => $langs->trans("PuttingPricesUpToDate"), 'value'
 							// => 1),
-							array('type' => 'other', 'name' => 'socid', 'label' => $langs->trans("SelectThirdParty"), 'value' => $form->select_company(GETPOSTINT('socid'), 'socid', '', '', 0, 0, array(), 0, 'minwidth200')));
+							array('type' => 'other', 'name' => 'socid', 'label' => $langs->trans("SelectThirdParty"), 'value' => $form->select_company(GETPOSTINT('socid'), 'socid', '', '', 0, 0, [], 0, 'minwidth200')));
 		// Paiement incomplet. On demande si motif = escompte ou autre
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('ToClone'), $langs->trans('ConfirmCloneIntervention', $object->ref), 'confirm_clone', $formquestion, 'yes', 1);
 	}
@@ -1510,7 +1510,7 @@ if ($action == 'create') {
 					$extrafields->fetch_name_optionals_label($objectline->table_element);
 
 					if (!empty($extrafields)) {
-						$temps = $objectline->showOptionals($extrafields, 'view', array(), '', '', 1, 'line');
+						$temps = $objectline->showOptionals($extrafields, 'view', [], '', '', 1, 'line');
 						if (!empty($temps)) {
 							print '<div style="padding-top: 10px" id="extrafield_lines_area_'.$line->id.'" name="extrafield_lines_area_'.$line->id.'">';
 							print $temps;
@@ -1582,7 +1582,7 @@ if ($action == 'create') {
 					$extrafields->fetch_name_optionals_label($objectline->table_element);
 
 					if (!empty($extrafields)) {
-						$temps = $objectline->showOptionals($extrafields, 'edit', array(), '', '', 1, 'line');
+						$temps = $objectline->showOptionals($extrafields, 'edit', [], '', '', 1, 'line');
 						if (!empty($temps)) {
 							print '<div style="padding-top: 10px" id="extrafield_lines_area_'.$line->id.'" name="extrafield_lines_area_'.$line->id.'">';
 							print $temps;
@@ -1663,7 +1663,7 @@ if ($action == 'create') {
 				$extrafields->fetch_name_optionals_label($objectline->table_element);
 
 				if (is_object($objectline)) {
-					$temps = $objectline->showOptionals($extrafields, 'create', array(), '', '', 1, 'line');
+					$temps = $objectline->showOptionals($extrafields, 'create', [], '', '', 1, 'line');
 
 					if (!empty($temps)) {
 						print '<div style="padding-top: 10px" id="extrafield_lines_area_create" name="extrafield_lines_area_create">';
@@ -1734,11 +1734,11 @@ if ($action == 'create') {
 
 	print '<div class="tabsAction">';
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 	// modified by hook
 	if (empty($resHook)) {
-		$params = array();
+		$params = [];
 		if ($user->socid == 0) {
 			if ($action != 'editdescription' && ($action != 'presend')) {
 				// Validate
@@ -1788,7 +1788,7 @@ if ($action == 'create') {
 					print '</div>';
 				}
 
-				$arrayofcreatebutton = array();
+				$arrayofcreatebutton = [];
 				// Proposal
 				if (isModEnabled("service") && isModEnabled("propal") && $object->statut > Fichinter::STATUS_DRAFT) {
 					$langs->load("propal");
@@ -1872,7 +1872,7 @@ if ($action == 'create') {
 		print $formfile->showdocuments('ficheinter', $filename, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', '', '', $soc->default_lang);
 
 		// Show links to link elements
-		$tmparray = $form->showLinkToObjectBlock($object, array(), array('fichinter'), 1);
+		$tmparray = $form->showLinkToObjectBlock($object, [], array('fichinter'), 1);
 		$linktoelem = $tmparray['linktoelem'];
 		$htmltoenteralink = $tmparray['htmltoenteralink'];
 		print $htmltoenteralink;

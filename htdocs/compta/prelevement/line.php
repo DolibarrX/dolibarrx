@@ -156,7 +156,7 @@ if ($type == 'bank-transfer') {
 
 llxHeader('', $title);
 
-$head = array();
+$head = [];
 
 $h = 0;
 $head[$h][0] = DOL_URL_ROOT.'/compta/prelevement/line.php?id='.((int) $id).'&type='.urlencode($type);

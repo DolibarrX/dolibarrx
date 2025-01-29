@@ -60,7 +60,7 @@ $type = 'ticket';
  * Actions
  */
 $error = 0;
-$errors = array();
+$errors = [];
 
 if ($action == 'setTICKET_ENABLE_PUBLIC_INTERFACE') {
 	if (GETPOST('value')) {

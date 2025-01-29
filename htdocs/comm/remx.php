@@ -479,7 +479,7 @@ if ($socid > 0) {
 			print '<td width="50">&nbsp;</td>';
 			print '</tr>';
 
-			$showconfirminfo = array();
+			$showconfirminfo = [];
 
 			$i = 0;
 			$num = $db->num_rows($resql);
@@ -632,7 +632,7 @@ if ($socid > 0) {
 			print '<td width="50">&nbsp;</td>';
 			print '</tr>';
 
-			$showconfirminfo = array();
+			$showconfirminfo = [];
 
 			$i = 0;
 			$num = $db->num_rows($resql);
@@ -813,8 +813,8 @@ if ($socid > 0) {
 			print '<td width="50">&nbsp;</td>';
 			print '</tr>';
 
-			$tab_sqlobj = array();
-			$tab_sqlobjOrder = array();
+			$tab_sqlobj = [];
+			$tab_sqlobjOrder = [];
 			$num = $db->num_rows($resql);
 			if ($num > 0) {
 				for ($i = 0; $i < $num; $i++) {
@@ -983,8 +983,8 @@ if ($socid > 0) {
 			print '<td width="50">&nbsp;</td>';
 			print '</tr>';
 
-			$tab_sqlobj = array();
-			$tab_sqlobjOrder = array();
+			$tab_sqlobj = [];
+			$tab_sqlobjOrder = [];
 			$num = $db->num_rows($resql);
 			if ($num > 0) {
 				for ($i = 0; $i < $num; $i++) {

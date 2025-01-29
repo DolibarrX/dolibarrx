@@ -169,7 +169,7 @@ class Proposals extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $thirdparty_ids param is ignored and replaced by user's socid
 		$socids = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $thirdparty_ids;
@@ -291,7 +291,7 @@ class Proposals extends DolibarrApi
 			$this->propal->$field = $this->_checkValForAPI($field, $value, $this->propal);
 		}
 		/*if (isset($request_data["lines"])) {
-		  $lines = array();
+		  $lines = [];
 		  foreach ($request_data["lines"] as $line) {
 			array_push($lines, (object) $line);
 		  }
@@ -339,7 +339,7 @@ class Proposals extends DolibarrApi
 		}
 
 		$this->propal->getLinesArray($sql);
-		$result = array();
+		$result = [];
 		foreach ($this->propal->lines as $line) {
 			array_push($result, $this->_cleanObjectDatas($line));
 		}
@@ -994,7 +994,7 @@ class Proposals extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$propal = array();
+		$propal = [];
 		foreach (Proposals::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

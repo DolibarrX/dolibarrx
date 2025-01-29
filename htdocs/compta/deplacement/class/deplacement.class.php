@@ -107,7 +107,7 @@ class Deplacement extends CommonObject
 	/**
 	 * @var array<string,string>  (Encoded as JSON in database)
 	 */
-	public $extraparams = array();
+	public $extraparams = [];
 
 
 	/**
@@ -423,7 +423,7 @@ class Deplacement extends CommonObject
 	{
 		global $langs;
 
-		$ret = array();
+		$ret = [];
 
 		$sql = "SELECT id, code, label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_type_fees";

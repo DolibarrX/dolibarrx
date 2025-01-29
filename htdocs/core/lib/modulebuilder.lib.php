@@ -37,7 +37,7 @@
  * 	@return	int<-7,-1>|CommonObject	Return integer <=0 if KO, Object if OK
  *  @see rebuildObjectSql()
  */
-function rebuildObjectClass($destdir, $module, $objectname, $newmask, $readdir = '', $addfieldentry = array(), $delfieldentry = '')
+function rebuildObjectClass($destdir, $module, $objectname, $newmask, $readdir = '', $addfieldentry = [], $delfieldentry = '')
 {
 	global $db, $langs;
 
@@ -457,7 +457,7 @@ function rebuildObjectSql(
  */
 function dolGetListOfObjectClasses($destdir)
 {
-	$objects = array();
+	$objects = [];
 	$listofobject = dol_dir_list($destdir . '/class', 'files', 0, '\.class\.php$');
 	foreach ($listofobject as $fileobj) {
 		if (preg_match('/^api_/', $fileobj['name'])) {
@@ -468,7 +468,7 @@ function dolGetListOfObjectClasses($destdir)
 		}
 
 		$tmpcontent = file_get_contents($fileobj['fullname']);
-		$reg = array();
+		$reg = [];
 		if (preg_match('/class\s+([^\s]*)\s+extends\s+CommonObject/ims', $tmpcontent, $reg)) {
 			$objectnameloop = $reg[1];
 			$objects[$fileobj['fullname']] = $objectnameloop;
@@ -541,7 +541,7 @@ function deletePerms($file)
 	$start = "/* BEGIN MODULEBUILDER PERMISSIONS */";
 	$end = "/* END MODULEBUILDER PERMISSIONS */";
 	$i = 1;
-	$array = array();
+	$array = [];
 	$lines = file($file);
 	// Search for start and end lines
 	foreach ($lines as $i => $line) {
@@ -587,7 +587,7 @@ function compareFirstValue($a, $b)
 function reWriteAllPermissions($file, $permissions, $key, $right, $objectname, $module, $action)
 {
 	$error = 0;
-	$rights = array();
+	$rights = [];
 	if ($action == 0 && $key !== null) {
 		// delete right from permissions array
 		array_splice($permissions, array_search($permissions[$key], $permissions), 1);
@@ -608,7 +608,7 @@ function reWriteAllPermissions($file, $permissions, $key, $right, $objectname, $
 	} elseif ($action == -2 && !empty($objectname) && !empty($module)) {
 		$key = null;
 		$right = null;
-		$objectOfRights = array();
+		$objectOfRights = [];
 		//check if object already declared in rights file
 		foreach ($permissions as $right) {
 			$objectOfRights[] = $right[4];
@@ -616,7 +616,7 @@ function reWriteAllPermissions($file, $permissions, $key, $right, $objectname, $
 		if (in_array(strtolower($objectname), $objectOfRights)) {
 			$error++;
 		} else {
-			$permsToadd = array();
+			$permsToadd = [];
 			$perms = array(
 				'read' => 'Read ' . $objectname . ' object of ' . ucfirst($module),
 				'write' => 'Create/Update ' . $objectname . ' object of ' . ucfirst($module),
@@ -646,11 +646,11 @@ function reWriteAllPermissions($file, $permissions, $key, $right, $objectname, $
 			$permissions[$i][5] = "\$this->rights[\$r][5] = '" . $permissions[$i][5] . "';\n\t\t";
 		}
 		// for group permissions by object
-		$perms_grouped = array();
+		$perms_grouped = [];
 		foreach ($permissions as $perms) {
 			$object = $perms[4];
 			if (!isset($perms_grouped[$object])) {
-				$perms_grouped[$object] = array();
+				$perms_grouped[$object] = [];
 			}
 			$perms_grouped[$object][] = $perms;
 		}
@@ -708,7 +708,7 @@ function parsePropertyString($string)
 
 	// Uses a regular expression to capture keys and values
 	preg_match_all('/\s*([^\s=>]+)\s*=>\s*([^,]+),?/', $string, $matches, PREG_SET_ORDER);
-	$propertyArray = array();
+	$propertyArray = [];
 
 	foreach ($matches as $match) {
 		$key = trim($match[1]);
@@ -757,7 +757,7 @@ function writePropsInAsciiDoc($file, $objectname, $destfile)
 	$start = "public \$fields = array(";
 	$end = ");";
 	$i = 1;
-	$keys = array();
+	$keys = [];
 	$lines = file($file);
 	// Search for start and end lines
 	foreach ($lines as $i => $line) {
@@ -783,7 +783,7 @@ function writePropsInAsciiDoc($file, $objectname, $destfile)
 		$table .= "|" . $attUnique;
 	}
 	$table .= "\n";
-	$valuesModif = array();
+	$valuesModif = [];
 	foreach ($keys as $string) {
 		$string = trim($string, "'");
 		$string = rtrim($string, ",");
@@ -880,7 +880,7 @@ function deletePropsAndPermsFromDoc($file, $objectname)
  */
 function getFromFile($file, $start, $end, $excludestart = '', $includese = 0)
 {
-	$keys = array();
+	$keys = [];
 
 	//$lines = file(dol_osencode($file));
 	$fhandle = fopen(dol_osencode($file), 'r');
@@ -943,7 +943,7 @@ function writePermsInAsciiDoc($file, $destfile)
 	// delete  occurrences "$r++" and ID
 	$permissions = str_replace('$r++', '1', $permissions);
 
-	$permsN = array();
+	$permsN = [];
 	foreach ($permissions as $i => $element) {
 		if ($element == 1) {
 			unset($permissions[$i]);
@@ -964,7 +964,7 @@ function writePermsInAsciiDoc($file, $destfile)
 	array_pop($permsN);
 
 	// Group permissions by Object and add it to string
-	$final_array = array();
+	$final_array = [];
 	$index = 0;
 	while ($index < count($permsN)) {
 		$temp_array = array($permsN[$index], $permsN[$index + 1]);
@@ -972,7 +972,7 @@ function writePermsInAsciiDoc($file, $destfile)
 		$index += 2;
 	}
 
-	$result = array();
+	$result = [];
 	foreach ($final_array as $subarray) {
 		// found object
 		$key = $subarray[1];
@@ -1253,7 +1253,7 @@ function updateDictionaryInFile($module, $file, $dicts)
 	foreach ($dicts as $key => $value) {
 		if (empty($value)) {
 			$isEmpty = true;
-			$dicData = "\t\t\$this->dictionaries = array();";
+			$dicData = "\t\t\$this->dictionaries = [];";
 			break;
 		}
 
@@ -1272,7 +1272,7 @@ function updateDictionaryInFile($module, $file, $dicts)
 			);
 			$dicData .= "array(" . implode(", ", $conditions) . ")";
 		} elseif ($key === 'tabhelp') {
-			$helpItems = array();
+			$helpItems = [];
 			foreach ($value as $helpValue) {
 				$helpItems[] = "array('code' => \$langs->trans('" . $helpValue['code'] . "'), 'field2' => 'field2tooltip')";
 			}
@@ -1332,7 +1332,7 @@ function createNewDictionnary($modulename, $file, $namedic, $dictionnaires = nul
 	$modulename = strtolower($modulename);
 
 	if (empty($dictionnaires)) {
-		$dictionnaires = array('langs' => '', 'tabname' => array(), 'tablib' => array(), 'tabsql' => array(), 'tabsqlsort' => array(), 'tabfield' => array(), 'tabfieldvalue' => array(), 'tabfieldinsert' => array(), 'tabrowid' => array(), 'tabcond' => array(), 'tabhelp' => array());
+		$dictionnaires = array('langs' => '', 'tabname' => [], 'tablib' => [], 'tabsql' => [], 'tabsqlsort' => [], 'tabfield' => [], 'tabfieldvalue' => [], 'tabfieldinsert' => [], 'tabrowid' => [], 'tabcond' => [], 'tabhelp' => []);
 	}
 
 	$columns = array(
@@ -1409,7 +1409,7 @@ function writeApiUrlsInDoc($file_api, $file_doc)
 	$extractUrls = explode("\n", $string);
 
 	// extract urls from file
-	$urlValues = array();
+	$urlValues = [];
 	foreach ($extractUrls as $key => $line) {
 		$lineWithoutTabsSpaces = preg_replace('/^[\t\s]+/', '', $line);
 		if (strpos($lineWithoutTabsSpaces, '* @url') === 0) {
@@ -1420,7 +1420,7 @@ function writeApiUrlsInDoc($file_api, $file_doc)
 
 	// get urls by object
 	$str = $_SERVER['HTTP_HOST'] . '/api/index.php/';
-	$groupedUrls = array();
+	$groupedUrls = [];
 	foreach ($urlValues as $url) {
 		if (preg_match('/(?:GET|POST|PUT|DELETE) (\w+)s/', $url, $matches)) {
 			$objectName = $matches[1];

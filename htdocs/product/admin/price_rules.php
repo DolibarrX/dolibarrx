@@ -121,7 +121,7 @@ $sql = "SELECT rowid, level, fk_level, var_percent, var_min_percent";
 $sql .= " FROM ".MAIN_DB_PREFIX."product_pricerules";
 $query = $db->query($sql);
 
-$rules = array();
+$rules = [];
 
 while ($result = $db->fetch_object($query)) {
 	$rules[$result->level] = $result;
@@ -154,7 +154,7 @@ print dol_get_fiche_head($head, 'generator', $tab, -1, 'product');
 print '<span class="opacitymedium">'.$langs->trans("MultiPriceRuleDesc").'</span><br><br>';
 
 // Array that contains the number of prices available
-$price_options = array();
+$price_options = [];
 
 $produit_multiprices_limit = getDolGlobalInt('PRODUIT_MULTIPRICES_LIMIT');
 for ($i = 1; $i <= $produit_multiprices_limit; $i++) {
@@ -186,7 +186,7 @@ for ($i = 1; $i <= $produit_multiprices_limit; $i++) {
 				<td style="text-align: center">
 					<input type="text" style="text-align: right" name="var_percent[<?php echo $i ?>]" size="5" value="<?php echo price(isset($rules[$i]) ? $rules[$i]->var_percent : 0, 1) ?>">
 					<?php
-					$return = array();
+					$return = [];
 					for ($j = 1; $j < $i; $j++) {
 						$return[$j] = $price_options[$j];
 					}

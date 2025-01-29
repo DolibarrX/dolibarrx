@@ -266,7 +266,7 @@ if ($object->id > 0) {
 		//print load_fiche_titre($langs->trans("ActionsOnPartnership"), '', '');
 
 		// List of all actions
-		$filters = array();
+		$filters = [];
 		$filters['search_agenda_label'] = $search_agenda_label;
 
 		// TODO Replace this with same code than into list.php

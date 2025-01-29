@@ -213,7 +213,7 @@ if ($action == 'create') {
 	}
 
 	// Other attributes
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
@@ -230,7 +230,7 @@ if ($action == 'create') {
 // View mode
 if ($id) {
 	$h = 0;
-	$head = array();
+	$head = [];
 	$head[$h][0] = DOL_URL_ROOT.'/compta/localtax/card.php?id='.$object->id;
 	$head[$h][1] = $langs->trans('Card');
 	$head[$h][2] = 'card';
@@ -278,7 +278,7 @@ if ($id) {
 	}
 
 	// Other attributes
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 

@@ -69,8 +69,8 @@ class modFTP extends DolibarrModules
 		$this->config_page_url = array('ftpclient.php@ftp');
 
 		// Dependencies
-		$this->depends = array(); // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of modules id to disable if this one is disabled
+		$this->depends = []; // List of modules id that must be enabled if this module is enabled
+		$this->requiredby = []; // List of modules id to disable if this one is disabled
 
 		// Constants
 		$this->const = array(
@@ -79,7 +79,7 @@ class modFTP extends DolibarrModules
 		); // List of parameters
 
 		// Boxes
-		$this->boxes = array(); // List of boxes
+		$this->boxes = []; // List of boxes
 		$r = 0;
 
 		// Add here list of php file(s) stored in core/boxes that contains class to show a box.
@@ -91,7 +91,7 @@ class modFTP extends DolibarrModules
 
 		// Permissions
 		$this->rightsClass = 'ftp'; // Permission key
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 
 		$r++;
 		$this->rights[$r][0] = 2801;

@@ -56,7 +56,7 @@ $withtab    = GETPOSTINT('withtab');
  * Actions
  */
 
-$reg = array();
+$reg = [];
 if (preg_match('/set_(.*)/', $action, $reg)) {
 	$code = $reg[1];
 	$values = GETPOST($code);
@@ -156,7 +156,7 @@ $sql = "SELECT rowid, code as code_iso, code_iso as code_iso3, label, favorite";
 $sql .= " FROM ".MAIN_DB_PREFIX."c_country";
 $sql .= " WHERE active > 0";
 
-$countryArray = array();
+$countryArray = [];
 $resql = $db->query($sql);
 if ($resql) {
 	while ($obj = $db->fetch_object($resql)) {
@@ -164,7 +164,7 @@ if ($resql) {
 	}
 }
 
-$selected = !getDolGlobalString('BLOCKEDLOG_DISABLE_NOT_ALLOWED_FOR_COUNTRY') ? array() : explode(',', getDolGlobalString('BLOCKEDLOG_DISABLE_NOT_ALLOWED_FOR_COUNTRY'));
+$selected = !getDolGlobalString('BLOCKEDLOG_DISABLE_NOT_ALLOWED_FOR_COUNTRY') ? [] : explode(',', getDolGlobalString('BLOCKEDLOG_DISABLE_NOT_ALLOWED_FOR_COUNTRY'));
 
 print $form->multiselectarray('BLOCKEDLOG_DISABLE_NOT_ALLOWED_FOR_COUNTRY', $countryArray, $selected);
 print '<input type="submit" class="button button-edit" value="'.$langs->trans("Modify").'">';

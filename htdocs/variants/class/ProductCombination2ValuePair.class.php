@@ -84,7 +84,7 @@ class ProductCombination2ValuePair
 	 * Array of error messages
 	 * @var string[]
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * Constructor
@@ -162,7 +162,7 @@ class ProductCombination2ValuePair
 			return -1;
 		}
 
-		$return = array();
+		$return = [];
 
 		while ($obj = $this->db->fetch_object($query)) {
 			$tmp = new ProductCombination2ValuePair($this->db);

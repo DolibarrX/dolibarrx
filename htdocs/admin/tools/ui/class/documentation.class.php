@@ -32,21 +32,21 @@ class Documentation
 	 *
 	 * @var array
 	 */
-	public $view = array();
+	public $view = [];
 
 	/**
 	 * Menu - Set in setMenu in order to use dol_buildpath and called in constructor
 	 *
 	 * @var array
 	 */
-	public $menu = array();
+	public $menu = [];
 
 	/**
 	 * Summary - Set in setSummary and called in constructor
 	 *
 	 * @var array
 	 */
-	public $summary = array();
+	public $summary = [];
 
 	/**
 	 * @var DoliDB Database handler.
@@ -88,14 +88,14 @@ class Documentation
 		$this->menu['BackToDolibarr'] = array(
 			'url' => DOL_URL_ROOT,
 			'icon' => 'fas fa-arrow-left picturefixedwidth',
-			'submenu' => array(),
+			'submenu' => [],
 		);
 
 		// Home for Ui documentation
 		$this->menu['DocumentationHome'] = array(
 			'url' => dol_buildpath($baseUrl.'/index.php', 1),
 			'icon' => 'fas fa-book',
-			'submenu' => array(),
+			'submenu' => [],
 		);
 
 		// Components
@@ -106,7 +106,7 @@ class Documentation
 				'Badges' => array(
 					'url' => dol_buildpath($baseUrl.'/components/badges.php', 1),
 					'icon' => 'fas fa-certificate picturefixedwidth',
-					'submenu' => array(),
+					'submenu' => [],
 					'summary' => array(
 						'DocBasicUsage' => '#badgesection-basicusage',
 						'DocBadgeContextualVariations' => '#badgesection-contextvariations',
@@ -120,7 +120,7 @@ class Documentation
 				'Buttons' => array(
 					'url' => dol_buildpath($baseUrl.'/components/buttons.php', 1),
 					'icon' => 'fas fa-mouse picturefixedwidth',
-					'submenu' => array(),
+					'submenu' => [],
 					'summary' => array(
 						'DocBasicUsage' => '#buttonsection-basicusage',
 						'DocButtonModal' => '#buttonsection-modals',
@@ -130,7 +130,7 @@ class Documentation
 				'Progress' => array(
 					'url' => dol_buildpath($baseUrl.'/components/progress-bars.php', 1),
 					'icon' => 'fas fa-battery-half picturefixedwidth',
-					'submenu' => array(),
+					'submenu' => [],
 					'summary' => array(
 						'DocBasicUsage' => '#progresse-section-basic-usage',
 						'DocColorVariants' => '#progress-section-color',
@@ -140,7 +140,7 @@ class Documentation
 				'Event Message' => array(
 					'url' => dol_buildpath($baseUrl.'/components/event-message.php', 1),
 					'icon' => 'fas fa-comments picturefixedwidth',
-					'submenu' => array(),
+					'submenu' => [],
 					'summary' => array(
 						'DocBasicUsage' => '#seteventmessagesection-basicusage',
 						'DocSetEventMessageContextualVariations' => '#seteventmessagesection-contextvariations',
@@ -160,7 +160,7 @@ class Documentation
 				'Tables' => array(
 					'url' => dol_buildpath('admin/tools/ui/content/tables.php', 1),
 					'icon' => 'fas fa-table picturefixedwidth',
-					'submenu' => array(),
+					'submenu' => [],
 					'summary' => array(
 						'DocBasicUsage' => '#tablesection-basicusage',
 						'DocTableWithFilters' => '#tablesection-withfilters'
@@ -391,7 +391,7 @@ class Documentation
 	 * @param string $option Source code language ('html', 'php' etc)
 	 * @return void
 	 */
-	public function showCode($lines = array(), $option = 'html')
+	public function showCode($lines = [], $option = 'html')
 	{
 		require_once DOL_DOCUMENT_ROOT . '/core/class/doleditor.class.php';
 		print '<div class="documentation-code">';

@@ -105,7 +105,7 @@ $mesg = $px1->isGraphKo();
 if (!$mesg) {
 	$px1->SetData($data);
 	$i = $startyear;
-	$legend = array();
+	$legend = [];
 	while ($i <= $endyear) {
 		$legend[] = $i;
 		$i++;
@@ -137,7 +137,7 @@ $mesg = $px2->isGraphKo();
 if (!$mesg) {
 	$px2->SetData($data);
 	$i = $startyear;
-	$legend = array();
+	$legend = [];
 	while ($i <= $endyear) {
 		$legend[] = $i;
 		$i++;

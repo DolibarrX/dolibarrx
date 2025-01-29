@@ -39,7 +39,7 @@ function categories_prepare_head(Category $object, $type)
 	$langs->loadLangs(array('categories', 'products'));
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/categories/viewcat.php?id=' . $object->id . '&amp;type=' . $type;
 	$head[$h][1] = $langs->trans("Category");
@@ -94,7 +94,7 @@ function categoriesadmin_prepare_head()
 	$langs->load("categories");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/categories/admin/category.php';
 	$head[$h][1] = $langs->trans("Setup");

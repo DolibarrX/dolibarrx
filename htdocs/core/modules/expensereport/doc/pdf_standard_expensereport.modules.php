@@ -158,10 +158,10 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 			$this->postotalttc -= 20;
 		}
 
-		$this->tva = array();
-		$this->tva_array = array();
-		$this->localtax1 = array();
-		$this->localtax2 = array();
+		$this->tva = [];
+		$this->tva_array = [];
+		$this->localtax1 = [];
+		$this->localtax2 = [];
 		$this->atleastoneratenotnull = 0;
 		$this->atleastonediscount = 0;
 

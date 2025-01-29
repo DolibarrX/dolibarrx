@@ -246,7 +246,7 @@ print '<td>'.$langs->trans("Example").'</td>';
 print '<td class="center">'.$langs->trans("Status").'</td>';
 print "</tr>\n";
 
-$bankorder = array();
+$bankorder = [];
 $bankorder[0][0] = $langs->trans("BankOrderGlobal");
 $bankorder[0][1] = $langs->trans("BankOrderGlobalDesc");
 $bankorder[0][2] = 'BankCode DeskCode BankAccountNumber BankAccountNumberKey';
@@ -298,7 +298,7 @@ print '<br><br>';
 print load_fiche_titre($langs->trans("BankAccountModelModule"), '', '');
 
 // Load array def with activated templates
-$def = array();
+$def = [];
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
@@ -338,7 +338,7 @@ foreach ($dirmodels as $reldir) {
 		if (is_dir($dir)) {
 			$handle = opendir($dir);
 			if (is_resource($handle)) {
-				$filelist = array();
+				$filelist = [];
 				while (($file = readdir($handle)) !== false) {
 					$filelist[] = $file;
 				}
@@ -478,7 +478,7 @@ if (getDolGlobalInt('BANK_COLORIZE_MOVEMENT')) {
 		print '<td colspan="4" width="180" class="nowrap">'.$langs->trans("BankColorizeMovementName".$key)."</td>";
 		// Color
 		print '<td class="nowrap right">';
-		print $formother->selectColor((GETPOST("BANK_COLORIZE_MOVEMENT_COLOR".$key) ? GETPOST("BANK_COLORIZE_MOVEMENT_COLOR".$key) : getDolGlobalString($color)), "BANK_COLORIZE_MOVEMENT_COLOR".$key, 'bankmovementcolorconfig', 1, array(), 'right hideifnotset');
+		print $formother->selectColor((GETPOST("BANK_COLORIZE_MOVEMENT_COLOR".$key) ? GETPOST("BANK_COLORIZE_MOVEMENT_COLOR".$key) : getDolGlobalString($color)), "BANK_COLORIZE_MOVEMENT_COLOR".$key, 'bankmovementcolorconfig', 1, [], 'right hideifnotset');
 		print '</td>';
 		print "</tr>";
 		$i++;
@@ -540,7 +540,7 @@ if (!getDolGlobalInt('SOCIETE_DISABLE_BANKACCOUNT')) {
 	print '<tr class="oddeven">';
 	print '<td>'.$form->textWithPicture($langs->trans("AllowOnLineSign"), $langs->trans("AllowOnLineSignDesc")).'</td>';
 	print '<td class="center">';
-	print ajax_constantonoff('SOCIETE_RIB_ALLOW_ONLINESIGN', array(), null, 0, 0, 0, 2, 0, 1, '', '', 'inline-block', 0, $langs->trans("WarningOnlineSignature"));
+	print ajax_constantonoff('SOCIETE_RIB_ALLOW_ONLINESIGN', [], null, 0, 0, 0, 2, 0, 1, '', '', 'inline-block', 0, $langs->trans("WarningOnlineSignature"));
 	print '</td></tr>';
 }
 

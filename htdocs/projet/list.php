@@ -192,7 +192,7 @@ $search_date_modif_endyear = GETPOSTINT('search_date_modif_endyear');
 $search_date_modif_endday = GETPOSTINT('search_date_modif_endday');
 $search_date_modif_end = dol_mktime(23, 59, 59, $search_date_modif_endmonth, $search_date_modif_endday, $search_date_modif_endyear);	// Use tzserver
 
-$search_category_array = array();
+$search_category_array = [];
 
 if (isModEnabled('category')) {
 	$search_category_array = GETPOST("search_category_".Category::TYPE_PROJECT."_list", "array");
@@ -219,7 +219,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 $search_array_options = $extrafields->getOptionalsFromPost($object->table_element, '', 'search_');
 
 // List of fields to search into when doing a "search in all"
-$fieldstosearchall = array();
+$fieldstosearchall = [];
 foreach ($object->fields as $key => $val) {
 	if (empty($val['searchall'])) {
 		continue;
@@ -239,7 +239,7 @@ $fieldstosearchall['s.name_alias'] = "AliasNameShort";
 $fieldstosearchall['s.code_client'] = "CustomerCode";
 
 // Definition of array of fields for columns
-$arrayfields = array();
+$arrayfields = [];
 foreach ($object->fields as $key => $val) {
 	// If $val['visible']==0, then we never show the field
 	if (!empty($val['visible'])) {
@@ -292,8 +292,8 @@ $arrayfields = dol_sort_array($arrayfields, 'position');
 
 // Add a groupby field. Set $groupby and $groupbyvalues.
 // TODO Move this into a inc file
-$groupbyvalues = array();
-$groupofcollpasedvalues = array();
+$groupbyvalues = [];
+$groupofcollpasedvalues = [];
 $groupbyold = null;
 if ($mode == 'kanban' && $groupby) {
 	$groupbyfield = preg_replace('/[a-z]\./', '', $groupby);
@@ -433,9 +433,9 @@ if (empty($resHook)) {
 		$search_login = '';
 		$search_import_key = '';
 		$search_entity = '';
-		$toselect = array();
-		$search_array_options = array();
-		$search_category_array = array();
+		$toselect = [];
+		$search_array_options = [];
+		$search_category_array = [];
 	}
 
 
@@ -516,8 +516,8 @@ if (!getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 if (getDolGlobalInt('PROJECT_USE_OPPORTUNITIES') == 2) {	// 2 = leads only
 	$title = $langs->trans("Leads");
 }
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 
 // Get list of project id allowed to user (in a string list separated by comma)
@@ -527,8 +527,8 @@ if (!$user->hasRight('projet', 'all', 'lire')) {
 }
 
 // Get id of types of contacts for projects (This list never contains a lot of elements)
-$listofprojectcontacttype = array();
-$listofprojectcontacttypeexternal = array();
+$listofprojectcontacttype = [];
+$listofprojectcontacttypeexternal = [];
 $sql = "SELECT ctc.rowid, ctc.code, ctc.source FROM ".MAIN_DB_PREFIX."c_type_contact as ctc";
 $sql .= " WHERE ctc.element = '".$db->escape($object->element)."'";
 $resql = $db->query($sql);
@@ -569,7 +569,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -754,7 +754,7 @@ if (getDolGlobalInt('PROJECT_ENABLE_SUB_PROJECT')) {
 $searchCategoryProjectList = $search_category_array;
 $searchCategoryProjectOperator = 0;
 if (!empty($searchCategoryProjectList)) {
-	$searchCategoryProjectSqlList = array();
+	$searchCategoryProjectSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryProjectList as $searchCategoryProject) {
 		if (intval($searchCategoryProject) == -2) {
@@ -780,9 +780,9 @@ if (!empty($searchCategoryProjectList)) {
 		}
 	}
 }
-$searchCategoryCustomerSqlList = array();
+$searchCategoryCustomerSqlList = [];
 if ($searchCategoryCustomerOperator == 1) {
-	$existsCategoryCustomerList = array();
+	$existsCategoryCustomerList = [];
 	foreach ($searchCategoryCustomerList as $searchCategoryCustomer) {
 		if (intval($searchCategoryCustomer) == -2) {
 			$sqlCategoryCustomerNotExists  = " NOT EXISTS (";
@@ -827,7 +827,7 @@ if ($searchCategoryCustomerOperator == 1) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 //print $sql;
@@ -881,7 +881,7 @@ if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $s
 
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'bodyforlist mod-project page-list');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -1130,7 +1130,7 @@ if (isModEnabled('category') && $user->hasRight('projet', 'creer')) {
 	$arrayofmassactions['preaffecttag'] = img_picture('', 'category', 'class="picturefixedwidth"').$langs->trans("AffectTag");
 }
 if (in_array($massaction, array('presend', 'predelete', 'preaffecttag', 'preaffectuser'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
@@ -1246,7 +1246,7 @@ if (getDolGlobalInt('PROJECT_ENABLE_SUB_PROJECT')) {
 if (!empty($moreforfilter)) {
 	print '<div class="liste_titre liste_titre_bydiv centpercent">';
 	print $moreforfilter;
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	print '</div>';
@@ -1475,7 +1475,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1620,7 +1620,7 @@ $i = 0;
 $savnbfield = $totalarray['nbfield'];
 $totalarray = array(
 	'nbfield' => 0,
-	'val' => array()
+	'val' => []
 );
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {

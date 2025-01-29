@@ -542,7 +542,7 @@ if ($id > 0 || !empty($ref)) {
 		print '</tr>';
 
 		// Other options
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		if (empty($resHook)) {
@@ -724,7 +724,7 @@ if ($id > 0 || !empty($ref)) {
 
 		print '<div class="tabsAction">';
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 		// modified by hook
 		if (empty($resHook)) {
@@ -767,7 +767,7 @@ if ($id > 0 || !empty($ref)) {
 		print $formfile->showdocuments('project_task', $filename, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf);
 
 		// Show links to link elements
-		$tmparray = $form->showLinkToObjectBlock($object, array(), array('project_task'), 1);
+		$tmparray = $form->showLinkToObjectBlock($object, [], array('project_task'), 1);
 		$linktoelem = $tmparray['linktoelem'];
 		$htmltoenteralink = $tmparray['htmltoenteralink'];
 		print $htmltoenteralink;

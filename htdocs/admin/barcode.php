@@ -152,7 +152,7 @@ $linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_valu
 print load_fiche_titre($langs->trans("BarcodeSetup"), $linkback, 'title_setup');
 
 // Detect bar codes modules
-$barcodelist = array();
+$barcodelist = [];
 
 clearstatcache();
 

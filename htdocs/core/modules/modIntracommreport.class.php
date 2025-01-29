@@ -63,8 +63,8 @@ class modIntracommreport extends DolibarrModules
 
 		// Dependencies
 		$this->depends = array("modFacture", "modTax", "modCategory"); // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of modules id to disable if this one is disabled
-		$this->conflictwith = array(); // List of modules id this module is in conflict with
+		$this->requiredby = []; // List of modules id to disable if this one is disabled
+		$this->conflictwith = []; // List of modules id this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(13, 0, -5); // Minimum version of Dolibarr required by module
 		$this->langfiles = array("intracommreport");
@@ -74,26 +74,26 @@ class modIntracommreport extends DolibarrModules
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = [];
 
 		// Tabs
-		$this->tabs = array();
+		$this->tabs = [];
 
 		// Css
-		$this->module_parts = array();
+		$this->module_parts = [];
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Dictionaries
 		if (!isset($config->intracommreport->enabled)) {
 			$config->intracommreport = new stdClass();
 			$config->intracommreport->enabled = 0;
 		}
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'intracommreport';
 		$r = 0;
 
@@ -119,7 +119,7 @@ class modIntracommreport extends DolibarrModules
 		$this->rights[$r][4] = 'delete';
 
 		// Main menu entries
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 
 		// Exports
@@ -143,7 +143,7 @@ class modIntracommreport extends DolibarrModules
 			return -1; // Do not activate module if error 'not allowed' returned when loading module SQL queries (the _load_table run sql with run_sql with the error allowed parameter set to 'default')
 		}
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

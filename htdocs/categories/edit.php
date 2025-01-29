@@ -211,7 +211,7 @@ print $form->select_all_categories($type, $object->fk_parent, 'parent', 64, $obj
 print ajax_combobox('parent');
 print '</td></tr>';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 if (empty($resHook)) {

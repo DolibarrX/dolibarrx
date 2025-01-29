@@ -229,7 +229,7 @@ class SocieteAccount extends CommonObject
 		}
 
 		// add site type list and set visible
-		$site_type_list = array();
+		$site_type_list = [];
 
 		if (isModEnabled('webportal')) {
 			$this->fields['site']['visible'] = 1;
@@ -332,7 +332,7 @@ class SocieteAccount extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		// Load lines with object societeAccountLine
 

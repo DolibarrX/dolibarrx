@@ -200,12 +200,12 @@ class Contrat extends CommonObject
 	/**
 	 * @var array<string,string>  (Encoded as JSON in database)
 	 */
-	public $extraparams = array();
+	public $extraparams = [];
 
 	/**
 	 * @var ContratLigne[]		Contract lines
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @var int
@@ -234,7 +234,7 @@ class Contrat extends CommonObject
 	 * Maps ContratLigne IDs to $this->lines indexes
 	 * @var int[]
 	 */
-	protected $lines_id_index_mapper = array();
+	protected $lines_id_index_mapper = [];
 
 
 	/**
@@ -846,7 +846,7 @@ class Contrat extends CommonObject
 
 		$now = dol_now();
 
-		$this->lines = array();
+		$this->lines = [];
 		$pos = 0;
 
 		// Selects contract lines related to a product
@@ -1472,7 +1472,7 @@ class Contrat extends CommonObject
 	 * 	@param 	int			$rang 				Position
 	 *  @return int             				Return integer <0 if KO, >0 if OK
 	 */
-	public function addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1, $txlocaltax2, $fk_product, $remise_percent, $date_start, $date_end, $price_base_type = 'HT', $pu_ttc = 0.0, $info_bits = 0, $fk_fournprice = null, $pa_ht = 0, $array_options = array(), $fk_unit = null, $rang = 0)
+	public function addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1, $txlocaltax2, $fk_product, $remise_percent, $date_start, $date_end, $price_base_type = 'HT', $pu_ttc = 0.0, $info_bits = 0, $fk_fournprice = null, $pa_ht = 0, $array_options = [], $fk_unit = null, $rang = 0)
 	{
 		global $user, $langs, $config, $mysoc;
 		$error = 0;
@@ -1492,7 +1492,7 @@ class Contrat extends CommonObject
 			$pa_ht = price2num($pa_ht);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', (string) $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -1707,7 +1707,7 @@ class Contrat extends CommonObject
 	 * 	@param 	int			$rang 				Position
 	 *  @return int              				Return integer <0 if KO, >0 if OK
 	 */
-	public function updateline($rowid, $desc, $pu, $qty, $remise_percent, $date_start, $date_end, $tvatx, $localtax1tx = 0.0, $localtax2tx = 0.0, $date_start_real = '', $date_end_real = '', $price_base_type = 'HT', $info_bits = 0, $fk_fournprice = null, $pa_ht = 0, $array_options = array(), $fk_unit = null, $rang = 0)
+	public function updateline($rowid, $desc, $pu, $qty, $remise_percent, $date_start, $date_end, $tvatx, $localtax1tx = 0.0, $localtax2tx = 0.0, $date_start_real = '', $date_end_real = '', $price_base_type = 'HT', $info_bits = 0, $fk_fournprice = null, $pa_ht = 0, $array_options = [], $fk_unit = null, $rang = 0)
 	{
 		global $user, $config, $langs, $mysoc;
 
@@ -2207,7 +2207,7 @@ class Contrat extends CommonObject
 	public function array_detail($status = -1)
 	{
 		// phpcs:enable
-		$tab = array();
+		$tab = [];
 
 		$sql = "SELECT cd.rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."contratdet as cd";
@@ -2244,7 +2244,7 @@ class Contrat extends CommonObject
 	 */
 	public function getListOfContracts($option = 'all', $status = [], $product_categories = [], $line_status = [])
 	{
-		$tab = array();
+		$tab = [];
 
 		$sql = "SELECT c.rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."contrat as c";
@@ -2387,7 +2387,7 @@ class Contrat extends CommonObject
 	{
 		global $config, $user;
 
-		$this->nb = array();
+		$this->nb = [];
 		$clause = "WHERE";
 
 		$sql = "SELECT count(c.rowid) as nb";
@@ -2451,7 +2451,7 @@ class Contrat extends CommonObject
 
 		// Load array of products prodids
 		$num_prods = 0;
-		$prodids = array();
+		$prodids = [];
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product";
 		$sql .= " WHERE entity IN (".getEntity('product').")";
@@ -2748,9 +2748,9 @@ class Contrat extends CommonObject
 		$this->output = '';
 		$this->error = '';
 
-		$contractlineprocessed = array();
-		$contractignored = array();
-		$contracterror = array();
+		$contractlineprocessed = [];
+		$contractignored = [];
+		$contracterror = [];
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 

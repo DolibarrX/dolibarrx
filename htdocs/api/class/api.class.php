@@ -116,7 +116,7 @@ class DolibarrApi
 				return sanitizeVal($value, 'alphanohtml');
 			}
 		} else {	// Example when $field = 'extrafields' and $value = content of $object->array_options
-			$newarrayvalue = array();
+			$newarrayvalue = [];
 			foreach ($value as $tmpkey => $tmpvalue) {
 				$newarrayvalue[$tmpkey] = $this->_checkValForAPI($tmpkey, $tmpvalue, $object);
 			}
@@ -143,7 +143,7 @@ class DolibarrApi
 
 		// Copy of exploded array for efficiency
 		$arr_properties = explode(',', $properties);
-		$magic_properties = array();
+		$magic_properties = [];
 		$real_properties = get_object_vars($object);
 
 		// Unsetting real properties may unset magic properties.

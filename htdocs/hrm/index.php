@@ -99,7 +99,7 @@ if (isModEnabled('holiday') && !empty($setupcompanynotcomplete)) {
  * View
  */
 
-$listofsearchfields = array();
+$listofsearchfields = [];
 
 $childids = $user->getAllChildIds();
 $childids[] = $user->id;

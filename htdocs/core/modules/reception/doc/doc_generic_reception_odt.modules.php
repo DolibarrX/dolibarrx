@@ -119,7 +119,7 @@ class doc_generic_reception_odt extends ModelePdfReception
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
 		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($config->global->RECEPTION_ADDON_PDF_ODT_PATH)));
-		$listoffiles = array();
+		$listoffiles = [];
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
 			$tmpdir = preg_replace('/DOL_DATA_ROOT/', DOL_DATA_ROOT, $tmpdir);
@@ -374,7 +374,7 @@ class doc_generic_reception_odt extends ModelePdfReception
 				$array_thirdparty = $this->get_substitutionarray_thirdparty($socobject, $outputlangs);
 				$array_other = $this->get_substitutionarray_other($outputlangs);
 				// retrieve contact information for use in object as contact_xxx tags
-				$array_thirdparty_contact = array();
+				$array_thirdparty_contact = [];
 				if ($usecontact && is_object($contactobject)) {
 					$array_thirdparty_contact = $this->get_substitutionarray_contact($contactobject, $outputlangs, 'contact');
 				}

@@ -105,7 +105,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 
 // Initialize array of search criteria
 $search_all = GETPOST("search_all", 'alpha');
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha')) {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -159,7 +159,7 @@ $upload_dir = $config->ticket->dir_output;
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -984,7 +984,7 @@ if ($action == 'create' || $action == 'presend') {
 			if ($action != 'editcustomer' && $permissiontoedit) {
 				$morehtmlref .= '<a class="editfielda" href="'.$url_page_current.'?action=editcustomer&token='.newToken().'&track_id='.$object->track_id.'">'.img_edit($langs->transnoentitiesnoconv('SetThirdParty'), 0).'</a> ';
 			}
-			$morehtmlref .= $form->form_thirdparty($url_page_current.'?track_id='.$object->track_id, $object->socid, $action == 'editcustomer' ? 'editcustomer' : 'none', '', 1, 0, 0, array(), 1);
+			$morehtmlref .= $form->form_thirdparty($url_page_current.'?track_id='.$object->track_id, $object->socid, $action == 'editcustomer' ? 'editcustomer' : 'none', '', 1, 0, 0, [], 1);
 			if (!empty($object->socid)) {
 				$morehtmlref .= ' - <a href="'.DOL_URL_ROOT.'/ticket/list.php?socid='.$object->socid.'&sortfield=t.datec&sortorder=desc'.(getDolGlobalBool('TICKET_CLIENT_OTHER_TICKET_ONLY_OPEN')?'&search_fk_statut[]=openall':'').'">'.img_picture($langs->trans("Tickets"), 'ticket', 'class="picturefixedwidth"').' '.$langs->trans("TicketHistory").'</a>';
 			}
@@ -1301,7 +1301,7 @@ if ($action == 'create' || $action == 'presend') {
 
 					$category = new Category($db);
 					$cats = $category->containing($object->id, 'ticket');
-					$arrayselected = array();
+					$arrayselected = [];
 					foreach ($cats as $cat) {
 						$arrayselected[] = $cat->id;
 					}
@@ -1455,7 +1455,7 @@ if ($action == 'create' || $action == 'presend') {
 		// Buttons for actions
 		if ($action != 'presend' && $action != 'presend_addmessage' && $action != 'editline') {
 			print '<div class="tabsAction">'."\n";
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if ($resHook < 0) {
 				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -1617,7 +1617,7 @@ if ($action == 'create' || $action == 'presend') {
 			print_barre_liste($langs->trans("ActionsOnTicket"), 0, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, '', 0, -1, '', 0, $morehtmlright, '', 0, 1, 1);
 
 			// List of all actions
-			$filters = array();
+			$filters = [];
 			$filters['search_agenda_label'] = $search_agenda_label;
 			$filters['search_rowid'] = $search_rowid;
 
@@ -1644,7 +1644,7 @@ if ($action == 'create' || $action == 'presend') {
 			print $formfile->showdocuments('ticket', $filename, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', 0, '', $codelang);
 
 			// Show links to link elements
-			$tmparray = $form->showLinkToObjectBlock($object, array(), array('ticket'), 1);
+			$tmparray = $form->showLinkToObjectBlock($object, [], array('ticket'), 1);
 			$linktoelem = $tmparray['linktoelem'];
 			$htmltoenteralink = $tmparray['htmltoenteralink'];
 			print $htmltoenteralink;

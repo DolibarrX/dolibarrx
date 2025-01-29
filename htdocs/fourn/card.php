@@ -601,7 +601,7 @@ if ($object->id > 0) {
 	}
 
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreBoxStatsSupplier', $parameters, $object, $action);
 	if (empty($resHook)) {
 		$boxstat .= $hookManager->resPrint;
@@ -646,7 +646,7 @@ if ($object->id > 0) {
 		print '<a class="notasortlink" href="'.DOL_URL_ROOT.'/fourn/product/list.php?fourn_id='.$object->id.'"><span class="hideonsmartphone">'.$langs->trans("AllProductReferencesOfSupplier").'</span><span class="badge marginleftonlyshort">'.$object->nbOfProductRefs().'</span>';
 		print '</a></td></tr>';
 
-		$return = array();
+		$return = [];
 		if ($num > 0) {
 			$productstatic = new Product($db);
 
@@ -1038,7 +1038,7 @@ if ($object->id > 0) {
 	}
 
 	// Allow external modules to add their own shortlist of recent objects
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreRecentObjects', $parameters, $object, $action);
 	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -1057,7 +1057,7 @@ if ($object->id > 0) {
 	 */
 	print '<div class="tabsAction">';
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 	// modified by hook
 	if (empty($resHook)) {

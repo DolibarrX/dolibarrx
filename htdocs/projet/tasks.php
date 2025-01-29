@@ -248,8 +248,8 @@ if (empty($resHook)) {
 		$search_progressdeclare = '';
 		$search_task_budget_amount = '';
 		$search_task_billable = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 		$search_date_start_startmonth = "";
 		$search_date_start_startyear = "";
 		$search_date_start_startday = "";
@@ -277,7 +277,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
-$morewherefilterarray = array();
+$morewherefilterarray = [];
 
 if (!empty($search_taskref)) {
 	$morewherefilterarray[] = natural_search('t.ref', $search_taskref, 0, 1);
@@ -447,7 +447,7 @@ $help_url = "EN:Module_Projects|FR:Module_Projets|ES:M&oacute;dulo_Proyectos";
 
 llxHeader("", $title, $help_url, '', 0, 0, '', '', '', 'mod-project page-card_tasks');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 $param = '';
 
 if ($id > 0 || !empty($ref)) {
@@ -583,7 +583,7 @@ if ($id > 0 || !empty($ref)) {
 	// Add $param from extra fields
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 	if ($user->hasRight('projet', 'creer')) {
 		$arrayofmassactions['preclonetasks'] = img_picture('', 'clone', 'class="picturefixedwidth"').$langs->trans("Clone");
 	}
@@ -591,7 +591,7 @@ if ($id > 0 || !empty($ref)) {
 		$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 	}
 	if (in_array($massaction, array('presend', 'predelete'))) {
-		$arrayofmassactions = array();
+		$arrayofmassactions = [];
 	}
 	$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -891,7 +891,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer') && (empty($object-
 	print '<br>';
 
 	// Link to create task
-	$linktocreatetaskParam = array();
+	$linktocreatetaskParam = [];
 	$linktocreatetaskUserRight = false;
 	if ($user->hasRight('projet', 'all', 'creer') || $user->hasRight('projet', 'creer')) {
 		if ($object->public || $userWrite > 0) {

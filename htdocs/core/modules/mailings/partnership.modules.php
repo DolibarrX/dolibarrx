@@ -86,7 +86,7 @@ class mailing_partnership extends MailingTargets
 		// phpcs:enable
 		global $config, $langs;
 
-		$cibles = array();
+		$cibles = [];
 		$addDescription = '';
 
 		$sql = "SELECT s.rowid as id, s.email as email, s.nom as name, null as fk_contact, null as firstname, pt.label as label, 'thirdparty' as source";
@@ -183,9 +183,9 @@ class mailing_partnership extends MailingTargets
 	{
 		// CHANGE THIS: Optional
 
-		//var $statssql=array();
+		//var $statssql=[];
 		//$this->statssql[0]="SELECT field1 as label, count(distinct(email)) as nb FROM mytable WHERE email IS NOT NULL";
-		return array();
+		return [];
 	}
 
 

@@ -47,7 +47,7 @@ class Ctyperesource extends CommonDict
 	/**
 	 * @var CtyperesourceLine[] Lines
 	 */
-	public $lines = array();
+	public $lines = [];
 
 
 	/**
@@ -217,7 +217,7 @@ class Ctyperesource extends CommonDict
 
 		// Manage filter
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.rowid' || $key == 't.active' || $key == 't.code') {

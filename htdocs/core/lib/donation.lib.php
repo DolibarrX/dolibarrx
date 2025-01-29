@@ -35,7 +35,7 @@ function donation_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('don');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/don/admin/donation.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
@@ -73,7 +73,7 @@ function donation_prepare_head($object)
 	global $db, $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/don/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Donation");

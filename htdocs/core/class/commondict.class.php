@@ -41,7 +41,7 @@ abstract class CommonDict
 	/**
 	 * @var string[]	Array of error strings
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var int 		The object identifier

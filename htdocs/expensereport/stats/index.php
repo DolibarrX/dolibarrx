@@ -106,7 +106,7 @@ $mesg = $px1->isGraphKo();
 if (!$mesg) {
 	$px1->SetData($data);
 	$i = $startyear;
-	$legend = array();
+	$legend = [];
 	while ($i <= $endyear) {
 		$legend[] = $i;
 		$i++;
@@ -137,7 +137,7 @@ $mesg = $px2->isGraphKo();
 if (!$mesg) {
 	$px2->SetData($data);
 	$i = $startyear;
-	$legend = array();
+	$legend = [];
 	while ($i <= $endyear) {
 		$legend[] = $i;
 		$i++;
@@ -182,7 +182,7 @@ $mesg = $px3->isGraphKo();
 if (!$mesg) {
 	$px3->SetData($data);
 	$i = $startyear;
-	$legend = array();
+	$legend = [];
 	while ($i <= $endyear) {
 		$legend[] = $i;
 		$i++;
@@ -204,7 +204,7 @@ if (!$mesg) {
 
 // Show array
 $data = $stats->getAllByYear();
-$arrayyears = array();
+$arrayyears = [];
 foreach ($data as $val) {
 	$arrayyears[$val['year']] = $val['year'];
 }
@@ -214,7 +214,7 @@ if (!count($arrayyears)) {
 
 
 $h = 0;
-$head = array();
+$head = [];
 $head[$h][0] = DOL_URL_ROOT.'/expensereport/stats/index.php';
 $head[$h][1] = $langs->trans("ByMonthYear");
 $head[$h][2] = 'byyear';
@@ -238,7 +238,7 @@ print '<tr class="liste_titre"><td class="liste_titre" colspan="2">'.$langs->tra
 // Company
 /*
 print '<tr><td>'.$langs->trans("ThirdParty").'</td><td>';
-print $form->select_company($socid,'socid','',1,1,0,array(),0,'widthcentpercentminusx maxwidth300','');
+print $form->select_company($socid,'socid','',1,1,0,[],0,'widthcentpercentminusx maxwidth300','');
 print '</td></tr>';
 */
 // User

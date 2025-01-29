@@ -66,7 +66,7 @@ class ExpenseReport extends CommonObject
 	/**
 	 * @var ExpenseReportLine[] array of expensereport lines
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @var ExpenseReportLine expensereport lines
@@ -1113,7 +1113,7 @@ class ExpenseReport extends CommonObject
 	public function fetch_lines()
 	{
 		// phpcs:enable
-		$this->lines = array();
+		$this->lines = [];
 
 		$sql = ' SELECT de.rowid, de.comments, de.qty, de.value_unit, de.date, de.rang,';
 		$sql .= " de.".$this->fk_element.", de.fk_c_type_fees, de.fk_c_exp_tax_cat, de.fk_projet as fk_project,";
@@ -1779,7 +1779,7 @@ class ExpenseReport extends CommonObject
 		$nofetch = !empty($params['nofetch']);
 		$moretitle = $params['moretitle'] ?? '';
 
-		$datas = array();
+		$datas = [];
 		$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("ExpenseReport").'</u>';
 		if (isset($this->status)) {
 			$datas['picture'] .= ' '.$this->getLibStatut(5);
@@ -1984,7 +1984,7 @@ class ExpenseReport extends CommonObject
 			$localtaxes_type = getLocalTaxesFromRate($vatrate, 0, $buyer, $seller);
 
 			$vat_src_code = '';
-			$reg = array();
+			$reg = [];
 			if (preg_match('/\s*\((.*)\)/', $vatrate, $reg)) {
 				$vat_src_code = $reg[1];
 				$vatrate = preg_replace('/\s*\(.*\)/', '', $vatrate); // Remove code into vatrate.
@@ -2068,7 +2068,7 @@ class ExpenseReport extends CommonObject
 		$rulestocheck = $expensereportrule->getAllRule($this->line->fk_c_type_fees, $this->line->date, $this->fk_user_author);
 
 		$violation = 0;
-		$rule_warning_message_tab = array();
+		$rule_warning_message_tab = [];
 
 		$current_total_ttc = $this->line->total_ttc;
 		$new_current_total_ttc = $this->line->total_ttc;
@@ -2249,7 +2249,7 @@ class ExpenseReport extends CommonObject
 			$localtaxes_type = getLocalTaxesFromRate($vatrate, 0, $buyer, $seller);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', (string) $vatrate, $reg)) {
 				$vat_src_code = $reg[1];
@@ -2443,7 +2443,7 @@ class ExpenseReport extends CommonObject
 	public function fetch_users_approver_expensereport()
 	{
 		// phpcs:enable
-		$users_validator = array();
+		$users_validator = [];
 
 		$sql = "SELECT DISTINCT ur.fk_user";
 		$sql .= " FROM ".MAIN_DB_PREFIX."user_rights as ur, ".MAIN_DB_PREFIX."rights_def as rd";
@@ -2513,7 +2513,7 @@ class ExpenseReport extends CommonObject
 	public function listOfTypes($active = 1)
 	{
 		global $langs;
-		$ret = array();
+		$ret = [];
 		$sql = "SELECT id, code, label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_type_fees";
 		$sql .= " WHERE active = ".((int) $active);
@@ -2542,7 +2542,7 @@ class ExpenseReport extends CommonObject
 	{
 		global $user;
 
-		$this->nb = array();
+		$this->nb = [];
 
 		$sql = "SELECT count(ex.rowid) as nb";
 		$sql .= " FROM ".MAIN_DB_PREFIX."expensereport as ex";
@@ -2735,7 +2735,7 @@ class ExpenseReport extends CommonObject
 		global $langs, $db, $config;
 
 		$cumulYearQty = 0;
-		$ranges = array();
+		$ranges = [];
 		$coef = 0;
 
 

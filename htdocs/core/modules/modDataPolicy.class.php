@@ -81,7 +81,7 @@ class modDataPolicy extends DolibarrModules
 		// for default path (eg: /datapolicy/core/xxxxx) (0=disable, 1=enable)
 		// for specific path of parts (eg: /datapolicy/core/modules/barcode)
 		// for specific css file (eg: /datapolicy/css/datapolicy.css.php)
-		$this->module_parts = array();
+		$this->module_parts = [];
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/datapolicy/temp","/datapolicy/subdir");
@@ -93,13 +93,13 @@ class modDataPolicy extends DolibarrModules
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
 		$this->depends = array('always'=>'modCron'); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->langfiles = array("datapolicy");
 		$this->phpmin = array(5, 3); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(7, 0); // Minimum version of Dolibarr required by module
-		$this->warnings_activation = array(); // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
-		$this->warnings_activation_ext = array(); // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		//$this->automatic_activation = array('FR'=>'datapolicyWasAutomaticallyActivatedBecauseOfYourCountryChoice');
 		//$this->always_enabled = true;								// If true, can't be disabled
 		// Constants
@@ -136,7 +136,7 @@ class modDataPolicy extends DolibarrModules
 
 
 		// Array to add new pages in new tabs
-		$this->tabs = array();
+		$this->tabs = [];
 		// Example:
 		// $this->tabs[] = array('data'=>'objecttype:+tabname1:Title1:mylangfile@datapolicy:$user->rights->datapolicy->read:/datapolicy/mynewtab1.php?id=__ID__');  					// To add a new tab identified by code tabname1
 		// $this->tabs[] = array('data'=>'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@datapolicy:$user->rights->othermodule->read:/datapolicy/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
@@ -165,12 +165,12 @@ class modDataPolicy extends DolibarrModules
 
 
 		// Dictionaries
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 
 
 		// Boxes/Widgets
 		// Add here list of php file(s) stored in datapolicy/core/boxes that contains class to show a widget.
-		$this->boxes = array();
+		$this->boxes = [];
 
 
 		// Cronjobs (List of cron jobs entries to add when module is enabled)
@@ -182,9 +182,9 @@ class modDataPolicy extends DolibarrModules
 		//                                1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>true)
 		// );
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		// Main menu entries
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 	}
 
@@ -227,7 +227,7 @@ class modDataPolicy extends DolibarrModules
 		$result1 = $extrafields->addExtraField('datapolicy_send', $langs->trans("DATAPOLICY_send"), 'date', 105, 3, 'member', 0, 0, '', '', 0, '', '0', 0);
 		*/
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}
@@ -242,7 +242,7 @@ class modDataPolicy extends DolibarrModules
 	 */
 	public function remove($options = '')
 	{
-		$sql = array();
+		$sql = [];
 
 		return $this->_remove($sql, $options);
 	}

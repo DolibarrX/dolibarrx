@@ -106,7 +106,7 @@ class Shipments extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $thirdparty_ids param is ignored and replaced by user's socid
 		$socids = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $thirdparty_ids;
@@ -217,7 +217,7 @@ class Shipments extends DolibarrApi
 			$this->shipment->$field = $this->_checkValForAPI($field, $value, $this->shipment);
 		}
 		if (isset($request_data["lines"])) {
-			$lines = array();
+			$lines = [];
 			foreach ($request_data["lines"] as $line) {
 				$shipmentline = new ExpeditionLigne($this->db);
 
@@ -269,7 +269,7 @@ class Shipments extends DolibarrApi
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 		$this->shipment->getLinesArray();
-		$result = array();
+		$result = [];
 		foreach ($this->shipment->lines as $line) {
 			array_push($result,$this->_cleanObjectDatas($line));
 		}
@@ -760,7 +760,7 @@ class Shipments extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$shipment = array();
+		$shipment = [];
 		foreach (Shipments::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

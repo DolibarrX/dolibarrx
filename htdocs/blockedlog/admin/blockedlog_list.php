@@ -138,7 +138,7 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_fk_user = '';
 	$search_start = -1;
 	$search_end = -1;
-	$search_code = array();
+	$search_code = [];
 	$search_ref = '';
 	$search_amount = '';
 	$search_showonlyerrors = 0;
@@ -148,8 +148,8 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_endyear = '';
 	$search_endmonth = '';
 	$search_endday = '';
-	$toselect = array();
-	$search_array_options = array();
+	$toselect = [];
+	$search_array_options = [];
 }
 
 if ($action === 'downloadblockchain') {
@@ -556,8 +556,8 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>';
 
-$checkresult = array();
-$checkdetail = array();
+$checkresult = [];
+$checkdetail = [];
 $loweridinerror = 0;
 
 if (getDolGlobalString('BLOCKEDLOG_SCAN_ALL_FOR_LOWERIDINERROR')) {

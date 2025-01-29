@@ -261,7 +261,7 @@ class Productlot extends CommonObject
 			return 0;
 		}
 
-		$errorMsgArr = array();
+		$errorMsgArr = [];
 		if ($this->fk_product > 0) {
 			$res = $this->fetch_product();
 			$product = $this->product;
@@ -299,7 +299,7 @@ class Productlot extends CommonObject
 			return null;
 		}
 
-		$errorMsgArr = array();
+		$errorMsgArr = [];
 		if ($productId > 0) {
 			$product = new Product($db);
 			$res = $product->fetch($productId);
@@ -333,7 +333,7 @@ class Productlot extends CommonObject
 			return null;
 		}
 
-		$errorMsgArr = array();
+		$errorMsgArr = [];
 		$checkSellByMandatory = false;
 		$checkEatByMandatory = false;
 

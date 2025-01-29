@@ -161,7 +161,7 @@ if (GETPOST('roworder', 'alpha', 3) && GETPOST('table_element_line', 'aZ09', 3)
 	}
 
 	$rowordertab = explode(',', $roworder);
-	$newrowordertab = array();
+	$newrowordertab = [];
 	foreach ($rowordertab as $value) {
 		if (!empty($value)) {
 			$newrowordertab[] = $value;

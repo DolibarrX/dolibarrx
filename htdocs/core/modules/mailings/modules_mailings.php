@@ -313,12 +313,12 @@ class MailingTargets // This can't be abstract as it is used for some method
 	{
 		global $langs, $db;
 
-		$files = array();
-		$fullpath = array();
-		$relpath = array();
-		$iscoreorexternal = array();
-		$modules = array();
-		$orders = array();
+		$files = [];
+		$fullpath = [];
+		$relpath = [];
+		$iscoreorexternal = [];
+		$modules = [];
+		$orders = [];
 		$i = 0;
 
 		$diremailselector = array('/core/modules/mailings/'); // $config->modules_parts['emailings'] is not required
@@ -338,7 +338,7 @@ class MailingTargets // This can't be abstract as it is used for some method
 			$handle = opendir($newdir);
 			if (is_resource($handle)) {
 				while (($file = readdir($handle)) !== false) {
-					$reg = array();
+					$reg = [];
 					if (is_readable($newdir.'/'.$file) && preg_match('/^(.+)\.modules.php/', $file, $reg)) {
 						if (preg_match('/\.back$/', $file) || preg_match('/^(.+)\.disabled\.php/', $file)) {
 							continue;
@@ -378,7 +378,7 @@ class MailingTargets // This can't be abstract as it is used for some method
 
 		asort($orders);
 
-		$widget = array();
+		$widget = [];
 		$j = 0;
 
 		// Loop on each emailing selector
@@ -447,7 +447,7 @@ class MailingTargets // This can't be abstract as it is used for some method
 		// Needs to be implemented in child class
 		$msg = get_class($this)."::".__FUNCTION__." not implemented";
 		dol_syslog($msg, LOG_ERR);
-		return array();
+		return [];
 	}
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps

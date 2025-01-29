@@ -527,7 +527,7 @@ if (empty($resHook)) {
 				$idprod = -99; // Same behaviour than with combolist. When not select idprodfournprice is now -99 (to avoid conflict with next action that may return -1, -2, ...)
 			}
 
-			$reg = array();
+			$reg = [];
 			if (preg_match('/^idprod_([0-9]+)$/', GETPOST('idprodfournprice', 'alpha'), $reg)) {
 				$idprod = $reg[1];
 				$res = $productsupplier->fetch($idprod); // Load product from its id
@@ -812,7 +812,7 @@ if (empty($resHook)) {
 			$price_base_type = 'HT';
 			$ht = price2num(GETPOST('price_ht'), '', 2);
 		} else {
-			$reg = array();
+			$reg = [];
 			$vatratecleaned = $vat_rate;
 			if (preg_match('/^(.*)\s*\((.*)\)$/', $vat_rate, $reg)) {      // If vat is "xx (yy)"
 				$vatratecleaned = trim($reg[1]);
@@ -1135,7 +1135,7 @@ if (empty($resHook)) {
 	if ($action == 'confirm_delete' && $confirm == 'yes' && $usercandelete) {
 		// Delete existing dispatched lines
 		$errOnDelete = 0;
-		$errorsOnDelete = array();
+		$errorsOnDelete = [];
 
 		$db->begin();
 
@@ -1626,7 +1626,7 @@ if ($action == 'create') {
 		// Parse element/subelement (ex: project_task)
 		$element = $subelement = $origin;
 		$classname = ucfirst($subelement);
-		$regs = array();
+		$regs = [];
 		if (preg_match('/^([^_]+)_([^_]+)/i', $origin, $regs)) {
 			$element = $regs[1];
 			$subelement = $regs[2];
@@ -1747,10 +1747,10 @@ if ($action == 'create') {
 		print '<input type="hidden" name="originmulticurrency_tx" value="'.$currency_tx.'">';
 	}
 
-	print dol_get_fiche_head(array());
+	print dol_get_fiche_head([]);
 
 	// Call Hook tabContentCreateSupplierOrder
-	$parameters = array();
+	$parameters = [];
 	// Note that $action and $object may be modified by hook
 	$resHook = $hookManager->executeHooks('tabContentCreateSupplierOrder', $parameters, $object, $action);
 	if (empty($resHook)) {
@@ -1768,7 +1768,7 @@ if ($action == 'create') {
 			print '<input type="hidden" name="socid" value="'.$societe->id.'">';
 		} else {
 			$filter = '((s.fournisseur:=:1) AND (s.status:=:1))';
-			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company((empty($socid) ? '' : $socid), 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth175 maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company((empty($socid) ? '' : $socid), 'socid', $filter, 'SelectThirdParty', 1, 0, [], 0, 'minwidth175 maxwidth500 widthcentpercentminusxx');
 			// reload page to retrieve customer information
 			if (!getDolGlobalString('RELOAD_PAGE_ON_SUPPLIER_CHANGE_DISABLED')) {
 				print '<script>
@@ -1920,7 +1920,7 @@ if ($action == 'create') {
 		}
 
 		// Other options
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 
@@ -1943,7 +1943,7 @@ if ($action == 'create') {
 		print '<div class="div-table-responsive-no-min">';
 		print '<table class="noborder centpercent">';
 
-		$selectedLines = array();
+		$selectedLines = [];
 
 		$objectsrc->printOriginLinesList('', $selectedLines);
 
@@ -1971,7 +1971,7 @@ if ($action == 'create') {
 
 	// Confirmation de la suppression de la order
 	if ($action == 'delete') {
-		$arrayAjouts = array();
+		$arrayAjouts = [];
 		$heightModal = 0;
 		$widthModal = 500;
 
@@ -2052,7 +2052,7 @@ if ($action == 'create') {
 			$qualified_for_stock_change = $object->hasProductsOrServices(1);
 		}
 
-		$formquestion = array();
+		$formquestion = [];
 		if (isModEnabled('stock') && getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_VALIDATE_ORDER') && $qualified_for_stock_change) {
 			$langs->load("stocks");
 			require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
@@ -2159,7 +2159,7 @@ if ($action == 'create') {
 		$morehtmlref .= '<input type="hidden" name="action" value="set_thirdparty">';
 		$morehtmlref .= '<input type="hidden" name="token" value="'.newToken().'">';
 		$filter = '(s.fournisseur:=:1)';
-		$morehtmlref .= $form->select_company($object->thirdparty->id, 'new_socid', $filter, '', 0, 0, array(), 0, 'minwidth300');
+		$morehtmlref .= $form->select_company($object->thirdparty->id, 'new_socid', $filter, '', 0, 0, [], 0, 'minwidth300');
 		$morehtmlref .= '<input type="submit" class="button valignmiddle" value="'.$langs->trans("Modify").'">';
 		$morehtmlref .= '</form>';
 	}
@@ -2200,7 +2200,7 @@ if ($action == 'create') {
 	dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'ref', $morehtmlref);
 
 	// Call Hook tabContentViewSupplierOrder
-	$parameters = array();
+	$parameters = [];
 	// Note that $action and $object may be modified by hook
 	$resHook = $hookManager->executeHooks('tabContentViewSupplierOrder', $parameters, $object, $action);
 	if (empty($resHook)) {
@@ -2512,7 +2512,7 @@ if ($action == 'create') {
 			if ($action != 'editline') {
 				// Add free products/services
 
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -2537,7 +2537,7 @@ if ($action == 'create') {
 		if ($action != 'createorder' && $action != 'presend' && $action != 'editline') {
 			print '<div class="tabsAction">';
 
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 			// modified by hook
 			if (empty($resHook)) {
@@ -2788,7 +2788,7 @@ if ($action == 'create') {
 			$somethingshown = $formfile->numoffiles;
 
 			// Show links to link elements
-			$tmparray = $form->showLinkToObjectBlock($object, array(), array('supplier_order', 'order_supplier'), 1);
+			$tmparray = $form->showLinkToObjectBlock($object, [], array('supplier_order', 'order_supplier'), 1);
 			$linktoelem = $tmparray['linktoelem'];
 			$htmltoenteralink = $tmparray['htmltoenteralink'];
 			print $htmltoenteralink;
@@ -2814,7 +2814,7 @@ if ($action == 'create') {
 					print "</td></tr>\n";
 
 					print '<tr><td class="fieldrequired">'.$langs->trans("Delivery")."</td><td>\n";
-					$liv = array();
+					$liv = [];
 					$liv[''] = '&nbsp;';
 					$liv['tot']	= $langs->trans("CompleteOrNoMoreReceptionExpected");
 					$liv['par']	= $langs->trans("PartialWoman");

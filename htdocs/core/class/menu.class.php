@@ -41,7 +41,7 @@ class Menu
 	 */
 	public function __construct()
 	{
-		$this->liste = array();
+		$this->liste = [];
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Menu
 	 */
 	public function clear()
 	{
-		$this->liste = array();
+		$this->liste = [];
 	}
 
 	/**

@@ -88,7 +88,7 @@ class Expedition extends CommonObject
 	/**
 	 * @var array<string,array{type:string,label:string,enabled:int<0,2>|string,position:int,notnull?:int,visible:int<-5,5>|string,alwayseditable?:int<0,1>,noteditable?:int<0,1>,default?:string,index?:int,foreignkey?:string,searchall?:int<0,1>,isameasure?:int<0,1>,css?:string,csslist?:string,help?:string,showoncombobox?:int<0,4>,disabled?:int<0,1>,arrayofkeyval?:array<int|string,string>,autofocusoncreate?:int<0,1>,comment?:string,copytoclipboard?:int<1,2>,validate?:int<0,1>,showonheader?:int<0,1>}>  Array with all fields and their property. Do not use it as a static var. It may be modified by constructor.
 	 */
-	public $fields = array();
+	public $fields = [];
 
 	/**
 	 * @var int ID of user author
@@ -260,7 +260,7 @@ class Expedition extends CommonObject
 	/**
 	 * @var ExpeditionLigne[] array of shipping lines
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	// Multicurrency
 	/**
@@ -339,14 +339,14 @@ class Expedition extends CommonObject
 		$this->isextrafieldmanaged = 1;
 
 		// List of long language codes for status
-		$this->labelStatus = array();
+		$this->labelStatus = [];
 		$this->labelStatus[-1] = 'StatusSendingCanceled';
 		$this->labelStatus[0]  = 'StatusSendingDraft';
 		$this->labelStatus[1]  = 'StatusSendingValidated';
 		$this->labelStatus[2]  = 'StatusSendingProcessed';
 
 		// List of short language codes for status
-		$this->labelStatusShort = array();
+		$this->labelStatusShort = [];
 		$this->labelStatusShort[-1] = 'StatusSendingCanceledShort';
 		$this->labelStatusShort[0]  = 'StatusSendingDraftShort';
 		$this->labelStatusShort[1]  = 'StatusSendingValidatedShort';
@@ -608,7 +608,7 @@ class Expedition extends CommonObject
 	{
 		// phpcs:enable
 		$error = 0;
-		$stockLocationQty = array(); // associated array with batch qty in stock location
+		$stockLocationQty = []; // associated array with batch qty in stock location
 
 		$tab = $line_ext->detail_batch;
 		// create stockLocation Qty array
@@ -1074,7 +1074,7 @@ class Expedition extends CommonObject
 		$linebatch = null;
 		if ($dbatch['qty'] > 0 || ($dbatch['qty'] == 0 && getDolGlobalString('SHIPMENT_GETS_ALL_ORDER_PRODUCTS'))) {
 			$line = new ExpeditionLigne($this->db);
-			$tab = array();
+			$tab = [];
 			foreach ($dbatch['detail'] as $key => $value) {
 				if ($value['q'] > 0 || ($value['q'] == 0 && getDolGlobalString('SHIPMENT_GETS_ALL_ORDER_PRODUCTS'))) {
 					// $value['q']=qty to move
@@ -1690,7 +1690,7 @@ class Expedition extends CommonObject
 		// phpcs:enable
 		global $mysoc;
 
-		$this->lines = array();
+		$this->lines = [];
 
 		// NOTE: This fetch_lines is special because it groups all lines with the same origin_line_id into one line.
 		// TODO: See if we can restore a common fetch_lines (one line = one record)
@@ -1843,7 +1843,7 @@ class Expedition extends CommonObject
 				$this->multicurrency_total_ttc 	+= $obj->multicurrency_total_ttc;
 
 				if ($originline != $obj->fk_elementdet) {
-					$line->detail_batch = array();
+					$line->detail_batch = [];
 				}
 
 				// Detail of batch
@@ -1932,7 +1932,7 @@ class Expedition extends CommonObject
 
 		$nofetch = !empty($params['nofetch']);
 
-		$datas = array();
+		$datas = [];
 		$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("Shipment").'</u>';
 		if (isset($this->statut)) {
 			$datas['picture'] .= ' '.$this->getLibStatut(5);
@@ -2265,7 +2265,7 @@ class Expedition extends CommonObject
 	{
 		// phpcs:enable
 		global $langs;
-		$this->meths = array();
+		$this->meths = [];
 
 		$sql = "SELECT em.rowid, em.code, em.libelle as label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_shipment_mode as em";
@@ -2293,7 +2293,7 @@ class Expedition extends CommonObject
 		// phpcs:enable
 		global $langs;
 
-		$this->listmeths = array();
+		$this->listmeths = [];
 		$i = 0;
 
 		$sql = "SELECT em.rowid, em.code, em.libelle as label, em.description, em.tracking, em.active";

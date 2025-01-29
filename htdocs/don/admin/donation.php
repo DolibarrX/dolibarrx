@@ -154,7 +154,7 @@ if ($action == 'set_DONATION_MESSAGE') {
 }
 
 // Other cases
-$reg = array();
+$reg = [];
 if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
 	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $config->entity) > 0) {
@@ -201,7 +201,7 @@ print load_fiche_titre($langs->trans("DonationsModels"), '', '');
 
 // Defined the template definition table
 $type = 'donation';
-$def = array();
+$def = [];
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
@@ -354,7 +354,7 @@ print '<label for="DONATION_ACCOUNTINGACCOUNT">'.$label.'</label></td>';
 print '<td class="center">';
 if (isModEnabled('accounting')) {
 	/** @var FormAccounting $formaccounting */
-	print $formaccounting->select_account($config->global->DONATION_ACCOUNTINGACCOUNT, 'DONATION_ACCOUNTINGACCOUNT', 1, array(), 1, 1);
+	print $formaccounting->select_account($config->global->DONATION_ACCOUNTINGACCOUNT, 'DONATION_ACCOUNTINGACCOUNT', 1, [], 1, 1);
 } else {
 	print '<input type="text" size="10" id="DONATION_ACCOUNTINGACCOUNT" name="DONATION_ACCOUNTINGACCOUNT" value="' . getDolGlobalString('DONATION_ACCOUNTINGACCOUNT').'">';
 }

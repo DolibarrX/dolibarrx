@@ -65,15 +65,15 @@ class modUser extends DolibarrModules
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->langfiles = array("main", "users", "companies", "members", "salaries", "hrm");
 		$this->always_enabled = true; // Can't be disabled
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 
 		// Boxes
 		$this->boxes = array(
@@ -83,7 +83,7 @@ class modUser extends DolibarrModules
 		);
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'user';
 		$this->rightsAdminAllowed = 1; // Admin is always granted of permission (even when module is disabled)
 		$r = 0;
@@ -315,7 +315,7 @@ class modUser extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'ImportDataset_user_1';
 		$this->import_icon[$r] = 'user';
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('u'=>MAIN_DB_PREFIX.'user', 'extra'=>MAIN_DB_PREFIX.'user_extrafields'); // List of tables to insert into (insert done in same order)
 		$this->import_fields_array[$r] = array(
 			'u.login'=>"Login*", 'u.lastname'=>"Name*", 'u.firstname'=>"Firstname", 'u.employee'=>"Employee*", 'u.job'=>"PostOrFunction", 'u.gender'=>"Gender",
@@ -381,7 +381,7 @@ class modUser extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

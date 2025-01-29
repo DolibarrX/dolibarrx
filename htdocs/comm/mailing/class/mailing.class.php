@@ -147,12 +147,12 @@ class Mailing extends CommonObject
 	/**
 	 * @var array<string,string>  (Encoded as JSON in database)
 	 */
-	public $extraparams = array();
+	public $extraparams = [];
 
 	/**
 	 * @var array<int,string> statut dest
 	 */
-	public $statut_dest = array();
+	public $statut_dest = [];
 
 	/**
 	 * @var array<string,string> substitutionarray
@@ -481,7 +481,7 @@ class Mailing extends CommonObject
 
 				$mailing_target = new MailingTargets($this->db);
 
-				$target_array = array();
+				$target_array = [];
 
 				$sql = "SELECT fk_contact,";
 				$sql .= " lastname,";
@@ -784,7 +784,7 @@ class Mailing extends CommonObject
 		//$nofetch = !empty($params['nofetch']);
 		$langs->load('mails');
 
-		$datas = array();
+		$datas = [];
 		$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("ShowEMailing").'</u>';
 		if (isset($this->status)) {
 			$datas['picture'] .= ' '.$this->getLibStatut(5);
@@ -941,8 +941,8 @@ class Mailing extends CommonObject
 		global $langs;
 		$langs->load("mails");
 
-		$labelStatus = array();
-		$labelStatusShort = array();
+		$labelStatus = [];
+		$labelStatusShort = [];
 
 		$labelStatus[-1] = $langs->transnoentitiesnoconv('MailingStatusError');
 		$labelStatus[0] = $langs->transnoentitiesnoconv('MailingStatusNotSent');
@@ -966,7 +966,7 @@ class Mailing extends CommonObject
 			$statusType = 'status4';
 		}
 
-		$param = array();
+		$param = [];
 		if ($status == -1) {
 			$param = array('badgeParams' => array('attr' => array('title' => $desc)));
 		}

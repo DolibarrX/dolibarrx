@@ -307,7 +307,7 @@ if (!empty($force_install_noedit)) {
 
 		$defaultype = !empty($dolibarr_main_db_type) ? $dolibarr_main_db_type : (empty($force_install_type) ? 'mysqli' : $force_install_type);
 
-		$modules = array();
+		$modules = [];
 		$nbok = $nbko = 0;
 		$option = '';
 

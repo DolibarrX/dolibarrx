@@ -181,8 +181,8 @@ if (empty($resHook)) {
 		$search_users = '';
 		$search_type = '';
 		$search_account = '';
-		$search_array_options = array();
-		$toselect = array();
+		$search_array_options = [];
+		$toselect = [];
 	}
 
 	// Mass actions
@@ -207,7 +207,7 @@ $title = $langs->trans("SocialContributions");
 
 llxHeader('', $title, '', '', 0, 0, '', '', '', 'bodyforlist');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $sql = "SELECT cs.rowid, cs.fk_type as type, cs.fk_user,";
 $sql .= " cs.amount, cs.date_ech, cs.libelle as label, cs.paye, cs.periode as period, cs.fk_account,";
@@ -402,7 +402,7 @@ $newcardbutton .= dolGetButtonTitleSeparator();
 $newcardbutton .= dolGetButtonTitle($langs->trans('MenuNewSocialContribution'), '', 'fa fa-plus-circle', $url, '', $permissiontoadd);
 
 // List of mass actions available
-$arrayofmassactions = array();
+$arrayofmassactions = [];
 if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
@@ -570,7 +570,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 
 print '</tr>';
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -647,11 +647,11 @@ print '</tr>';
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $totalarray['val'] = array('totalttcfield' => 0);
 $imaxinloop = ($limit ? min($num, $limit) : $num);
-$TLoadedUsers = array();
+$TLoadedUsers = [];
 
 while ($i < $imaxinloop) {
 	$obj = $db->fetch_object($resql);

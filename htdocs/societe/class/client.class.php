@@ -39,7 +39,7 @@ class Client extends Societe
 	/**
 	 * @var array<int,array{id:int,code:string,label:string,picture:string}>
 	 */
-	public $cacheprospectstatus = array();
+	public $cacheprospectstatus = [];
 
 
 	/**
@@ -104,7 +104,7 @@ class Client extends Societe
 		$sql .= ' AND s.entity IN ('.getEntity($this->element).')';
 		// Add where from hooks
 		if (is_object($hookManager)) {
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 		}

@@ -60,7 +60,7 @@ if (!isset($usedbyinclude) || empty($usedbyinclude)) {
 
 	if ($res == 'ERROR_NOT_LOGGED') {
 		$langs->load("other");
-		$arrayresult = array();
+		$arrayresult = [];
 		$arrayresult['jumptologin'] = array('img' => 'object_generic', 'label' => $langs->trans("JumpToLogin"), 'text' => '<span class="fa fa-sign-in"></span> '.$langs->trans("JumpToLogin"), 'url' => DOL_URL_ROOT.'/index.php');
 		print json_encode($arrayresult);
 		if (is_object($db)) {
@@ -75,7 +75,7 @@ $hookManager->initHooks(array('searchform'));
 
 $search_boxvalue = GETPOST('q', 'restricthtml');
 
-$arrayresult = array();
+$arrayresult = [];
 
 // Define $searchform
 

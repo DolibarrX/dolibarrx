@@ -82,7 +82,7 @@ if (!empty($id) && !empty($action) && !empty($htmlname)) {
 		$seller = $soc;
 	}
 
-	$return = array();
+	$return = [];
 	$return['value']	= $form->load_tva('tva_tx', $selected, $seller, $buyer, $productid, 0, '', true);
 	$return['num'] = $form->num;
 	$return['error']	= $form->error;

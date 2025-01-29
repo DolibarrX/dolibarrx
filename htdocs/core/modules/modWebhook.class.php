@@ -132,20 +132,20 @@ class modWebhook extends DolibarrModules
 		// A condition to hide module
 		$this->hidden = false;
 		// List of module class names as string that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR'...))
-		$this->depends = array();
-		$this->requiredby = array(); // List of module class names as string to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
+		$this->depends = [];
+		$this->requiredby = []; // List of module class names as string to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
 
 		// The language file dedicated to your module
-		$this->langfiles = array();
+		$this->langfiles = [];
 
 		// Prerequisites
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(11, -3); // Minimum version of Dolibarr required by module
 
 		// Messages at activation
-		$this->warnings_activation = array(); // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
-		$this->warnings_activation_ext = array(); // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
+		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
+		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
 		//$this->automatic_activation = array('FR'=>'WebhookWasAutomaticallyActivatedBecauseOfYourCountryChoice');
 		//$this->always_enabled = true;								// If true, can't be disabled
 
@@ -154,7 +154,7 @@ class modWebhook extends DolibarrModules
 		// Example: $this->const=array(1 => array('WEBHOOK_MYNEWCONST1', 'chaine', 'myvalue', 'This is a constant to add', 1),
 		//                             2 => array('WEBHOOK_MYNEWCONST2', 'chaine', 'myvalue', 'This is another constant to add', 0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = [];
 
 		// Some keys to add into the overwriting translation tables
 		/*$this->overwrite_translation = array(
@@ -168,7 +168,7 @@ class modWebhook extends DolibarrModules
 		}
 
 		// Array to add new pages in new tabs
-		$this->tabs = array();
+		$this->tabs = [];
 		// Example:
 		// $this->tabs[] = array('data'=>'objecttype:+tabname1:Title1:mylangfile@webhook:$user->rights->webhook->read:/webhook/mynewtab1.php?id=__ID__');  					// To add a new tab identified by code tabname1
 		// $this->tabs[] = array('data'=>'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@webhook:$user->rights->othermodule->read:/webhook/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
@@ -196,7 +196,7 @@ class modWebhook extends DolibarrModules
 		// 'user'             to add a tab in user view
 
 		// Dictionaries
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 		/* Example:
 		$this->dictionaries=array(
 			'langs'=>'',
@@ -256,7 +256,7 @@ class modWebhook extends DolibarrModules
 		// );
 
 		// Permissions provided by this module
-		$this->rights = array();
+		$this->rights = [];
 		$r = 0;
 		// Add here entries to declare new permissions
 		/* BEGIN MODULEBUILDER PERMISSIONS */
@@ -278,7 +278,7 @@ class modWebhook extends DolibarrModules
 		/* END MODULEBUILDER PERMISSIONS */
 
 		// Main menu entries to add
-		$this->menu = array();
+		$this->menu = [];
 	}
 
 	/**
@@ -300,7 +300,7 @@ class modWebhook extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}
@@ -315,7 +315,7 @@ class modWebhook extends DolibarrModules
 	 */
 	public function remove($options = '')
 	{
-		$sql = array();
+		$sql = [];
 		return $this->_remove($sql, $options);
 	}
 }

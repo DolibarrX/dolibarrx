@@ -43,7 +43,7 @@ class Menubase
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var int ID
@@ -523,7 +523,7 @@ class Menubase
 		$mainmenu = $mymainmenu; // To export to dol_eval function
 		$leftmenu = $myleftmenu; // To export to dol_eval function
 
-		$newTabMenu = array();
+		$newTabMenu = [];
 		foreach ($tabMenu as $val) {
 			if ($val['type'] == 'top') {
 				$newTabMenu[] = $val;

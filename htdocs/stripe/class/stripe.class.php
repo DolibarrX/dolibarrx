@@ -553,7 +553,7 @@ class Stripe extends CommonObject
 				global $stripearrayofkeysbyenv;
 				\Stripe\Stripe::setApiKey($stripearrayofkeysbyenv[$status]['secret_key']);
 
-				$arrayofoptions = array();
+				$arrayofoptions = [];
 				if (empty($noidempotency_key)) {
 					$arrayofoptions["idempotency_key"] = $descriptioninpaymentintent;
 				}
@@ -760,7 +760,7 @@ class Stripe extends CommonObject
 				// Note: If all data for payment intent are same than a previous one, even if we use 'create', Stripe will return ID of the old existing payment intent.
 				if (empty($key)) {				// If the Stripe connect account not set, we use common API usage
 					//$setupintent = \Stripe\SetupIntent::create($dataforintent, array("idempotency_key" => "$description"));
-					$setupintent = \Stripe\SetupIntent::create($dataforintent, array());
+					$setupintent = \Stripe\SetupIntent::create($dataforintent, []);
 				} else {
 					//$setupintent = \Stripe\SetupIntent::create($dataforintent, array("idempotency_key" => "$description", "stripe_account" => $key));
 					$setupintent = \Stripe\SetupIntent::create($dataforintent, array("stripe_account" => $key));

@@ -148,7 +148,7 @@ if (!$base || $sql === null) {
 	}
 
 	if ($base == 1) {	// mysql
-		$link = array();
+		$link = [];
 		$cons = explode(";", $row[14]);
 		if (!empty($cons)) {
 			foreach ($cons as $cc) {
@@ -197,7 +197,7 @@ if (!$base || $sql === null) {
 				print "<td>";
 				$proptype = $row[1];
 				$pictureType = '';
-				$matches = array();
+				$matches = [];
 				if (preg_match('/^varchar/', $proptype, $matches)) {
 					$pictureType = 'varchar';
 				} elseif (strpos($proptype, 'int') === 0 || strpos($proptype, 'tinyint') === 0 || strpos($proptype, 'bigint') === 0) {

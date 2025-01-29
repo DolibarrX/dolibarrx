@@ -152,7 +152,7 @@ if (!$sortorder) {
 
 // Initialize array of search criteria
 $search_all = trim(GETPOST('search_all', 'alphanohtml'));
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha') !== '') {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -163,7 +163,7 @@ foreach ($object->fields as $key => $val) {
 	}
 }
 
-$fieldstosearchall = array();
+$fieldstosearchall = [];
 // List of fields to search into when doing a "search in all"
 // foreach ($object->fields as $key => $val) {
 // 	if (!empty($val['searchall'])) {
@@ -173,14 +173,14 @@ $fieldstosearchall = array();
 // $parameters = array('fieldstosearchall'=>$fieldstosearchall);
 // $resHook = $hookManager->executeHooks('completeFieldsToSearchAll', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 // if ($resHook > 0) {
-// 	$fieldstosearchall = empty($hookManager->resArray['fieldstosearchall']) ? array() : $hookManager->resArray['fieldstosearchall'];
+// 	$fieldstosearchall = empty($hookManager->resArray['fieldstosearchall']) ? [] : $hookManager->resArray['fieldstosearchall'];
 // } elseif ($resHook == 0) {
-// 	$fieldstosearchall = array_merge($fieldstosearchall, empty($hookManager->resArray['fieldstosearchall']) ? array() : $hookManager->resArray['fieldstosearchall']);
+// 	$fieldstosearchall = array_merge($fieldstosearchall, empty($hookManager->resArray['fieldstosearchall']) ? [] : $hookManager->resArray['fieldstosearchall']);
 // }
 
 // Definition of array of fields for columns
 $tableprefix = 't';
-$arrayfields = array();
+$arrayfields = [];
 foreach ($object->fields as $key => $val) {
 	// If $val['visible']==0, then we never show the field
 	if (!empty($val['visible'])) {
@@ -262,8 +262,8 @@ if (empty($resHook)) {
 			}
 		}
 		$search_all = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
@@ -295,8 +295,8 @@ $now = dol_now();
 $title = $langs->trans("MyObjects");
 //$help_url = "EN:Module_MyObject|FR:Module_MyObject_FR|ES:Módulo_MyObject";
 $help_url = '';
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 
 // Build and execute select
@@ -310,7 +310,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -323,7 +323,7 @@ if (isset($extrafields->attributes[$object->table_element]['label']) && is_array
 	$sql .= " LEFT JOIN ".$db->prefix().$object->table_element."_extrafields as ef on (t.rowid = ef.fk_object)";
 }
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 if ($object->ismultientitymanaged == 1) {
@@ -392,7 +392,7 @@ if ($socid) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -408,7 +408,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add groupby from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListGroupBy', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -416,7 +416,7 @@ $sql = preg_replace('/,\s*$/', '', $sql);
 
 // Add HAVING from hooks
 /*
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= empty($hookManager->resPrint) ? "" : " HAVING 1=1 ".$hookManager->resPrint;
 */
@@ -487,7 +487,7 @@ llxHeader('', $title, $help_url, '', 0, 0, $morejs, $morecss, '', 'mod-mymodule 
 // });
 // </script>';
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -538,7 +538,7 @@ if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -588,7 +588,7 @@ $moreforfilter = '';
 $moreforfilter.= $langs->trans('MyFilter') . ': <input type="text" name="search_myfield" value="'.dol_escape_htmltag($search_myfield).'">';
 $moreforfilter.= '</div>';*/
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -655,7 +655,7 @@ foreach ($object->fields as $key => $val) {
 		} elseif ($key == 'lang') {
 			require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 			$formadmin = new FormAdmin($db);
-			print $formadmin->select_language((isset($search[$key]) ? $search[$key] : ''), 'search_lang', 0, array(), 1, 0, 0, 'minwidth100imp maxwidth125', 2);
+			print $formadmin->select_language((isset($search[$key]) ? $search[$key] : ''), 'search_lang', 0, [], 1, 0, 0, 'minwidth100imp maxwidth125', 2);
 		} else {
 			print '<input type="text" class="flat maxwidth'.(in_array($val['type'], array('integer', 'price')) ? '50' : '75').'" name="search_'.$key.'" value="'.dol_escape_htmltag(isset($search[$key]) ? $search[$key] : '').'">';
 		}
@@ -681,7 +681,7 @@ if (!$config->main_checkbox_left_column) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -741,7 +741,7 @@ if (isset($extrafields->attributes[$object->table_element]['computed']) && is_ar
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {
@@ -848,7 +848,7 @@ while ($i < $imaxinloop) {
 						$totalarray['pos'][$totalarray['nbfield']] = 't.'.$key;
 					}
 					if (!isset($totalarray['val'])) {
-						$totalarray['val'] = array();
+						$totalarray['val'] = [];
 					}
 					if (!isset($totalarray['val']['t.'.$key])) {
 						$totalarray['val']['t.'.$key] = 0;

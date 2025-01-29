@@ -72,7 +72,7 @@ if (!empty($objectfield)) {
 	// Load object according to $id and $element
 	$objectforfieldstmp = fetchObjectByElement(0, strtolower($tmparray[0]));
 
-	$reg = array();
+	$reg = [];
 	if (preg_match('/^options_(.*)$/', $tmparray[1], $reg)) {
 		// For a property in extrafields
 		$key = $reg[1];
@@ -100,7 +100,7 @@ if ($objectdesc) {
 	// Bom:bom/class/bom.class.php:0:(t.status:=:1) OR (t.field2:=:2):ref
 	$InfoFieldList = explode(":", $objectdesc, 4);
 	$vartmp = (empty($InfoFieldList[3]) ? '' : $InfoFieldList[3]);
-	$reg = array();
+	$reg = [];
 	if (preg_match('/^.*:(\w*)$/', $vartmp, $reg)) {
 		$InfoFieldList[4] = $reg[1];    // take the sort field
 	}

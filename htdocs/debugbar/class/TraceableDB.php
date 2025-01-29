@@ -70,7 +70,7 @@ class TraceableDB extends DoliDB
 	{
 		$this->db      = $db;
 		$this->type    = $this->db->type;
-		$this->queries = array();
+		$this->queries = [];
 	}
 
 	/**

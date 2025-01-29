@@ -173,7 +173,7 @@ class Orders extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $thirdparty_ids param is ignored and replaced by user's socid
 		$socids = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $thirdparty_ids;
@@ -311,7 +311,7 @@ class Orders extends DolibarrApi
 			$this->order->$field = $this->_checkValForAPI($field, $value, $this->order);
 		}
 		/*if (isset($request_data["lines"])) {
-		  $lines = array();
+		  $lines = [];
 		  foreach ($request_data["lines"] as $line) {
 			array_push($lines, (object) $line);
 		  }
@@ -349,7 +349,7 @@ class Orders extends DolibarrApi
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 		$this->order->getLinesArray();
-		$result = array();
+		$result = [];
 		foreach ($this->order->lines as $line) {
 			array_push($result, $this->_cleanObjectDatas($line));
 		}
@@ -1032,7 +1032,7 @@ class Orders extends DolibarrApi
 		if (!DolibarrApiAccess::$user->hasRight('expedition', 'lire')) {
 			throw new RestException(403);
 		}
-		$obj_ret = array();
+		$obj_ret = [];
 		$sql = "SELECT e.rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."expedition as e";
 		$sql .= " JOIN ".MAIN_DB_PREFIX."expeditiondet as edet";
@@ -1143,7 +1143,7 @@ class Orders extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$order = array();
+		$order = [];
 		foreach (Orders::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, $field." field missing");

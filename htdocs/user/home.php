@@ -135,7 +135,7 @@ $sql .= ", s.canvas";
 $sql .= " FROM ".MAIN_DB_PREFIX."user as u";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON u.fk_soc = s.rowid";
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printUserListWhere', $parameters); // Note that $action and $object may have been modified by hook
 if ($resHook > 0) {
 	$sql .= $hookManager->resPrint;

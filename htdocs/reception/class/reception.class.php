@@ -183,7 +183,7 @@ class Reception extends CommonObject
 	/**
 	 * @var ReceptionLineBatch[]|OrderFournisseurDispatch[]
 	 */
-	public $lines = array();
+	public $lines = [];
 
 
 	/**
@@ -798,8 +798,8 @@ class Reception extends CommonObject
 				}
 			}
 
-			$qty_received = array();
-			$qty_wished = array();
+			$qty_received = [];
+			$qty_wished = [];
 
 			$supplierorderdispatch = new OrderFournisseurDispatch($this->db);
 			$filter = array('t.fk_element' => $this->origin_id);
@@ -1254,7 +1254,7 @@ class Reception extends CommonObject
 	public function fetch_lines()
 	{
 		// phpcs:enable
-		$this->lines = array();
+		$this->lines = [];
 
 		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.dispatch.class.php';
 
@@ -1584,7 +1584,7 @@ class Reception extends CommonObject
 	{
 		// phpcs:enable
 		global $langs;
-		$this->meths = array();
+		$this->meths = [];
 
 		$sql = "SELECT em.rowid, em.code, em.libelle";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_shipment_mode as em";
@@ -1612,7 +1612,7 @@ class Reception extends CommonObject
 		// phpcs:enable
 		global $langs;
 
-		$this->listmeths = array();
+		$this->listmeths = [];
 		$i = 0;
 
 		$sql = "SELECT em.rowid, em.code, em.libelle, em.description, em.tracking, em.active";

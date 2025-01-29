@@ -407,7 +407,7 @@ class IntracommReport extends CommonObject
 			if ($exporttype == 'deb' && getDolGlobalInt('INTRACOMMREPORT_CATEG_FRAISDEPORT') > 0) {
 				$categ_fraisdeport = new Category($this->db);
 				$categ_fraisdeport->fetch(getDolGlobalString('INTRACOMMREPORT_CATEG_FRAISDEPORT'));
-				$TLinesFraisDePort = array();
+				$TLinesFraisDePort = [];
 			}
 
 			while ($res = $this->db->fetch_object($resql)) {

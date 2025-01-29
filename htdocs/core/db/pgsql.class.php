@@ -190,7 +190,7 @@ class DoliDBPgsql extends DoliDB
 			$line = preg_replace('/ as signed\)/i', ' as integer)', $line);
 
 			if ($type == 'dml') {
-				$reg = array();
+				$reg = [];
 
 				$line = preg_replace('/\s/', ' ', $line); // Replace tabulation with space
 
@@ -815,7 +815,7 @@ class DoliDBPgsql extends DoliDB
 
 			$errorlabel = pg_last_error($this->db);
 			$errorcode = '';
-			$reg = array();
+			$reg = [];
 			if (preg_match('/: *([0-9P]+):/', $errorlabel, $reg)) {
 				$errorcode = $reg[1];
 				if (isset($errorcode_map[$errorcode])) {
@@ -970,7 +970,7 @@ class DoliDBPgsql extends DoliDB
 	public function DDLListTables($database, $table = '')
 	{
 		// phpcs:enable
-		$listtables = array();
+		$listtables = [];
 
 		$escapedlike = '';
 		if ($table) {
@@ -998,7 +998,7 @@ class DoliDBPgsql extends DoliDB
 	public function DDLListTablesFull($database, $table = '')
 	{
 		// phpcs:enable
-		$listtables = array();
+		$listtables = [];
 
 		$escapedlike = '';
 		if ($table) {
@@ -1025,7 +1025,7 @@ class DoliDBPgsql extends DoliDB
 	public function DDLInfoTable($table)
 	{
 		// phpcs:enable
-		$infotables = array();
+		$infotables = [];
 
 		$sql = "SELECT ";
 		$sql .= "	infcol.column_name as 'Column',";
@@ -1071,8 +1071,8 @@ class DoliDBPgsql extends DoliDB
 		// phpcs:enable
 		// @TODO: $fulltext_keys parameter is unused
 
-		$sqlk = array();
-		$sqluq = array();
+		$sqlk = [];
+		$sqluq = [];
 
 		// Keys found into the array $fields: type,value,attribute,null,default,extra
 		// ex. : $fields['rowid'] = array(
@@ -1083,7 +1083,7 @@ class DoliDBPgsql extends DoliDB
 		//		);
 		$sql = "CREATE TABLE ".$this->sanitize($table)."(";
 		$i = 0;
-		$sqlfields = array();
+		$sqlfields = [];
 		foreach ($fields as $field_name => $field_desc) {
 			$sqlfields[$i] = $this->sanitize($field_name)." ";
 			$sqlfields[$i] .= $this->sanitize($field_desc['type']);
@@ -1357,7 +1357,7 @@ class DoliDBPgsql extends DoliDB
 	public function getListOfCharacterSet()
 	{
 		$resql = $this->query('SHOW SERVER_ENCODING');
-		$liste = array();
+		$liste = [];
 		if ($resql) {
 			$i = 0;
 			while ($obj = $this->fetch_object($resql)) {
@@ -1396,7 +1396,7 @@ class DoliDBPgsql extends DoliDB
 	public function getListOfCollation()
 	{
 		$resql = $this->query('SHOW LC_COLLATE');
-		$liste = array();
+		$liste = [];
 		if ($resql) {
 			$i = 0;
 			while ($obj = $this->fetch_object($resql)) {
@@ -1469,7 +1469,7 @@ class DoliDBPgsql extends DoliDB
 	 */
 	public function getServerParametersValues($filter = '')
 	{
-		$result = array();
+		$result = [];
 
 		$resql = 'select name,setting from pg_settings';
 		if ($filter) {
@@ -1504,6 +1504,6 @@ class DoliDBPgsql extends DoliDB
 		}
 		*/
 
-		return array();
+		return [];
 	}
 }

@@ -181,7 +181,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 
 
 				// Loop on each lines to detect if there is at least one image to show
-				$realpatharray = array();
+				$realpatharray = [];
 				$this->atleastonephoto = false;
 				if (getDolGlobalString('MAIN_GENERATE_DELIVERY_WITH_PICTURE')) {
 					$objphoto = new Product($this->db);
@@ -192,7 +192,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 						}
 
 						$objphoto->fetch($object->lines[$i]->fk_product);
-						$pdir = array();
+						$pdir = [];
 
 						if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {
 							$pdir[0] = get_exdir($objphoto->id, 2, 0, 0, $objphoto, 'product').$objphoto->id."/photos/";
@@ -373,7 +373,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 					$pdf->SetTextColor(0, 0, 0);
 
 					// Define size of image if we need it
-					$imglinesize = array();
+					$imglinesize = [];
 					if (!empty($realpatharray[$i])) {
 						$imglinesize = pdf_getSizeForImage($realpatharray[$i]);
 					}

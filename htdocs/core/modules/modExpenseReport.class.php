@@ -65,15 +65,15 @@ class modExpenseReport extends DolibarrModules
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
 		// $this->conflictwith = array("modDeplacement"); // Deactivate for access on old information
-		$this->requiredby = array(); // List of modules id to disable if this one is disabled
+		$this->requiredby = []; // List of modules id to disable if this one is disabled
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3, 7); // Minimum version of Dolibarr required by module
 		$this->langfiles = array("companies", "trips");
 
 		// Constants
-		$this->const = array(); // List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 0 or 'allentities')
+		$this->const = []; // List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 0 or 'allentities')
 		$r = 0;
 
 		$this->const[$r][0] = "EXPENSEREPORT_ADDON_PDF";
@@ -105,14 +105,14 @@ class modExpenseReport extends DolibarrModules
 		$r++;
 
 		// Array to add new pages in new tabs
-		$this->tabs[] = array();
+		$this->tabs[] = [];
 
 		// Boxes
-		$this->boxes = array(); // List of boxes
+		$this->boxes = []; // List of boxes
 		$r = 0;
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$this->rightsClass = 'expensereport';
 
 		$this->rights[$r][0] = 771;

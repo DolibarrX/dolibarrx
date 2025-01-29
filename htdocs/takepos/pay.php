@@ -72,7 +72,7 @@ if (!$user->hasRight('takepos', 'run')) {
  */
 
 $arrayofcss = array('/takepos/css/pos.css.php');
-$arrayofjs = array();
+$arrayofjs = [];
 
 $head = '';
 $title = '';
@@ -234,8 +234,8 @@ if ($usestripeterminals && $invoice->type != $invoice::TYPE_CREDIT_NOTE) {
 <?php
 
 // Define list of possible payments
-$arrayOfValidPaymentModes = array();
-$arrayOfValidBankAccount = array();
+$arrayOfValidPaymentModes = [];
+$arrayOfValidBankAccount = [];
 
 $sql = "SELECT code, libelle as label FROM ".MAIN_DB_PREFIX."c_paiement";
 $sql .= " WHERE entity IN (".getEntity('c_paiement').")";
@@ -746,7 +746,7 @@ if (getDolGlobalInt("TAKEPOS_ENABLE_SUMUP")) {
 	}
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $invoice, $action); // Note that $action and $object may have been modified by hook
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -765,7 +765,7 @@ if (getDolGlobalString('TAKEPOS_DELAYED_PAYMENT')) {
 
 <?php
 // Add code from hooks
-$parameters = array();
+$parameters = [];
 $hookManager->executeHooks('completePayment', $parameters, $invoice);
 print $hookManager->resPrint;
 ?>

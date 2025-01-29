@@ -93,12 +93,12 @@ class ActionsCardProduct
 	/**
 	 * @var array<string,mixed> Template container
 	 */
-	public $tpl = array();
+	public $tpl = [];
 
 	/**
 	 * array<array{id:int,name:string,alias:string,title:string,align:string,sort:string,search:string,visible:int<-2,5>,enabled:int<0,1>,order:int}> List of fields for action=list
 	 */
-	public $field_list = array();
+	public $field_list = [];
 
 	/**
 	 * @var string Error code (or message)
@@ -108,7 +108,7 @@ class ActionsCardProduct
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -308,7 +308,7 @@ class ActionsCardProduct
 	{
 		global $config, $langs;
 
-		$this->field_list = array();
+		$this->field_list = [];
 
 		$sql = "SELECT rowid, name, alias, title, align, sort, search, visible, enabled, rang";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_field_list";
@@ -322,7 +322,7 @@ class ActionsCardProduct
 
 			$i = 0;
 			while ($i < $num) {
-				$fieldlist = array();
+				$fieldlist = [];
 
 				$obj = $this->db->fetch_object($resql);
 

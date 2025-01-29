@@ -43,7 +43,7 @@ class PriceExpression
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var int ID
@@ -183,7 +183,7 @@ class PriceExpression
 		dol_syslog(__METHOD__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$retarray = array();
+			$retarray = [];
 
 			while ($record = $this->db->fetch_array($resql)) {
 				$price_expression_obj = new PriceExpression($this->db);

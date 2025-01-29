@@ -319,15 +319,15 @@ class Propal extends CommonObject
 	/**
 	 * @var PropaleLigne[]
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @var PropaleLigne
 	 */
 	public $line;
 
-	public $labelStatus = array();
-	public $labelStatusShort = array();
+	public $labelStatus = [];
+	public $labelStatusShort = [];
 
 
 	/**
@@ -632,7 +632,7 @@ class Propal extends CommonObject
 	 *    	@return    	int         	    			>0 if OK, <0 if KO
 	 *    	@see       	add_product()
 	 */
-	public function addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1 = 0.0, $txlocaltax2 = 0.0, $fk_product = 0, $remise_percent = 0.0, $price_base_type = 'HT', $pu_ttc = 0.0, $info_bits = 0, $type = 0, $rang = -1, $special_code = 0, $fk_parent_line = 0, $fk_fournprice = 0, $pa_ht = 0, $label = '', $date_start = '', $date_end = '', $array_options = array(), $fk_unit = null, $origin = '', $origin_id = 0, $pu_ht_devise = 0, $fk_remise_except = 0, $noupdateafterinsertline = 0)
+	public function addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1 = 0.0, $txlocaltax2 = 0.0, $fk_product = 0, $remise_percent = 0.0, $price_base_type = 'HT', $pu_ttc = 0.0, $info_bits = 0, $type = 0, $rang = -1, $special_code = 0, $fk_parent_line = 0, $fk_fournprice = 0, $pa_ht = 0, $label = '', $date_start = '', $date_end = '', $array_options = [], $fk_unit = null, $origin = '', $origin_id = 0, $pu_ht_devise = 0, $fk_remise_except = 0, $noupdateafterinsertline = 0)
 	{
 		global $mysoc, $config, $langs;
 
@@ -710,7 +710,7 @@ class Propal extends CommonObject
 			$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $this->thirdparty, $mysoc);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -878,7 +878,7 @@ class Propal extends CommonObject
 	 *	@param       int			$rang   line rank
 	 *  @return     int     		        		0 if OK, <0 if KO
 	 */
-	public function updateline($rowid, $pu, $qty, $remise_percent, $txtva, $txlocaltax1 = 0.0, $txlocaltax2 = 0.0, $desc = '', $price_base_type = 'HT', $info_bits = 0, $special_code = 0, $fk_parent_line = 0, $skip_update_total = 0, $fk_fournprice = 0, $pa_ht = 0, $label = '', $type = 0, $date_start = '', $date_end = '', $array_options = array(), $fk_unit = null, $pu_ht_devise = 0, $notrigger = 0, $rang = 0)
+	public function updateline($rowid, $pu, $qty, $remise_percent, $txtva, $txlocaltax1 = 0.0, $txlocaltax2 = 0.0, $desc = '', $price_base_type = 'HT', $info_bits = 0, $special_code = 0, $fk_parent_line = 0, $skip_update_total = 0, $fk_fournprice = 0, $pa_ht = 0, $label = '', $type = 0, $date_start = '', $date_end = '', $array_options = [], $fk_unit = null, $pu_ht_devise = 0, $notrigger = 0, $rang = 0)
 	{
 		global $mysoc, $langs;
 
@@ -924,7 +924,7 @@ class Propal extends CommonObject
 			$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $this->thirdparty, $mysoc);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -1727,7 +1727,7 @@ class Propal extends CommonObject
 				$this->cond_reglement_doc   = $obj->cond_reglement_libelle_doc;
 				$this->deposit_percent      = $obj->deposit_percent;
 
-				$this->extraparams = !empty($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : array();
+				$this->extraparams = !empty($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : [];
 
 				$this->user_author_id = $obj->fk_user_author;
 				$this->user_validation_id = $obj->fk_user_valid;
@@ -1752,7 +1752,7 @@ class Propal extends CommonObject
 
 				$this->db->free($resql);
 
-				$this->lines = array();
+				$this->lines = [];
 
 				// Lines
 				$result = $this->fetch_lines();
@@ -1892,7 +1892,7 @@ class Propal extends CommonObject
 	public function fetch_lines($only_product = 0, $loadalsotranslation = 0, $sqlforgedfilters = '')
 	{
 		// phpcs:enable
-		$this->lines = array();
+		$this->lines = [];
 
 		$sql = 'SELECT d.rowid, d.fk_propal, d.fk_parent_line, d.label as custom_label, d.description, d.price, d.vat_src_code, d.tva_tx, d.localtax1_tx, d.localtax2_tx, d.localtax1_type, d.localtax2_type, d.qty, d.fk_remise_except, d.remise_percent, d.subprice, d.fk_product,';
 		$sql .= ' d.info_bits, d.total_ht, d.total_tva, d.total_localtax1, d.total_localtax2, d.total_ttc, d.fk_product_fournisseur_price as fk_fournprice, d.buy_price_ht as pa_ht, d.special_code, d.rang, d.product_type,';
@@ -2913,7 +2913,7 @@ class Propal extends CommonObject
 		// phpcs:enable
 		global $user;
 
-		$ga = array();
+		$ga = [];
 
 		$sql = "SELECT s.rowid, s.nom as name, s.client,";
 		$sql .= " p.rowid as propalid, p.fk_statut, p.total_ht, p.ref, p.remise, ";
@@ -2997,8 +2997,8 @@ class Propal extends CommonObject
 	public function InvoiceArrayList($id)
 	{
 		// phpcs:enable
-		$ga = array();
-		$linkedInvoices = array();
+		$ga = [];
+		$linkedInvoices = [];
 
 		$this->fetchObjectLinked($id, $this->element);
 		foreach ($this->linkedObjectsIds as $objecttype => $objectid) {
@@ -3031,7 +3031,7 @@ class Propal extends CommonObject
 			$resql = $this->db->query($sql);
 
 			if ($resql) {
-				$tab_sqlobj = array();
+				$tab_sqlobj = [];
 				$nump = $this->db->num_rows($resql);
 				for ($i = 0; $i < $nump; $i++) {
 					$sqlobj = $this->db->fetch_object($resql);
@@ -3525,7 +3525,7 @@ class Propal extends CommonObject
 
 		// Load array of products prodids
 		$num_prods = 0;
-		$prodids = array();
+		$prodids = [];
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product";
 		$sql .= " WHERE entity IN (".getEntity('product').")";
@@ -3615,7 +3615,7 @@ class Propal extends CommonObject
 	{
 		global $user;
 
-		$this->nb = array();
+		$this->nb = [];
 		$clause = "WHERE";
 
 		$sql = "SELECT count(p.rowid) as nb";

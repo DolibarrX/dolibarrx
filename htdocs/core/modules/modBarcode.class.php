@@ -56,8 +56,8 @@ class modBarcode extends DolibarrModules
 		$this->dirs = array("/barcode/temp");
 
 		// Dependencies
-		$this->depends = array(); // May be used for product or service or third party module
-		$this->requiredby = array();
+		$this->depends = []; // May be used for product or service or third party module
+		$this->requiredby = [];
 
 		// Config pages
 		$this->config_page_url = array("barcode.php");
@@ -65,17 +65,17 @@ class modBarcode extends DolibarrModules
 		// Constants
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
 		//							  1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
-		$this->const = array();
+		$this->const = [];
 		//$this->const[0] = array('BARCODE_LABEL_LEFT_TEXT','chaine','%BARCODE%','Print barcode on left side of label',1);
 		//$this->const[1] = array('BARCODE_LABEL_RIGHT_TEXT','chaine','%LOGO%','Print Company logo on right side',1);
 		//$this->const[2] = array('BARCODE_LABEL_HEADER_TEXT','chaine','My header','Print header text on label',1);
 		//$this->const[3] = array('BARCODE_LABEL_FOOTER_TEXT','chaine','My footer','Print footer text on label',1);
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'barcode';
 		$r = 0;
 

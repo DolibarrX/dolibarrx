@@ -36,7 +36,7 @@ function printingAdminPrepareHead($mode)
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT."/printing/admin/printing.php?mode=config";
 	$head[$h][1] = $langs->trans("ListDrivers");

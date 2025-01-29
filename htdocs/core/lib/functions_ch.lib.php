@@ -33,7 +33,7 @@
 function dol_ch_controle_bvrb($bvrb)
 {
 	// Init array for control
-	$tableau = array();
+	$tableau = [];
 	$tableau[0][0] = 0;
 	$tableau[0][1] = 9;
 	$tableau[0][2] = 4;

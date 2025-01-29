@@ -68,7 +68,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 
 // Initialize array of search criteria
 $search_all = GETPOST("search_all", 'alpha');
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha')) {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -104,7 +104,7 @@ $upload_dir = $config->bom->multidir_output[isset($object->entity) ? $object->en
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -140,7 +140,7 @@ $help_url ='EN:Module_BOM';
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-bom page-net_needs');
 
 
-$TChildBom = array();
+$TChildBom = [];
 if ($action == 'treeview') {
 	$object->getNetNeedsTree($TChildBom, 1);
 } else {
@@ -349,7 +349,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	 * ButAction
 	 */
 	print '<div class="tabsAction">'."\n";
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');

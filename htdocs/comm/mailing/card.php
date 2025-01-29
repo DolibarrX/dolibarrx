@@ -86,7 +86,7 @@ $substitutionArray = FormMail::getAvailableSubstitKey('emailing', $targetobject)
 $object->substitutionarrayfortest = $substitutionArray;
 
 // List of sending methods
-$listofmethods = array();
+$listofmethods = [];
 //$listofmethods['default'] = $langs->trans('DefaultOutgoingEmailSetup');
 $listofmethods['mail'] = 'PHP mail function';
 //$listofmethods['simplemail']='Simplemail class';
@@ -115,7 +115,7 @@ $permissiontodelete = $user->hasRight('mailing', 'supprimer');
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -357,10 +357,10 @@ if (empty($resHook)) {
 							$moreinheader = make_substitutions($moreinheader, $substitutionArray);
 						}
 
-						$arr_file = array();
-						$arr_mime = array();
-						$arr_name = array();
-						$arr_css  = array();
+						$arr_file = [];
+						$arr_mime = [];
+						$arr_name = [];
+						$arr_css  = [];
 
 						$listofpaths = dol_dir_list($upload_dir, 'all', 0, '', '', 'name', SORT_ASC, 0);
 						if (count($listofpaths)) {
@@ -514,10 +514,10 @@ if (empty($resHook)) {
 			$tmpsujet = make_substitutions($object->sujet, $substitutionArray);
 			$tmpbody = make_substitutions($object->body, $substitutionArray);
 
-			$arr_file = array();
-			$arr_mime = array();
-			$arr_name = array();
-			$arr_css  = array();
+			$arr_file = [];
+			$arr_mime = [];
+			$arr_name = [];
+			$arr_css  = [];
 
 			// Add CSS
 			if (!empty($object->bgcolor)) {
@@ -552,7 +552,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	$mesgs = array();
+	$mesgs = [];
 	// Action add emailing
 	if ($action == 'add' && $permissiontocreate) {
 		$object->messtype       = (string) GETPOST("messtype");
@@ -657,7 +657,7 @@ if (empty($resHook)) {
 		$isupload = 0;
 
 		if (!$isupload) {
-			$mesgs = array();
+			$mesgs = [];
 
 			//$object->messtype       = (string) GETPOST("messtype");	// We must not be able to change the messtype
 			$object->sujet          = (string) GETPOST("sujet");
@@ -775,7 +775,7 @@ llxHeader(
 		'/includes/ace/src/ext-language_tools.js',
 		//'/includes/ace/src/ext-chromevox.js'
 	),
-	array()
+	[]
 );
 
 
@@ -799,7 +799,7 @@ if ($action == 'create') {	// aaa
 	// Print mail form
 	print load_fiche_titre($langs->trans("NewMailing"), $availablelink, 'object_email');
 
-	print dol_get_fiche_head(array(), '', '', -4, '', 0, '', '');
+	print dol_get_fiche_head([], '', '', -4, '', 0, '', '');
 
 	print '<table class="border centpercent">';
 
@@ -844,7 +844,7 @@ if ($action == 'create') {	// aaa
 	print '<tr class="fieldsforemail"><td>'.$langs->trans("MailReply").'</td><td><input class="flat minwidth200" name="replyto" value="'.getDolGlobalString('MAILING_EMAIL_REPLYTO', getDolGlobalString('MAIN_MAIL_REPLY_TO')).'"></td></tr>';
 
 	// Other attributes
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	if (empty($resHook)) {
@@ -1446,7 +1446,7 @@ if ($action == 'create') {	// aaa
 
 
 			// Other attributes
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
 			if (empty($resHook)) {

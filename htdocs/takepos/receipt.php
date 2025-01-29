@@ -112,7 +112,7 @@ jQuery(document).ready(function () {
 
 
 // Call to external receipt modules if exist
-$parameters = array();
+$parameters = [];
 $hookManager->initHooks(array('takeposfrontend'));
 $resHook = $hookManager->executeHooks('TakeposReceipt', $parameters, $object);
 if (!empty($hookManager->resPrint)) {
@@ -269,7 +269,7 @@ if (getDolGlobalString('TAKEPOS_SHOW_DATE_OF_PRINING')) {
 					  } ?></td>
 </tr>
 <?php if (getDolGlobalString('TAKEPOS_TICKET_VAT_GROUPPED')) {
-	$vat_groups = array();
+	$vat_groups = [];
 	foreach ($object->lines as $line) {
 		if (!array_key_exists($line->tva_tx, $vat_groups)) {
 			$vat_groups[$line->tva_tx] = 0;

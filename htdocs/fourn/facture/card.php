@@ -607,8 +607,8 @@ if (empty($resHook)) {
 		if ($canconvert) {
 			$db->begin();
 
-			$amount_ht = $amount_tva = $amount_ttc = array();
-			$multicurrency_amount_ht = $multicurrency_amount_tva = $multicurrency_amount_ttc = array();
+			$amount_ht = $amount_tva = $amount_ttc = [];
+			$multicurrency_amount_ht = $multicurrency_amount_tva = $multicurrency_amount_ttc = [];
 
 			// Loop on each vat rate
 			$i = 0;
@@ -721,7 +721,7 @@ if (empty($resHook)) {
 					$discount->multicurrency_amount_ttc = abs((float) $multicurrency_amount_ttc[$tva_tx]);
 
 					// Clean vat code
-					$reg = array();
+					$reg = [];
 					$vat_src_code = '';
 					if (preg_match('/\((.*)\)/', $tva_tx, $reg)) {
 						$vat_src_code = $reg[1];
@@ -1173,7 +1173,7 @@ if (empty($resHook)) {
 							$valuedeposit = price2num(GETPOST('valuedeposit', 'alpha'), 'MU');
 
 							// Define the array $amountdeposit
-							$amountdeposit = array();
+							$amountdeposit = [];
 							if (getDolGlobalString('MAIN_DEPOSIT_MULTI_TVA')) {
 								if ($typeamount == 'amount') {
 									$amount = $valuedeposit;
@@ -1181,7 +1181,7 @@ if (empty($resHook)) {
 									$amount = $srcobject->total_ttc * ((float) $valuedeposit / 100);
 								}
 
-								$TTotalByTva = array();
+								$TTotalByTva = [];
 								foreach ($srcobject->lines as &$line) {
 									if (!empty($line->special_code)) {
 										continue;
@@ -1268,7 +1268,7 @@ if (empty($resHook)) {
 									0, // product_type
 									1,
 									0,
-									array(), // array_options
+									[], // array_options
 									null,
 									$object->origin,
 									0,
@@ -1301,7 +1301,7 @@ if (empty($resHook)) {
 									0,
 									$object->lines[0]->date_start,
 									$object->lines[0]->date_end,
-									array(),  // array_options
+									[],  // array_options
 									0,
 									0,
 									'',
@@ -1692,7 +1692,7 @@ if (empty($resHook)) {
 				$idprod = -99; // Same behaviour than with combolist. When not select idprodfournprice is now -99 (to avoid conflict with next action that may return -1, -2, ...)
 			}
 
-			$reg = array();
+			$reg = [];
 			if (preg_match('/^idprod_([0-9]+)$/', GETPOST('idprodfournprice', 'alpha'), $reg)) {
 				$idprod = $reg[1];
 				$res = $productsupplier->fetch($idprod); // Load product from its id
@@ -2127,7 +2127,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-fourn-facture page-c
 // Mode creation
 if ($action == 'create') {
 	$facturestatic = new FactureFournisseur($db);
-	$selectedLines = array();  // Ensure initialised
+	$selectedLines = [];  // Ensure initialised
 
 	print load_fiche_titre($langs->trans('NewSupplierInvoice'), '', 'supplier_invoice');
 
@@ -2336,7 +2336,7 @@ if ($action == 'create') {
 	print dol_get_fiche_head();
 
 	// Call Hook tabContentCreateSupplierInvoice
-	$parameters = array();
+	$parameters = [];
 	// Note that $action and $object may be modified by hook
 	$resHook = $hookManager->executeHooks('tabContentCreateSupplierInvoice', $parameters, $object, $action);
 	if (empty($resHook)) {
@@ -2361,7 +2361,7 @@ if ($action == 'create') {
 			print '<input type="hidden" name="socid" value="'.$societe->id.'">';
 		} else {
 			$filter = '((s.fournisseur:=:1) AND (s.status:=:1))';
-			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company(empty($societe->id) ? 0 : $societe->id, 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth175 widthcentpercentminusxx maxwidth500');
+			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company(empty($societe->id) ? 0 : $societe->id, 'socid', $filter, 'SelectThirdParty', 1, 0, [], 0, 'minwidth175 widthcentpercentminusxx maxwidth500');
 			// reload page to retrieve supplier information
 			if (!getDolGlobalString('RELOAD_PAGE_ON_SUPPLIER_CHANGE_DISABLED')) {
 				print '<script type="text/javascript">
@@ -2909,7 +2909,7 @@ if ($action == 'create') {
 		}
 
 		// Other options
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 
@@ -3068,7 +3068,7 @@ if ($action == 'create') {
 				 $text.='<br>';
 				 $text.=$notify->confirmMessage('BILL_SUPPLIER_VALIDATE',$object->socid, $object);
 				 }*/
-				$formquestion = array();
+				$formquestion = [];
 
 				$qualified_for_stock_change = 0;
 				if (!getDolGlobalString('STOCK_SUPPORTS_SERVICES')) {
@@ -3082,7 +3082,7 @@ if ($action == 'create') {
 					require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 					$formproduct = new FormProduct($db);
 					$warehouse = new Entrepot($db);
-					$warehouse_array = $warehouse->list_array();
+					$warehouse_array = $warehouse->list_[];
 					if (count($warehouse_array) == 1) {
 						$label = $object->type == FactureFournisseur::TYPE_CREDIT_NOTE ? $langs->trans("WarehouseForStockDecrease", current($warehouse_array)) : $langs->trans("WarehouseForStockIncrease", current($warehouse_array));
 						$value = '<input type="hidden" id="idwarehouse" name="idwarehouse" value="'.key($warehouse_array).'">';
@@ -3101,7 +3101,7 @@ if ($action == 'create') {
 
 		// Confirmation edit (back to draft)
 		if ($action == 'edit') {
-			$formquestion = array();
+			$formquestion = [];
 
 			$qualified_for_stock_change = 0;
 			if (!getDolGlobalString('STOCK_SUPPORTS_SERVICES')) {
@@ -3114,7 +3114,7 @@ if ($action == 'create') {
 				require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 				$formproduct = new FormProduct($db);
 				$warehouse = new Entrepot($db);
-				$warehouse_array = $warehouse->list_array();
+				$warehouse_array = $warehouse->list_[];
 				if (count($warehouse_array) == 1) {
 					$label = $object->type == FactureFournisseur::TYPE_CREDIT_NOTE ? $langs->trans("WarehouseForStockIncrease", current($warehouse_array)) : $langs->trans("WarehouseForStockDecrease", current($warehouse_array));
 					$value = '<input type="hidden" id="idwarehouse" name="idwarehouse" value="'.key($warehouse_array).'">';
@@ -3135,7 +3135,7 @@ if ($action == 'create') {
 		}
 
 		if ($action == 'paid' && $resteapayer > 0 && (!getDolGlobalString('SUPPLIER_INVOICE_CAN_SET_PAID_EVEN_IF_PARTIALLY_PAID') || $resteapayer != $object->total_ttc)) {
-			$close = array();
+			$close = [];
 			// Code
 			$i = 0;
 			$close[$i]['code'] = 'discount_vat'; // escompte
@@ -3161,7 +3161,7 @@ if ($action == 'create') {
 			$close[$i]['reason'] = $form->textWithPicture($langs->transnoentities("Other"), $close[$i]['label'], 1);
 			$i++;
 			// arrayreasons[code]=reason
-			$arrayreasons = array();
+			$arrayreasons = [];
 			foreach ($close as $key => $val) {
 				$arrayreasons[$close[$key]['code']] = $close[$key]['reason'];
 			}
@@ -3195,7 +3195,7 @@ if ($action == 'create') {
 
 		// Confirmation de la suppression de la facture fournisseur
 		if ($action == 'delete') {
-			$formquestion = array();
+			$formquestion = [];
 
 			$qualified_for_stock_change = 0;
 			if (!getDolGlobalString('STOCK_SUPPORTS_SERVICES')) {
@@ -3209,7 +3209,7 @@ if ($action == 'create') {
 				require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 				$formproduct = new FormProduct($db);
 				$warehouse = new Entrepot($db);
-				$warehouse_array = $warehouse->list_array();
+				$warehouse_array = $warehouse->list_[];
 
 				$selectwarehouse = '<span class="questionrevertstock hidden">';
 				if (count($warehouse_array) == 1) {
@@ -3305,7 +3305,7 @@ if ($action == 'create') {
 		dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'ref', $morehtmlref);
 
 		// Call Hook tabContentViewSupplierInvoice
-		$parameters = array();
+		$parameters = [];
 		// Note that $action and $object may be modified by hook
 		$resHook = $hookManager->executeHooks('tabContentViewSupplierInvoice', $parameters, $object, $action);
 		if (empty($resHook)) {
@@ -3343,7 +3343,7 @@ if ($action == 'create') {
 			$object->getListIdAvoirFromInvoice();
 
 			if (!empty($object->creditnote_ids)) {
-				$invoicecredits = array();
+				$invoicecredits = [];
 				foreach ($object->creditnote_ids as $invoiceid) {
 					$creditnote = new FactureFournisseur($db);
 					$creditnote->fetch($invoiceid);
@@ -4009,7 +4009,7 @@ if ($action == 'create') {
 				if ($action != 'editline') {
 					// Add free products/services
 
-					$parameters = array();
+					$parameters = [];
 					$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 					if ($resHook < 0) {
 						setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -4033,7 +4033,7 @@ if ($action == 'create') {
 
 			print '<div class="tabsAction">';
 
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 			// modified by hook
 			if (empty($resHook)) {
@@ -4177,7 +4177,7 @@ if ($action == 'create') {
 				if ($action != 'confirm_edit' && ($usercandelete || ($usercancreate && $isErasable == 1))) {	// isErasable = 1 means draft with temporary ref (draft can always be deleted with no need of permissions)
 					$enableDelete = false;
 					$htmltooltip = '';
-					$params = (empty($config->use_javascript_ajax) ? array() : array('attr' => array('class' => 'reposition')));
+					$params = (empty($config->use_javascript_ajax) ? [] : array('attr' => array('class' => 'reposition')));
 					//var_dump($isErasable); var_dump($params);
 					if ($isErasable == -4) {
 						$htmltooltip = $langs->trans("DisabledBecausePayments");
@@ -4216,7 +4216,7 @@ if ($action == 'create') {
 					$somethingshown = $formfile->numoffiles;
 
 					// Show links to link elements
-					$tmparray = $form->showLinkToObjectBlock($object, array(), array('invoice_supplier'), 1);
+					$tmparray = $form->showLinkToObjectBlock($object, [], array('invoice_supplier'), 1);
 					$linktoelem = $tmparray['linktoelem'];
 					$htmltoenteralink = $tmparray['htmltoenteralink'];
 					print $htmltoenteralink;

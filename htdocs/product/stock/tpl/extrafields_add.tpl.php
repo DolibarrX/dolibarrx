@@ -47,7 +47,7 @@ if (empty($config) || !is_object($config)) {
 
 // Other attributes
 if (!isset($parameters)) {
-	$parameters = array();
+	$parameters = [];
 }
 '
 @phan-var-force CommonObject $object
@@ -60,7 +60,7 @@ if (!isset($parameters)) {
 $resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 if (empty($resHook)) {
-	$params = array();
+	$params = [];
 	$params['cols'] = array_key_exists('colspanvalue', $parameters) ? $parameters['colspanvalue'] : '';
 	if (!empty($parameters['tdclass'])) {
 		$params['tdclass'] = $parameters['tdclass'];

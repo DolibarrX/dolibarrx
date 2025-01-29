@@ -72,7 +72,7 @@ if (!$user->hasRight('projet', 'lire')) {
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -128,7 +128,7 @@ $morehtml .= '<SELECT name="search_project_user" id="search_project_user">';
 $morehtml .= '<option name="all" value="0"'.($mine ? '' : ' selected').'>'.$titleall.'</option>';
 $morehtml .= '<option name="mine" value="'.$user->id.'"'.(($search_project_user == $user->id) ? ' selected' : '').'>'.$langs->trans("ProjectsImContactFor").'</option>';
 $morehtml .= '</SELECT>';
-$morehtml .= ajax_combobox("search_project_user", array(), 0, 0, 'resolve', '-1', 'small');
+$morehtml .= ajax_combobox("search_project_user", [], 0, 0, 'resolve', '-1', 'small');
 $morehtml .= '<input type="submit" class="button smallpaddingimp" name="refresh" value="'.$langs->trans("Refresh").'">';
 
 if ($mine) {
@@ -409,7 +409,7 @@ if (getDolGlobalString('PROJECT_TASK_TIME_YEAR')) {
 
 if (!getDolGlobalString('PROJECT_HIDE_TASKS') && getDolGlobalString('PROJECT_SHOW_TASK_LIST_ON_PROJECT_AREA')) {
 	// Get id of types of contacts for projects (This list never contains a lot of elements)
-	$listofprojectcontacttype = array();
+	$listofprojectcontacttype = [];
 	$sql = "SELECT ctc.rowid, ctc.code FROM ".MAIN_DB_PREFIX."c_type_contact as ctc";
 	$sql .= " WHERE ctc.element = '".$db->escape($projectstatic->element)."'";
 	$sql .= " AND ctc.source = 'internal'";
@@ -425,7 +425,7 @@ if (!getDolGlobalString('PROJECT_HIDE_TASKS') && getDolGlobalString('PROJECT_SHO
 		$listofprojectcontacttype[0] = '0'; // To avoid sql syntax error if not found
 	}
 	// Get id of types of contacts for tasks (This list never contains a lot of elements)
-	$listoftaskcontacttype = array();
+	$listoftaskcontacttype = [];
 	$sql = "SELECT ctc.rowid, ctc.code FROM ".MAIN_DB_PREFIX."c_type_contact as ctc";
 	$sql .= " WHERE ctc.element = '".$db->escape($taskstatic->element)."'";
 	$sql .= " AND ctc.source = 'internal'";

@@ -67,7 +67,7 @@ $setupnotempty = 0;
 
 $tmpobjectkey = GETPOST('object', 'aZ09');
 $moduledir = 'recruitment';
-$myTmpObjects = array();
+$myTmpObjects = [];
 $myTmpObjects['recruitmentcandidature'] = array('label' => 'RecruitmentCandidature', 'includerefgeneration' => 1, 'includedocgeneration' => 0, 'class' => 'RecruitmentCandidature');
 
 
@@ -361,7 +361,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 		print load_fiche_titre($langs->trans("DocumentModules", $myTmpObjectKey), '', '');
 
 		// Load array def with activated templates
-		$def = array();
+		$def = [];
 		$sql = "SELECT nom";
 		$sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 		$sql .= " WHERE type = '".$db->escape($type)."'";
@@ -393,7 +393,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 		print "</tr>\n";
 
 		clearstatcache();
-		$filelist = array();
+		$filelist = [];
 
 		foreach ($dirmodels as $reldir) {
 			foreach (array('', '/doc') as $valdir) {

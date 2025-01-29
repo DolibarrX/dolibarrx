@@ -132,7 +132,7 @@ $id = GETPOST('id', 'alpha'); // We accept non numeric id. We will filter later.
 // create a jobs object
 $object = new Cronjob($db);
 
-$filter = array();
+$filter = [];
 if (!empty($id)) {
 	if (!is_numeric($id)) {
 		echo "Error: Bad value for parameter job id";

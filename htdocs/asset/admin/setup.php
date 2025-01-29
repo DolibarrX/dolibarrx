@@ -74,7 +74,7 @@ $setupnotempty = 0;
 $dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 $moduledir = 'asset';
-$myTmpObjects = array();
+$myTmpObjects = [];
 $myTmpObjects['asset'] = array('label' => 'Asset', 'includerefgeneration' => 1, 'includedocgeneration' => 0, 'class' => 'Asset');
 
 $tmpobjectkey = GETPOST('object', 'aZ09');
@@ -325,7 +325,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 		print load_fiche_titre($langs->trans("DocumentModules", $myTmpObjectKey), '', '');
 
 		// Load array def with activated templates
-		$def = array();
+		$def = [];
 		$sql = "SELECT nom";
 		$sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 		$sql .= " WHERE type = '".$db->escape($type)."'";
@@ -365,7 +365,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 				if (is_dir($dir)) {
 					$handle = opendir($dir);
 					if (is_resource($handle)) {
-						$filelist = array();
+						$filelist = [];
 						while (($file = readdir($handle)) !== false) {
 							$filelist[] = $file;
 						}
@@ -498,7 +498,7 @@ if ($action == 'edit') {
 				$tmp = explode(':', $val['type']);
 				$nboftemplates = $formmail->fetchAllEMailTemplate($tmp[1], $user, null, 1); // We set lang=null to get in priority record with no lang
 				//$arraydefaultmessage = $formmail->getEMailTemplate($db, $tmp[1], $user, null, 0, 1, '');
-				$arrayofmessagename = array();
+				$arrayofmessagename = [];
 				if (is_array($formmail->lines_model)) {
 					foreach ($formmail->lines_model as $modelmail) {
 						//var_dump($modelmail);
@@ -542,7 +542,7 @@ if ($action == 'edit') {
 				if (isModEnabled('accounting')) {
 					require_once DOL_DOCUMENT_ROOT . '/core/class/html.formaccounting.class.php';
 					$formaccounting = new FormAccounting($db);
-					print $formaccounting->select_account($selected, $constname, 1, array(), 1, 1, 'minwidth150 maxwidth300', 1);
+					print $formaccounting->select_account($selected, $constname, 1, [], 1, 1, 'minwidth150 maxwidth300', 1);
 				} else {
 					print '<input name="' . $constname . '" class="maxwidth200" value="' . dol_escape_htmltag($selected) . '">';
 				}
@@ -620,7 +620,7 @@ if ($action == 'edit') {
 						setEventMessages(null, $c->errors, 'errors');
 					} elseif ($result > 0) {
 						$ways = $c->print_all_ways(' &gt;&gt; ', 'none', 0, 1); // $ways[0] = "ccc2 >> ccc2a >> ccc2a1" with html formatted text
-						$toprint = array();
+						$toprint = [];
 						foreach ($ways as $way) {
 							$toprint[] = '<li class="select2-search-choice-dolibarr noborderoncategories"' . ($c->color ? ' style="background: #' . $c->color . ';"' : ' style="background: #bbb"') . '>' . $way . '</li>';
 						}

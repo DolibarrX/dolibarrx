@@ -388,7 +388,7 @@ function build_rssfile($format, $title, $desc, $events_array, $outputfile, $filt
 
 				if (is_object($event) && get_class($event) == 'WebsitePage') {
 					// Convert object WebsitePage into an array $event
-					$tmpevent = array();
+					$tmpevent = [];
 					$tmpevent['uid'] = (string) $event->id;
 					$tmpevent['startdate'] = $event->date_creation;
 					$tmpevent['summary'] = $event->title;
@@ -426,7 +426,7 @@ function build_rssfile($format, $title, $desc, $events_array, $outputfile, $filt
 				if (!empty($event["image"])) {
 					$image = $event["image"];
 				} else {
-					$reg = array();
+					$reg = [];
 					// If we found a link into content like <img alt="..." class="..." src="..."
 					if (!empty($event["content"]) && preg_match('/<img\s*(?:alt="[^"]*"\s*)?(?:class="[^"]*"\s*)?src="([^"]+)"/m', $event["content"], $reg)) {
 						if (!empty($reg[0])) {

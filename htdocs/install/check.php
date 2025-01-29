@@ -97,14 +97,14 @@ if (!empty($useragent)) {
 // Check PHP version min
 $arrayphpminversionerror = array(7, 0, 0);
 $arrayphpminversionwarning = array(7, 1, 0);
-if (versioncompare(versionphparray(), $arrayphpminversionerror) < 0) {        // Minimum to use (error if lower)
+if (versioncompare(versionphp[], $arrayphpminversionerror) < 0) {        // Minimum to use (error if lower)
 	print '<img src="../theme/eldy/img/error.png" alt="Error" class="valignmiddle"> '.$langs->trans("ErrorPHPVersionTooLow", versiontostring($arrayphpminversionerror));
 	$checksok = 0; // 0=error, 1=warning
-} elseif (versioncompare(versionphparray(), $arrayphpminversionwarning) < 0) {    // Minimum supported (warning if lower)
+} elseif (versioncompare(versionphp[], $arrayphpminversionwarning) < 0) {    // Minimum supported (warning if lower)
 	print '<img src="../theme/eldy/img/warning.png" alt="Error" class="valignmiddle"> '.$langs->trans("ErrorPHPVersionTooLow", versiontostring($arrayphpminversionwarning));
 	$checksok = 1; // 0=error, 1=warning
 } else {
-	print '<img src="../theme/eldy/img/tick.png" alt="Ok" class="valignmiddle"> '.$langs->trans("PHPVersion")." ".versiontostring(versionphparray());
+	print '<img src="../theme/eldy/img/tick.png" alt="Ok" class="valignmiddle"> '.$langs->trans("PHPVersion")." ".versiontostring(versionphp[]);
 }
 if (empty($force_install_nophpinfo)) {
 	print ' (<a href="phpinfo.php" target="_blank" rel="noopener noreferrer">'.$langs->trans("MoreInformation").'</a>)';
@@ -113,7 +113,7 @@ print "<br>\n";
 
 // Check PHP version max
 $arrayphpmaxversionwarning = array(8, 3, 0);
-if (versioncompare(versionphparray(), $arrayphpmaxversionwarning) > 0 && versioncompare(versionphparray(), $arrayphpmaxversionwarning) < 3) {        // Maximum to use (warning if higher)
+if (versioncompare(versionphp[], $arrayphpmaxversionwarning) > 0 && versioncompare(versionphp[], $arrayphpmaxversionwarning) < 3) {        // Maximum to use (warning if higher)
 	print '<img src="../theme/eldy/img/error.png" alt="Error" class="valignmiddle"> '.$langs->trans("ErrorPHPVersionTooHigh", versiontostring($arrayphpmaxversionwarning));
 	$checksok = 1; // 0=error, 1=warning
 	print "<br>\n";
@@ -403,7 +403,7 @@ if (!file_exists($conffile)) {
 			// Current version is $config->global->MAIN_VERSION_LAST_UPGRADE
 			// Version to install is DOL_VERSION
 			$dolibarrlastupgradeversionarray = preg_split('/[\.-]/', isset($config->global->MAIN_VERSION_LAST_UPGRADE) ? $config->global->MAIN_VERSION_LAST_UPGRADE : (isset($config->global->MAIN_VERSION_LAST_INSTALL) ? $config->global->MAIN_VERSION_LAST_INSTALL : ''));
-			$dolibarrversiontoinstallarray = versiondolibarrarray();
+			$dolibarrversiontoinstallarray = versiondolibarr[];
 		}
 
 		// Show title
@@ -422,8 +422,8 @@ if (!file_exists($conffile)) {
 
 		$foundreorderdchoice = 0;
 
-		$available_choices = array();
-		$notavailable_choices = array();
+		$available_choices = [];
+		$notavailable_choices = [];
 
 		if (empty($dolibarr_main_db_host)) {	// This means install process was not run
 			$foundreorderdchoice = 1; // To show only once
@@ -475,12 +475,12 @@ if (!file_exists($conffile)) {
 		dolibarr_install_syslog("Scan sql files for migration files in ".$dir);
 
 		// Get files list of migration file x.y.z-a.b.c.sql into /install/mysql/migration
-		$migrationscript = array();
+		$migrationscript = [];
 		$handle = opendir($dir);
 		if (is_resource($handle)) {
 			$versiontousetoqualifyscript = preg_replace('/-.*/', '', DOL_VERSION);
 			while (($file = readdir($handle)) !== false) {
-				$reg = array();
+				$reg = [];
 				if (preg_match('/^(\d+\.\d+\.\d+)-(\d+\.\d+\.\d+)\.sql$/i', $file, $reg)) {
 					//var_dump(DOL_VERSION." ".$reg[2]." ".$versiontousetoqualifyscript." ".version_compare($versiontousetoqualifyscript, $reg[2]));
 					if (!empty($reg[2]) && version_compare($versiontousetoqualifyscript, $reg[2]) >= 0) {
@@ -576,7 +576,7 @@ if (!file_exists($conffile)) {
 		// If there is no choice at all, we show all of them.
 		if (empty($available_choices)) {
 			$available_choices = $notavailable_choices;
-			$notavailable_choices = array();
+			$notavailable_choices = [];
 		}
 
 		// Array of install choices

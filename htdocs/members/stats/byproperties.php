@@ -74,7 +74,7 @@ print load_fiche_titre($title, '', $memberstatic->picture);
 
 //dol_mkdir($dir);
 
-$data = array();
+$data = [];
 
 $sql = "SELECT COUNT(DISTINCT d.rowid) as nb, COUNT(s.rowid) as nbsubscriptions,";
 $sql .= " MAX(d.datevalid) as lastdate, MAX(s.dateadh) as lastsubscriptiondate,";

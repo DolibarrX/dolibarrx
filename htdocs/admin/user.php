@@ -69,7 +69,7 @@ if (empty($user->admin)) {
 
 include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 
-$reg = array();
+$reg = [];
 
 if ($action == 'set_default') {
 	$ret = addDocumentModel($value, $type, $label, $scandir);
@@ -203,7 +203,7 @@ print '<br>';
 $dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 // Defini tableau def des modeles
-$def = array();
+$def = [];
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
@@ -244,7 +244,7 @@ foreach ($dirmodels as $reldir) {
 		if (is_dir($dir)) {
 			$handle = opendir($dir);
 			if (is_resource($handle)) {
-				$filelist = array();
+				$filelist = [];
 				while (($file = readdir($handle)) !== false) {
 					$filelist[] = $file;
 				}

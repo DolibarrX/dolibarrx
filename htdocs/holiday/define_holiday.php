@@ -125,7 +125,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -139,8 +139,8 @@ if (empty($resHook)) {
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')) { // All tests are required to be compatible with all browsers
 		$search_name = '';
 		$search_supervisor = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 
 	// Mass actions
@@ -277,8 +277,8 @@ if ($massaction == 'preincreaseholiday') {
 	require_once DOL_DOCUMENT_ROOT.'/holiday/class/holiday.class.php';
 	$staticholiday = new Holiday($db);
 	$arraytypeholidays = $staticholiday->getTypes(1, 1);
-	$formquestion = array();
-	$labeltypes = array();
+	$formquestion = [];
+	$labeltypes = [];
 	foreach ($typeleaves as $key => $val) {
 		$labeltypes[$val['id']] = ($langs->trans($val['code']) != $val['code']) ? $langs->trans($val['code']) : $langs->trans($val['label']);
 	}
@@ -309,7 +309,7 @@ print "</div><br>\n";
 $filters = '';
 
 // Filter on array of ids of all children
-$userchilds = array();
+$userchilds = [];
 if (!$permissiontoreadall) {
 	$userchilds = $user->getAllChildIds(1);
 	$filters .= ' AND u.rowid IN ('.$db->sanitize(implode(', ', $userchilds)).')';
@@ -373,7 +373,7 @@ if (count($typeleaves) == 0) {
 	// Supervisor
 	if (!empty($arrayfields['cp.fk_user']['checked'])) {
 		print '<td class="liste_titre">';
-		print $form->select_dolusers($search_supervisor, 'search_supervisor', 1, null, 0, array(), '', 0, 0, 0, '', 0, '', 'maxwidth150');
+		print $form->select_dolusers($search_supervisor, 'search_supervisor', 1, null, 0, [], '', 0, 0, 0, '', 0, '', 'maxwidth150');
 		print '</td>';
 	}
 	// Type of leave request
@@ -434,7 +434,7 @@ if (count($typeleaves) == 0) {
 	$usersupervisor = new User($db);
 
 	foreach ($listUsers as $users) {
-		$arrayofselected = is_array($toselect) ? $toselect : array();
+		$arrayofselected = is_array($toselect) ? $toselect : [];
 
 		// If user has not permission to edit/read all, we must see only subordinates
 		if (!$permissiontoreadall) {

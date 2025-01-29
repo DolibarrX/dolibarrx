@@ -49,7 +49,7 @@ class CSMSFile
 	/**
 	 * @var string[] Array of Error code (or message)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string end of line character

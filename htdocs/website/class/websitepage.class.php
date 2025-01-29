@@ -412,7 +412,7 @@ class WebsitePage extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT';
 		$sql .= ' t.rowid,';
@@ -446,7 +446,7 @@ class WebsitePage extends CommonObject
 
 		// Deprecated. If we receive an array, we use it. Prefer using the USF syntax.
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
@@ -455,7 +455,7 @@ class WebsitePage extends CommonObject
 					} elseif ($key == 'type_container' || $key == 't.type_container') {
 						$sqlwhere[] = $key." = '".$this->db->escape($value)."'";
 					} elseif ($key == 'lang' || $key == 't.lang') {
-						$listoflang = array();
+						$listoflang = [];
 						$foundnull = 0;
 						foreach (explode(',', $value) as $tmpvalue) {
 							if ($tmpvalue == 'null') {
@@ -567,7 +567,7 @@ class WebsitePage extends CommonObject
 
 		// Deprecated. If we receive an array, we use it. Prefer using the USF syntax.
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
@@ -576,7 +576,7 @@ class WebsitePage extends CommonObject
 					} elseif ($key == 'type_container' || $key == 't.type_container') {
 						$sqlwhere[] = $key." = '".$this->db->escape($value)."'";
 					} elseif ($key == 'lang' || $key == 't.lang') {
-						$listoflang = array();
+						$listoflang = [];
 						$foundnull = 0;
 						foreach (explode(',', $value) as $tmpvalue) {
 							if ($tmpvalue == 'null') {

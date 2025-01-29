@@ -147,7 +147,7 @@ if (in_array($db->type, array('mysql', 'mysqli'))) {
 	$db->query('SET SQL_BIG_SELECTS=1');
 }
 
-$tabfac = array();
+$tabfac = [];
 
 $result = $db->query($sql);
 if ($result) {
@@ -156,12 +156,12 @@ if ($result) {
 	$cptfour = ((getDolGlobalString('ACCOUNTING_ACCOUNT_SUPPLIER') != "") ? $config->global->ACCOUNTING_ACCOUNT_SUPPLIER : $langs->trans("CodeNotDef"));
 	$cpttva = (getDolGlobalString('ACCOUNTING_VAT_BUY_ACCOUNT') ? $config->global->ACCOUNTING_VAT_BUY_ACCOUNT : $langs->trans("CodeNotDef"));
 
-	$tabht = array();
-	$tabtva = array();
-	$tabttc = array();
-	$tablocaltax1 = array();
-	$tablocaltax2 = array();
-	$tabcompany = array();
+	$tabht = [];
+	$tabtva = [];
+	$tabttc = [];
+	$tablocaltax1 = [];
+	$tablocaltax2 = [];
+	$tabcompany = [];
 
 	$i = 0;
 	while ($i < $num) {

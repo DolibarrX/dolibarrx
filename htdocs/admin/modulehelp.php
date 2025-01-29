@@ -93,16 +93,16 @@ $arrayofnatures = array('core' => $langs->transnoentitiesnoconv("Core"), 'extern
 $modulesdir = dolGetModulesDirs();
 
 
-$filename = array();
+$filename = [];
 '@phan-var-force DolibarrModules[] $modules';
-$modules = array();
-$orders = array();
-$categ = array();
-$dirmod = array();
+$modules = [];
+$orders = [];
+$categ = [];
+$dirmod = [];
 $i = 0; // is a sequencer of modules found
 $j = 0; // j is module number. Automatically affected if module number not defined.
-$modNameLoaded = array();
-$familyInfo = array();
+$modNameLoaded = [];
+$familyInfo = [];
 
 foreach ($modulesdir as $dir) {
 	// Load modules attributes in arrays (name, number, orders) from dir directory

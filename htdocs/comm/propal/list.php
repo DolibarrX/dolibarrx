@@ -273,7 +273,7 @@ $arrayfields = array(
 );
 
 // List of fields to search into when doing a "search in all"
-/*$fieldstosearchall = array();
+/*$fieldstosearchall = [];
  foreach ($object->fields as $key => $val) {
  if (!empty($val['searchall'])) {
  $fieldstosearchall['t.'.$key] = $val['label'];
@@ -281,7 +281,7 @@ $arrayfields = array(
  }*/
 
 // Definition of array of fields for columns
-/*$arrayfields = array();
+/*$arrayfields = [];
 foreach ($object->fields as $key => $val) {
 	// If $val['visible']==0, then we never show the field
 	if (!empty($val['visible'])) {
@@ -414,8 +414,8 @@ if (empty($resHook)) {
 		$search_categ_cus = 0;
 
 		$search_all = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 
 		$socid = 0;
 	}
@@ -599,7 +599,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/, $/', '', $sql);
@@ -622,7 +622,7 @@ $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'user as u ON p.fk_user_author = u.rowid';
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as pr ON pr.rowid = p.fk_projet";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_availability as ava on (ava.rowid = p.fk_availability)";
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -783,7 +783,7 @@ if ($search_sale && $search_sale != '-1') {
 $searchCategoryCustomerOperator = -1;
 $searchCategoryCustomerList = array($search_categ_cus);
 if (!empty($searchCategoryCustomerList)) {
-	$searchCategoryCustomerSqlList = array();
+	$searchCategoryCustomerSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryCustomerList as $searchCategoryCustomer) {
 		if (intval($searchCategoryCustomer) == -2) {
@@ -813,7 +813,7 @@ if (!empty($searchCategoryCustomerList)) {
 $searchCategoryProductOperator = -1;
 $searchCategoryProductList = array($search_product_category);
 if (!empty($searchCategoryProductList)) {
-	$searchCategoryProductSqlList = array();
+	$searchCategoryProductSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
@@ -847,12 +847,12 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 //print $sql;
 
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 // Add HAVING from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= empty($hookManager->resPrint) ? "" : " HAVING 1=1 ".$hookManager->resPrint;
 
@@ -906,7 +906,7 @@ if ($socid > 0) {
 
 $num = $db->num_rows($resql);
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $search_all) {
 	$obj = $db->fetch_object($resql);
@@ -1127,7 +1127,7 @@ if ($permissiontodelete) {
 }
 
 if (in_array($massaction, array('presend', 'predelete', 'closed'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -1224,7 +1224,7 @@ if (isModEnabled('stock') && getDolGlobalString('WAREHOUSE_ASK_WAREHOUSE_DURING_
 	$moreforfilter .= img_picture($tmptitle, 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses($search_warehouse, 'search_warehouse', '', $tmptitle, 0, 0, $tmptitle);
 	$moreforfilter .= '</div>';
 }
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -1769,7 +1769,7 @@ $total_margin = 0;
 
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {
@@ -1829,7 +1829,7 @@ while ($i < $imaxinloop) {
 		}
 	}
 
-	$marginInfo = array();
+	$marginInfo = [];
 	if ($with_margin_info) {
 		$objectstatic->fetch_lines();
 		$marginInfo = $formmargin->getMarginInfosArray($objectstatic);

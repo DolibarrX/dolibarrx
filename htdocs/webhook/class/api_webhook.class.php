@@ -84,7 +84,7 @@ class Webhook extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $sqlfilters = '', $properties = '', $pagination_data = false)
 	{
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('webhook', 'webhook_target', 'read')) {
 			throw new RestException(403);
@@ -263,7 +263,7 @@ class Webhook extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$triggers = array();
+		$triggers = [];
 
 		$sql = "SELECT c.code, c.label FROM ".MAIN_DB_PREFIX."c_action_trigger as c ORDER BY c.rang ASC";
 		$resql = $this->db->query($sql);
@@ -292,7 +292,7 @@ class Webhook extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$target = array();
+		$target = [];
 		foreach (self::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

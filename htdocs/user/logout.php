@@ -73,7 +73,7 @@ if ($result < 0) {
 // Hooks on logout
 $action = '';
 $hookManager->initHooks(array('logout'));
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('afterLogout', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	$error++;

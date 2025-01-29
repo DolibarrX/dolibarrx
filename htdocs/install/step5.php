@@ -139,7 +139,7 @@ if (empty($versionfrom) && empty($versionto) && !is_writable($conffile)) {
 
 // Ensure $modulesdir is set and array
 if (!isset($modulesdir) || !is_array($modulesdir)) {
-	$modulesdir = array();
+	$modulesdir = [];
 }
 
 if ($action == "set" || empty($action) || preg_match('/upgrade/i', $action)) {
@@ -296,7 +296,7 @@ if ($action == "set" || empty($action) || preg_match('/upgrade/i', $action)) {
 				}
 
 				// List of modules to enable
-				$tmparray = array();
+				$tmparray = [];
 
 				// If we ask to force some modules to be enabled
 				if (!empty($force_install_module)) {
@@ -307,7 +307,7 @@ if ($action == "set" || empty($action) || preg_match('/upgrade/i', $action)) {
 					$tmparray = explode(',', $force_install_module);
 				}
 
-				$modNameLoaded = array();
+				$modNameLoaded = [];
 
 				// Search modules dirs
 				$modulesdir[] = $dolibarr_main_document_root.'/core/modules/';

@@ -125,8 +125,8 @@ if ($attachment) {
 
 
 // List of targets fields
-$headerlinefields = array();	// Array of fields (label to show)
-$contentlinevalues = array();	// Array of example values
+$headerlinefields = [];	// Array of fields (label to show)
+$contentlinevalues = [];	// Array of example values
 $i = 0;
 foreach ($fieldstarget as $code => $label) {
 	$withoutstar = preg_replace('/\*/', '', $fieldstarget[$code]);

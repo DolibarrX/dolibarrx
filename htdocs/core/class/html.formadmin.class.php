@@ -71,14 +71,14 @@ class FormAdmin
 	 *  @param		int<0,1>		$mainlangonly	1=Show only main languages ('fr_FR' no' fr_BE', 'es_ES' not 'es_MX', ...)
 	 *  @return		string							Return HTML select string with list of languages
 	 */
-	public function select_language($selected = '', $htmlname = 'lang_id', $showauto = 0, $filter = array(), $showempty = '', $showwarning = 0, $disabled = 0, $morecss = '', $showcode = 0, $forcecombo = 0, $multiselect = 0, $onlykeys = array(), $mainlangonly = 0)
+	public function select_language($selected = '', $htmlname = 'lang_id', $showauto = 0, $filter = [], $showempty = '', $showwarning = 0, $disabled = 0, $morecss = '', $showcode = 0, $forcecombo = 0, $multiselect = 0, $onlykeys = [], $mainlangonly = 0)
 	{
 		// phpcs:enable
 		global $langs;
 
 		if (getDolGlobalString('MAIN_DEFAULT_LANGUAGE_FILTER')) {
 			if (!is_array($filter)) {
-				$filter = array();
+				$filter = [];
 			}
 			$filter[getDolGlobalString('MAIN_DEFAULT_LANGUAGE_FILTER')] = 1;
 		}
@@ -201,7 +201,7 @@ class FormAdmin
 			return -1;
 		}
 
-		$menuarray = array();
+		$menuarray = [];
 		foreach ($config->file->dol_document_root as $dirroot) {
 			foreach ($dirmenuarray as $dirtoscan) {
 				$dir = $dirroot.$dirtoscan;
@@ -314,9 +314,9 @@ class FormAdmin
 		global $langs, $config;
 
 		//$expdevmenu=array('smartphone_backoffice.php','smartphone_frontoffice.php');  // Menu to disable if $config->global->MAIN_FEATURES_LEVEL is not set
-		$expdevmenu = array();
+		$expdevmenu = [];
 
-		$menuarray = array();
+		$menuarray = [];
 
 		foreach ($dirmenuarray as $dirmenu) {
 			foreach ($config->file->dol_document_root as $dirroot) {
@@ -455,7 +455,7 @@ class FormAdmin
 			$sql .= " AND code LIKE '%".$this->db->escape($filter)."%'";
 		}
 
-		$paperformat = array();
+		$paperformat = [];
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -509,7 +509,7 @@ class FormAdmin
 	 * @param	array<string,string[]>	$typewecanchangeinto	Array of possible switch combination from 1 type to another one. This will grey not possible combinations.
 	 * @return 	string							The combo HTML select component
 	 */
-	public function selectTypeOfFields($htmlname, $type, $typewecanchangeinto = array())
+	public function selectTypeOfFields($htmlname, $type, $typewecanchangeinto = [])
 	{
 		global $type2label;	// TODO Remove this global
 

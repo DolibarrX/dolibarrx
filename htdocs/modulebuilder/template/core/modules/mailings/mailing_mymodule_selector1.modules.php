@@ -34,7 +34,7 @@ class mailing_mailing_mymodule_selector1 extends MailingTargets
 	/**
 	 * @var string[] The modules on which this selector depends (can be "none" to not show the module.
 	 */
-	public $require_module = array();
+	public $require_module = [];
 
 	/**
 	 * @var string 	String with the name of icon for myobject. Can be an image filename like 'object_myobject.png' of a font awesome code 'fa-...'.
@@ -107,7 +107,7 @@ class mailing_mailing_mymodule_selector1 extends MailingTargets
 	public function add_to_target($mailing_id)
 	{
 		// phpcs:enable
-		$target = array();
+		$target = [];
 		$j = 0;
 
 		$sql = "SELECT rowid as id, firstname, lastname, email";
@@ -177,10 +177,10 @@ class mailing_mailing_mymodule_selector1 extends MailingTargets
 	{
 		// CHANGE THIS: Optional
 
-		//var $statssql=array();
+		//var $statssql=[];
 		//$this->statssql[0]="SELECT field1 as label, count(distinct(email)) as nb FROM mytable WHERE email IS NOT NULL";
 
-		return array();
+		return [];
 	}
 
 

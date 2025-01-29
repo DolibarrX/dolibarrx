@@ -733,7 +733,7 @@ if ($id > 0 || $ref) {
 			}
 
 			// Hook formObject
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
 
@@ -765,7 +765,7 @@ if ($id > 0 || $ref) {
 			$text_stock_options .= (getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_VALIDATE_ORDER') ? '- '.$langs->trans("ReStockOnValidateOrder").'<br>' : '');
 			$text_stock_options .= (getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER') ? '- '.$langs->trans("ReStockOnDispatchOrder").'<br>' : '');
 			$text_stock_options .= (getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION') || getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION_CLOSE') ? '- '.$langs->trans("StockOnReception").'<br>' : '');
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('physicalStockTextStockOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if ($resHook > 0) {
 				$text_stock_options = $hookManager->resPrint;
@@ -939,7 +939,7 @@ if ($id > 0 || $ref) {
 
 // Actions buttons
 
-$parameters = array();
+$parameters = [];
 
 $resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {

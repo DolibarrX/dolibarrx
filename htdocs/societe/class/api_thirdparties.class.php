@@ -136,7 +136,7 @@ class Thirdparties extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $mode = 0, $category = 0, $sqlfilters = '', $properties = '', $pagination_data = false)
 	{
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('societe', 'lire')) {
 			throw new RestException(403);
@@ -596,7 +596,7 @@ class Thirdparties extends DolibarrApi
 		}
 
 		if (is_numeric($arrayofcateg) && $arrayofcateg >= 0) {	// To fix a return of 0 instead of empty array of method getListForItem
-			return array();
+			return [];
 		}
 
 		return $arrayofcateg;
@@ -710,7 +710,7 @@ class Thirdparties extends DolibarrApi
 		}
 
 		if (is_numeric($result) && $result == 0) {	// To fix a return of 0 instead of empty array of method getListForItem
-			return array();
+			return [];
 		}
 
 		return $result;
@@ -974,7 +974,7 @@ class Thirdparties extends DolibarrApi
 	 */
 	public function getFixedAmountDiscounts($id, $filter = "none", $sortfield = "f.type", $sortorder = 'ASC')
 	{
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('societe', 'lire')) {
 			throw new RestException(403);
@@ -1144,7 +1144,7 @@ class Thirdparties extends DolibarrApi
 
 		$i = 0;
 
-		$notifications = array();
+		$notifications = [];
 
 		if ($result) {
 			$num = $this->db->num_rows($result);
@@ -1159,10 +1159,10 @@ class Thirdparties extends DolibarrApi
 
 		$fields = array('id', 'socid', 'event', 'contact_id', 'datec', 'tms', 'type');
 
-		$returnNotifications = array();
+		$returnNotifications = [];
 
 		foreach ($notifications as $notification) {
-			$object = array();
+			$object = [];
 			foreach ($notification as $key => $value) {
 				if (in_array($key, $fields)) {
 					$object[$key] = $value;
@@ -1404,7 +1404,7 @@ class Thirdparties extends DolibarrApi
 
 		$i = 0;
 
-		$accounts = array();
+		$accounts = [];
 
 		if ($result) {
 			$num = $this->db->num_rows($result);
@@ -1424,10 +1424,10 @@ class Thirdparties extends DolibarrApi
 
 		$fields = array('socid', 'default_rib', 'frstrecur', '1000110000001', 'datec', 'datem', 'label', 'bank', 'bic', 'iban', 'id', 'rum');
 
-		$returnAccounts = array();
+		$returnAccounts = [];
 
 		foreach ($accounts as $account) {
-			$object = array();
+			$object = [];
 			foreach ($account as $key => $value) {
 				if (in_array($key, $fields)) {
 					if ($key == 'iban') {
@@ -1629,7 +1629,7 @@ class Thirdparties extends DolibarrApi
 		}
 
 		$i = 0;
-		$accounts = array();
+		$accounts = [];
 
 		$result = $this->db->query($sql);
 		if ($result) {
@@ -1704,7 +1704,7 @@ class Thirdparties extends DolibarrApi
 
 		$i = 0;
 
-		$accounts = array();
+		$accounts = [];
 
 		$num = $this->db->num_rows($result);
 		while ($i < $num) {
@@ -1719,10 +1719,10 @@ class Thirdparties extends DolibarrApi
 
 		$fields = array('id', 'fk_soc', 'key_account', 'site', 'date_creation', 'tms');
 
-		$returnAccounts = array();
+		$returnAccounts = [];
 
 		foreach ($accounts as $account) {
-			$object = array();
+			$object = [];
 			foreach ($account as $key => $value) {
 				if (in_array($key, $fields)) {
 					$object[$key] = $value;
@@ -2127,7 +2127,7 @@ class Thirdparties extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$thirdparty = array();
+		$thirdparty = [];
 		foreach (Thirdparties::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

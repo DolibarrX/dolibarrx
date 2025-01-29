@@ -89,7 +89,7 @@ $help_url = "EN:Module_Expense_Reports|FR:Module_Notes_de_frais";
 llxHeader('', $langs->trans("TripsAndExpenses"), $help_url);
 
 
-$label = $somme = $nb = array();
+$label = $somme = $nb = [];
 
 $totalnb = $totalsum = 0;
 $sql = "SELECT tf.code, tf.label, count(de.rowid) as nb, sum(de.total_ht) as km";
@@ -137,7 +137,7 @@ print '<th colspan="4">'.$langs->trans("Statistics").'</th>';
 print "</tr>\n";
 
 $listoftype = $tripandexpense_static->listOfTypes();
-$dataseries = array();
+$dataseries = [];
 foreach ($listoftype as $code => $label) {
 	$dataseries[] = array($label, (isset($somme[$code]) ? (int) $somme[$code] : 0));
 }

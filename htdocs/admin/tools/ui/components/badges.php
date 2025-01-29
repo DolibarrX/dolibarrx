@@ -172,7 +172,7 @@ $documentation->showSidebar(); ?>
 					<?php endfor; ?>
 				</div>
 				<?php
-				$lines = array();
+				$lines = [];
 				for ($i = 0; $i <= 9; $i++) :
 					$lines[] = '<span class="badge badge-status'.$i.'">status-'.$i.'</span>';
 				endfor;

@@ -396,7 +396,7 @@ class FileUpload
 		// into different directories or replacing hidden system files.
 		$file_name = basename(dol_sanitizeFileName($name));
 		// Add missing file extension for known image types:
-		$matches = array();
+		$matches = [];
 		if (strpos($file_name, '.') === false && preg_match('/^image\/(gif|jpe?g|png)/', $type, $matches)) {
 			$file_name .= '.'.$matches[1];
 		}
@@ -511,7 +511,7 @@ class FileUpload
 
 		$upload = isset($_FILES[$this->options['param_name']]) ? $_FILES[$this->options['param_name']] : null;
 
-		$info = array();
+		$info = [];
 		if ($upload && is_array($upload['tmp_name'])) {
 			// param_name is an array identifier like "files[]",
 			// $_FILES is a multi-dimensional array:

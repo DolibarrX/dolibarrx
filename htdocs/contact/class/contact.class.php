@@ -351,7 +351,7 @@ class Contact extends CommonObject
 	/**
 	 * @var array<int,array{id:int,code:string,label:string,picture:string}>
 	 */
-	public $cacheprospectstatus = array();
+	public $cacheprospectstatus = [];
 
 	/**
 	 * @var string	Prospect level. ie: 'PL_LOW', 'PL...'
@@ -435,7 +435,7 @@ class Contact extends CommonObject
 	{
 		global $user, $hookManager;
 
-		$this->nb = array();
+		$this->nb = [];
 		$clause = "WHERE";
 
 		$sql = "SELECT count(sp.rowid) as nb";
@@ -453,7 +453,7 @@ class Contact extends CommonObject
 		}
 		// Add where from hooks
 		if (is_object($hookManager)) {
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 		}
@@ -818,7 +818,7 @@ class Contact extends CommonObject
 		// phpcs:enable
 		global $config, $langs;
 
-		$info = array();
+		$info = [];
 
 		// Object classes
 		$info["objectclass"] = explode(',', getDolGlobalString('LDAP_CONTACT_OBJECT_CLASS'));
@@ -1120,7 +1120,7 @@ class Contact extends CommonObject
 				$this->phone_mobile	= trim($obj->phone_mobile);
 
 				$this->email			= $obj->email;
-				$this->socialnetworks	= ($obj->socialnetworks ? (array) json_decode($obj->socialnetworks, true) : array());
+				$this->socialnetworks	= ($obj->socialnetworks ? (array) json_decode($obj->socialnetworks, true) : []);
 				$this->photo			= $obj->photo;
 				$this->priv				= $obj->priv;
 				$this->mail				= $obj->email;
@@ -1505,7 +1505,7 @@ class Contact extends CommonObject
 			$datas['job'] = '<br><b>'.$langs->trans("Poste").':</b> '.$this->poste;
 		}
 		$datas['email'] = '<br><b>'.$langs->trans("EMail").':</b> '.$this->email;
-		$phonelist = array();
+		$phonelist = [];
 		$country_code = empty($this->country_code) ? '' : $this->country_code;
 		if ($this->phone_pro) {
 			$phonelist[] = dol_print_phone($this->phone_pro, $country_code, $this->id, 0, '', '&nbsp;', 'phone');
@@ -1869,7 +1869,7 @@ class Contact extends CommonObject
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->roles = array();
+			$this->roles = [];
 
 			$num = $this->db->num_rows($resql);
 			if ($num > 0) {
@@ -1901,7 +1901,7 @@ class Contact extends CommonObject
 	 */
 	public function getContactRoles($element = '')
 	{
-		$tab = array();
+		$tab = [];
 
 		if ($element == 'action') {
 			$element = 'agenda';

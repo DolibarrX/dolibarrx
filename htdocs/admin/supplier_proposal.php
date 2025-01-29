@@ -357,7 +357,7 @@ print "</table><br>\n";
 print load_fiche_titre($langs->trans("SupplierProposalPDFModules"), '', '');
 
 // Load array def with activated templates
-$def = array();
+$def = [];
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
@@ -398,7 +398,7 @@ foreach ($dirmodels as $reldir) {
 		if (is_dir($dir)) {
 			$handle = opendir($dir);
 			if (is_resource($handle)) {
-				$filelist = array();
+				$filelist = [];
 				while (($file = readdir($handle)) !== false) {
 					$filelist[] = $file;
 				}
@@ -567,7 +567,7 @@ if (isModEnabled('bank')) {
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("AllowExternalDownload").'</td><td>&nbsp;</td>';
 print '<td class="right">';
-print ajax_constantonoff('PROPOSAL_ALLOW_EXTERNAL_DOWNLOAD', array(), null, 0, 0, 0, 2, 0, 1);
+print ajax_constantonoff('PROPOSAL_ALLOW_EXTERNAL_DOWNLOAD', [], null, 0, 0, 0, 2, 0, 1);
 print '</td></tr>';
 
 print '</table>';

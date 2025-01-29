@@ -36,7 +36,7 @@ function emailcollectorPrepareHead($object)
 	$langs->load("emailcollector@emailcollector");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/emailcollector_card.php?id='.$object->id;
 	$head[$h][1] = $langs->trans("EmailCollector");
@@ -121,7 +121,7 @@ function getAttachments($jk, $mbox)
 	$parts = getParts($structure);
 
 	$fpos = 2;
-	$attachments = array();
+	$attachments = [];
 	$nb = count($parts);
 	if ($nb && !empty($parts)) {
 		for ($i = 1; $i < $nb; $i++) {

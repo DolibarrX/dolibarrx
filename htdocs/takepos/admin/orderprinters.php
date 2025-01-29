@@ -163,7 +163,7 @@ $cate_arbo = $categstatic->get_full_arbo($typetext);
 $fulltree = $cate_arbo;
 
 // Define data (format for treeview)
-$data = array();
+$data = [];
 $data[] = array('rowid' => 0, 'fk_menu' => -1, 'title' => "racine", 'mainmenu' => '', 'leftmenu' => '', 'fk_mainmenu' => '', 'fk_leftmenu' => '');
 foreach ($fulltree as $key => $val) {
 	$categstatic->id = $val['id'];

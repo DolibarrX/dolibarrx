@@ -71,7 +71,7 @@ if (!is_array($fiscal_periods)) {
 }
 
 // Define the arrays of fiscal periods
-$active_fiscal_periods = array();
+$active_fiscal_periods = [];
 $first_active_fiscal_period = null;
 $last_fiscal_period = null;
 $current_fiscal_period = null;
@@ -216,7 +216,7 @@ $formconfirm = '';
 
 if (isset($current_fiscal_period)) {
 	if ($action == 'step_1') {
-		$form_question = array();
+		$form_question = [];
 
 		$form_question['date_start'] = array(
 			'name' => 'date_start',
@@ -243,9 +243,9 @@ if (isset($current_fiscal_period)) {
 			600
 		);
 	} elseif ($action == 'step_2') {
-		$form_question = array();
+		$form_question = [];
 
-		$fiscal_period_arr = array();
+		$fiscal_period_arr = [];
 		foreach ($active_fiscal_periods as $info) {
 			$fiscal_period_arr[$info['id']] = $info['label'];
 		}
@@ -281,7 +281,7 @@ if (isset($current_fiscal_period)) {
 			600
 		);
 	} elseif ($action == 'step_3') {
-		$form_question = array();
+		$form_question = [];
 
 		$form_question['inventory_journal_id'] = array(
 			'name' => 'inventory_journal_id',
@@ -289,7 +289,7 @@ if (isset($current_fiscal_period)) {
 			'label' => $langs->trans('InventoryJournal'),
 			'value' => $formaccounting->select_journal(0, "inventory_journal_id", 8, 1, 0, 0)
 		);
-		$fiscal_period_arr = array();
+		$fiscal_period_arr = [];
 		foreach ($active_fiscal_periods as $info) {
 			$fiscal_period_arr[$info['id']] = $info['label'];
 		}
@@ -354,7 +354,7 @@ if (empty($current_fiscal_period)) {
 } else {
 	if (!getDolGlobalString("ACCOUNTANCY_DISABLE_CLOSURE_LINE_BY_LINE")) {
 		// Step 1
-		$head = array();
+		$head = [];
 		$head[0][0] = DOL_URL_ROOT . '/accountancy/closure/index.php?fiscal_period_id=' . $current_fiscal_period['id'];
 		$head[0][1] = $langs->trans("Step").' 1 - '.$langs->trans("AccountancyClosureStep1");
 		$head[0][2] = 'step1';
@@ -409,7 +409,7 @@ if (empty($current_fiscal_period)) {
 	}
 
 	// Step 2
-	$head = array();
+	$head = [];
 	$head[0][0] = DOL_URL_ROOT . '/accountancy/closure/index.php?fiscal_period_id=' . $current_fiscal_period['id'];
 	$head[0][1] = $langs->trans("Step"). ' ' . (getDolGlobalString("ACCOUNTANCY_DISABLE_CLOSURE_LINE_BY_LINE") ? '1' : '2').' - '.$langs->trans("AccountancyClosureStep2");
 	$head[0][2] = 'step2';
@@ -432,7 +432,7 @@ if (empty($current_fiscal_period)) {
 	print '<br>';
 
 	// Step 3
-	$head = array();
+	$head = [];
 	$head[0][0] = DOL_URL_ROOT . '/accountancy/closure/index.php?fiscal_period_id=' . $current_fiscal_period['id'];
 	$head[0][1] = $langs->trans("Step"). ' ' . (getDolGlobalString("ACCOUNTANCY_DISABLE_CLOSURE_LINE_BY_LINE") ? '2' : '3').' - '.$langs->trans("AccountancyClosureStep3");
 	$head[0][2] = 'step3';

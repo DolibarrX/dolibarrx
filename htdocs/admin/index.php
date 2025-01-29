@@ -64,7 +64,7 @@ if (getDolGlobalString('MAIN_MOTD_SETUPPAGE')) {
 	$config->global->MAIN_MOTD_SETUPPAGE = preg_replace('/<br(\s[\sa-zA-Z_="]*)?\/?>/i', '<br>', getDolGlobalString('MAIN_MOTD_SETUPPAGE'));
 	if (getDolGlobalString('MAIN_MOTD_SETUPPAGE')) {
 		$i = 0;
-		$reg = array();
+		$reg = [];
 		while (preg_match('/__\(([a-zA-Z|@]+)\)__/i', getDolGlobalString('MAIN_MOTD_SETUPPAGE'), $reg) && $i < 100) {
 			$tmp = explode('|', $reg[1]);
 			if (!empty($tmp[1])) {
@@ -139,7 +139,7 @@ print '<br>';
 print '<br>';
 
 // Add hook to add information
-$parameters = array();
+$parameters = [];
 $object = new stdClass();
 $resHook = $hookManager->executeHooks('addHomeSetup', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 print $hookManager->resPrint;

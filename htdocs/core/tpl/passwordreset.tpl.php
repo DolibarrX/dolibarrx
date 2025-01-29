@@ -95,7 +95,7 @@ $php_self = str_replace('action=validatenewpassword', '', $php_self);
 $titleofpage = $langs->trans('ResetPassword');
 
 // Javascript code on logon page only to detect user tz, dst_observed, dst_first, dst_second
-$arrayofjs = array();
+$arrayofjs = [];
 
 $disablenofollow = 1;
 if (!preg_match('/'.constant('DOL_APPLICATION_TITLE').'/', $title)) {
@@ -105,7 +105,7 @@ if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 	$disablenofollow = 0;
 }
 
-top_htmlhead('', $titleofpage, 0, 0, $arrayofjs, array(), 1, $disablenofollow);
+top_htmlhead('', $titleofpage, 0, 0, $arrayofjs, [], 1, $disablenofollow);
 
 
 $colorbackhmenu1 = '60,70,100'; // topmenu
@@ -369,7 +369,7 @@ if (!empty($morelogincontent) && is_array($morelogincontent)) {
 }
 
 // Can add extra content
-$parameters = array();
+$parameters = [];
 $dummyobject = new stdClass();
 $result = $hookManager->executeHooks('getPasswordResetExtraContent', $parameters, $dummyobject, $action);
 print $hookManager->resPrint;

@@ -306,7 +306,7 @@ class StockTransferLine extends CommonObjectLine
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -329,7 +329,7 @@ class StockTransferLine extends CommonObjectLine
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList();
@@ -444,7 +444,7 @@ class StockTransferLine extends CommonObjectLine
 		$p = new Product($this->db);
 		$p->fetch($this->fk_product);
 
-		$op = array();
+		$op = [];
 		$op[0] = "+".trim((string) $this->qty);
 		$op[1] = "-".trim((string) $this->qty);
 		$movementstock = new MouvementStock($this->db);

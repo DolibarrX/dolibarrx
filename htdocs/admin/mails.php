@@ -198,7 +198,7 @@ print load_fiche_titre($langs->trans("EMailsSetup"), '', 'title_setup');
 $head = email_admin_prepare_head();
 
 // List of sending methods
-$listofmethods = array();
+$listofmethods = [];
 $listofmethods['mail'] = 'PHP mail function';
 $listofmethods['smtps'] = 'SMTP/SMTPS socket library';
 if (version_compare(phpversion(), '7.0', '>=')) {
@@ -206,7 +206,7 @@ if (version_compare(phpversion(), '7.0', '>=')) {
 }
 
 // List of oauth services
-$oauthservices = array();
+$oauthservices = [];
 
 foreach ($config->global as $key => $val) {
 	if (!empty($val) && preg_match('/^OAUTH_.*_ID$/', $key)) {
@@ -636,7 +636,7 @@ if ($action == 'edit') {
 	print '"></td></tr>';
 
 	// Default from type
-	$liste = array();
+	$liste = [];
 	$liste['user'] = $langs->trans('UserEmail');
 	$liste['company'] = $langs->trans('CompanyEmail').' ('.(!getDolGlobalString('MAIN_INFO_SOCIETE_MAIL') ? $langs->trans("NotDefined") : getDolGlobalString('MAIN_INFO_SOCIETE_MAIL')).')';
 
@@ -678,7 +678,7 @@ if ($action == 'edit') {
 
 	print $langs->trans("MAIN_DISABLE_ALL_MAILS");
 	if (!empty($config->use_javascript_ajax)) {
-		print ajax_constantonoff('MAIN_DISABLE_ALL_MAILS', array(), null, 0, 0, 1, 2, 0, 0, '_red').'</a>';
+		print ajax_constantonoff('MAIN_DISABLE_ALL_MAILS', [], null, 0, 0, 1, 2, 0, 0, '_red').'</a>';
 	} else {
 		print yn(getDolGlobalString('MAIN_DISABLE_ALL_MAILS'));
 		if (getDolGlobalString('MAIN_DISABLE_ALL_MAILS')) {
@@ -915,7 +915,7 @@ if ($action == 'edit') {
 	print '</td></tr>';
 
 	// Default from type
-	$liste = array();
+	$liste = [];
 	$liste['user'] = $langs->trans('UserEmail');
 	$liste['company'] = $langs->trans('CompanyEmail').' ('.getDolGlobalString('MAIN_INFO_SOCIETE_MAIL', $langs->trans("NotDefined")).')';
 	$sql = 'SELECT rowid, label, email FROM '.MAIN_DB_PREFIX.'c_email_senderprofile';
@@ -1065,7 +1065,7 @@ if ($action == 'edit') {
 				foreach ($arrayipstoshow as $iptoshow) {
 					// If MAIN_EXTERNAL_SMTP_CLIENT_IP_ADDRESS is an URL to get/show the public IP/name of server detected dynamically
 					if (preg_match('/^http/i', $iptoshow)) {
-						$tmpresult = getURLContent($iptoshow, 'GET', '', 1, array(), array('http', 'https'), 0);
+						$tmpresult = getURLContent($iptoshow, 'GET', '', 1, [], array('http', 'https'), 0);
 						if (!empty($tmpresult['content'])) {
 							$iptoshow = $tmpresult['content'];
 						} else {
@@ -1081,7 +1081,7 @@ if ($action == 'edit') {
 		}
 
 		// Build list of main email addresses in $emailstotest and their domain to test in $domainstotest
-		$emailstotest = array();
+		$emailstotest = [];
 		if (getDolGlobalString('MAIN_INFO_SOCIETE_MAIL')) {
 			$emailstotest[getDolGlobalString('MAIN_INFO_SOCIETE_MAIL')] = getDomainFromURL(preg_replace('/^.*@/', '', getDolGlobalString('MAIN_INFO_SOCIETE_MAIL')), 1);
 		}
@@ -1091,7 +1091,7 @@ if ($action == 'edit') {
 		if (!empty($user->email)) {
 			$emailstotest[$user->email] = getDomainFromURL(preg_replace('/^.*@/', '', $user->email), 1);
 		}
-		$domainstotest = array();
+		$domainstotest = [];
 		foreach ($emailstotest as $email => $domain) {
 			if (empty($domainstotest[$domain])) {
 				$domainstotest[$domain] = array($email => $email);
@@ -1138,7 +1138,7 @@ if ($action == 'edit') {
 		print load_fiche_titre($langs->trans("DoTestServerAvailability"));
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-		$mail = new CMailFile('', '', '', '', array(), array(), array(), '', '', 0, 0, '', '', '', $trackid, $sendcontext);
+		$mail = new CMailFile('', '', '', '', [], [], [], '', '', 0, 0, '', '', '', $trackid, $sendcontext);
 		$result = $mail->check_server_port($server, $port);
 		if ($result) {
 			print '<div class="ok">'.$langs->trans("ServerAvailableOnIPOrPort", $server, $port).'</div>';
@@ -1159,7 +1159,7 @@ if ($action == 'edit') {
 		print '<div id="formmailbeforetitle" name="formmailbeforetitle"></div>';
 		print load_fiche_titre($action == 'testhtml' ? $langs->trans("DoTestSendHTML") : $langs->trans("DoTestSend"));
 
-		print dol_get_fiche_head(array(), '', '', -1);
+		print dol_get_fiche_head([], '', '', -1);
 
 		// Create form object
 		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';

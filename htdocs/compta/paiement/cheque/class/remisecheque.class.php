@@ -239,7 +239,7 @@ class RemiseCheque extends CommonObject
 				}
 			}
 
-			$lines = array();
+			$lines = [];
 
 			if ($this->id > 0 && $this->errno == 0) {
 				$sql = "SELECT b.rowid";
@@ -798,7 +798,7 @@ class RemiseCheque extends CommonObject
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			$rejectedPayment = new Paiement($this->db);
-			$rejectedPayment->amounts = array();
+			$rejectedPayment->amounts = [];
 			$rejectedPayment->datepaye = $rejection_date;
 			$rejectedPayment->paiementid = dol_getIdFromCode($this->db, 'CHQ', 'c_paiement', 'code', 'id', 1);
 			$rejectedPayment->num_payment = $payment->num_payment;

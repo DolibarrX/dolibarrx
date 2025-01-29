@@ -393,7 +393,7 @@ function encodedecode_dbpassconf($level = 0)
 
 			$lineofpass = 0;
 
-			$reg = array();
+			$reg = [];
 			$mode = '';
 			if (preg_match('/^[^#]*dolibarr_main_db_encrypted_pass[\s]*=[\s]*(.*)/i', $buffer, $reg)) {	// Old way to save encrypted value
 				$val = trim($reg[1]); // This also remove CR/LF

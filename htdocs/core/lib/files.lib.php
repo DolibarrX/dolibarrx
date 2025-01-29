@@ -70,7 +70,7 @@ function dol_dir_list($utf8_path, $types = "all", $recursive = 0, $filter = "", 
 		$filters_ok = true;
 		$error_info = "";
 		// Ensure we have an array for the exclusions
-		$exclude_array = ($excludefilter === null || $excludefilter === '') ? array() : (is_array($excludefilter) ? $excludefilter : array($excludefilter));
+		$exclude_array = ($excludefilter === null || $excludefilter === '') ? [] : (is_array($excludefilter) ? $excludefilter : array($excludefilter));
 		foreach ((array($filter) + $exclude_array) as $f) {
 			// Check that all '/' are escaped.
 			if ((int) preg_match('/(?:^|[^\\\\])\//', $f) > 0) {
@@ -83,11 +83,11 @@ function dol_dir_list($utf8_path, $types = "all", $recursive = 0, $filter = "", 
 		// print 'xxx'."files.lib.php::dol_dir_list path=".$utf8_path." types=".$types." recursive=".$recursive." filter=".$filter." excludefilter=".json_encode($exclude_array);
 		if (!$filters_ok) {
 			// Return empty array when filters are invalid
-			return array();
+			return [];
 		}
 	} else {
 		// Already computed before
-		$exclude_array = ($excludefilter === null || $excludefilter === '') ? array() : (is_array($excludefilter) ? $excludefilter : array($excludefilter));
+		$exclude_array = ($excludefilter === null || $excludefilter === '') ? [] : (is_array($excludefilter) ? $excludefilter : array($excludefilter));
 	}
 
 	// Define excludefilterarray (before while, for speed)
@@ -103,10 +103,10 @@ function dol_dir_list($utf8_path, $types = "all", $recursive = 0, $filter = "", 
 	$now = dol_now();
 
 	$resHook = 0;
-	$file_list = array();
+	$file_list = [];
 
 	if (!$nohook && $hookManager instanceof HookManager) {
-		$hookManager->resArray = array();
+		$hookManager->resArray = [];
 
 		$hookManager->initHooks(array('fileslib'));
 
@@ -128,11 +128,11 @@ function dol_dir_list($utf8_path, $types = "all", $recursive = 0, $filter = "", 
 	// $hookManager->resArray may contain array stacked by other modules
 	if (empty($resHook)) {
 		if (!is_dir($os_path)) {
-			return array();
+			return [];
 		}
 
 		if (($dir = opendir($os_path)) === false) {
-			return array();
+			return [];
 		} else {
 			$filedate = '';
 			$filesize = '';
@@ -177,7 +177,7 @@ function dol_dir_list($utf8_path, $types = "all", $recursive = 0, $filter = "", 
 							}
 
 							if (!$filter || preg_match('/' . $filter . '/i', $utf8_file)) {	// We do not search key $filter into all $path, only into $file part
-								$reg = array();
+								$reg = [];
 								preg_match('/([^\/]+)\/[^\/]+$/', $utf8_fullpathfile, $reg);
 								$level1name = (isset($reg[1]) ? $reg[1] : '');
 								$file_list[] = array(
@@ -284,18 +284,18 @@ function dol_dir_list_in_database($path, $filter = "", $excludefilter = null, $s
 	$sql .= forgeSQLFromUniversalSearchCriteria($sqlfilters, $errormessage);
 	if ($errormessage) {
 		dol_print_error(null, $errormessage);
-		return array();
+		return [];
 	}
 
 	$resql = $db->query($sql);
 	if ($resql) {
-		$file_list = array();
+		$file_list = [];
 		$num = $db->num_rows($resql);
 		$i = 0;
 		while ($i < $num) {
 			$obj = $db->fetch_object($resql);
 			if ($obj) {
-				$reg = array();
+				$reg = [];
 				preg_match('/([^\/]+)\/[^\/]+$/', DOL_DATA_ROOT . '/' . $obj->filepath . '/' . $obj->filename, $reg);
 				$level1name = (isset($reg[1]) ? $reg[1] : '');
 				$file_list[] = array(
@@ -322,7 +322,7 @@ function dol_dir_list_in_database($path, $filter = "", $excludefilter = null, $s
 
 		// Obtain a list of columns
 		if (!empty($sortcriteria)) {
-			$myarray = array();
+			$myarray = [];
 			foreach ($file_list as $key => $row) {
 				$myarray[$key] = (isset($row[$sortcriteria]) ? $row[$sortcriteria] : '');
 			}
@@ -335,7 +335,7 @@ function dol_dir_list_in_database($path, $filter = "", $excludefilter = null, $s
 		return $file_list;
 	} else {
 		dol_print_error($db);
-		return array();
+		return [];
 	}
 }
 
@@ -803,7 +803,7 @@ function dol_copy($srcfile, $destfile, $newmask = '0', $overwriteifexists = 1, $
 	}
 
 	// Check virus
-	$testvirusarray = array();
+	$testvirusarray = [];
 	if ($testvirus) {
 		$testvirusarray = dolCheckVirus($srcfile, $destfile);
 		if (count($testvirusarray)) {
@@ -1019,7 +1019,7 @@ function dolCopyDir($srcfile, $destfile, $newmask, $overwriteifexists, $arrayrep
  * @return  boolean 		            True if OK, false if KO
  * @see dol_move_uploaded_file()
  */
-function dol_move($srcfile, $destfile, $newmask = '0', $overwriteifexists = 1, $testvirus = 0, $indexdatabase = 1, $moreinfo = array())
+function dol_move($srcfile, $destfile, $newmask = '0', $overwriteifexists = 1, $testvirus = 0, $indexdatabase = 1, $moreinfo = [])
 {
 	global $user, $db;
 	$result = false;
@@ -1038,7 +1038,7 @@ function dol_move($srcfile, $destfile, $newmask = '0', $overwriteifexists = 1, $
 		$newpathofdestfile = dol_osencode($destfile);
 
 		// Check on virus
-		$testvirusarray = array();
+		$testvirusarray = [];
 		if ($testvirus) {
 			// Check using filename + antivirus
 			$testvirusarray = dolCheckVirus($newpathofsrcfile, $newpathofdestfile);
@@ -1308,7 +1308,7 @@ function dolCheckVirus($src_file, $dest_file = '')
 			return $reterrors;
 		}
 	}
-	return array();
+	return [];
 }
 
 /**
@@ -1333,7 +1333,7 @@ function dolCheckOnFileName($src_file, $dest_file = '')
 		}
 	}
 
-	return array();
+	return [];
 }
 
 
@@ -1869,9 +1869,9 @@ function dol_meta_create($object)
  */
 function dol_init_file_process($pathtoscan = '', $trackid = '')
 {
-	$listofpaths = array();
-	$listofnames = array();
-	$listofmimes = array();
+	$listofpaths = [];
+	$listofnames = [];
+	$listofmimes = [];
 
 	if ($pathtoscan) {
 		$listoffiles = dol_dir_list($pathtoscan, 'files');
@@ -2106,9 +2106,9 @@ function dol_remove_file_process($filenb, $donotupdatesession = 0, $donotdeletef
 	$keytodelete = $filenb;
 	$keytodelete--;
 
-	$listofpaths = array();
-	$listofnames = array();
-	$listofmimes = array();
+	$listofpaths = [];
+	$listofnames = [];
+	$listofmimes = [];
 	$keytoavoidconflict = empty($trackid) ? '' : '-' . $trackid;
 	if (!empty($_SESSION["listofpaths" . $keytoavoidconflict])) {
 		$listofpaths = explode(';', $_SESSION["listofpaths" . $keytoavoidconflict]);
@@ -2245,7 +2245,7 @@ function addFileIntoDatabaseIndex($dir, $file, $fullpathorig = '', $mode = 'uplo
 
 					if (!$resultexec['error']) {
 						$txt = $resultexec['output'];
-						$matches = array();
+						$matches = [];
 						if (preg_match('/<meta name="Keywords" content="([^\/]+)"\s*\/>/i', $txt, $matches)) {
 							$keywords = $matches[1];
 						}
@@ -2271,7 +2271,7 @@ function addFileIntoDatabaseIndex($dir, $file, $fullpathorig = '', $mode = 'uplo
 
 					if (!$resultexec['error']) {
 						$txt = $resultexec['output'];
-						//$matches = array();
+						//$matches = [];
 						//if (preg_match('/<meta name="Keywords" content="([^\/]+)"\s*\/>/i', $txt, $matches)) {
 						//	$keywords = $matches[1];
 						//}
@@ -2556,7 +2556,7 @@ function dol_compress_file($inputfile, $outputfile, $mode = "gz", &$errorstring 
  *
  * @param 	string 	$inputfile		File to uncompress
  * @param 	string	$outputdir		Target dir name
- * @return 	array{error?:string}	array('error'=>'Error code') or array() if no error
+ * @return 	array{error?:string}	array('error'=>'Error code') or [] if no error
  * @see dol_compress_file(), dol_compress_dir()
  */
 function dol_uncompress($inputfile, $outputdir)
@@ -2604,7 +2604,7 @@ function dol_uncompress($inputfile, $outputdir)
 				}
 
 				if ($ok) {
-					return array();
+					return [];
 				} else {
 					return array('error' => $errmsg);
 				}
@@ -2630,7 +2630,7 @@ function dol_uncompress($inputfile, $outputdir)
 				}
 
 				$zip->close();
-				return array();
+				return [];
 			} else {
 				return array('error' => 'ErrUnzipFails');
 			}
@@ -2676,7 +2676,7 @@ function dol_uncompress($inputfile, $outputdir)
 				}
 			}
 		}
-		return $resarray["result"] != 0 ? array('error' => $resarray["error"]) : array();
+		return $resarray["result"] != 0 ? array('error' => $resarray["error"]) : [];
 	}
 
 	return array('error' => 'ErrorBadFileExtension');
@@ -2871,7 +2871,7 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 	// We define $accessallowed and $sqlprotectagainstexternals
 	$accessallowed = 0;
 	$sqlprotectagainstexternals = '';
-	$ret = array();
+	$ret = [];
 
 	// Find the subdirectory name as the reference. For example original_file='10/myfile.pdf' -> refname='10'
 	if (empty($refname)) {
@@ -2942,7 +2942,7 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 		// Wrapping for users photos that were set to public (for virtual credit card) by their owner (public user photos can be read
 		// with the public link and securekey)
 		$accessok = false;
-		$reg = array();
+		$reg = [];
 		if (preg_match('/^(\d+)\/photos\//', $original_file, $reg)) {
 			if ($reg[1]) {
 				$tmpobject = new User($db);
@@ -3513,7 +3513,7 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 		}
 
 		// Define $accessallowed
-		$reg = array();
+		$reg = [];
 		if (preg_match('/^([a-z]+)_user_temp$/i', $modulepart, $reg)) {
 			$tmpmodule = $reg[1];
 			if (empty($config->$tmpmodule->dir_temp)) {	// modulepart not supported
@@ -3686,7 +3686,7 @@ function dirbasename($pathfile)
  * @param   string[]			$checksumconcat     Array of checksum
  * @return	array{insignature:string[],missing?:array<array{filename:string,expectedmd5:string,expectedsize:string}>,updated:array<array{filename:string,expectedmd5:string,expectedsize:string,md5:string}>}	$file_list	Array of filenames
  */
-function getFilesUpdated(&$file_list, SimpleXMLElement $dir, $path = '', $pathref = '', &$checksumconcat = array())
+function getFilesUpdated(&$file_list, SimpleXMLElement $dir, $path = '', $pathref = '', &$checksumconcat = [])
 {
 	global $conffile;
 

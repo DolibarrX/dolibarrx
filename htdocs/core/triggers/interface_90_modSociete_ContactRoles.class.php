@@ -79,13 +79,13 @@ class InterfaceContactRoles extends DolibarrTriggers
 				$contactdefault = new Contact($this->db);
 				$contactdefault->socid = $socid;
 
-				$TContact = array();
+				$TContact = [];
 				if (method_exists($contactdefault, 'getContactRoles')) {	// For backward compatibility
 					$TContact = $contactdefault->getContactRoles($object->element);
 				}
 
 				if (is_array($TContact) && !empty($TContact)) {
-					$TContactAlreadyLinked = array();
+					$TContactAlreadyLinked = [];
 
 					if ($object->id > 0) {
 						$TContactAlreadyLinked = array_merge($object->liste_contact(-1, 'external'), $object->liste_contact(-1, 'internal'));

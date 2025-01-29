@@ -162,7 +162,7 @@ $thirdpartygraph .= '<table class="noborder nohover centpercent">'."\n";
 $thirdpartygraph .= '<tr class="liste_titre"><th colspan="2">'.$langs->trans("Statistics").'</th></tr>';
 if (!empty($config->use_javascript_ajax) && ((round($third['prospect']) ? 1 : 0) + (round($third['customer']) ? 1 : 0) + (round($third['supplier']) ? 1 : 0) + (round($third['other']) ? 1 : 0) >= 2)) {
 	$thirdpartygraph .= '<tr><td class="center" colspan="2">';
-	$dataseries = array();
+	$dataseries = [];
 	if (isModEnabled('societe') && $user->hasRight('societe', 'lire') && !getDolGlobalString('SOCIETE_DISABLE_PROSPECTS') && !getDolGlobalString('SOCIETE_DISABLE_PROSPECTS_STATS')) {
 		$dataseries[] = array($langs->transnoentitiesnoconv("Prospects"), round($third['prospect']));
 	}
@@ -235,7 +235,7 @@ if (isModEnabled('category') && getDolGlobalString('CATEGORY_GRAPHSTATS_ON_THIRD
 		$num = $db->num_rows($result);
 		$i = 0;
 		if (!empty($config->use_javascript_ajax)) {
-			$dataseries = array();
+			$dataseries = [];
 			$rest = 0;
 			$nbmax = 10;
 

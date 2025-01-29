@@ -53,7 +53,7 @@ abstract class ModelePDFPartnership extends CommonDocGenerator
 		global $config;
 
 		$type = 'partnership';
-		$list = array();
+		$list = [];
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 		$list = getListOfModels($db, $type, $maxfilenamelength);

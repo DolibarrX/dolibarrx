@@ -240,8 +240,8 @@ if (empty($resHook)) {
 		$search_date_endendyear = '';
 		$search_date_end = '';
 		$search_date_endend = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
@@ -269,8 +269,8 @@ $fuser = new User($db);
 
 $title = $langs->trans("TripsAndExpenses");
 $help_url = '';
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 $max_year = 5;
 $min_year = 10;
@@ -299,7 +299,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -357,7 +357,7 @@ if (!$user->hasRight('expensereport', 'readall') && !$user->hasRight('expenserep
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -403,7 +403,7 @@ $num = $db->num_rows($resql);
 
 llxHeader('', $title, $help_url, '', 0, 0, $morejs, $morecss, '', 'bodyforlist');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -487,7 +487,7 @@ if ($user->hasRight('expensereport', 'supprimer')) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -574,7 +574,7 @@ if ($search_all) {
 
 $moreforfilter = '';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -701,7 +701,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -785,13 +785,13 @@ $usertmp = new User($db);
 if ($num > 0) {
 	$i = 0;
 	$savnbfield = $totalarray['nbfield'];
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
-	$totalarray['val'] = array();
+	$totalarray['val'] = [];
 	$totalarray['val']['d.total_ht'] = 0;
 	$totalarray['val']['d.total_tva'] = 0;
 	$totalarray['val']['d.total_ttc'] = 0;
-	$totalarray['totalizable'] = array();
+	$totalarray['totalizable'] = [];
 
 	$imaxinloop = ($limit ? min($num, $limit) : $num);
 	while ($i < $imaxinloop) {

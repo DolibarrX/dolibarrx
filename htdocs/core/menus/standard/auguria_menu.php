@@ -138,7 +138,7 @@ class MenuManager
 		}
 
 		require_once DOL_DOCUMENT_ROOT.'/core/class/menubase.class.php';
-		$tabMenu = array();
+		$tabMenu = [];
 		$menuArbo = new Menubase($this->db, 'auguria');
 		$menuArbo->menuLoad($mainmenu, $leftmenu, $this->type_user, 'auguria', $tabMenu);
 		$this->tabMenu = $tabMenu;
@@ -197,7 +197,7 @@ class MenuManager
 
 			// $this->menu->liste is top menu
 			//var_dump($this->menu->liste);exit;
-			$lastlevel = array();
+			$lastlevel = [];
 			$showmenu = true;  // Is current menu shown - define here to keep static code checker happy
 			print '<!-- Generate menu list from menu handler '.$this->name.' -->'."\n";
 			foreach ($this->menu->liste as $key => $val) {		// $val['url','titre','level','enabled'=0|1|2,'target','mainmenu','leftmenu'
@@ -270,7 +270,7 @@ class MenuManager
 						}
 					}
 
-					$lastlevel2 = array();
+					$lastlevel2 = [];
 					foreach ($submenu->liste as $key2 => $val2) {		// $val['url','titre','level','enabled'=0|1|2,'target','mainmenu','leftmenu'
 						$showmenu = true;
 						if (getDolGlobalString('MAIN_MENU_HIDE_UNAUTHORIZED') && empty($val2['enabled'])) {

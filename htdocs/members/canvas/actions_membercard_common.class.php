@@ -52,7 +52,7 @@ abstract class ActionsMemberCardCommon
 	/**
 	 * @var array<string,mixed> Template container
 	 */
-	public $tpl = array();
+	public $tpl = [];
 	/**
 	 * @var Object container
 	 */
@@ -66,7 +66,7 @@ abstract class ActionsMemberCardCommon
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**

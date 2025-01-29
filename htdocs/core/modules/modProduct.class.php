@@ -69,9 +69,9 @@ class modProduct extends DolibarrModules
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
 		$this->requiredby = array("modStock", "modBarcode", "modProductBatch", "modVariants", "modBom"); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 
 		// Config pages
@@ -112,7 +112,7 @@ class modProduct extends DolibarrModules
 		);
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'produit';
 		$r = 0;
 
@@ -278,7 +278,7 @@ class modProduct extends DolibarrModules
 		if (getDolGlobalString('EXPORTTOOL_CATEGORIES')) {
 			$this->export_TypeFields_array[$r] = array_merge($this->export_TypeFields_array[$r], array("group_concat(cat.label)" => 'Text'));
 		}
-		$this->export_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->export_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		if (getDolGlobalString('EXPORTTOOL_CATEGORIES')) {
 			$this->export_entities_array[$r] = array_merge($this->export_entities_array[$r], array("group_concat(cat.label)" => 'category'));
 		}
@@ -488,7 +488,7 @@ class modProduct extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "Products"; // Translation key
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array(); // We define here only fields that use a different icon from the one defined in import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use a different icon from the one defined in import_icon
 		$this->import_tables_array[$r] = array('p' => MAIN_DB_PREFIX.'product', 'extra' => MAIN_DB_PREFIX.'product_extrafields');
 		$this->import_tables_creator_array[$r] = array('p' => 'fk_user_author'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(
@@ -658,7 +658,7 @@ class modProduct extends DolibarrModules
 		}
 
 		// Add extra fields
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'product' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {    // This can fail when class is used on old database (during migration for example)
@@ -767,7 +767,7 @@ class modProduct extends DolibarrModules
 			$this->import_code[$r] = $this->rightsClass.'_stock_by_warehouse';
 			$this->import_label[$r] = "ProductStockWarehouse"; // Translation key
 			$this->import_icon[$r] = $this->picture;
-			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+			$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('pwp' => MAIN_DB_PREFIX.'product_warehouse_properties');
 			$this->import_fields_array[$r] = array('pwp.fk_product' => "Product*",
 				'pwp.fk_entrepot' => "Warehouse*", 'pwp.seuil_stock_alerte' => "StockLimit",
@@ -794,7 +794,7 @@ class modProduct extends DolibarrModules
 			$this->import_code[$r] = $this->rightsClass.'_supplierprices';
 			$this->import_label[$r] = "SuppliersPricesOfProductsOrServices"; // Translation key
 			$this->import_icon[$r] = $this->picture;
-			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+			$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('sp' => MAIN_DB_PREFIX.'product_fournisseur_price', 'extra' => MAIN_DB_PREFIX.'product_fournisseur_price_extrafields');
 			$this->import_tables_creator_array[$r] = array('sp' => 'fk_user');
 			$this->import_fields_array[$r] = array(//field order as per structure of table llx_product_fournisseur_price, without optional fields
@@ -838,7 +838,7 @@ class modProduct extends DolibarrModules
 			}
 
 			// Add extra fields
-			$import_extrafield_sample = array();
+			$import_extrafield_sample = [];
 			$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND  elementtype = 'product_fournisseur_price' AND entity IN (0, ".$config->entity.")";
 			$resql = $this->db->query($sql);
 			if ($resql) {    // This can fail when class is used on old database (during migration for example)
@@ -911,7 +911,7 @@ class modProduct extends DolibarrModules
 			$this->import_code[$r] = $this->rightsClass.'_multiprice';
 			$this->import_label[$r] = "ProductsOrServiceMultiPrice"; // Translation key
 			$this->import_icon[$r] = $this->picture;
-			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+			$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('pr' => MAIN_DB_PREFIX.'product_price');
 			$this->import_tables_creator_array[$r] = array('pr' => 'fk_user_author'); // Fields to store import user id
 			$this->import_fields_array[$r] = array('pr.fk_product' => "ProductOrService*",
@@ -944,7 +944,7 @@ class modProduct extends DolibarrModules
 			$this->import_code[$r] = $this->rightsClass.'_languages';
 			$this->import_label[$r] = "ProductsOrServicesTranslations";
 			$this->import_icon[$r] = $this->picture;
-			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+			$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('l' => MAIN_DB_PREFIX.'product_lang');
 			// multiline translation, one line per translation
 			$this->import_fields_array[$r] = array('l.fk_product' => 'ProductOrService*', 'l.lang' => 'Language*', 'l.label' => 'TranslatedLabel', 'l.description' => 'TranslatedDescription');
@@ -962,7 +962,7 @@ class modProduct extends DolibarrModules
 			$this->import_code[$r] = $this->rightsClass . '_' . $r;
 			$this->import_label[$r] = "AssociatedProducts"; // Translation key
 			$this->import_icon[$r] = $this->picture;
-			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+			$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('pa' => MAIN_DB_PREFIX . 'product_association');
 			$this->import_fields_array[$r] = array('pa.fk_product_pere' => 'ParentProducts', 'pa.fk_product_fils' => 'ComposedProduct', 'pa.qty' => 'Qty', 'pa.incdec' => 'ComposedProductIncDecStock', 'pa.rang' => 'rang');
 
@@ -994,7 +994,7 @@ class modProduct extends DolibarrModules
 	{
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

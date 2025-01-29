@@ -40,7 +40,7 @@ function fichinter_prepare_head($object)
 	$langs->load("interventions");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/fichinter/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Intervention");
@@ -177,7 +177,7 @@ function fichinter_admin_prepare_head()
 
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/fichinter.php";
 	$head[$h][1] = $langs->trans("Interventions");
@@ -229,7 +229,7 @@ function fichinter_rec_prepare_head($object)
 	global $langs, $config; //, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/fichinter/card-rec.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("CardFichinter");

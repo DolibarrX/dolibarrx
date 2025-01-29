@@ -65,7 +65,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 $langs->loadLangs(array('products', 'bills', 'companies', 'other'));
 
 $error = 0;
-$errors = array();
+$errors = [];
 
 $id = GETPOSTINT('id');
 $ref = GETPOST('ref', 'alpha');
@@ -142,7 +142,7 @@ if (empty($resHook)) {
 
 		// We must define tva_tx, npr and local taxes
 		$tva_tx = $tva_tx_txt;
-		$reg = array();
+		$reg = [];
 		$vatratecode = '';
 		if (preg_match('/\((.*)\)/', $tva_tx_txt, $reg)) {
 			$vatratecode = $reg[1];
@@ -233,7 +233,7 @@ if (empty($resHook)) {
 					$oldnpr = $object->multiprices_recuperableonly[$i];
 
 					//$localtaxarray=array('0'=>$localtax1_type,'1'=>$localtax1,'2'=>$localtax2_type,'3'=>$localtax2);
-					$localtaxarray = array(); // We do not store localtaxes into product, we will use instead the "vat code" to retrieve them.
+					$localtaxarray = []; // We do not store localtaxes into product, we will use instead the "vat code" to retrieve them.
 					$level = $i;
 					$ret = $object->updatePrice($oldprice, $oldpricebasetype, $user, $tva_tx, $oldminprice, $level, $oldnpr, 0, 0, $localtaxarray, $vatratecode, $price_label);
 
@@ -255,7 +255,7 @@ if (empty($resHook)) {
 				$oldnpr = $object->tva_npr;
 
 				//$localtaxarray=array('0'=>$localtax1_type,'1'=>$localtax1,'2'=>$localtax2_type,'3'=>$localtax2);
-				$localtaxarray = array(); // We do not store localtaxes into product, we will use instead the "vat code" to retrieve them when required.
+				$localtaxarray = []; // We do not store localtaxes into product, we will use instead the "vat code" to retrieve them when required.
 				$level = 0;
 				$ret = $object->updatePrice($oldprice, $oldpricebasetype, $user, $tva_tx, $oldminprice, $level, $oldnpr, 0, 0, $localtaxarray, $vatratecode, $price_label);
 
@@ -277,7 +277,7 @@ if (empty($resHook)) {
 
 	if (($action == 'update_price' || $action == 'update_level_price') && !$cancel && $object->getRights()->creer) {
 		$error = 0;
-		$pricestoupdate = array();
+		$pricestoupdate = [];
 
 		$psq = GETPOST('psqflag');
 		$psq = empty($newpsq) ? 0 : $newpsq;
@@ -323,7 +323,7 @@ if (empty($resHook)) {
 
 				$tva_tx = $tva_tx_txt;
 				$vatratecode = '';
-				$reg = array();
+				$reg = [];
 				if (preg_match('/\((.*)\)/', $tva_tx_txt, $reg)) {
 					$vat_src_code = $reg[1];
 					$tva_tx = preg_replace('/\s*\(.*\)/', '', $tva_tx_txt); // Remove code into vatrate.
@@ -406,7 +406,7 @@ if (empty($resHook)) {
 
 			$tva_tx = $tva_tx_txt;
 			$vatratecode = '';
-			$reg = array();
+			$reg = [];
 			if (preg_match('/\((.*)\)/', $tva_tx_txt, $reg)) {
 				$vat_src_code = $reg[1];
 				$tva_tx = preg_replace('/\s*\(.*\)/', '', $tva_tx_txt); // Remove code into vatrate.
@@ -1570,7 +1570,7 @@ if (!$action || $action == 'delete' || $action == 'showlog_customer_price' || $a
 	print "\n".'<div class="tabsAction">'."\n";
 
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 	if (empty($resHook)) {
 		if ($object->isVariant()) {
@@ -1804,7 +1804,7 @@ if (($action == 'edit_price' || $action == 'edit_level_price') && $object->getRi
 				}
 			}
 		}
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 		print '</table>';
@@ -1845,7 +1845,7 @@ if (($action == 'edit_price' || $action == 'edit_level_price') && $object->getRi
 		print '<input type="hidden" name="action" value="update_level_price">';
 		print '<input type="hidden" name="id" value="'.$object->id.'">';
 
-		//print dol_get_fiche_head(array(), '', '', -1);
+		//print dol_get_fiche_head([], '', '', -1);
 
 		if ((getDolGlobalString('PRODUIT_MULTIPRICES') || getDolGlobalString('PRODUIT_CUSTOMER_PRICES_BY_QTY_MULTIPRICES') || getDolGlobalString('PRODUIT_CUSTOMER_PRICES_AND_MULTIPRICES')) && getDolGlobalString('PRODUIT_MULTIPRICES_ALLOW_AUTOCALC_PRICELEVEL')) {
 			print $langs->trans('UseMultipriceRules').' <input type="checkbox" id="usePriceRules" name="usePriceRules" '.($object->price_autogen ? 'checked' : '').'><br><br>';
@@ -2055,7 +2055,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 		print '<td class="fieldrequired">'.$langs->trans('ThirdParty').'</td>';
 		print '<td>';
 		$filter = '(s.client:IN:1,2,3)';
-		print img_picture('', 'company').$form->select_company('', 'socid', $filter, 'SelectThirdParty', 0, 0, array(), 0, 'minwidth300');
+		print img_picture('', 'company').$form->select_company('', 'socid', $filter, 'SelectThirdParty', 0, 0, [], 0, 'minwidth300');
 		print '</td>';
 		print '</tr>';
 
@@ -2668,7 +2668,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 
 				// Extrafields
 				$extrafields->fetch_name_optionals_label("product_customer_price");
-				$extralabels = $extrafields->attributes["product_customer_price"]['label'] ?? array();
+				$extralabels = $extrafields->attributes["product_customer_price"]['label'] ?? [];
 				if (!empty($extralabels)) {
 					$sql  = "SELECT";
 					$sql .= " fk_object";
@@ -2827,7 +2827,7 @@ if ((!getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || $action == 'showlog_defau
 			}
 			print '</tr>';
 
-			$notfirstlineforlevel = array();
+			$notfirstlineforlevel = [];
 
 			$i = 0;
 			while ($i < $num) {

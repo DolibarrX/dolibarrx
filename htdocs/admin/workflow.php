@@ -297,7 +297,7 @@ foreach ($workflowcodes as $key => $params) {
 		continue;
 	}
 
-	$reg = array();
+	$reg = [];
 	if ($oldfamily != $params['family']) {
 		// New group
 		if ($params['family'] == 'create') {
@@ -382,7 +382,7 @@ foreach ($workflowcodes as $key => $params) {
 
 	if (!empty($config->use_javascript_ajax)) {
 		if (!empty($params['reloadpage'])) {
-			print ajax_constantonoff($key, array(), null, 0, 0, 1);
+			print ajax_constantonoff($key, [], null, 0, 0, 1);
 		} else {
 			print ajax_constantonoff($key);
 		}

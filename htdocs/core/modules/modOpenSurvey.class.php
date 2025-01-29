@@ -65,26 +65,26 @@ class modOpenSurvey extends DolibarrModules
 		$this->picture = 'poll';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array();
+		$this->dirs = [];
 		//$this->dirs[0] = DOL_DATA_ROOT.'/mymodule;
 		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3, 4, 0); // Minimum version of Dolibarr required by module
 
 		// Constants
-		$this->const = array(); // List of parameters
+		$this->const = []; // List of parameters
 
 		// Dictionaries
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 
 		// Boxes
-		$this->boxes = array(); // List of boxes
+		$this->boxes = []; // List of boxes
 		$r = 0;
 
 		// Add here list of php file(s) stored in includes/boxes that contains class to show a box.
@@ -95,7 +95,7 @@ class modOpenSurvey extends DolibarrModules
 		//$r++;
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$r = 0;
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
@@ -188,7 +188,7 @@ class modOpenSurvey extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

@@ -69,7 +69,7 @@ $memberstatic = new Member($db);
 
 $arrayjs = array('https://www.google.com/jsapi');
 if (!empty($config->dol_use_jmobile)) {
-	$arrayjs = array();
+	$arrayjs = [];
 }
 
 $title = $langs->trans("Statistics");
@@ -93,7 +93,7 @@ llxHeader('', $title, $help_url, '', 0, 0, $arrayjs, '', '', 'mod-member page-st
 print load_fiche_titre($title, '', $memberstatic->picture);
 
 //dol_mkdir($dir);
-$data = array();
+$data = [];
 $tab = null;
 $label = '';
 
@@ -119,7 +119,7 @@ if ($mode) {
 		$label2 = $langs->trans("State");
 		$tab = 'statsstate';
 
-		$data = array();
+		$data = [];
 		$sql = "SELECT COUNT(DISTINCT d.rowid) as nb, COUNT(s.rowid) as nbsubscriptions, MAX(d.datevalid) as lastdate, MAX(s.dateadh) as lastsubscriptiondate, co.code, co.label, c.nom as label2"; //
 		$sql .= " FROM ".MAIN_DB_PREFIX."member as d";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as c on d.state_id = c.rowid";
@@ -136,7 +136,7 @@ if ($mode) {
 		$label2 = $langs->trans("Region"); //département
 		$tab = 'statsregion'; //onglet
 
-		$data = array(); //tableau de donnée
+		$data = []; //tableau de donnée
 		$sql = "SELECT COUNT(DISTINCT d.rowid) as nb, COUNT(s.rowid) as nbsubscriptions, MAX(d.datevalid) as lastdate, MAX(s.dateadh) as lastsubscriptiondate, co.code, co.label, r.nom as label2";
 		$sql .= " FROM ".MAIN_DB_PREFIX."member as d";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as c on d.state_id = c.rowid";
@@ -153,7 +153,7 @@ if ($mode) {
 		$label2 = $langs->trans("Town");
 		$tab = 'statstown';
 
-		$data = array();
+		$data = [];
 		$sql = "SELECT COUNT(DISTINCT d.rowid) as nb, COUNT(s.rowid) as nbsubscriptions, MAX(d.datevalid) as lastdate, MAX(s.dateadh) as lastsubscriptiondate, c.code, c.label, d.town as label2";
 		$sql .= " FROM ".MAIN_DB_PREFIX."member as d";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c on d.country = c.rowid";

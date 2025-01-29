@@ -146,7 +146,7 @@ class Recruitments extends DolibarrApi
 	 */
 	public function indexJobPosition($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $sqlfilters = '', $properties = '', $pagination_data = false)
 	{
-		$obj_ret = array();
+		$obj_ret = [];
 		$tmpobject = new RecruitmentJobPosition($this->db);
 
 		if (!DolibarrApiAccess::$user->hasRight('recruitment', 'recruitmentjobposition', 'read')) {
@@ -262,7 +262,7 @@ class Recruitments extends DolibarrApi
 	{
 		global $db, $config;
 
-		$obj_ret = array();
+		$obj_ret = [];
 		$tmpobject = new RecruitmentCandidature($this->db);
 
 		if (!DolibarrApiAccess::$user->hasRight('recruitment', 'recruitmentjobposition', 'read')) {
@@ -687,7 +687,7 @@ class Recruitments extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$jobposition = array();
+		$jobposition = [];
 		foreach ($this->jobposition->fields as $field => $propfield) {
 			if (in_array($field, array('rowid', 'entity', 'date_creation', 'tms', 'fk_user_creat')) || $propfield['notnull'] != 1) {
 				continue; // Not a mandatory field

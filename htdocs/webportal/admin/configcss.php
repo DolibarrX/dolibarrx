@@ -61,14 +61,14 @@ if (!$user->admin) {
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 // Convert action set_XXX and del_XXX to set var (this is used when no javascript on for ajax_constantonoff)
-$regs = array();
+$regs = [];
 if (preg_match('/^(set|del)_([A-Z_]+)$/', $action, $regs)) {
 	if ($regs[1] == 'set') {
 		dolibarr_set_const($db, $regs[2], 1, 'chaine', 0, '', $config->entity);
@@ -103,7 +103,7 @@ llxHeader(
 		'/includes/ace/src/ext-statusbar.js',
 		'/includes/ace/src/ext-language_tools.js',
 	),
-	array()
+	[]
 );
 
 // Subheader

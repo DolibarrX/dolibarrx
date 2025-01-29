@@ -36,7 +36,7 @@ function resource_prepare_head($object)
 	global $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath('/resource/card.php', 1) . '?id=' . $object->id;
 	$head[$h][1] = $langs->trans("ResourceCard");
@@ -122,7 +122,7 @@ function resource_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('resource');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/resource.php';
 	$head[$h][1] = $langs->trans("ResourceSetup");

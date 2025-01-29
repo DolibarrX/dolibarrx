@@ -157,10 +157,10 @@ $period = '';
 $periodlink = '';
 $exportlink = '';
 
-$encaiss = array();
-$encaiss_ttc = array();
-$decaiss = array();
-$decaiss_ttc = array();
+$encaiss = [];
+$encaiss_ttc = [];
+$decaiss = [];
+$decaiss_ttc = [];
 
 // Affiche en-tete du rapport
 if ($modecompta == 'CREANCES-DETTES') {
@@ -214,7 +214,7 @@ if (isModEnabled('accounting')) {
 }
 $calcmode .= '</label>';
 
-report_header($name, '', $period, $periodlink, $description, $builddate, $exportlink, array(), $calcmode);
+report_header($name, '', $period, $periodlink, $description, $builddate, $exportlink, [], $calcmode);
 
 if (isModEnabled('accounting') && $modecompta != 'BOOKKEEPING') {
 	print info_admin($langs->trans("WarningReportNotReliable"), 0, 0, '1');
@@ -1007,8 +1007,8 @@ $resHook = $hookManager->executeHooks('addReportInfo', $parameters, $object, $ac
  * Show result array
  */
 
-$totentrees = array();
-$totsorties = array();
+$totentrees = [];
+$totsorties = [];
 $year_end_for_table = ($year_end - (getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') > 1 ? 1 : 0));
 
 print '<div class="div-table-responsive">';

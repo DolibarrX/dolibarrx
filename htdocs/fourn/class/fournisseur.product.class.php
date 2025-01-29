@@ -194,7 +194,7 @@ class ProductFournisseur extends Product
 	/**
 	 * @var string[] list of available supplier reputations
 	 */
-	public $reputations = array();
+	public $reputations = [];
 
 	// Multicurrency
 
@@ -400,7 +400,7 @@ class ProductFournisseur extends Product
 		$newnpr = 0,
 		$delivery_time_days = 0,
 		$supplier_reputation = '',
-		$localtaxes_array = array(),
+		$localtaxes_array = [],
 		$newdefaultvatcode = '',
 		$multicurrency_buyprice = 0,
 		$multicurrency_price_base_type = 'HT',
@@ -409,7 +409,7 @@ class ProductFournisseur extends Product
 		$desc_fourn = '',
 		$barcode = '',
 		$fk_barcode_type = 0,
-		$options = array()
+		$options = []
 	) {
 		// phpcs:enable
 		global $config, $langs;
@@ -849,7 +849,7 @@ class ProductFournisseur extends Product
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$retarray = array();
+			$retarray = [];
 
 			while ($record = $this->db->fetch_array($resql)) {
 				//define base attribute
@@ -985,7 +985,7 @@ class ProductFournisseur extends Product
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$record_array = array();
+			$record_array = [];
 
 			//Store each record to array for later search of min
 			while ($record = $this->db->fetch_array($resql)) {
@@ -1125,7 +1125,7 @@ class ProductFournisseur extends Product
 	 *                                                    to display in table format.
 	 *  @return string                    String with supplier price
 	 */
-	public function display_price_product_fournisseur($showunitprice = 1, $showsuptitle = 1, $maxlen = 0, $notooltip = 0, $productFournList = array())
+	public function display_price_product_fournisseur($showunitprice = 1, $showsuptitle = 1, $maxlen = 0, $notooltip = 0, $productFournList = [])
 	{
 		// phpcs:enable
 		global $config, $langs, $user;
@@ -1224,10 +1224,10 @@ class ProductFournisseur extends Product
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$retarray = array();
+			$retarray = [];
 
 			while ($obj = $this->db->fetch_object($resql)) {
-				$tmparray = array();
+				$tmparray = [];
 				$tmparray['rowid'] = $obj->rowid;
 				$tmparray['supplier_ref'] = $obj->supplier_ref;
 				$tmparray['datec'] = $this->db->jdate($obj->datec);
@@ -1258,7 +1258,7 @@ class ProductFournisseur extends Product
 	 *                                                                                                                                                                                                                                                                              to display in table format.
 	 *  @return string  HTML String with supplier price
 	 */
-	public function displayPriceProductFournisseurLog($productFournLogList = array())
+	public function displayPriceProductFournisseurLog($productFournLogList = [])
 	{
 		global $config, $langs;
 

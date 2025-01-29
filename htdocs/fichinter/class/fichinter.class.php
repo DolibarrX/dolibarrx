@@ -172,12 +172,12 @@ class Fichinter extends CommonObject
 	/**
 	 * @var array<string,string>  (Encoded as JSON in database)
 	 */
-	public $extraparams = array();
+	public $extraparams = [];
 
 	/**
 	 * @var FichinterLigne[] lines
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * Draft status
@@ -238,7 +238,7 @@ class Fichinter extends CommonObject
 	{
 		global $user;
 
-		$this->nb = array();
+		$this->nb = [];
 		$clause = "WHERE";
 
 		$sql = "SELECT count(fi.rowid) as nb";
@@ -1479,7 +1479,7 @@ class Fichinter extends CommonObject
 	public function fetch_lines()
 	{
 		// phpcs:enable
-		$this->lines = array();
+		$this->lines = [];
 
 		$sql = "SELECT rowid, fk_fichinter, description, duree, date, rang";
 		$sql .= " FROM ".MAIN_DB_PREFIX."fichinterdet";

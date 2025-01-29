@@ -45,7 +45,7 @@ abstract class ModelePDFUserGroup extends CommonDocGenerator
 	{
 		// phpcs:enable
 		$type = 'group';
-		$list = array();
+		$list = [];
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 		$list = getListOfModels($db, $type, $maxfilenamelength);

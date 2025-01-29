@@ -182,7 +182,7 @@ function getVersions($authentication)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -226,7 +226,7 @@ function getDocument($authentication, $modulepart, $file, $refname = '')
 		$config->entity = $authentication['entity'];
 	}
 
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;

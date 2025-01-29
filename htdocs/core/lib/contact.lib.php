@@ -36,7 +36,7 @@ function contact_prepare_head(Contact $object)
 	global $db, $langs, $config, $user;
 
 	$tab = 0;
-	$head = array();
+	$head = [];
 
 	$head[$tab][0] = DOL_URL_ROOT . '/contact/card.php?id=' . $object->id;
 	$head[$tab][1] = $langs->trans("Contact");

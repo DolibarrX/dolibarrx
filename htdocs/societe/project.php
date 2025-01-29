@@ -94,16 +94,16 @@ if ($resHook < 0) {
 $parameters = array('id'=>$socid);
 
 // List of mass actions available
-$arrayofmassactions = array();
+$arrayofmassactions = [];
 if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (in_array($massaction, array('presend', 'predelete','preaffecttag'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete', 'preaffecttag', 'preenable', 'preclose'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 
 // Mass actions
@@ -185,7 +185,7 @@ if ($socid) {
 	print dol_get_fiche_end();
 
 	print '<br>';
-	$params = array();
+	$params = [];
 	$backtopage = $_SERVER['PHP_SELF'].'?socid='.$object->id;
 	$newcardbutton = dolGetButtonTitle($langs->trans("NewProject"), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/projet/card.php?action=create&socid='.$object->id.'&backtopageforcancel='.urlencode($backtopage), '', 1, $params);
 
@@ -198,7 +198,7 @@ if ($socid) {
 
 	// Projects list
 	include DOL_DOCUMENT_ROOT.'/core/tpl/massactions_pre.tpl.php';
-	$arrayofselected = is_array($toselect) ? $toselect : array();
+	$arrayofselected = is_array($toselect) ? $toselect : [];
 	$result = show_projects($config, $langs, $db, $object, $_SERVER["PHP_SELF"].'?socid='.$object->id, 1, $newcardbutton);
 
 	if (empty($config->dol_optimize_smallscreen)) {

@@ -55,7 +55,7 @@ if (isModEnabled('accounting') && !is_object($formaccounting)) {
 <?php
 
 if (!is_array($parameters)) {
-	$parameters = array();
+	$parameters = [];
 }
 $parameters['assetaccountancycodes'] = &$assetaccountancycodes;
 $resHook = $hookManager->executeHooks('formAssetAccountancyCodes', $parameters, $object, $action);

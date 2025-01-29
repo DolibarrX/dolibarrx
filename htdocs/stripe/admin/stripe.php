@@ -390,7 +390,7 @@ print '</td></tr>';
 print '<tr class="oddeven"><td>';
 print $langs->trans("StripeAutoRecordPayout").'</td><td>';
 if ($config->use_javascript_ajax) {
-	print ajax_constantonoff('STRIPE_AUTO_RECORD_PAYOUT', array(), null, 0, 0, 1);
+	print ajax_constantonoff('STRIPE_AUTO_RECORD_PAYOUT', [], null, 0, 0, 1);
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
 	print $form->selectarray("STRIPE_AUTO_RECORD_PAYOUT", $arrval, getDolGlobalInt('STRIPE_AUTO_RECORD_PAYOUT'));
@@ -463,7 +463,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {	// TODO Not used by current c
 	}
 
 	// Define the array $location
-	$location = array();
+	$location = [];
 	$location[""] = $langs->trans("NotDefined");
 	if (!empty($locations)) {
 		foreach ($locations as $tmplocation) {
@@ -615,7 +615,7 @@ print '</td></tr>';
 print '<tr class="oddeven"><td>';
 print $langs->trans("SecurityTokenIsUnique").'</td><td>';
 if ($config->use_javascript_ajax) {
-	print ajax_constantonoff('PAYMENT_SECURITY_TOKEN_UNIQUE', array(), null, 0, 0, 1);
+	print ajax_constantonoff('PAYMENT_SECURITY_TOKEN_UNIQUE', [], null, 0, 0, 1);
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
 	print $form->selectarray("PAYMENT_SECURITY_TOKEN_UNIQUE", $arrval, $config->global->PAYMENT_SECURITY_TOKEN_UNIQUE);

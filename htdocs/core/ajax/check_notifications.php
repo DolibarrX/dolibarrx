@@ -98,7 +98,7 @@ top_httphead('application/json');
 
 global $user, $db, $langs, $config;
 
-$eventfound = array();
+$eventfound = [];
 //Uncomment this to force a test
 //$eventfound[]=array('type'=>'agenda', 'id'=>1, 'tipo'=>'eee', 'location'=>'aaa');
 
@@ -146,7 +146,7 @@ if (empty($_SESSION['auto_check_events_not_before']) || $time >= $_SESSION['auto
 	if ($resql) {
 		while ($obj = $db->fetch_object($resql)) {
 			// Message must be formatted and translated to be used with javascript directly
-			$event = array();
+			$event = [];
 			$event['type'] = 'agenda';
 			$event['id_reminder'] = $obj->id_reminder;
 			$event['id_agenda'] = $obj->id_agenda;

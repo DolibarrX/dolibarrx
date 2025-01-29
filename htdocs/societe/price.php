@@ -669,7 +669,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 		print "\n</div>\n";
 
 
-		$arrayfields = array();
+		$arrayfields = [];
 		foreach ($prodcustprice->fields as $key => $val) {
 			// If $val['visible']==0, then we never show the field
 			if (!empty($val['visible'])) {

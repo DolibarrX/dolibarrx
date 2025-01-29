@@ -191,15 +191,15 @@ class SupplierProposal extends CommonObject
 	/**
 	 * @var array<string,string>  (Encoded as JSON in database)
 	 */
-	public $extraparams = array();
-	public $lines = array();
+	public $extraparams = [];
+	public $lines = [];
 	/**
 	 * @var SupplierProposalLine
 	 */
 	public $line;
 
-	public $labelStatus = array();
-	public $labelStatusShort = array();
+	public $labelStatus = [];
+	public $labelStatusShort = [];
 
 	/**
 	 * @var int
@@ -556,7 +556,7 @@ class SupplierProposal extends CommonObject
 			$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $this->thirdparty, $mysoc);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -756,7 +756,7 @@ class SupplierProposal extends CommonObject
 			$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $mysoc, $this->thirdparty);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -1310,7 +1310,7 @@ class SupplierProposal extends CommonObject
 				$this->cond_reglement       = $obj->cond_reglement;
 				$this->cond_reglement_doc   = $obj->cond_reglement_libelle_doc;
 
-				$this->extraparams = (array) (!empty($obj->extraparams) ? json_decode($obj->extraparams, true) : array());
+				$this->extraparams = (array) (!empty($obj->extraparams) ? json_decode($obj->extraparams, true) : []);
 
 				$this->user_author_id = $obj->fk_user_author;
 				$this->user_validation_id = $obj->fk_user_valid;
@@ -1330,7 +1330,7 @@ class SupplierProposal extends CommonObject
 
 				$this->db->free($resql);
 
-				$this->lines = array();
+				$this->lines = [];
 
 				// Lines of supplier proposals
 				$sql = "SELECT d.rowid, d.fk_supplier_proposal, d.fk_parent_line, d.label as custom_label, d.description, d.price, d.tva_tx, d.localtax1_tx, d.localtax2_tx, d.qty, d.fk_remise_except, d.remise_percent, d.subprice, d.fk_product,";
@@ -1826,7 +1826,7 @@ class SupplierProposal extends CommonObject
 			}
 			$productsupplier->id = $product->fk_product;
 
-			$productsupplier->update_buyprice($product->qty, $product->total_ht, $user, 'HT', $this->thirdparty, 0, $ref_fourn, $product->tva_tx, 0, 0, 0, $product->info_bits, 0, '', array(), '', $product->multicurrency_total_ht, 'HT', $multicurrency_tx, $product->multicurrency_code, '', '', 0);
+			$productsupplier->update_buyprice($product->qty, $product->total_ht, $user, 'HT', $this->thirdparty, 0, $ref_fourn, $product->tva_tx, 0, 0, 0, $product->info_bits, 0, '', [], '', $product->multicurrency_total_ht, 'HT', $multicurrency_tx, $product->multicurrency_code, '', '', 0);
 		}
 
 		return 1;
@@ -1989,7 +1989,7 @@ class SupplierProposal extends CommonObject
 		// phpcs:enable
 		global $user;
 
-		$ga = array();
+		$ga = [];
 
 		$search_sale = 0;
 		if (!$user->hasRight('societe', 'client', 'voir')) {
@@ -2343,7 +2343,7 @@ class SupplierProposal extends CommonObject
 
 		// Load array of products prodids
 		$num_prods = 0;
-		$prodids = array();
+		$prodids = [];
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product";
 		$sql .= " WHERE entity IN (".getEntity('product').")";
@@ -2421,7 +2421,7 @@ class SupplierProposal extends CommonObject
 	{
 		global $config, $user;
 
-		$this->nb = array();
+		$this->nb = [];
 		$clause = "WHERE";
 
 		$sql = "SELECT count(p.rowid) as nb";

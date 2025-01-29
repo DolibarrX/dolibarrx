@@ -88,9 +88,9 @@ class modHRM extends DolibarrModules
 			// Set this to 1 if module has its own theme directory (theme)
 			'theme' => 0,
 			// Set this to relative path of css file if module has its own css file
-			'css' => array(),
+			'css' => [],
 			// Set this to relative path of js file if module must load a js on all pages
-			'js' => array(),
+			'js' => [],
 
 			// Set this to 1 if features of module are opened to external users
 			'moduleforexternal' => 0,
@@ -105,9 +105,9 @@ class modHRM extends DolibarrModules
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(11, 0); // Minimum version of Dolibarr required by module
 		$this->langfiles = array("hrm");
@@ -115,7 +115,7 @@ class modHRM extends DolibarrModules
 		// Constants
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
-		$this->const = array(); // List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 0 or 'allentities')
+		$this->const = []; // List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 0 or 'allentities')
 		$r = 0;
 
 
@@ -125,7 +125,7 @@ class modHRM extends DolibarrModules
 		}
 
 		// Array to add new pages in new tabs
-		$this->tabs = array();
+		$this->tabs = [];
 		$this->tabs[] = array('data' => 'user:+skill_tab:Skills:hrm:1:/hrm/skill_tab.php?id=__ID__&objecttype=user');  					// To add a new tab identified by code tabname1
 		//$this->tabs[] = array('data'=>'job:+tabname1:Poste:mylangfile@hrm:1:/hrm/poste_list.php?fk_job=__ID__');  					// To add a new tab identified by code tabname1
 		// Example:
@@ -156,7 +156,7 @@ class modHRM extends DolibarrModules
 
 
 		// Dictionaries
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 
 		// Boxes/Widgets
 		// Add here list of php file(s) stored in hrm/core/boxes that contains a class to show a widget.
@@ -190,7 +190,7 @@ class modHRM extends DolibarrModules
 
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$r = 0;
 
 		// Skill / Job / Position

@@ -625,7 +625,7 @@ class Entrepot extends CommonObject
 	public function list_array($status = 1)
 	{
 		// phpcs:enable
-		$liste = array();
+		$liste = [];
 
 		$sql = "SELECT rowid, ref as label";
 		$sql .= " FROM ".$this->db->prefix()."entrepot";
@@ -655,7 +655,7 @@ class Entrepot extends CommonObject
 	public function nb_different_products()
 	{
 		// phpcs:enable
-		$ret = array();
+		$ret = [];
 
 		$sql = "SELECT count(distinct p.rowid) as nb";
 		$sql .= " FROM ".$this->db->prefix()."product_stock as ps";
@@ -687,7 +687,7 @@ class Entrepot extends CommonObject
 	{
 		global $config;
 		// phpcs:enable
-		$ret = array();
+		$ret = [];
 
 		//For MultiCompany PMP per entity
 		$separatedPMP = false;

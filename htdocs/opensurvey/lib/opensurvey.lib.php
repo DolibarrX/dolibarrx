@@ -36,7 +36,7 @@ function opensurvey_prepare_head(Opensurveysondage $object)
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[0][0] = 'card.php?id='.$object->id_sondage;
 	$head[0][1] = $langs->trans("Survey");

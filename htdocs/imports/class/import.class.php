@@ -43,7 +43,7 @@ class Import
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string DB Error number

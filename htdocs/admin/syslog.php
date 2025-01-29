@@ -48,13 +48,13 @@ $langs->loadLangs(array("admin", "other"));
 $error = 0;
 $action = GETPOST('action', 'aZ09');
 
-$syslogModules = array();
-$activeModules = array();
+$syslogModules = [];
+$activeModules = [];
 
 if (getDolGlobalString('SYSLOG_HANDLERS')) {
 	$activeModules = json_decode($config->global->SYSLOG_HANDLERS);
 	if (!is_array($activeModules)) {
-		$activeModules = array();
+		$activeModules = [];
 	}
 }
 
@@ -100,8 +100,8 @@ foreach ($dirsyslogs as $reldir) {
 if ($action == 'set') {
 	$db->begin();
 
-	$newActiveModules = array();
-	$selectedModules = (GETPOSTISSET('SYSLOG_HANDLERS') ? GETPOST('SYSLOG_HANDLERS') : array());
+	$newActiveModules = [];
+	$selectedModules = (GETPOSTISSET('SYSLOG_HANDLERS') ? GETPOST('SYSLOG_HANDLERS') : []);
 
 	// Save options of handler
 	foreach ($syslogModules as $syslogHandler) {

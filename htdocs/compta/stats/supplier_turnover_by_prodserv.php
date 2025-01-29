@@ -145,7 +145,7 @@ $tmpe = dol_getdate($date_end);
 $year_end = $tmpe['year'];
 $nbofyear = ($year_end - $year_start) + 1;
 
-$commonparams = array();
+$commonparams = [];
 if (!empty($modecompta)) {
 	$commonparams['modecompta'] = $modecompta;
 }
@@ -156,7 +156,7 @@ if (!empty($sortfield)) {
 	$commonparams['sortfield'] = $sortfield;
 }
 
-$headerparams = array();
+$headerparams = [];
 if (!empty($date_startyear)) {
 	$headerparams['date_startyear'] = $date_startyear;
 }
@@ -183,7 +183,7 @@ if (!empty($month)) {
 }
 $headerparams['q'] = $q;
 
-$tableparams = array();
+$tableparams = [];
 if (!empty($selected_cat)) {
 	$tableparams['search_categ'] = $selected_cat;
 }
@@ -304,10 +304,10 @@ if (isModEnabled('accounting')) {
 
 
 
-$name = array();
-$amount = array();
-$amount_ht = array();
-$qty = array();
+$name = [];
+$amount = [];
+$amount_ht = [];
+$qty = [];
 
 // SQL request
 $catotal = 0;

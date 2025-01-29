@@ -66,7 +66,7 @@ $type = 'member';
 $action = GETPOST('action', 'aZ09');
 $modulepart = GETPOST('modulepart', 'aZ09');
 
-$reg = array();
+$reg = [];
 $error = 0;
 
 
@@ -271,7 +271,7 @@ print '  <td class="center" width="80">'.$langs->trans("Status").'</td>';
 print '  <td class="center" width="60">'.$langs->trans("ShortInfo").'</td>';
 print "</tr>\n";
 
-$arrayofmodules = array();
+$arrayofmodules = [];
 
 foreach ($dirModMember as $dirroot) {
 	$dir = dol_buildpath($dirroot, 0);
@@ -352,7 +352,7 @@ print "<br>";
 $dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 // Defined model definition table
-$def = array();
+$def = [];
 $sql = "SELECT nom as name";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
@@ -392,7 +392,7 @@ foreach ($dirmodels as $reldir) {
 		if (is_dir($dir)) {
 			$handle = opendir($dir);
 			if (is_resource($handle)) {
-				$filelist = array();
+				$filelist = [];
 				while (($file = readdir($handle)) !== false) {
 					$filelist[] = $file;
 				}
@@ -515,7 +515,7 @@ print '<input type="text" class="right width50" id="MEMBER_SUBSCRIPTION_START_AF
 print "</td></tr>\n";
 
 // Start date of new membership
-$startpoint = array();
+$startpoint = [];
 $startpoint[0] = $langs->trans("NoCorrection");
 $startpoint["m"] = $langs->trans("Month");
 $startpoint["3m"] = $langs->trans("Quarter");
@@ -649,7 +649,7 @@ print "</tr>\n";
 print '<tr class="oddeven"><td>'.$langs->trans("DescADHERENT_CARD_TYPE").'</td><td>';
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/format_cards.lib.php'; // List of possible labels (defined into $_Avery_Labels variable set into format_cards.lib.php)
-$arrayoflabels = array();
+$arrayoflabels = [];
 foreach (array_keys($_Avery_Labels) as $codecards) {
 	$arrayoflabels[$codecards] = $_Avery_Labels[$codecards]['name'];
 }
@@ -718,7 +718,7 @@ print "</tr>\n";
 print '<tr class="oddeven"><td>'.$langs->trans("DescADHERENT_ETIQUETTE_TYPE").'</td><td>';
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/format_cards.lib.php'; // List of possible labels (defined into $_Avery_Labels variable set into format_cards.lib.php)
-$arrayoflabels = array();
+$arrayoflabels = [];
 foreach (array_keys($_Avery_Labels) as $codecards) {
 	$arrayoflabels[$codecards] = $_Avery_Labels[$codecards]['name'];
 }

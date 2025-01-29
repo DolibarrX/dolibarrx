@@ -224,7 +224,7 @@ class MyObject extends CommonObject
 	// /**
 	//  * @var MyObjectLine[]     Array of subtable lines
 	//  */
-	// public $lines = array();
+	// public $lines = [];
 
 
 
@@ -416,7 +416,7 @@ class MyObject extends CommonObject
 	 */
 	public function fetchLines($noextrafields = 0)
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon('', $noextrafields);
 		return $result;
@@ -441,7 +441,7 @@ class MyObject extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = "SELECT ";
 		$sql .= $this->getFieldList('t');
@@ -1080,7 +1080,7 @@ class MyObject extends CommonObject
 	 */
 	public function getLinesArray()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectline = new MyObjectLine($this->db);
 		$result = $objectline->fetchAll('ASC', 'position', 0, 0, '(fk_myobject:=:'.((int) $this->id).')');

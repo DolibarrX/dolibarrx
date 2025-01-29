@@ -111,7 +111,7 @@ class Utils
 		$choicesarray = preg_split('/[\+,]/', $choices);
 		foreach ($choicesarray as $choice) {
 			$now = dol_now();
-			$filesarray = array();
+			$filesarray = [];
 
 			if ($choice == 'tempfiles' || $choice == 'tempfilesold') {
 				// Delete temporary files
@@ -453,7 +453,7 @@ class Utils
 
 
 				if ($execmethod == 1) {
-					$output_arr = array();
+					$output_arr = [];
 					$retval = null;
 
 					exec($fullcommandclear, $output_arr, $retval);  // @phan-suppress-current-line PhanPluginConstantVariableNull
@@ -747,7 +747,7 @@ class Utils
 		}
 		//$execmethod=1;
 		dol_syslog("Utils::executeCLI execmethod=".$execmethod." command=".$command, LOG_DEBUG);
-		$output_arr = array();
+		$output_arr = [];
 
 		if ($execmethod == 1) {
 			$retval = null;
@@ -858,7 +858,7 @@ class Utils
 				dol_copy($dirofmodule.'/ChangeLog.md', $dirofmoduletmp.'/ChangeLog.md', '0', 1);
 
 				// Replace into README.md and ChangeLog.md (in case they are included into documentation with tag __README__ or __CHANGELOG__)
-				$arrayreplacement = array();
+				$arrayreplacement = [];
 				$arrayreplacement['/^#\s.*/m'] = ''; // Remove first level of title into .md files
 				$arrayreplacement['/^#/m'] = '##'; // Add on # to increase level
 
@@ -1034,10 +1034,10 @@ class Utils
 				$filter = '^'.preg_quote($logname, '/').'\.([0-9]+)\.gz$';
 
 				$gzfilestmp = dol_dir_list($logpath, 'files', 0, $filter);
-				$gzfiles = array();
+				$gzfiles = [];
 
 				foreach ($gzfilestmp as $gzfile) {
-					$tabmatches = array();
+					$tabmatches = [];
 					preg_match('/'.$filter.'/i', $gzfile['name'], $tabmatches);
 
 					$numsave = intval($tabmatches[1]);
@@ -1128,7 +1128,7 @@ class Utils
 
 		//get all of the tables
 		if ($tables == '*') {
-			$tables = array();
+			$tables = [];
 			$result = $db->query('SHOW FULL TABLES WHERE Table_type = \'BASE TABLE\'');
 			while ($row = $db->fetch_row($result)) {
 				$tables[] = $row[0];
@@ -1335,7 +1335,7 @@ class Utils
 			$message = dol_escape_htmltag($langs->trans('MakeSendLocalDatabaseDumpShort'));
 		}
 
-		$tmpfiles = array();
+		$tmpfiles = [];
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 		if ($filename) {
 			if (dol_is_file($config->admin->dir_output.'/backup/'.$filename)) {

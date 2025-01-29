@@ -273,7 +273,7 @@ if ($id > 0 || !empty($ref)) {
 
 				$moreforfilter = '';
 
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if (empty($resHook)) {
 					$moreforfilter .= $hookManager->resPrint;

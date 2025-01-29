@@ -110,22 +110,22 @@ class Paiement extends CommonObject
 	/**
 	 * @var array<float|string> array: invoice ID => amount for that invoice (in the main currency)
 	 */
-	public $amounts = array();
+	public $amounts = [];
 
 	/**
 	 * @var float[] array: invoice ID => amount for that invoice (in the invoice's currency)
 	 */
-	public $multicurrency_amounts = array();
+	public $multicurrency_amounts = [];
 
 	/**
 	 * @var float[] Multicurrency rate (array: invoice ID => currency rate ("taux" in French) for that invoice)
 	 */
-	public $multicurrency_tx = array();
+	public $multicurrency_tx = [];
 
 	/**
 	 * @var string[] Multicurrency code (array: invoice ID => currency code for that invoice)
 	 */
-	public $multicurrency_code = array();
+	public $multicurrency_code = [];
 
 	/**
 	 * @var float							Excess received in TakePOS cash payment
@@ -518,8 +518,8 @@ class Paiement extends CommonObject
 							} else {
 								// If invoice is a down payment, we also convert down payment to discount
 								if ($invoice->type == Facture::TYPE_DEPOSIT) {
-									$amount_ht = $amount_tva = $amount_ttc = array();
-									$multicurrency_amount_ht = $multicurrency_amount_tva = $multicurrency_amount_ttc = array();
+									$amount_ht = $amount_tva = $amount_ttc = [];
+									$multicurrency_amount_ht = $multicurrency_amount_tva = $multicurrency_amount_ttc = [];
 									'
 									@phan-var-force array<string,float> $amount_ht
 									@phan-var-force array<string,float> $amount_tva
@@ -884,7 +884,7 @@ class Paiement extends CommonObject
 
 				// Add link 'company' in bank_url between invoice and bank transaction (for each invoice concerned by payment)
 				if (!$error) {
-					$linkaddedforthirdparty = array();
+					$linkaddedforthirdparty = [];
 					foreach ($this->amounts as $key => $value) {  // We should have invoices always for same third party but we loop in case of.
 						if ($mode == 'payment') {
 							$fac = new Facture($this->db);
@@ -1187,7 +1187,7 @@ class Paiement extends CommonObject
 		if ($resql) {
 			$i = 0;
 			$num = $this->db->num_rows($resql);
-			$billsarray = array();
+			$billsarray = [];
 
 			while ($i < $num) {
 				$obj = $this->db->fetch_object($resql);
@@ -1218,7 +1218,7 @@ class Paiement extends CommonObject
 		if ($resql) {
 			$i = 0;
 			$num = $this->db->num_rows($resql);
-			$amounts = array();
+			$amounts = [];
 
 			while ($i < $num) {
 				$obj = $this->db->fetch_object($resql);

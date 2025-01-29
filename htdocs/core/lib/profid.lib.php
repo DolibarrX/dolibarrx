@@ -185,7 +185,7 @@ function isValidTinForES($str)
 		return 0;
 	}
 
-	$num = array();
+	$num = [];
 	for ($i = 0; $i < 9; $i++) {
 		$num[$i] = substr($str, $i, 1);
 	}

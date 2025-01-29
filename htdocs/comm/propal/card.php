@@ -83,7 +83,7 @@ if (isModEnabled('margin')) {
 
 $error = 0;
 $outlangs = null;
-$array_options = array();
+$array_options = [];
 
 $id = GETPOSTINT('id');
 $ref = GETPOST('ref', 'alpha');
@@ -240,7 +240,7 @@ if (empty($resHook)) {
 
 				$result = $object->createFromClone($user, $socid, (GETPOSTISSET('entity') ? GETPOSTINT('entity') : null), (GETPOSTINT('update_prices') ? true : false), (GETPOSTINT('update_desc') ? true : false));
 				if ($result > 0) {
-					$warningMsgLineList = array();
+					$warningMsgLineList = [];
 					// check all product lines are to sell otherwise add a warning message for each product line is not to sell
 					foreach ($object->lines as $line) {
 						if (!is_object($line->product)) {
@@ -537,7 +537,7 @@ if (empty($resHook)) {
 				if ($origin && $originid) {
 					// Parse element/subelement (ex: project_task)
 					$element = $subelement = $origin;
-					$regs = array();
+					$regs = [];
 					if (preg_match('/^([^_]+)_([^_]+)/i', $origin, $regs)) {
 						$element = $regs[1];
 						$subelement = $regs[2];
@@ -780,7 +780,7 @@ if (empty($resHook)) {
 					require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
 
 					$date = dol_mktime(0, 0, 0, GETPOSTINT('datefmonth'), GETPOSTINT('datefday'), GETPOSTINT('datefyear'));
-					$forceFields = array();
+					$forceFields = [];
 
 					if (GETPOSTISSET('date_pointoftax')) {
 						$forceFields['date_pointoftax'] = dol_mktime(0, 0, 0, GETPOSTINT('date_pointoftaxmonth'), GETPOSTINT('date_pointoftaxday'), GETPOSTINT('date_pointoftaxyear'));
@@ -1888,7 +1888,7 @@ if ($action == 'create') {
 	if (!empty($origin) && !empty($originid)) {
 		// Parse element/subelement (ex: project_task)
 		$element = $subelement = $origin;
-		$regs = array();
+		$regs = [];
 		if (preg_match('/^([^_]+)_([^_]+)/i', $origin, $regs)) {
 			$element = $regs[1];
 			$subelement = $regs[2];
@@ -2014,7 +2014,7 @@ if ($action == 'create') {
 	print dol_get_fiche_head();
 
 	// Call Hook tabContentCreateProposal
-	$parameters = array();
+	$parameters = [];
 	// Note that $action and $object may be modified by hook
 	$resHook = $hookManager->executeHooks('tabContentCreateProposal', $parameters, $object, $action);
 	if (empty($resHook)) {
@@ -2045,7 +2045,7 @@ if ($action == 'create') {
 		} else {
 			print '<td class="valuefieldcreate">';
 			$filter = '((s.client:IN:1,2,3) AND (s.status:=:1))';
-			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company('', 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300 maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company('', 'socid', $filter, 'SelectThirdParty', 1, 0, [], 0, 'minwidth300 maxwidth500 widthcentpercentminusxx');
 			// reload page to retrieve customer information
 			if (!getDolGlobalString('RELOAD_PAGE_ON_CUSTOMER_CHANGE_DISABLED')) {
 				print '<script>
@@ -2139,7 +2139,7 @@ if ($action == 'create') {
 			require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 			$formproduct = new FormProduct($db);
 			print '<tr class="field_warehouse_id"><td class="titlefieldcreate">'.$langs->trans('Warehouse').'</td><td class="valuefieldcreate">';
-			print img_picture('', 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses($warehouse_id, 'warehouse_id', '', 1, 0, 0, '', 0, 0, array(), 'maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses($warehouse_id, 'warehouse_id', '', 1, 0, 0, '', 0, 0, [], 'maxwidth500 widthcentpercentminusxx');
 			print '</td></tr>';
 		}
 
@@ -2299,7 +2299,7 @@ if ($action == 'create') {
 			print '<td><input type="radio" name="createmode" value="copy"></td>';
 			print '<td>'.$langs->trans("CopyPropalFrom").' </td>';
 			print '<td>';
-			$liste_propal = array();
+			$liste_propal = [];
 			$liste_propal [0] = '';
 
 			$sql = "SELECT p.rowid as id, p.ref, s.nom";
@@ -2379,7 +2379,7 @@ if ($action == 'create') {
 		$formquestion = array(
 			// 'text' => $langs->trans("ConfirmClone"),
 			// array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
-			array('type' => 'other', 'name' => 'socid', 'label' => $langs->trans("SelectThirdParty"), 'value' => $form->select_company(GETPOSTINT('socid'), 'socid', $filter, '', 0, 0, array(), 0, 'maxwidth300')),
+			array('type' => 'other', 'name' => 'socid', 'label' => $langs->trans("SelectThirdParty"), 'value' => $form->select_company(GETPOSTINT('socid'), 'socid', $filter, '', 0, 0, [], 0, 'maxwidth300')),
 			array('type' => 'checkbox', 'name' => 'update_prices', 'label' => $langs->trans('PuttingPricesUpToDate'), 'value' => 0),
 			array('type' => 'checkbox', 'name' => 'update_desc', 'label' => $langs->trans('PuttingDescUpToDate'), 'value' => 0),
 		);
@@ -2392,7 +2392,7 @@ if ($action == 'create') {
 
 	if ($action == 'closeas') {
 		//Form to close proposal (signed or not)
-		$formquestion = array();
+		$formquestion = [];
 		if (!getDolGlobalString('PROPAL_SKIP_ACCEPT_REFUSE')) {
 			$formquestion[] = array('type' => 'select', 'name' => 'statut', 'label' => '<span class="fieldrequired">'.$langs->trans("CloseAs").'</span>', 'values' => array($object::STATUS_SIGNED => $object->LibStatut($object::STATUS_SIGNED), $object::STATUS_NOTSIGNED => $object->LibStatut($object::STATUS_NOTSIGNED)));
 		}
@@ -2656,7 +2656,7 @@ if ($action == 'create') {
 	dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'ref', $morehtmlref);
 
 	// Call Hook tabContentViewProposal
-	$parameters = array();
+	$parameters = [];
 	// Note that $action and $object may be modified by hook
 	$resHook = $hookManager->executeHooks('tabContentViewProposal', $parameters, $object, $action);
 	if (empty($resHook)) {
@@ -3073,7 +3073,7 @@ if ($action == 'create') {
 		// Form to add new line
 		if ($object->status == Propal::STATUS_DRAFT && $usercancreate && $action != 'selectlines') {
 			if ($action != 'editline') {
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -3082,7 +3082,7 @@ if ($action == 'create') {
 					$object->formAddObjectLine(1, $mysoc, $soc);
 				}
 			} else {
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('formEditObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			}
 		}
@@ -3106,7 +3106,7 @@ if ($action == 'create') {
 		$numlines = count($object->lines);
 		print '<div class="tabsAction">';
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 		// modified by hook
 		if (empty($resHook)) {
@@ -3143,7 +3143,7 @@ if ($action == 'create') {
 					}
 				}
 
-				$arrayforbutaction = array();
+				$arrayforbutaction = [];
 
 				// Create a sale order
 				$arrayforbutaction[] = array(
@@ -3299,7 +3299,7 @@ if ($action == 'create') {
 		print $formfile->showdocuments('propal', $objref, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', 0, '', $soc->default_lang, '', $object);
 
 		// Show links to link elements
-		$tmparray = $form->showLinkToObjectBlock($object, array(), array('propal'), 1);
+		$tmparray = $form->showLinkToObjectBlock($object, [], array('propal'), 1);
 		$linktoelem = $tmparray['linktoelem'];
 		$htmltoenteralink = $tmparray['htmltoenteralink'];
 		print $htmltoenteralink;

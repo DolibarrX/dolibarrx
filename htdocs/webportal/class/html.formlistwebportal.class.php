@@ -95,17 +95,17 @@ class FormListWebPortal
 	/**
 	 * @var string[] Search filters
 	 */
-	public $search = array();
+	public $search = [];
 
 	/**
 	 * @var array<string,array{type?:string,label:string,checked:int<0,1>,visible:int<0,1>,enabled:int<0,1>,position:int,help:string}>	Array of fields
 	 */
-	public $arrayfields = array();
+	public $arrayfields = [];
 
 	/**
 	 * @var array<int,Societe> Company static list (cache)
 	 */
-	public $companyStaticList = array();
+	public $companyStaticList = [];
 
 
 	/**
@@ -152,7 +152,7 @@ class FormListWebPortal
 
 		// Initialize array of search criteria
 		//$search_all = GETPOST('search_all', 'alphanohtml');
-		$search = array();
+		$search = [];
 		foreach ($object->fields as $key => $val) {
 			if (GETPOST('search_' . $key, 'alpha') !== '') {
 				$search[$key] = GETPOST('search_' . $key, 'alpha');
@@ -188,10 +188,10 @@ class FormListWebPortal
 		$this->search = $search;
 
 		// List of fields to search into when doing a "search in all"
-		//$fieldstosearchall = array();
+		//$fieldstosearchall = [];
 
 		// Definition of array of fields for columns
-		$arrayfields = array();
+		$arrayfields = [];
 		foreach ($object->fields as $key => $val) {
 			// If $val['visible']==0, then we never show the field
 			if (!empty($val['visible'])) {
@@ -311,7 +311,7 @@ class FormListWebPortal
 		$sql .= $object->getFieldList('t');
 		$sql .= ", t.entity as element_entity";
 		// Add fields from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		$sql = preg_replace('/,\s*$/', '', $sql);
@@ -320,7 +320,7 @@ class FormListWebPortal
 
 		$sql .= " FROM " . $this->db->prefix() . $object->table_element . " as t";
 		// Add table from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		if ($object->ismultientitymanaged == 1) {
@@ -366,7 +366,7 @@ class FormListWebPortal
 		//    $sql .= natural_search(array_keys($fieldstosearchall), $search_all);
 		//}
 		// Add where from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 
@@ -413,7 +413,7 @@ class FormListWebPortal
 		}
 
 		// make array[sort field => sort order] for this list
-		$sortList = array();
+		$sortList = [];
 		$sortFieldList = explode(",", $sortfield);
 		$sortOrderList = explode(",", $sortorder);
 		$sortFieldIndex = 0;
@@ -445,7 +445,7 @@ class FormListWebPortal
 			}
 		}
 		// Add $param from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		$param .= $hookManager->resPrint;
 
@@ -539,7 +539,7 @@ class FormListWebPortal
 		}
 		$html .= '</tr>';
 
-		$totalarray = array();
+		$totalarray = [];
 		$totalarray['nbfield'] = 0;
 
 		// Fields title label
@@ -683,7 +683,7 @@ class FormListWebPortal
 							$totalarray['pos'][$totalarray['nbfield']] = 't.' . $key;
 						}
 						if (!isset($totalarray['val'])) {
-							$totalarray['val'] = array();
+							$totalarray['val'] = [];
 						}
 						if (!isset($totalarray['val']['t.' . $key])) {
 							$totalarray['val']['t.' . $key] = 0;

@@ -81,7 +81,7 @@ $search_version = GETPOST('search_version', 'alpha');
 
 
 // For remotestore search
-$options              = array();
+$options              = [];
 $options['per_page']  = 10;
 $options['category'] = ((int) (GETPOSTINT('category') ? GETPOSTINT('category') : 0));
 $options['start']     = ((int) (GETPOSTINT('start') ? GETPOSTINT('start') : 0));
@@ -163,7 +163,7 @@ if (dol_is_file($dolibarrdataroot.'/installmodules.lock')) {
 
 $formconfirm = '';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -303,7 +303,7 @@ if ($action == 'install' && $allowonlineinstall) {
 				}
 
 				// We check if this is a metapackage (and wecomplete with child packages)
-				$modulenamearrays = array();
+				$modulenamearrays = [];
 				if (dol_is_file($modulenamedir.'/metapackage.conf')) {
 					// This is a meta package
 					$metafile = file_get_contents($modulenamedir.'/metapackage.conf');
@@ -473,7 +473,7 @@ if ($action == 'set' && $user->admin) {
 
 $form = new Form($db);
 
-$morejs = array();
+$morejs = [];
 $morecss = array("/admin/remotestore/css/store.css");
 
 // Set dir where external modules are installed
@@ -493,17 +493,17 @@ $arrayofnatures = array(
 	'core' => array('label' => $langs->transnoentitiesnoconv("NativeModules")),
 	'external' => array('label' => $langs->transnoentitiesnoconv("External").' - ['.$langs->trans("AllPublishers").']')
 );
-$arrayofwarnings = array(); // Array of warning each module want to show when activated
-$arrayofwarningsext = array(); // Array of warning each module want to show when we activate an external module
-$filename = array();
-$modules = array();
-$orders = array();
-$categ = array();
-$publisherlogoarray = array();
+$arrayofwarnings = []; // Array of warning each module want to show when activated
+$arrayofwarningsext = []; // Array of warning each module want to show when we activate an external module
+$filename = [];
+$modules = [];
+$orders = [];
+$categ = [];
+$publisherlogoarray = [];
 
 $i = 0; // is a sequencer of modules found
 $j = 0; // j is module number. Automatically affected if module number not defined.
-$modNameLoaded = array();
+$modNameLoaded = [];
 
 foreach ($modulesdir as $dir) {
 	// Load modules attributes in arrays (name, number, orders) from dir directory
@@ -791,7 +791,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 	$moreforfilter .= '</div>';
 
 	print $moreforfilter;
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
@@ -800,13 +800,13 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 	print '<div class="clearboth"></div><br>';
 
 	$object = new stdClass();
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('insertExtraHeader', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
-	$disabled_modules = array();
+	$disabled_modules = [];
 	if (!empty($_SESSION["disablemodules"])) {
 		$disabled_modules = explode(',', $_SESSION["disablemodules"]);
 	}
@@ -880,7 +880,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 			if (preg_match('/^external/', $search_nature) && $objMod->isCoreOrExternalModule() != 'external') {
 				continue;
 			}
-			$reg = array();
+			$reg = [];
 			if (preg_match('/^external_(.*)$/', $search_nature, $reg)) {
 				//print $reg[1].'-'.dol_escape_htmltag($objMod->getPublisher());
 				$publisher = dol_escape_htmltag($objMod->getPublisher());
@@ -1062,7 +1062,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 				}
 				$backtourl = $_SERVER["PHP_SELF"].$backtourlparam;
 
-				$regs = array();
+				$regs = [];
 				if (is_array($objMod->config_page_url)) {
 					$i = 0;
 					foreach ($objMod->config_page_url as $page) {

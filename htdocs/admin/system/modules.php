@@ -85,7 +85,7 @@ $info_admin = '';
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -98,13 +98,13 @@ if (empty($resHook)) {
 
 
 // Load list of modules
-$moduleList = array();
-$modules = array();
-$modules_files = array();
-$modules_fullpath = array();
+$moduleList = [];
+$modules = [];
+$modules_files = [];
+$modules_fullpath = [];
 $modulesdir = dolGetModulesDirs();
-$rights_ids = array();
-$arrayofpermissions = array();
+$rights_ids = [];
+$arrayofpermissions = [];
 
 foreach ($modulesdir as $dir) {
 	$handle = @opendir(dol_osencode($dir));
@@ -166,7 +166,7 @@ foreach ($modules as $key => $module) {
 		$newModule->picture = img_object($alt, 'generic', 'width="14px"');
 	}
 
-	$permission = array();
+	$permission = [];
 	if ($module->rights) {
 		foreach ($module->rights as $rights) {
 			if (empty($rights[0])) {
@@ -236,7 +236,7 @@ print '<br>';
 print '<br>';
 
 $mode = '';
-$arrayofmassactions = array();
+$arrayofmassactions = [];
 
 $varpage = empty($contextpage) ? $_SERVER["PHP_SELF"] : $contextpage;
 $htmlofselectarray = $form->multiSelectArrayWithCheckbox('selectedfields', $arrayfields, $varpage, getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN'));  // This also change content of $arrayfields with user setup

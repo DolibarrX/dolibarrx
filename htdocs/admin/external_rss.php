@@ -67,7 +67,7 @@ $sql .= " WHERE ".$db->decrypt('name')." LIKE 'EXTERNAL_RSS_URLRSS_%'";
 //print $sql;
 $result = $db->query($sql); // We can't use SELECT MAX() because EXTERNAL_RSS_URLRSS_10 is lower than EXTERNAL_RSS_URLRSS_9
 if ($result) {
-	$reg = array();
+	$reg = [];
 	while ($obj = $db->fetch_object($result)) {
 		preg_match('/([0-9]+)$/i', $obj->name, $reg);
 		if ($reg[1] && $reg[1] > $lastexternalrss) {

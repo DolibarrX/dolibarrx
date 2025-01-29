@@ -332,7 +332,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= ' FROM '.MAIN_DB_PREFIX.'societe as s';
@@ -449,7 +449,7 @@ if ($search_sale && $search_sale != '-1') {
 $searchCategoryProductOperator = -1;
 $searchCategoryProductList = array($search_product_category);
 if (!empty($searchCategoryProductList)) {
-	$searchCategoryProductSqlList = array();
+	$searchCategoryProductSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
@@ -478,7 +478,7 @@ if (!empty($searchCategoryProductList)) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -513,7 +513,7 @@ if ($resql) {
 
 	$num = $db->num_rows($resql);
 
-	$arrayofselected = is_array($toselect) ? $toselect : array();
+	$arrayofselected = is_array($toselect) ? $toselect : [];
 
 	if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $search_all) {
 		$obj = $db->fetch_object($resql);
@@ -645,7 +645,7 @@ if ($resql) {
 		$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 	}
 	if (in_array($massaction, array('presend', 'predelete'))) {
-		$arrayofmassactions = array();
+		$arrayofmassactions = [];
 	}
 	$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -714,7 +714,7 @@ if ($resql) {
 		$moreforfilter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"').$form->selectarray('search_product_category', $cate_arbo, $search_product_category, $tmptitle, 0, 0, '', 0, 0, 0, 0, 'maxwidth300 widthcentpercentminusx', 1);
 		$moreforfilter .= '</div>';
 	}
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($resHook)) {
 		$moreforfilter .= $hookManager->resPrint;
@@ -893,7 +893,7 @@ if ($resql) {
 
 	print "</tr>\n";
 
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
 
 	// Fields title
@@ -1009,9 +1009,9 @@ if ($resql) {
 	$total = 0;
 	$subtotal = 0;
 	$savnbfield = $totalarray['nbfield'];
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
-	$totalarray['val'] = array();
+	$totalarray['val'] = [];
 	$totalarray['val']['sp.total_ht'] = 0;
 	$totalarray['val']['sp.total_tva'] = 0;
 	$totalarray['val']['sp.total_ttc'] = 0;

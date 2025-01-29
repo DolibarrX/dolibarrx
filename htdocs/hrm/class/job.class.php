@@ -170,7 +170,7 @@ class Job extends CommonObject
 	// /**
 	//  * @var JobLine[]     Array of subtable lines
 	//  */
-	// public $lines = array();
+	// public $lines = [];
 
 
 
@@ -358,7 +358,7 @@ class Job extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -381,7 +381,7 @@ class Job extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList('t');
@@ -638,7 +638,7 @@ class Job extends CommonObject
 	{
 		global $db;
 
-		$TReturn = array();
+		$TReturn = [];
 		$position = new Position($db);
 		$TPosition = $position->getForUser($userId);
 		foreach ($TPosition as $UPosition) {
@@ -933,7 +933,7 @@ class Job extends CommonObject
 	 */
 	public function getLinesArray()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectline = new JobLine($this->db);
 		$result = $objectline->fetchAll('ASC', 'position', 0, 0, '(fk_job:=:'.((int) $this->id).')');
@@ -1089,7 +1089,7 @@ class Job extends CommonObject
 		if (empty($id)) {
 			return -1;
 		}
-		$skillranks = array();
+		$skillranks = [];
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."hrm_skillrank";
 		$sql .= " WHERE fk_object = ".((int) $id);

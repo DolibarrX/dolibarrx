@@ -475,14 +475,14 @@ if (!function_exists('ftp_connect')) {
 				//$dirHandle = opendir("ssh2.sftp://".intval($conn_id).ssh2_sftp_realpath($conn_id, ".").'/./');
 
 				$contents = scandir('ssh2.sftp://'.intval($conn_id).$newsection);
-				$buff = array();
+				$buff = [];
 				foreach ($contents as $i => $key) {
 					$buff[$i] = "---------- - root root 1234 Aug 01 2000 ".$key;
 				}
 
 				//$i = 0;
 				//$handle = opendir('ssh2.sftp://'.intval($conn_id).$newsection);
-				//$buff=array();
+				//$buff=[];
 				//while (false !== ($file = readdir($handle))) {
 				//	if (substr("$file", 0, 1) != "."){
 				//  	if (is_dir($file)) {
@@ -498,8 +498,8 @@ if (!function_exists('ftp_connect')) {
 				$contents = ftp_nlist($conn_id, $newsectioniso); // Sometimes rawlist fails but never nlist
 			} else {
 				dol_syslog(__FILE__ . ": Unexpected state for ftp connection", LOG_ERR);
-				$buff = array();
-				$contents = array();
+				$buff = [];
+				$contents = [];
 			}
 
 			$nboflines = count($contents);

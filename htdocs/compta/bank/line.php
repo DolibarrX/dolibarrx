@@ -322,7 +322,7 @@ $form = new Form($db);
 
 llxHeader('', $langs->trans("BankTransaction"));
 
-$arrayselected = array();
+$arrayselected = [];
 
 $c = new Category($db);
 $cats = $c->containing($rowid, Category::TYPE_BANK_LINE);
@@ -593,7 +593,7 @@ if ($result) {
 		print "</tr>";
 
 		// Description
-		$reg = array();
+		$reg = [];
 		print "<tr><td>".$langs->trans("Label")."</td>";
 		if ($user->hasRight('bank', 'modifier') || $user->hasRight('bank', 'consolidate')) {
 			print '<td>';
@@ -639,7 +639,7 @@ if ($result) {
 			print '<tr><td class="toptd">'.$form->editfieldkey('RubriquesTransactions', 'custcats', '', $object, 0).'</td><td>';
 			$cate_arbo = $form->select_all_categories(Category::TYPE_BANK_LINE, '', 'parent', 0, 0, 1);
 
-			$arrayselected = array();
+			$arrayselected = [];
 
 			$c = new Category($db);
 			$cats = $c->containing($bankline->id, Category::TYPE_BANK_LINE);
@@ -653,7 +653,7 @@ if ($result) {
 		}
 
 		// Other attributes
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $bankline, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		if (empty($resHook)) {

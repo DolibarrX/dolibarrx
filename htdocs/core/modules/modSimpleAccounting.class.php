@@ -64,12 +64,12 @@ class modSimpleAccounting extends DolibarrModules
 
 		// Dependencies
 		$this->depends = array("modFacture", "modBank");
-		$this->requiredby = array();
+		$this->requiredby = [];
 		$this->conflictwith = array("modAccounting");
 		$this->langfiles = array("compta");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 
 		// Data directories to create when module is enabled
 		$this->dirs = array(
@@ -80,10 +80,10 @@ class modSimpleAccounting extends DolibarrModules
 		);
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'compta';
 		$r = 0;
 
@@ -117,7 +117,7 @@ class modSimpleAccounting extends DolibarrModules
 		// Nettoyage avant activation
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

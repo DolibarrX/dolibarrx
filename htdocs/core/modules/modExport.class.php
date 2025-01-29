@@ -60,20 +60,20 @@ class modExport extends DolibarrModules
 		$this->config_page_url = array("export.php");
 
 		// Dependencies
-		$this->depends = array();
-		$this->requiredby = array();
+		$this->depends = [];
+		$this->requiredby = [];
 		$this->phpmin = array(7, 0);
-		$this->phpmax = array();
+		$this->phpmax = [];
 		$this->enabled_bydefault = true; // Will be enabled during install
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'export';
 		$r = 0;
 

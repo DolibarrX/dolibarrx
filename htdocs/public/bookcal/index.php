@@ -428,7 +428,7 @@ if ($action == 'afteradd') {
 		$todaytms = dol_mktime(0, 0, 0, $todayarray['mon'], $todayarray['mday'], $todayarray['year']);
 
 		// Load into an array all days with availabilities of the calendar for the current month $todayarray['mon'] and $todayarray['year']
-		$arrayofavailabledays = array();
+		$arrayofavailabledays = [];
 
 		$arrayofavailabilities = $availability->fetchAll('', '', 0, 0, '(status:=:1) AND (fk_bookcal_calendar:=:'.((int) $id).')');
 		if ($arrayofavailabilities < 0) {

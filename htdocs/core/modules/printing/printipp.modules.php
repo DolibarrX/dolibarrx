@@ -54,7 +54,7 @@ class printing_printipp extends PrintingDriver
 	/**
 	 * @var array<int,array<string,int|string>> array of setup values
 	 */
-	public $config = array();
+	public $config = [];
 
 	/**
 	 * @var string host

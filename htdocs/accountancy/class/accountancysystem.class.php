@@ -43,7 +43,7 @@ class AccountancySystem extends CommonObject
 	/**
 	 * @var string[] Array of Errors code (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var int ID

@@ -137,10 +137,10 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 			$this->postotalht -= 20;
 		}
 
-		$this->tva = array();
-		$this->tva_array = array();
-		$this->localtax1 = array();
-		$this->localtax2 = array();
+		$this->tva = [];
+		$this->tva_array = [];
+		$this->localtax1 = [];
+		$this->localtax2 = [];
 		$this->atleastoneratenotnull = 0;
 		$this->atleastonediscount = 0;
 	}
@@ -368,7 +368,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 					$pdf->SetTextColor(0, 0, 0);
 
 					// Define size of image if we need it
-					//$imglinesize = array();
+					//$imglinesize = [];
 					//if (!empty($realpatharray[$i])) {
 					//	$imglinesize = pdf_getSizeForImage($realpatharray[$i]);
 					//}

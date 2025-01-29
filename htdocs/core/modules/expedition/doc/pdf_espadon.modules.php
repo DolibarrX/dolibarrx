@@ -174,7 +174,7 @@ class pdf_espadon extends ModelePdfExpedition
 		$nblines = count($object->lines);
 
 		// Loop on each lines to detect if there is at least one image to show
-		$realpatharray = array();
+		$realpatharray = [];
 		$this->atleastonephoto = false;
 		if (getDolGlobalString('MAIN_GENERATE_SHIPMENT_WITH_PICTURE')) {
 			$objphoto = new Product($this->db);
@@ -576,7 +576,7 @@ class pdf_espadon extends ModelePdfExpedition
 					$pdf->SetTextColor(0, 0, 0);
 
 					// Define size of image if we need it
-					$imglinesize = array();
+					$imglinesize = [];
 					if (!empty($realpatharray[$i])) {
 						$imglinesize = pdf_getSizeForImage($realpatharray[$i]);
 					}
@@ -965,7 +965,7 @@ class pdf_espadon extends ModelePdfExpedition
 
 		if (empty($hidetop)) {
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
-				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, $this->tabTitleHeight, $this->corner_radius, '1001', 'F', array(), explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
+				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, $this->tabTitleHeight, $this->corner_radius, '1001', 'F', [], explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
 		}
 
@@ -1132,7 +1132,7 @@ class pdf_espadon extends ModelePdfExpedition
 			// Sender properties
 			$carac_emetteur = '';
 			// Add internal contact of origin element if defined
-			$arrayidcontact = array();
+			$arrayidcontact = [];
 			if (!empty($origin) && is_object($object->origin_object)) {
 				$arrayidcontact = $object->origin_object->getIdContact('internal', 'SALESREPFOLL');
 			}

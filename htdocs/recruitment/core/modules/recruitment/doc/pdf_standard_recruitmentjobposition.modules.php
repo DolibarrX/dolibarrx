@@ -100,17 +100,17 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 	/**
 	 * @var array{align?:'R'|'C'|'L',padding?:array<float|int>} defaultContentsFieldsStyle
 	 */
-	public $defaultContentsFieldsStyle = array();
+	public $defaultContentsFieldsStyle = [];
 
 	/**
 	 * @var array{align?:'R'|'C'|'L',padding?:array<float|int>} defaultTitlesFieldsStyle
 	 */
-	public $defaultTitlesFieldsStyle = array();
+	public $defaultTitlesFieldsStyle = [];
 
 	/**
 	 * @var array<string,array{rank:int,width:float|int,status:bool,title:array{textkey:string,label:string,align:string,padding:array{0:float,1:float,2:float,3:float}},content:array{align:string,padding:array{0:float,1:float,2:float,3:float}}}>	Array of document table columns
 	 */
-	public $cols = array();
+	public $cols = [];
 
 
 	/**
@@ -159,9 +159,9 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 
 		//  Use new system for position of columns, view  $this->defineColumnField()
 
-		// $this->tva = array();
-		// $this->localtax1 = array();
-		// $this->localtax2 = array();
+		// $this->tva = [];
+		// $this->localtax1 = [];
+		// $this->localtax2 = [];
 		// $this->atleastoneratenotnull = 0;
 		// $this->atleastonediscount = 0;
 		$this->situationinvoice = false;

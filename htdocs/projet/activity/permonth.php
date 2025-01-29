@@ -127,7 +127,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($object->table_element);
 
 // Definition of fields for list
-$arrayfields = array();
+$arrayfields = [];
 /*$arrayfields=array(
  // Project
  'p.opp_amount'=>array('label'=>$langs->trans("OpportunityAmountShort"), 'checked'=>0, 'enabled'=>($config->global->PROJECT_USE_OPPORTUNITIES?1:0), 'position'=>103),
@@ -155,7 +155,7 @@ if (!empty($extrafields->attributes['projet_task']['label']) && is_array($extraf
 }
 $arrayfields = dol_sort_array($arrayfields, 'position');
 
-$search_array_options = array();
+$search_array_options = [];
 $search_array_options_project = $extrafields->getOptionalsFromPost('projet', '', 'search_');
 $search_array_options_task = $extrafields->getOptionalsFromPost('projet_task', '', 'search_task_');
 
@@ -183,8 +183,8 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_thirdparty = '';
 	$search_declared_progress = '';
 
-	$search_array_options_project = array();
-	$search_array_options_task = array();
+	$search_array_options_project = [];
+	$search_array_options_task = [];
 
 	// We redefine $usertoprocess
 	$usertoprocess = $user;
@@ -421,7 +421,7 @@ $search_options_pattern = 'search_task_options_';
 $extrafieldsobjectkey = 'projet_task';
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 
-$tasksarraywithoutfilter = array();  // Default
+$tasksarraywithoutfilter = [];  // Default
 
 $tasksarray = $taskstatic->getTasksArray(null, null, ($project->id ? $project->id : 0), $socid, 0, $search_project_ref, $onlyopenedproject, $morewherefilter, ($search_usertoprocessid ? $search_usertoprocessid : 0), 0, $extrafields); // We want to see all tasks of open project i am allowed to see and that match filter, not only my tasks. Later only mine will be editable later.
 if ($morewherefilter) {	// Get all task without any filter, so we can show total of time spent for not visible tasks
@@ -535,7 +535,7 @@ if (!$user->hasRight('user', 'user', 'lire')) {
 	$includeonly = array($user->id);
 }
 $selecteduser = $search_usertoprocessid ? $search_usertoprocessid : $usertoprocess->id;
-$moreforfiltertmp = $form->select_dolusers($selecteduser, 'search_usertoprocessid', 0, null, 0, $includeonly, array(), 0, 0, 0, '', 0, '', 'maxwidth200');
+$moreforfiltertmp = $form->select_dolusers($selecteduser, 'search_usertoprocessid', 0, null, 0, $includeonly, [], 0, 0, 0, '', 0, '', 'maxwidth200');
 if ($form->num > 1 || empty($config->dol_optimize_smallscreen)) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$moreforfilter .= '<div class="inline-block hideonsmartphone"></div>';
@@ -561,7 +561,7 @@ if (!getDolGlobalString('PROJECT_TIMESHEET_DISABLEBREAK_ON_PROJECT')) {
 if (!empty($moreforfilter)) {
 	print '<div class="liste_titre liste_titre_bydiv centpercent">';
 	print $moreforfilter;
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	print '</div>';
@@ -653,7 +653,7 @@ $colspan = 1;
 
 
 // Get if user is available or not for each day
-$isavailable = array();
+$isavailable = [];
 // TODO See code into perweek.php to initialize isavailable array
 
 // By default, we can edit only tasks we are assigned to
@@ -671,14 +671,14 @@ if (count($tasksarray) > 0) {
 	// Show total for all other tasks
 
 	// Calculate total for all tasks
-	$listofdistinctprojectid = array(); // List of all distinct projects
+	$listofdistinctprojectid = []; // List of all distinct projects
 	if (!empty($tasksarraywithoutfilter) && is_array($tasksarraywithoutfilter) && count($tasksarraywithoutfilter)) {
 		foreach ($tasksarraywithoutfilter as $tmptask) {
 			$listofdistinctprojectid[$tmptask->fk_project] = $tmptask->fk_project;
 		}
 	}
 	//var_dump($listofdistinctprojectid);
-	$totalforeachweek = array();
+	$totalforeachweek = [];
 	'@phan-var-force array<string,int> $totalforeachweek';
 
 	foreach ($listofdistinctprojectid as $tmpprojectid) {
@@ -757,7 +757,7 @@ if (count($tasksarray) > 0) {
     	</tr>';
 	}
 
-	$THolidays = array();
+	$THolidays = [];
 	$totaldayholiday = 0;
 	foreach ($TWeek as $weekNb) {
 		$weekstart = dol_stringtotime($year.$month.($TFirstDays[$weekNb]));
@@ -766,8 +766,8 @@ if (count($tasksarray) > 0) {
 		$filter .= " AND ('".$db->idate($weekstart)."' BETWEEN cp.date_debut AND cp.date_fin";
 		$filter .= " OR '".$db->idate($weekend)."' BETWEEN cp.date_debut AND cp.date_fin)";
 		$holiday->fetchByUser($usertoprocess->id, '', $filter);
-		$THolidays[$weekNb] = array();
-		$THolidays[$weekNb]["ids"] = array();
+		$THolidays[$weekNb] = [];
+		$THolidays[$weekNb]["ids"] = [];
 		$THolidays[$weekNb]["days"] = 0;
 		foreach ($holiday->holiday as $key => $h) {
 			if (!empty($THolidays[$weekNb]["ids"]) && in_array($h->rowid, $THolidays[$weekNb]["ids"])) {

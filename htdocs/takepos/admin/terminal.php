@@ -64,7 +64,7 @@ $sql .= " WHERE entity IN (".getEntity('c_paiement').")";
 $sql .= " AND active = 1";
 $sql .= " ORDER BY libelle";
 $resql = $db->query($sql);
-$paiements = array();
+$paiements = [];
 if ($resql) {
 	while ($obj = $db->fetch_object($resql)) {
 		array_push($paiements, $obj);
@@ -204,7 +204,7 @@ print '</td></tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("ForbidSalesToTheDefaultCustomer").'</td>';
 print '<td>';
-print ajax_constantonoff("TAKEPOS_FORBID_SALES_TO_DEFAULT_CUSTOMER", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_FORBID_SALES_TO_DEFAULT_CUSTOMER", [], $config->entity, 0, 0, 1, 0);
 print '</td></tr>';
 
 if (!getDolGlobalString('TAKEPOS_FORBID_SALES_TO_DEFAULT_CUSTOMER')) {
@@ -212,7 +212,7 @@ if (!getDolGlobalString('TAKEPOS_FORBID_SALES_TO_DEFAULT_CUSTOMER')) {
 	print '<td>';
 	print img_picture('', 'company', 'class="picturefixedwidth"');
 	$filter = '((s.client:IN:1,2,3) AND (s.status:=:1))';
-	print $form->select_company(getDolGlobalInt('CASHDESK_ID_THIRDPARTY'.$terminaltouse), 'socid', $filter, 1, 0, 0, array(), 0, 'maxwidth500 widthcentpercentminusx');
+	print $form->select_company(getDolGlobalInt('CASHDESK_ID_THIRDPARTY'.$terminaltouse), 'socid', $filter, 1, 0, 0, [], 0, 'maxwidth500 widthcentpercentminusx');
 	print '</td></tr>';
 }
 
@@ -274,7 +274,7 @@ if (isModEnabled("bank")) {
 			$readers = \Stripe\Terminal\Reader::all('', array("location" => getDolGlobalString('STRIPE_LOCATION')));
 		}
 
-		$reader = array();
+		$reader = [];
 		$reader[""] = $langs->trans("NoReader");
 		foreach ($readers as $tmpreader) {
 			$reader[$tmpreader->id] = $tmpreader->label.' ('.$tmpreader->status.')';
@@ -319,7 +319,7 @@ if (isModEnabled('stock')) {
 	print '</td>'; // Force warehouse (this is not a default value)
 	print '<td>';
 	//print $form->selectyesno('CASHDESK_NO_DECREASE_STOCK'.$terminal, getDolGlobalInt('CASHDESK_NO_DECREASE_STOCK'.$terminal), 1);
-	print ajax_constantonoff('CASHDESK_NO_DECREASE_STOCK'.$terminal, array(), $config->entity, 0, 0, 1, 0);
+	print ajax_constantonoff('CASHDESK_NO_DECREASE_STOCK'.$terminal, [], $config->entity, 0, 0, 1, 0);
 	print '</td></tr>';
 
 
@@ -341,7 +341,7 @@ if (isModEnabled('stock')) {
 	print '<td class="minwidth300">';
 	if (!$disabled) {
 		print img_picture('', 'stock', 'class="picturefixedwidth"');
-		print $formproduct->selectWarehouses(getDolGlobalString('CASHDESK_ID_WAREHOUSE'.$terminal), 'CASHDESK_ID_WAREHOUSE'.$terminal, '', 1, $disabled, 0, '', 0, 0, array(), 'maxwidth500 widthcentpercentminusxx');
+		print $formproduct->selectWarehouses(getDolGlobalString('CASHDESK_ID_WAREHOUSE'.$terminal), 'CASHDESK_ID_WAREHOUSE'.$terminal, '', 1, $disabled, 0, '', 0, 0, [], 'maxwidth500 widthcentpercentminusxx');
 		print ' <a href="'.DOL_URL_ROOT.'/product/stock/card.php?action=create&backtopage='.urlencode($_SERVER["PHP_SELF"].'?&terminal='.$terminal).'"><span class="fa fa-plus-circle valignmiddle"></span></a>';
 	} else {
 		print '<span class="opacitymedium">'.$langs->trans("StockDecreaseForPointOfSaleDisabled").'</span>';
@@ -374,7 +374,7 @@ if (isModEnabled('receiptprinter')) {
 	$printer = new dolReceiptPrinter($db);
 
 	$printer->listprinters();
-	$printers = array();
+	$printers = [];
 	foreach ($printer->listprinters as $key => $value) {
 		$printers[$value['rowid']] = $value['name'];
 	}
@@ -405,7 +405,7 @@ if (isModEnabled('receiptprinter') || getDolGlobalString('TAKEPOS_PRINT_METHOD')
 	require_once DOL_DOCUMENT_ROOT.'/core/class/dolreceiptprinter.class.php';
 	$printer = new dolReceiptPrinter($db);
 	$printer->listPrintersTemplates();
-	$templates = array();
+	$templates = [];
 	foreach ($printer->listprinterstemplates as $key => $value) {
 		$templates[$value['rowid']] = $value['name'];
 	}

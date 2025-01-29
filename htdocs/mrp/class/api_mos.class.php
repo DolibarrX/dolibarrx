@@ -103,7 +103,7 @@ class Mos extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 		$tmpobject = new Mo($this->db);
 
 		$socid = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : 0;
@@ -345,8 +345,8 @@ class Mos extends DolibarrApi
 		$labelmovement = '';
 		$codemovement = '';
 		$autoclose = 1;
-		$arraytoconsume = array();
-		$arraytoproduce = array();
+		$arraytoconsume = [];
+		$arraytoproduce = [];
 
 		foreach ($request_data as $field => $value) {
 			if ($field == 'inventorylabel') {
@@ -717,8 +717,8 @@ class Mos extends DolibarrApi
 		$labelmovement = '';
 		$codemovement = '';
 		$autoclose = 1;
-		$arraytoconsume = array();
-		$arraytoproduce = array();
+		$arraytoconsume = [];
+		$arraytoproduce = [];
 
 		foreach ($request_data as $field => $value) {
 			if ($field == 'inventorylabel') {
@@ -971,7 +971,7 @@ class Mos extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$myobject = array();
+		$myobject = [];
 		foreach ($this->mo->fields as $field => $propfield) {
 			if (in_array($field, array('rowid', 'entity', 'date_creation', 'tms', 'fk_user_creat')) || $propfield['notnull'] != 1) {
 				continue; // Not a mandatory field

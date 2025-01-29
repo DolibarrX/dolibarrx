@@ -51,7 +51,7 @@ $cancel = GETPOST('cancel', 'alpha');
 $search_event = GETPOST('search_event', 'alpha');
 
 // Get list of triggers available
-$triggers = array();
+$triggers = [];
 $sql = "SELECT a.rowid, a.code, a.label, a.elementtype, a.rang as position";
 $sql .= " FROM ".MAIN_DB_PREFIX."c_action_trigger as a";
 $sql .= " ORDER BY a.rang ASC";

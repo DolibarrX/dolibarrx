@@ -60,7 +60,7 @@ $langs->loadLangs(array('companies', 'users', 'other', 'commercial'));
 
 $mesg = '';
 $error = '';
-$errors = array();
+$errors = [];
 
 // Get parameters
 $action		= (GETPOST('action', 'alpha') ? GETPOST('action', 'alpha') : 'view');
@@ -198,7 +198,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 	/*
 	 * Onglets
 	 */
-	$head = array();
+	$head = [];
 	if ($id > 0) {
 		// Si edition contact deja existent
 		$object = new Contact($db);
@@ -316,7 +316,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			print_barre_liste($titlelist, 0, $_SERVER["PHP_SELF"], '', $sortfield, $sortorder, '', 0, -1, '', 0, $morehtmlright, '', 0, 1, 0);
 
 			// List of all actions
-			$filters = array();
+			$filters = [];
 			$filters['search_agenda_label'] = $search_agenda_label;
 			$filters['search_rowid'] = $search_rowid;
 

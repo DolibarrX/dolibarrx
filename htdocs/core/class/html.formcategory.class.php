@@ -49,7 +49,7 @@ class FormCategory extends Form
 		global $langs, $db;
 
 		if (empty($preSelected) || !is_array($preSelected)) {
-			$preSelected = array();
+			$preSelected = [];
 		}
 
 		if ($showempty && !is_numeric($showempty)) {

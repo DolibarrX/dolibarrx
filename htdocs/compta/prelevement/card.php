@@ -164,7 +164,7 @@ if (empty($resHook)) {
 
 		if (($object->type != 'bank-transfer' && $object->statut == BonPrelevement::STATUS_CREDITED) || ($object->type == 'bank-transfer' && $object->statut == BonPrelevement::STATUS_DEBITED)) {
 			$error = 1;
-			setEventMessages('WithdrawalCantBeCreditedTwice', array(), 'errors');
+			setEventMessages('WithdrawalCantBeCreditedTwice', [], 'errors');
 		} else {
 			$error = $object->set_infocredit($user, $dt, ($salaryBonPl ? 'salary' : ''));
 		}
@@ -357,7 +357,7 @@ if ($id > 0 || $ref) {
 	print '</td></tr>';
 
 	// Other attributes
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
@@ -425,7 +425,7 @@ if ($id > 0 || $ref) {
 	// Actions
 	if ($action != 'settransmitted' && $action != 'setcredited') {
 		print "\n".'<div class="tabsAction">'."\n";
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($resHook)) {
 			if (empty($object->date_trans)) {

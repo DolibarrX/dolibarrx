@@ -150,7 +150,7 @@ if ($dirread != DOL_DOCUMENT_ROOT && (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 
 
 // Search modules to edit
 $textforlistofdirs = '<!-- Directory scanned -->'."\n";
-$listofmodules = array();
+$listofmodules = [];
 '@phan-var-force array<string,array{modulenamewithcase:string,moduledescriptorrelpath:string,moduledescriptorfullpath:string,moduledescriptorrootpath,moduletype?:string}> $listofmodules';
 $i = 0;
 foreach ($dirsrootforscan as $tmpdirread) {
@@ -908,7 +908,7 @@ if ($dirins && $action == 'initdoc' && !empty($module) && $user->hasRight("modul
 			$string = file_get_contents($changeLog);
 
 			$replace = explode("\n", $string);
-			$strreplace = array();
+			$strreplace = [];
 			foreach ($replace as $line) {
 				if ($line === '') {
 					continue;
@@ -967,7 +967,7 @@ if ($dirins && $action == 'addlanguage' && !empty($module) && $user->hasRight("m
 			$srcfile = $diroflang.'/langs/en_US/'.$modulelowercase.'.lang';
 			$destdir = $diroflang.'/langs/'.$newlangcode;
 
-			$arrayofreplacement = array();
+			$arrayofreplacement = [];
 			if (!dol_is_dir($srcfile) || !dol_is_file($srcfile)) {
 				$srcdir = DOL_DOCUMENT_ROOT.'/modulebuilder/template/langs/en_US';
 				$arrayofreplacement = array('mymodule' => $modulelowercase);
@@ -1055,7 +1055,7 @@ if ($dirins && $action == 'confirm_removefile' && !empty($module) && $user->hasR
 
 			// Now we update the lib file to set $showtabofpagexxx to 0
 			$varnametoupdate = '';
-			$reg = array();
+			$reg = [];
 			if (preg_match('/_([a-z]+)\.php$/', $relativefilename, $reg)) {
 				$varnametoupdate = 'showtabofpage'.$reg[1];
 			}
@@ -1368,7 +1368,7 @@ if ($dirins && $action == 'initobject' && $module && $objectname && $user->hasRi
 		}
 	}
 
-	$filetogenerate = array();  // For static analysis
+	$filetogenerate = [];  // For static analysis
 	if (!$error) {
 		// Copy some files
 		$filetogenerate = array(
@@ -1523,7 +1523,7 @@ if ($dirins && $action == 'initobject' && $module && $objectname && $user->hasRi
 			}
 
 			$tmpcontent = file_get_contents($fileobj['fullname']);
-			$reg = array();
+			$reg = [];
 			if (preg_match('/class\s+([^\s]*)\s+extends\s+CommonObject/ims', $tmpcontent, $reg)) {
 				$objectnameloop = $reg[1];
 				if (empty($firstobjectname)) {
@@ -1606,7 +1606,7 @@ if ($dirins && $action == 'initobject' && $module && $objectname && $user->hasRi
 		if (is_object($moduleobj)) {
 			$menus = $moduleobj->menu;
 		} else {
-			$menus = array();
+			$menus = [];
 		}
 		$counter = 0 ;
 		foreach ($menus as $menu) {
@@ -1765,7 +1765,7 @@ if ($dirins && $action == 'initdic' && $module && empty($cancel) && $user->hasRi
 if ($dirins && ($action == 'droptable' || $action == 'droptableextrafields') && !empty($module) && !empty($tabobj) && $user->hasRight("modulebuilder", "run")) {
 	$objectname = $tabobj;
 
-	$arrayoftables = array();
+	$arrayoftables = [];
 	if ($action == 'droptable') {	// Test on permission already done
 		$arrayoftables[] = MAIN_DB_PREFIX.strtolower($module).'_'.strtolower($tabobj);
 	}
@@ -1817,7 +1817,7 @@ if ($dirins && $action == 'addproperty' && empty($cancel) && !empty($module) && 
 		setEventMessages($langs->trans("ErrorObjectNotFound", $langs->transnoentities($objectname)), null, 'errors');
 	}
 
-	$addfieldentry = array();
+	$addfieldentry = [];
 
 	// We click on add property
 	if (!GETPOST('regenerateclasssql') && !GETPOST('regeneratemissing')) {
@@ -1926,7 +1926,7 @@ if ($dirins && $action == 'confirm_deleteproperty' && $propertykey && $user->has
 
 	// Edit the class file to write properties
 	if (!$error) {
-		$object = rebuildObjectClass($destdir, $module, $objectname, $newmask, $srcdir, array(), $propertykey);
+		$object = rebuildObjectClass($destdir, $module, $objectname, $newmask, $srcdir, [], $propertykey);
 
 		if (is_numeric($object) && $object <= 0) {
 			$pathoffiletoeditsrc = $destdir.'/class/'.strtolower($objectname).'.class.php';
@@ -2408,13 +2408,13 @@ if ($dirins && $action == 'addright' && !empty($module) && empty($cancel) && $us
 
 	//check existing object permission
 	$counter = 0;
-	$permsForObject = array();
+	$permsForObject = [];
 	if (is_object($moduleobj)) {
 		$permissions = $moduleobj->rights;
 	} else {
-		$permissions = array();
+		$permissions = [];
 	}
-	$allObject = array();
+	$allObject = [];
 
 	$countPerms = count($permissions);
 
@@ -2437,7 +2437,7 @@ if ($dirins && $action == 'addright' && !empty($module) && empty($cancel) && $us
 		}
 	}
 
-	$rightToAdd = array();
+	$rightToAdd = [];
 	if (!$error) {
 		$key = $countPerms + 1;
 		//prepare right to add
@@ -2540,11 +2540,11 @@ if ($dirins && GETPOST('action') == 'update_right' && GETPOST('modifyright') && 
 	}
 	//check existing object permission
 	$counter = 0;
-	$permsForObject = array();
+	$permsForObject = [];
 	// $permissions = $moduleobj->rights;  // Already fetched above
 	$firstRight = 0;
 	$existRight = 0;
-	$allObject = array();
+	$allObject = [];
 
 	$countPerms = count($permissions);
 	for ($i = 0; $i < $countPerms; $i++) {
@@ -3184,7 +3184,7 @@ $morejs = array(
 	'/includes/ace/src/ext-language_tools.js',
 	//'/includes/ace/src/ext-chromevox.js'
 );
-$morecss = array();
+$morecss = [];
 
 llxHeader('', $langs->trans("ModuleBuilder"), $help_url, '', 0, 0, $morejs, $morecss, '', 'classforhorizontalscrolloftabs');
 
@@ -3295,7 +3295,7 @@ print '<br>';
 
 
 // Tabs for all modules
-$head = array();
+$head = [];
 $h = 0;
 
 $head[$h][0] = $_SERVER["PHP_SELF"].'?module=initmodule';
@@ -3338,7 +3338,7 @@ if (is_array($listofmodules) && count($listofmodules) > 0) {
 		}
 		$backtourl = $_SERVER["PHP_SELF"].$backtourlparam;
 
-		$regs = array();
+		$regs = [];
 		if (is_array($objMod->config_page_url)) {
 			$i = 0;
 			foreach ($objMod->config_page_url as $page) {
@@ -3512,7 +3512,7 @@ if ($module == 'initmodule') {
 		$countCLI = countItemsInDirectory(dol_buildpath($modulelowercase, 0)."/scripts");
 		$hasDoc = countItemsInDirectory(dol_buildpath($modulelowercase, 0)."/doc");
 		//var_dump($moduleobj->dictionaries);exit;
-		$head2 = array();
+		$head2 = [];
 		$h = 0;
 
 		$head2[$h][0] = $_SERVER["PHP_SELF"].'?tab=description&module='.$module.($forceddirread ? '@'.$dirread : '');
@@ -3862,7 +3862,7 @@ if ($module == 'initmodule') {
 
 				print dol_get_fiche_head($head2, $tab, '', -1, '', 0, '', '', 0, 'formodulesuffix');
 
-				$posCursor = (empty($find)) ? array() : array('find' => $find);
+				$posCursor = (empty($find)) ? [] : array('find' => $find);
 				$doleditor = new DolEditor('editfilecontent', $content, '', 300, 'Full', 'In', true, false, 'ace', 0, '99%', 0, $posCursor);
 				print $doleditor->Create(1, '', false, $langs->trans("File").' : '.$file, (GETPOST('format', 'aZ09') ? GETPOST('format', 'aZ09') : 'html'));
 
@@ -3893,7 +3893,7 @@ if ($module == 'initmodule') {
 				print '<input type="hidden" name="file" value="'.dol_escape_htmltag($file).'">';
 				print '<input type="hidden" name="tab" value="'.$tab.'">';
 				print '<input type="hidden" name="module" value="'.$module.'">';
-				print $formadmin->select_language(getDolGlobalString('MAIN_LANG_DEFAULT'), 'newlangcode', 0, array(), 1, 0, 0, 'minwidth300', 1);
+				print $formadmin->select_language(getDolGlobalString('MAIN_LANG_DEFAULT'), 'newlangcode', 0, [], 1, 0, 0, 'minwidth300', 1);
 				print '<input type="submit" name="addlanguage" class="button smallpaddingimp" value="'.dol_escape_htmltag($langs->trans("AddLanguageFile")).'"><br>';
 				print '</form>';
 
@@ -3958,7 +3958,7 @@ if ($module == 'initmodule') {
 
 		if ($tab == 'objects') {
 			print '<!-- tab=objects -->'."\n";
-			$head3 = array();
+			$head3 = [];
 			$h = 0;
 
 			// Dir for module
@@ -4347,7 +4347,7 @@ if ($module == 'initmodule') {
 						$urloflist = dol_buildpath('/'.$pathtolist, 1);
 						$urlofcard = dol_buildpath('/'.$pathtocard, 1);
 
-						$objs = array();
+						$objs = [];
 
 						print '<!-- section for object -->';
 						print '<div class="fichehalfleft smallxxx">';
@@ -4689,7 +4689,7 @@ if ($module == 'initmodule') {
 										print '</td>';
 										print '<td class="tdoverflowmax200">';
 										$pictureType = '';
-										$matches = array();
+										$matches = [];
 										if (preg_match('/^varchar/', $proptype, $matches)) {
 											$pictureType = 'varchar';
 										} elseif (preg_match('/^integer:/', $proptype, $matches)) {
@@ -4915,7 +4915,7 @@ if ($module == 'initmodule') {
 				}
 				print '<br>';
 
-				$head3 = array();
+				$head3 = [];
 				$h = 0;
 
 				// Dir for module
@@ -5214,7 +5214,7 @@ if ($module == 'initmodule') {
 				print '<input type="hidden" name="tab" value="'.$tab.'">';
 				print '<input type="hidden" name="module" value="'.$module.'">';
 
-				$posCursor = (empty($find)) ? array() : array('find' => $find);
+				$posCursor = (empty($find)) ? [] : array('find' => $find);
 				$doleditor = new DolEditor('editfilecontent', $content, '', 300, 'Full', 'In', true, false, 'ace', 0, '99%', 0, $posCursor);
 				print $doleditor->Create(1, '', false, $langs->trans("File").' : '.$file, (GETPOST('format', 'aZ09') ? GETPOST('format', 'aZ09') : 'html'));
 				print '<br>';
@@ -5236,7 +5236,7 @@ if ($module == 'initmodule') {
 			$listofobject = dol_dir_list($destdir.'/class', 'files', 0, '\.class\.php$');
 			$objects = dolGetListOfObjectClasses($destdir);
 
-			$leftmenus = array();
+			$leftmenus = [];
 
 			$menus = $moduleobj->menu;
 
@@ -5244,11 +5244,11 @@ if ($module == 'initmodule') {
 			$crud = array('read' => 'CRUDRead', 'write' => 'CRUDCreateWrite', 'delete' => 'Delete');
 
 			//grouped permissions
-			$groupedRights = array();
+			$groupedRights = [];
 			foreach ($permissions as $right) {
 				$key = $right[4];
 				if (!isset($groupedRights[$key])) {
-					$groupedRights[$key] = array();
+					$groupedRights[$key] = [];
 				}
 				$groupedRights[$key][] = $right;
 			}
@@ -5280,7 +5280,7 @@ if ($module == 'initmodule') {
 				print '<br>';
 
 				// Search all files of modules mentioned by menu
-				$listODifferentUrlsInMenu = array();
+				$listODifferentUrlsInMenu = [];
 				foreach ($menus as $obj) {
 					if (preg_match('/^\/'.preg_quote(strtolower($module), '/').'\//', $obj['url']) && !empty($pathoffile)) {
 						if (!empty($listODifferentUrlsInMenu[$pathoffile])) {	// Test to avoid to show same file twice.
@@ -5666,7 +5666,7 @@ if ($module == 'initmodule') {
 				print '<input type="hidden" name="tab" value="'.$tab.'">';
 				print '<input type="hidden" name="module" value="'.$module.'">';
 
-				$posCursor = (empty($find)) ? array() : array('find' => $find);
+				$posCursor = (empty($find)) ? [] : array('find' => $find);
 				$doleditor = new DolEditor('editfilecontent', $content, '', 300, 'Full', 'In', true, false, 'ace', 0, '99%', 0, $posCursor);
 				print $doleditor->Create(1, '', false, $langs->trans("File").' : '.$file, (GETPOST('format', 'aZ09') ? GETPOST('format', 'aZ09') : 'html'));
 				print '<br>';
@@ -5690,7 +5690,7 @@ if ($module == 'initmodule') {
 			$dir = $dirread.'/'.$modulelowercase.'/class';
 			$listofobject = dol_dir_list($dir, 'files', 0, '\.class\.php$');
 			$objects = array('myobject');
-			$reg = array();
+			$reg = [];
 			foreach ($listofobject as $fileobj) {
 				$tmpcontent = file_get_contents($fileobj['fullname']);
 				if (preg_match('/class\s+([^\s]*)\s+extends\s+CommonObject/ims', $tmpcontent, $reg)) {
@@ -5917,7 +5917,7 @@ if ($module == 'initmodule') {
 				print '<input type="hidden" name="tab" value="'.$tab.'">';
 				print '<input type="hidden" name="module" value="'.$module.'">';
 
-				$posCursor = (empty($find)) ? array() : array('find' => $find);
+				$posCursor = (empty($find)) ? [] : array('find' => $find);
 				$doleditor = new DolEditor('editfilecontent', $content, '', 300, 'Full', 'In', true, false, 'ace', 0, '99%', 0, $posCursor);
 				print $doleditor->Create(1, '', false, $langs->trans("File").' : '.$file, (GETPOST('format', 'aZ09') ? GETPOST('format', 'aZ09') : 'html'));
 				print '<br>';
@@ -5973,7 +5973,7 @@ if ($module == 'initmodule') {
 				print '<input type="hidden" name="tab" value="'.$tab.'">';
 				print '<input type="hidden" name="module" value="'.$module.'">';
 
-				$posCursor = (empty($find)) ? array() : array('find' => $find);
+				$posCursor = (empty($find)) ? [] : array('find' => $find);
 				$doleditor = new DolEditor('editfilecontent', $content, '', 300, 'Full', 'In', true, false, 'ace', 0, '99%', 0, $posCursor);
 				print $doleditor->Create(1, '', false, $langs->trans("File").' : '.$file, (GETPOST('format', 'aZ09') ? GETPOST('format', 'aZ09') : 'html'));
 				print '<br>';
@@ -6040,7 +6040,7 @@ if ($module == 'initmodule') {
 				print '<input type="hidden" name="tab" value="'.$tab.'">';
 				print '<input type="hidden" name="module" value="'.$module.'">';
 
-				$posCursor = (empty($find)) ? array() : array('find' => $find);
+				$posCursor = (empty($find)) ? [] : array('find' => $find);
 				$doleditor = new DolEditor('editfilecontent', $content, '', 300, 'Full', 'In', true, false, 'ace', 0, '99%', 0, $posCursor);
 				print $doleditor->Create(1, '', false, $langs->trans("File").' : '.$file, (GETPOST('format', 'aZ09') ? GETPOST('format', 'aZ09') : 'html'));
 				print '<br>';
@@ -6280,7 +6280,7 @@ if ($module == 'initmodule') {
 				print '<input type="hidden" name="tab" value="'.$tab.'">';
 				print '<input type="hidden" name="module" value="'.$module.'">';
 
-				$posCursor = (empty($find)) ? array() : array('find' => $find);
+				$posCursor = (empty($find)) ? [] : array('find' => $find);
 				$doleditor = new DolEditor('editfilecontent', $content, '', 300, 'Full', 'In', true, false, 'ace', 0, '99%', 0, $posCursor);
 				print $doleditor->Create(1, '', false, $langs->trans("File").' : '.$file, (GETPOST('format', 'aZ09') ? GETPOST('format', 'aZ09') : 'html'));
 				print '<br>';
@@ -6296,7 +6296,7 @@ if ($module == 'initmodule') {
 
 		if ($tab == 'cli') {
 			print '<!-- tab=cli -->'."\n";
-			$clifiles = array();
+			$clifiles = [];
 			$i = 0;
 
 			$dircli = array('/'.strtolower($module).'/scripts');
@@ -6484,7 +6484,7 @@ if ($module == 'initmodule') {
 				print '<input type="hidden" name="tab" value="'.$tab.'">';
 				print '<input type="hidden" name="module" value="'.$module.'">';
 
-				$posCursor = (empty($find)) ? array() : array('find' => $find);
+				$posCursor = (empty($find)) ? [] : array('find' => $find);
 				$doleditor = new DolEditor('editfilecontent', $content, '', 300, 'Full', 'In', true, false, 'ace', 0, '99%', 0, $posCursor);
 				print $doleditor->Create(1, '', false, $langs->trans("File").' : '.$file, (GETPOST('format', 'aZ09') ? GETPOST('format', 'aZ09') : 'html'));
 				print '<br>';
@@ -6791,7 +6791,7 @@ if ($module == 'initmodule') {
 				print '<input type="hidden" name="tab" value="'.$tab.'">';
 				print '<input type="hidden" name="module" value="'.$module.'">';
 
-				$posCursor = (empty($find)) ? array() : array('find' => $find);
+				$posCursor = (empty($find)) ? [] : array('find' => $find);
 				$doleditor = new DolEditor('editfilecontent', $content, '', 300, 'Full', 'In', true, false, 'ace', 0, '99%', 0, $posCursor);
 				print $doleditor->Create(1, '', false, $langs->trans("File").' : '.$file, (GETPOST('format', 'aZ09') ? GETPOST('format', 'aZ09') : 'html'));
 				print '<br>';

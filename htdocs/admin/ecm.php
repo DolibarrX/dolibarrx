@@ -53,7 +53,7 @@ if (!$user->admin) {
  */
 
 // set
-$reg = array();
+$reg = [];
 if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
 	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $config->entity) > 0) {
@@ -105,7 +105,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("ECMAutoTree").'</td>';
 print '<td class="center">';
 if ($config->use_javascript_ajax) {
-	print ajax_constantonoff('ECM_AUTO_TREE_HIDEN', array(), null, 1);
+	print ajax_constantonoff('ECM_AUTO_TREE_HIDEN', [], null, 1);
 } else {
 	if (!getDolGlobalString('ECM_AUTO_TREE_HIDEN')) {
 		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_ECM_AUTO_TREE_HIDEN&token='.newToken().'">'.img_picture($langs->trans("Enabled"), 'on').'</a>';

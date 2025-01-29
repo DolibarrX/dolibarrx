@@ -64,7 +64,7 @@ top_httphead();
 
 // Load original field value
 if (!empty($output) && isset($amount) && isset($tva_tx)) {
-	$return = array();
+	$return = [];
 	$price = '';
 
 	if (is_numeric($amount) && $amount != '') {

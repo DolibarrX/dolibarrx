@@ -128,10 +128,10 @@ class pdf_cyan extends ModelePDFPropales
 
 		//  Use new system for position of columns, view  $this->defineColumnField()
 
-		$this->tva = array();
-		$this->tva_array = array();
-		$this->localtax1 = array();
-		$this->localtax2 = array();
+		$this->tva = [];
+		$this->tva_array = [];
+		$this->localtax1 = [];
+		$this->localtax2 = [];
 		$this->atleastoneratenotnull = 0;
 		$this->atleastonediscount = 0;
 
@@ -196,7 +196,7 @@ class pdf_cyan extends ModelePDFPropales
 		$hidetop = getDolGlobalInt('MAIN_PDF_DISABLE_COL_HEAD_TITLE');
 
 		// Loop on each lines to detect if there is at least one image to show
-		$realpatharray = array();
+		$realpatharray = [];
 		$this->atleastonephoto = false;
 		if (getDolGlobalString('MAIN_GENERATE_PROPOSALS_WITH_PICTURE')) {
 			$objphoto = new Product($this->db);
@@ -208,7 +208,7 @@ class pdf_cyan extends ModelePDFPropales
 
 				$objphoto->fetch($object->lines[$i]->fk_product);
 				//var_dump($objphoto->ref);exit;
-				$pdir = array();
+				$pdir = [];
 				if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {
 					$pdir[0] = get_exdir($objphoto->id, 2, 0, 0, $objphoto, 'product').$objphoto->id."/photos/";
 					$pdir[1] = get_exdir(0, 0, 0, 0, $objphoto, 'product').dol_sanitizeFileName($objphoto->ref).'/';
@@ -581,7 +581,7 @@ class pdf_cyan extends ModelePDFPropales
 					$pdf->SetTextColor(0, 0, 0);
 
 					// Define size of image if we need it
-					$imglinesize = array();
+					$imglinesize = [];
 					if (!empty($realpatharray[$i])) {
 						$imglinesize = pdf_getSizeForImage($realpatharray[$i]);
 					}
@@ -910,7 +910,7 @@ class pdf_cyan extends ModelePDFPropales
 				if (getDolGlobalString('PRODUIT_PDF_MERGE_PROPAL')) {
 					require_once DOL_DOCUMENT_ROOT.'/product/class/propalmergepdfproduct.class.php';
 
-					$already_merged = array();
+					$already_merged = [];
 					foreach ($object->lines as $line) {
 						if (!empty($line->fk_product) && !(in_array($line->fk_product, $already_merged))) {
 							// Find the desired PDF

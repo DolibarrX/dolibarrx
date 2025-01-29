@@ -185,7 +185,7 @@ $error = 0;
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -337,9 +337,9 @@ if (empty($resHook)) {
 		$object->fk_incoterms = GETPOSTINT('incoterm_id');
 		$object->location_incoterms = GETPOST('location_incoterms', 'alpha');
 
-		$batch_line = array();
-		$stockLine = array();
-		$array_options = array();
+		$batch_line = [];
+		$stockLine = [];
+		$array_options = [];
 
 		$totalqty = 0;
 
@@ -356,7 +356,7 @@ if (empty($resHook)) {
 		for ($i = 1; $i <= $num; $i++) {
 			$idl = "idl".$i;	// id line source
 
-			//$sub_qty = array();
+			//$sub_qty = [];
 			//$subtotalqty = 0;
 
 			//$j = 0;
@@ -1000,14 +1000,14 @@ if ($action == 'create') {
 			 * @var array<string,int> $suffix2numAsked map HTTP query parameter suffixes (like '1_0') to line indices so that
 			 *                             extrafields from HTTP query can be assigned to the correct dispatch line
 			*/
-			$suffix2numAsked = array();
-			$dispatchLines = array();
+			$suffix2numAsked = [];
+			$dispatchLines = [];
 
 			foreach ($_POST as $key => $value) {
 				// If create form is coming from the button "Create Reception" of previous page
 
 				// without batch module enabled or product with no lot/serial
-				$reg = array();
+				$reg = [];
 				if (preg_match('/^product_([0-9]+)_([0-9]+)$/i', $key, $reg)) {
 					$numAsked++;
 					$paramSuffix = $reg[1] . '_' . $reg[2];
@@ -1136,7 +1136,7 @@ if ($action == 'create') {
 			// $objectsrc->lines contains the line of the purchase order
 			// $dispatchLines is list of lines with dispatching detail (with product, qty and warehouse). One purchase order line may have n of this dispatch lines.
 
-			$arrayofpurchaselinealreadyoutput = array();
+			$arrayofpurchaselinealreadyoutput = [];
 
 			// $_POST contains fk_orderfourndet_X_Y    where Y is num of product line and X is number of split lines
 			$indiceAsked = 1;
@@ -1842,7 +1842,7 @@ if ($action == 'create') {
 	}
 
 	// Get list of products already sent for same source object into $alreadysent
-	$alreadysent = array();
+	$alreadysent = [];
 
 	$origin = 'order_fournisseur';
 
@@ -1884,7 +1884,7 @@ if ($action == 'create') {
 		//var_dump($alreadysent);
 	}
 
-	$arrayofpurchaselinealreadyoutput = array();
+	$arrayofpurchaselinealreadyoutput = [];
 
 	// Loop on each product to send/sent. Warning: $lines must be sorted by ->fk_orderfourndet (it is a regroupment key on output)
 	print '<tbody>';
@@ -2170,7 +2170,7 @@ if ($action == 'create') {
 	if (($user->socid == 0) && ($action != 'presend')) {
 		print '<div class="tabsAction">';
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($resHook)) {
 			if ($object->statut == Reception::STATUS_DRAFT && $num_prod > 0) {

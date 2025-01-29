@@ -249,7 +249,7 @@ class DefaultValues extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = "SELECT ";
 		$sql .= $this->getFieldList();
@@ -258,7 +258,7 @@ class DefaultValues extends CommonObject
 
 		// Deprecated. For compatibility.
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.rowid' || ($key == 't.entity' && !is_array($value)) || ($key == 't.user_id' && !is_array($value))) {

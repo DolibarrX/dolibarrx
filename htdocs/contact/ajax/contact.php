@@ -89,7 +89,7 @@ top_httphead('application/json');
 if ($action == 'fetch' && !empty($id) && $permissiontoread) {
 	require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 
-	$outjson = array();
+	$outjson = [];
 
 	if ($object->id > 0) {
 		$outref = $object->ref;
@@ -131,7 +131,7 @@ if ($action == 'fetch' && !empty($id) && $permissiontoread) {
 	$morecss = 'minwidth100';
 	$options_only = 2;
 	$forcecombo = 0;
-	$events = array();
+	$events = [];
 	$moreparam = '';
 	$htmlid = '';
 	$multiple = 0;
@@ -156,9 +156,9 @@ if ($action == 'fetch' && !empty($id) && $permissiontoread) {
 
 	// If CONTACT_USE_SEARCH_TO_SELECT is set, check that nb of chars in $filter is >= to avoid DOS attack
 	if (getDolGlobalInt('CONTACT_USE_SEARCH_TO_SELECT') && $nbchar < getDolGlobalInt('CONTACT_USE_SEARCH_TO_SELECT')) {
-		print json_encode(array());
+		print json_encode([]);
 	} else {
-		$arrayresult = $form->selectcontacts($socid, array(), $htmlname, 1, $exclude, $limitto, $showfunction, $morecss, $options_only, $showsoc, $forcecombo, $events, $moreparam, $htmlid, $multiple, $disableifempty, $filter);
+		$arrayresult = $form->selectcontacts($socid, [], $htmlname, 1, $exclude, $limitto, $showfunction, $morecss, $options_only, $showsoc, $forcecombo, $events, $moreparam, $htmlid, $multiple, $disableifempty, $filter);
 
 		print json_encode($arrayresult);
 	}

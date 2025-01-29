@@ -39,7 +39,7 @@ function assetAdminPrepareHead()
 	$langs->load("assets");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/asset/admin/setup.php';
 	$head[$h][1] = $langs->trans("Settings");
@@ -92,7 +92,7 @@ function assetPrepareHead(Asset $object)
 	$langs->loadLangs(array("assets", "admin"));
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/asset/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Card");
@@ -188,7 +188,7 @@ function assetModelPrepareHead($object)
 	$langs->loadLangs(array("assets", "admin"));
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/asset/model/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Card");

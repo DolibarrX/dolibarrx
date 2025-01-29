@@ -56,24 +56,24 @@ class modDeplacement extends DolibarrModules
 		$this->picture = "trip";
 
 		// Data directories to create when module is enabled
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Config pages
-		$this->config_page_url = array();
+		$this->config_page_url = [];
 		$this->langfiles = array("companies", "trips");
 
 		// Dependencies
-		$this->depends = array();
-		$this->requiredby = array();
+		$this->depends = [];
+		$this->requiredby = [];
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'deplacement';
 
 		$this->rights[1][0] = 171;
@@ -166,7 +166,7 @@ class modDeplacement extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

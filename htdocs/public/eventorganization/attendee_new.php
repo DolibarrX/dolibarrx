@@ -77,7 +77,7 @@ global $dolibarr_main_url_root;
 
 // Init vars
 $errmsg = '';
-$errors = array();
+$errors = [];
 $error = 0;
 $backtopage = GETPOST('backtopage', 'alpha');
 $action = GETPOST('action', 'aZ09');
@@ -244,7 +244,7 @@ function llxFooterVierge()
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 // Note that $action and $object may have been modified by some hooks
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($resHook < 0) {
@@ -282,7 +282,7 @@ if (empty($resHook) && $action == 'add' && (!empty($conference->id) && $conferen
 
 	if (!$error) {
 		// Check if attendee already exists (by email and for this event)
-		$filter = array();
+		$filter = [];
 
 		if ($type == 'global') {
 			$filter = "(t.fk_project:=:".((int) $id).") AND (t.email:=:'".$db->escape($email)."')";
@@ -689,7 +689,7 @@ if (empty($resHook) && $action == 'add' && (!empty($conference->id) && $conferen
 
 			$ishtml = dol_textishtml($texttosend); // May contain urls
 
-			$mailfile = new CMailFile($subjecttosend, $sendto, $from, $texttosend, array(), array(), array(), '', '', 0, ($ishtml ? 1 : 0));
+			$mailfile = new CMailFile($subjecttosend, $sendto, $from, $texttosend, [], [], [], '', '', 0, ($ishtml ? 1 : 0));
 
 			$result = $mailfile->sendfile();
 			if ($result) {

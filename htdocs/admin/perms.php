@@ -87,7 +87,7 @@ print '<span class="opacitymedium">'.$langs->trans("DefaultRightsDesc")." ".$lan
 $db->begin();
 
 // Search all modules with permission and reload permissions def.
-$modules = array();
+$modules = [];
 $modulesdir = dolGetModulesDirs();
 
 foreach ($modulesdir as $dir) {
@@ -299,7 +299,7 @@ if ($result) {
 print '</table>';
 print '</div>';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('insertExtraFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');

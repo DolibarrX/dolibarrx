@@ -269,7 +269,7 @@ class ExportExcel2007 extends ModeleExports
 		// Create a format for the column headings
 		$this->workbook->getActiveSheet()->getStyle('1')->getFont()->setBold(true);
 		$this->workbook->getActiveSheet()->getStyle('1')->getAlignment()->setHorizontal(PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-		$selectlabel = array();
+		$selectlabel = [];
 
 		$this->col = 1;
 
@@ -323,8 +323,8 @@ class ExportExcel2007 extends ModeleExports
 		// Define first row
 		$this->col = 1;
 
-		$reg = array();
-		$selectlabelvalues = array();
+		$reg = [];
+		$selectlabelvalues = [];
 		foreach ($array_selected_sorted as $code => $value) {
 			if (strpos($code, ' as ') == 0) {
 				$alias = str_replace(array('.', '-', '(', ')'), '_', $code);
@@ -571,7 +571,7 @@ class ExportExcel2007 extends ModeleExports
 	 */
 	public function resetStyle()
 	{
-		$this->styleArray = array();
+		$this->styleArray = [];
 		return 1;
 	}
 
@@ -583,7 +583,7 @@ class ExportExcel2007 extends ModeleExports
 	 * @param bool   $boldTitle true if bold headers
 	 * @return int 1 if OK, -1 if KO
 	 */
-	public function setBlock($startCell, $TDatas = array(), $boldTitle = false)
+	public function setBlock($startCell, $TDatas = [], $boldTitle = false)
 	{
 		try {
 			if (!empty($TDatas)) {
@@ -623,7 +623,7 @@ class ExportExcel2007 extends ModeleExports
 	 * @param bool   $boldTitle true if bold titles
 	 * @return int 1 if OK, -1 if KO
 	 */
-	public function setBlock2Columns($startCell, $TDatas = array(), $boldTitle = false)
+	public function setBlock2Columns($startCell, $TDatas = [], $boldTitle = false)
 	{
 		try {
 			if (!empty($TDatas)) {

@@ -97,9 +97,9 @@ if ($resql) {
 
 	$total = 0;
 	$totalinprocess = 0;
-	$dataseries = array();
-	$colorseries = array();
-	$vals = array();
+	$dataseries = [];
+	$colorseries = [];
+	$vals = [];
 	// -1=Canceled, 0=Draft, 1=Validated, (2=Accepted/On process not managed for sales orders), 3=Closed (Sent/Received, billed or not)
 	while ($i < $num) {
 		$row = $db->fetch_row($resql);

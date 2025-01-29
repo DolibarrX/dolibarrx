@@ -70,8 +70,8 @@ class modMember extends DolibarrModules
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
 		$this->conflictwith = array('modMailmanSpip'); // List of module class names as string this module is in conflict with
 		$this->langfiles = array("members", "companies");
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
@@ -203,7 +203,7 @@ class modMember extends DolibarrModules
 
 		// Permissions
 		//------------
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'member';
 		$r = 0;
 
@@ -335,7 +335,7 @@ class modMember extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "Members"; // Translation key
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('a'=>MAIN_DB_PREFIX.'member', 'extra'=>MAIN_DB_PREFIX.'member_extrafields');
 		$this->import_tables_creator_array[$r] = array('a'=>'fk_user_author'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(

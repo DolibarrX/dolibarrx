@@ -124,7 +124,7 @@ class doc_generic_invoice_odt extends ModelePDFFactures
 		$texte .= '<tr><td valign="middle">';
 		$texttitle = $langs->trans("ListOfDirectories");
 		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($config->global->FACTURE_ADDON_PDF_ODT_PATH)));
-		$listoffiles = array();
+		$listoffiles = [];
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
 			$tmpdir = preg_replace('/DOL_DATA_ROOT/', DOL_DATA_ROOT, $tmpdir);
@@ -421,10 +421,10 @@ class doc_generic_invoice_odt extends ModelePDFFactures
 				$array_user = $this->get_substitutionarray_user($user, $outputlangs);				// Set tags myuser_...
 				$array_soc = $this->get_substitutionarray_mysoc($mysoc, $outputlangs);
 				$array_thirdparty = $this->get_substitutionarray_thirdparty($socobject, $outputlangs);
-				$array_propal = is_object($propal_object) ? $this->get_substitutionarray_object($propal_object, $outputlangs, 'propal') : array();
+				$array_propal = is_object($propal_object) ? $this->get_substitutionarray_object($propal_object, $outputlangs, 'propal') : [];
 				$array_other = $this->get_substitutionarray_other($outputlangs);
 				// retrieve contact information for use in object as contact_xxx tags
-				$array_thirdparty_contact = array();
+				$array_thirdparty_contact = [];
 				if ($usecontact && is_object($contactobject)) {
 					$array_thirdparty_contact = $this->get_substitutionarray_contact($contactobject, $outputlangs, 'contact');
 				}

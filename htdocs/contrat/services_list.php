@@ -221,8 +221,8 @@ if (empty($resHook)) {
 		$opclotureyear = "";
 		$filter_opcloture = "";
 		$filter = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 }
 
@@ -277,7 +277,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " FROM ".MAIN_DB_PREFIX."contrat as c,";
@@ -453,7 +453,7 @@ if ($num == 1 && getDolGlobalInt('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $sear
 
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contrat page-list_services bodyforlist');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -531,7 +531,7 @@ $arrayofmassactions = array(
 	//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 );
 //if ($user->hasRight('contrat', 'supprimer')) $arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
-//if (in_array($massaction, array('presend','predelete'))) $arrayofmassactions=array();
+//if (in_array($massaction, array('presend','predelete'))) $arrayofmassactions=[];
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
 print '<form method="POST" id="searchFormList" action="'.$_SERVER["PHP_SELF"].'">'."\n";
@@ -554,7 +554,7 @@ $newcardbutton = '';
 print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'contract', 0, '', '', $limit);
 
 if (!empty($sall)) {
-	$fieldstosearchall = array();
+	$fieldstosearchall = [];
 	foreach ($fieldstosearchall as $key => $val) {  // @phan-suppress-current-line PhanEmptyForeach
 		$fieldstosearchall[$key] = $langs->trans($val);
 	}
@@ -578,7 +578,7 @@ $moreforfilter .= '<div class="divsearchfield">';
 $moreforfilter .= $langs->trans('Alert').' <input type="checkbox" name="search_option" value="late"'.($search_option == 'late' ? ' checked' : '').'>';
 $moreforfilter .= '</div>';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -735,7 +735,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label

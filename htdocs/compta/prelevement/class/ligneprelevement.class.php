@@ -66,7 +66,7 @@ class LignePrelevement
 	 */
 	public $db;
 
-	public $labelStatus = array();
+	public $labelStatus = [];
 
 	const STATUS_DRAFT = 0;
 	const STATUS_NOT_USED = 1;

@@ -144,13 +144,13 @@ $search_all = trim(GETPOST('search_all', 'alphanohtml'));
 *
 * $object = new PaymentVarious($db);
 *
-* $search = array();
+* $search = [];
 * foreach ($object->fields as $key => $val)
 * {
 *	if (GETPOST('search_'.$key, 'alpha')) $search[$key] = GETPOST('search_'.$key, 'alpha');
 * }
 
-* $fieldstosearchall = array();
+* $fieldstosearchall = [];
 * foreach ($object->fields as $key => $val)
 * {
 *	if ($val['searchall']) $fieldstosearchall['t.'.$key] = $val['label'];
@@ -207,7 +207,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -226,8 +226,8 @@ if (empty($resHook)) {
 				$search[$key.'_dtend'] = '';
 			}
 		}
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
@@ -330,7 +330,7 @@ if ($search_all) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -382,7 +382,7 @@ if ($num == 1 && getDolGlobalInt('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $sear
 
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'bodyforlist');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -440,7 +440,7 @@ if (!empty($socid)) {
 }
 
 // List of mass actions available
-$arrayofmassactions = array();
+$arrayofmassactions = [];
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
 print '<form method="POST" id="searchFormList" action="'.$_SERVER["PHP_SELF"].'">'."\n";
@@ -475,7 +475,7 @@ if ($search_all) {
 	print '<div class="divsearchfieldfilter">'.$langs->trans("FilterOnInto", $search_all).implode(', ', $fieldstosearchall).'</div>';
 }
 
-$arrayofmassactions = array();
+$arrayofmassactions = [];
 
 $moreforfilter = '';
 
@@ -575,7 +575,7 @@ if (!empty($arrayfields['account']['checked'])) {
 	/** @var FormAccounting $formaccounting */
 	print '<td class="liste_titre">';
 	print '<div class="nowrap">';
-	print $formaccounting->select_account($search_accountancy_account, 'search_accountancy_account', 1, array(), 1, 1, 'maxwidth200');
+	print $formaccounting->select_account($search_accountancy_account, 'search_accountancy_account', 1, [], 1, 1, 'maxwidth200');
 	print '</div>';
 	print '</td>';
 }
@@ -619,7 +619,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -702,7 +702,7 @@ print '</tr>'."\n";
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $totalarray['val']['total_cred'] = 0;
 $totalarray['val']['total_deb'] = 0;

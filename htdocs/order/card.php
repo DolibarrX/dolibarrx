@@ -166,7 +166,7 @@ $error = 0;
 
 $date_delivery = dol_mktime(GETPOSTINT('liv_hour'), GETPOSTINT('liv_min'), 0, GETPOSTINT('liv_month'), GETPOSTINT('liv_day'), GETPOSTINT('liv_year'));
 
-$selectedLines = array();
+$selectedLines = [];
 
 
 /*
@@ -223,7 +223,7 @@ if (empty($resHook)) {
 
 				$result = $object->createFromClone($user, $socid);
 				if ($result > 0) {
-					$warningMsgLineList = array();
+					$warningMsgLineList = [];
 					// check all product lines are to sell otherwise add a warning message for each product line is not to sell
 					foreach ($object->lines as $line) {
 						if (!is_object($line->product)) {
@@ -364,7 +364,7 @@ if (empty($resHook)) {
 			if (!empty($origin) && !empty($originid)) {
 				// Parse element/subelement (ex: project_task)
 				$element = $subelement = $origin;
-				$regs = array();
+				$regs = [];
 				if (preg_match('/^([^_]+)_([^_]+)/i', $origin, $regs)) {
 					$element = $regs [1];
 					$subelement = $regs [2];
@@ -1459,7 +1459,7 @@ if (empty($resHook)) {
 					require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
 
 					$date = dol_mktime(0, 0, 0, GETPOSTINT('datefmonth'), GETPOSTINT('datefday'), GETPOSTINT('datefyear'));
-					$forceFields = array();
+					$forceFields = [];
 
 					if (GETPOSTISSET('date_pointoftax')) {
 						$forceFields['date_pointoftax'] = dol_mktime(0, 0, 0, GETPOSTINT('date_pointoftaxmonth'), GETPOSTINT('date_pointoftaxday'), GETPOSTINT('date_pointoftaxyear'));
@@ -1793,7 +1793,7 @@ if ($action == 'create' && $usercancreate) {
 	if (!empty($origin) && !empty($originid)) {
 		// Parse element/subelement (ex: project_task)
 		$element = $subelement = $origin;
-		$regs = array();
+		$regs = [];
 		if (preg_match('/^([^_]+)_([^_]+)/i', $origin, $regs)) {
 			$element = $regs[1];
 			$subelement = $regs[2];
@@ -1942,7 +1942,7 @@ if ($action == 'create' && $usercancreate) {
 	print dol_get_fiche_head([]);
 
 	// Call Hook tabContentCreateOrder
-	$parameters = array();
+	$parameters = [];
 	// Note that $action and $object may be modified by hook
 	$resHook = $hookManager->executeHooks('tabContentCreateOrder', $parameters, $object, $action);
 	if (empty($resHook)) {
@@ -1971,7 +1971,7 @@ if ($action == 'create' && $usercancreate) {
 		} else {
 			print '<td class="valuefieldcreate">';
 			$filter = '((s.client:IN:1,2,3) AND (s.status:=:1))';
-			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company('', 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth175 maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company('', 'socid', $filter, 'SelectThirdParty', 1, 0, [], 0, 'minwidth175 maxwidth500 widthcentpercentminusxx');
 			// reload page to retrieve customer information
 			if (!getDolGlobalString('RELOAD_PAGE_ON_CUSTOMER_CHANGE_DISABLED')) {
 				print '<script>
@@ -2067,7 +2067,7 @@ if ($action == 'create' && $usercancreate) {
 			require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 			$formproduct = new FormProduct($db);
 			print '<tr><td>'.$langs->trans('Warehouse').'</td><td>';
-			print img_picture('', 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses((GETPOSTISSET('warehouse_id') ? GETPOST('warehouse_id') : $warehouse_id), 'warehouse_id', '', 1, 0, 0, '', 0, 0, array(), 'maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses((GETPOSTISSET('warehouse_id') ? GETPOST('warehouse_id') : $warehouse_id), 'warehouse_id', '', 1, 0, 0, '', 0, 0, [], 'maxwidth500 widthcentpercentminusxx');
 			print '</td></tr>';
 		}
 
@@ -2107,7 +2107,7 @@ if ($action == 'create' && $usercancreate) {
 		}
 
 		// Other attributes
-		$parameters = array();
+		$parameters = [];
 		if (!empty($origin) && !empty($originid) && is_object($objectsrc)) {
 			$parameters['objectsrc'] =  $objectsrc;
 		}
@@ -2305,7 +2305,7 @@ if ($action == 'create' && $usercancreate) {
 				$qualified_for_stock_change = $object->hasProductsOrServices(1);
 			}
 
-			$formquestion = array();
+			$formquestion = [];
 			if (isModEnabled('stock') && getDolGlobalString('STOCK_CALCULATE_ON_VALIDATE_ORDER') && $qualified_for_stock_change) {
 				$langs->load("stocks");
 				require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
@@ -2468,7 +2468,7 @@ if ($action == 'create' && $usercancreate) {
 			}
 
 			$text = $langs->trans('ConfirmUnvalidateOrder', $object->ref);
-			$formquestion = array();
+			$formquestion = [];
 			if (isModEnabled('stock') && getDolGlobalString('STOCK_CALCULATE_ON_VALIDATE_ORDER') && $qualified_for_stock_change) {
 				$langs->load("stocks");
 				require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
@@ -2507,7 +2507,7 @@ if ($action == 'create' && $usercancreate) {
 			}
 
 			$text = $langs->trans('ConfirmCancelOrder', $object->ref);
-			$formquestion = array();
+			$formquestion = [];
 			if (isModEnabled('stock') && getDolGlobalString('STOCK_CALCULATE_ON_VALIDATE_ORDER') && $qualified_for_stock_change) {
 				$langs->load("stocks");
 				require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
@@ -2537,7 +2537,7 @@ if ($action == 'create' && $usercancreate) {
 			$filter = '(s.client:IN:1,2,3)';
 			// Create an array for form
 			$formquestion = array(
-				array('type' => 'other', 'name' => 'socid', 'label' => $langs->trans("SelectThirdParty"), 'value' => $form->select_company(GETPOSTINT('socid'), 'socid', $filter, '', 0, 0, array(), 0, 'maxwidth300'))
+				array('type' => 'other', 'name' => 'socid', 'label' => $langs->trans("SelectThirdParty"), 'value' => $form->select_company(GETPOSTINT('socid'), 'socid', $filter, '', 0, 0, [], 0, 'maxwidth300'))
 			);
 			$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('ToClone'), $langs->trans('ConfirmCloneOrder', $object->ref), 'confirm_clone', $formquestion, 'yes', 1);
 		}
@@ -2596,7 +2596,7 @@ if ($action == 'create' && $usercancreate) {
 		dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'ref', $morehtmlref);
 
 		// Call Hook tabContentViewOrder
-		$parameters = array();
+		$parameters = [];
 		// Note that $action and $object may be modified by hook
 		$resHook = $hookManager->executeHooks('tabContentViewOrder', $parameters, $object, $action);
 		if (empty($resHook)) {
@@ -2973,7 +2973,7 @@ if ($action == 'create' && $usercancreate) {
 				if ($action != 'editline') {
 					// Add free products/services
 
-					$parameters = array();
+					$parameters = [];
 					// Note that $action and $object may be modified by hook
 					$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action);
 					if ($resHook < 0) {
@@ -2983,7 +2983,7 @@ if ($action == 'create' && $usercancreate) {
 						$object->formAddObjectLine(1, $mysoc, $soc);
 					}
 				} else {
-					$parameters = array();
+					$parameters = [];
 					$resHook = $hookManager->executeHooks('formEditObjectLine', $parameters, $object, $action);
 				}
 			}
@@ -3001,7 +3001,7 @@ if ($action == 'create' && $usercancreate) {
 		if ($action != 'presend' && $action != 'editline') {
 			print '<div class="tabsAction">';
 
-			$parameters = array();
+			$parameters = [];
 			// Note that $action and $object may be modified by hook
 			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
 			if (empty($resHook)) {
@@ -3036,7 +3036,7 @@ if ($action == 'create' && $usercancreate) {
 					print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?action=modif&amp;token='.newToken().'&amp;id='.$object->id, '');
 				}
 
-				$arrayforbutaction = array();
+				$arrayforbutaction = [];
 				// Create a purchase order
 
 				if (!getDolGlobalInt('COMMANDE_DISABLE_ADD_PURCHASE_ORDER')) {
@@ -3202,7 +3202,7 @@ if ($action == 'create' && $usercancreate) {
 
 
 			// Show links to link elements
-			$tmparray = $form->showLinkToObjectBlock($object, array(), array('order'), 1);
+			$tmparray = $form->showLinkToObjectBlock($object, [], array('order'), 1);
 			$linktoelem = $tmparray['linktoelem'];
 			$htmltoenteralink = $tmparray['htmltoenteralink'];
 			print $htmltoenteralink;

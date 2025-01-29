@@ -317,7 +317,7 @@ if ($source == 'proposal' && getDolGlobalString('PROPOSAL_IMAGE_PUBLIC_SIGN')) {
 // Output introduction text
 $text = '';
 if (getDolGlobalString('ONLINE_SIGN_NEWFORM_TEXT')) {
-	$reg = array();
+	$reg = [];
 	if (preg_match('/^\((.*)\)$/', $config->global->ONLINE_SIGN_NEWFORM_TEXT, $reg)) {
 		$text .= $langs->trans($reg[1])."<br>\n";
 	} else {

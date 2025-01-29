@@ -110,7 +110,7 @@ $permissiontoadd = $user->hasRight('ticket', 'write');	// Used by the include of
 
 include DOL_DOCUMENT_ROOT.'/core/actions_linkedfiles.inc.php';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -184,7 +184,7 @@ if ($object->id) {
 		if ($action != 'editcustomer' && $permissiontoadd) {
 			$morehtmlref .= '<a class="editfielda" href="'.$url_page_current.'?action=editcustomer&token='.newToken().'&track_id='.$object->track_id.'">'.img_edit($langs->transnoentitiesnoconv('SetThirdParty'), 0).'</a> ';
 		}
-		$morehtmlref .= $form->form_thirdparty($url_page_current.'?track_id='.$object->track_id, $object->socid, $action == 'editcustomer' ? 'editcustomer' : 'none', '', 1, 0, 0, array(), 1);
+		$morehtmlref .= $form->form_thirdparty($url_page_current.'?track_id='.$object->track_id, $object->socid, $action == 'editcustomer' ? 'editcustomer' : 'none', '', 1, 0, 0, [], 1);
 	}
 
 	// Project
@@ -227,7 +227,7 @@ if ($object->id) {
 	$sql .= " WHERE fk_element = ".(int) $object->id." AND elementtype = 'ticket'";
 	$resql = $db->query($sql);
 	if ($resql) {
-		$file_msg_array = array();
+		$file_msg_array = [];
 		$numrows = $db->num_rows($resql);
 		for ($i=0; $i < $numrows; $i++) {
 			$upload_msg_dir = $config->agenda->dir_output.'/'.$db->fetch_row($resql)[0];

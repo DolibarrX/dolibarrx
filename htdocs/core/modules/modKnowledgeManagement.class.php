@@ -133,9 +133,9 @@ class modKnowledgeManagement extends DolibarrModules
 		// A condition to hide module
 		$this->hidden = false;
 		// List of module class names as string that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR'...))
-		$this->depends = array();
-		$this->requiredby = array(); // List of module class names as string to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
+		$this->depends = [];
+		$this->requiredby = []; // List of module class names as string to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
 
 		// The language file dedicated to your module
 		$this->langfiles = array("knowledgemanagement");
@@ -145,8 +145,8 @@ class modKnowledgeManagement extends DolibarrModules
 		$this->need_dolibarr_version = array(11, -3); // Minimum version of Dolibarr required by module
 
 		// Messages at activation
-		$this->warnings_activation = array(); // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
-		$this->warnings_activation_ext = array(); // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		//$this->automatic_activation = array('FR'=>'KnowledgeManagementWasAutomaticallyActivatedBecauseOfYourCountryChoice');
 		//$this->always_enabled = true;								// If true, can't be disabled
 
@@ -155,7 +155,7 @@ class modKnowledgeManagement extends DolibarrModules
 		// Example: $this->const=array(1 => array('KNOWLEDGEMANAGEMENT_MYNEWCONST1', 'chaine', 'myvalue', 'This is a constant to add', 1),
 		//                             2 => array('KNOWLEDGEMANAGEMENT_MYNEWCONST2', 'chaine', 'myvalue', 'This is another constant to add', 0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = [];
 
 		// Some keys to add into the overwriting translation tables
 		/*$this->overwrite_translation = array(
@@ -169,7 +169,7 @@ class modKnowledgeManagement extends DolibarrModules
 		}
 
 		// Array to add new pages in new tabs
-		$this->tabs = array();
+		$this->tabs = [];
 		// Example:
 		// $this->tabs[] = array('data'=>'objecttype:+tabname1:Title1:mylangfile@knowledgemanagement:$user->rights->knowledgemanagement->read:/knowledgemanagement/mynewtab1.php?id=__ID__');  					// To add a new tab identified by code tabname1
 		// $this->tabs[] = array('data'=>'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@knowledgemanagement:$user->rights->othermodule->read:/knowledgemanagement/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
@@ -197,7 +197,7 @@ class modKnowledgeManagement extends DolibarrModules
 		// 'user'             to add a tab in user view
 
 		// Dictionaries
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 
 		// Boxes/Widgets
 		// Add here list of php file(s) stored in knowledgemanagement/core/boxes that contains a class to show a widget.
@@ -236,7 +236,7 @@ class modKnowledgeManagement extends DolibarrModules
 		// );
 
 		// Permissions provided by this module
-		$this->rights = array();
+		$this->rights = [];
 		$r = 0;
 		// Add here entries to declare new permissions
 		/* BEGIN MODULEBUILDER PERMISSIONS */
@@ -263,7 +263,7 @@ class modKnowledgeManagement extends DolibarrModules
 		/* END MODULEBUILDER PERMISSIONS */
 
 		// Main menu entries to add
-		$this->menu = array();
+		$this->menu = [];
 		$r = 0;
 		// Add here entries to declare new menus
 		/* BEGIN MODULEBUILDER TOPMENU */
@@ -444,11 +444,11 @@ class modKnowledgeManagement extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		// Document templates
 		$moduledir = 'knowledgemanagement';
-		$myTmpObjects = array();
+		$myTmpObjects = [];
 		$myTmpObjects['KnowledgeRecord'] = array('includerefgeneration' => 0, 'includedocgeneration' => 0);
 
 		foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
@@ -490,7 +490,7 @@ class modKnowledgeManagement extends DolibarrModules
 	 */
 	public function remove($options = '')
 	{
-		$sql = array();
+		$sql = [];
 		return $this->_remove($sql, $options);
 	}
 }

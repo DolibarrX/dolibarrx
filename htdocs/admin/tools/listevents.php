@@ -350,7 +350,7 @@ if ($result) {
 	print_barre_liste($langs->trans("ListOfSecurityEvents"), $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $center, $num, $nbtotalofrecords, 'setup', 0, '', '', $limit);
 
 	if ($action == 'purge') {
-		$formquestion = array();
+		$formquestion = [];
 		print $form->formconfirm($_SERVER["PHP_SELF"].'?noparam=noparam', $langs->trans('PurgeAuditEvents'), $langs->trans('ConfirmPurgeAuditEvents'), 'confirm_purge', $formquestion, 'no', 1);
 	}
 
@@ -509,7 +509,7 @@ if ($result) {
 
 		// Description
 		$text = $langs->trans($obj->description);
-		$reg = array();
+		$reg = [];
 		if (InterfaceLogevents::isEventActionTextKey($obj->description)) {
 			$val = explode(' : ', $obj->description);
 			$text = $langs->trans($val[0], isset($val[1]) ? $val[1] : '', isset($val[2]) ? $val[2] : '', isset($val[3]) ? $val[3] : '', isset($val[4]) ? $val[4] : '');

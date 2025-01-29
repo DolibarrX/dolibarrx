@@ -40,7 +40,7 @@ function reception_prepare_head(Reception $object)
 	$langs->loadLangs(array("sendings", "deliveries"));
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/reception/card.php?id=" . $object->id;
 	$head[$h][1] = $langs->trans("ReceptionCard");
@@ -126,7 +126,7 @@ function reception_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('receptiondet_batch');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/reception_setup.php";
 	$head[$h][1] = $langs->trans("Reception");

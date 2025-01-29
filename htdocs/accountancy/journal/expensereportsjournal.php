@@ -68,15 +68,15 @@ if ($in_bookkeeping == '') {
 $now = dol_now();
 
 $hookManager->initHooks(array('expensereportsjournal'));
-$parameters = array();
+$parameters = [];
 
-$taber = array();  // Initialise for static analysis
-$tabht = array();
-$tabtva = array();
-$tabttc = array();
-$tablocaltax1 = array();
-$tablocaltax2 = array();
-$tabuser = array();
+$taber = [];  // Initialise for static analysis
+$tabht = [];
+$tabtva = [];
+$tabttc = [];
+$tablocaltax1 = [];
+$tablocaltax2 = [];
+$tabuser = [];
 
 // Security check
 if (!isModEnabled('accounting')) {
@@ -90,7 +90,7 @@ if (!$user->hasRight('accounting', 'bind', 'write')) {
 }
 
 $error = 0;
-$errorforinvoice = array();
+$errorforinvoice = [];
 
 
 /*
@@ -135,7 +135,7 @@ $sql = "SELECT er.rowid, er.ref, er.date_debut as de, er.date_fin as df,";
 $sql .= " erd.rowid as erdid, erd.comments, erd.total_ht, erd.total_tva, erd.total_localtax1, erd.total_localtax2, erd.tva_tx, erd.total_ttc, erd.fk_code_ventilation, erd.vat_src_code, ";
 $sql .= " u.rowid as uid, u.firstname, u.lastname, u.accountancy_code as user_accountancy_account,";
 $sql .= " f.accountancy_code, aa.rowid as fk_compte, aa.account_number as compte, aa.label as label_compte";
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " FROM ".MAIN_DB_PREFIX."expensereport_det as erd";
@@ -143,7 +143,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_type_fees as f ON f.id = erd.fk_c_type_f
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON aa.rowid = erd.fk_code_ventilation";
 $sql .= " JOIN ".MAIN_DB_PREFIX."expensereport as er ON er.rowid = erd.fk_expensereport";
 $sql .= " JOIN ".MAIN_DB_PREFIX."user as u ON u.rowid = er.fk_user_author";
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " WHERE er.fk_statut > 0";
@@ -163,7 +163,7 @@ if ($in_bookkeeping == 'already') {
 if ($in_bookkeeping == 'notyet') {
 	$sql .= " AND er.rowid NOT IN (SELECT fk_doc FROM ".MAIN_DB_PREFIX."accounting_bookkeeping as ab  WHERE ab.doc_type='expense_report')";
 }
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " ORDER BY er.date_debut";
@@ -171,14 +171,14 @@ $sql .= " ORDER BY er.date_debut";
 dol_syslog('accountancy/journal/expensereportsjournal.php', LOG_DEBUG);
 $result = $db->query($sql);
 if ($result) {
-	$taber = array();
-	$tabht = array();
-	$tabtva = array();
-	$def_tva = array();
-	$tabttc = array();
-	$tablocaltax1 = array();
-	$tablocaltax2 = array();
-	$tabuser = array();
+	$taber = [];
+	$tabht = [];
+	$tabtva = [];
+	$def_tva = [];
+	$tabttc = [];
+	$tablocaltax1 = [];
+	$tablocaltax2 = [];
+	$tabuser = [];
 
 	$num = $db->num_rows($result);
 

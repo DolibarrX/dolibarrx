@@ -41,7 +41,7 @@ function calendarPrepareHead($object)
 	$showtabofpageagenda = 1;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/bookcal/calendar_card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Calendar");

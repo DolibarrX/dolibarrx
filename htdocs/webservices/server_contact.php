@@ -150,7 +150,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($elementtype, true);
 $extrafield_array = null;
 if (is_array($extrafields->attributes) && $extrafields->attributes[$elementtype]['count'] > 0) {
-	$extrafield_array = array();
+	$extrafield_array = [];
 }
 if (isset($extrafields->attributes[$elementtype]['label']) && is_array($extrafields->attributes[$elementtype]['label']) && count($extrafields->attributes[$elementtype]['label'])) {
 	foreach ($extrafields->attributes[$elementtype]['label'] as $key => $label) {
@@ -280,7 +280,7 @@ function getContact($authentication, $id, $ref_ext)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -398,7 +398,7 @@ function createContact($authentication, $contact)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -505,7 +505,7 @@ function getContactsForThirdParty($authentication, $idthirdparty)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -518,7 +518,7 @@ function getContactsForThirdParty($authentication, $idthirdparty)
 	}
 
 	if (!$error) {
-		$linesinvoice = array();
+		$linesinvoice = [];
 
 		$sql = "SELECT c.rowid, c.fk_soc, c.civility as civility_id, c.lastname, c.firstname, c.statut as status,";
 		$sql .= " c.address, c.zip, c.town,";
@@ -539,7 +539,7 @@ function getContactsForThirdParty($authentication, $idthirdparty)
 
 		$resql = $db->query($sql);
 		if ($resql) {
-			$linescontact = array();
+			$linescontact = [];
 			$num = $db->num_rows($resql);
 			$i = 0;
 			while ($i < $num) {
@@ -636,7 +636,7 @@ function updateContact($authentication, $contact)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;

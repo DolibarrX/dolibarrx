@@ -163,7 +163,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -1510,7 +1510,7 @@ if ($action == 'create') {
 		print '</td><td>';
 		if ($action == 'editmodelpdf') {
 			include_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
-			$list = array();
+			$list = [];
 			$models = ModelePDFFactures::liste_modeles($db);
 			foreach ($models as $k => $model) {
 				$list[] = str_replace(':', '|', $k).':'.$model;
@@ -1711,7 +1711,7 @@ if ($action == 'create') {
 			if ($action != 'editline') {
 				// Add free products/services
 
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -1735,7 +1735,7 @@ if ($action == 'create') {
 		 */
 		print '<div class="tabsAction">';
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($resHook)) {
 			$params = array(
@@ -1779,7 +1779,7 @@ if ($action == 'create') {
 
 
 		// Show links to link elements
-		$tmparray = $form->showLinkToObjectBlock($object, array(), array('invoice'), 1);
+		$tmparray = $form->showLinkToObjectBlock($object, [], array('invoice'), 1);
 		$linktoelem = $tmparray['linktoelem'];
 		$htmltoenteralink = $tmparray['htmltoenteralink'];
 		print $htmltoenteralink;

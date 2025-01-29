@@ -142,7 +142,7 @@ class ICal
 	 */
 	public function parse($uri, $usecachefile = '', $delaycache = 3600)
 	{
-		$this->cal = array(); // new empty array
+		$this->cal = []; // new empty array
 
 		$this->event_count = -1;
 		$this->file_text = '';
@@ -363,7 +363,7 @@ class ICal
 	public function ical_rrule($value)
 	{
 		// phpcs:enable
-		$result = array();
+		$result = [];
 		$rrule = explode(';', $value);
 		foreach ($rrule as $line) {
 			$rcontent = explode('=', $line);
@@ -387,7 +387,7 @@ class ICal
 
 		$ntime = 0;
 		// TIME LIMITED EVENT
-		$date = array();
+		$date = [];
 		if (preg_match('/([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{0,2})([0-9]{0,2})([0-9]{0,2})/', $ical_date, $date)) {
 			$ntime = dol_mktime((int) $date[4], (int) $date[5], (int) $date[6], (int) $date[2], (int) $date[3], (int) $date[1], true);
 		}
@@ -408,7 +408,7 @@ class ICal
 	public function ical_dt_date($key, $value)
 	{
 		// phpcs:enable
-		$return_value = array();
+		$return_value = [];
 
 		// Analyse TZID
 		$temp = explode(";", $key);
@@ -469,7 +469,7 @@ class ICal
 	public function get_event_list()
 	{
 		// phpcs:enable
-		return (empty($this->cal['VEVENT']) ? array() : $this->cal['VEVENT']);
+		return (empty($this->cal['VEVENT']) ? [] : $this->cal['VEVENT']);
 	}
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
@@ -481,7 +481,7 @@ class ICal
 	public function get_freebusy_list()
 	{
 		// phpcs:enable
-		return (empty($this->cal['VFREEBUSY']) ? array() : $this->cal['VFREEBUSY']);
+		return (empty($this->cal['VFREEBUSY']) ? [] : $this->cal['VFREEBUSY']);
 	}
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps

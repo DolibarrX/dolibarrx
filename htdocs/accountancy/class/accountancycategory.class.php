@@ -45,7 +45,7 @@ class AccountancyCategory // extends CommonObject
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string ID to identify managed object
@@ -443,7 +443,7 @@ class AccountancyCategory // extends CommonObject
 		$sql .= " WHERE t.fk_accounting_category = " . ((int) $id);
 		$sql .= " AND t.entity = " . $config->entity;
 
-		$this->lines_display = array();
+		$this->lines_display = [];
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -484,7 +484,7 @@ class AccountancyCategory // extends CommonObject
 		$sql .= " GROUP BY aa.account_number, aa.label";
 		$sql .= " ORDER BY aa.account_number, aa.label";
 
-		$this->lines_cptbk = array();
+		$this->lines_cptbk = [];
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -514,7 +514,7 @@ class AccountancyCategory // extends CommonObject
 	 *
 	 * @return int Return integer <0 if KO, >0 if OK
 	 */
-	public function updateAccAcc($id_cat, $cpts = array())
+	public function updateAccAcc($id_cat, $cpts = [])
 	{
 		global $config;
 		$error = 0;
@@ -540,7 +540,7 @@ class AccountancyCategory // extends CommonObject
 			return -1;
 		}
 
-		$accountincptsadded = array();
+		$accountincptsadded = [];
 		while ($obj = $this->db->fetch_object($resql)) {
 			$account_number_formated = length_accountg($obj->account_number);
 			if (!empty($accountincptsadded[$account_number_formated])) {
@@ -634,7 +634,7 @@ class AccountancyCategory // extends CommonObject
 		global $config;
 
 		$this->sdc = 0;
-		$this->sdcpermonth = array();
+		$this->sdcpermonth = [];
 
 		$listofaccount = '';
 
@@ -744,7 +744,7 @@ class AccountancyCategory // extends CommonObject
 		if ($resql) {
 			$obj = '';
 			$num = $this->db->num_rows($resql);
-			$data = array();
+			$data = [];
 			if ($num) {
 				while ($obj = $this->db->fetch_object($resql)) {
 					$name_cat = $obj->name_cat;
@@ -804,7 +804,7 @@ class AccountancyCategory // extends CommonObject
 			$i = 0;
 			$obj = '';
 			$num = $this->db->num_rows($resql);
-			$data = array();
+			$data = [];
 			if ($num) {
 				while ($i < $num) {
 					$obj = $this->db->fetch_object($resql);
@@ -883,7 +883,7 @@ class AccountancyCategory // extends CommonObject
 			$i = 0;
 			$obj = '';
 			$num = $this->db->num_rows($resql);
-			$data = array();
+			$data = [];
 			if ($num) {
 				while ($obj = $this->db->fetch_object($resql)) {
 					$data[] = array(

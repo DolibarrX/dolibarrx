@@ -59,7 +59,7 @@ class DolQueryCollector extends DataCollector implements Renderable, AssetProvid
 	 */
 	public function collect()
 	{
-		$queries = array();
+		$queries = [];
 		$totalExecTime = 0;
 		$totalMemoryUsage = 0;
 		$totalFailed = 0;

@@ -89,7 +89,7 @@ if ($action == "getjsonformtrigger") {
 
 	if (!empty($triggercode)) {
 		// Clean triggercode to removes keep only Object trigger name
-		$objecttriggername = array();
+		$objecttriggername = [];
 		preg_match('#\((.*?)\)#', $triggercode, $objecttriggername);
 
 		$json->triggercode = empty($objecttriggername[1]) ? $triggercode : $objecttriggername[1];

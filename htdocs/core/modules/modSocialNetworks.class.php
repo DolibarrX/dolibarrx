@@ -56,29 +56,29 @@ class modSocialNetworks extends DolibarrModules
 		$this->picture = 'share-alt';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Config pages
 		$this->config_page_url = array(DOL_URL_ROOT.'/admin/dict.php?id=38&from=socialnetworksetup');
 
 		// Dependencies
 		$this->hidden = getDolGlobalInt('MODULE_SOCIALNETWORKS_DISABLED'); // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->langfiles = array();
+		$this->langfiles = [];
 
 		// Constants
 
 
 		// New pages on tabs
-		$this->tabs = array();
+		$this->tabs = [];
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Main menu entries
-		$this->menu = array();
+		$this->menu = [];
 	}
 }

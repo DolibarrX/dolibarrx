@@ -183,7 +183,7 @@ if (isset($extrafields->attributes[$elementtype]['type']) && is_array($extrafiel
 			} else {
 				global $multicompanylabel_cache;
 				if (!is_array($multicompanylabel_cache)) {
-					$multicompanylabel_cache = array();
+					$multicompanylabel_cache = [];
 				}
 				if (empty($multicompanylabel_cache[$extrafields->attributes[$elementtype]['entityid'][$key]])) {
 					global $mc;

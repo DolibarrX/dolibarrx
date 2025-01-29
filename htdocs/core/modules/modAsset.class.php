@@ -75,7 +75,7 @@ class modAsset extends DolibarrModules
 		// for default path (eg: /asset/core/xxxxx) (0=disable, 1=enable)
 		// for specific path of parts (eg: /asset/core/modules/barcode)
 		// for specific css file (eg: /asset/css/assets.css.php)
-		$this->module_parts = array();
+		$this->module_parts = [];
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/asset/temp","/asset/subdir");
@@ -86,14 +86,14 @@ class modAsset extends DolibarrModules
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->langfiles = array("assets");
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(7, 0); // Minimum version of Dolibarr required by module
-		$this->warnings_activation = array(); // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
-		$this->warnings_activation_ext = array(); // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		//$this->automatic_activation = array('FR'=>'AssetsWasAutomaticallyActivatedBecauseOfYourCountryChoice');
 		//$this->always_enabled = true;								// If true, can't be disabled
 
@@ -102,7 +102,7 @@ class modAsset extends DolibarrModules
 		// Example: $this->const=array(0=>array('ASSETS_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('ASSETS_MYNEWCONST2','chaine','myvalue','This is another constant to add',0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = [];
 		$this->const[1] = array(
 			"ASSET_DEPRECIATION_DURATION_PER_YEAR",
 			"chaine",
@@ -121,7 +121,7 @@ class modAsset extends DolibarrModules
 
 
 		// Array to add new pages in new tabs
-		$this->tabs = array();
+		$this->tabs = [];
 		// Example:
 		// $this->tabs[] = array('data'=>'objecttype:+tabname1:Title1:mylangfile@assets:$user->rights->assets->read:/asset/mynewtab1.php?id=__ID__');  					// To add a new tab identified by code tabname1
 		// $this->tabs[] = array('data'=>'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@assets:$user->rights->othermodule->read:/asset/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
@@ -150,7 +150,7 @@ class modAsset extends DolibarrModules
 
 
 		// Dictionaries
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 
 
 		// Boxes/Widgets
@@ -173,7 +173,7 @@ class modAsset extends DolibarrModules
 
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$this->rightsClass = 'asset';
 		$r = 0;
 
@@ -248,7 +248,7 @@ class modAsset extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

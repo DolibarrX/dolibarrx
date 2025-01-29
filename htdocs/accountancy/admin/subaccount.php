@@ -105,7 +105,7 @@ if (!GETPOST('confirmmassaction', 'alpha')) {
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -122,7 +122,7 @@ if (empty($resHook)) {
 		$search_subaccount = "";
 		$search_label = "";
 		$search_type = "";
-		$search_array_options = array();
+		$search_array_options = [];
 	}
 
 	if ($action == 'enable' /* && $user->hasRight('accounting', 'chartofaccount') */) { // test useless
@@ -332,7 +332,7 @@ if ($resql) {
 	}
 
 	// List of mass actions available
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 
 	print '<form method="POST" id="searchFormList" action="'.$_SERVER["PHP_SELF"].'">';
 	if ($optioncss != '') {
@@ -419,7 +419,7 @@ if ($resql) {
 
 	$companystatic = new Societe($db);
 
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
 	$i = 0;
 	while ($i < min($num, $limit)) {

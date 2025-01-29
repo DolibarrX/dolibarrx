@@ -237,8 +237,8 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 		}
 		$config->global->MAIN_ENABLE_LOG_TO_HTML = 1;
 
-		$versiontoarray = array();
-		$versionranarray = array();
+		$versiontoarray = [];
+		$versionranarray = [];
 
 		if (!$error) {
 			if (count($listofentities) > 1) {
@@ -588,7 +588,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 		// In most cases (online install or upgrade) $enablemodules is empty. Can be forced when ran from command line.
 		if (!$error && $enablemodules) {
 			// Reload modules (this must be always done and only into last targeted version)
-			$listofmodules = array();
+			$listofmodules = [];
 			$enablemodules = preg_replace('/enablemodules=/', '', $enablemodules);
 			$tmplistofmodules = explode(',', $enablemodules);
 			foreach ($tmplistofmodules as $value) {
@@ -786,7 +786,7 @@ function migrate_paiements($db, $langs, $config)
 		$sql .= " WHERE p.fk_facture > 0";
 
 		$resql = $db->query($sql);
-		$row = array();
+		$row = [];
 		$num = 0;
 
 		dolibarr_install_syslog("upgrade2::migrate_paiements");
@@ -874,7 +874,7 @@ function migrate_paiements_orphelins_1($db, $langs, $config)
 		$resql = $db->query($sql);
 
 		dolibarr_install_syslog("upgrade2::migrate_paiements_orphelins_1");
-		$row = array();
+		$row = [];
 		if ($resql) {
 			$i = $j = 0;
 			$num = $db->num_rows($resql);
@@ -983,7 +983,7 @@ function migrate_paiements_orphelins_2($db, $langs, $config)
 		$resql = $db->query($sql);
 
 		dolibarr_install_syslog("upgrade2::migrate_paiements_orphelins_2");
-		$row = array();
+		$row = [];
 		if ($resql) {
 			$i = $j = 0;
 			$num = $db->num_rows($resql);
@@ -1107,7 +1107,7 @@ function migrate_contracts_det($db, $langs, $config)
 	dolibarr_install_syslog("upgrade2::migrate_contracts_det");
 	if ($resql) {
 		$i = 0;
-		$row = array();
+		$row = [];
 		$num = $db->num_rows($resql);
 
 		if ($num) {
@@ -1190,7 +1190,7 @@ function migrate_links_transfert($db, $langs, $config)
 	dolibarr_install_syslog("upgrade2::migrate_links_transfert");
 	if ($resql) {
 		$i = 0;
-		$row = array();
+		$row = [];
 		$num = $db->num_rows($resql);
 
 		if ($num) {
@@ -1305,7 +1305,7 @@ function migrate_contracts_date2($db, $langs, $config)
 	dolibarr_install_syslog("upgrade2::migrate_contracts_date2");
 	if ($resql) {
 		$i = 0;
-		$row = array();
+		$row = [];
 		$num = $db->num_rows($resql);
 
 		if ($num) {
@@ -1400,7 +1400,7 @@ function migrate_contracts_open($db, $langs, $config)
 	}
 	if ($db->affected_rows($resql) > 0) {
 		$i = 0;
-		$row = array();
+		$row = [];
 		$num = $db->num_rows($resql);
 
 		if ($num) {
@@ -2907,7 +2907,7 @@ function migrate_element_time($db, $langs, $config)
 		$num = $db->num_rows($resql);
 
 		if ($num) {
-			$totaltime = array();
+			$totaltime = [];
 			$oldtime = 0;
 
 			while ($i < $num) {
@@ -3398,8 +3398,8 @@ function migrate_clean_association($db, $langs, $config)
 	if ($result) {	// result defined for version 3.2 or -
 		$obj = $db->fetch_object($result);
 		if ($obj) {	// It table category_association exists
-			$couples = array();
-			$children = array();
+			$couples = [];
+			$children = [];
 			$sql = "SELECT fk_category_mere, fk_category_fille";
 			$sql .= " FROM ".MAIN_DB_PREFIX."category_association";
 			dolibarr_install_syslog("upgrade: search duplicate");
@@ -4224,7 +4224,7 @@ function migrate_delete_old_dir($db, $langs, $config)
  * @param   int<0,1>	$force          1=Reload module even if not already loaded
  * @return	int							Return integer <0 if KO, >0 if OK
  */
-function migrate_reload_modules($db, $langs, $config, $listofmodule = array(), $force = 0)
+function migrate_reload_modules($db, $langs, $config, $listofmodule = [], $force = 0)
 {
 	global $user;
 
@@ -4298,7 +4298,7 @@ function migrate_reload_modules($db, $langs, $config, $listofmodule = array(), $
 				}
 			}
 		} else {	// Other generic cases/modules
-			$reg = array();
+			$reg = [];
 			$tmp = preg_match('/MAIN_MODULE_([a-zA-Z0-9]+)/', $moduletoreload, $reg);
 			if (!empty($reg[1])) {
 				if (strtoupper($moduletoreload) == $moduletoreload) {	// If key is un uppercase
@@ -4369,7 +4369,7 @@ function migrate_reload_menu($db, $langs, $config)
 	dolibarr_install_syslog("upgrade2::migrate_reload_menu");
 
 	// Define list of menu handlers to initialize
-	$listofmenuhandler = array();
+	$listofmenuhandler = [];
 	if (getDolGlobalString('MAIN_MENU_STANDARD') == 'auguria_menu' || getDolGlobalString('MAIN_MENU_SMARTPHONE') == 'auguria_menu'
 		|| getDolGlobalString('MAIN_MENUFRONT_STANDARD') == 'auguria_menu' || getDolGlobalString('MAIN_MENUFRONT_SMARTPHONE') == 'auguria_menu') {
 		$listofmenuhandler['auguria'] = 1; // We set here only dynamic menu handlers
@@ -4664,7 +4664,7 @@ function migrate_users_socialnetworks()
 	$resql = $db->query($sql);
 	if ($resql) {
 		while ($obj = $db->fetch_object($resql)) {
-			$arraysocialnetworks = array();
+			$arraysocialnetworks = [];
 			if (!empty($obj->skype)) {
 				$arraysocialnetworks['skype'] = $obj->skype;
 			}
@@ -4756,7 +4756,7 @@ function migrate_members_socialnetworks()
 	$resql = $db->query($sql);
 	if ($resql) {
 		while ($obj = $db->fetch_object($resql)) {
-			$arraysocialnetworks = array();
+			$arraysocialnetworks = [];
 			if (!empty($obj->skype)) {
 				$arraysocialnetworks['skype'] = $obj->skype;
 			}
@@ -4848,7 +4848,7 @@ function migrate_contacts_socialnetworks()
 	$resql = $db->query($sql);
 	if ($resql) {
 		while ($obj = $db->fetch_object($resql)) {
-			$arraysocialnetworks = array();
+			$arraysocialnetworks = [];
 			if (!empty($obj->jabberid)) {
 				$arraysocialnetworks['jabber'] = $obj->jabberid;
 			}
@@ -4943,7 +4943,7 @@ function migrate_thirdparties_socialnetworks()
 	$resql = $db->query($sql);
 	if ($resql) {
 		while ($obj = $db->fetch_object($resql)) {
-			$arraysocialnetworks = array();
+			$arraysocialnetworks = [];
 			if (!empty($obj->skype)) {
 				$arraysocialnetworks['skype'] = $obj->skype;
 			}

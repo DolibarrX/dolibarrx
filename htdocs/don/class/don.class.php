@@ -248,7 +248,7 @@ class Don extends CommonObject
 		$now = dol_now();
 
 		// Charge tableau des id de societe socids
-		$socids = array();
+		$socids = [];
 
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe";
@@ -307,7 +307,7 @@ class Don extends CommonObject
 		$langs->load('main');
 		$langs->load('companies');
 
-		$error_string = array();
+		$error_string = [];
 		$err = 0;
 		$amount_invalid = 0;
 
@@ -901,7 +901,7 @@ class Don extends CommonObject
 	 */
 	public function loadStateBoard()
 	{
-		$this->nb = array();
+		$this->nb = [];
 
 		$sql = "SELECT count(d.rowid) as nb";
 		$sql .= " FROM ".MAIN_DB_PREFIX."don as d";

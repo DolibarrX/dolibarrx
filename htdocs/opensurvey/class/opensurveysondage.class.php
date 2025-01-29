@@ -618,7 +618,7 @@ class Opensurveysondage extends CommonObject
 	public function fetch_lines()
 	{
 		// phpcs:enable
-		$this->lines = array();
+		$this->lines = [];
 
 		$sql = "SELECT id_users, nom as name, reponses";
 		$sql .= " FROM ".MAIN_DB_PREFIX."opensurvey_user_studs";
@@ -673,7 +673,7 @@ class Opensurveysondage extends CommonObject
 	 */
 	public function getComments()
 	{
-		$comments = array();
+		$comments = [];
 
 		$sql = 'SELECT id_comment, usercomment, comment';
 		$sql .= ' FROM '.MAIN_DB_PREFIX.'opensurvey_comments';
@@ -848,7 +848,7 @@ class Opensurveysondage extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList();

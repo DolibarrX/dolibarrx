@@ -372,7 +372,7 @@ class Calendar extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -395,7 +395,7 @@ class Calendar extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = "SELECT ";
 		$sql .= $this->getFieldList('t');
@@ -963,7 +963,7 @@ class Calendar extends CommonObject
 	 */
 	public function getLinesArray()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectline = new CalendarLine($this->db);
 		$result = $objectline->fetchAll('ASC', 'position', 0, 0, '(fk_calendar:=:'.((int) $this->id).')');

@@ -70,7 +70,7 @@ dol_syslog('ziptown call with MAIN_USE_ZIPTOWN_DICTIONNARY='.getDolGlobalString(
 if (GETPOST('zipcode') || GETPOST('town')) {
 	top_httphead('application/json');
 
-	$return_arr = array();
+	$return_arr = [];
 	$formcompany = new FormCompany($db);
 
 	// Define filter on text typed

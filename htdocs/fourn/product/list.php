@@ -108,7 +108,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
@@ -128,8 +128,8 @@ if (empty($resHook)) {
 		$search_field2 = '';
 		$search_date_creation = '';
 		$search_date_modification = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 }
 
@@ -156,7 +156,7 @@ $sql = "SELECT p.rowid, p.label, p.ref, p.fk_product_type, p.entity, p.tosell, p
 $sql .= " ppf.fk_soc, ppf.ref_fourn, ppf.price as price, ppf.quantity as qty, ppf.unitprice,";
 $sql .= " s.rowid as socid, s.nom as name";
 // Add fields to SELECT from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action);
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -192,7 +192,7 @@ if ($fourn_id > 0) {
 }
 
 // Add WHERE filters from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters);
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -255,7 +255,7 @@ if (!empty($supplier->id)) {
 
 llxHeader("", $title, $help_url, '', 0, 0, '', '', '', 'bodyforlist mod-fourn-product page-list');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -294,7 +294,7 @@ if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -351,7 +351,7 @@ print '<td></td>';
 print '<td></td>';
 print '<td></td>';
 // add filters from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $productstatic, $action);
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -386,7 +386,7 @@ print_liste_field_titre("BuyingPrice", $_SERVER["PHP_SELF"], "ppf.price", $param
 print_liste_field_titre("QtyMin", $_SERVER["PHP_SELF"], "ppf.quantity", $param, "", '', $sortfield, $sortorder, 'right ');
 print_liste_field_titre("UnitPrice", $_SERVER["PHP_SELF"], "ppf.unitprice", $param, "", '', $sortfield, $sortorder, 'right ');
 // add header cells from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $productstatic, $action);
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -403,7 +403,7 @@ print '</tr>'."\n";
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {
@@ -462,7 +462,7 @@ while ($i < $imaxinloop) {
 	print '<td class="right">'.(isset($objp->unitprice) ? price($objp->unitprice) : '').'</td>';
 
 	// add additional columns from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $objp, $action);
 	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');

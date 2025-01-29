@@ -73,7 +73,7 @@ class box_external_rss extends ModeleBoxes
 		$this->max = $max;
 
 		// On recupere number de param de la boite
-		$reg = array();
+		$reg = [];
 		preg_match('/^([0-9]+) /', $this->paramdef, $reg);
 		$site = $reg[1];
 

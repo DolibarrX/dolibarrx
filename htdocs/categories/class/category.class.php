@@ -267,22 +267,22 @@ class Category extends CommonObject
 	/**
 	 * @var array<int,array{rowid:int,id:int,fk_parent:int,label:string,description:string,color:string,position:string,visible:int,ref_ext:string,picture:string,fullpath:string,fulllabel:string,level:?int}>  Categories table in memory
 	 */
-	public $cats = array();
+	public $cats = [];
 
 	/**
 	 * @var array<int,int> Mother of table
 	 */
-	public $motherof = array();
+	public $motherof = [];
 
 	/**
 	 * @var Category[] children
 	 */
-	public $childs = array();
+	public $childs = [];
 
 	/**
 	 * @var ?array<string,array{label:string,description:string,note?:string}>	Array for multilangs
 	 */
-	public $multilangs = array();
+	public $multilangs = [];
 
 	/**
 	 * @var int imgWidth
@@ -325,7 +325,7 @@ class Category extends CommonObject
 
 		if (is_object($hookManager)) {
 			$hookManager->initHooks(array('category'));
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('constructCategory', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 			if ($resHook >= 0 && !empty($hookManager->resArray)) {
 				foreach ($hookManager->resArray as $mapList) {
@@ -349,7 +349,7 @@ class Category extends CommonObject
 	 */
 	public function getMapList()
 	{
-		$mapList = array();
+		$mapList = [];
 
 		foreach ($this->MAP_ID as $mapCode => $mapId) {
 			$mapList[] = array(
@@ -920,7 +920,7 @@ class Category extends CommonObject
 	{
 		global $user;
 
-		$objs = array();
+		$objs = [];
 
 		$classnameforobj = $this->MAP_OBJ_CLASS[$type];
 		$obj = new $classnameforobj($this->db);
@@ -1022,7 +1022,7 @@ class Category extends CommonObject
 	 */
 	public function getListForItem($id, $type = 'customer', $sortfield = "s.rowid", $sortorder = 'ASC', $limit = 0, $page = 0)
 	{
-		$categories = array();
+		$categories = [];
 
 		$type = sanitizeVal($type, 'aZ09');
 
@@ -1126,7 +1126,7 @@ class Category extends CommonObject
 
 		$res = $this->db->query($sql);
 		if ($res) {
-			$cats = array();
+			$cats = [];
 			while ($rec = $this->db->fetch_array($res)) {
 				$cat = new Category($this->db);
 				$cat->fetch($rec['rowid']);
@@ -1148,7 +1148,7 @@ class Category extends CommonObject
 	protected function load_motherof()
 	{
 		// phpcs:enable
-		$this->motherof = array();
+		$this->motherof = [];
 
 		// Load array[child]=parent
 		$sql = "SELECT fk_parent as id_parent, rowid as id_son";
@@ -1209,13 +1209,13 @@ class Category extends CommonObject
 			if ($fromid > 0) {
 				$fromid = array($fromid);
 			} else {
-				$fromid = array();
+				$fromid = [];
 			}
 		} elseif (!is_array($fromid)) {
-			$fromid = array();
+			$fromid = [];
 		}
 
-		$this->cats = array();
+		$this->cats = [];
 		$nbcateg = 0;
 
 		// Init this->motherof that is array(id_son=>id_parent, ...)
@@ -1375,7 +1375,7 @@ class Category extends CommonObject
 
 		$res = $this->db->query($sql);
 		if ($res) {
-			$cats = array();
+			$cats = [];
 			while ($rec = $this->db->fetch_array($res)) {
 				$cat = new Category($this->db);
 				$cat->fetch($rec['rowid']);
@@ -1464,11 +1464,11 @@ class Category extends CommonObject
 	public function print_all_ways($sep = '&gt;&gt;', $url = '', $nocolor = 0, $addPicture = 0)
 	{
 		// phpcs:enable
-		$ways = array();
+		$ways = [];
 
 		$all_ways = $this->get_all_ways(); // Load array of categories
 		foreach ($all_ways as $way) {
-			$w = array();
+			$w = [];
 			$i = 0;
 			$forced_color = '';
 			foreach ($way as $cat) {
@@ -1517,7 +1517,7 @@ class Category extends CommonObject
 	public function get_meres()
 	{
 		// phpcs:enable
-		$parents = array();
+		$parents = [];
 
 		$sql = "SELECT fk_parent FROM ".MAIN_DB_PREFIX."category";
 		$sql .= " WHERE rowid = ".((int) $this->id);
@@ -1549,7 +1549,7 @@ class Category extends CommonObject
 	public function get_all_ways()
 	{
 		// phpcs:enable
-		$ways = array();
+		$ways = [];
 
 		$parents = $this->get_meres();
 		if (is_array($parents)) {
@@ -1582,7 +1582,7 @@ class Category extends CommonObject
 	 */
 	public function containing($id, $type, $mode = 'object')
 	{
-		$cats = array();
+		$cats = [];
 
 		if (is_numeric($type)) {
 			$type = Category::$MAP_ID_TO_CODE[$type];
@@ -1663,7 +1663,7 @@ class Category extends CommonObject
 			dol_syslog(__METHOD__.': using numeric types is deprecated.', LOG_WARNING);
 		}
 
-		$cats = array();
+		$cats = [];
 
 		// For backward compatibility
 		if (is_numeric($type)) {
@@ -1924,7 +1924,7 @@ class Category extends CommonObject
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$nbphoto = 0;
-		$tabobj = array();
+		$tabobj = [];
 
 		$dirthumb = $dir.'thumbs/';
 
@@ -1938,13 +1938,13 @@ class Category extends CommonObject
 
 						// On determine nom du fichier vignette
 						$photo_vignette = '';
-						$regs = array();
+						$regs = [];
 						if (preg_match('/(\.jpeg|\.jpg|\.bmp|\.gif|\.png|\.tiff)$/i', $photo, $regs)) {
 							$photo_vignette = preg_replace('/'.$regs[0].'/i', '', $photo).'_small'.$regs[0];
 						}
 
 						// Object
-						$obj = array();
+						$obj = [];
 						$obj['photo'] = $photo;
 						if ($photo_vignette && is_file($dirthumb.$photo_vignette)) {
 							$obj['photo_vignette'] = 'thumbs/'.$photo_vignette;
@@ -1988,7 +1988,7 @@ class Category extends CommonObject
 		dol_delete_file($file, 1);
 
 		// Si elle existe, on efface la vignette
-		$regs = array();
+		$regs = [];
 		if (preg_match('/(\.jpeg|\.jpg|\.bmp|\.gif|\.png|\.tiff)$/i', $filename, $regs)) {
 			$photo_vignette = preg_replace('/'.$regs[0].'/i', '', $filename).'_small'.$regs[0];
 			if (file_exists($dirthumb.$photo_vignette)) {
@@ -2247,7 +2247,7 @@ class Category extends CommonObject
 			return "";
 		}
 
-		$searchCategorySqlList = array();
+		$searchCategorySqlList = [];
 		foreach ($searchList as $searchCategory) {
 			if (intval($searchCategory) == -2) {
 				$searchCategorySqlList[] = " cp.fk_category IS NULL";

@@ -287,7 +287,7 @@ if ($socid > 0) {
 
 		$moreforfilter = '';
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($resHook)) {
 			$moreforfilter .= $hookManager->resPrint;

@@ -84,7 +84,7 @@ class box_graph_new_vs_close_ticket extends ModeleBoxes
 		);
 
 		if ($user->hasRight('ticket', 'read')) {
-			$data = array();
+			$data = [];
 			$totalnb = 0;
 			$sql = "SELECT COUNT(t.datec) as nb";
 			$sql .= " FROM ".MAIN_DB_PREFIX."ticket as t";
@@ -122,7 +122,7 @@ class box_graph_new_vs_close_ticket extends ModeleBoxes
 			} else {
 				dol_print_error($this->db);
 			}
-			$colorseries = array();
+			$colorseries = [];
 			$colorseries[] = $badgeStatus8;
 			$colorseries[] = $badgeStatus2;
 			$stringtoprint = '';

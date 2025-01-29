@@ -72,7 +72,7 @@ $result = "{}";
 top_httphead('application/json');
 
 if ($action == 'verifyavailability') {		// Test on permission not required here (anonymous action protected by mitigation of /public/... urls)
-	$response = array();
+	$response = [];
 	if (empty($id)) {
 		$error++;
 		$response["code"] = "MISSING_ID";
@@ -93,7 +93,7 @@ if ($action == 'verifyavailability') {		// Test on permission not required here 
 	// First get all ranges for the calendar
 	if (!$error) {
 		// Select in database all availabilities
-		$availabilitytab = array();
+		$availabilitytab = [];
 		$sql = "SELECT ba.rowid as id, ba.duration, ba.startHour, ba.endHour, ba.start, ba.end";
 		$sql .= " FROM ".MAIN_DB_PREFIX."bookcal_availabilities as ba";
 		$sql .= " WHERE ba.fk_bookcal_calendar = ".((int) $id);

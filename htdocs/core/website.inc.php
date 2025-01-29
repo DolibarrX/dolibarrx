@@ -82,7 +82,7 @@ if (!empty($pageid) && $pageid > 0) {
 		$srclang = (empty($_COOKIE['weblangs-shortcode']) ? '' : preg_replace('/[^a-zA-Z0-9_\-]/', '', $_COOKIE['weblangs-shortcode']));
 	}
 	if (empty($srclang)) {
-		$reg = array();
+		$reg = [];
 		// With Dolibarr server, url is in parameter pageref
 		if (defined('USEDOLIBARRSERVER') && !empty($_GET['pageref']) && preg_match('/^\/?(\w\w)\//', $_GET['pageref'], $reg) && $reg[1] != 'js') {	// We reuse $_GET['pageref'] because $pageref may have been cleaned already from the language code.
 			$srclang = $reg[1];

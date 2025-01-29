@@ -38,7 +38,7 @@ function evaluationPrepareHead($object)
 	$langs->load("hrm");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath("/hrm/evaluation_card.php", 1).'?id='.$object->id;
 	$head[$h][1] = $langs->trans("EvaluationCard");

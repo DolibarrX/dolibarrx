@@ -36,7 +36,7 @@ class InterfaceNotification extends DolibarrTriggers
 	/**
 	 * @var string[]
 	 */
-	public $listofmanagedevents = array();
+	public $listofmanagedevents = [];
 
 	/**
 	 * Constructor
@@ -81,7 +81,7 @@ class InterfaceNotification extends DolibarrTriggers
 		}
 		$hookManager->initHooks(array('notification'));
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('notifsupported', $parameters, $object, $action);
 		if (empty($resHook)) {
 			if (!empty($hookManager->resArray['arrayofnotifsupported'])) {
@@ -122,7 +122,7 @@ class InterfaceNotification extends DolibarrTriggers
 		}
 		$hookManager->initHooks(array('notification'));
 
-		$parameters = array();
+		$parameters = [];
 		$object = new stdClass();
 		$resHook = $hookManager->executeHooks('notifsupported', $parameters, $object, $action);
 		if (empty($resHook)) {
@@ -131,7 +131,7 @@ class InterfaceNotification extends DolibarrTriggers
 			}
 		}
 
-		$ret = array();
+		$ret = [];
 
 
 		$sql = "SELECT rowid, code, contexts, label, description, elementtype";

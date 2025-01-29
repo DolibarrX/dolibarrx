@@ -361,7 +361,7 @@ if ($action == 'create' || $object->fetch($id, $ref) > 0) {
 		print '</tr>';
 
 		// Other attributes
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		if (empty($resHook)) {
@@ -443,7 +443,7 @@ if ($action == 'create' || $object->fetch($id, $ref) > 0) {
 	 * Boutons actions
 	 */
 	print '<div class="tabsAction">';
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 	// modified by hook
 	if (empty($resHook)) {

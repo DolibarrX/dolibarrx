@@ -54,12 +54,12 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 	/**
 	 * @var array<array{text:string,nbcol?:int,limit?:int,graph?:int<0,1>,sublink?:string,subtext?:string,picture?:string,target?:string,td?:string}>|array{text:string,nbcol?:int,limit?:int,graph?:int<0,1>,sublink?:string,subtext?:string,picture?:string,target?:string,td?:string} box info heads. Example: array('text' => $langs->trans("BoxScheduledJobs", $max), 'nbcol' => 4);
 	 */
-	public $info_box_head = array();
+	public $info_box_head = [];
 
 	/**
 	 * @var array<array<array{td?:string,text:string,asis?:int<0,1>,maxlength?:int}>>|array<array{td?:string,text:string,asis?:int<0,1>,maxlength?:int}> box info content
 	 */
-	public $info_box_contents = array();
+	public $info_box_contents = [];
 
 	/**
 	 * @var string Error message
@@ -273,7 +273,7 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 		$out = '';
 
 		if ($contents === null) {
-			$contents = array();
+			$contents = [];
 		}
 
 		if ($refresh) {
@@ -493,12 +493,12 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 	{
 		global $langs, $db;
 
-		$files = array();
-		$fullpath = array();
-		$relpath = array();
-		$iscoreorexternal = array();
-		$modules = array();
-		$orders = array();
+		$files = [];
+		$fullpath = [];
+		$relpath = [];
+		$iscoreorexternal = [];
+		$modules = [];
+		$orders = [];
 		$i = 0;
 
 		//$dirwidget=array_merge(array('/core/boxes/'), $config->modules_parts['widgets']);
@@ -519,7 +519,7 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 			$handle = opendir($newdir);
 			if (is_resource($handle)) {
 				while (($file = readdir($handle)) !== false) {
-					$reg = array();
+					$reg = [];
 					if (is_readable($newdir.'/'.$file) && preg_match('/^(.+)\.php/', $file, $reg)) {
 						if (preg_match('/\.back$/', $file) || preg_match('/^(.+)\.disabled\.php/', $file)) {
 							continue;
@@ -557,7 +557,7 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 
 		asort($orders);
 
-		$widget = array();
+		$widget = [];
 		$j = 0;
 
 		// Loop on each widget

@@ -59,29 +59,29 @@ class modPrinting extends DolibarrModules
 		$this->picture = 'printer';
 
 		// Data directories to create when module is enabled.
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Config pages
 		$this->config_page_url = array("printing.php@printing");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3, 7, -2); // Minimum version of Dolibarr required by module
-		$this->conflictwith = array();
+		$this->conflictwith = [];
 		$this->langfiles = array("printing");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'printing';
 
 		$r = 0;
@@ -100,7 +100,7 @@ class modPrinting extends DolibarrModules
 		$this->rights[$r][4] = 'read';
 
 		// Main menu entries
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 
 		// This is to declare the Top Menu entry:

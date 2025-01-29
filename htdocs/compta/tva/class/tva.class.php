@@ -902,8 +902,8 @@ class Tva extends CommonObject
 		$langs->loadLangs(array("customers", "bills"));
 
 		// We reinit status array to force to redefine them because label may change according to properties values.
-		$this->labelStatus = array();
-		$this->labelStatusShort = array();
+		$this->labelStatus = [];
+		$this->labelStatusShort = [];
 
 		if (empty($this->labelStatus) || empty($this->labelStatusShort)) {
 			global $langs;

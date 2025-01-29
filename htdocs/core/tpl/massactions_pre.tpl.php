@@ -81,7 +81,7 @@ if ($massaction == 'preclonetasks') {
 	$formquestion = array(
 		// TODO If list of project is long and project is not on a thirdparty, the combo may be very long.
 		// Solution: Allow only sameproject for cloning tasks ?
-		array('type' => 'other', 'name' => 'projectid', 'label' => $langs->trans('Project') .': ', 'value' => $form->selectProjects($object->id, 'projectid', '', 0, 1, '', 0, array(), $object->socid, '1', 1, '', null, 1)),
+		array('type' => 'other', 'name' => 'projectid', 'label' => $langs->trans('Project') .': ', 'value' => $form->selectProjects($object->id, 'projectid', '', 0, 1, '', 0, [], $object->socid, '1', 1, '', null, 1)),
 	);
 	print $form->formconfirm($_SERVER['PHP_SELF'] . '?id=' . $object->id . $selected, $langs->trans('ConfirmMassClone'), '', 'clonetasks', $formquestion, '', 1, 300, 590);
 }
@@ -89,7 +89,7 @@ if ($massaction == 'preclonetasks') {
 if ($massaction == 'preaffecttag' && isModEnabled('category')) {
 	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 	$categ = new Category($db);
-	$categ_types = array();
+	$categ_types = [];
 	$categ_type_array = $categ->getMapList();
 	foreach ($categ_type_array as $categdef) {
 		// Test on $object (should be useless, we already check on $objecttmp just after)
@@ -105,7 +105,7 @@ if ($massaction == 'preaffecttag' && isModEnabled('category')) {
 		}
 	}
 
-	$formquestion = array();
+	$formquestion = [];
 	if (!empty($categ_types)) {
 		foreach ($categ_types as $categ_type) {
 			$categ_arbo_tmp = $form->select_all_categories($categ_type['code'], '', 'parent', 0, 0, 3);
@@ -129,7 +129,7 @@ if ($massaction == 'preaffecttag' && isModEnabled('category')) {
 }
 
 if ($massaction == 'preupdateprice') {
-	$formquestion = array();
+	$formquestion = [];
 
 	$valuefield = '<div style="display: flex; align-items: center; justify-content: flex-end; padding-right: 150px">';
 	$valuefield .= '<input type="number" name="pricerate" id="pricerate" min="-100" value="0" style="width: 100px; text-align: right; margin-right: 10px" />%';
@@ -146,7 +146,7 @@ if ($massaction == 'preupdateprice') {
 }
 
 if ($massaction == 'presetsupervisor') {
-	$formquestion = array();
+	$formquestion = [];
 
 	$valuefield = '<div style="display: flex; align-items: center; justify-content: flex-end; padding-right: 150px">';
 	$valuefield .= img_picture('', 'user').' ';
@@ -164,7 +164,7 @@ if ($massaction == 'presetsupervisor') {
 }
 
 if ($massaction == 'preaffectuser') {
-	$formquestion = array();
+	$formquestion = [];
 
 	$valuefielduser = '<div style="display: flex; align-items: center; justify-content: flex-end; padding-right: 165px; padding-bottom: 6px; gap: 5px">';
 	$valuefielduser .= img_picture('', 'user').' ';
@@ -205,9 +205,9 @@ if ($massaction == 'preaffectuser') {
 if ($massaction == 'presend') {
 	$langs->load("mails");
 
-	$listofselectedid = array();
-	$listofselectedrecipientobjid = array();
-	$listofselectedref = array();
+	$listofselectedid = [];
+	$listofselectedrecipientobjid = [];
+	$listofselectedref = [];
 
 	if (!GETPOST('cancel', 'alpha')) {
 		foreach ($arrayofselected as $toselectid) {
@@ -250,7 +250,7 @@ if ($massaction == 'presend') {
 	$formmail->withfrom = 1;
 	$liste = $langs->trans("AllRecipientSelected", count($arrayofselected));
 	if (count($listofselectedrecipientobjid) == 1) { // Only 1 different recipient selected, we can suggest contacts
-		$liste = array();
+		$liste = [];
 		$thirdpartyid = array_shift($listofselectedrecipientobjid);
 		if ($objecttmp->element == 'expensereport') {
 			$fuser = new User($db);
@@ -282,7 +282,7 @@ if ($massaction == 'presend') {
 		$formmail->withoptiononeemailperrecipient = 0;
 	}
 
-	$formmail->withto = empty($liste) ? (GETPOST('sendto', 'alpha') ? GETPOST('sendto', 'alpha') : array()) : $liste;
+	$formmail->withto = empty($liste) ? (GETPOST('sendto', 'alpha') ? GETPOST('sendto', 'alpha') : []) : $liste;
 	$formmail->withtofree = empty($liste) ? 1 : 0;
 	$formmail->withtocc = 1;
 	$formmail->withtoccc = getDolGlobalString('MAIN_EMAIL_USECCC');
@@ -341,7 +341,7 @@ if ($massaction == 'presend') {
 		$langs->load("errors");
 		print img_warning().' '.$langs->trans('WarningNumberOfRecipientIsRestrictedInMassAction', getDolGlobalString('MAILING_LIMIT_SENDBYWEB'));
 		print ' - <a href="javascript: window.history.go(-1)">'.$langs->trans("GoBack").'</a>';
-		$arrayofmassactions = array();
+		$arrayofmassactions = [];
 	} else {
 		print $formmail->get_form();
 	}
@@ -358,7 +358,7 @@ if ($massaction == 'edit_extrafields') {
 	$extrafields->fetch_name_optionals_label($elementtype);
 	$extrafields_list = $extrafields->attributes[$elementtype]['label'];
 
-	$formquestion = array();
+	$formquestion = [];
 	if (!empty($extrafields_list)) {
 		$myParamExtra = $object->showOptionals($extrafields, 'create');
 
@@ -413,7 +413,7 @@ if ($massaction == 'predisable') {
 	print $form->formconfirm($_SERVER["PHP_SELF"], $langs->trans("ConfirmMassDisabling"), $langs->trans("ConfirmMassDisablingQuestion", count($toselect)), "disable", null, '', 0, 200, 500, 1);
 }
 if ($massaction == 'presetcommercial') {
-	$formquestion = array();
+	$formquestion = [];
 	$userlist = $form->select_dolusers('', '', 0, null, 0, '', '', 0, 0, 0, 'AND u.statut = 1', 0, '', '', 0, 1);
 	$formquestion[] = array('type' => 'other',
 			'name' => 'affectedcommercial',
@@ -422,7 +422,7 @@ if ($massaction == 'presetcommercial') {
 	print $form->formconfirm($_SERVER["PHP_SELF"], $langs->trans("ConfirmAllocateCommercial"), $langs->trans("ConfirmAllocateCommercialQuestion", count($toselect)), "affectcommercial", $formquestion, 1, 0, 200, 500, 1);
 }
 if ($massaction == 'unsetcommercial') {
-	$formquestion = array();
+	$formquestion = [];
 	$userlist = $form->select_dolusers('', '', 0, null, 0, '', '', 0, 0, 0, 'AND u.statut = 1', 0, '', '', 0, 1);
 	$formquestion[] = array('type' => 'other',
 		'name' => 'unassigncommercial',

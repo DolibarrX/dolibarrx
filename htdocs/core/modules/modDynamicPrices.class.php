@@ -53,7 +53,7 @@ class modDynamicPrices extends DolibarrModules
 		$this->picture = 'dynamicprice';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Config pages
 		//-------------
@@ -61,25 +61,25 @@ class modDynamicPrices extends DolibarrModules
 
 		// Dependencies
 		//-------------
-		$this->depends = array();
-		$this->requiredby = array();
+		$this->depends = [];
+		$this->requiredby = [];
 		$this->langfiles = array("other");
 
 		// Constants
 		//-----------
-		$this->const = array();
+		$this->const = [];
 
 		// New pages on tabs
 		// -----------------
-		$this->tabs = array();
+		$this->tabs = [];
 
 		// Boxes
 		//------
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
 		//------------
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'dynamicprices';
 		$r = 0;
 	}
@@ -102,7 +102,7 @@ class modDynamicPrices extends DolibarrModules
 		// Remove permissions and default values
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

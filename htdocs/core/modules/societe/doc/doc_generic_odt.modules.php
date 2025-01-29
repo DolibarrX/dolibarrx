@@ -115,7 +115,7 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
 		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim(getDolGlobalString('COMPANY_ADDON_PDF_ODT_PATH'))));
-		$listoffiles = array();
+		$listoffiles = [];
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
 			$tmpdir = preg_replace('/DOL_DATA_ROOT/', DOL_DATA_ROOT, $tmpdir);
@@ -310,7 +310,7 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 				//print $odfHandler->__toString()."\n";
 
 				// Replace tags of lines for contacts
-				$contact_arrray = array();
+				$contact_arrray = [];
 
 				$sql = "SELECT p.rowid";
 				$sql .= " FROM ".MAIN_DB_PREFIX."socpeople as p";

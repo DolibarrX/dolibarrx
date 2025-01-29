@@ -216,7 +216,7 @@ if ($id > 0 || !empty($ref)) {
 				}
 			}
 			// Add fields from hooks
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 			$sql = preg_replace('/,\s*$/', '', $sql);
@@ -231,7 +231,7 @@ if ($id > 0 || !empty($ref)) {
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 			}
 			// Add table from hooks
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 
@@ -255,12 +255,12 @@ if ($id > 0 || !empty($ref)) {
 			$extrafieldsobjectkey = 'facture';
 			include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 			// Add where from hooks
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 
 			// Add HAVING from hooks
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			$sql .= empty($hookManager->resPrint) ? "" : " HAVING 1=1 ".$hookManager->resPrint;
 
@@ -317,7 +317,7 @@ if ($id > 0 || !empty($ref)) {
 				print $langs->trans('Period').' ('.$langs->trans("DateInvoice").') - ';
 				print $form->selectDate($search_date_start ? $search_date_start : -1, 'search_date_start', 0, 0, 1, '', 1, 0, 0, '', '', '', '', 1, '', $langs->trans('From'));
 				print $form->selectDate($search_date_end ? $search_date_end : -1, 'search_date_end', 0, 0, 1, '', 1, 0, 0, '', '', '', '', 1, '', $langs->trans('to'));
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				print $hookManager->resPrint;
 
@@ -373,7 +373,7 @@ if ($id > 0 || !empty($ref)) {
 						print '<td class="right">'.price($objp->total_ht)."</td>\n";
 						print '<td class="right">'.$invoicestatic->LibStatut($objp->paye, $objp->statut, 5, $paiement, $objp->type).'</td>';
 						// Fields from hook
-						$parameters = array();
+						$parameters = [];
 						$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 						print $hookManager->resPrint;
 						print "</tr>\n";

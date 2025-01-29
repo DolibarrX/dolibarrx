@@ -144,7 +144,7 @@ if (!is_array($user_arbo) && $user_arbo < 0) {
 	$fulltree = $user_arbo;
 	//var_dump($fulltree);
 	// Define data (format for treeview)
-	$data = array();
+	$data = [];
 	$data[0] = array('rowid' => 0, 'fk_menu' => -1, 'title' => 'racine', 'mainmenu' => '', 'leftmenu' => '', 'fk_mainmenu' => '', 'fk_leftmenu' => '');
 
 	foreach ($fulltree as $key => $val) {

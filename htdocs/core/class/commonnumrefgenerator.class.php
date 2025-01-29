@@ -48,7 +48,7 @@ abstract class CommonNumRefGenerator
 	/**
 	 * @var string[]            Array of error strings
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var DoliDB              Database handler.

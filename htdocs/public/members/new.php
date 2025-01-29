@@ -193,7 +193,7 @@ function llxFooterVierge()
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 // Note that $action and $object may have been modified by some hooks
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($resHook < 0) {
@@ -392,7 +392,7 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 					if ($subjecttosend && $texttosend) {
 						$moreinheader = 'X-Dolibarr-Info: send_an_email by public/members/new.php'."\r\n";
 
-						$result = $object->sendEmail($texttosend, $subjecttosend, array(), array(), array(), "", "", 0, -1, '', $moreinheader);
+						$result = $object->sendEmail($texttosend, $subjecttosend, [], [], [], "", "", 0, -1, '', $moreinheader);
 					}
 					/*if ($result < 0) {
 						$error++;
@@ -425,9 +425,9 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 						$to,
 						$from,
 						$adh->makeSubstitution($config->global->ADHERENT_AUTOREGISTER_NOTIF_MAIL),
-						array(),
-						array(),
-						array(),
+						[],
+						[],
+						[],
 						"",
 						"",
 						0,
@@ -594,7 +594,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 
 	// Type
 	if (!getDolGlobalString('MEMBER_NEWFORM_FORCETYPE')) {
-		$listoftype = $adht->liste_array();
+		$listoftype = $adht->liste_[];
 		$tmp = array_keys($listoftype);
 		$defaulttype = '';
 		$isempty = 1;
@@ -611,7 +611,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 	}
 
 	// Moral/Physic attribute
-	$morphys = array();
+	$morphys = [];
 	$morphys["phy"] = $langs->trans("Physical");
 	$morphys["mor"] = $langs->trans("Moral");
 	if (!getDolGlobalString('MEMBER_NEWFORM_FORCEMORPHY')) {
@@ -856,7 +856,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 	// Get units
 	$measuringUnits = new CUnits($db);
 	$result = $measuringUnits->fetchAll('', '', 0, 0, array('t.active' => 1));
-	$units = array();
+	$units = [];
 	foreach ($measuringUnits->records as $lines) {
 		$units[$lines->short_label] = $langs->trans(ucfirst($lines->label));
 	}

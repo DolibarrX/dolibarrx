@@ -241,7 +241,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -257,7 +257,7 @@ if (empty($resHook)) {
 		$search_date_sync_end = "";
 		$search_rate = "";
 		$search_code = "";
-		$search_array_options = array();
+		$search_array_options = [];
 	}
 
 	// Mass actions
@@ -343,7 +343,7 @@ if (!in_array($action, array("updateRate", "deleteRate"))) {
 
 $sql = 'SELECT cr.rowid, cr.date_sync, cr.rate, cr.rate_indirect, cr.entity, m.code, m.name';
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= ' FROM '.MAIN_DB_PREFIX.'multicurrency_rate as cr ';
@@ -365,13 +365,13 @@ if ($search_code) {
 $sql .= " WHERE m.code <> '".$db->escape($config->currency)."'";
 
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " GROUP BY cr.rowid, cr.date_sync, cr.rate, cr.rate_indirect, m.code, cr.entity, m.code, m.name";
 
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -398,7 +398,7 @@ $sql .= $db->plimit($limit + 1, $offset);
 $resql = $db->query($sql);
 if ($resql) {
 	$num = $db->num_rows($resql);
-	$arrayofselected = is_array($toselect) ? $toselect : array();
+	$arrayofselected = is_array($toselect) ? $toselect : [];
 
 	$param = '';
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
@@ -431,7 +431,7 @@ if ($resql) {
 		$arrayofmassactions['predelete'] = $langs->trans("Delete");
 	}
 	if (in_array($massaction, array('presend', 'predelete'))) {
-		$arrayofmassactions = array();
+		$arrayofmassactions = [];
 	}
 	$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -462,7 +462,7 @@ if ($resql) {
 	$moreforfilter = '';
 
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($resHook)) {
 		$moreforfilter .= $hookManager->resPrint;
@@ -556,7 +556,7 @@ if ($resql) {
 	print "</tr>\n";
 
 	$i = 0;
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
 	while ($i < min($num, $limit)) {
 		$obj = $db->fetch_object($resql);

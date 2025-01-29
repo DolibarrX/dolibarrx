@@ -111,7 +111,7 @@ if (empty($resHook)) {
 			$textbody = $text.' (<a href="#" class="selectall">'.$langs->trans("SelectAll").'</a>)';
 			$formquestion = array('text' => $textbody);
 
-			$task_to_affect = array();
+			$task_to_affect = [];
 			foreach ($task_array as $task) {
 				$task_already_affected = false;
 				$personsLinked = $task->liste_contact(-1, $source);
@@ -180,9 +180,9 @@ if (empty($resHook)) {
 		$contactid = (GETPOST('userid') ? GETPOSTINT('userid') : GETPOSTINT('contactid'));
 		$typeid = (GETPOST('typecontact') ? GETPOST('typecontact') : GETPOST('type'));
 		$groupid = GETPOSTINT('groupid');
-		$contactarray = array();
+		$contactarray = [];
 		$errorgroup = 0;
-		$errorgrouparray = array();
+		$errorgrouparray = [];
 
 		if ($groupid > 0) {
 			require_once DOL_DOCUMENT_ROOT.'/user/class/usergroup.class.php';

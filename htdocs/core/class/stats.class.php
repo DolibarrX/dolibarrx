@@ -38,7 +38,7 @@ abstract class Stats
 	/**
 	 * @var array<string,int>	Dates of cache file read by methods
 	 */
-	protected $lastfetchdate = array();
+	protected $lastfetchdate = [];
 
 	/**
 	 * @var string  Suffix to add to name of cache file (to avoid file name conflicts)
@@ -108,11 +108,11 @@ abstract class Stats
 		global $config, $user, $langs;
 
 		if ($startyear > $endyear) {
-			return array();
+			return [];
 		}
 
-		$data  = array();  // This is the return value
-		$datay = array();  // This is a work value
+		$data  = [];  // This is the return value
+		$datay = [];  // This is a work value
 
 		// Search into cache
 		if (!empty($cachedelay)) {
@@ -210,11 +210,11 @@ abstract class Stats
 		global $config, $user, $langs;
 
 		if ($startyear > $endyear) {
-			return array();
+			return [];
 		}
 
-		$datay = array();
-		$data = array();  // Return value
+		$datay = [];
+		$data = [];  // Return value
 
 		// Search into cache
 		if (!empty($cachedelay)) {
@@ -303,11 +303,11 @@ abstract class Stats
 	public function getAverageByMonthWithPrevYear($endyear, $startyear)
 	{
 		if ($startyear > $endyear) {
-			return array();
+			return [];
 		}
 
-		$datay = array();
-		$data = array();
+		$datay = [];
+		$data = [];
 
 		$year = $startyear;
 		while ($year <= $endyear) {
@@ -339,7 +339,7 @@ abstract class Stats
 	{
 		global $config, $user, $langs;
 
-		$data = array();
+		$data = [];
 
 		// Search in cache
 		if (!empty($cachedelay)) {
@@ -408,7 +408,7 @@ abstract class Stats
 	protected function _getNbByYear($sql)
 	{
 		// phpcs:enable
-		$result = array();
+		$result = [];
 
 		dol_syslog(get_class($this).'::'.__FUNCTION__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -437,7 +437,7 @@ abstract class Stats
 	protected function _getAllByYear($sql)
 	{
 		// phpcs:enable
-		$result = array();
+		$result = [];
 
 		dol_syslog(get_class($this).'::'.__FUNCTION__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -496,8 +496,8 @@ abstract class Stats
 		// phpcs:enable
 		global $langs;
 
-		$result = array();
-		$res = array();
+		$result = [];
+		$res = [];
 
 		dol_syslog(get_class($this).'::'.__FUNCTION__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -520,7 +520,7 @@ abstract class Stats
 			$res[$i] = (isset($result[$i]) ? $result[$i] : 0);
 		}
 
-		$data = array();
+		$data = [];
 
 		for ($i = 1; $i < 13; $i++) {
 			$month = 'unknown';
@@ -553,8 +553,8 @@ abstract class Stats
 		// phpcs:enable
 		global $langs;
 
-		$result = array();
-		$res = array();
+		$result = [];
+		$res = [];
 
 		dol_syslog(get_class($this).'::'.__FUNCTION__, LOG_DEBUG);
 
@@ -577,7 +577,7 @@ abstract class Stats
 			$res[$i] = (int) round((isset($result[$i]) ? $result[$i] : 0));
 		}
 
-		$data = array();
+		$data = [];
 
 		for ($i = 1; $i < 13; $i++) {
 			$month = 'unknown';
@@ -610,8 +610,8 @@ abstract class Stats
 		// phpcs:enable
 		global $langs;
 
-		$result = array();
-		$res = array();
+		$result = [];
+		$res = [];
 
 		dol_syslog(get_class($this).'::'.__FUNCTION__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -634,7 +634,7 @@ abstract class Stats
 			$res[$i] = (isset($result[$i]) ? $result[$i] : 0);
 		}
 
-		$data = array();
+		$data = [];
 
 		for ($i = 1; $i < 13; $i++) {
 			$month = 'unknown';
@@ -667,7 +667,7 @@ abstract class Stats
 		// phpcs:enable
 		global $langs;
 
-		$result = array();
+		$result = [];
 
 		dol_syslog(get_class($this).'::'.__FUNCTION__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -703,7 +703,7 @@ abstract class Stats
 	 */
 	protected function _getAmountByYear($sql)
 	{
-		$result = array();
+		$result = [];
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			$num = $this->db->num_rows($resql);

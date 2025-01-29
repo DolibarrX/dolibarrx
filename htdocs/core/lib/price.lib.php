@@ -91,7 +91,7 @@ function calcul_price_total($qty, $pu, $remise_percent_ligne, $txtva, $uselocalt
 {
 	global $config, $mysoc, $db;
 
-	$result = array();
+	$result = [];
 
 	// Clean parameters
 	if (empty($info_bits)) {
@@ -181,7 +181,7 @@ function calcul_price_total($qty, $pu, $remise_percent_ligne, $txtva, $uselocalt
 			$pu = $pu_devise / $multicurrency_tx;
 		} else {
 			dol_syslog('Price.lib::calcul_price_total function called with bad parameters combination (multicurrency_tx empty when pu_devise not) ', LOG_ERR);
-			return array();
+			return [];
 		}
 	}
 	if ($pu === '') {
@@ -193,7 +193,7 @@ function calcul_price_total($qty, $pu, $remise_percent_ligne, $txtva, $uselocalt
 			$pu_devise = $pu * $multicurrency_tx;
 		} else {
 			dol_syslog('Price.lib::calcul_price_total function called with bad parameters combination (pu or multicurrency_tx are not numeric)', LOG_ERR);
-			return array();
+			return [];
 		}
 	}
 

@@ -73,7 +73,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 
 // Initialize array of search criteria
 $search_all = GETPOST("search_all", 'alpha');
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_' . $key, 'alpha')) {
 		$search[$key] = GETPOST('search_' . $key, 'alpha');
@@ -113,7 +113,7 @@ $MaxNumberSkill = getDolGlobalInt('HRM_MAXRANK', Skill::DEFAULT_MAX_RANK_PER_SKI
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -258,7 +258,7 @@ if ($action == 'create') {
 		print '<input type="hidden" name="backtopageforcancel" value="' . $backtopageforcancel . '">';
 	}
 
-	print dol_get_fiche_head(array(), '');
+	print dol_get_fiche_head([], '');
 
 	print '<table class="border centpercent tableforfieldcreate">' . "\n";
 
@@ -447,7 +447,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	// Confirmation of action xxxx
 	if ($action == 'xxx') {
-		$formquestion = array();
+		$formquestion = [];
 		/*
 		$forcecombo=0;
 		if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
@@ -512,7 +512,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	if ($action != 'presend' && $action != 'editline') {
 		print '<div class="tabsAction">' . "\n";
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -592,7 +592,7 @@ if ($action != "create" && $action != "edit") {
 
 	// Initialize array of search criteria
 	$search_all = GETPOST('search_all', 'alphanohtml');
-	$search = array();
+	$search = [];
 	foreach ($objectline->fields as $key => $val) {
 		if (GETPOST('search_' . $key, 'alpha') !== '') {
 			$search[$key] = GETPOST('search_' . $key, 'alpha');
@@ -604,7 +604,7 @@ if ($action != "create" && $action != "edit") {
 	}
 
 	// List of fields to search into when doing a "search in all"
-	$fieldstosearchall = array();
+	$fieldstosearchall = [];
 	foreach ($objectline->fields as $key => $val) {
 		if (!empty($val['searchall'])) {
 			$fieldstosearchall['t.' . $key] = $val['label'];
@@ -612,7 +612,7 @@ if ($action != "create" && $action != "edit") {
 	}
 
 	// Definition of array of fields for columns
-	$arrayfields = array();
+	$arrayfields = [];
 	foreach ($objectline->fields as $key => $val) {
 		// If $val['visible']==0, then we never show the field
 		if (!empty($val['visible'])) {
@@ -639,8 +639,8 @@ if ($action != "create" && $action != "edit") {
 
 	$help_url = '';
 	$title = $langs->transnoentitiesnoconv("Skilldets");
-	$morejs = array();
-	$morecss = array();
+	$morejs = [];
+	$morecss = [];
 	$nbtotalofrecords = '';
 
 	// Build and execute select
@@ -702,7 +702,7 @@ if ($action != "create" && $action != "edit") {
 	$moreforfilter.= $langs->trans('MyFilter') . ': <input type="text" name="search_myfield" value="'.dol_escape_htmltag($search_myfield).'">';
 	$moreforfilter.= '</div>';*/
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
 	if (empty($resHook)) {
 		$moreforfilter .= $hookManager->resPrint;
@@ -751,7 +751,7 @@ if ($action != "create" && $action != "edit") {
 	// --------------------------------------------------------------------
 
 	$i = 0;
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
 	while ($i < ($limit ? min($num, $limit) : $num)) {
 		$obj = $db->fetch_object($resql);
@@ -809,7 +809,7 @@ if ($action != "create" && $action != "edit") {
 						$totalarray['pos'][$totalarray['nbfield']] = 't.' . $key;
 					}
 					if (!isset($totalarray['val'])) {
-						$totalarray['val'] = array();
+						$totalarray['val'] = [];
 					}
 					if (!isset($totalarray['val']['t.' . $key])) {
 						$totalarray['val']['t.' . $key] = 0;
@@ -901,7 +901,7 @@ if ($action != "create" && $action != "edit") {
 	print '<div class="fichecenter"><div class="fichehalfleft">';
 
 	// Show links to link elements
-	$tmparray = $form->showLinkToObjectBlock($object, array(), array('skill'), 1);
+	$tmparray = $form->showLinkToObjectBlock($object, [], array('skill'), 1);
 	$linktoelem = $tmparray['linktoelem'];
 	$htmltoenteralink = $tmparray['htmltoenteralink'];
 	print $htmltoenteralink;

@@ -242,7 +242,7 @@ print dol_get_fiche_end();
  */
 print "\n".'<div class="tabsAction">'."\n";
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 if (empty($resHook)) {
 	if ($action == '') {
@@ -293,7 +293,7 @@ if ($action == 'edit') {
 		}
 	}
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 	print '<br>';
@@ -363,7 +363,7 @@ if ($action == 'add' && ($user->hasRight('produit', 'creer') || $user->hasRight(
 	}
 	print '</table>';
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 	print dol_get_fiche_end();

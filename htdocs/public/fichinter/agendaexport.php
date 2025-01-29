@@ -91,7 +91,7 @@ if (GETPOST("type", 'alpha')) {
 	$type = GETPOST("type", 'alpha');
 }
 
-$filters = array();
+$filters = [];
 if (GETPOSTINT("year")) {
 	$filters['year'] = GETPOSTINT("year");
 }
@@ -438,7 +438,7 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 
 	if ($buildfile) {
 		// Build event array
-		$eventarray = array();
+		$eventarray = [];
 
 		$sql = "SELECT f.rowid,";
 		$sql .= " fd.date,"; // on récupère la date et la durée sur le détail d'inter pour avoir aussi l'heure
@@ -577,7 +577,7 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 				$qualified = true;
 
 				// 'eid','startdate','duration','enddate','title','summary','category','email','url','desc','author'
-				$event = array();
+				$event = [];
 				$event['uid'] = 'dolibarragenda-'.$db->database_name.'-'.$obj->id."@".$_SERVER["SERVER_NAME"];
 				$event['type'] = $type;
 
@@ -637,7 +637,7 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 				// $this->id = $obj->rowid;
 				// $this->fetch_userassigned(false);
 
-				// $assignedUserArray = array();
+				// $assignedUserArray = [];
 
 				// foreach ($this->userassigned as $key => $value) {
 				// 	$assignedUser = new User($db);

@@ -43,7 +43,7 @@ function import_prepare_head($param, $maxstep = 0)
 	}
 
 	$h = 0;
-	$head = array();
+	$head = [];
 	$i = 1;
 	while ($i <= $maxstep) {
 		if ($i < 6) {

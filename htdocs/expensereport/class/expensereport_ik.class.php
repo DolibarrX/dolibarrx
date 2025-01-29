@@ -160,7 +160,7 @@ class ExpenseReportIk extends CommonObject
 	 */
 	public function getTaxCategories($mode = 1)
 	{
-		$categories = array();
+		$categories = [];
 
 		$sql = 'SELECT rowid, label, entity, active';
 		$sql .= ' FROM '.MAIN_DB_PREFIX.'c_exp_tax_cat';
@@ -215,7 +215,7 @@ class ExpenseReportIk extends CommonObject
 	 */
 	public function getRangesByCategory(int $fk_c_exp_tax_cat, $active = 1)
 	{
-		$ranges = array();
+		$ranges = [];
 
 		dol_syslog(get_called_class().'::getRangesByCategory for fk_c_exp_tax_cat='.$fk_c_exp_tax_cat, LOG_DEBUG);
 
@@ -255,7 +255,7 @@ class ExpenseReportIk extends CommonObject
 	 */
 	public function getAllRanges()
 	{
-		$ranges = array();
+		$ranges = [];
 
 		$sql = ' SELECT r.rowid, r.fk_c_exp_tax_cat, r.range_ik, c.label, i.rowid as fk_expense_ik, r.active as range_active, c.active as cat_active';
 		$sql .= ' FROM '.MAIN_DB_PREFIX.'c_exp_tax_range r';
@@ -278,7 +278,7 @@ class ExpenseReportIk extends CommonObject
 				$obj->ik = $ik;
 
 				if (!isset($ranges[$obj->fk_c_exp_tax_cat])) {
-					$ranges[$obj->fk_c_exp_tax_cat] = array('label' => $obj->label, 'active' => $obj->cat_active, 'ranges' => array());
+					$ranges[$obj->fk_c_exp_tax_cat] = array('label' => $obj->label, 'active' => $obj->cat_active, 'ranges' => []);
 				}
 				$ranges[$obj->fk_c_exp_tax_cat]['ranges'][] = $obj;
 			}

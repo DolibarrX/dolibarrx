@@ -34,7 +34,7 @@ function marges_admin_prepare_head()
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT."/margin/admin/margin.php";
 	$head[$h][1] = $langs->trans("Parameters");
@@ -63,7 +63,7 @@ function marges_prepare_head()
 	$langs->load("margins");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	if ($user->hasRight('produit', 'lire')) {
 		$head[$h][0] = DOL_URL_ROOT."/margin/productMargins.php";

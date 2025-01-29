@@ -295,7 +295,7 @@ class ProductAttributeValue extends CommonObjectLine
 	 */
 	public function fetchAllByProductAttribute($prodattr_id, $only_used = false, $returnonlydata = 0)
 	{
-		$return = array();
+		$return = [];
 
 		$sql = "SELECT v.fk_product_attribute, v.rowid, v.ref, v.value FROM " . MAIN_DB_PREFIX . "product_attribute_value v ";
 

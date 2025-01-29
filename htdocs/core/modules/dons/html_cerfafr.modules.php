@@ -266,9 +266,9 @@ class html_cerfafr extends ModeleDon
 	 */
 	private function amountToLetters($montant, $devise1 = '', $devise2 = '')
 	{
-		$unite = array();
-		$dix = array();
-		$cent = array();
+		$unite = [];
+		$dix = [];
+		$cent = [];
 		if (empty($devise1)) {
 			$dev1 = 'euros';
 		} else {
@@ -295,9 +295,9 @@ class html_cerfafr extends ModeleDon
 		$chif = array('', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix', 'onze', 'douze', 'treize', 'quatorze', 'quinze', 'seize', 'dix sept', 'dix huit', 'dix neuf');
 		$secon_c = '';
 		$trio_c = '';
-		$prim = array();
-		$secon = array();
-		$trio = array();
+		$prim = [];
+		$secon = [];
+		$trio = [];
 		// @phpstan-ignore-next-line
 		'@phan-var string[] $prim
 		 @phan-var string[] $secon

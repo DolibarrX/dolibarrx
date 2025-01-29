@@ -77,7 +77,7 @@ $search_onsell = GETPOST('search_onsell', 'alpha');
 $search_onpurchase = GETPOST('search_onpurchase', 'alpha');
 
 if (!is_array($toselect)) {
-	$toselect = array();
+	$toselect = [];
 }
 
 $accounting_product_mode = GETPOST('accounting_product_mode', 'alpha');
@@ -115,7 +115,7 @@ if (empty($action)) {
 	$action = 'list';
 }
 
-$arrayfields = array();
+$arrayfields = [];
 
 $accounting_product_modes = array(
 	'ACCOUNTANCY_SELL',
@@ -163,7 +163,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -172,7 +172,7 @@ if ($resHook < 0) {
 // Purge search criteria
 if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')) { // All test are required to be compatible with all browsers
 	$searchCategoryProductOperator = 0;
-	$searchCategoryProductList = array();
+	$searchCategoryProductList = [];
 	$search_ref = '';
 	$search_label = '';
 	$search_desc = '';
@@ -181,7 +181,7 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_onpurchase = '';
 	$search_current_account = '';
 	$search_current_account_valid = '-1';
-	$toselect = array();
+	$toselect = [];
 }
 
 // Sales or Purchase mode ?
@@ -208,7 +208,7 @@ if ($action == 'update' && $permissiontobind) {
 			$accounting = new AccountingAccount($db);
 
 			//$msg .= '<div><span class="accountingprocessing">' . count($toselect) . ' ' . $langs->trans("SelectedLines") . '</span></div>';
-			$arrayofdifferentselectedvalues = array();
+			$arrayofdifferentselectedvalues = [];
 
 			$cpt = 0;
 			foreach ($toselect as $productid) {
@@ -326,7 +326,7 @@ foreach ($searchCategoryProductList as $searchCategoryProduct) {
 	$paramsCat .= "&search_category_product_list[]=".urlencode($searchCategoryProduct);
 }
 
-llxHeader('', $title, $help_url, '', 0, 0, array(), array(), $paramsCat, '');
+llxHeader('', $title, $help_url, '', 0, 0, [], [], $paramsCat, '');
 
 $pcgverid = getDolGlobalString('CHARTOFACCOUNTS');
 $pcgvercode = dol_getIdFromCode($db, $pcgverid, 'accounting_system', 'rowid', 'pcg_version');
@@ -364,7 +364,7 @@ if ($search_current_account_valid == 'withoutvalidaccount') {
 if ($search_current_account_valid == 'withvalidaccount') {
 	$sql .= " AND aa.account_number IS NOT NULL";
 }
-$searchCategoryProductSqlList = array();
+$searchCategoryProductSqlList = [];
 if ($searchCategoryProductOperator == 1) {
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
@@ -553,11 +553,11 @@ if ($resql) {
 	print_barre_liste($texte, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, '', 0, '', '', $limit, 0, 0, 1);
 
 	if ($massaction == 'set_default_account') {
-		$formquestion = array();
+		$formquestion = [];
 		$formquestion[] = array('type' => 'other',
 			'name' => 'set_default_account',
 			'label' => $langs->trans("AccountancyCode"),
-			'value' => $form->select_account('', 'default_account', 1, array(), 0, 0, 'maxwidth200 maxwidthonsmartphone', 'cachewithshowemptyone'));
+			'value' => $form->select_account('', 'default_account', 1, [], 0, 0, 'maxwidth200 maxwidthonsmartphone', 'cachewithshowemptyone'));
 		print $form->formconfirm($_SERVER["PHP_SELF"], $langs->trans("ConfirmPreselectAccount"), $langs->trans("ConfirmPreselectAccountQuestion", $nbselected), "confirm_set_default_account", $formquestion, 1, 0, 200, 500, 1);
 	}
 
@@ -576,7 +576,7 @@ if ($resql) {
 		$moreforfilter .= '</div>';
 	}
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($resHook)) {
 		$moreforfilter .= $hookManager->resPrint;
@@ -824,7 +824,7 @@ if ($resql) {
 			if (!empty($obj->aaid)) {
 				$defaultvalue = ''; // Do not suggest default new value is code is already valid
 			}
-			print $form->select_account(($default_account > 0 && $confirm === 'yes' && in_array($product_static->id, $toselect)) ? $default_account : $defaultvalue, 'codeventil_'.$product_static->id, 1, array(), 1, 0, 'maxwidth300 maxwidthonsmartphone productforselect');
+			print $form->select_account(($default_account > 0 && $confirm === 'yes' && in_array($product_static->id, $toselect)) ? $default_account : $defaultvalue, 'codeventil_'.$product_static->id, 1, [], 1, 0, 'maxwidth300 maxwidthonsmartphone productforselect');
 			print '</td>';
 		} elseif ($accounting_product_mode == 'ACCOUNTANCY_BUY_INTRA') {
 			// Accounting account buy intra (In EEC)
@@ -838,7 +838,7 @@ if ($resql) {
 			if (!empty($obj->aaid)) {
 				$defaultvalue = ''; // Do not suggest default new value is code is already valid
 			}
-			print $form->select_account(($default_account > 0 && $confirm === 'yes' && in_array($product_static->id, $toselect)) ? $default_account : $defaultvalue, 'codeventil_'.$product_static->id, 1, array(), 1, 0, 'maxwidth300 maxwidthonsmartphone productforselect');
+			print $form->select_account(($default_account > 0 && $confirm === 'yes' && in_array($product_static->id, $toselect)) ? $default_account : $defaultvalue, 'codeventil_'.$product_static->id, 1, [], 1, 0, 'maxwidth300 maxwidthonsmartphone productforselect');
 			print '</td>';
 		} elseif ($accounting_product_mode == 'ACCOUNTANCY_BUY_EXPORT') {
 			// Accounting account buy export (Out of EEC)
@@ -852,7 +852,7 @@ if ($resql) {
 			if (!empty($obj->aaid)) {
 				$defaultvalue = ''; // Do not suggest default new value is code is already valid
 			}
-			print $form->select_account(($default_account > 0 && $confirm === 'yes' && in_array($product_static->id, $toselect)) ? $default_account : $defaultvalue, 'codeventil_'.$product_static->id, 1, array(), 1, 0, 'maxwidth300 maxwidthonsmartphone productforselect');
+			print $form->select_account(($default_account > 0 && $confirm === 'yes' && in_array($product_static->id, $toselect)) ? $default_account : $defaultvalue, 'codeventil_'.$product_static->id, 1, [], 1, 0, 'maxwidth300 maxwidthonsmartphone productforselect');
 			print '</td>';
 		} elseif ($accounting_product_mode == 'ACCOUNTANCY_SELL') {
 			// Accounting account sell
@@ -866,7 +866,7 @@ if ($resql) {
 			if (!empty($obj->aaid)) {
 				$defaultvalue = ''; // Do not suggest default new value is code is already valid
 			}
-			print $form->select_account(($default_account > 0 && $confirm === 'yes' && in_array($product_static->id, $toselect)) ? $default_account : $defaultvalue, 'codeventil_'.$product_static->id, 1, array(), 1, 0, 'maxwidth300 maxwidthonsmartphone productforselect');
+			print $form->select_account(($default_account > 0 && $confirm === 'yes' && in_array($product_static->id, $toselect)) ? $default_account : $defaultvalue, 'codeventil_'.$product_static->id, 1, [], 1, 0, 'maxwidth300 maxwidthonsmartphone productforselect');
 			print '</td>';
 		} elseif ($accounting_product_mode == 'ACCOUNTANCY_SELL_INTRA') {
 			// Accounting account sell intra (In EEC)
@@ -880,7 +880,7 @@ if ($resql) {
 			if (!empty($obj->aaid)) {
 				$defaultvalue = ''; // Do not suggest default new value is code is already valid
 			}
-			print $form->select_account(($default_account > 0 && $confirm === 'yes' && in_array($product_static->id, $toselect)) ? $default_account : $defaultvalue, 'codeventil_'.$product_static->id, 1, array(), 1, 0, 'maxwidth300 maxwidthonsmartphone productforselect');
+			print $form->select_account(($default_account > 0 && $confirm === 'yes' && in_array($product_static->id, $toselect)) ? $default_account : $defaultvalue, 'codeventil_'.$product_static->id, 1, [], 1, 0, 'maxwidth300 maxwidthonsmartphone productforselect');
 			print '</td>';
 		} else {
 			// Accounting account sell export (Out of EEC)
@@ -893,7 +893,7 @@ if ($resql) {
 			if (!empty($obj->aaid)) {
 				$defaultvalue = ''; // Do not suggest default new value is code is already valid
 			}
-			print $form->select_account(($default_account > 0 && $confirm === 'yes' && in_array($product_static->id, $toselect)) ? $default_account : $defaultvalue, 'codeventil_'.$product_static->id, 1, array(), 1, 0, 'maxwidth300 maxwidthonsmartphone productforselect');
+			print $form->select_account(($default_account > 0 && $confirm === 'yes' && in_array($product_static->id, $toselect)) ? $default_account : $defaultvalue, 'codeventil_'.$product_static->id, 1, [], 1, 0, 'maxwidth300 maxwidthonsmartphone productforselect');
 			print '</td>';
 		}
 

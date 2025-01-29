@@ -366,7 +366,7 @@ class FichinterRec extends Fichinter
 	public function fetch_lines($sall = 0)
 	{
 		// phpcs:enable
-		$this->lines = array();
+		$this->lines = [];
 
 		$sql = 'SELECT l.rowid, l.fk_product, l.product_type as product_type, l.label as custom_label, l.description,';
 		$sql .= ' l.price, l.qty, l.tva_tx, l.remise_percent, l.subprice, l.duree, l.date,';

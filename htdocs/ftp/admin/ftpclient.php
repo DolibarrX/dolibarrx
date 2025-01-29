@@ -37,7 +37,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 $langs->loadLangs(array("admin", "other"));
 
-$def = array();
+$def = [];
 $lastftpentry = 0;
 
 $action = GETPOST('action', 'aZ09');
@@ -59,7 +59,7 @@ $sql .= " WHERE name like 'FTP_SERVER_%'";
 $result = $db->query($sql);
 if ($result) {
 	$obj = $db->fetch_object($result);
-	$reg = array();
+	$reg = [];
 	preg_match('/([0-9]+)$/i', $obj->name, $reg);
 	if (!empty($reg[1])) {
 		$lastftpentry = $reg[1];
@@ -247,7 +247,7 @@ if (!function_exists('ftp_connect')) {
 		while ($i < $num) {
 			$obj = $db->fetch_object($resql);
 
-			$reg = array();
+			$reg = [];
 			preg_match('/([0-9]+)$/i', $obj->name, $reg);
 			$idrss = $reg[0];
 			//print "x".join(',',$reg)."=".$obj->name."=".$idrss;

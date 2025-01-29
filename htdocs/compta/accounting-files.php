@@ -128,7 +128,7 @@ if ($user->socid > 0) {
 }
 
 // Define $arrayofentities if multientity is set.
-$arrayofentities = array();
+$arrayofentities = [];
 if (isModEnabled('multicompany') && is_object($mc)) {
 	$arrayofentities = $mc->getEntitiesList();
 }
@@ -166,7 +166,7 @@ $listofchoices = array(
 //$resHook = $hookManager->executeHooks('doActions', $parameters, $object); // Note that $object may have been modified by some hooks
 //if ($resHook < 0) setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 
-$filesarray = array();
+$filesarray = [];
 
 '@phan-var-force array<string,array{id:string,entity:string,date:string,date_due:string,paid:float|int,amount_ht:float|int,amount_ttc:float|int,amount_vat:float|int,amount_localtax1:float|int,amount_localtax2:float|int,amount_revenuestamp:float|int,ref:string,fk:string,item:string,thirdparty_name:string,thirdparty_code:string,country_code:string,vatnum:string,sens:string,currency:string,line?:string,name?:string,files?:mixed}> $filesarray';
 
@@ -328,7 +328,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 			//print $sql;
 
 			$resd = $db->query($sql);
-			$files = array();
+			$files = [];
 			$link = '';
 
 			if ($resd) {
@@ -416,7 +416,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 						//var_dump($upload_dir);
 						//var_dump($files);
 						if (count($files) < 1) {
-							$nofile = array();
+							$nofile = [];
 							$nofile['id'] = (int) $objd->id;
 							$nofile['entity'] = (int) $objd->entity;
 							$nofile['date'] = $db->jdate($objd->date);
@@ -472,7 +472,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 
 								// Add or concat file
 								if (empty($filesarray[$file['item'].'_'.$file['id']]['files'])) {
-									$filesarray[$file['item'].'_'.$file['id']]['files'] = array();
+									$filesarray[$file['item'].'_'.$file['id']]['files'] = [];
 								}
 								$filesarray[$file['item'].'_'.$file['id']]['files'][] = array(
 									'link' => $link.urlencode($file['name']),
@@ -628,7 +628,7 @@ $help_url = '';
 llxHeader('', $title, $help_url);
 
 $h = 0;
-$head = array();
+$head = [];
 $head[$h][0] = $_SERVER["PHP_SELF"];
 $head[$h][1] = $langs->trans("AccountantFiles");
 $head[$h][2] = 'AccountancyFiles';

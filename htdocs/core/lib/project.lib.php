@@ -43,7 +43,7 @@ function project_prepare_head(Project $project, $moreparam = '')
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/projet/card.php?id=' . ((int) $project->id) . ($moreparam ? '&' . $moreparam : '');
 	$head[$h][1] = $langs->trans("Project");
@@ -378,7 +378,7 @@ function task_prepare_head($object)
 {
 	global $db, $langs, $config, $user;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/projet/tasks/task.php?id=' . $object->id . (GETPOST('withproject') ? '&withproject=1' : '');
 	$head[$h][1] = $langs->trans("Task");
@@ -485,7 +485,7 @@ function project_timesheet_prepare_head($mode, $fuser = null)
 {
 	global $langs, $config, $user;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$param = '';
 	$param .= ($mode ? '&mode=' . $mode : '');
@@ -536,7 +536,7 @@ function project_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('projet_task');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/projet/admin/project.php";
 	$head[$h][1] = $langs->trans("Projects");
@@ -599,7 +599,7 @@ function project_admin_prepare_head()
  * @param   string[]    $arrayofselected        Array with selected fields
  * @return	int									Nb of tasks shown
  */
-function projectLinesa(&$inc, $parent, &$lines, &$level, $var, $showproject, &$taskrole, $projectsListId = '', $addordertick = 0, $projectidfortotallink = 0, $dummy = '', $showbilltime = 0, $arrayfields = array(), $arrayofselected = array())
+function projectLinesa(&$inc, $parent, &$lines, &$level, $var, $showproject, &$taskrole, $projectsListId = '', $addordertick = 0, $projectidfortotallink = 0, $dummy = '', $showbilltime = 0, $arrayfields = [], $arrayofselected = [])
 {
 	global $user, $langs, $config, $db, $hookManager;
 	global $projectstatic, $taskstatic, $extrafields;
@@ -612,7 +612,7 @@ function projectLinesa(&$inc, $parent, &$lines, &$level, $var, $showproject, &$t
 
 	$lastprojectid = 0;
 
-	$projectsArrayId = array();
+	$projectsArrayId = [];
 	if ($projectsListId) {
 		$projectsArrayId = explode(',', $projectsListId);
 	}
@@ -631,7 +631,7 @@ function projectLinesa(&$inc, $parent, &$lines, &$level, $var, $showproject, &$t
 		$total_projectlinesa_tobill = 0;
 		$total_projectlinesa_billed = 0;
 		$total_budget_amount = 0;
-		$totalarray = array();
+		$totalarray = [];
 	}
 
 	for ($i = 0; $i < $numlines; $i++) {
@@ -1197,9 +1197,9 @@ function projectLinesPerAction(&$inc, $parent, $fuser, $lines, &$level, &$projec
 	';
 
 	$lastprojectid = 0;
-	$totalforeachline = array();
-	$workloadforid = array();
-	$lineswithoutlevel0 = array();
+	$totalforeachline = [];
+	$workloadforid = [];
+	$lineswithoutlevel0 = [];
 
 	$numlines = count($lines);
 
@@ -1417,7 +1417,7 @@ function projectLinesPerAction(&$inc, $parent, $fuser, $lines, &$level, &$projec
  * @param	Extrafields	$extrafields		    Object extrafields
  * @return  array<int,int>						Array with time spent for $fuser for each day of week on tasks in $lines and subtasks
  */
-function projectLinesPerDay(&$inc, $parent, $fuser, $lines, &$level, &$projectsrole, &$tasksrole, $mine, $restricteditformytask, $preselectedday, &$isavailable, $oldprojectforbreak = 0, $arrayfields = array(), $extrafields = null)
+function projectLinesPerDay(&$inc, $parent, $fuser, $lines, &$level, &$projectsrole, &$tasksrole, $mine, $restricteditformytask, $preselectedday, &$isavailable, $oldprojectforbreak = 0, $arrayfields = [], $extrafields = null)
 {
 	global $config, $db, $user, $langs;
 	global $form, $formother, $projectstatic, $taskstatic, $thirdpartystatic;
@@ -1429,9 +1429,9 @@ function projectLinesPerDay(&$inc, $parent, $fuser, $lines, &$level, &$projectsr
 	';
 
 	$lastprojectid = 0;
-	$totalforeachday = array();
-	$workloadforid = array();
-	$lineswithoutlevel0 = array();
+	$totalforeachday = [];
+	$workloadforid = [];
+	$lineswithoutlevel0 = [];
 
 	$numlines = count($lines);
 
@@ -1820,7 +1820,7 @@ function projectLinesPerDay(&$inc, $parent, $fuser, $lines, &$level, &$projectsr
  * @param	Extrafields	$extrafields		    Object extrafields
  * @return  array<int,int>						Array with time spent for $fuser for each day of week on tasks in $lines and subtasks
  */
-function projectLinesPerWeek(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$level, &$projectsrole, &$tasksrole, $mine, $restricteditformytask, &$isavailable, $oldprojectforbreak = 0, $arrayfields = array(), $extrafields = null)
+function projectLinesPerWeek(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$level, &$projectsrole, &$tasksrole, $mine, $restricteditformytask, &$isavailable, $oldprojectforbreak = 0, $arrayfields = [], $extrafields = null)
 {
 	global $config, $db, $user, $langs;
 	global $form, $formother, $projectstatic, $taskstatic, $thirdpartystatic;
@@ -1834,9 +1834,9 @@ function projectLinesPerWeek(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$
 	$numlines = count($lines);
 
 	$lastprojectid = 0;
-	$workloadforid = array();
-	$totalforeachday = array();
-	$lineswithoutlevel0 = array();
+	$workloadforid = [];
+	$totalforeachday = [];
+	$lineswithoutlevel0 = [];
 
 	// Create a smaller array with sublevels only to be used later. This increase dramatically performances.
 	if ($parent == 0) { // Always and only if at first level
@@ -2227,7 +2227,7 @@ function projectLinesPerWeek(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$
  * @param	Extrafields	$extrafields		    Object extrafields
  * @return  array<string,int>					Array with time spent for $fuser for each day of week on tasks in $lines and subtasks (index is string, month is '01', ...)
  */
-function projectLinesPerMonth(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$level, &$projectsrole, &$tasksrole, $mine, $restricteditformytask, &$isavailable, $oldprojectforbreak = 0, $TWeek = array(), $arrayfields = array(), $extrafields = null)
+function projectLinesPerMonth(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$level, &$projectsrole, &$tasksrole, $mine, $restricteditformytask, &$isavailable, $oldprojectforbreak = 0, $TWeek = [], $arrayfields = [], $extrafields = null)
 {
 	global $config, $db, $user, $langs;
 	global $form, $formother, $projectstatic, $taskstatic, $thirdpartystatic;
@@ -2241,9 +2241,9 @@ function projectLinesPerMonth(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &
 	$numlines = count($lines);
 
 	$lastprojectid = 0;
-	$workloadforid = array();
-	$totalforeachweek = array();
-	$lineswithoutlevel0 = array();
+	$workloadforid = [];
+	$totalforeachweek = [];
+	$lineswithoutlevel0 = [];
 
 	// Create a smaller array with sublevels only to be used later. This increase dramatically performances.
 	if ($parent == 0) { // Always and only if at first level
@@ -2562,7 +2562,7 @@ function searchTaskInChild(&$inc, $parent, &$lines, &$taskrole)
  * @param	int<0,max>	$max				Max nb of record to show in HTML list
  * @return	void
  */
-function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks = 0, $status = -1, $listofoppstatus = array(), $hiddenfields = array(), $max = 0)
+function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks = 0, $status = -1, $listofoppstatus = [], $hiddenfields = [], $max = 0)
 {
 	global $langs, $config, $user;
 	global $theme_datacolor;
@@ -2576,7 +2576,7 @@ function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks 
 	if (is_array($listofstatus) && getDolGlobalString('USE_COLOR_FOR_PROSPECTION_STATUS')) {
 		// Define $themeColorId and array $statusOppList for each $listofstatus
 		$themeColorId = 0;
-		$statusOppList = array();
+		$statusOppList = [];
 		foreach ($listofstatus as $oppStatus) {
 			$oppStatusCode = dol_getIdFromCode($db, $oppStatus, 'c_lead_status', 'rowid', 'code');
 			if ($oppStatusCode) {
@@ -2639,7 +2639,7 @@ function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks 
 	}
 
 	// Get id of project we must show tasks
-	$arrayidofprojects = array();
+	$arrayidofprojects = [];
 	$alttext = '';
 	$sql1 = "SELECT p.rowid as projectid";
 	$sql1 .= $sql;

@@ -92,7 +92,7 @@ $permissiontodelete = $user->hasRight('bank', 'modifier');
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -384,7 +384,7 @@ if ($action == 'create') {
 $help_url = 'EN:Module_Suppliers_Invoices|FR:Module_Fournisseurs_Factures|ES:Módulo_Facturas_de_proveedores|DE:Modul_Lieferantenrechnungen';
 llxHeader('', $title, $help_url);
 
-$options = array();
+$options = [];
 
 // Load bank groups
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/bankcateg.class.php';
@@ -519,7 +519,7 @@ if ($action == 'create') {
 	}
 
 	// Other attributes
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
@@ -538,7 +538,7 @@ if ($action == 'create') {
 		// TODO Remove the fieldrequired and allow instead to edit a various payment to enter accounting code
 		print '<tr><td class="titlefieldcreate fieldrequired">'.$langs->trans("AccountAccounting").'</td>';
 		print '<td>';
-		print $formaccounting->select_account($accountancy_code, 'accountancy_code', 1, array(), 1, 1);
+		print $formaccounting->select_account($accountancy_code, 'accountancy_code', 1, [], 1, 1);
 		print '</td></tr>';
 	} else { // For external software
 		print '<tr><td class="titlefieldcreate">'.$langs->trans("AccountAccounting").'</td>';

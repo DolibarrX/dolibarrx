@@ -72,7 +72,7 @@ class modOrder extends DolibarrModules
 		// Dependencies
 		$this->depends = array("modSociete");
 		$this->requiredby = array("modExpedition");
-		$this->conflictwith = array();
+		$this->conflictwith = [];
 		$this->langfiles = array('orders', 'bills', 'companies', 'products', 'deliveries', 'sendings');
 
 		// Constants
@@ -113,7 +113,7 @@ class modOrder extends DolibarrModules
 		);
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'order';
 
 		$r = 0;
@@ -306,7 +306,7 @@ class modOrder extends DolibarrModules
 		$this->import_code[$r] = 'order_'.$r;
 		$this->import_label[$r] = 'CustomersOrders';
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array();
+		$this->import_entities_array[$r] = [];
 		$this->import_tables_array[$r] = array('c' => MAIN_DB_PREFIX.'order', 'extra' => MAIN_DB_PREFIX.'order_extrafields');
 		$this->import_tables_creator_array[$r] = array('c' => 'fk_user_author'); // Fields to store import user id
 		$import_sample = array('c.facture' => '0 or 1');
@@ -340,7 +340,7 @@ class modOrder extends DolibarrModules
 			$this->import_fields_array[$r]['c.multicurrency_total_tva'] = 'MulticurrencyAmountVAT';
 			$this->import_fields_array[$r]['c.multicurrency_total_ttc'] = 'MulticurrencyAmountTTC';
 		}
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$keyforselect = 'order';
 		$keyforelement = 'order';
 		$keyforaliasextra = 'extra';
@@ -388,7 +388,7 @@ class modOrder extends DolibarrModules
 		$this->import_code[$r] = 'order_lines_'.$r;
 		$this->import_label[$r] = 'SaleOrderLines';
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array();
+		$this->import_entities_array[$r] = [];
 		$this->import_tables_array[$r] = array('cd' => MAIN_DB_PREFIX.'orderdet', 'extra' => MAIN_DB_PREFIX.'orderdet_extrafields');
 		$this->import_fields_array[$r] = array(
 			'cd.fk_order'    => 'CustomerOrder*',
@@ -418,7 +418,7 @@ class modOrder extends DolibarrModules
 			$this->import_fields_array[$r]['cd.multicurrency_total_ttc'] = 'MulticurrencyAmountTTC';
 		}
 
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$keyforselect = 'orderdet';
 		$keyforelement = 'orderline';
 		$keyforaliasextra = 'extra';

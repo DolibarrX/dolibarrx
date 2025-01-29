@@ -85,7 +85,7 @@ function dolGetModulesDirs($subdir = '')
 {
 	global $config;
 
-	$modulesdir = array();
+	$modulesdir = [];
 
 	foreach ($config->file->dol_document_root as $type => $dirroot) {
 		// Default core/modules dir
@@ -771,7 +771,7 @@ function clean_url($url, $http = 1)
 	// Fixed by Matelli (see http://matelli.fr/showcases/patch%73-dolibarr/fix-cleaning-url.html)
 	// To include the minus sign in a char class, we must not escape it but put it at the end of the class
 	// Also, there's no need of escape a dot sign in a class
-	$regs = array();
+	$regs = [];
 	if (preg_match('/^(https?:[\\/]+)?([0-9A-Z.-]+\.[A-Z]{2,4})(:[0-9]+)?/i', $url, $regs)) {
 		$proto = $regs[1];
 		$domain = $regs[2];
@@ -946,7 +946,7 @@ function get_next_value($db, $mask, $table, $field, $where = '', $objsoc = '', $
 	$maskrefclient_maskclientcode = '';
 	$maskrefclient_maskoffset = '';
 
-	$reg = array();
+	$reg = [];
 	// Extract value for mask counter, mask raz and mask offset
 	if (preg_match('/\{(0+)([@\+][0-9\-\+\=]+)?([@\+][0-9\-\+\=]+)?\}/i', $mask, $reg)) {
 		$masktri = $reg[1] . (!empty($reg[2]) ? $reg[2] : '') . (!empty($reg[3]) ? $reg[3] : '');
@@ -966,7 +966,7 @@ function get_next_value($db, $mask, $table, $field, $where = '', $objsoc = '', $
 	}
 
 	// Extract value for third party mask counter
-	$regClientRef = array();
+	$regClientRef = [];
 	if (preg_match('/\{(c+)(0*)\}/i', $mask, $regClientRef)) {
 		$maskrefclient = $regClientRef[1] . $regClientRef[2];
 		$maskrefclient_maskclientcode = $regClientRef[1];
@@ -988,7 +988,7 @@ function get_next_value($db, $mask, $table, $field, $where = '', $objsoc = '', $
 	}
 
 	// Extract value for third party type
-	$regType = array();
+	$regType = [];
 	if (preg_match('/\{(t+)\}/i', $mask, $regType)) {
 		$masktype = $regType[1];
 		$masktype_value = dol_substr(preg_replace('/^TE_/', '', $objsoc->typent_code), 0, dol_strlen($regType[1])); // get n first characters of thirdparty typent_code (where n is length in mask)
@@ -999,7 +999,7 @@ function get_next_value($db, $mask, $table, $field, $where = '', $objsoc = '', $
 	}
 
 	// Extract value for user
-	$regType = array();
+	$regType = [];
 	if (preg_match('/\{(u+)\}/i', $mask, $regType)) {
 		$lastname = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
 		if (is_object($objuser)) {
@@ -1015,10 +1015,10 @@ function get_next_value($db, $mask, $table, $field, $where = '', $objsoc = '', $
 	}
 
 	// Personalized field {XXX-1} à {XXX-99}
-	$maskperso = array();
-	$maskpersonew = array();
+	$maskperso = [];
+	$maskpersonew = [];
 	$tmpmask = $mask;
-	$regKey = array();
+	$regKey = [];
 	while (preg_match('/\{([A-Z]+)\-([0-9]+)\}/', $tmpmask, $regKey)) {
 		$maskperso[$regKey[1]] = '{' . $regKey[1] . '-' . $regKey[2] . '}';
 		// @phan-suppress-next-line PhanParamSuspiciousOrder
@@ -1488,7 +1488,7 @@ function check_value($mask, $value)
 	$maskrefclient_maskcounter = '';
 
 	// Extract value for mask counter, mask raz and mask offset
-	$reg = array();
+	$reg = [];
 	if (preg_match('/\{(0+)([@\+][0-9]+)?([@\+][0-9]+)?\}/i', $mask, $reg)) {
 		$masktri = $reg[1] . (isset($reg[2]) ? $reg[2] : '') . (isset($reg[3]) ? $reg[3] : '');
 		$maskcounter = $reg[1];
@@ -1505,7 +1505,7 @@ function check_value($mask, $value)
 	}
 
 	// Extract value for third party mask counter
-	$regClientRef = array();
+	$regClientRef = [];
 	if (preg_match('/\{(c+)(0*)\}/i', $mask, $regClientRef)) {
 		$maskrefclient = $regClientRef[1] . $regClientRef[2];
 		$maskrefclient_maskclientcode = $regClientRef[1];
@@ -1868,7 +1868,7 @@ function version_os($option = '')
  * 	Return PHP version
  *
  * 	@return		string			PHP version
- *  @see		versionphparray(), versioncompare()
+ *  @see		versionphp[], versioncompare()
  */
 function version_php()
 {
@@ -1893,7 +1893,7 @@ function version_db()
  * 	Return Dolibarr version
  *
  * 	@return		string			Dolibarr version
- *  @see		versiondolibarrarray(), versioncompare()
+ *  @see		versiondolibarr[], versioncompare()
  */
 function version_dolibarr()
 {
@@ -1921,7 +1921,7 @@ function version_webserver()
 function getListOfModels($db, $type, $maxfilenamelength = 0)
 {
 	global $config, $langs;
-	$liste = array();
+	$liste = [];
 	$found = 0;
 	$dirtoscan = '';
 
@@ -1949,7 +1949,7 @@ function getListOfModels($db, $type, $maxfilenamelength = 0)
 				$const = $obj->description;
 				$dirtoscan = preg_replace('/[\r\n]+/', ',', trim(getDolGlobalString($const)));
 
-				$listoffiles = array();
+				$listoffiles = [];
 
 				// Now we add models found in directories scanned
 				$listofdir = explode(',', $dirtoscan);
@@ -1962,7 +1962,7 @@ function getListOfModels($db, $type, $maxfilenamelength = 0)
 					}
 					if (is_dir($tmpdir)) {
 						// all type of template is allowed
-						$tmpfiles = dol_dir_list($tmpdir, 'files', 0, '', array(), 'name', SORT_ASC, 0);
+						$tmpfiles = dol_dir_list($tmpdir, 'files', 0, '', [], 'name', SORT_ASC, 0);
 						if (count($tmpfiles)) {
 							$listoffiles = array_merge($listoffiles, $tmpfiles);
 						}
@@ -2071,7 +2071,7 @@ function getSoapParams()
 {
 	global $config;
 
-	$params = array();
+	$params = [];
 	$proxyuse = getDolGlobalString('MAIN_PROXY_USE');
 	$proxyhost = (!$proxyuse ? false : $config->global->MAIN_PROXY_HOST);
 	$proxyport = (!$proxyuse ? false : $config->global->MAIN_PROXY_PORT);
@@ -2121,7 +2121,7 @@ function dolGetElementUrl($objectid, $objecttype, $withPicture = 0, $option = ''
 	global $db, $config, $langs;
 
 	$ret = '';
-	$regs = array();
+	$regs = [];
 
 	// If we ask a resource form external module (instead of default path)
 	if (preg_match('/^([^@]+)@([^@]+)$/i', $objecttype, $regs)) {
@@ -2279,8 +2279,8 @@ function dolGetElementUrl($objectid, $objecttype, $withPicture = 0, $option = ''
 function cleanCorruptedTree($db, $tabletocleantree, $fieldfkparent)
 {
 	$totalnb = 0;
-	$listofid = array();
-	$listofparentid = array();
+	$listofid = [];
+	$listofparentid = [];
 
 	// Get list of all id in array listofid and all parents in array listofparentid
 	$sql = "SELECT rowid, " . $fieldfkparent . " as parent_id FROM " . MAIN_DB_PREFIX . $tabletocleantree;
@@ -2317,13 +2317,13 @@ function cleanCorruptedTree($db, $tabletocleantree, $fieldfkparent)
 		//else dol_print_error($db);
 
 		// Check other loops
-		$listofidtoclean = array();
+		$listofidtoclean = [];
 		foreach ($listofparentid as $id => $pid) {
 			// Check depth
 			//print 'Analyse record id='.$id.' with parent '.$pid.'<br>';
 
 			$cursor = $id;
-			$arrayidparsed = array(); // We start from child $id
+			$arrayidparsed = []; // We start from child $id
 			while ($cursor > 0) {
 				$arrayidparsed[$cursor] = 1;
 				if ($arrayidparsed[$listofparentid[$cursor]]) {	// We detect a loop. A record with a parent that was already into child
@@ -2416,7 +2416,7 @@ function colorStringToArray($stringcolor, $colorifnotfound = array(88, 88, 88))
 	if (is_array($stringcolor)) {
 		return $stringcolor; // If already in the correct output format, we return as is
 	}
-	$reg = array();
+	$reg = [];
 	$tmp = preg_match('/^#?([0-9a-fA-F][0-9a-fA-F])([0-9a-fA-F][0-9a-fA-F])([0-9a-fA-F][0-9a-fA-F])$/', $stringcolor, $reg);
 	if (!$tmp) {
 		$tmp = array_map('intval', explode(',', $stringcolor));
@@ -2569,7 +2569,7 @@ function colorHexToRgb($hex, $alpha = false, $returnArray = false)
 	$string = '';
 	$hex = str_replace('#', '', $hex);
 	$length = strlen($hex);
-	$rgb = array();
+	$rgb = [];
 	$rgb['r'] = hexdec($length == 6 ? substr($hex, 0, 2) : ($length == 3 ? str_repeat(substr($hex, 0, 1), 2) : 0));
 	$rgb['g'] = hexdec($length == 6 ? substr($hex, 2, 2) : ($length == 3 ? str_repeat(substr($hex, 1, 1), 2) : 0));
 	$rgb['b'] = hexdec($length == 6 ? substr($hex, 4, 2) : ($length == 3 ? str_repeat(substr($hex, 2, 1), 2) : 0));
@@ -2657,10 +2657,10 @@ function cartesianArray(array $input)
 	// filter out empty values
 	$input = array_filter($input);
 
-	$result = array(array());
+	$result = array([]);
 
 	foreach ($input as $key => $values) {
-		$append = array();
+		$append = [];
 
 		foreach ($result as $product) {
 			foreach ($values as $item) {

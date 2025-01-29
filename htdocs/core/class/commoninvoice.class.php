@@ -437,7 +437,7 @@ abstract class CommonInvoice extends CommonObject
 	 */
 	public function getListIdAvoirFromInvoice()
 	{
-		$idarray = array();
+		$idarray = [];
 
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".$this->db->prefix().$this->table_element;
@@ -506,7 +506,7 @@ abstract class CommonInvoice extends CommonObject
 	 */
 	public function getListOfOpenDirectDebitOrCreditTransfer($type)
 	{
-		$listofopendirectdebitorcredittransfer = array();
+		$listofopendirectdebitorcredittransfer = [];
 
 		// TODO Add a cache to store array of open requests for each invoice ID
 
@@ -560,7 +560,7 @@ abstract class CommonInvoice extends CommonObject
 	 */
 	public function getListOfPayments($filtertype = '', $multicurrency = 0, $mode = 0)
 	{
-		$retarray = array();
+		$retarray = [];
 		$this->error = '';	// By default no error, list can be empty.
 
 		$table = 'paiement_facture';
@@ -617,7 +617,7 @@ abstract class CommonInvoice extends CommonObject
 			} else {
 				$this->error = $this->db->lasterror();
 				dol_print_error($this->db);
-				return array();
+				return [];
 			}
 		}
 
@@ -653,13 +653,13 @@ abstract class CommonInvoice extends CommonObject
 				} else {
 					$this->error = $this->db->lasterror();
 					dol_print_error($this->db);
-					return array();
+					return [];
 				}
 				$this->db->free($resql);
 			} else {
 				$this->error = $this->db->lasterror();
 				dol_print_error($this->db);
-				return array();
+				return [];
 			}
 		}
 
@@ -871,7 +871,7 @@ abstract class CommonInvoice extends CommonObject
 	{
 		global $mysoc;
 
-		$effs = array();
+		$effs = [];
 
 		$sql = "SELECT rowid, code, label as label";
 		$sql .= " FROM " . MAIN_DB_PREFIX . 'c_invoice_subtype';
@@ -1820,7 +1820,7 @@ abstract class CommonInvoice extends CommonObject
 		$totalTTCString = number_format($this->total_ttc, 2, '.', '');
 
 		// Initialize an array to hold the lines of the QR code
-		$lines = array();
+		$lines = [];
 
 		// Add the standard elements to the QR code
 		$lines = [

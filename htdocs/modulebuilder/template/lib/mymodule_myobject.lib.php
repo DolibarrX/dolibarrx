@@ -39,7 +39,7 @@ function myobjectPrepareHead($object)
 	$showtabofpageagenda = 1;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath("/mymodule/myobject_card.php", 1).'?id='.$object->id;
 	$head[$h][1] = $langs->trans("MyObject");

@@ -209,14 +209,14 @@ if ($object->fk_user_creat) {
 
 $title = $object->title." - ".$langs->trans('Card');
 $helpurl = '';
-$arrayofjs = array();
+$arrayofjs = [];
 $arrayofcss = array('/opensurvey/css/style.css');
 llxHeader('', $title, $helpurl, '', 0, 0, $arrayofjs, $arrayofcss);
 
 
 // Define format of choices
 $toutsujet = explode(",", $object->sujet);
-$listofanswers = array();
+$listofanswers = [];
 foreach ($toutsujet as $value) {
 	$tmp = explode('@', $value);
 	$listofanswers[] = array('label' => $tmp[0], 'format' => (!empty($tmp[1]) ? $tmp[1] : 'checkbox'));
@@ -358,7 +358,7 @@ print ajax_autoselect("opensurveyurl", $url, 'image');
 print '</td></tr>';
 
 // Other attributes
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 

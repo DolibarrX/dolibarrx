@@ -310,7 +310,7 @@ if ($action == 'create_updater' || $action == 'edit_updater') {
 	//Code
 	print '<tr>';
 	print '<td class="fieldrequired">'.$langs->trans("VariableToUpdate").'</td><td>';
-	$globals_list = array();
+	$globals_list = [];
 	foreach ($price_globals->listGlobalVariables() as $entry) {
 		$globals_list[$entry->id] = $entry->code;
 	}
@@ -325,7 +325,7 @@ if ($action == 'create_updater' || $action == 'edit_updater') {
 	print '<tr>';
 	print '<td class="fieldrequired">'.$langs->trans("Type").'</td><td>';
 	$type = empty($price_updaters->type) ? 0 : $price_updaters->type;
-	$type_list = array();
+	$type_list = [];
 	foreach ($price_updaters->types as $val) {
 		$type_list[$val] = $langs->trans("GlobalVariableUpdaterType".$val);
 	}

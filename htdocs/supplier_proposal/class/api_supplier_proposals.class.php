@@ -136,7 +136,7 @@ class SupplierProposals extends DolibarrApi
 			$this->supplier_proposal->$field = $value;
 		}
 		/*if (isset($request_data["lines"])) {
-		  $lines = array();
+		  $lines = [];
 		  foreach ($request_data["lines"] as $line) {
 			array_push($lines, (object) $line);
 		  }
@@ -226,7 +226,7 @@ class SupplierProposals extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $thirdparty_ids param is ignored and replaced by user's socid
 		$socids = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $thirdparty_ids;
@@ -322,7 +322,7 @@ class SupplierProposals extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$propal = array();
+		$propal = [];
 		foreach (SupplierProposals::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

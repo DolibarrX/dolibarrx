@@ -87,13 +87,13 @@ if (!$error && $massaction == 'confirm_presend_attendees') {
 	$langs->load("mails");
 	include_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 
-	$listofobjectid = array();
+	$listofobjectid = [];
 
-	$listofobjectref = array();
+	$listofobjectref = [];
 	$oneemailperrecipient = (GETPOSTINT('oneemailperrecipient') ? 1 : 0);
 
-	$listofselectedid = array();
-	$listofselectedref = array();
+	$listofselectedid = [];
+	$listofselectedref = [];
 	if (!$error) {
 		require_once DOL_DOCUMENT_ROOT . '/eventorganization/class/conferenceorboothattendee.class.php';
 		$attendee = new ConferenceOrBoothAttendee($db);
@@ -129,7 +129,7 @@ if (!$error && $massaction == 'confirm_presend_attendees') {
 	$receiver = GETPOST('receiver', 'alphawithlgt');
 	if (!is_array($receiver)) {
 		if (empty($receiver) || $receiver == '-1') {
-			$receiver = array();
+			$receiver = [];
 		} else {
 			$receiver = array($receiver);
 		}
@@ -152,7 +152,7 @@ if (!$error && $massaction == 'confirm_presend_attendees') {
 			$sendto = '';
 			$sendtocc = '';
 			$sendtobcc = '';
-			$sendtoid = array();
+			$sendtoid = [];
 
 			// Define $sendto
 			$sendto = $attendees->thirdparty->name . '<' . trim($attendees->email) . '>';
@@ -161,12 +161,12 @@ if (!$error && $massaction == 'confirm_presend_attendees') {
 			$receivercc = GETPOST('receivercc', 'alphawithlgt');
 			if (!is_array($receivercc)) {
 				if ($receivercc == '-1') {
-					$receivercc = array();
+					$receivercc = [];
 				} else {
 					$receivercc = array($receivercc);
 				}
 			}
-			$tmparray = array();
+			$tmparray = [];
 			if (trim(GETPOST('sendtocc', 'alphawithlgt'))) {
 				$tmparray[] = trim(GETPOST('sendtocc', 'alphawithlgt'));
 			}
@@ -175,7 +175,7 @@ if (!$error && $massaction == 'confirm_presend_attendees') {
 
 			$langs->load("commercial");
 
-			$reg = array();
+			$reg = [];
 			$fromtype = GETPOST('fromtype');
 			if ($fromtype === 'user') {
 				$from = $user->getFullName($langs) . ' <' . $user->email . '>';
@@ -239,7 +239,7 @@ if (!$error && $massaction == 'confirm_presend_attendees') {
 
 			// Send mail (substitutionarray must be done just before this)
 			require_once DOL_DOCUMENT_ROOT . '/core/class/CMailFile.class.php';
-			$mailfile = new CMailFile($subjectreplaced, $sendto, $from, $messagereplaced, array(), array(), array(), $sendtocc, $sendtobcc, $deliveryreceipt, -1, '', '', "attendees_".$attendees->id, '', $sendcontext);
+			$mailfile = new CMailFile($subjectreplaced, $sendto, $from, $messagereplaced, [], [], [], $sendtocc, $sendtobcc, $deliveryreceipt, -1, '', '', "attendees_".$attendees->id, '', $sendcontext);
 			if ($mailfile->error) {
 				$resaction .= '<div class="error">' . $mailfile->error . '</div>';
 			} else {

@@ -106,7 +106,7 @@ $permissiondellink = $user->hasRight('expedition', 'delivery', 'creer'); // Used
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);       // Note that $action and $object may have been modified by some hooks
 // Delete Link
 $permissiondellink = $user->hasRight('expedition', 'delivery', 'supprimer'); // Used by the include of actions_dellink.inc.php
@@ -232,7 +232,7 @@ if ($action == 'update_extras' && $permissiontoadd) {
 
 // Extrafields line
 if ($action == 'update_extras_line' && $permissiontoadd) {
-	$array_options = array();
+	$array_options = [];
 	$num = count($object->lines);
 
 	for ($i = 0; $i < $num; $i++) {

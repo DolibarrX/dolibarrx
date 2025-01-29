@@ -353,7 +353,7 @@ if ($modulepart == 'barcode') {
 	}
 
 	// If $code is virtualcard_xxx_999.vcf, it is a file to read to get code
-	$reg = array();
+	$reg = [];
 	if (preg_match('/^virtualcard_([^_]+)_(\d+)\.vcf$/', $code, $reg)) {
 		$vcffile = '';
 		if ($reg[1] == 'user') {

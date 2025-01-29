@@ -58,7 +58,7 @@ function checkLinkedElements($sourcetype, $targettype)
 {
 	global $db, $langs;
 
-	$elements = array();
+	$elements = [];
 	$deleted = 0;
 
 	$sourcetable = $sourcetype;

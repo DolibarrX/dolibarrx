@@ -47,7 +47,7 @@ $confirm = GETPOST('confirm', 'alpha');
 
 $id = GETPOSTINT('id');
 $ref = GETPOST('ref', 'alpha');
-$amounts = array();
+$amounts = [];
 
 $object = new Salary($db);
 if ($id > 0 || !empty($ref)) {

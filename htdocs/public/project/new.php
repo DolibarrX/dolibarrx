@@ -172,7 +172,7 @@ function llxFooterVierge()
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 // Note that $action and $object may have been modified by some hooks
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($resHook < 0) {
@@ -397,7 +397,7 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 					if ($subjecttosend && $texttosend) {
 						$moreinheader = 'X-Dolibarr-Info: send_an_email by public/lead/new.php'."\r\n";
 
-						$result = $object->sendEmail($texttosend, $subjecttosend, array(), array(), array(), "", "", 0, -1, '', $moreinheader);
+						$result = $object->sendEmail($texttosend, $subjecttosend, [], [], [], "", "", 0, -1, '', $moreinheader);
 					}
 					/*if ($result < 0) {
 						$error++;

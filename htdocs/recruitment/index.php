@@ -102,9 +102,9 @@ if ($config->use_javascript_ajax) {
 		$i = 0;
 
 		$totalnb = 0;
-		$dataseries = array();
-		$colorseries = array();
-		$vals = array();
+		$dataseries = [];
+		$colorseries = [];
+		$vals = [];
 
 		include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 
@@ -180,9 +180,9 @@ if ($config->use_javascript_ajax) {
 		$i = 0;
 
 		$totalnb = 0;
-		$dataseries = array();
-		$colorseries = array();
-		$vals = array();
+		$dataseries = [];
+		$colorseries = [];
+		$vals = [];
 
 		include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 

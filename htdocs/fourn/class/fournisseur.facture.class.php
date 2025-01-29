@@ -240,13 +240,13 @@ class FactureFournisseur extends CommonInvoice
 	/**
 	 * @var array<string,string>  (Encoded as JSON in database)
 	 */
-	public $extraparams = array();
+	public $extraparams = [];
 
 	/**
 	 * Invoice lines
 	 * @var CommonInvoiceLine[]
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @deprecated
@@ -1009,7 +1009,7 @@ class FactureFournisseur extends CommonInvoice
 				$this->multicurrency_total_tva = $obj->multicurrency_total_tva;
 				$this->multicurrency_total_ttc = $obj->multicurrency_total_ttc;
 
-				$this->extraparams = isset($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : array();
+				$this->extraparams = isset($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : [];
 
 				$this->socid  = $obj->socid;
 
@@ -1046,7 +1046,7 @@ class FactureFournisseur extends CommonInvoice
 	public function fetch_lines()
 	{
 		// phpcs:enable
-		$this->lines = array();
+		$this->lines = [];
 
 		$sql = 'SELECT f.rowid, f.ref as ref_supplier, f.description as line_desc, f.date_start, f.date_end, f.pu_ht, f.pu_ttc, f.qty, f.remise_percent, f.vat_src_code, f.tva_tx';
 		$sql .= ', f.localtax1_tx, f.localtax2_tx, f.localtax1_type, f.localtax2_type, f.total_localtax1, f.total_localtax2, f.fk_facture_fourn, f.fk_remise_except';
@@ -1475,7 +1475,7 @@ class FactureFournisseur extends CommonInvoice
 
 			// If invoice has consumned discounts
 			$this->fetch_lines();
-			$list_rowid_det = array();
+			$list_rowid_det = [];
 			foreach ($this->lines as $key => $invoiceline) {
 				$list_rowid_det[] = $invoiceline->id;
 			}
@@ -2209,7 +2209,7 @@ class FactureFournisseur extends CommonInvoice
 			$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $mysoc, $this->thirdparty);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -2404,7 +2404,7 @@ class FactureFournisseur extends CommonInvoice
 
 		$localtaxes_type = getLocalTaxesFromRate($vatrate, 0, $mysoc, $this->thirdparty);
 
-		$reg = array();
+		$reg = [];
 
 		// Clean vat code
 		$vat_src_code = '';
@@ -2612,7 +2612,7 @@ class FactureFournisseur extends CommonInvoice
 		// phpcs:enable
 		global $config;
 
-		$return = array();
+		$return = [];
 
 		$sql = "SELECT f.rowid as rowid, f.ref, f.fk_statut,";
 		$sql .= " ff.rowid as rowidnext";
@@ -2662,7 +2662,7 @@ class FactureFournisseur extends CommonInvoice
 		// phpcs:enable
 		global $config;
 
-		$return = array();
+		$return = [];
 
 		$sql = "SELECT f.rowid as rowid, f.ref, f.fk_statut, f.type, f.subtype, f.paye, pf.fk_paiementfourn";
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
@@ -3035,7 +3035,7 @@ class FactureFournisseur extends CommonInvoice
 
 		// Load array of products prodids
 		$num_prods = 0;
-		$prodids = array();
+		$prodids = [];
 
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product";
@@ -3128,7 +3128,7 @@ class FactureFournisseur extends CommonInvoice
 	{
 		global $config, $user;
 
-		$this->nb = array();
+		$this->nb = [];
 
 		$clause = "WHERE";
 
@@ -3460,7 +3460,7 @@ class FactureFournisseur extends CommonInvoice
 		$nbMailSend = 0;
 
 		$error = 0;
-		$errorsMsg = array();
+		$errorsMsg = [];
 
 		$langs->load('bills');
 
@@ -3574,7 +3574,7 @@ class FactureFournisseur extends CommonInvoice
 						$sendContent = make_substitutions($content, $substitutionArray, $outputlangs, 1);
 
 						// Recipient
-						$to = array();
+						$to = [];
 						if ($forcerecipient) {	// If a recipient was forced
 							$to = array($forcerecipient);
 						} else {
@@ -3637,7 +3637,7 @@ class FactureFournisseur extends CommonInvoice
 							}
 
 							// Mail Creation
-							$cMailFile = new CMailFile($sendTopic, $to, $from, $sendContent, array(), array(), array(), $email_tocc, $email_tobcc, 0, 1, $errors_to, '', $trackid, '', $sendcontext, '');
+							$cMailFile = new CMailFile($sendTopic, $to, $from, $sendContent, [], [], [], $email_tocc, $email_tobcc, 0, 1, $errors_to, '', $trackid, '', $sendcontext, '');
 
 							// Sending Mail
 							if ($cMailFile->sendfile()) {

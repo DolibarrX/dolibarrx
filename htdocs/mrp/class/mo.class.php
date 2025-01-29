@@ -243,7 +243,7 @@ class Mo extends CommonObject
 	/**
 	 * @var array<string, array<string>>	List of child tables. To test if we can delete object.
 	 */
-	protected $childtables = array();
+	protected $childtables = [];
 
 	/**
 	 * @var string[]	List of child tables. To know object to delete on cascade.
@@ -253,7 +253,7 @@ class Mo extends CommonObject
 	/**
 	 * @var MoLine[]     Array of subtable lines
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @var MoLine|null     MO line
@@ -268,7 +268,7 @@ class Mo extends CommonObject
 	/**
 	 @ var array{id:int,label:string,qty_bom:int|float,stock:float,seuil_stock_alerte:float,virtual_stock:float,qty:float,fk_unit:int,qty_frozen:float,disable_stock_change:int<0,1>,efficiency:float}	tpl
 	 */
-	public $tpl = array();
+	public $tpl = [];
 
 
 	/**
@@ -402,7 +402,7 @@ class Mo extends CommonObject
 
 		// We make $object->lines empty to sort it without produced and consumed lines
 		$TLines = $object->lines;
-		$object->lines = array();
+		$object->lines = [];
 
 		// Remove produced and consumed lines
 		foreach ($TLines as $key => $line) {
@@ -496,7 +496,7 @@ class Mo extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -518,7 +518,7 @@ class Mo extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList();
@@ -531,7 +531,7 @@ class Mo extends CommonObject
 
 		// Manage filter
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.rowid') {
@@ -600,7 +600,7 @@ class Mo extends CommonObject
 	 */
 	public function fetchLinesLinked($role, $lineid = 0)
 	{
-		$resarray = array();
+		$resarray = [];
 		$mostatic = new MoLine($this->db);
 
 		$sql = 'SELECT ';
@@ -640,7 +640,7 @@ class Mo extends CommonObject
 			return $resarray;
 		} else {
 			$this->error = $this->db->lasterror();
-			return array();
+			return [];
 		}
 	}
 
@@ -1641,7 +1641,7 @@ class Mo extends CommonObject
 	{
 		$ret = $this->initAsSpecimenCommon();
 
-		$this->lines = array();
+		$this->lines = [];
 
 		return $ret;
 	}
@@ -1654,7 +1654,7 @@ class Mo extends CommonObject
 	 */
 	public function getLinesArray($rolefilter = '')
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectline = new MoLine($this->db);
 
@@ -1721,7 +1721,7 @@ class Mo extends CommonObject
 	 *  @param  int[]       $selectedLines      Array of lines id for selected lines
 	 *  @return	void
 	 */
-	public function printOriginLinesList($restrictlist = '', $selectedLines = array())
+	public function printOriginLinesList($restrictlist = '', $selectedLines = [])
 	{
 		global $langs, $hookManager, $form, $action;
 
@@ -1798,7 +1798,7 @@ class Mo extends CommonObject
 	 *  @param  int[]  				$selectedLines	Array of lines id for selected lines
 	 * 	@return	void
 	 */
-	public function printOriginLine($line, $var, $restrictlist = '', $defaulttpldir = '/core/tpl', $selectedLines = array())
+	public function printOriginLine($line, $var, $restrictlist = '', $defaulttpldir = '/core/tpl', $selectedLines = [])
 	{
 		if (!$line instanceof MoLine) {
 			dol_syslog(__METHOD__.'::pringOriginLine $line is '.get_class($line).'<>MoLine', LOG_WARNING);
@@ -1862,7 +1862,7 @@ class Mo extends CommonObject
 	 */
 	public function getMoChilds()
 	{
-		$TMoChilds = array();
+		$TMoChilds = [];
 		$error = 0;
 
 		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."mrp_mo as mo_child";
@@ -1907,7 +1907,7 @@ class Mo extends CommonObject
 			return -1;
 		}
 
-		$TMoChilds = array();
+		$TMoChilds = [];
 		$error = 0;
 
 		$childMoList = $this->getMoChilds();

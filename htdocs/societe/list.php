@@ -419,9 +419,9 @@ if (empty($resHook)) {
 		$search_categ_sup = 0;
 		$searchCategoryCustomerOperator = 0;
 		$searchCategorySupplierOperator = 0;
-		$searchCategoryCustomerList = array();
-		$searchCategorySupplierList = array();
-		$search_sale = array();
+		$searchCategoryCustomerList = [];
+		$searchCategorySupplierList = [];
+		$search_sale = [];
 		$search_barcode = "";
 		$search_customer_code = '';
 		$search_supplier_code = '';
@@ -473,8 +473,8 @@ if (empty($resHook)) {
 		$search_import_key = '';
 
 		$search_all = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 
 	// Mass actions
@@ -545,7 +545,7 @@ $help_url = 'EN:Module_Third_Parties|FR:Module_Tiers|ES:Empresas';
 
 
 // Select every potentials, and note each potentials which fit in search parameters
-$tab_level = array();
+$tab_level = [];
 $sql = "SELECT code, label, sortorder";
 $sql .= " FROM ".MAIN_DB_PREFIX."c_prospectlevel";
 $sql .= " WHERE active > 0";
@@ -586,7 +586,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -608,7 +608,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as state on (state.rowid = 
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_regions as region on (region.code_region = state.fk_region)";
 $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX."c_stcomm as st ON s.fk_stcomm = st.id";
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " WHERE s.entity IN (".getEntity('societe').")";
@@ -641,7 +641,7 @@ if (!empty($search_sale) && $search_sale != '-1') {
 
 // Search for tag/category ($searchCategoryCustomerList is an array of ID)
 if (!empty($searchCategoryCustomerList)) {
-	$searchCategoryCustomerSqlList = array();
+	$searchCategoryCustomerSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryCustomerList as $searchCategoryCustomer) {
 		if (intval($searchCategoryCustomer) == -2) {
@@ -670,7 +670,7 @@ if (!empty($searchCategoryCustomerList)) {
 
 // Search for tag/category ($searchCategorySupplierList is an array of ID)
 if (!empty($searchCategorySupplierList)) {
-	$searchCategorySupplierSqlList = array();
+	$searchCategorySupplierSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategorySupplierList as $searchCategorySupplier) {
 		if (intval($searchCategorySupplier) == -2) {
@@ -924,10 +924,10 @@ foreach ($searchCategorySupplierList as $searchCategorySupplier) {
 	$paramsCat .= "&search_category_supplier_list[]=".urlencode($searchCategorySupplier);
 }
 
-llxHeader('', $title, $help_url, '', 0, 0, array(), array(), $paramsCat, 'bodyforlist');
+llxHeader('', $title, $help_url, '', 0, 0, [], [], $paramsCat, 'bodyforlist');
 
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -1165,7 +1165,7 @@ if ($user->hasRight('societe', 'supprimer')) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete', 'preaffecttag', 'preenable', 'preclose'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -1232,7 +1232,7 @@ if (!empty($place)) {
 print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'building', 0, $newcardbutton, '', $limit, 0, 0, 1);
 
 $langs->load("other");
-$textprofid = array();
+$textprofid = [];
 foreach (array(1, 2, 3, 4, 5, 6) as $key) {
 	$label = $langs->transnoentities("ProfId".$key.$mysoc->country_code);
 	$textprofid[$key] = '';
@@ -1537,7 +1537,7 @@ if (!empty($arrayfields['s.fk_prospectlevel']['checked'])) {
 // Prospect status
 if (!empty($arrayfields['s.fk_stcomm']['checked'])) {
 	print '<td class="liste_titre maxwidthonsmartphone center">';
-	$arraystcomm = array();
+	$arraystcomm = [];
 	foreach ($prospectstatic->cacheprospectstatus as $key => $val) {
 		$arraystcomm[$val['id']] = ($langs->trans("StatusProspect".$val['id']) != "StatusProspect".$val['id'] ? $langs->trans("StatusProspect".$val['id']) : $val['label']);
 	}
@@ -1615,7 +1615,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1821,7 +1821,7 @@ print '</tr>'."\n";
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {

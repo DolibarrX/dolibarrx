@@ -57,7 +57,7 @@ class mailing_thirdparties_services_expired extends MailingTargets
 	/**
 	 * @var array<int,string>
 	 */
-	public $arrayofproducts = array();
+	public $arrayofproducts = [];
 
 
 	/**
@@ -71,7 +71,7 @@ class mailing_thirdparties_services_expired extends MailingTargets
 
 		$this->db = $db;
 
-		$this->arrayofproducts = array();
+		$this->arrayofproducts = [];
 
 		// List of services
 		$sql = "SELECT ref FROM ".MAIN_DB_PREFIX."product";
@@ -111,7 +111,7 @@ class mailing_thirdparties_services_expired extends MailingTargets
 		// phpcs:enable
 		$key = GETPOSTINT('filter');
 
-		$cibles = array();
+		$cibles = [];
 		$j = 0;
 
 		$product = '';
@@ -193,10 +193,10 @@ class mailing_thirdparties_services_expired extends MailingTargets
 	public function getSqlArrayForStats()
 	{
 
-		//var $statssql=array();
+		//var $statssql=[];
 		//$this->statssql[0]="SELECT field1 as label, count(distinct(email)) as nb FROM mytable WHERE email IS NOT NULL";
 
-		return array();
+		return [];
 	}
 
 

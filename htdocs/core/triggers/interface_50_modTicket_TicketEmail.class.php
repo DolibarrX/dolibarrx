@@ -353,9 +353,9 @@ class InterfaceTicketEmail extends DolibarrTriggers
 		global $config, $mysoc;
 
 		// Init to avoid errors
-		$filepath = array();
-		$filename = array();
-		$mimetype = array();
+		$filepath = [];
+		$filename = [];
+		$mimetype = [];
 
 		$appli = $mysoc->name;
 
@@ -426,9 +426,9 @@ class InterfaceTicketEmail extends DolibarrTriggers
 		global $config, $extrafields, $mysoc, $user;
 
 		// Init to avoid errors
-		$filepath = array();
-		$filename = array();
-		$mimetype = array();
+		$filepath = [];
+		$filename = [];
+		$mimetype = [];
 
 		$appli = $mysoc->name;
 
@@ -522,9 +522,9 @@ class InterfaceTicketEmail extends DolibarrTriggers
 		global $config, $user, $mysoc;
 
 		// Init to avoid errors
-		$filepath = array();
-		$filename = array();
-		$mimetype = array();
+		$filepath = [];
+		$filename = [];
+		$mimetype = [];
 
 		// Send email to assigned user
 		$appli = $mysoc->name;

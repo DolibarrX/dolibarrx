@@ -108,7 +108,7 @@ class Contracts extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $thirdparty_ids param is ignored and replaced by user's socid
 		$socids = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $thirdparty_ids;
@@ -218,7 +218,7 @@ class Contracts extends DolibarrApi
 			$this->contract->$field = $this->_checkValForAPI($field, $value, $this->contract);
 		}
 		/*if (isset($request_data["lines"])) {
-		  $lines = array();
+		  $lines = [];
 		  foreach ($request_data["lines"] as $line) {
 			array_push($lines, (object) $line);
 		  }
@@ -255,7 +255,7 @@ class Contracts extends DolibarrApi
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 		$this->contract->getLinesArray();
-		$result = array();
+		$result = [];
 		foreach ($this->contract->lines as $line) {
 			array_push($result, $this->_cleanObjectDatas($line));
 		}
@@ -697,7 +697,7 @@ class Contracts extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$contrat = array();
+		$contrat = [];
 		foreach (Contracts::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

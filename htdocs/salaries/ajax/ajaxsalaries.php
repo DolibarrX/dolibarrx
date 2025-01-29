@@ -61,7 +61,7 @@ restrictedArea($user, 'salaries');
 top_httphead('application/json');
 
 $fk_user = GETPOSTINT('fk_user');
-$return_arr = array();
+$return_arr = [];
 
 if (!empty(GETPOSTINT('fk_user'))) {
 	$sql = "SELECT s.amount, s.rowid FROM ".MAIN_DB_PREFIX."salary as s";
@@ -73,7 +73,7 @@ if (!empty(GETPOSTINT('fk_user'))) {
 	if ($resql) {
 		$obj = $db->fetch_object($resql);
 		$label = "Salary amount";
-		$row_array = array();
+		$row_array = [];
 		$row_array['label'] = $label;
 		$row_array['value'] = price2num($obj->amount, 'MT');
 		$row_array['key'] = "Amount";

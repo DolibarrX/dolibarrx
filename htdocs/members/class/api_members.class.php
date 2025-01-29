@@ -273,7 +273,7 @@ class Members extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $typeid = '', $category = 0, $sqlfilters = '', $properties = '', $pagination_data = false)
 	{
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('member', 'lire')) {
 			throw new RestException(403);
@@ -516,7 +516,7 @@ class Members extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$member = array();
+		$member = [];
 
 		$mandatoryfields = array(
 			'morphy',
@@ -631,7 +631,7 @@ class Members extends DolibarrApi
 			throw new RestException(404, 'member not found');
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 		foreach ($member->subscriptions as $subscription) {
 			$obj_ret[] = $this->_cleanObjectDatas($subscription);
 		}
@@ -767,7 +767,7 @@ class Members extends DolibarrApi
 	 */
 	public function indexType($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $sqlfilters = '', $properties = '', $pagination_data = false)
 	{
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('member', 'lire')) {
 			throw new RestException(403);
@@ -985,7 +985,7 @@ class Members extends DolibarrApi
 	 */
 	private function _validateType($data)
 	{
-		$membertype = array();
+		$membertype = [];
 
 		$mandatoryfields = array('label');
 

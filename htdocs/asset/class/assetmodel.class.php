@@ -170,7 +170,7 @@ class AssetModel extends CommonObject
 	// /**
 	//  * @var array	List of child tables. To test if we can delete object.
 	//  */
-	// protected $childtables = array();
+	// protected $childtables = [];
 	// /**
 	//  * @var array    List of child tables. To know object to delete on cascade.
 	//  *               If name matches '@ClassNAme:FilePathClass;ParentFkFieldName' it will
@@ -368,7 +368,7 @@ class AssetModel extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = "SELECT ";
 		$sql .= $this->getFieldList('t');

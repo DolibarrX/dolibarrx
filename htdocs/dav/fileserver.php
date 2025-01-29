@@ -192,7 +192,7 @@ $authBackend->setRealm(constant('DOL_APPLICATION_TITLE').' - WebDAV');
 
 // Create the root node
 // Setting up the directory tree //
-$nodes = array();
+$nodes = [];
 
 // Enable directories and features according to DAV setup
 // Public dir

@@ -42,7 +42,7 @@ function expedition_prepare_head(Expedition $object)
 	$langs->load("orders");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/confexped.php";
 	$head[$h][1] = $langs->trans("Setup");
@@ -79,7 +79,7 @@ function expedition_admin_prepare_head()
 	$extrafields = new ExtraFields($db);
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	/*
 	$head[$h][0] = DOL_URL_ROOT."/admin/confexped.php";

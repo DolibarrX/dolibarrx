@@ -72,7 +72,7 @@ class Salaries extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0)
 	{
-		$list = array();
+		$list = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('salaries', 'read')) {
 			throw new RestException(403);
@@ -237,7 +237,7 @@ class Salaries extends DolibarrApi
 	 */
 	public function getAllPayments($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0)
 	{
-		$list = array();
+		$list = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('salaries', 'read')) {
 			throw new RestException(403);
@@ -422,7 +422,7 @@ class Salaries extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$salary = array();
+		$salary = [];
 		foreach (Salaries::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");
@@ -442,7 +442,7 @@ class Salaries extends DolibarrApi
 	 */
 	private function _validatepayments($data)
 	{
-		$paymentsalary = array();
+		$paymentsalary = [];
 		$fields = Salaries::$FIELDSPAYMENT;
 		if (isModEnabled("bank")) array_push($fields, "accountid");
 		foreach ($fields as $field) {

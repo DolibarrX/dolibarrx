@@ -180,7 +180,7 @@ function llxFooterVierge()
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 // Note that $action and $object may have been modified by some hooks
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($resHook < 0) {
@@ -386,7 +386,7 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 					if ($subjecttosend && $texttosend) {
 						$moreinheader = 'X-Dolibarr-Info: send_an_email by public/members/new.php'."\r\n";
 
-						$result = $object->sendEmail($texttosend, $subjecttosend, array(), array(), array(), "", "", 0, -1, '', $moreinheader);
+						$result = $object->sendEmail($texttosend, $subjecttosend, [], [], [], "", "", 0, -1, '', $moreinheader);
 					}
 				}
 
@@ -417,9 +417,9 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 						$to,
 						$from,
 						$partnership->makeSubstitution(getDolGlobalString('PARTNERSHIP_AUTOREGISTER_NOTIF_MAIL')),
-						array(),
-						array(),
-						array(),
+						[],
+						[],
+						[],
 						"",
 						"",
 						0,
@@ -607,7 +607,7 @@ jQuery(document).ready(function () {
 // Type
 $partnershiptype = new PartnershipType($db);
 $listofpartnershipobj = $partnershiptype->fetchAll('', '', 1000, 0, '(active:=:1)');
-$listofpartnership = array();
+$listofpartnership = [];
 foreach ($listofpartnershipobj as $partnershipobj) {
 	$listofpartnership[$partnershipobj->id] = $partnershipobj->label;
 }

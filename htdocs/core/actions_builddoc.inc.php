@@ -143,7 +143,7 @@ if ($action == 'remove_file' && $permissiontoadd) {
 		$ret = dol_delete_file($file, 0, 0, 0, $object);
 		if ($ret) {
 			// If it exists, remove thumb.
-			$regs = array();
+			$regs = [];
 			if (preg_match('/(\.jpg|\.jpeg|\.bmp|\.gif|\.png|\.tiff)$/i', $file, $regs)) {
 				$photo_vignette = basename(preg_replace('/'.$regs[0].'/i', '', $file).'_small'.$regs[0]);
 				if (file_exists(dol_osencode($dirthumb.$photo_vignette))) {

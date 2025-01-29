@@ -317,7 +317,7 @@ class ConferenceOrBooth extends ActionComm
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList('t');
@@ -332,7 +332,7 @@ class ConferenceOrBooth extends ActionComm
 		// Manage filter
 		if (is_array($filter)) {	// deprecated, use $filter = USF syntax
 			dol_syslog("You are using a deprecated use of fetchAll. filter parameter mus be an USF string now.", LOG_WARNING);
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.id' || $key == 't.fk_project' || $key == 't.fk_soc' || $key == 't.fk_action') {

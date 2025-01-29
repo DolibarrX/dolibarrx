@@ -38,7 +38,7 @@
 $maxsizestring = 255;
 $maxsizeint = 10;
 $mesg = '';
-$mesgs = array();
+$mesgs = [];
 
 $extrasize = GETPOST('size', 'intcomma');
 $type = GETPOST('type', 'alphanohtml');
@@ -188,7 +188,7 @@ if ($action == 'add') {
 				$default_value = GETPOST('default_value', 'alpha');
 				$parameters = $param;
 				$parameters_array = explode("\r\n", $parameters);
-				$params = array();
+				$params = [];
 				//In sellist we have only one line and it can have come to do SQL expression
 				if ($type == 'sellist' || $type == 'chkbxlst') {
 					foreach ($parameters_array as $param_ligne) {
@@ -200,7 +200,7 @@ if ($action == 'add') {
 						if (strpos($param_ligne, ',') !== false) {
 							list($key, $value) = explode(',', $param_ligne);
 							if (!array_key_exists('options', $params)) {
-								$params['options'] = array();
+								$params['options'] = [];
 							}
 						} else {
 							$key = $param_ligne;
@@ -368,7 +368,7 @@ if ($action == 'update') {
 				// Construct array for parameter (value of select list)
 				$parameters = $param;
 				$parameters_array = explode("\r\n", $parameters);
-				$params = array();
+				$params = [];
 				//In sellist we have only one line and it can have come to do SQL expression
 				if ($type == 'sellist' || $type == 'chkbxlst') {
 					foreach ($parameters_array as $param_ligne) {
@@ -383,7 +383,7 @@ if ($action == 'update') {
 							$value = $tmp[1];
 						}
 						if (!array_key_exists('options', $params)) {
-							$params['options'] = array();
+							$params['options'] = [];
 						}
 						$params['options'][$key] = $value;
 					}

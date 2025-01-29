@@ -63,11 +63,11 @@ if (empty($dolibarr_main_demo)) {
 // Note that conf->hooks_modules contains an array of hook contexats
 $res = $hookManager->initHooks(array('demo'));
 
-$demoprofiles = array();
-$alwayscheckedmodules = array();
-$alwaysuncheckedmodules = array();
-$alwayshiddencheckedmodules = array();
-$alwayshiddenuncheckedmodules = array();
+$demoprofiles = [];
+$alwayscheckedmodules = [];
+$alwaysuncheckedmodules = [];
+$alwayshiddencheckedmodules = [];
+$alwayshiddenuncheckedmodules = [];
 
 $url = '';
 $url .= ($url ? '&' : '').($config->dol_hide_topmenu ? 'dol_hide_topmenu='.$config->dol_hide_topmenu : '');
@@ -78,7 +78,7 @@ $url .= ($url ? '&' : '').($config->dol_use_jmobile ? 'dol_use_jmobile='.$config
 $url = DOL_URL_ROOT.'/index.php'.($url ? '?'.$url : '');
 
 $tmpaction = 'view';
-$parameters = array();
+$parameters = [];
 $object = new stdClass();
 $resHook = $hookManager->executeHooks('addDemoProfile', $parameters, $object, $tmpaction); // Note that $action and $object may have been modified by some hooks
 $error = $hookManager->error;
@@ -148,10 +148,10 @@ $dirlist = $config->file->dol_document_root;
 // Search modules dirs
 $modulesdir = dolGetModulesDirs();
 
-$filename = array();
-$modules = array();
-$orders = array();
-$categ = array();
+$filename = [];
+$modules = [];
+$orders = [];
+$categ = [];
 $i = 0; // is a sequencer of modules found
 $j = 0; // j is module number. Automatically assigned if module number is not defined.
 $const_name = '';
@@ -488,7 +488,7 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
 {
 	top_httphead();
 
-	top_htmlhead($head, $title, 0, 0, array(), array('public/demo/demo.css'), 0, 1);
+	top_htmlhead($head, $title, 0, 0, [], array('public/demo/demo.css'), 0, 1);
 
 	print '<body class="demobody"><div class="demobackgrounddiv">'."\n";
 }

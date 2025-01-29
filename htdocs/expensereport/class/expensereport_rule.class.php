@@ -203,7 +203,7 @@ class ExpenseReportRule extends CommonObject
 	 */
 	public function getAllRule($fk_c_type_fees = 0, $date = '', $fk_user = 0)
 	{
-		$rules = array();
+		$rules = [];
 
 		$sql = 'SELECT er.rowid';
 		$sql .= ' FROM '.MAIN_DB_PREFIX.'expensereport_rules er';

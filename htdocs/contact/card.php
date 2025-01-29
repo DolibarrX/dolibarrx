@@ -63,7 +63,7 @@ require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 $langs->loadLangs(array('companies', 'users', 'other', 'commercial'));
 
 $error = 0;
-$errors = array();
+$errors = [];
 
 // Get parameters
 $action = (GETPOST('action', 'alpha') ? GETPOST('action', 'alpha') : 'view');
@@ -227,7 +227,7 @@ if (empty($resHook)) {
 		$object->town = (string) GETPOST("town", 'alpha');
 		$object->country_id = GETPOSTINT("country_id");
 		$object->state_id = GETPOSTINT("state_id");
-		$object->socialnetworks = array();
+		$object->socialnetworks = [];
 		if (isModEnabled('socialnetworks')) {
 			foreach ($socialnetworks as $key => $value) {
 				if (GETPOSTISSET($key) && GETPOST($key, 'alphanohtml') != '') {
@@ -429,7 +429,7 @@ if (empty($resHook)) {
 
 			$object->email = (string) GETPOST('email', 'custom', 0, FILTER_SANITIZE_EMAIL);
 			$object->no_email = GETPOSTINT("no_email");
-			$object->socialnetworks = array();
+			$object->socialnetworks = [];
 			if (isModEnabled('socialnetworks')) {
 				foreach ($socialnetworks as $key => $value) {
 					if (GETPOSTISSET($key) && GETPOST($key, 'alphanohtml') != '') {
@@ -620,7 +620,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 	/*
 	 * Onglets
 	 */
-	$head = array();
+	$head = [];
 	if ($id > 0) {
 		// Si edition contact deja existent
 		$object = new Contact($db);
@@ -716,7 +716,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 					print '</td></tr>';
 				} else {
 					print '<tr><td><label for="socid">'.$langs->trans("ThirdParty").'</label></td><td colspan="3" class="maxwidthonsmartphone">';
-					print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company($socid, 'socid', '', 'SelectThirdParty', 0, 0, array(), 0, 'minwidth300 maxwidth500 widthcentpercentminusxx');
+					print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company($socid, 'socid', '', 'SelectThirdParty', 0, 0, [], 0, 'minwidth300 maxwidth500 widthcentpercentminusxx');
 					print '</td></tr>';
 				}
 			}
@@ -888,7 +888,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			// Default language
 			if (getDolGlobalInt('MAIN_MULTILANGS')) {
 				print '<tr><td>'.$form->editfieldkey('DefaultLang', 'default_lang', '', $object, 0).'</td><td colspan="3" class="maxwidthonsmartphone">'."\n";
-				print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language(GETPOST('default_lang', 'alpha') ? GETPOST('default_lang', 'alpha') : ($object->default_lang ? $object->default_lang : ''), 'default_lang', 0, array(), 1, 0, 0, 'maxwidth200onsmartphone');
+				print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language(GETPOST('default_lang', 'alpha') ? GETPOST('default_lang', 'alpha') : ($object->default_lang ? $object->default_lang : ''), 'default_lang', 0, [], 1, 0, 0, 'maxwidth200onsmartphone');
 				print '</td>';
 				print '</tr>';
 			}
@@ -906,7 +906,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				print '<tr><td>'.$langs->trans("ContactByDefaultFor").'</td>';
 				print '<td colspan="3">';
 				$contactType = $object->listeTypeContacts('external', 0, 1);
-				print img_picture('', 'contact', 'class="picturefixedwidth"').$form->multiselectarray('roles', $contactType, array(), 0, 0, '', 0, '90%');
+				print img_picture('', 'contact', 'class="picturefixedwidth"').$form->multiselectarray('roles', $contactType, [], 0, 0, '', 0, '90%');
 				print '</td></tr>';
 			}
 
@@ -1176,7 +1176,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			// Default language
 			if (getDolGlobalInt('MAIN_MULTILANGS')) {
 				print '<tr><td>'.$form->editfieldkey('DefaultLang', 'default_lang', '', $object, 0).'</td><td colspan="3" class="maxwidthonsmartphone">'."\n";
-				print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language(GETPOST('default_lang', 'alpha') ? GETPOST('default_lang', 'alpha') : ($object->default_lang ? $object->default_lang : ''), 'default_lang', 0, array(), 1, 0, 0, 'maxwidth200onsmartphone');
+				print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language(GETPOST('default_lang', 'alpha') ? GETPOST('default_lang', 'alpha') : ($object->default_lang ? $object->default_lang : ''), 'default_lang', 0, [], 1, 0, 0, 'maxwidth200onsmartphone');
 				print '</td>';
 				print '</tr>';
 			}
@@ -1201,7 +1201,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 			// Categories
 			if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
-				$arrayselected = array();
+				$arrayselected = [];
 				print '<tr><td>'.$form->editfieldkey('Categories', 'contcats', '', $object, 0).'</td>';
 				print '<td colspan="3">';
 				$cate_arbo = $form->select_all_categories(Category::TYPE_CONTACT, '', '', 64, 0, 3);
@@ -1547,7 +1547,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		 */
 		print '<div class="tabsAction">';
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($resHook) && $action != 'presend') {
 			if (empty($user->socid)) {

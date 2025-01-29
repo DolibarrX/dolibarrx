@@ -77,7 +77,7 @@ if (!$user->hasRight('projet', 'lire')) {
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -134,7 +134,7 @@ $morehtml .= '<SELECT name="search_project_user" id="search_project_user">';
 $morehtml .= '<option name="all" value="0"'.($mine ? '' : ' selected').'>'.$titleall.'</option>';
 $morehtml .= '<option name="mine" value="'.$user->id.'"'.(($search_project_user == $user->id) ? ' selected' : '').'>'.$langs->trans("ProjectsImContactFor").'</option>';
 $morehtml .= '</SELECT>';
-$morehtml .= ajax_combobox("search_project_user", array(), 0, 0, 'resolve', '-1', 'small');
+$morehtml .= ajax_combobox("search_project_user", [], 0, 0, 'resolve', '-1', 'small');
 $morehtml .= '<input type="submit" class="button smallpaddingimp" name="refresh" value="'.$langs->trans("Refresh").'">';
 $morehtml .= '</form>';
 
@@ -166,10 +166,10 @@ include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 @phan-var-force string $badgeStatus8
 @phan-var-force string $badgeStatus9
 ';
-$listofoppstatus = array();
-$listofopplabel = array();
-$listofoppcode = array();
-$colorseries = array();
+$listofoppstatus = [];
+$listofopplabel = [];
+$listofoppcode = [];
+$colorseries = [];
 $sql = "SELECT cls.rowid, cls.code, cls.percent, cls.label";
 $sql .= " FROM ".MAIN_DB_PREFIX."c_lead_status as cls";
 $sql .= " WHERE active=1";
@@ -453,7 +453,7 @@ if ((!getDolGlobalInt('PROJECT_USE_OPPORTUNITIES') || getDolGlobalInt('PROJECT_S
 	// we really want it and to allow interface backward compatibility.
 	print '<br>';
 
-	print_projecttasks_array($db, $form, $socid, $projectsListId, 0, 1, $listofoppstatus, array());
+	print_projecttasks_array($db, $form, $socid, $projectsListId, 0, 1, $listofoppstatus, []);
 }
 
 print '</div></div></div>';

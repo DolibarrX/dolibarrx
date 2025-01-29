@@ -303,7 +303,7 @@ if (empty($resHook)) {
 			$object->user_mobile = GETPOST("user_mobile", 'alphanohtml');
 
 			if (isModEnabled('socialnetworks')) {
-				$object->socialnetworks = array();
+				$object->socialnetworks = [];
 				foreach ($socialnetworks as $key => $value) {
 					if (GETPOST($key, 'alphanohtml')) {
 						$object->socialnetworks[$key] = GETPOST($key, 'alphanohtml');
@@ -486,7 +486,7 @@ if (empty($resHook)) {
 				$object->user_mobile = GETPOST("user_mobile", 'alphanohtml');
 
 				if (isModEnabled('socialnetworks')) {
-					$object->socialnetworks = array();
+					$object->socialnetworks = [];
 					foreach ($socialnetworks as $key => $value) {
 						if (GETPOST($key, 'alphanohtml')) {
 							$object->socialnetworks[$key] = GETPOST($key, 'alphanohtml');
@@ -769,7 +769,7 @@ if (empty($resHook)) {
 					$ldap_mobile = $attribute[getDolGlobalString('LDAP_FIELD_MOBILE')];
 					$ldap_mail = $attribute[getDolGlobalString('LDAP_FIELD_MAIL')];
 					$ldap_sid = $attribute[getDolGlobalString('LDAP_FIELD_SID')];
-					$ldap_social = array();
+					$ldap_social = [];
 
 					if (isModEnabled('socialnetworks')) {
 						$arrayofsocialnetworks = array('skype', 'twitter', 'facebook', 'linkedin');
@@ -916,7 +916,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 
 
 	if (isModEnabled('ldap') && (getDolGlobalInt('LDAP_SYNCHRO_ACTIVE') === Ldap::SYNCHRO_LDAP_TO_DOLIBARR)) {
-		$liste = array();
+		$liste = [];
 
 		// Show form to add an account from LDAP if sync LDAP -> Dolibarr is set
 		$ldap = new Ldap();
@@ -1000,7 +1000,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 	}
 	print '<input type="hidden" name="entity" value="'.$config->entity.'">';
 
-	print dol_get_fiche_head(array(), '', '', 0, '');
+	print dol_get_fiche_head([], '', '', 0, '');
 
 	dol_set_focus('#lastname');
 
@@ -1371,7 +1371,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 	if (isModEnabled('agenda')) {
 		print '<tr><td>'.$langs->trans("ColorUser").'</td>';
 		print '<td>';
-		print $formother->selectColor(GETPOSTISSET('color') ? GETPOST('color', 'alphanohtml') : $object->color, 'color', null, 1, array(), 'hideifnotset');
+		print $formother->selectColor(GETPOSTISSET('color') ? GETPOST('color', 'alphanohtml') : $object->color, 'color', null, 1, [], 'hideifnotset');
 		print '</td></tr>';
 	}
 
@@ -1387,7 +1387,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 	if (getDolGlobalInt('MAIN_MULTILANGS')) {
 		print '<tr><td>'.$form->editfieldkey('DefaultLang', 'default_lang', '', $object, 0, 'string', '', 0, 0, 'id', $langs->trans("WarningNotLangOfInterface", $langs->transnoentitiesnoconv("UserGUISetup"))).'</td>';
 		print '<td class="maxwidthonsmartphone">'."\n";
-		print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language(GETPOST('default_lang', 'alpha') ? GETPOST('default_lang', 'alpha') : ($object->lang ? $object->lang : ''), 'default_lang', 0, array(), 1, 0, 0, 'maxwidth300 widthcentpercentminusx');
+		print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language(GETPOST('default_lang', 'alpha') ? GETPOST('default_lang', 'alpha') : ($object->lang ? $object->lang : ''), 'default_lang', 0, [], 1, 0, 0, 'maxwidth300 widthcentpercentminusx');
 		print '</td>';
 		print '</tr>';
 	}
@@ -1407,7 +1407,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 	}
 
 	// Other attributes
-	$parameters = array();
+	$parameters = [];
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_add.tpl.php';
 
 	// Signature
@@ -2107,7 +2107,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 			 */
 			print '<div class="tabsAction">';
 
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if (empty($resHook)) {
 				$params = array(
@@ -2246,7 +2246,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 					print load_fiche_titre($langs->trans("ListOfGroupsForUser"), '', '');
 
 					// We select the groups that the users belongs to
-					$exclude = array();
+					$exclude = [];
 
 					$usergroup = new UserGroup($db);
 					$groupslist = $usergroup->listGroupsForUser($object->id, false);
@@ -2275,7 +2275,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 						print '<tr class="liste_titre"><th class="liste_titre">'.$langs->trans("Groups").'</th>'."\n";
 						print '<th class="liste_titre right">';
 						if ($permissiontoeditgroup) {
-							print $form->select_dolgroups(0, 'group', 1, $exclude, 0, '', array(), $object->entity, false, 'maxwidth150');
+							print $form->select_dolgroups(0, 'group', 1, $exclude, 0, '', [], $object->entity, false, 'maxwidth150');
 							print ' &nbsp; ';
 							print '<input type="hidden" name="entity" value="'.$config->entity.'" />';
 							print '<input type="submit" class="button buttongen button-add reposition" value="'.$langs->trans("Add").'" />';
@@ -2566,7 +2566,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				}
 
 				if ($object->socid > 0 && !($object->contact_id > 0)) {	// external user but no link to a contact
-					print img_picture('', 'company').$form->select_company($object->socid, 'socid', '', '&nbsp;', 0, 0, array(), 0, 'maxwidth300');
+					print img_picture('', 'company').$form->select_company($object->socid, 'socid', '', '&nbsp;', 0, 0, [], 0, 'maxwidth300');
 					print img_picture('', 'contact');
 					//print $form->selectcontacts(0, 0, 'contactid', 1, '', '', 1, 'maxwidth300', false, 1);
 					print $form->select_contact(0, 0, 'contactid', 1, '', '', 1, 'minwidth100imp widthcentpercentminusxx maxwidth300', true, 1);
@@ -2574,7 +2574,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 						print ' ('.$langs->trans("DomainUser").')';
 					}
 				} elseif ($object->socid > 0 && $object->contact_id > 0) {	// external user with a link to a contact
-					print img_picture('', 'company').$form->select_company($object->socid, 'socid', '', '&nbsp;', 0, 0, array(), 0, 'maxwidth300'); // We keep thirdparty empty, contact is already set
+					print img_picture('', 'company').$form->select_company($object->socid, 'socid', '', '&nbsp;', 0, 0, [], 0, 'maxwidth300'); // We keep thirdparty empty, contact is already set
 					print img_picture('', 'contact');
 					//print $form->selectcontacts(0, $object->contact_id, 'contactid', 1, '', '', 1, 'maxwidth300', false, 1);
 					print $form->select_contact(0, $object->contact_id, 'contactid', 1, '', '', 1, 'minwidth100imp widthcentpercentminusxx maxwidth300', true, 1);
@@ -2582,7 +2582,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 						print ' ('.$langs->trans("DomainUser").')';
 					}
 				} elseif (!($object->socid > 0) && $object->contact_id > 0) {	// internal user with a link to a contact
-					print img_picture('', 'company').$form->select_company(0, 'socid', '', '&nbsp;', 0, 0, array(), 0, 'maxwidth300'); // We keep thirdparty empty, contact is already set
+					print img_picture('', 'company').$form->select_company(0, 'socid', '', '&nbsp;', 0, 0, [], 0, 'maxwidth300'); // We keep thirdparty empty, contact is already set
 					print img_picture('', 'contact');
 					//print $form->selectcontacts(0, $object->contact_id, 'contactid', 1, '', '', 1, 'maxwidth300', false, 1);
 					print $form->select_contact(0, $object->contact_id, 'contactid', 1, '', '', 1, 'minwidth100imp widthcentpercentminusxx maxwidth300', true, 1);
@@ -2590,7 +2590,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 						print ' ('.$langs->trans("DomainUser").')';
 					}
 				} else {	// $object->socid is not > 0 here
-					print img_picture('', 'company').$form->select_company(0, 'socid', '', '&nbsp;', 0, 0, array(), 0, 'maxwidth300'); // We keep thirdparty empty, contact is already set
+					print img_picture('', 'company').$form->select_company(0, 'socid', '', '&nbsp;', 0, 0, [], 0, 'maxwidth300'); // We keep thirdparty empty, contact is already set
 					print img_picture('', 'contact');
 					//print $form->selectcontacts(0, 0, 'contactid', 1, '', '', 1, 'maxwidth300', false, 1);
 					print $form->select_contact(0, 0, 'contactid', 1, '', '', 1, 'minwidth100imp widthcentpercentminusxx maxwidth300', true, 1);
@@ -2839,7 +2839,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				print '<tr><td class="titlefieldcreate">'.$langs->trans("ColorUser").'</td>';
 				print '<td>';
 				if ($permissiontoedit) {
-					print $formother->selectColor(GETPOSTISSET('color') ? GETPOST('color', 'alphanohtml') : $object->color, 'color', null, 1, array(), 'hideifnotset');
+					print $formother->selectColor(GETPOSTISSET('color') ? GETPOST('color', 'alphanohtml') : $object->color, 'color', null, 1, [], 'hideifnotset');
 				} else {
 					print $formother->showColor($object->color, '');
 				}
@@ -2862,7 +2862,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				$cate_arbo = $form->select_all_categories(Category::TYPE_USER, '', '', 0, 0, 1);
 				$c = new Category($db);
 				$cats = $c->containing($object->id, Category::TYPE_USER);
-				$arrayselected = array();
+				$arrayselected = [];
 				foreach ($cats as $cat) {
 					$arrayselected[] = $cat->id;
 				}
@@ -2877,7 +2877,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 			// Default language
 			if (getDolGlobalInt('MAIN_MULTILANGS')) {
 				print '<tr><td>'.$form->editfieldkey('DefaultLang', 'default_lang', '', $object, 0, 'string', '', 0, 0, 'id', $langs->trans("WarningNotLangOfInterface", $langs->transnoentitiesnoconv("UserGUISetup"))).'</td><td colspan="3">'."\n";
-				print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language($object->lang, 'default_lang', 0, array(), '1', 0, 0, 'widthcentpercentminusx maxwidth300');
+				print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language($object->lang, 'default_lang', 0, [], '1', 0, 0, 'widthcentpercentminusx maxwidth300');
 				print '</td>';
 				print '</tr>';
 			}
@@ -3111,7 +3111,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 			$somethingshown = $formfile->numoffiles;
 
 			// Show links to link elements
-			$tmparray = $form->showLinkToObjectBlock($object, array(), array(), 1);
+			$tmparray = $form->showLinkToObjectBlock($object, [], [], 1);
 			$linktoelem = $tmparray['linktoelem'];
 			$htmltoenteralink = $tmparray['htmltoenteralink'];
 			print $htmltoenteralink;

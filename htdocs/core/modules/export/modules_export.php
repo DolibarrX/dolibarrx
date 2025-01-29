@@ -44,27 +44,27 @@ class ModeleExports extends CommonDocGenerator    // This class can't be abstrac
 	/**
 	 * @var array<string,string>
 	 */
-	public $driverlabel = array();
+	public $driverlabel = [];
 
 	/**
 	 * @var array<string,string>
 	 */
-	public $driverdesc = array();
+	public $driverdesc = [];
 
 	/**
 	 * @var array<string,string>
 	 */
-	public $driverversion = array();
+	public $driverversion = [];
 
 	/**
 	 * @var array<string,string>
 	 */
-	public $liblabel = array();
+	public $liblabel = [];
 
 	/**
 	 * @var array<string,string>
 	 */
-	public $libversion = array();
+	public $libversion = [];
 
 	/**
 	 * @var string picture
@@ -121,7 +121,7 @@ class ModeleExports extends CommonDocGenerator    // This class can't be abstrac
 		$i = 0;
 		if (is_resource($handle)) {
 			while (($file = readdir($handle)) !== false) {
-				$reg = array();
+				$reg = [];
 				if (preg_match("/^export_(.*)\.modules\.php$/i", $file, $reg)) {
 					$moduleid = $reg[1];
 					if ($moduleid == 'csv') {

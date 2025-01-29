@@ -210,10 +210,10 @@ $dir = "../core/modules/security/generate";
 clearstatcache();
 $handle = opendir($dir);
 $i = 1;
-$arrayhandler = array();
+$arrayhandler = [];
 if (is_resource($handle)) {
 	while (($file = readdir($handle)) !== false) {
-		$reg = array();
+		$reg = [];
 		if (preg_match('/(modGeneratePass[a-z]+)\.class\.php$/i', $file, $reg)) {
 			// Charging the numbering class
 			$classname = $reg[1];

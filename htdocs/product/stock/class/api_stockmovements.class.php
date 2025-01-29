@@ -98,7 +98,7 @@ class StockMovements extends DolibarrApi
 	{
 		global $config;
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('stock', 'lire')) {
 			throw new RestException(403);
@@ -344,7 +344,7 @@ class StockMovements extends DolibarrApi
 	 */
 	private function _validate($data) // @phpstan-ignore-line
 	{
-		$stockmovement = array();
+		$stockmovement = [];
 		foreach (self::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

@@ -153,7 +153,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($elementtype, true);
 $extrafield_array = null;
 if (is_array($extrafields->attributes) && $extrafields->attributes[$elementtype]['count'] > 0) {
-	$extrafield_array = array();
+	$extrafield_array = [];
 }
 if (isset($extrafields->attributes[$elementtype]['label']) && is_array($extrafields->attributes[$elementtype]['label']) && count($extrafields->attributes[$elementtype]['label'])) {
 	foreach ($extrafields->attributes[$elementtype]['label'] as $key => $label) {
@@ -204,7 +204,7 @@ $server->wsdl->addComplexType(
 	'array',
 	'',
 	'SOAP-ENC:Array',
-	array(),
+	[],
 	array(
 		array('ref' => 'SOAP-ENC:arrayType', 'wsdl:arrayType' => 'tns:thirdparty[]')
 	),
@@ -330,7 +330,7 @@ function getThirdParty($authentication, $id = '', $ref = '', $ref_ext = '', $bar
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -454,7 +454,7 @@ function createThirdParty($authentication, $thirdparty)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -587,7 +587,7 @@ function updateThirdParty($authentication, $thirdparty)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -724,8 +724,8 @@ function getListOfThirdParties($authentication, $filterthirdparty)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
-	$arraythirdparties = array();
+	$objectresp = [];
+	$arraythirdparties = [];
 
 	$errorcode = '';
 	$errorlabel = '';
@@ -768,7 +768,7 @@ function getListOfThirdParties($authentication, $filterthirdparty)
 
 			$i = 0;
 			while ($i < $num) {
-				$extrafieldsOptions = array();
+				$extrafieldsOptions = [];
 				$obj = $db->fetch_object($resql);
 
 				if (isset($extrafields->attributes[$elementtype]['label']) && is_array($extrafields->attributes[$elementtype]['label']) && count($extrafields->attributes[$elementtype]['label'])) {
@@ -836,7 +836,7 @@ function deleteThirdParty($authentication, $id = '', $ref = '', $ref_ext = '')
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;

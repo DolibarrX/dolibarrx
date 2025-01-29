@@ -400,7 +400,7 @@ print '  <td class="center" width="80">'.$langs->trans("Status").'</td>';
 print '  <td class="center" width="60">'.$langs->trans("ShortInfo").'</td>';
 print "</tr>\n";
 
-$arrayofmodules = array();
+$arrayofmodules = [];
 
 foreach ($dirsociete as $dirroot) {
 	$dir = dol_buildpath($dirroot, 0);
@@ -490,7 +490,7 @@ print '<td class="center" width="80">'.$langs->trans("Status").'</td>';
 print '<td class="center" width="60">'.$langs->trans("ShortInfo").'</td>';
 print "</tr>\n";
 
-$arrayofmodules = array();
+$arrayofmodules = [];
 
 foreach ($dirsociete as $dirroot) {
 	$dir = dol_buildpath($dirroot, 0);
@@ -554,7 +554,7 @@ print '<br>';
 print load_fiche_titre($langs->trans("ModelModules"), '', '');
 
 // Load array def with activated templates
-$def = array();
+$def = [];
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = 'company'";
@@ -638,7 +638,7 @@ foreach ($dirsociete as $dirroot) {
 						//}
 						print "</td>";
 					} else {
-						if (versioncompare($module->phpmin, versionphparray()) > 0) {
+						if (versioncompare($module->phpmin, versionphp[]) > 0) {
 							print '<td class="center">'."\n";
 							print img_picture(dol_escape_htmltag($langs->trans("ErrorModuleRequirePHPVersion", implode('.', $module->phpmin))), 'switch_off');
 							print "</td>";
@@ -697,7 +697,7 @@ print '<td class="center">'.$langs->trans("MustBeMandatory").'</td>';
 print '<td class="center">'.$langs->trans("MustBeInvoiceMandatory").'</td>';
 print "</tr>\n";
 
-$profid = array('IDPROF1' => array(), 'IDPROF2' => array(), 'IDPROF3' => array(), 'IDPROF4' => array(), 'IDPROF5' => array(),'IDPROF6' => array(), 'EMAIL' => array());
+$profid = array('IDPROF1' => [], 'IDPROF2' => [], 'IDPROF3' => [], 'IDPROF4' => [], 'IDPROF5' => [],'IDPROF6' => [], 'EMAIL' => []);
 $profid['IDPROF1'][0] = $langs->trans("ProfId1");
 $profid['IDPROF1'][1] = $langs->transcountry('ProfId1', $mysoc->country_code);
 $profid['IDPROF2'][0] = $langs->trans("ProfId2");
@@ -713,10 +713,10 @@ $profid['IDPROF6'][1] = $langs->transcountry('ProfId6', $mysoc->country_code);
 $profid['EMAIL'][0] = $langs->trans("EMail");
 $profid['EMAIL'][1] = $langs->trans('Email');
 if (isModEnabled('accounting')) {
-	$profid['ACCOUNTANCY_CODE_CUSTOMER'] = array();
+	$profid['ACCOUNTANCY_CODE_CUSTOMER'] = [];
 	$profid['ACCOUNTANCY_CODE_CUSTOMER'][0] = $langs->trans("CustomerAccountancyCodeShort");
 	$profid['ACCOUNTANCY_CODE_CUSTOMER'][1] = $langs->trans('CustomerAccountancyCodeShort');
-	$profid['ACCOUNTANCY_CODE_SUPPLIER'] = array();
+	$profid['ACCOUNTANCY_CODE_SUPPLIER'] = [];
 	$profid['ACCOUNTANCY_CODE_SUPPLIER'][0] = $langs->trans("SupplierAccountancyCodeShort");
 	$profid['ACCOUNTANCY_CODE_SUPPLIER'][1] = $langs->trans('SupplierAccountancyCodeShort');
 }

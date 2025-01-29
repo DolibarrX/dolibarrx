@@ -161,7 +161,7 @@ if (getDolGlobalString('PRODUCT_USE_UNITS')) {
 	$sql .= ', u.short_label as unit_short';
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= ' FROM '.MAIN_DB_PREFIX.'product as p';
@@ -172,7 +172,7 @@ if (getDolGlobalString('PRODUCT_USE_UNITS')) {
 	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_units as u on p.fk_unit = u.rowid';
 }
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " WHERE p.entity IN (".getEntity('product').")";
@@ -273,7 +273,7 @@ if (getDolGlobalString('PRODUCT_STOCK_LIST_SHOW_WITH_PRECALCULATED_DENORMALIZED_
 	}
 }
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 if (!getDolGlobalString('PRODUCT_STOCK_LIST_SHOW_WITH_PRECALCULATED_DENORMALIZED_PHYSICAL_STOCK')) {
@@ -282,7 +282,7 @@ if (!getDolGlobalString('PRODUCT_STOCK_LIST_SHOW_WITH_PRECALCULATED_DENORMALIZED
 }
 
 // Add GROUP BY from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListGroupBy', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -305,7 +305,7 @@ if (!getDolGlobalString('PRODUCT_STOCK_LIST_SHOW_WITH_PRECALCULATED_DENORMALIZED
 }
 
 // Add HAVING from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object); // Note that $action and $object may have been modified by hook
 if (!empty($hookManager->resPrint)) {
 	if (!empty($sql_having)) {
@@ -433,7 +433,7 @@ if ($resql) {
 
 	print '<div class="liste_titre liste_titre_bydiv centpercent">';
 	print $moreforfilter;
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	print '</div>';
@@ -484,7 +484,7 @@ if ($resql) {
 	print '<td class="liste_titre">&nbsp;</td>';
 	print '<td class="liste_titre" colspan="'.$colspan_warehouse.'">&nbsp;</td>';
 	print '<td class="liste_titre"></td>';
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {

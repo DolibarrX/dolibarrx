@@ -73,7 +73,7 @@ class PaymentExpenseReport extends CommonObject
 	/**
 	 * @var array<float|int>
 	 */
-	public $amounts = array(); // Array of amounts
+	public $amounts = []; // Array of amounts
 
 	/**
 	 * @var int ID

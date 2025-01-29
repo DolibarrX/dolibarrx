@@ -157,7 +157,7 @@ $arrayofcss = array('/takepos/css/pos.css.php');
 if (getDolGlobalInt('TAKEPOS_COLOR_THEME') == 1) {
 	$arrayofcss[] = '/takepos/css/colorful.css';
 }
-$arrayofjs = array();
+$arrayofjs = [];
 
 $head = '';
 $title = '';
@@ -167,8 +167,8 @@ $disablehead = 0;
 top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss);
 
 // Define list of possible payments
-$arrayOfValidPaymentModes = array();
-$arrayOfValidBankAccount = array();
+$arrayOfValidPaymentModes = [];
+$arrayOfValidBankAccount = [];
 
 ?>
 <body class="takepossplitphp">

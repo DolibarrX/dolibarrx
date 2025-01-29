@@ -57,10 +57,10 @@ class FormAdvTargetEmailing extends Form
 	 * @param string $htmlname select field
 	 * @return string select field
 	 */
-	public function multiselectProspectionStatus($selected_array = array(), $htmlname = 'cust_prospect_status')
+	public function multiselectProspectionStatus($selected_array = [], $htmlname = 'cust_prospect_status')
 	{
 		global $config, $langs;
-		$options_array = array();
+		$options_array = [];
 
 		$sql = "SELECT code, label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_prospectlevel";
@@ -95,7 +95,7 @@ class FormAdvTargetEmailing extends Form
 	 * @param string[]  $selected_array or Code or Label of preselected country
 	 * @return string   HTML string with select
 	 */
-	public function multiselectState($htmlname = 'state_id', $selected_array = array())
+	public function multiselectState($htmlname = 'state_id', $selected_array = [])
 	{
 		global $config, $langs;
 
@@ -103,10 +103,10 @@ class FormAdvTargetEmailing extends Form
 		$maxlength = 0;
 
 		$out = '';
-		$stateArray = array();
-		$label = array();
+		$stateArray = [];
+		$label = [];
 
-		$options_array = array();
+		$options_array = [];
 
 		$sql = "SELECT d.rowid as rowid, d.code_departement as code, d.nom as department, r.nom as region";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_departements d";
@@ -156,7 +156,7 @@ class FormAdvTargetEmailing extends Form
 	 * @param string[]  $selected_array or Code or Label of preselected country
 	 * @return string   HTML string with select
 	 */
-	public function multiselectCountry($htmlname = 'country_id', $selected_array = array())
+	public function multiselectCountry($htmlname = 'country_id', $selected_array = [])
 	{
 		global $config, $langs;
 
@@ -164,10 +164,10 @@ class FormAdvTargetEmailing extends Form
 		$maxlength = 0;
 
 		$out = '';
-		$countryArray = array();
-		$label = array();
+		$countryArray = [];
+		$label = [];
 
-		$options_array = array();
+		$options_array = [];
 
 		$sql = "SELECT rowid, code as code_iso, label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_country";
@@ -221,7 +221,7 @@ class FormAdvTargetEmailing extends Form
 	{
 		global $config;
 
-		$options_array = array();
+		$options_array = [];
 
 		$sql_usr = '';
 		$sql_usr .= "SELECT DISTINCT u2.rowid, u2.lastname as name, u2.firstname, u2.login";
@@ -262,11 +262,11 @@ class FormAdvTargetEmailing extends Form
 	 * @param string[] $selected_array selected array
 	 * @return string combo list code
 	 */
-	public function multiselectselectLanguage($htmlname = '', $selected_array = array())
+	public function multiselectselectLanguage($htmlname = '', $selected_array = [])
 	{
 		global $config, $langs;
 
-		$options_array = array();
+		$options_array = [];
 
 		$langs_available = $langs->get_available_languages(DOL_DOCUMENT_ROOT, 12);
 
@@ -287,9 +287,9 @@ class FormAdvTargetEmailing extends Form
 	 *
 	 *  @return	string HTML combo
 	 */
-	public function advMultiselectarraySelllist($htmlname, $sqlqueryparam = array(), $selected_array = array())
+	public function advMultiselectarraySelllist($htmlname, $sqlqueryparam = [], $selected_array = [])
 	{
-		$options_array = array();
+		$options_array = [];
 
 		if (is_array($sqlqueryparam)) {
 			$param_list = array_keys($sqlqueryparam);
@@ -356,12 +356,12 @@ class FormAdvTargetEmailing extends Form
 	 *  @param  string[]	$selected_array     Array
 	 *  @return	string                     HTML combo
 	 */
-	public function multiselectCivility($htmlname = 'civilite_id', $selected_array = array())
+	public function multiselectCivility($htmlname = 'civilite_id', $selected_array = [])
 	{
 		global $config, $langs, $user;
 		$langs->load("dict");
 
-		$options_array = array();
+		$options_array = [];
 
 		$sql = "SELECT rowid, code, label as civilite, active FROM ".MAIN_DB_PREFIX."c_civility";
 		$sql .= " WHERE active = 1";
@@ -398,7 +398,7 @@ class FormAdvTargetEmailing extends Form
 	 * @param int $showempty show empty
 	 * @return string HTML combo
 	 */
-	public function advMultiselectarray($htmlname, $options_array = array(), $selected_array = array(), $showempty = 0)
+	public function advMultiselectarray($htmlname, $options_array = [], $selected_array = [], $showempty = 0)
 	{
 		global $config, $langs;
 

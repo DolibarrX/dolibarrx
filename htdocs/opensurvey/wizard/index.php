@@ -49,7 +49,7 @@ $langs->load("opensurvey");
  * View
  */
 
-$arrayofjs = array();
+$arrayofjs = [];
 $arrayofcss = array('/opensurvey/css/style.css');
 llxHeader('', $langs->trans("Survey"), '', "", 0, 0, $arrayofjs, $arrayofcss);
 

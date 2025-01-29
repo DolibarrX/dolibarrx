@@ -73,7 +73,7 @@ if (GETPOST('roworder', 'alpha', 3)) {
 	dol_syslog("AjaxOrderAttribute roworder=" . $roworder, LOG_DEBUG);
 
 	$rowordertab = explode(',', $roworder);
-	$newrowordertab = array();
+	$newrowordertab = [];
 	foreach ($rowordertab as $value) {
 		if (!empty($value)) {
 			$newrowordertab[] = $value;

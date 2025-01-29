@@ -38,7 +38,7 @@
  */
 // Save selection
 if (GETPOST('formfilteraction', 'alphanohtml') == 'listafterchangingselectedfields') {
-	$tabparam = array();
+	$tabparam = [];
 
 	$varpage = empty($contextpage) ? $_SERVER["PHP_SELF"] : $contextpage;
 

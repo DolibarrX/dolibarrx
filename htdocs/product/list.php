@@ -235,7 +235,7 @@ $isInEEC = isInEEC($mysoc);
 
 $alias_product_perentity = !getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED') ? "p" : "ppe";
 
-$arraypricelevel = array();
+$arraypricelevel = [];
 // Definition of array of fields for columns
 $arrayfields = array(
 	'p.rowid' => array('type' => 'integer', 'label' => 'TechnicalID', 'enabled' => 1, 'visible' => -2, 'noteditable' => 1, 'notnull' => 1, 'index' => 1, 'position' => 1, 'comment' => 'Id', 'css' => 'left'),
@@ -373,7 +373,7 @@ if (empty($resHook)) {
 		$search_default_workstation = "";
 		$search_barcode = "";
 		$searchCategoryProductOperator = 0;
-		$searchCategoryProductList = array();
+		$searchCategoryProductList = [];
 		$search_tosell = "";
 		$search_tobuy = "";
 		$search_tobatch = '';
@@ -391,7 +391,7 @@ if (empty($resHook)) {
 		$search_accountancy_code_buy = '';
 		$search_accountancy_code_buy_intra = '';
 		$search_accountancy_code_buy_export = '';
-		$search_array_options = array();
+		$search_array_options = [];
 		$search_units = '';
 	}
 
@@ -487,7 +487,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -518,7 +518,7 @@ if (getDolGlobalString('PRODUCT_USE_UNITS')) {
 }
 
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -592,7 +592,7 @@ if (dol_strlen($canvas) > 0) {
 
 // Search for tag/category ($searchCategoryProductList is an array of ID)
 if (!empty($searchCategoryProductList)) {
-	$searchCategoryProductSqlList = array();
+	$searchCategoryProductSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
@@ -655,7 +655,7 @@ if (getDolGlobalString('PRODUCT_USE_UNITS') && $search_units && $search_units !=
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " GROUP BY p.rowid, p.ref, p.description, p.label, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type,";
@@ -686,7 +686,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add groupby from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListGroupBy', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 //if (GETPOST("toolowstock")) $sql.= " HAVING SUM(s.reel) < p.seuil_stock_alerte";    // Not used yet
@@ -754,10 +754,10 @@ foreach ($searchCategoryProductList as $searchCategoryProduct) {
 	$paramsCat .= "&search_category_product_list[]=".urlencode($searchCategoryProduct);
 }
 
-//llxHeader('', $title, $helpurl, '', 0, 0, array(), array(), $paramsCat, 'classforhorizontalscrolloftabs');
-llxHeader('', $title, $helpurl, '', 0, 0, array(), array(), $paramsCat, 'bodyforlist mod-product page-list');
+//llxHeader('', $title, $helpurl, '', 0, 0, [], [], $paramsCat, 'classforhorizontalscrolloftabs');
+llxHeader('', $title, $helpurl, '', 0, 0, [], [], $paramsCat, 'bodyforlist mod-product page-list');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 // Displays product removal confirmation
 if (GETPOST('delprod')) {
@@ -885,7 +885,7 @@ if (isModEnabled('category') && $user->hasRight($rightskey, 'creer')) {
 	$arrayofmassactions['preaffecttag'] = img_picture('', 'category', 'class="picturefixedwidth"').$langs->trans("AffectTag");
 }
 if (in_array($massaction, array('presend', 'predelete','preaffecttag', 'edit_extrafields', 'preupdateprice'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 if ($user->hasRight($rightskey, 'supprimer')) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
@@ -904,7 +904,7 @@ if ($type === "") {
 	$perm = $user->hasRight('produit', 'creer');
 }
 $oldtype = $type;
-$params = array();
+$params = [];
 if ($type === "") {
 	$params['forcenohideoftext'] = 1;
 }
@@ -982,7 +982,7 @@ if (isModEnabled('variants')) {
 	$moreforfilter .= '</div>';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -1303,7 +1303,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1544,7 +1544,7 @@ print '</tr>'."\n";
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {
@@ -1991,10 +1991,10 @@ while ($i < $imaxinloop) {
 		// Multiprices
 		if (getDolGlobalString('PRODUIT_MULTIPRICES')) {
 			if (! isset($productpricescache)) {
-				$productpricescache = array();
+				$productpricescache = [];
 			}
 			if (! isset($productpricescache[$obj->rowid])) {
-				$productpricescache[$obj->rowid] = array();
+				$productpricescache[$obj->rowid] = [];
 			}
 
 			if ($product_static->status && $usercancreadprice) {

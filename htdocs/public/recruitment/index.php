@@ -121,8 +121,8 @@ if (!getDolGlobalString('RECRUITMENT_ENABLE_PUBLIC_INTERFACE')) {
 	exit();
 }
 
-$arrayofjs = array();
-$arrayofcss = array();
+$arrayofjs = [];
+$arrayofcss = [];
 
 $replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';
 llxHeader($head, $langs->trans("PositionToBeFilled"), '', '', 0, 0, '', '', '', 'onlinepaymentbody', $replacemainarea, 1, 1);
@@ -182,7 +182,7 @@ if (getDolGlobalString('RECRUITMENT_IMAGE_PUBLIC_INTERFACE')) {
 
 $results = $object->fetchAll($sortorder, $sortfield, 0, 0, '(status:=:1)');
 $now = dol_now();
-$params = array();
+$params = [];
 
 if (is_array($results)) {
 	if (empty($results)) {
@@ -196,14 +196,14 @@ if (is_array($results)) {
 
 		foreach ($results as $job) {
 			$object = $job;
-			$arrayofpostulatebutton = array();
+			$arrayofpostulatebutton = [];
 
 			print '<table id="dolpaymenttable" summary="Job position offer" class="center">'."\n";
 
 			// Output introduction text
 			$text = '';
 			if (getDolGlobalString('RECRUITMENT_NEWFORM_TEXT')) {
-				$reg = array();
+				$reg = [];
 				if (preg_match('/^\((.*)\)$/', $config->global->RECRUITMENT_NEWFORM_TEXT, $reg)) {
 					$text .= $langs->trans($reg[1])."<br>\n";
 				} else {

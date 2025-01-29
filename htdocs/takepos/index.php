@@ -165,8 +165,8 @@ if (getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) {
 
 $levelofmaincategories = $levelofrootcategory + 1;
 
-$maincategories = array();
-$subcategories = array();
+$maincategories = [];
+$subcategories = [];
 foreach ($categories as $key => $categorycursor) {
 	if ($categorycursor['level'] == $levelofmaincategories) {
 		$maincategories[$key] = $categorycursor;
@@ -433,7 +433,7 @@ function LoadProducts(position, issubcat) {
 
 				<?php
 				// Add js from hooks
-				$parameters = array();
+				$parameters = [];
 				$parameters['caller'] = 'loadProducts';
 				$hookManager->executeHooks('completeJSProductDisplay', $parameters);
 				print $hookManager->resPrint;
@@ -604,7 +604,7 @@ function Reduction() {
 var closeBillParams="";
 function CloseBill() {
 	<?php
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('paramsForCloseBill', $parameters, $obj, $action);
 	if (getDolGlobalString('TAKEPOS_FORBID_SALES_TO_DEFAULT_CUSTOMER')) {
 		echo "customerAnchorTag = document.querySelector('a[id=\"customer\"]'); ";
@@ -803,7 +803,7 @@ function Search2(keyCodeForEnter, moreorless) {
 
 					<?php
 					// Add js from hooks
-					$parameters = array();
+					$parameters = [];
 					$parameters['caller'] = 'search2';
 					$hookManager->executeHooks('completeJSProductDisplay', $parameters);
 					print $hookManager->resPrint;
@@ -1329,7 +1329,7 @@ if (isset($_SESSION["takeposterminal"]) && $_SESSION["takeposterminal"]) {
 	$sql .= " ORDER BY libelle";
 
 	$resql          = $db->query($sql);
-	$paiementsModes = array();
+	$paiementsModes = [];
 	if ($resql) {
 		while ($obj = $db->fetch_object($resql)) {
 			$paycode = $obj->code;
@@ -1365,7 +1365,7 @@ if (count($maincategories) == 0) {
 	}
 }
 // User menu and external TakePOS modules
-$menus = array();
+$menus = [];
 $r = 0;
 
 if (!getDolGlobalString('TAKEPOS_BAR_RESTAURANT')) {

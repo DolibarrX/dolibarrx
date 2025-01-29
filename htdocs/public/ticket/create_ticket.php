@@ -94,7 +94,7 @@ $hookManager->initHooks(array('publicnewticketcard', 'globalcard'));
 
 $object = new Ticket($db);
 $extrafields = new ExtraFields($db);
-$contacts = array();
+$contacts = [];
 $with_contact = null;
 if (getDolGlobalInt('TICKET_CREATE_THIRD_PARTY_WITH_CONTACT_IF_NOT_EXIST')) {
 	$with_contact = new Contact($db);
@@ -391,9 +391,9 @@ if (empty($resHook)) {
 						$formmail = new FormMail($db);
 
 						// Init to avoid errors
-						$filepath = array();
-						$filename = array();
-						$mimetype = array();
+						$filepath = [];
+						$filename = [];
+						$mimetype = [];
 
 						$attachedfiles = $formmail->get_attached_files();
 						$filepath = $attachedfiles['paths'];
@@ -519,7 +519,7 @@ if (!getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	exit();
 }
 
-$arrayofjs = array();
+$arrayofjs = [];
 
 $arrayofcss = array(getDolGlobalString('TICKET_URL_PUBLIC_INTERFACE', '/public/ticket/').'css/styles.css.php');
 

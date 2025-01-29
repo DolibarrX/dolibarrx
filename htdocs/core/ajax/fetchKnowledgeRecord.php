@@ -100,7 +100,7 @@ if ($action == "getKnowledgeRecord") {
 	if ($resql) {
 		$num = $db->num_rows($resql);
 		$i = 0;
-		$response = array();
+		$response = [];
 		while ($i < $num) {
 			$obj = $db->fetch_object($resql);
 			$response[] = array('title'=>$obj->question,'ref'=>$obj->ref,'answer'=>dol_escape_htmltag(preg_replace('/\\r|\\r\\n|\\n/', "", $obj->answer)),'url'=>$obj->url);

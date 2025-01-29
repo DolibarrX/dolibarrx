@@ -46,7 +46,7 @@ $confirm = GETPOST('confirm', 'alpha');
 $cancel = GETPOST('cancel');
 
 $chid = GETPOSTINT("id");
-$amounts = array();
+$amounts = [];
 
 // Security check
 $socid = 0;

@@ -115,7 +115,7 @@ llxHeader('', $texte, $helpurl, '', 0, 0, '', '', '', 'mod-product page-stock_re
 
 print load_fiche_titre($langs->trans('Replenishment'), '', 'stock');
 
-$head = array();
+$head = [];
 
 $head[0][0] = DOL_URL_ROOT.'/product/stock/replenish.php';
 $head[0][1] = $langs->trans('MissingStocks');

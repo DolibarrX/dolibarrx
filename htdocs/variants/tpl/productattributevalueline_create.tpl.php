@@ -71,7 +71,7 @@ $nolinesbefore = (count($this->lines) == 0 || $forcetoshowtitlelines);
 		<input type="text" name="line_ref" id="line_ref" class="flat" value="<?php echo(GETPOSTISSET("line_ref") ? GETPOST("line_ref", 'alpha', 2) : ''); ?>" autofocus>
 		<?php
 		if (is_object($hookManager)) {
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('formCreateValueOptions', $parameters, $object, $action);
 			if (!empty($hookManager->resPrint)) {
 				print $hookManager->resPrint;

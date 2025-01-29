@@ -111,7 +111,7 @@ class ProductCombination
 	 * Array of error messages
 	 * @var string[]
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * Constructor
@@ -183,7 +183,7 @@ class ProductCombination
 		if (!is_array($this->combination_price_levels)
 			|| empty($fk_price_level) // if fetch an unique level don't erase all already fetched
 		) {
-			$this->combination_price_levels = array();
+			$this->combination_price_levels = [];
 		}
 
 		$staticProductCombinationLevel = new ProductCombinationLevel($this->db);
@@ -324,7 +324,7 @@ class ProductCombination
 			return -1;
 		}
 
-		$return = array();
+		$return = [];
 
 		while ($result = $this->db->fetch_object($query)) {
 			$tmp = new ProductCombination($this->db);
@@ -578,7 +578,7 @@ class ProductCombination
 							$new_price += $variation_price;
 						}
 
-						$ret = $child->updatePrice($new_price, $new_type, $user, $new_vat, $new_min_price, $i, $new_npr, $new_psq, 0, array(), $parent->default_vat_code);
+						$ret = $child->updatePrice($new_price, $new_type, $user, $new_vat, $new_min_price, $i, $new_npr, $new_psq, 0, [], $parent->default_vat_code);
 
 						if ($ret < 0) {
 							$this->db->rollback();
@@ -639,7 +639,7 @@ class ProductCombination
 	{
 		require_once DOL_DOCUMENT_ROOT.'/variants/class/ProductCombination2ValuePair.class.php';
 
-		$actual_comp = array();
+		$actual_comp = [];
 
 		$prodcomb2val = new ProductCombination2ValuePair($this->db);
 		$prodcomb = new ProductCombination($this->db);
@@ -660,7 +660,7 @@ class ProductCombination
 		}
 
 		foreach ($prodcomb->fetchAllByFkProductParent($prodid) as $prc) {
-			$values = array();
+			$values = [];
 
 			foreach ($prodcomb2val->fetchByFkCombination($prc->id) as $value) {
 				$values[$value->fk_prod_attr] = $value->fk_prod_attr_val;
@@ -706,7 +706,7 @@ class ProductCombination
 		$resql = $this->db->query($sql);
 
 		// Values
-		$variants = array();
+		$variants = [];
 		while ($obj = $this->db->fetch_object($resql)) {
 			$attr = new ProductAttribute($this->db);
 			$attr->fetch($obj->fk_prod_attr);
@@ -715,7 +715,7 @@ class ProductCombination
 			$tmp->id = $attr->id;
 			$tmp->ref = $attr->ref;
 			$tmp->label = $attr->label;
-			$tmp->values = array();
+			$tmp->values = [];
 
 			$attrval = new ProductAttributeValue($this->db);
 			// fetch only the used values of this attribute
@@ -988,7 +988,7 @@ class ProductCombination
 		$combinations = $this->fetchAllByFkProductParent($origProductId);
 
 		foreach ($combinations as $combination) {
-			$variations = array();
+			$variations = [];
 
 			foreach ($prodcomb2val->fetchByFkCombination($combination->id) as $tmp_pc2v) {
 				$variations[$tmp_pc2v->fk_prod_attr] = $tmp_pc2v->fk_prod_attr_val;
@@ -1011,7 +1011,7 @@ class ProductCombination
 				$user,
 				$destProduct,
 				$variations,
-				array(),
+				[],
 				$variation_price_percentage,
 				$variation_price,
 				$combination->variation_weight
@@ -1113,7 +1113,7 @@ class ProductCombinationLevel
 	/**
 	 * @var string[] array of errors
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * Constructor
@@ -1158,7 +1158,7 @@ class ProductCombinationLevel
 	 */
 	public function fetchAll($fk_product_attribute_combination, $fk_price_level = 0)
 	{
-		$result = array();
+		$result = [];
 
 		$sql = "SELECT rowid, fk_product_attribute_combination, fk_price_level, variation_price, variation_price_percentage";
 		$sql .= " FROM ".MAIN_DB_PREFIX.$this->table_element;

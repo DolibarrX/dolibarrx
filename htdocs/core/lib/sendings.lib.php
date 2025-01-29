@@ -41,7 +41,7 @@ function shipping_prepare_head($object)
 	$langs->loadLangs(array("sendings", "deliveries"));
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/expedition/card.php?id=" . $object->id;
 	$head[$h][1] = $langs->trans("SendingCard");
@@ -139,7 +139,7 @@ function delivery_prepare_head($object)
 	$langs->loadLangs(array("sendings", "deliveries"));
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	if (getDolGlobalInt('MAIN_SUBMODULE_EXPEDITION') && $user->hasRight('expedition', 'lire')) {
 		$head[$h][0] = DOL_URL_ROOT . "/expedition/card.php?id=" . $object->origin_id;

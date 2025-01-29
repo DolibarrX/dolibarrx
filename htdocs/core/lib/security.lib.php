@@ -40,7 +40,7 @@
 function dol_encode($chain, $key = '1')
 {
 	if (is_numeric($key) && $key == '1') {	// rule 1 is offset of 17 for char
-		$output_tab = array();
+		$output_tab = [];
 		$strlength = dol_strlen($chain);
 		for ($i = 0; $i < $strlength; $i++) {
 			$output_tab[$i] = chr(ord(substr($chain, $i, 1)) + 17);
@@ -73,7 +73,7 @@ function dol_decode($chain, $key = '1')
 	$chain = base64_decode($chain);
 
 	if (is_numeric($key) && $key == '1') {	// rule 1 is offset of 17 for char
-		$output_tab = array();
+		$output_tab = [];
 		$strlength = dol_strlen($chain);
 		for ($i = 0; $i < $strlength; $i++) {
 			$output_tab[$i] = chr(ord(substr($chain, $i, 1)) - 17);
@@ -133,7 +133,7 @@ function dolEncrypt($chain, $key = '', $ciphering = '', $forceseed = '')
 		return '';
 	}
 
-	$reg = array();
+	$reg = [];
 	if (preg_match('/^dolcrypt:([^:]+):(.+)$/', $chain, $reg)) {
 		// The $chain is already a encrypted string
 		return $chain;
@@ -202,7 +202,7 @@ function dolDecrypt($chain, $key = '')
 	}
 
 	//var_dump('key='.$key);
-	$reg = array();
+	$reg = [];
 	if (preg_match('/^dolcrypt:([^:]+):(.+)$/', $chain, $reg)) {
 		// Do not enable this log, except during debug
 		//dol_syslog("We try to decrypt the chain: ".$chain, LOG_DEBUG);
@@ -1034,7 +1034,7 @@ function checkUserAccessToObject($user, array $featuresarray, $object = 0, $tabl
 					$sql .= " AND dbt.entity IN (" . getEntity($sharedelement, 1) . ")";
 				}
 			} else {
-				$reg = array();
+				$reg = [];
 				if ($parenttableforentity && preg_match('/(.*)@(.*)/', $parenttableforentity, $reg)) {
 					$sql .= ", " . MAIN_DB_PREFIX . $reg[2] . " as dbtp";
 					$sql .= " WHERE dbt." . $reg[1] . " = dbtp.rowid AND dbt." . $dbt_select . " IN (" . $db->sanitize($objectid, 1) . ")";

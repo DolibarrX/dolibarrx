@@ -233,7 +233,7 @@ $permissiontoadd = $user->hasRight('accounting', 'mouvements', 'creer');
  * Action
  */
 
-$filter = array();
+$filter = [];
 $param = '';
 $url_param = '';
 
@@ -264,7 +264,7 @@ if (empty($resHook)) {
 		$search_label_operation = '';
 		$search_mvt_num = '';
 		$search_direction = '';
-		$search_ledger_code = array();
+		$search_ledger_code = [];
 		$search_date_start = '';
 		$search_date_end = '';
 		$search_date_startyear = '';
@@ -304,7 +304,7 @@ if (empty($resHook)) {
 		$search_credit = '';
 		$search_not_reconciled = '';
 		$search_import_key = '';
-		$toselect = array();
+		$toselect = [];
 	}
 
 	if (!empty($socid)) {
@@ -327,7 +327,7 @@ if (empty($resHook)) {
 		$accountingcategory = new AccountancyCategory($db);
 
 		$listofaccountsforgroup = $accountingcategory->getCptsCat(0, 'fk_accounting_category = '.((int) $search_account_category));
-		$listofaccountsforgroup2 = array();
+		$listofaccountsforgroup2 = [];
 		if (is_array($listofaccountsforgroup)) {
 			foreach ($listofaccountsforgroup as $tmpval) {
 				$listofaccountsforgroup2[] = "'".$db->escape($tmpval['id'])."'";
@@ -508,12 +508,12 @@ if (empty($resHook)) {
 				$nb_lettering = max(0, abs($nb_lettering) - 2);
 			} elseif ($nb_lettering == 0) {
 				$nb_lettering = 0;
-				setEventMessages($langs->trans('AccountancyNoLetteringModified'), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyNoLetteringModified'), [], 'mesgs');
 			}
 			if ($nb_lettering == 1) {
-				setEventMessages($langs->trans('AccountancyOneLetteringModifiedSuccessfully'), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyOneLetteringModifiedSuccessfully'), [], 'mesgs');
 			} elseif ($nb_lettering > 1) {
-				setEventMessages($langs->trans('AccountancyLetteringModifiedSuccessfully', $nb_lettering), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyLetteringModifiedSuccessfully', $nb_lettering), [], 'mesgs');
 			}
 
 			if (!$error) {
@@ -526,7 +526,7 @@ if (empty($resHook)) {
 			if ($result < 0) {
 				setEventMessages('', $lettering->errors, 'errors');
 			} else {
-				setEventMessages($langs->trans($result == 0 ? 'AccountancyNoLetteringModified' : 'AccountancyOneLetteringModifiedSuccessfully'), array(), 'mesgs');
+				setEventMessages($langs->trans($result == 0 ? 'AccountancyNoLetteringModified' : 'AccountancyOneLetteringModifiedSuccessfully'), [], 'mesgs');
 				header('Location: ' . $_SERVER['PHP_SELF'] . '?noreset=1' . $param);
 				exit();
 			}
@@ -536,7 +536,7 @@ if (empty($resHook)) {
 			if ($result < 0) {
 				setEventMessages('', $lettering->errors, 'errors');
 			} else {
-				setEventMessages($langs->trans($result == 0 ? 'AccountancyNoLetteringModified' : 'AccountancyOneLetteringModifiedSuccessfully'), array(), 'mesgs');
+				setEventMessages($langs->trans($result == 0 ? 'AccountancyNoLetteringModified' : 'AccountancyOneLetteringModifiedSuccessfully'), [], 'mesgs');
 				header('Location: ' . $_SERVER['PHP_SELF'] . '?noreset=1' . $param);
 				exit();
 			}
@@ -549,12 +549,12 @@ if (empty($resHook)) {
 				$nb_lettering = max(0, abs($nb_lettering) - 2);
 			} elseif ($nb_lettering == 0) {
 				$nb_lettering = 0;
-				setEventMessages($langs->trans('AccountancyNoUnletteringModified'), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyNoUnletteringModified'), [], 'mesgs');
 			}
 			if ($nb_lettering == 1) {
-				setEventMessages($langs->trans('AccountancyOneUnletteringModifiedSuccessfully'), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyOneUnletteringModifiedSuccessfully'), [], 'mesgs');
 			} elseif ($nb_lettering > 1) {
-				setEventMessages($langs->trans('AccountancyUnletteringModifiedSuccessfully', $nb_lettering), array(), 'mesgs');
+				setEventMessages($langs->trans('AccountancyUnletteringModifiedSuccessfully', $nb_lettering), [], 'mesgs');
 			}
 
 			if (!$error) {
@@ -567,7 +567,7 @@ if (empty($resHook)) {
 			if ($result < 0) {
 				setEventMessages('', $lettering->errors, 'errors');
 			} else {
-				setEventMessages($langs->trans($result == 0 ? 'AccountancyNoUnletteringModified' : 'AccountancyOneUnletteringModifiedSuccessfully'), array(), 'mesgs');
+				setEventMessages($langs->trans($result == 0 ? 'AccountancyNoUnletteringModified' : 'AccountancyOneUnletteringModifiedSuccessfully'), [], 'mesgs');
 				header('Location: ' . $_SERVER['PHP_SELF'] . '?noreset=1' . $param);
 				exit();
 			}
@@ -735,14 +735,14 @@ if (!$error) {
 	}
 }
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 // Print form confirm
 $formconfirm = '';
 print $formconfirm;
 
 // List of mass actions available
-$arrayofmassactions = array();
+$arrayofmassactions = [];
 if (getDolGlobalInt('ACCOUNTING_ENABLE_LETTERING') && $user->hasRight('accounting', 'mouvements', 'creer')) {
 	$arrayofmassactions['letteringauto'] = img_picture('', 'check', 'class="picturefixedwidth"') . $langs->trans('LetteringAuto');
 	$arrayofmassactions['preunletteringauto'] = img_picture('', 'uncheck', 'class="picturefixedwidth"') . $langs->trans('UnletteringAuto');
@@ -756,7 +756,7 @@ if ($user->hasRight('accounting', 'mouvements', 'supprimer')) {
 	$arrayofmassactions['predeletebookkeepingwriting'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('preunletteringauto', 'preunletteringmanual', 'predeletebookkeepingwriting'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction($massaction, $arrayofmassactions);
 
@@ -845,13 +845,13 @@ $moreforfilter .= '<div class="nowrap inline-block">';
 if ($type == 'sub') {
 	$moreforfilter .= $formaccounting->select_auxaccount($search_accountancy_code_start, 'search_accountancy_code_start', $langs->trans('From'), 'maxwidth200');
 } else {
-	$moreforfilter .= $formaccounting->select_account($search_accountancy_code_start, 'search_accountancy_code_start', $langs->trans('From'), array(), 1, 1, 'maxwidth200');
+	$moreforfilter .= $formaccounting->select_account($search_accountancy_code_start, 'search_accountancy_code_start', $langs->trans('From'), [], 1, 1, 'maxwidth200');
 }
 $moreforfilter .= ' ';
 if ($type == 'sub') {
 	$moreforfilter .= $formaccounting->select_auxaccount($search_accountancy_code_end, 'search_accountancy_code_end', $langs->trans('to'), 'maxwidth200');
 } else {
-	$moreforfilter .= $formaccounting->select_account($search_accountancy_code_end, 'search_accountancy_code_end', $langs->trans('to'), array(), 1, 1, 'maxwidth200');
+	$moreforfilter .= $formaccounting->select_account($search_accountancy_code_end, 'search_accountancy_code_end', $langs->trans('to'), [], 1, 1, 'maxwidth200');
 }
 
 if (empty($socid)) {
@@ -902,7 +902,7 @@ if (empty($socid)) {
 	$moreforfilter .= '</div>';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -1090,11 +1090,11 @@ $result = -1;  // Init for static analysis
 // --------------------------------------------------------------------
 $i = 0;
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $sous_total_debit = 0;
 $sous_total_credit = 0;
-$totalarray['val'] = array();
+$totalarray['val'] = [];
 $totalarray['val']['totaldebit'] = 0;
 $totalarray['val']['totalcredit'] = 0;
 $totalarray['val']['totalbalance'] = 0;

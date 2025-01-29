@@ -94,8 +94,8 @@ $title = $langs->trans("Multicompanies");
 
 // URL http://mydolibarr/core/multicompany_page?dol_use_jmobile=1 can be used for tests
 $head = '<!-- Multicompany selection -->'."\n";	// This is used by DoliDroid to know page is a multicompany selection page
-$arrayofjs = array();
-$arrayofcss = array();
+$arrayofjs = [];
+$arrayofcss = [];
 top_htmlhead($head, $title, 0, 0, $arrayofjs, $arrayofcss);
 
 
@@ -122,14 +122,14 @@ if (!isModEnabled('multicompany')) {
 	if (is_object($mc)) {
 		$listofentities = $mc->getEntitiesList(true, false, true);
 	} else {
-		$listofentities = array();
+		$listofentities = [];
 	}
 
 	$multicompanyList .= '<ul class="ullistonly left" style="list-style: none; padding: 10px; padding-top: 20px;">';
 
 	// Get list of all images for all entities
 	// Logo is inside MAIN_INFO_SOCIETE_LOGO_SQUARRED/_MINI/_SMALL else MAIN_INFO_SOCIETE_LOGO/_MINI/_SMALL
-	$imagesofentities = array();
+	$imagesofentities = [];
 	$sql = "SELECT entity, name, value FROM ".MAIN_DB_PREFIX."const";
 	$sql .= " WHERE name in ('MAIN_INFO_SOCIETE_LOGO', 'MAIN_INFO_SOCIETE_LOGO_MINI', 'MAIN_INFO_SOCIETE_LOGO_SQUARRED', 'MAIN_INFO_SOCIETE_LOGO_SQUARRED_MINI')";
 	$sql .= " GROUP BY entity, name, value";

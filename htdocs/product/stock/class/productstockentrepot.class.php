@@ -265,7 +265,7 @@ class ProductStockEntrepot extends CommonObject
 
 		// Manage filter
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					$sqlwhere[] = $this->db->sanitize($key)." LIKE '%".$this->db->escape($this->db->escapeforlike($value))."%'";
@@ -301,7 +301,7 @@ class ProductStockEntrepot extends CommonObject
 			$sql .= $this->db->plimit($limit, $offset);
 		}
 
-		$lines = array();
+		$lines = [];
 
 		$resql = $this->db->query($sql);
 		if ($resql) {

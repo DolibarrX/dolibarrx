@@ -141,7 +141,7 @@ $setupnotempty += count($formSetup->items);
 $dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 $moduledir = 'webportal';
-$myTmpObjects = array();
+$myTmpObjects = [];
 $myTmpObjects['webportal'] = array('label' => 'WebPortal', 'includerefgeneration' => 0, 'includedocgeneration' => 0, 'class' => 'WebPortal');
 
 $tmpobjectkey = GETPOST('object', 'aZ09');

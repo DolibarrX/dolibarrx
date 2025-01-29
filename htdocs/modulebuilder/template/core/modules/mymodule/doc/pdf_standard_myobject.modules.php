@@ -135,10 +135,10 @@ class pdf_standard_myobject extends ModelePDFMyObject
 
 		//  Use new system for position of columns, view  $this->defineColumnField()
 
-		$this->tva = array();
-		$this->tva_array = array();
-		$this->localtax1 = array();
-		$this->localtax2 = array();
+		$this->tva = [];
+		$this->tva_array = [];
+		$this->localtax1 = [];
+		$this->localtax2 = [];
 		$this->atleastoneratenotnull = 0;
 		$this->atleastonediscount = 0;
 
@@ -207,7 +207,7 @@ class pdf_standard_myobject extends ModelePDFMyObject
 		}
 
 		// Loop on each lines to detect if there is at least one image to show
-		$realpatharray = array();
+		$realpatharray = [];
 		$this->atleastonephoto = false;
 		/*
 		if (getDolGlobalInt('MAIN_GENERATE_MYOBJECT_WITH_PICTURE'))) {
@@ -538,7 +538,7 @@ class pdf_standard_myobject extends ModelePDFMyObject
 					$pdf->SetTextColor(0, 0, 0);
 
 					// Define size of image if we need it
-					// $imglinesize = array();
+					// $imglinesize = [];
 					// if (!empty($realpatharray[$i])) {
 					// 	$imglinesize = pdf_getSizeForImage($realpatharray[$i]);
 					// }
@@ -894,7 +894,7 @@ class pdf_standard_myobject extends ModelePDFMyObject
 
 			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
-				$pdf->Rect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, $this->tabTitleHeight, 'F', array(), explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
+				$pdf->Rect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, $this->tabTitleHeight, 'F', [], explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
 		}
 

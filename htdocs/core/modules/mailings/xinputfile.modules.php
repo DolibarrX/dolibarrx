@@ -34,7 +34,7 @@ class mailing_xinputfile extends MailingTargets
 	public $name = 'EmailsFromFile'; // Identifiant du module mailing
 	// This label is used if no translation is found for key XXX neither MailingModuleDescXXX where XXX=name is found
 	public $desc = 'EMails from a file'; // Libelle utilise si aucune traduction pour MailingModuleDescXXX ou XXX=name trouv�e
-	public $require_module = array(); // Module mailing actif si modules require_module actifs
+	public $require_module = []; // Module mailing actif si modules require_module actifs
 	public $require_admin = 0; // Module mailing actif pour user admin ou non
 
 	/**
@@ -68,7 +68,7 @@ class mailing_xinputfile extends MailingTargets
 		global $langs;
 		$langs->load("users");
 
-		$statssql = array();
+		$statssql = [];
 		return $statssql;
 	}
 
@@ -137,7 +137,7 @@ class mailing_xinputfile extends MailingTargets
 		// For compatibility with Unix, MS-Dos or Macintosh
 		ini_set('auto_detect_line_endings', true);
 
-		$cibles = array();
+		$cibles = [];
 
 		$upload_dir = $config->mailing->dir_temp;
 

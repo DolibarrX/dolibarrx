@@ -78,7 +78,7 @@ if ($action == 'getWorkstationByProduct' && $user->hasRight('product', 'lire')) 
 	$product = new Product($db);
 	$res = $product->fetch($idproduct);
 
-	$result = array();
+	$result = [];
 
 	if ($res < 0) {
 		$error = 'SQL ERROR';

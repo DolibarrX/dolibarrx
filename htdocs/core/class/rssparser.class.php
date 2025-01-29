@@ -92,30 +92,30 @@ class RssParser
 	/**
 	 * @var array<array{link:string,title:string,description:string,pubDate:string,category:string,id:string,author:string}>
 	 */
-	private $_rssarray = array();
+	private $_rssarray = [];
 
 	/**
 	 * @var string|false
 	 */
 	private $current_namespace;
 
-	public $items = array();
+	public $items = [];
 	/**
 	 * @var array<string,string>|array<string,array<string,string>>
 	 */
-	public $current_item = array();
+	public $current_item = [];
 	/**
 	 * @var SimpleXMLElement|array<string,mixed>  SimpleXMLElement when getDolGlobalString('EXTERNALRSS_USE_SIMPLEXML')
 	 */
-	public $channel = array();
+	public $channel = [];
 	/**
 	 * @var array<string,array<string,string>>  array[namespace][element]
 	 */
-	public $textinput = array();
+	public $textinput = [];
 	/**
 	 * @var array<string,array<string,string>>  array[namespace][element]
 	 */
-	public $image = array();
+	public $image = [];
 
 	/**
 	 * @var bool
@@ -141,7 +141,7 @@ class RssParser
 	/**
 	 * @var string[] For parsing with xmlparser
 	 */
-	public $stack = array(); // parser stack
+	public $stack = []; // parser stack
 	/**
 	 * @var string[]
 	 */
@@ -317,7 +317,7 @@ class RssParser
 			$str = file_get_contents($newpathofdestfile);
 		} else {
 			try {
-				$result = getURLContent($this->_urlRSS, 'GET', '', 1, array(), array('http', 'https'), 0);
+				$result = getURLContent($this->_urlRSS, 'GET', '', 1, [], array('http', 'https'), 0);
 
 				if (!empty($result['content'])) {
 					$str = $result['content'];
@@ -411,7 +411,7 @@ class RssParser
 				}
 			}
 
-			$items = array();
+			$items = [];
 
 			// Save description entries
 			if ($rss->_format == 'rss') {
@@ -549,7 +549,7 @@ class RssParser
 						}
 
 						// Loop on each category
-						$itemCategory = array();
+						$itemCategory = [];
 						if (!empty($item->category) && is_array($item->category)) {
 							foreach ($item->category as $cat) {
 								$itemCategory[] = (string) $cat;
@@ -562,7 +562,7 @@ class RssParser
 						$itemPubDate = sanitizeVal((string) $item['created']);
 						$itemId = sanitizeVal((string) $item['id']);
 						$itemAuthor = sanitizeVal((string) ($item['author'] ? $item['author'] : $item['author_name']));
-						$itemCategory = array();
+						$itemCategory = [];
 					} else {
 						$itemLink = '';
 						$itemTitle = '';
@@ -570,7 +570,7 @@ class RssParser
 						$itemPubDate = '';
 						$itemId = '';
 						$itemAuthor = '';
-						$itemCategory = array();
+						$itemCategory = [];
 						print 'ErrorBadFeedFormat';
 					}
 
@@ -726,7 +726,7 @@ class RssParser
 
 		if ($el == 'item' or $el == 'entry') {
 			$this->items[] = $this->current_item;
-			$this->current_item = array();
+			$this->current_item = [];
 			$this->initem = false;
 		} elseif ($this->_format == 'rss' and $this->current_namespace == '' and $el == 'textinput') {
 			$this->intextinput = false;
@@ -922,7 +922,7 @@ function xml2php($xml)
 {
 	$threads = 0;
 	$tab = false;
-	$array = array();
+	$array = [];
 	foreach ($xml->children() as $key => $value) {
 		'@phan-var-force SimpleXMLElement $value';
 		$child = xml2php($value);

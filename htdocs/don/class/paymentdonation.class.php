@@ -74,7 +74,7 @@ class PaymentDonation extends CommonObject
 	/**
 	 * @var float[] array of amounts
 	 */
-	public $amounts = array(); // Array of amounts
+	public $amounts = []; // Array of amounts
 
 	/**
 	 * @var int  Payment mode ID

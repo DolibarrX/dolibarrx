@@ -142,7 +142,7 @@ class Dolresource extends CommonObject
 		$this->db = $db;
 		$this->status = 0;
 
-		$this->cache_code_type_resource = array();
+		$this->cache_code_type_resource = [];
 	}
 
 	/**
@@ -668,7 +668,7 @@ class Dolresource extends CommonObject
 
 		dol_syslog(get_class($this)."::fetchAll", LOG_DEBUG);
 
-		$this->lines = array();
+		$this->lines = [];
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			$num = $this->db->num_rows($resql);
@@ -806,7 +806,7 @@ class Dolresource extends CommonObject
 
 		dol_syslog(get_class($this)."::getElementResources", LOG_DEBUG);
 
-		$resources = array();
+		$resources = [];
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			$num = $this->db->num_rows($resql);
@@ -1022,7 +1022,7 @@ class Dolresource extends CommonObject
 	 */
 	public function loadStateBoard()
 	{
-		$this->nb = array();
+		$this->nb = [];
 
 		$sql = "SELECT count(r.rowid) as nb";
 		$sql .= " FROM ".MAIN_DB_PREFIX."resource as r";

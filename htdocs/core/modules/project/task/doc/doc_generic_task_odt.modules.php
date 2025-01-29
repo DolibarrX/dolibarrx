@@ -150,7 +150,7 @@ class doc_generic_task_odt extends ModelePDFTask
 
 		if (!$object instanceof Project) {
 			dol_syslog("Expected Project object, got ".gettype($object), LOG_ERR);
-			return array();
+			return [];
 		}
 
 		$resarray = array(
@@ -380,7 +380,7 @@ class doc_generic_task_odt extends ModelePDFTask
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
 		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($config->global->PROJECT_TASK_ADDON_PDF_ODT_PATH)));
-		$listoffiles = array();
+		$listoffiles = [];
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
 			$tmpdir = preg_replace('/DOL_DATA_ROOT/', DOL_DATA_ROOT, $tmpdir);
@@ -541,7 +541,7 @@ class doc_generic_task_odt extends ModelePDFTask
 				);
 				complete_substitutions_array($substitutionArray, $langs, $object);
 				// Call the ODTSubstitution hook
-				$tmparray = array();
+				$tmparray = [];
 				$action = '';
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$tmparray);
 				$resHook = $hookManager->executeHooks('ODTSubstitution', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
@@ -617,7 +617,7 @@ class doc_generic_task_odt extends ModelePDFTask
 
 					// Replace tags of lines for contacts task
 					$sourcearray = array('internal', 'external');
-					$contact_arrray = array();
+					$contact_arrray = [];
 					foreach ($sourcearray as $source) {
 						$contact_temp = $object->liste_contact(-1, $source);
 						if ((is_array($contact_temp) && count($contact_temp) > 0)) {
@@ -687,7 +687,7 @@ class doc_generic_task_odt extends ModelePDFTask
 					if ($foundtagforlines && $resql) {
 						$num = $this->db->num_rows($resql);
 						$i = 0;
-						$tasks = array();
+						$tasks = [];
 
 						while ($i < $num) {
 							$row = $this->db->fetch_array($resql);
@@ -793,7 +793,7 @@ class doc_generic_task_odt extends ModelePDFTask
 
 				// Replace tags of lines for contacts
 				$sourcearray = array('internal', 'external');
-				$contact_arrray = array();
+				$contact_arrray = [];
 				foreach ($sourcearray as $source) {
 					$contact_temp = $project->liste_contact(-1, $source);
 					if ((is_array($contact_temp) && count($contact_temp) > 0)) {

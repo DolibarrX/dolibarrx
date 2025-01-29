@@ -103,7 +103,7 @@ if (!$sortorder) {
 	$sortorder = 'ASC';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -138,12 +138,12 @@ $result = restrictedArea($user, 'stock');	// Must have permission to read stock
 if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')) { // Both test are required to be compatible with all browsers
 	$date = '';
 	$productid = 0;
-	$search_fk_warehouse = array();
+	$search_fk_warehouse = [];
 	$search_ref = '';
 	$search_nom = '';
 }
 
-$warehouseStatus = array();
+$warehouseStatus = [];
 if (getDolGlobalString('ENTREPOT_EXTRA_STATUS')) {
 	//$warehouseStatus[] = Entrepot::STATUS_CLOSED;
 	$warehouseStatus[] = Entrepot::STATUS_OPEN_ALL;
@@ -151,8 +151,8 @@ if (getDolGlobalString('ENTREPOT_EXTRA_STATUS')) {
 }
 
 // Get array with current stock per product, warehouse
-$stock_prod_warehouse = array();
-$stock_prod = array();
+$stock_prod_warehouse = [];
+$stock_prod = [];
 if ($date && $dateIsValid) {	// Avoid heavy sql if mandatory date is not defined
 	$sql = "SELECT ps.fk_product, ps.fk_entrepot as fk_warehouse,";
 	$sql .= " SUM(ps.reel) AS stock";
@@ -207,10 +207,10 @@ if ($date && $dateIsValid) {	// Avoid heavy sql if mandatory date is not defined
 }
 
 // Get array with list of stock movements between date and now (for product/warehouse=
-$movements_prod_warehouse = array();
-$movements_prod = array();
-$movements_prod_warehouse_nb = array();
-$movements_prod_nb = array();
+$movements_prod_warehouse = [];
+$movements_prod = [];
+$movements_prod_warehouse_nb = [];
+$movements_prod_nb = [];
 if ($date && $dateIsValid) {
 	$sql = "SELECT sm.fk_product, sm.fk_entrepot, SUM(sm.value) AS stock, COUNT(sm.rowid) AS nbofmovement";
 	$sql .= " FROM ".MAIN_DB_PREFIX."stock_mouvement as sm";
@@ -295,7 +295,7 @@ if (!empty($search_fk_warehouse)) {
 	$sql .= " SUM(p.pmp * p.stock) as currentvalue, SUM(p.price * p.stock) as sellvalue";
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -304,7 +304,7 @@ if (!empty($search_fk_warehouse)) {
 	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_stock as ps ON p.rowid = ps.fk_product AND ps.fk_entrepot IN ('.$db->sanitize(implode(",", $search_fk_warehouse)).")";
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListJoin', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= ' WHERE p.entity IN ('.getEntity('product').')';
@@ -326,7 +326,7 @@ if ($search_nom) {
 $sql .= ' GROUP BY p.rowid, p.ref, p.label, p.description, p.price, p.pmp, p.price_ttc, p.price_base_type, p.fk_product_type, p.desiredstock, p.seuil_stock_alerte,';
 $sql .= ' p.tms, p.duration, p.tobuy, p.stock';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -388,7 +388,7 @@ if ($ext == 'csv') {
 } else {
 	llxHeader('', $title, $helpurl, '', 0, 0, '', '', '', 'mod-product page-stock_stockatdate');
 
-	$head = array();
+	$head = [];
 
 	$head[0][0] = DOL_URL_ROOT.'/product/stock/stockatdate.php';
 	$head[0][1] = $langs->trans("StockAtDateInPast");
@@ -421,7 +421,7 @@ if ($ext == 'csv') {
 	print ' <span class="clearbothonsmartphone marginleftonly paddingleftonly marginrightonly paddingrightonly">&nbsp;</span> ';
 	print img_picture('', 'product', 'class="picturefixedwidth"').' ';
 	print '</span> ';
-	print $form->select_produits($productid, 'productid', '', 0, 0, -1, 2, '', 0, array(), 0, $langs->trans('Product'), 0, 'maxwidth300', 0, '', null, 1);
+	print $form->select_produits($productid, 'productid', '', 0, 0, -1, 2, '', 0, [], 0, $langs->trans('Product'), 0, 'maxwidth300', 0, '', null, 1);
 
 	if ($mode != 'future') {
 		// A virtual stock in future has no sense on a per warehouse view, so no filter on warehouse is available for stock at date in future
@@ -429,12 +429,12 @@ if ($ext == 'csv') {
 		print img_picture('', 'stock', 'class="picturefixedwidth"').$langs->trans("Warehouse").' :';
 		print '</span> ';
 		$selected = ((GETPOSTISSET('search_fk_warehouse') || GETPOSTISSET('fk_warehouse')) ? $search_fk_warehouse : 'ifonenodefault');
-		print $formproduct->selectWarehouses($selected, 'search_fk_warehouse', '', 1, 0, 0, $langs->trans('Warehouse'), 0, 0, array(), 'minwidth200', array(), 1, false, 'e.ref', 1);
+		print $formproduct->selectWarehouses($selected, 'search_fk_warehouse', '', 1, 0, 0, $langs->trans('Warehouse'), 0, 0, [], 'minwidth200', [], 1, false, 'e.ref', 1);
 	}
 
 	print '</div>';
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
 	if (empty($resHook)) {
 		print $hookManager->resPrint;

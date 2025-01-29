@@ -300,7 +300,7 @@ function dol_listshmop()
 {
 	global $shmkeys;
 
-	$resarray = array();
+	$resarray = [];
 	foreach ($shmkeys as $key => $val) {
 		$result = dol_getshmop($key);
 		if (!is_numeric($result) || $result > 0) {

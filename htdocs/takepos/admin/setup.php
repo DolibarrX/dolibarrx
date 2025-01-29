@@ -64,7 +64,7 @@ $sql .= " WHERE entity IN (".getEntity('c_paiement').")";
 $sql .= " AND active = 1";
 $sql .= " ORDER BY libelle";
 $resql = $db->query($sql);
-$paiements = array();
+$paiements = [];
 if ($resql) {
 	while ($obj = $db->fetch_object($resql)) {
 		array_push($paiements, $obj);
@@ -286,7 +286,7 @@ if (isModEnabled("service")) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("CashdeskShowServices");
 	print '<td>';
-	print ajax_constantonoff("CASHDESK_SERVICES", array(), $config->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("CASHDESK_SERVICES", [], $config->entity, 0, 0, 1, 0);
 	//print $form->selectyesno("CASHDESK_SERVICES", $config->global->CASHDESK_SERVICES, 1);
 	print "</td></tr>\n";
 }
@@ -311,7 +311,7 @@ print "</td></tr>\n";
 print '<tr class="oddeven"><td>';
 print $langs->trans('TakeposGroupSameProduct');
 print '<td>';
-print ajax_constantonoff("TAKEPOS_GROUP_SAME_PRODUCT", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_GROUP_SAME_PRODUCT", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 $substitutionArray = pdf_getSubstitutionArray($langs, null, null, 2);
@@ -334,7 +334,7 @@ print "</td></tr>\n";
 /*print '<tr class="oddeven"><td>';
 print $langs->trans('TakeposNumpadUsePaymentIcon');
 print '<td colspan="2">';
-print ajax_constantonoff("TAKEPOS_NUMPAD_USE_PAYMENT_ICON", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_NUMPAD_USE_PAYMENT_ICON", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 */
 
@@ -342,7 +342,7 @@ print "</td></tr>\n";
 print '<tr class="oddeven"><td>';
 print $langs->trans('DirectPaymentButton');
 print '<td>';
-print ajax_constantonoff("TAKEPOS_DIRECT_PAYMENT", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_DIRECT_PAYMENT", [], $config->entity, 0, 0, 1, 0);
 //print $form->selectyesno("TAKEPOS_DIRECT_PAYMENT", $config->global->TAKEPOS_DIRECT_PAYMENT, 1);
 print "</td></tr>\n";
 
@@ -362,7 +362,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
 $formmail = new FormMail($db);
 $nboftemplates = $formmail->fetchAllEMailTemplate('facture_send', $user, null, -1); // We set lang=null to get in priority record with no lang
 //$arraydefaultmessage = $formmail->getEMailTemplate($db, $tmp[1], $user, null, 0, 1, '');
-$arrayofmessagename = array();
+$arrayofmessagename = [];
 if (is_array($formmail->lines_model)) {
 	foreach ($formmail->lines_model as $modelmail) {
 		//var_dump($modelmail);
@@ -382,35 +382,35 @@ print "</td></tr>\n";
 print '<tr class="oddeven"><td>';
 print $langs->trans('ControlCashOpening');
 print '<td>';
-print ajax_constantonoff("TAKEPOS_CONTROL_CASH_OPENING", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_CONTROL_CASH_OPENING", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Gift receipt
 print '<tr class="oddeven"><td>';
 print $langs->trans('GiftReceiptButton');
 print '<td>';
-print ajax_constantonoff("TAKEPOS_GIFT_RECEIPT", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_GIFT_RECEIPT", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Delayed Pay Button
 print '<tr class="oddeven"><td>';
 print $langs->trans('AllowDelayedPayment');
 print '<td>';
-print ajax_constantonoff("TAKEPOS_DELAYED_PAYMENT", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_DELAYED_PAYMENT", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Show price without vat
 print '<tr class="oddeven"><td>';
 print $langs->trans('ShowPriceHT');
 print '<td>';
-print ajax_constantonoff("TAKEPOS_SHOW_HT", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_SHOW_HT", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Use price excl. taxes (HT) and not price incl. taxes (TTC)
 print '<tr class="oddeven"><td>';
 print $langs->trans('UsePriceHT');
 print '</td><td>';
-print ajax_constantonoff("TAKEPOS_CHANGE_PRICE_HT", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_CHANGE_PRICE_HT", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Barcode rule to insert product

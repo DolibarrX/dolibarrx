@@ -107,7 +107,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 		}
 		$prods = $object->getObjectsInCateg("product", 0, $limit, $offset, getDolGlobalString('TAKEPOS_SORTPRODUCTFIELD'), 'ASC', $filter);
 		// Removed properties we don't need
-		$res = array();
+		$res = [];
 		if (is_array($prods) && count($prods) > 0) {
 			foreach ($prods as $prod) {
 				if (getDolGlobalInt('TAKEPOS_PRODUCT_IN_STOCK') == 1) {
@@ -137,7 +137,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 	$result = $thirdparty->fetch('', '', '', $term);
 
 	if ($result && $thirdparty->id > 0) {
-		$rows = array();
+		$rows = [];
 		$rows[] = array(
 				'rowid' => $thirdparty->id,
 				'name' => $thirdparty->name,
@@ -171,7 +171,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 
 	$barcode_rules = getDolGlobalString('TAKEPOS_BARCODE_RULE_TO_INSERT_PRODUCT');
 	if (isModEnabled('barcode') && !empty($barcode_rules)) {
-		$barcode_rules_list = array();
+		$barcode_rules_list = [];
 
 		// get barcode rules
 		$barcode_char_nb = 0;
@@ -185,11 +185,11 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 			}
 		}
 
-		$barcode_value_list = array();
+		$barcode_value_list = [];
 		$barcode_offset = 0;
 		$barcode_length = dol_strlen($term);
 		if ($barcode_length == $barcode_char_nb) {
-			$rows = array();
+			$rows = [];
 
 			// split term with barcode rules
 			foreach ($barcode_rules_list as $barcode_rule_arr) {
@@ -230,7 +230,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 						if (!getDolGlobalString('TAKEPOS_HIDE_PRODUCT_IMAGES')) {
 							$image = $objProd->show_photos('product', $config->product->multidir_output[$objProd->entity], 'small', 1);
 
-							$match = array();
+							$match = [];
 							preg_match('@src="([^"]+)"@', $image, $match);
 							$file = array_pop($match);
 
@@ -281,7 +281,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 		$sql .= ', pp.price_level, pp.price as multiprice_ht, pp.price_ttc as multiprice_ttc';
 	}*/
 	// Add fields from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters);
 	if ($resHook >= 0) {
 		$sql .= $hookManager->resPrint;
@@ -303,7 +303,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 	}
 
 	// Add tables from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListTables', $parameters);
 	if ($resHook >= 0) {
 		$sql .= $hookManager->resPrint;
@@ -319,7 +319,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 	}
 	$sql .= natural_search(array('ref', 'label', 'barcode'), $term);
 	// Add where from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters);
 	if ($resHook >= 0) {
 		$sql .= $hookManager->resPrint;
@@ -328,7 +328,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 	if (getDolGlobalInt('TAKEPOS_PRODUCT_IN_STOCK') == 1 && !getDolGlobalInt('CASHDESK_ID_WAREHOUSE'.$_SESSION['takeposterminal'])) {
 		$sql .= ' GROUP BY p.rowid, p.ref, p.label, p.tosell, p.tobuy, p.barcode, p.price, p.price_ttc';
 		// Add fields from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters);
 		if ($resHook >= 0) {
 			$sql .= $hookManager->resPrint;
@@ -341,14 +341,14 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 
 	$resql = $db->query($sql);
 	if ($resql) {
-		$rows = array();
+		$rows = [];
 
 		while ($obj = $db->fetch_object($resql)) {
 			$objProd = new Product($db);
 			$objProd->fetch($obj->rowid);
 			$image = $objProd->show_photos('product', $config->product->multidir_output[$objProd->entity], 'small', 1);
 
-			$match = array();
+			$match = [];
 			preg_match('@src="([^"]+)"@', $image, $match);
 			$file = array_pop($match);
 
@@ -378,7 +378,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 				'price_ttc_formated' => price(price2num(empty($objProd->multiprices_ttc[$pricelevel]) ? $obj->price_ttc : $objProd->multiprices_ttc[$pricelevel], 'MT'), 1, $langs, 1, -1, -1, $config->currency)
 			);
 			// Add entries to row from hooks
-			$parameters=array();
+			$parameters=[];
 			$parameters['row'] = $row;
 			$parameters['obj'] = $obj;
 			$resHook = $hookManager->executeHooks('completeAjaxReturnArray', $parameters);
@@ -387,7 +387,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 				if (count($hookManager->resArray)) {
 					$row = $hookManager->resArray;
 				} else {
-					$row = array();
+					$row = [];
 				}
 				$rows[] = $row;
 			} else {

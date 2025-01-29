@@ -67,9 +67,9 @@ if (!isset($formadmin) || !is_object($formadmin)) {
 <?php
 
 if (!is_array($parameters)) {
-	$parameters = array();
+	$parameters = [];
 }
-$enabled_field_info = array();
+$enabled_field_info = [];
 if (empty($parameters['enabled_field_info'])) {
 	$parameters['enabled_field_info'] = &$enabled_field_info;
 }

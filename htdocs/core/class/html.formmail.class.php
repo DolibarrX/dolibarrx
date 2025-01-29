@@ -243,26 +243,26 @@ class FormMail extends Form
 	/**
 	 * @var array<string,string>
 	 */
-	public $substit = array();
+	public $substit = [];
 
 	/**
 	 * @var array<int,array<string,string>>
 	 */
-	public $substit_lines = array();
+	public $substit_lines = [];
 
 	/**
 	 * @var array{}|array{models:string,langsmodels?:string,fileinit?:string[],returnurl:string}
 	 */
-	public $param = array();
+	public $param = [];
 
 	/**
 	 * @var string[]
 	 */
-	public $withtouser = array();
+	public $withtouser = [];
 	/**
 	 * @var string[]
 	 */
-	public $withtoccuser = array();
+	public $withtoccuser = [];
 
 	/**
 	 * @var ModelMail[]
@@ -347,9 +347,9 @@ class FormMail extends Form
 	public function add_attached_files($path, $file = '', $type = '')
 	{
 		// phpcs:enable
-		$listofpaths = array();
-		$listofnames = array();
-		$listofmimes = array();
+		$listofpaths = [];
+		$listofnames = [];
+		$listofmimes = [];
 
 		if (empty($file)) {
 			$file = basename($path);
@@ -388,9 +388,9 @@ class FormMail extends Form
 	public function remove_attached_files($keytodelete)
 	{
 		// phpcs:enable
-		$listofpaths = array();
-		$listofnames = array();
-		$listofmimes = array();
+		$listofpaths = [];
+		$listofnames = [];
+		$listofmimes = [];
 
 		$keytoavoidconflict = empty($this->trackid) ? '' : '-'.$this->trackid; // this->trackid must be defined
 		if (!empty($_SESSION["listofpaths".$keytoavoidconflict])) {
@@ -422,9 +422,9 @@ class FormMail extends Form
 	public function get_attached_files()
 	{
 		// phpcs:enable
-		$listofpaths = array();
-		$listofnames = array();
-		$listofmimes = array();
+		$listofpaths = [];
+		$listofnames = [];
+		$listofmimes = [];
 
 		$keytoavoidconflict = empty($this->trackid) ? '' : '-'.$this->trackid; // this->trackid must be defined
 		if (!empty($_SESSION["listofpaths".$keytoavoidconflict])) {
@@ -529,9 +529,9 @@ class FormMail extends Form
 			}
 
 			// Define list of attached files
-			$listofpaths = array();
-			$listofnames = array();
-			$listofmimes = array();
+			$listofpaths = [];
+			$listofnames = [];
+			$listofmimes = [];
 			$keytoavoidconflict = empty($this->trackid) ? '' : '-'.$this->trackid; // this->trackid must be defined
 
 			if (GETPOST('mode', 'alpha') == 'init' || (GETPOST('modelselected') && GETPOST('modelmailselected', 'alpha') && GETPOST('modelmailselected', 'alpha') != '-1')) {
@@ -579,7 +579,7 @@ class FormMail extends Form
 				}
 			}
 
-			$modelmail_array = array();
+			$modelmail_array = [];
 			if ($this->param['models'] != 'none') {
 				$result = $this->fetchAllEMailTemplate($this->param["models"], $user, $outputlangs);
 				if ($result < 0) {
@@ -587,7 +587,7 @@ class FormMail extends Form
 				}
 
 				foreach ($this->lines_model as $line) {
-					$reg = array();
+					$reg = [];
 					if (preg_match('/\((.*)\)/', $line->label, $reg)) {
 						$labeltouse = $langs->trans($reg[1]); // langs->trans when label is __(xxx)__
 					} else {
@@ -695,7 +695,7 @@ class FormMail extends Form
 							}
 						}
 					} else {
-						$liste = array();
+						$liste = [];
 
 						// Add user email
 						if (empty($user->email)) {
@@ -944,14 +944,14 @@ class FormMail extends Form
 								$relativepathtofile = str_replace('/'.$entity.'/', '/', $relativepathtofile);
 							}
 							// Try to extract data from full path
-							$formfile_params = array();
+							$formfile_params = [];
 							preg_match('#^(/)(\w+)(/)(.+)$#', $relativepathtofile, $formfile_params);
 
 							$out .= '<div id="attachfile_'.$key.'">';
 							// Preview of attachment
 							$out .= img_mime($listofnames[$key]).$listofnames[$key];
 
-							$out .= ' '.$formfile->showPreview(array(), $formfile_params[2], $formfile_params[4], 0, ($entity == 1 ? '' : 'entity='.((int) $entity)));
+							$out .= ' '.$formfile->showPreview([], $formfile_params[2], $formfile_params[4], 0, ($entity == 1 ? '' : 'entity='.((int) $entity)));
 
 							if (!$this->withfilereadonly) {
 								$out .= ' <input type="image" style="border: 0px;" src="'.DOL_URL_ROOT.'/theme/'.$config->theme.'/img/delete.png" value="'.($key + 1).'" class="removedfile input-nobottom" id="removedfile_'.$key.'" name="removedfile_'.$key.'" />';
@@ -1231,7 +1231,7 @@ class FormMail extends Form
 						$label = $val;
 					}
 
-					$tmparray[$key] = array();
+					$tmparray[$key] = [];
 					$tmparray[$key]['id'] = $key;
 
 					$tmparray[$key]['label'] = $label;
@@ -1284,7 +1284,7 @@ class FormMail extends Form
 						$label = $val;
 					}
 
-					$tmparray[$key] = array();
+					$tmparray[$key] = [];
 					$tmparray[$key]['id'] = $key;
 
 					$tmparray[$key]['label'] = $label;
@@ -1333,7 +1333,7 @@ class FormMail extends Form
 					} else {
 						$label = $val;
 					}
-					$tmparray[$key] = array();
+					$tmparray[$key] = [];
 					$tmparray[$key]['id'] = $key;
 
 					$tmparray[$key]['label'] = $label;
@@ -1683,7 +1683,7 @@ class FormMail extends Form
 		$out .= '</div>';
 
 		// Prepare the array for multiselect
-		$blogArray = array();
+		$blogArray = [];
 		if (!empty($arrayofblogs)) {
 			foreach ($arrayofblogs as $blog) {
 				$blogArray[$blog->id] = substr(htmlentities($blog->title), 0, 30);
@@ -2020,7 +2020,7 @@ class FormMail extends Form
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			$num = $this->db->num_rows($resql);
-			$this->lines_model = array();
+			$this->lines_model = [];
 			while ($obj = $this->db->fetch_object($resql)) {
 				// If template is for a module, check module is enabled.
 				if ($obj->module) {
@@ -2065,7 +2065,7 @@ class FormMail extends Form
 	{
 		global $extrafields;
 
-		$parameters = array();
+		$parameters = [];
 		$tmparray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
 		complete_substitutions_array($tmparray, $outputlangs, null, $parameters);
 
@@ -2123,7 +2123,7 @@ class FormMail extends Form
 	{
 		global $langs;
 
-		$tmparray = array();
+		$tmparray = [];
 		if ($mode == 'formemail' || $mode == 'formemailwithlines' || $mode == 'formemailforlines') {
 			$parameters = array('mode' => $mode);
 			$tmparray = getCommonSubstitutionArray($langs, 2, null, $object); // Note: On email templated edition, this is null because it is related to all type of objects

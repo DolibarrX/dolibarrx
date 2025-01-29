@@ -145,7 +145,7 @@ class Controller
 	 * @param	array<string,mixed>	$parameters		Parameters
 	 * @return  int							Return integer < 0 on error, 0 on success, 1 to replace standard code
 	 */
-	public function hookDoAction($parameters = array())
+	public function hookDoAction($parameters = [])
 	{
 		global $hookManager;
 
@@ -168,7 +168,7 @@ class Controller
 	 * @param	array<string,mixed>	$parameters	Parameters
 	 * @return	int							Return integer < 0 on error, 0 on success, 1 to replace standard code
 	 */
-	public function hookPrintPageView($parameters = array())
+	public function hookPrintPageView($parameters = [])
 	{
 		global $hookManager;
 

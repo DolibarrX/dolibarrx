@@ -244,7 +244,7 @@ if (!getDolGlobalString('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	exit();
 }
 
-$arrayofjs = array();
+$arrayofjs = [];
 $arrayofcss = array(getDolGlobalString('TICKET_URL_PUBLIC_INTERFACE', '/public/ticket/').'css/styles.css.php');
 
 llxHeaderTicket($langs->trans("Tickets"), "", 0, 0, $arrayofjs, $arrayofcss);

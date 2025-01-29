@@ -47,7 +47,7 @@ require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 // Load translation files required by page
 $langs->loadLangs(array('agenda', 'admin', 'other'));
 
-$def = array();
+$def = [];
 $actiontest = GETPOST('test', 'alpha');
 $actionsave = GETPOST('save', 'alpha');
 $contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'useragenda'; // To manage different context of search
@@ -104,7 +104,7 @@ if (empty($resHook)) {
 
 		$errorsaved = 0;
 		$error = 0;
-		$tabparam = array();
+		$tabparam = [];
 
 		// Save agendas
 		$i = 1;
@@ -161,8 +161,8 @@ $form = new Form($db);
 $formadmin = new FormAdmin($db);
 $formother = new FormOther($db);
 
-$arrayofjs = array();
-$arrayofcss = array();
+$arrayofjs = [];
+$arrayofcss = [];
 
 $person_name = !empty($object->firstname) ? $object->lastname.", ".$object->firstname : $object->lastname;
 $title = $person_name." - ".$langs->trans('ExtSites');
@@ -273,7 +273,7 @@ while ($i <= $MAXAGENDA) {
 	// Color (Possible colors are limited by Google)
 	print '<td class="nowraponall right">';
 	$color_value = (GETPOST("AGENDA_EXT_COLOR_".$id.'_'.$key) ? GETPOST("AGENDA_EXT_COLOR_".$id.'_'.$key) : (empty($object->conf->$color) ? 'ffffff' : $object->conf->$color));
-	print $formother->selectColor($color_value, "AGENDA_EXT_COLOR_".$id.'_'.$key, '', 1, array(), 'hideifnotset');
+	print $formother->selectColor($color_value, "AGENDA_EXT_COLOR_".$id.'_'.$key, '', 1, [], 'hideifnotset');
 	print '</td>';
 	print "</tr>";
 	$i++;

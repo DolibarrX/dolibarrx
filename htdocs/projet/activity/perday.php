@@ -133,7 +133,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($object->table_element);
 
 // Definition of fields for list
-$arrayfields = array();
+$arrayfields = [];
 $arrayfields['t.planned_workload'] = array('label' => 'PlannedWorkload', 'checked' => 1, 'enabled' => 1, 'position' => 0);
 $arrayfields['t.progress'] = array('label' => 'ProgressDeclared', 'checked' => 1, 'enabled' => 1, 'position' => 0);
 $arrayfields['timeconsumed'] = array('label' => 'TimeConsumed', 'checked' => 1, 'enabled' => 1, 'position' => 15);
@@ -181,8 +181,8 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_thirdparty = '';
 	$search_declared_progress = '';
 
-	$search_array_options_project = array();
-	$search_array_options_task = array();
+	$search_array_options_project = [];
+	$search_array_options_task = [];
 
 	// We redefine $usertoprocess
 	$usertoprocess = $user;
@@ -265,12 +265,12 @@ if ($action == 'addtime' && $user->hasRight('projet', 'lire') && GETPOST('assign
 }
 
 if ($action == 'addtime' && $user->hasRight('projet', 'lire') && GETPOST('formfilteraction') != 'listafterchangingselectedfields') {
-	$timespent_duration = array();
+	$timespent_duration = [];
 
 	if (is_array($_POST)) {
 		foreach ($_POST as $key => $time) {
 			if (intval($time) > 0) {
-				$matches = array();
+				$matches = [];
 				// Hours or minutes of duration
 				if (preg_match("/([0-9]+)duration(hour|min)/", $key, $matches)) {
 					$id = $matches[1];
@@ -409,7 +409,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 
 $tasksarray = $taskstatic->getTasksArray(null, null, ($project->id ? $project->id : 0), $socid, 0, $search_project_ref, $onlyopenedproject, $morewherefilter, ($search_usertoprocessid ? $search_usertoprocessid : 0), 0, $extrafields); // We want to see all task of opened project i am allowed to see and that match filter, not only my tasks. Later only mine will be editable later.
 
-$tasksarraywithoutfilter = array();
+$tasksarraywithoutfilter = [];
 if ($morewherefilter) {	// Get all task without any filter, so we can show total of time spent for not visible tasks
 	$tasksarraywithoutfilter = $taskstatic->getTasksArray(null, null, ($project->id ? $project->id : 0), $socid, 0, '', $onlyopenedproject, '', ($search_usertoprocessid ? $search_usertoprocessid : 0)); // We want to see all task of opened project i am allowed to see and that match filter, not only my tasks. Later only mine will be editable later.
 }
@@ -547,7 +547,7 @@ if (!getDolGlobalString('PROJECT_TIMESHEET_DISABLEBREAK_ON_PROJECT')) {
 if (!empty($moreforfilter)) {
 	print '<div class="liste_titre liste_titre_bydiv centpercent">';
 	print $moreforfilter;
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	print '</div>';
@@ -641,7 +641,7 @@ $restrictviewformytask = getDolGlobalInt('PROJECT_TIME_SHOW_TASK_NOT_ASSIGNED', 
 $numendworkingday = 0;
 $numstartworkingday = 0;
 // Get if user is available or not for each day
-$isavailable = array();
+$isavailable = [];
 
 // Assume from Monday to Friday if conf empty or badly formed
 $numstartworkingday = 1;
@@ -727,14 +727,14 @@ if (count($tasksarray) > 0) {
 	// Show total for all other tasks
 
 	// Calculate total for all tasks
-	$listofdistinctprojectid = array(); // List of all distinct projects
+	$listofdistinctprojectid = []; // List of all distinct projects
 	if (!empty($tasksarraywithoutfilter) && is_array($tasksarraywithoutfilter) && count($tasksarraywithoutfilter)) {
 		foreach ($tasksarraywithoutfilter as $tmptask) {
 			$listofdistinctprojectid[$tmptask->fk_project] = $tmptask->fk_project;
 		}
 	}
 	//var_dump($listofdistinctprojectid);
-	$totalforeachday = array();
+	$totalforeachday = [];
 	foreach ($listofdistinctprojectid as $tmpprojectid) {
 		$projectstatic->id = $tmpprojectid;
 		$projectstatic->loadTimeSpent($daytoparse, 0, $usertoprocess->id); // Load time spent from table element_time for the project into this->weekWorkLoad and this->weekWorkLoadPerTask for all days of a week

@@ -179,7 +179,7 @@ $term = empty($_SESSION["takeposterminal"]) ? 1 : $_SESSION["takeposterminal"];
  * Actions
  */
 $error = 0;
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -421,7 +421,7 @@ if (empty($resHook)) {
 					if (!empty($invoice->tab_previous_situation_invoice)) {
 						// search the last standard invoice in cycle and the possible credit note between this last and invoice
 						// TODO Move this out of loop of $invoice->lines
-						$tab_jumped_credit_notes = array();
+						$tab_jumped_credit_notes = [];
 						$lineIndex = count($invoice->tab_previous_situation_invoice) - 1;
 						$searchPreviousInvoice = true;
 						while ($searchPreviousInvoice) {
@@ -802,7 +802,7 @@ if (empty($resHook)) {
 		}
 		if ($idoflineadded <= 0 && empty($err)) {
 			$invoice->fetch_thirdparty();
-			$array_options = array();
+			$array_options = [];
 
 			$line = array('description' => $prod->description, 'price' => $price, 'tva_tx' => $tva_tx, 'localtax1_tx' => $localtax1_tx, 'localtax2_tx' => $localtax2_tx, 'remise_percent' => $customer->remise_percent, 'price_ttc' => $price_ttc, 'array_options' => $array_options);
 
@@ -1016,7 +1016,7 @@ if (empty($resHook)) {
 				$usercanproductignorepricemin = ((getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !$user->hasRight('produit', 'ignore_price_min_advance')) || !getDolGlobalString('MAIN_USE_ADVANCED_PERMS'));
 
 				$vatratecleaned = $line->tva_tx;
-				$reg = array();
+				$reg = [];
 				if (preg_match('/^(.*)\s*\((.*)\)$/', (string) $line->tva_tx, $reg)) {     // If vat is "xx (yy)"
 					$vatratecleaned = trim($reg[1]);
 					//$vatratecode = $reg[2];
@@ -1744,7 +1744,7 @@ if (!$usediv) {
 }
 
 // Complete header by hook
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('completeTakePosInvoiceHeader', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -1855,7 +1855,7 @@ if (!empty($_SESSION["basiclayout"]) && $_SESSION["basiclayout"] == 1) {
 	if ($mobilepage == "places") {
 		$sql = "SELECT rowid, entity, label, leftpos, toppos, floor FROM ".MAIN_DB_PREFIX."takepos_floor_tables";
 		$resql = $db->query($sql);
-		$rows = array();
+		$rows = [];
 		$htmlforlines = '';
 		while ($row = $db->fetch_array($resql)) {
 			$rows[] = $row;
@@ -1880,7 +1880,7 @@ if ($placeid > 0) {
 	if (is_array($invoice->lines) && count($invoice->lines)) {
 		print '<!-- invoice.php show lines of invoices -->'."\n";
 		$tmplines = array_reverse($invoice->lines);
-		$htmlsupplements = array();
+		$htmlsupplements = [];
 		foreach ($tmplines as $line) {
 			if ($line->fk_parent_line != false) {
 				$htmlsupplements[$line->fk_parent_line] .= '<tr class="drag drop oddeven posinvoiceline';

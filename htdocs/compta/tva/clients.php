@@ -213,7 +213,7 @@ if ($mysoc->tva_assuj) {
 $periodlink = '';
 $exportlink = '';
 
-report_header($name, '', $period, $periodlink, $description, $builddate, $exportlink, array(), $calcmode);
+report_header($name, '', $period, $periodlink, $description, $builddate, $exportlink, [], $calcmode);
 
 $vatcust = $langs->trans("VATReceived");
 $vatsup = $langs->trans("VATPaid");
@@ -246,19 +246,19 @@ if (!is_array($x_coll) || !is_array($x_paye)) {
 		print '<tr><td colspan="'.$columns.'">'.$langs->trans("Error").'</td></tr>';
 	}
 } else {
-	$x_both = array();
+	$x_both = [];
 	//now, from these two arrays, get another array with one rate per line
 	foreach (array_keys($x_coll) as $my_coll_thirdpartyid) {
 		$x_both[$my_coll_thirdpartyid] = array(
-			'coll' => array(),
-			'paye' => array(),
+			'coll' => [],
+			'paye' => [],
 		);
 		$x_both[$my_coll_thirdpartyid]['coll']['totalht'] = $x_coll[$my_coll_thirdpartyid]['totalht'];
 		$x_both[$my_coll_thirdpartyid]['coll']['vat'] = $x_coll[$my_coll_thirdpartyid]['vat'];
 		$x_both[$my_coll_thirdpartyid]['paye']['totalht'] = 0;
 		$x_both[$my_coll_thirdpartyid]['paye']['vat'] = 0;
 		$x_both[$my_coll_thirdpartyid]['coll']['links'] = '';
-		$x_both[$my_coll_thirdpartyid]['coll']['detail'] = array();
+		$x_both[$my_coll_thirdpartyid]['coll']['detail'] = [];
 		foreach ($x_coll[$my_coll_thirdpartyid]['facid'] as $id => $dummy) {
 			$invoice_customer->id = $x_coll[$my_coll_thirdpartyid]['facid'][$id];
 			$invoice_customer->ref = $x_coll[$my_coll_thirdpartyid]['facnum'][$id];
@@ -317,7 +317,7 @@ if (!is_array($x_coll) || !is_array($x_paye)) {
 			$x_both[$my_paye_thirdpartyid]['coll']['vat'] = 0;
 		}
 		$x_both[$my_paye_thirdpartyid]['paye']['links'] = '';
-		$x_both[$my_paye_thirdpartyid]['paye']['detail'] = array();
+		$x_both[$my_paye_thirdpartyid]['paye']['detail'] = [];
 
 		foreach ($x_paye[$my_paye_thirdpartyid]['facid'] as $id => $dummy) {
 			// ExpenseReport

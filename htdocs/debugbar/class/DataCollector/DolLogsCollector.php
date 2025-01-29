@@ -168,7 +168,7 @@ class DolLogsCollector extends MessagesCollector
 		$linecounter = $lines;
 		$pos = -2;
 		$beginning = false;
-		$text = array();
+		$text = [];
 		while ($linecounter > 0) {
 			$t = " ";
 			while ($t != "\n") {
@@ -202,9 +202,9 @@ class DolLogsCollector extends MessagesCollector
 	{
 		$pattern = "/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.*/";
 		$log_levels = $this->getLevels();
-		$matches = array();
+		$matches = [];
 		preg_match_all($pattern, $file, $matches);
-		$log = array();
+		$log = [];
 		foreach ($matches as $lines) {
 			foreach ($lines as $line) {
 				foreach ($log_levels as $level_key => $level) {

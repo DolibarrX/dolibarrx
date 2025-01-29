@@ -91,7 +91,7 @@ if (getDolGlobalInt('TAKEPOS_ORDER_NOTES') == 1) {
 $form = new Form($db);
 $formproduct = new FormProduct($db);
 
-$arrayofjs = array();
+$arrayofjs = [];
 $arrayofcss = array("/takepos/css/colorbox.css");
 
 llxHeader('', $langs->trans("CashDeskSetup"), '', '', 0, 0, $arrayofjs, $arrayofcss, '', 'mod-takepos page-admin_bar');
@@ -120,7 +120,7 @@ function Floors() {
 
 print '<center>';
 print $langs->trans("EnableBarOrRestaurantFeatures");
-print ajax_constantonoff("TAKEPOS_BAR_RESTAURANT", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_BAR_RESTAURANT", [], $config->entity, 0, 0, 1, 0);
 print '</center>';
 
 print '<br>';
@@ -140,7 +140,7 @@ if (getDolGlobalInt('TAKEPOS_BAR_RESTAURANT')) {
 	print $langs->trans("OrderPrinters");
 	print '</td>';
 	print '<td class="">';
-	print ajax_constantonoff("TAKEPOS_ORDER_PRINTERS", array(), $config->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("TAKEPOS_ORDER_PRINTERS", [], $config->entity, 0, 0, 1, 0);
 	if (getDolGlobalString('TAKEPOS_ORDER_PRINTERS')) {
 		print' &nbsp; <a href="'.DOL_URL_ROOT.'/takepos/admin/orderprinters.php?leftmenu=setup">'.$langs->trans("Setup").'</a>';
 	}
@@ -151,7 +151,7 @@ if (getDolGlobalInt('TAKEPOS_BAR_RESTAURANT')) {
 		print $langs->trans("OrderNotes");
 		print '</td>';
 		print '<td class="">';
-		print ajax_constantonoff("TAKEPOS_ORDER_NOTES", array(), $config->entity, 0, 0, 1, 0);
+		print ajax_constantonoff("TAKEPOS_ORDER_NOTES", [], $config->entity, 0, 0, 1, 0);
 		print '</td></tr>';
 	}
 	/*else {
@@ -175,7 +175,7 @@ if (getDolGlobalInt('TAKEPOS_BAR_RESTAURANT')) {
 	print '</td>';
 	print '<td class="">';
 	//print $form->selectyesno("TAKEPOS_SUPPLEMENTS", $config->global->TAKEPOS_SUPPLEMENTS, 1);
-	print ajax_constantonoff("TAKEPOS_SUPPLEMENTS", array(), $config->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("TAKEPOS_SUPPLEMENTS", [], $config->entity, 0, 0, 1, 0);
 	print '</td></tr>';
 
 	if (getDolGlobalInt('TAKEPOS_SUPPLEMENTS')) {
@@ -193,14 +193,14 @@ if (getDolGlobalInt('TAKEPOS_BAR_RESTAURANT')) {
 	print 'QR - '.$langs->trans("CustomerMenu");
 	print '</td>';
 	print '<td class="">';
-	print ajax_constantonoff("TAKEPOS_QR_MENU", array(), $config->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("TAKEPOS_QR_MENU", [], $config->entity, 0, 0, 1, 0);
 	print '</td></tr>';
 
 	print '<tr class="oddeven value"><td>';
 	print 'QR - '.$langs->trans("AutoOrder");
 	print '</td>';
 	print '<td class="">';
-	print ajax_constantonoff("TAKEPOS_AUTO_ORDER", array(), $config->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("TAKEPOS_AUTO_ORDER", [], $config->entity, 0, 0, 1, 0);
 	print '</td></tr>';
 
 	// Experimental minimal interface
@@ -210,7 +210,7 @@ if (getDolGlobalInt('TAKEPOS_BAR_RESTAURANT')) {
 	print '</td>';
 	print '<td class="">';
 	//print $form->selectyesno("TAKEPOS_PHONE_BASIC_LAYOUT", $config->global->TAKEPOS_PHONE_BASIC_LAYOUT, 1);
-	print ajax_constantonoff("TAKEPOS_PHONE_BASIC_LAYOUT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_warning');
+	print ajax_constantonoff("TAKEPOS_PHONE_BASIC_LAYOUT", [], $config->entity, 0, 0, 1, 0, 0, 0, '_warning');
 	print '</td></tr>';
 
 	print '</table>';
@@ -254,7 +254,7 @@ if (getDolGlobalInt('TAKEPOS_BAR_RESTAURANT')) {
 		$urlwithroot = $urlwithouturlroot.DOL_URL_ROOT; // This is to use external domain name found into config file
 		$sql = "SELECT rowid, entity, label, leftpos, toppos, floor FROM ".MAIN_DB_PREFIX."takepos_floor_tables WHERE entity IN (".getEntity('takepos').")";
 		$resql = $db->query($sql);
-		$rows = array();
+		$rows = [];
 		while ($row = $db->fetch_array($resql)) {
 			print '<tr class="oddeven value"><td>';
 			print $langs->trans("Table")." ".$row['label'];

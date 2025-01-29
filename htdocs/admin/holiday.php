@@ -300,7 +300,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 	print load_fiche_titre($langs->trans("TemplatePDFHolidays"), '', '');
 
 	// Defined model definition table
-	$def = array();
+	$def = [];
 	$sql = "SELECT nom";
 	$sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 	$sql .= " WHERE type = '".$db->escape($type)."'";
@@ -342,7 +342,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 			if (is_dir($dir)) {
 				$handle = opendir($dir);
 				if (is_resource($handle)) {
-					$filelist = array();
+					$filelist = [];
 					while (($file = readdir($handle)) !== false) {
 						$filelist[] = $file;
 					}
@@ -487,7 +487,7 @@ print '<tr class="oddeven">';
 print "<td>".$langs->trans("XIsAUsualNonWorkingDay", $langs->transnoentitiesnoconv("Monday"))."</td>";
 print '<td class="center">';
 if ($config->use_javascript_ajax) {
-	print ajax_constantonoff('MAIN_NON_WORKING_DAYS_INCLUDE_MONDAY', array(), null, 0);
+	print ajax_constantonoff('MAIN_NON_WORKING_DAYS_INCLUDE_MONDAY', [], null, 0);
 } else {
 	if (getDolGlobalString('MAIN_NON_WORKING_DAYS_INCLUDE_MONDAY')) {
 		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_other&token='.newToken().'&MAIN_NON_WORKING_DAYS_INCLUDE_MONDAY=1">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
@@ -503,7 +503,7 @@ print '<tr class="oddeven">';
 print "<td>".$langs->trans("XIsAUsualNonWorkingDay", $langs->transnoentitiesnoconv("Friday"))."</td>";
 print '<td class="center">';
 if ($config->use_javascript_ajax) {
-	print ajax_constantonoff('MAIN_NON_WORKING_DAYS_INCLUDE_FRIDAY', array(), null, 0);
+	print ajax_constantonoff('MAIN_NON_WORKING_DAYS_INCLUDE_FRIDAY', [], null, 0);
 } else {
 	if (getDolGlobalString('MAIN_NON_WORKING_DAYS_INCLUDE_FRIDAY')) {
 		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_other&token='.newToken().'&MAIN_NON_WORKING_DAYS_INCLUDE_FRIDAY=1">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
@@ -519,7 +519,7 @@ print '<tr class="oddeven">';
 print "<td>".$langs->trans("XIsAUsualNonWorkingDay", $langs->transnoentitiesnoconv("Saturday"))."</td>";
 print '<td class="center">';
 if ($config->use_javascript_ajax) {
-	print ajax_constantonoff('MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY', array(), null, 0, 0, 0, 2, 0, 1);
+	print ajax_constantonoff('MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY', [], null, 0, 0, 0, 2, 0, 1);
 } else {
 	if (getDolGlobalString('MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY')) {
 		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_other&token='.newToken().'&MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY=1">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
@@ -535,7 +535,7 @@ print '<tr class="oddeven">';
 print "<td>".$langs->trans("XIsAUsualNonWorkingDay", $langs->transnoentitiesnoconv("Sunday"))."</td>";
 print '<td class="center">';
 if ($config->use_javascript_ajax) {
-	print ajax_constantonoff('MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY', array(), null, 0, 0, 0, 2, 0, 1);
+	print ajax_constantonoff('MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY', [], null, 0, 0, 0, 2, 0, 1);
 } else {
 	if (getDolGlobalString('MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY')) {
 		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_other&token='.newToken().'&MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY=1">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
@@ -551,7 +551,7 @@ print '<tr class="oddeven">';
 print "<td>".$langs->trans("ConsumeHolidaysAtTheEndOfTheMonthTheyAreTakenAt")."</td>";
 print '<td class="center">';
 if ($config->use_javascript_ajax) {
-	print ajax_constantonoff('HOLIDAY_DECREASE_AT_END_OF_MONTH', array(), null, 0, 0, 0, 2, 0, 1);
+	print ajax_constantonoff('HOLIDAY_DECREASE_AT_END_OF_MONTH', [], null, 0, 0, 0, 2, 0, 1);
 } else {
 	if (getDolGlobalString('HOLIDAY_DECREASE_AT_END_OF_MONTH')) {
 		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_other&token='.newToken().'&HOLIDAY_DECREASE_AT_END_OF_MONTH=1">'.img_picture($langs->trans("Enabled"), 'on').'</a>';

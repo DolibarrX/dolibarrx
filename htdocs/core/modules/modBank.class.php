@@ -67,19 +67,19 @@ class modBank extends DolibarrModules
 		$this->config_page_url = array("bank.php");
 
 		// Dependencies
-		$this->depends = array();
+		$this->depends = [];
 		$this->requiredby = array("modSimpleAccounting", "modAccounting", "modPrelevement");
-		$this->conflictwith = array();
+		$this->conflictwith = [];
 		$this->langfiles = array("banks", "compta", "bills", "companies", "accounting");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 
 		// Boxes
 		$this->boxes = array(0=>array('file'=>'box_comptes.php', 'enabledbydefaulton'=>'Home'));
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'bank';
 		$r = 0;
 
@@ -254,7 +254,7 @@ class modBank extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

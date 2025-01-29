@@ -53,7 +53,7 @@ function dav_admin_prepare_head()
 	global $db, $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT.'/admin/dav.php';
 	$head[$h][1] = $langs->trans("WebDAV");

@@ -37,7 +37,7 @@ function conferenceorboothPrepareHead($object, $with_project = 0)
 	$langs->load("eventorganization");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$withProjectUrl = '';
 	if ($with_project > 0) {
@@ -125,7 +125,7 @@ function conferenceorboothProjectPrepareHead($object)
 	$langs->load("eventorganization");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/eventorganization/conferenceorbooth_list.php?projectid=' . $object->id;
 	$head[$h][1] = $langs->trans("ConferenceOrBooth");
@@ -200,7 +200,7 @@ function conferenceorboothAttendeePrepareHead($object)
 	$langs->load("eventorganization");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/eventorganization/conferenceorboothattendee_card.php?id=" . ((int) $object->id) . ($object->fk_actioncomm > 0 ? '&conforboothid=' . ((int) $object->fk_actioncomm) : '') . ($object->fk_project > 0 ? '&withproject=1&fk_project=' . ((int) $object->fk_project) : '');
 	$head[$h][1] = $langs->trans("Card");

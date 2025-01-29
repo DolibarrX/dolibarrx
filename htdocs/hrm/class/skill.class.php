@@ -186,7 +186,7 @@ class Skill extends CommonObject
 	// /**
 	//  * @var SkillLine[]     Array of subtable lines
 	//  */
-	// public $lines = array();
+	// public $lines = [];
 
 
 
@@ -435,13 +435,13 @@ class Skill extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 		require_once __DIR__ . '/skilldet.class.php';
 		$skilldet = new Skilldet($this->db);
 		$this->lines = $skilldet->fetchAll('ASC', '', 0, 0, '(fk_skill:=:'.$this->id.')');
 
 		if (is_array($this->lines)) {
-			return (count($this->lines) > 0) ? $this->lines : array();
+			return (count($this->lines) > 0) ? $this->lines : [];
 		} elseif ($this->lines < 0) {
 			$this->setErrorsFromObject($skilldet);
 			return $this->lines;
@@ -466,7 +466,7 @@ class Skill extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList('t');
@@ -991,7 +991,7 @@ class Skill extends CommonObject
 	 */
 	public function getLinesArray()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectline = new Skilldet($this->db);
 		$result = $objectline->fetchAll('ASC', 'rankorder', 0, 0, '(fk_skill:=:'.((int) $this->id).')');

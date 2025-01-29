@@ -201,7 +201,7 @@ if ($calc == 2) { 	// Invoice for goods, payment for services
 $periodlink = '';
 $exportlink = '';
 
-report_header($name, '', $period, $periodlink, $description, $builddate, $exportlink, array(), $calcmode);
+report_header($name, '', $period, $periodlink, $description, $builddate, $exportlink, [], $calcmode);
 
 $vatcust = $langs->transcountry($local == 1 ? "LT1" : "LT2", $mysoc->country_code);
 $vatsup = $langs->transcountry($local == 1 ? "LT1" : "LT2", $mysoc->country_code);

@@ -133,11 +133,11 @@ class modWebPortal extends DolibarrModules
 		// A condition to hide module
 		$this->hidden = false;
 		// List of module class names that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR')...)
-		$this->depends = array();
+		$this->depends = [];
 		// List of module class names to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
-		$this->requiredby = array();
+		$this->requiredby = [];
 		// List of module class names this module is in conflict with. Example: array('modModuleToDisable1', ...)
-		$this->conflictwith = array();
+		$this->conflictwith = [];
 
 		// The language file dedicated to your module
 		$this->langfiles = array("website");
@@ -148,8 +148,8 @@ class modWebPortal extends DolibarrModules
 		//$this->need_javascript_ajax = 0;
 
 		// Messages at activation
-		$this->warnings_activation = array(); // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
-		$this->warnings_activation_ext = array(); // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
+		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
+		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
 		//$this->automatic_activation = array('FR'=>'WebPortalWasAutomaticallyActivatedBecauseOfYourCountryChoice');
 		//$this->always_enabled = true;								// If true, can't be disabled
 
@@ -158,7 +158,7 @@ class modWebPortal extends DolibarrModules
 		// Example: $this->const=array(1 => array('WEBPORTAL_MYNEWCONST1', 'chaine', 'myvalue', 'This is a constant to add', 1),
 		//                             2 => array('WEBPORTAL_MYNEWCONST2', 'chaine', 'myvalue', 'This is another constant to add', 0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = [];
 
 		// Some keys to add into the overwriting translation tables
 		/*$this->overwrite_translation = array(
@@ -173,7 +173,7 @@ class modWebPortal extends DolibarrModules
 		}
 
 		// Array to add new pages in new tabs
-		$this->tabs = array();
+		$this->tabs = [];
 		// Example:
 		// $this->tabs[] = array('data'=>'objecttype:+tabname1:Title1:mylangfile@webportal:$user->rights->webportal->read:/webportal/mynewtab1.php?id=__ID__');  					// To add a new tab identified by code tabname1
 		// $this->tabs[] = array('data'=>'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@webportal:$user->rights->othermodule->read:/webportal/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
@@ -201,7 +201,7 @@ class modWebPortal extends DolibarrModules
 		// 'user'             to add a tab in user view
 
 		// Dictionaries
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 		/* Example:
 		$this->dictionaries=array(
 			'langs'=>'website',
@@ -263,7 +263,7 @@ class modWebPortal extends DolibarrModules
 		// );
 
 		// Permissions provided by this module
-		$this->rights = array();
+		$this->rights = [];
 		$r = 0;
 		// Add here entries to declare new permissions
 		$this->rights[$r][0] = $this->number . sprintf("%02d", $r + 1); // Permission id (must not be already used)
@@ -278,7 +278,7 @@ class modWebPortal extends DolibarrModules
 		//$r++;
 
 		// Main menu entries to add
-		$this->menu = array();
+		$this->menu = [];
 		$r = 0;
 		// Add here entries to declare new menus
 		/*
@@ -356,7 +356,7 @@ class modWebPortal extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}
@@ -371,7 +371,7 @@ class modWebPortal extends DolibarrModules
 	 */
 	public function remove($options = '')
 	{
-		$sql = array();
+		$sql = [];
 		return $this->_remove($sql, $options);
 	}
 }

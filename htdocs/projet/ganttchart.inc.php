@@ -139,7 +139,7 @@ if (g.getDivId() != null)
 			'task_notes' => '',
 			'task_planned_workload' => 0
 			);
-			constructGanttLine($tasks, $tmpt, array(), 0, $t['task_project_id']);
+			constructGanttLine($tasks, $tmpt, [], 0, $t['task_project_id']);
 			$old_project_id = $t['task_project_id'];
 		}
 
@@ -299,7 +299,7 @@ function findChildGanttLine($tarr, $parent, $task_dependencies, $level)
 				$tmpt = array(
 				'task_id'=> -98, 'task_name'=>'Level '.$level, 'task_resources'=>'', 'task_start_date'=>'', 'task_end_date'=>'',
 				'task_is_group'=>1, 'task_css'=>'ggroupblack', 'task_milestone'=> 0, 'task_parent'=>$tarr[$x]["task_parent"], 'task_notes'=>'');
-				constructGanttLine($tasks, $tmpt, array(), 0, $tarr[$x]['task_project_id']);
+				constructGanttLine($tasks, $tmpt, [], 0, $tarr[$x]['task_project_id']);
 				$old_parent_id = $tarr[$x]['task_project_id'];
 			}*/
 

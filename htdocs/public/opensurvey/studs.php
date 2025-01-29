@@ -313,7 +313,7 @@ if ($idcomment) {
 
 $form = new Form($db);
 
-$arrayofjs = array();
+$arrayofjs = [];
 $arrayofcss = array('/opensurvey/css/style.css');
 
 llxHeaderSurvey($object->title, "", 0, 0, $arrayofjs, $arrayofcss, $numsondage);
@@ -330,7 +330,7 @@ if (empty($object->ref)) {     // For survey, id is a hex string
 
 // Define format of choices
 $toutsujet = explode(",", $object->sujet);
-$listofanswers = array();
+$listofanswers = [];
 foreach ($toutsujet as $value) {
 	$tmp = explode('@', $value);
 	$listofanswers[] = array('label' => $tmp[0], 'format' => (!empty($tmp[1]) ? $tmp[1] : 'checkbox'));
@@ -482,8 +482,8 @@ if ($object->format == "D") {
 
 // Loop on each answer
 $currentusername = '';
-$sumfor = array();
-$sumagainst = array();
+$sumfor = [];
+$sumagainst = [];
 $compteur = 0;
 $sql = "SELECT id_users, nom as name, id_sondage, reponses";
 $sql .= " FROM ".MAIN_DB_PREFIX."opensurvey_user_studs";

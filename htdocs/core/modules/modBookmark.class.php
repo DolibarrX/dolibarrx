@@ -54,18 +54,18 @@ class modBookmark extends DolibarrModules
 		$this->picture = 'bookmark';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Dependencies
-		$this->depends = array();
-		$this->requiredby = array();
+		$this->depends = [];
+		$this->requiredby = [];
 		$this->langfiles = array("bookmarks");
 
 		// Config pages
 		$this->config_page_url = array('bookmark.php@bookmarks');
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 
 		// Boxes
 		$this->boxes = array(
@@ -73,7 +73,7 @@ class modBookmark extends DolibarrModules
 		);
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'bookmark';
 		$r = 0;
 

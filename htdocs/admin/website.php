@@ -81,55 +81,55 @@ if (empty($sortorder)) {
 $hookManager->initHooks(array('website'));
 
 // Name of SQL tables of dictionaries
-$tabname = array();
+$tabname = [];
 $tabname[1] = MAIN_DB_PREFIX."website";
 
 // Dictionary labels
-$tablib = array();
+$tablib = [];
 $tablib[1] = "Websites";
 
 // Requests to extract data
-$tabsql = array();
+$tabsql = [];
 $tabsql[1] = "SELECT f.rowid as rowid, f.entity, f.ref, f.description, f.virtualhost, f.position, f.status, f.date_creation, f.lastaccess, f.pageviews_previous_month, f.pageviews_total FROM ".MAIN_DB_PREFIX.'website as f WHERE f.entity IN ('.getEntity('website').')';
 
 // Criteria to sort dictionaries
-$tabsqlsort = array();
+$tabsqlsort = [];
 $tabsqlsort[1] = "ref ASC";
 
 // Nom des champs en resultat de select pour affichage du dictionnaire
-$tabfield = array();
+$tabfield = [];
 $tabfield[1] = "ref,description,virtualhost,position,date_creation,lastaccess,pageviews_previous_month,pageviews_total";
 
 // Nom des champs d'edition pour modification d'un enregistrement
-$tabfieldvalue = array();
+$tabfieldvalue = [];
 $tabfieldvalue[1] = "ref,description,virtualhost,position,entity";
 
 // Nom des champs dans la table pour insertion d'un enregistrement
-$tabfieldinsert = array();
+$tabfieldinsert = [];
 $tabfieldinsert[1] = "ref,description,virtualhost,position,entity";
 
 // Nom du rowid si le champ n'est pas de type autoincrement
 // Example: "" if id field is "rowid" and has autoincrement on
 //          "nameoffield" if id field is not "rowid" or has not autoincrement on
-$tabrowid = array();
+$tabrowid = [];
 $tabrowid[1] = "";
 
 // Condition to show dictionary in setup page
-$tabcond = array();
+$tabcond = [];
 $tabcond[1] = (isModEnabled('website'));
 
 // List of help for fields
-$tabhelp = array();
+$tabhelp = [];
 $tabhelp[1] = array('ref' => $langs->trans("EnterAnyCode"), 'virtualhost' => $langs->trans("SetHereVirtualHost", DOL_DATA_ROOT.($config->entity > 1 ? '/'.$config->entity : '').'/website/<i>websiteref</i>'));
 
 // List of check for fields (NOT USED YET)
-$tabfieldcheck = array();
-$tabfieldcheck[1] = array();
+$tabfieldcheck = [];
+$tabfieldcheck[1] = [];
 
 
 // Define elementList and sourceList (used for dictionary type of contacts "llx_c_type_contact")
-$elementList = array();
-$sourceList = array();
+$elementList = [];
+$sourceList = [];
 
 if (!$user->admin) {
 	accessforbidden();
@@ -416,7 +416,7 @@ $linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/module
 print load_fiche_titre($titre, $linkback, 'title_setup');
 
 // Onglets
-$head = array();
+$head = [];
 $h = 0;
 
 $head[$h][0] = DOL_URL_ROOT."/admin/website.php";

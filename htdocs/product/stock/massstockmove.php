@@ -93,11 +93,11 @@ if (!$sortorder) {
 if (GETPOST('init')) {
 	unset($_SESSION['massstockmove']);
 }
-$listofdata = array();
+$listofdata = [];
 if (!empty($_SESSION['massstockmove'])) {
 	$listofdata = json_decode($_SESSION['massstockmove'], true);
 	if (!is_array($listofdata)) {
-		$listofdata = array();
+		$listofdata = [];
 	}
 }
 
@@ -359,7 +359,7 @@ if ($action == 'importCSV' && $user->hasRight('stock', 'mouvement', 'creer')) {
 			setEventMessages($langs->trans("BadNumberOfLinesMustHaveAtLeastOneLinePlusTitle"), null, 'errors');
 		} else {
 			$i = 0;
-			$data = array();
+			$data = [];
 			$productstatic = new Product($db);
 			$warehousestatics = new Entrepot($db);
 			$warehousestatict = new Entrepot($db);
@@ -515,7 +515,7 @@ if ($action == 'importCSV' && $user->hasRight('stock', 'mouvement', 'creer')) {
 		}
 	}
 	if ($error) {
-		$listofdata = array();
+		$listofdata = [];
 	}
 
 	$_SESSION['massstockmove'] = json_encode($listofdata);
@@ -686,11 +686,11 @@ print '</tr>';
 print '<tr class="oddeven">';
 // From warehouse
 print '<td class="nowraponall">';
-print img_picture($langs->trans("WarehouseSource"), 'stock', 'class="paddingright"').$formproduct->selectWarehouses($id_sw, 'id_sw', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, array(), 'minwidth200imp maxwidth200');
+print img_picture($langs->trans("WarehouseSource"), 'stock', 'class="paddingright"').$formproduct->selectWarehouses($id_sw, 'id_sw', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, [], 'minwidth200imp maxwidth200');
 print '</td>';
 // To warehouse
 print '<td class="nowraponall">';
-print img_picture($langs->trans("WarehouseTarget"), 'stock', 'class="paddingright"').$formproduct->selectWarehouses($id_tw, 'id_tw', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, array(), 'minwidth200imp maxwidth200');
+print img_picture($langs->trans("WarehouseTarget"), 'stock', 'class="paddingright"').$formproduct->selectWarehouses($id_tw, 'id_tw', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, [], 'minwidth200imp maxwidth200');
 print '</td>';
 // Product
 print '<td class="nowraponall">';
@@ -704,7 +704,7 @@ if (getDolGlobalInt('PRODUIT_LIMIT_SIZE') <= 0) {
 	$limit = getDolGlobalString('PRODUIT_LIMIT_SIZE');
 }
 print img_picture($langs->trans("Product"), 'product', 'class="paddingright"');
-print $form->select_produits((isset($id_product) ? $id_product : 0), 'productid', $filtertype, $limit, 0, -1, 2, '', 1, array(), 0, '1', 0, 'minwidth200imp maxwidth300', 1, '', null, 1);
+print $form->select_produits((isset($id_product) ? $id_product : 0), 'productid', $filtertype, $limit, 0, -1, 2, '', 1, [], 0, '1', 0, 'minwidth200imp maxwidth300', 1, '', null, 1);
 print '</td>';
 // Batch number
 if (isModEnabled('productbatch')) {

@@ -33,7 +33,7 @@ function emailing_prepare_head(Mailing $object)
 	global $user, $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/comm/mailing/card.php?id=" . $object->id;
 	$head[$h][1] = $langs->trans("MailCard");

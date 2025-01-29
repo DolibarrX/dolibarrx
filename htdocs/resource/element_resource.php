@@ -375,7 +375,7 @@ if (!$ret) {
 			$out .= '</a>';
 
 			// Add more views from hooks
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
 			if (empty($resHook)) {
 				$out .= $hookManager->resPrint;
@@ -467,7 +467,7 @@ if (!$ret) {
 
 			// Assigned to
 			print '<tr><td class="nowrap">'.$langs->trans("ActionAffectedTo").'</td><td colspan="3">';
-			$listofuserid = array();
+			$listofuserid = [];
 			if (empty($donotclearsession)) {
 				if ($act->userownerid > 0) {
 					$listofuserid[$act->userownerid] = array('id' => $act->userownerid, 'transparency' => $act->transparency); // Owner first
@@ -475,7 +475,7 @@ if (!$ret) {
 				if (!empty($act->userassigned)) {	// Now concat assigned users
 					// Restore array with key with same value than param 'id'
 					$tmplist1 = $act->userassigned;
-					$tmplist2 = array();
+					$tmplist2 = [];
 					foreach ($tmplist1 as $key => $val) {
 						if ($val['id'] && $val['id'] != $act->userownerid) {
 							$listofuserid[$val['id']] = $val;
@@ -488,10 +488,10 @@ if (!$ret) {
 					$listofuserid = json_decode($_SESSION['assignedtouser'], true);
 				}
 			}
-			$listofcontactid = array(); // not used yet
-			$listofotherid = array(); // not used yet
+			$listofcontactid = []; // not used yet
+			$listofotherid = []; // not used yet
 			print '<div class="assignedtouser">';
-			print $form->select_dolusers_forevent('view', 'assignedtouser', 1, array(), 0, '', array(), 0, 0, 0, '', ($act->datep != $act->datef) ? 1 : 0, $listofuserid, $listofcontactid, $listofotherid);
+			print $form->select_dolusers_forevent('view', 'assignedtouser', 1, [], 0, '', [], 0, 0, 0, '', ($act->datep != $act->datef) ? 1 : 0, $listofuserid, $listofcontactid, $listofotherid);
 			print '</div>';
 			/*if (in_array($user->id,array_keys($listofuserid)))
 			{

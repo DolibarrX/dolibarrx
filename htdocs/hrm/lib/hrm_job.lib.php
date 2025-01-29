@@ -38,7 +38,7 @@ function jobPrepareHead($object)
 	$langs->load("hrm");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT."/hrm/job_card.php?id=".$object->id;
 	$head[$h][1] = $langs->trans("JobProfile");

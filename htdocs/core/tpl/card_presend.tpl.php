@@ -46,7 +46,7 @@ if (empty($config) || !is_object($config)) {
 	exit(1);
 }
 
-$fileparams = array();
+$fileparams = [];
 
 if ($action == 'presend') {
 	$langs->load("mails");
@@ -183,7 +183,7 @@ if ($action == 'presend') {
 	if (GETPOSTISSET('fromtype')) {
 		$defaultfrom = GETPOST('fromtype');
 	} else {
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('getDefaultFromEmail', $parameters, $formmail);
 		if (empty($resHook)) {
 			$defaultfrom = $formmail->fromtype;
@@ -201,7 +201,7 @@ if ($action == 'presend') {
 	$formmail->withaiprompt = 'html';
 
 	// Define $liste, a list of recipients with email inside <>.
-	$liste = array();
+	$liste = [];
 	if ($object->element == 'expensereport') {
 		'@phan-var-force ExpenseReport $object';
 		$fuser = new User($db);
@@ -241,7 +241,7 @@ if ($action == 'presend') {
 	}
 
 	if (getDolGlobalString('MAIN_MAIL_ENABLED_USER_DEST_SELECT')) {
-		$listeuser = array();
+		$listeuser = [];
 		$fuserdest = new User($db);
 		$result = $fuserdest->fetchAll('ASC', 't.lastname', 0, 0, "(t.statut:=:1) AND (t.employee:=:1) AND (t.email:isnot:NULL) AND (t.email:!=:'')", 'AND', true);
 		if ($result > 0 && is_array($fuserdest->users) && count($fuserdest->users) > 0) {
@@ -272,7 +272,7 @@ if ($action == 'presend') {
 	$emailsendersignature = null;
 	// Overwrite __SENDEREMAIL_SIGNATURE__ with value select into form
 	if ($formmail->fromtype) {
-		$reg = array();
+		$reg = [];
 		if (preg_match('/user/', $formmail->fromtype, $reg)) {
 			$emailsendersignature = $user->signature;
 		} elseif (preg_match('/company/', $formmail->fromtype, $reg)) {
@@ -314,7 +314,7 @@ if ($action == 'presend') {
 
 		if (!empty($origin) && !empty($origin_id)) {
 			$element = $subelement = $origin;
-			$regs = array();
+			$regs = [];
 			if (preg_match('/^([^_]+)_([^_]+)/i', $origin, $regs)) {
 				$element = $regs[1];
 				$subelement = $regs[2];
@@ -354,7 +354,7 @@ if ($action == 'presend') {
 		}
 	}
 
-	$contactarr = array();
+	$contactarr = [];
 	$contactarr = $tmpobject->liste_contact(-1, 'external', 0, '', 1);
 
 	if (is_array($contactarr) && count($contactarr) > 0) {

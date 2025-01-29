@@ -83,7 +83,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 
 // Initialize array of search criteria
 $search_all = GETPOST("search_all", 'alpha');
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha')) {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -119,7 +119,7 @@ $upload_dir = $config->mrp->multidir_output[isset($object->entity) ? $object->en
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -580,7 +580,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Clone confirmation
 	if ($action == 'clone') {
 		// Create an array for form
-		$formquestion = array();
+		$formquestion = [];
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('ToClone'), $langs->trans('ConfirmCloneMo', $object->ref), 'confirm_clone', $formquestion, 'yes', 1);
 	}
 
@@ -604,7 +604,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		 $text .= $notify->confirmMessage('BOM_VALIDATE', $object->socid, $object);
 		 }*/
 
-		$formquestion = array();
+		$formquestion = [];
 		if (isModEnabled('mrp')) {
 			$langs->load("mrp");
 			require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
@@ -724,7 +724,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	if (!in_array($action, array('consumeorproduce', 'consumeandproduceall'))) {
 		print '<div class="tabsAction">';
 
-		$parameters = array();
+		$parameters = [];
 		// Note that $action and $object may be modified by hook
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
 		if (empty($resHook)) {
@@ -944,7 +944,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			print '<tr class="liste_titre">';
 			// Product
 			print '<td>';
-			print $form->select_produits(0, 'productidtoadd', '', 0, 0, -1, 2, '', 1, array(), 0, '1', 0, 'maxwidth150');
+			print $form->select_produits(0, 'productidtoadd', '', 0, 0, -1, 2, '', 1, [], 0, '1', 0, 'maxwidth150');
 			print '</td>';
 			// Qty
 			print '<td class="right"><input type="text" name="qtytoadd" value="1" class="width40 right"></td>';
@@ -986,7 +986,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			// Extrafields Line
 			if (is_object($objectline)) {
 				$extrafields->fetch_name_optionals_label($object->table_element_line);
-				$temps = $objectline->showOptionals($extrafields, 'edit', array(), '', '', 1, 'line');
+				$temps = $objectline->showOptionals($extrafields, 'edit', [], '', '', 1, 'line');
 				if (!empty($temps)) {
 					print '<tr class="liste_titre"><td style="padding-top: 20px" colspan="9" id="extrafield_lines_area_edit" name="extrafield_lines_area_edit">';
 					print $temps;
@@ -1146,7 +1146,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 						// Extrafields Line
 						if (!empty($extrafields)) {
 							$line->fetch_optionals();
-							$temps = $line->showOptionals($extrafields, 'edit', array(), '', '', 1, 'line');
+							$temps = $line->showOptionals($extrafields, 'edit', [], '', '', 1, 'line');
 							if (!empty($temps)) {
 								$colspan = 10;
 								print '<tr><td colspan="'.$colspan.'"><div style="padding-top: 20px" id="extrafield_lines_area_edit" name="extrafield_lines_area_edit">';
@@ -1307,7 +1307,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 						// Extrafields Line
 						if (!empty($extrafields)) {
 							$line->fetch_optionals();
-							$temps = $line->showOptionals($extrafields, 'view', array(), '', '', 1, 'line');
+							$temps = $line->showOptionals($extrafields, 'view', [], '', '', 1, 'line');
 							if (!empty($temps)) {
 								$colspan = 10;
 								print '<tr><td colspan="'.$colspan.'"><div id="extrafield_lines_area_'.$line->id.'" name="extrafield_lines_area_'.$line->id.'">';
@@ -1435,7 +1435,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 						if ($tmpproduct->type == Product::TYPE_PRODUCT || getDolGlobalString('STOCK_SUPPORTS_SERVICES')) {
 							if (empty($line->disable_stock_change)) {
 								$preselected = (GETPOSTISSET('idwarehouse-'.$line->id.'-'.$i) ? GETPOST('idwarehouse-'.$line->id.'-'.$i) : ($tmpproduct->fk_default_warehouse > 0 ? $tmpproduct->fk_default_warehouse : 'ifone'));
-								print $formproduct->selectWarehouses($preselected, 'idwarehouse-'.$line->id.'-'.$i, '', 1, 0, $line->fk_product, '', 1, 0, array(), 'maxwidth200 csswarehouse_'.$line->id.'_'.$i);
+								print $formproduct->selectWarehouses($preselected, 'idwarehouse-'.$line->id.'-'.$i, '', 1, 0, $line->fk_product, '', 1, 0, [], 'maxwidth200 csswarehouse_'.$line->id.'_'.$i);
 							} else {
 								print '<span class="opacitymedium">'.$langs->trans("DisableStockChange").'</span>';
 							}
@@ -1455,7 +1455,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 							if ($tmpproduct->status_batch) {
 								$preselected = (GETPOSTISSET('batch-'.$line->id.'-'.$i) ? GETPOST('batch-'.$line->id.'-'.$i) : '');
 								print '<input type="text" class="width75" name="batch-'.$line->id.'-'.$i.'" value="'.$preselected.'" list="batch-'.$line->id.'-'.$i.'">';
-								print $formproduct->selectLotDataList('batch-'.$line->id.'-'.$i, 0, $line->fk_product, 0, array());
+								print $formproduct->selectLotDataList('batch-'.$line->id.'-'.$i, 0, $line->fk_product, 0, []);
 							}
 							print '</td>';
 						}
@@ -1598,7 +1598,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 			// Product
 			print '<td>';
-			print $form->select_produits(0, 'productidtoadd', '', 0, 0, -1, 2, '', 1, array(), 0, '1', 0, 'maxwidth300');
+			print $form->select_produits(0, 'productidtoadd', '', 0, 0, -1, 2, '', 1, [], 0, '1', 0, 'maxwidth300');
 			print '</td>';
 			// Qty
 			print '<td class="right"><input type="text" name="qtytoadd" value="1" class="width50 right"></td>';
@@ -1861,7 +1861,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 						print '<td>';
 						if ($tmpproduct->type == Product::TYPE_PRODUCT || getDolGlobalString('STOCK_SUPPORTS_SERVICES')) {
 							$preselected = (GETPOSTISSET('idwarehousetoproduce-'.$line->id.'-'.$i) ? GETPOST('idwarehousetoproduce-'.$line->id.'-'.$i) : ($object->fk_warehouse > 0 ? $object->fk_warehouse : 'ifone'));
-							print $formproduct->selectWarehouses($preselected, 'idwarehousetoproduce-'.$line->id.'-'.$i, '', 1, 0, $line->fk_product, '', 1, 0, array(), 'maxwidth200 csswarehouse_'.$line->id.'_'.$i);
+							print $formproduct->selectWarehouses($preselected, 'idwarehousetoproduce-'.$line->id.'-'.$i, '', 1, 0, $line->fk_product, '', 1, 0, [], 'maxwidth200 csswarehouse_'.$line->id.'_'.$i);
 						} else {
 							print '<span class="opacitymedium">'.$langs->trans("NoStockChangeOnServices").'</span>';
 						}

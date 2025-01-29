@@ -42,7 +42,7 @@ class AccountancyReport // extends CommonObject
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string ID to identify managed object

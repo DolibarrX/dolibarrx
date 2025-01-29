@@ -184,7 +184,7 @@ if (getDolGlobalInt('MAIN_MODULE_OPENIDCONNECT', 0) > 0 && isset($config->file->
 	}
 }
 
-top_htmlhead('', $titleofloginpage, 0, 0, $arrayofjs, array(), 1, $disablenofollow);
+top_htmlhead('', $titleofloginpage, 0, 0, $arrayofjs, [], 1, $disablenofollow);
 
 $helpcenterlink = getDolGlobalString('MAIN_HELPCENTER_LINKTOUSE');
 
@@ -318,7 +318,7 @@ if (!empty($captcha)) {
 	}
 
 	// List of directories where we can find captcha handlers
-	$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), (isset($config->modules_parts['captcha']) && is_array($config->modules_parts['captcha'])) ? $config->modules_parts['captcha'] : array());
+	$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), (isset($config->modules_parts['captcha']) && is_array($config->modules_parts['captcha'])) ? $config->modules_parts['captcha'] : []);
 	$fullpathclassfile = '';
 	foreach ($dirModCaptcha as $dir) {
 		$fullpathclassfile = dol_buildpath($dir."modCaptcha".ucfirst($captcha).'.class.php', 0, 2);
@@ -505,9 +505,9 @@ if (!empty($message)) {
 	if (!empty($config->use_javascript_ajax)) {
 		if (preg_match('/<!-- warning -->/', $message)) {	// if it contains this comment, this is a warning message
 			$message = str_replace('<!-- warning -->', '', $message);
-			dol_htmloutput_mesg($message, array(), 'warning');
+			dol_htmloutput_mesg($message, [], 'warning');
 		} else {
-			dol_htmloutput_mesg($message, array(), 'error');
+			dol_htmloutput_mesg($message, [], 'error');
 		}
 		print '<script>
 			$(document).ready(function() {
@@ -588,7 +588,7 @@ if (!empty($morelogincontent) && is_array($morelogincontent)) {
 }
 
 // Can add extra content
-$parameters = array();
+$parameters = [];
 $dummyobject = new stdClass();
 $result = $hookManager->executeHooks('getLoginPageExtraContent', $parameters, $dummyobject, $action);
 print $hookManager->resPrint;

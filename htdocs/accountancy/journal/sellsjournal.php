@@ -71,7 +71,7 @@ if ($in_bookkeeping == '') {
 $now = dol_now();
 
 $hookManager->initHooks(array('sellsjournal'));
-$parameters = array();
+$parameters = [];
 
 // Security check
 if (!isModEnabled('accounting')) {
@@ -86,13 +86,13 @@ if (!$user->hasRight('accounting', 'bind', 'write')) {
 
 $error = 0;
 
-$tabfac = array();
-$tabht = array();
-$tabtva = array();
-$tabwarranty = array();
-$tabttc = array();
-$tablocaltax1 = array();
-$tablocaltax2 = array();
+$tabfac = [];
+$tabht = [];
+$tabtva = [];
+$tabwarranty = [];
+$tabttc = [];
+$tablocaltax1 = [];
+$tablocaltax2 = [];
 
 $cptcli = 'NotDefined';
 
@@ -159,7 +159,7 @@ if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 } else {
 	$sql .= " p.accountancy_code_sell";
 }
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " FROM ".MAIN_DB_PREFIX."facturedet as fd";
@@ -173,7 +173,7 @@ $sql .= " JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 }
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " WHERE fd.fk_code_ventilation > 0";
@@ -201,24 +201,24 @@ if ($in_bookkeeping == 'notyet') {
 	$sql .= " AND f.rowid NOT IN (SELECT fk_doc FROM ".MAIN_DB_PREFIX."accounting_bookkeeping as ab WHERE ab.doc_type='customer_invoice')";
 	// $sql .= " AND fd.rowid NOT IN (SELECT fk_docdet FROM " . MAIN_DB_PREFIX . "accounting_bookkeeping as ab WHERE ab.doc_type='customer_invoice')";		// Useless, we save one line for all products with same account
 }
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " ORDER BY f.datef, f.ref";
 //print $sql;
 
 dol_syslog('accountancy/journal/sellsjournal.php', LOG_DEBUG);
-$tabfac = array();
-$tabht = array();
-$tabtva = array();
-$def_tva = array();
-$tabwarranty = array();
-$tabrevenuestamp = array();
-$tabttc = array();
-$tablocaltax1 = array();
-$tablocaltax2 = array();
-$tabcompany = array();
-$vatdata_cache = array();
+$tabfac = [];
+$tabht = [];
+$tabtva = [];
+$def_tva = [];
+$tabwarranty = [];
+$tabrevenuestamp = [];
+$tabttc = [];
+$tablocaltax1 = [];
+$tablocaltax2 = [];
+$tabcompany = [];
+$vatdata_cache = [];
 
 // Variables
 $cptcli = getDolGlobalString('ACCOUNTING_ACCOUNT_CUSTOMER', 'NotDefined');
@@ -433,7 +433,7 @@ if ($result) {
 }
 
 
-$errorforinvoice = array();
+$errorforinvoice = [];
 
 /*
 // Old way, 1 query for each invoice

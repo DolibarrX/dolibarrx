@@ -38,7 +38,7 @@ class AntiVir
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string Used to return message
@@ -99,7 +99,7 @@ class AntiVir
 		$errorstring = $result['error'];
 
 		if (is_null($output)) {
-			$output = array();
+			$output = [];
 		}
 
 		dol_syslog("AntiVir::dol_avscan_file Result return_var=".$return_var." output=".$output);

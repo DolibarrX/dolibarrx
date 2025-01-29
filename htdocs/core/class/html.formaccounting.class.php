@@ -37,7 +37,7 @@ class FormAccounting extends Form
 	/**
 	 * @var array<string,array<string,string>>
 	 */
-	private $options_cache = array();
+	private $options_cache = [];
 
 	/**
 	 * @var DoliDB Database handler.
@@ -91,7 +91,7 @@ class FormAccounting extends Form
 
 		$out = '';
 
-		$options = array();
+		$options = [];
 		if ($usecache && !empty($this->options_cache[$usecache])) {
 			$options = $this->options_cache[$usecache];
 			$selected = $selectid;
@@ -164,14 +164,14 @@ class FormAccounting extends Form
 	 * @param   int    		$disabledajaxcombo Disable ajax combo box.
 	 * @return	string|int<-1,-1>				String with HTML select, or -1 if error
 	 */
-	public function multi_select_journal($selectedIds = array(), $htmlname = 'journal', $nature = 0, $showempty = 0, $select_in = 0, $select_out = 0, $morecss = '', $usecache = '', $disabledajaxcombo = 0)
+	public function multi_select_journal($selectedIds = [], $htmlname = 'journal', $nature = 0, $showempty = 0, $select_in = 0, $select_out = 0, $morecss = '', $usecache = '', $disabledajaxcombo = 0)
 	{
 		// phpcs:enable
 		global $config, $langs;
 
 		$out = '';
 
-		$options = array();
+		$options = [];
 		if ($usecache && !empty($this->options_cache[$usecache])) {
 			$options = $this->options_cache[$usecache];
 			$selected = $selectedIds;
@@ -194,7 +194,7 @@ class FormAccounting extends Form
 				return -1;
 			}
 
-			$selected = array();
+			$selected = [];
 			$langs->load('accountancy');
 			while ($obj = $this->db->fetch_object($resql)) {
 				$label = $langs->trans($obj->label);
@@ -309,7 +309,7 @@ class FormAccounting extends Form
 				$out .= '</select>';
 				//if ($user->admin && $help) $out .= info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
 
-				$out .= ajax_combobox($htmlname, array());
+				$out .= ajax_combobox($htmlname, []);
 			} else {
 				$out .= '<span class="opacitymedium">'.$langs->trans("ErrorNoAccountingCategoryForThisCountry", $mysoc->country_code, $langs->transnoentitiesnoconv("Accounting"), $langs->transnoentitiesnoconv("Setup"), $langs->transnoentitiesnoconv("AccountingCategories")).'</span>';
 			}
@@ -331,7 +331,7 @@ class FormAccounting extends Form
 	public function select_bookkeeping_importkey($htmlname = 'importkey', $selectedkey = '')
 	{
 		// phpcs:enable
-		$options = array();
+		$options = [];
 
 		$sql = "SELECT DISTINCT import_key FROM ".$this->db->prefix()."accounting_bookkeeping";
 		$sql .= " WHERE entity IN (".getEntity('accountancy').")";
@@ -368,7 +368,7 @@ class FormAccounting extends Form
 	 * @param string		$active				Filter on status active or not: '0', '1' or '' for no filter
 	 * @return string|int<-1,-1>               	String with HTML select, or -1 if error
 	 */
-	public function select_account($selectid, $htmlname = 'account', $showempty = 0, $event = array(), $select_in = 0, $select_out = 0, $morecss = 'minwidth100 maxwidth300 maxwidthonsmartphone', $usecache = '', $active = '1')
+	public function select_account($selectid, $htmlname = 'account', $showempty = 0, $event = [], $select_in = 0, $select_out = 0, $morecss = 'minwidth100 maxwidth300 maxwidthonsmartphone', $usecache = '', $active = '1')
 	{
 		// phpcs:enable
 		global $config, $langs;
@@ -378,7 +378,7 @@ class FormAccounting extends Form
 		$out = '';
 		$selected = '';
 
-		$options = array();
+		$options = [];
 
 		if ($showempty == 2) {
 			$options['0'] = '--- '.$langs->trans("None").' ---';
@@ -482,7 +482,7 @@ class FormAccounting extends Form
 		// phpcs:enable
 		global $config;
 
-		$aux_account = array();
+		$aux_account = [];
 
 		if ($usecache && !empty($this->options_cache[$usecache])) {
 			$aux_account += $this->options_cache[$usecache]; // We use + instead of array_merge because we don't want to reindex key from 0
@@ -575,7 +575,7 @@ class FormAccounting extends Form
 		// phpcs:enable
 		global $config;
 
-		$out_array = array();
+		$out_array = [];
 
 		$sql = "SELECT DISTINCT date_format(doc_date, '%Y') as dtyear";
 		$sql .= " FROM ".$this->db->prefix()."accounting_bookkeeping";
@@ -623,7 +623,7 @@ class FormAccounting extends Form
 			$out .= '<input type="hidden" name="action" value="set'.$htmlname.'">';
 			$out .= '<input type="hidden" name="token" value="' . newToken() . '">';
 			if ($option == 0) {
-				$out .= $this->select_account($selected, $htmlname, $useempty, array(), 1, 1, 'minwidth100 maxwidth300 maxwidthonsmartphone', 'accounts', $filter);
+				$out .= $this->select_account($selected, $htmlname, $useempty, [], 1, 1, 'minwidth100 maxwidth300 maxwidthonsmartphone', 'accounts', $filter);
 			} else {
 				$out .= $this->select_auxaccount($selected, $htmlname, $useempty, 'minwidth100 maxwidth300 maxwidthonsmartphone', 'subaccounts');
 			}

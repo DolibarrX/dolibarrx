@@ -130,7 +130,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($object->table_element);
 
 // Definition of fields for list
-$arrayfields = array();
+$arrayfields = [];
 /*$arrayfields=array(
  // Project
  'p.opp_amount'=>array('label'=>$langs->trans("OpportunityAmountShort"), 'checked'=>0, 'enabled'=>($config->global->PROJECT_USE_OPPORTUNITIES?1:0), 'position'=>103),
@@ -158,7 +158,7 @@ if (!empty($extrafields->attributes['projet_task']['label']) && is_array($extraf
 }
 $arrayfields = dol_sort_array($arrayfields, 'position');
 
-$search_array_options = array();
+$search_array_options = [];
 $search_array_options_project = $extrafields->getOptionalsFromPost('projet', '', 'search_');
 $search_array_options_task = $extrafields->getOptionalsFromPost('projet_task', '', 'search_task_');
 
@@ -185,8 +185,8 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_thirdparty = '';
 	$search_declared_progress = '';
 
-	$search_array_options_project = array();
-	$search_array_options_task = array();
+	$search_array_options_project = [];
+	$search_array_options_task = [];
 
 	// We redefine $usertoprocess
 	$usertoprocess = $user;
@@ -423,7 +423,7 @@ $extrafieldsobjectkey = 'projet_task';
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 
 $tasksarray = $taskstatic->getTasksArray(null, null, ($project->id ? $project->id : 0), $socid, 0, $search_project_ref, $onlyopenedproject, $morewherefilter, ($search_usertoprocessid ? $search_usertoprocessid : 0), 0, $extrafields); // We want to see all tasks of open project i am allowed to see and that match filter, not only my tasks. Later only mine will be editable later.
-$tasksarraywithoutfilter = array();
+$tasksarraywithoutfilter = [];
 if ($morewherefilter) {	// Get all task without any filter, so we can show total of time spent for not visible tasks
 	$tasksarraywithoutfilter = $taskstatic->getTasksArray(null, null, ($project->id ? $project->id : 0), $socid, 0, '', $onlyopenedproject, '', ($search_usertoprocessid ? $search_usertoprocessid : 0)); // We want to see all tasks of open project i am allowed to see and that match filter, not only my tasks. Later only mine will be editable later.
 }
@@ -522,7 +522,7 @@ $startday = dol_mktime(12, 0, 0, $startdayarray['first_month'], $startdayarray['
 $numendworkingday = 0;
 $numstartworkingday = 0;
 // Get if user is available or not for each day
-$isavailable = array();
+$isavailable = [];
 
 // Assume from Monday to Friday if conf empty or badly formed
 $numstartworkingday = 1;
@@ -597,7 +597,7 @@ if (!getDolGlobalString('PROJECT_TIMESHEET_DISABLEBREAK_ON_PROJECT')) {
 if (!empty($moreforfilter)) {
 	print '<div class="liste_titre liste_titre_bydiv centpercent">';
 	print $moreforfilter;
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	print '</div>';
@@ -773,14 +773,14 @@ if (count($tasksarray) > 0) {
 	// Show total for all other tasks
 
 	// Calculate total for all tasks
-	$listofdistinctprojectid = array(); // List of all distinct projects
+	$listofdistinctprojectid = []; // List of all distinct projects
 	if (!empty($tasksarraywithoutfilter) && is_array($tasksarraywithoutfilter) && count($tasksarraywithoutfilter)) {
 		foreach ($tasksarraywithoutfilter as $tmptask) {
 			$listofdistinctprojectid[$tmptask->fk_project] = $tmptask->fk_project;
 		}
 	}
 	//var_dump($listofdistinctprojectid);
-	$totalforeachday = array();
+	$totalforeachday = [];
 	foreach ($listofdistinctprojectid as $tmpprojectid) {
 		$projectstatic->id = $tmpprojectid;
 		$projectstatic->loadTimeSpent($firstdaytoshow, 0, $usertoprocess->id); // Load time spent from table element_time for the project into this->weekWorkLoad and this->weekWorkLoadPerTask for all days of a week

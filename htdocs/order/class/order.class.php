@@ -237,9 +237,9 @@ class Order extends CommonOrder
 	/**
 	 * @var array<string,string>  (Encoded as JSON in database)
 	 */
-	public $extraparams = array();
+	public $extraparams = [];
 
-	public $linked_objects = array();
+	public $linked_objects = [];
 
 	/**
 	 * @var int User author ID
@@ -254,7 +254,7 @@ class Order extends CommonOrder
 	/**
 	 * @var OrderLine[]
 	 */
-	public $lines = array();
+	public $lines = [];
 
 
 	/**
@@ -1535,7 +1535,7 @@ class Order extends CommonOrder
 	 *	par l'appelant par la methode get_default_tva(societe_vendeuse,societe_acheteuse,produit)
 	 *	et le desc doit deja avoir la bonne valeur (a l'appelant de gerer le multilangue)
 	 */
-	public function addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1 = 0, $txlocaltax2 = 0, $fk_product = 0, $remise_percent = 0, $info_bits = 0, $fk_remise_except = 0, $price_base_type = 'HT', $pu_ttc = 0, $date_start = '', $date_end = '', $type = 0, $rang = -1, $special_code = 0, $fk_parent_line = 0, $fk_fournprice = null, $pa_ht = 0, $label = '', $array_options = array(), $fk_unit = null, $origin = '', $origin_id = 0, $pu_ht_devise = 0, $ref_ext = '', $noupdateafterinsertline = 0)
+	public function addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1 = 0, $txlocaltax2 = 0, $fk_product = 0, $remise_percent = 0, $info_bits = 0, $fk_remise_except = 0, $price_base_type = 'HT', $pu_ttc = 0, $date_start = '', $date_end = '', $type = 0, $rang = -1, $special_code = 0, $fk_parent_line = 0, $fk_fournprice = null, $pa_ht = 0, $label = '', $array_options = [], $fk_unit = null, $origin = '', $origin_id = 0, $pu_ht_devise = 0, $ref_ext = '', $noupdateafterinsertline = 0)
 	{
 		global $mysoc, $langs, $user;
 
@@ -1635,7 +1635,7 @@ class Order extends CommonOrder
 			$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $this->thirdparty, $mysoc);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -1999,9 +1999,9 @@ class Order extends CommonOrder
 				$this->multicurrency_total_tva 	= $obj->multicurrency_total_tva;
 				$this->multicurrency_total_ttc 	= $obj->multicurrency_total_ttc;
 
-				$this->extraparams = !empty($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : array();
+				$this->extraparams = !empty($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : [];
 
-				$this->lines = array();
+				$this->lines = [];
 
 				// Retrieve all extrafield
 				// fetch optionals attributes and labels
@@ -2108,7 +2108,7 @@ class Order extends CommonOrder
 		// phpcs:enable
 		global $langs, $config;
 
-		$this->lines = array();
+		$this->lines = [];
 
 		$sql = 'SELECT l.rowid, l.fk_product, l.fk_parent_line, l.product_type, l.fk_order, l.label as custom_label, l.description, l.price, l.qty, l.vat_src_code, l.tva_tx, l.ref_ext,';
 		$sql .= ' l.localtax1_tx, l.localtax2_tx, l.localtax1_type, l.localtax2_type, l.fk_remise_except, l.remise_percent, l.subprice, l.fk_product_fournisseur_price as fk_fournprice, l.buy_price_ht as pa_ht, l.rang, l.info_bits, l.special_code,';
@@ -2304,7 +2304,7 @@ class Order extends CommonOrder
 	 */
 	public function loadExpeditions($filtre_statut = -1, $fk_product = 0)
 	{
-		$this->expeditions = array();
+		$this->expeditions = [];
 
 		$sql = 'SELECT cd.rowid, cd.fk_product,';
 		$sql .= ' sum(ed.qty) as qty';
@@ -2654,7 +2654,7 @@ class Order extends CommonOrder
 		// phpcs:enable
 		global $user;
 
-		$ga = array();
+		$ga = [];
 
 		$sql = "SELECT s.rowid, s.nom as name, s.client,";
 		$sql .= " c.rowid as cid, c.ref";
@@ -3030,7 +3030,7 @@ class Order extends CommonOrder
 	 *	@param		int				$rang				line rank
 	 *  @return   	int              					Return integer < 0 if KO, > 0 if OK
 	 */
-	public function updateline($rowid, $desc, $pu, $qty, $remise_percent, $txtva, $txlocaltax1 = 0.0, $txlocaltax2 = 0.0, $price_base_type = 'HT', $info_bits = 0, $date_start = '', $date_end = '', $type = 0, $fk_parent_line = 0, $skip_update_total = 0, $fk_fournprice = null, $pa_ht = 0, $label = '', $special_code = 0, $array_options = array(), $fk_unit = null, $pu_ht_devise = 0, $notrigger = 0, $ref_ext = '', $rang = 0)
+	public function updateline($rowid, $desc, $pu, $qty, $remise_percent, $txtva, $txlocaltax1 = 0.0, $txlocaltax2 = 0.0, $price_base_type = 'HT', $info_bits = 0, $date_start = '', $date_end = '', $type = 0, $fk_parent_line = 0, $skip_update_total = 0, $fk_fournprice = null, $pa_ht = 0, $label = '', $special_code = 0, $array_options = [], $fk_unit = null, $pu_ht_devise = 0, $notrigger = 0, $ref_ext = '', $rang = 0)
 	{
 		global $mysoc, $langs, $user;
 
@@ -3092,7 +3092,7 @@ class Order extends CommonOrder
 
 			// Clean vat code
 			$vat_src_code = '';
-			$reg = array();
+			$reg = [];
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
 				$txtva = preg_replace('/\s*\(.*\)/', '', $txtva); // Remove code into vatrate.
@@ -3906,7 +3906,7 @@ class Order extends CommonOrder
 
 		// Load array of products prodids
 		$num_prods = 0;
-		$prodids = array();
+		$prodids = [];
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product";
 		$sql .= " WHERE entity IN (".getEntity('product').")";
@@ -3995,7 +3995,7 @@ class Order extends CommonOrder
 	{
 		global $user;
 
-		$this->nb = array();
+		$this->nb = [];
 		$clause = "WHERE";
 
 		$sql = "SELECT count(co.rowid) as nb";

@@ -70,12 +70,12 @@ class modStock extends DolibarrModules
 		$this->hidden = false; // A condition to hide module
 		$this->depends = array("modProduct"); // List of module class names as string that must be enabled if this module is enabled
 		$this->requiredby = array("modProductBatch"); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->langfiles = array("stocks");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 		$r = 0;
 
 		$this->const[$r] = array('STOCK_ALLOW_NEGATIVE_TRANSFER', 'chaine', '1', '', 1);
@@ -109,10 +109,10 @@ class modStock extends DolibarrModules
 		$this->const[$r][4] = 0;
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'stock';
 
 		$r = 0;
@@ -205,7 +205,7 @@ class modStock extends DolibarrModules
 		}
 
 		// Main menu entries
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 
 		// Menus
@@ -233,8 +233,8 @@ class modStock extends DolibarrModules
 			'd.code_departement' => 'List:c_departements:code_departement:code_departement:', 'c.code' => 'List:c_country:code:code:',
 			'e.phone' => 'Text', 'e.fax' => 'Text', 'e.statut' => 'Text', 'pe.rowid' => 'List:entrepot:ref:rowid:stock', 'pe.ref' => 'Text'
 		);
-		$this->export_entities_array[$r] = array();	// We define here only fields that use another icon that the one defined into export_icon
-		$this->export_aggregate_array[$r] = array();	// TODO Not used yet
+		$this->export_entities_array[$r] = [];	// We define here only fields that use another icon that the one defined into export_icon
+		$this->export_aggregate_array[$r] = [];	// TODO Not used yet
 		$keyforselect = 'warehouse';
 		$keyforelement = 'warehouse';
 		$keyforaliasextra = 'extra';
@@ -473,7 +473,7 @@ class modStock extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "Warehouses"; // Translation key
 		$this->import_icon[$r] = "warehouse";
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('e' => MAIN_DB_PREFIX.'entrepot');
 		$this->import_tables_creator_array[$r] = array('e' => 'fk_user_author');
 		$this->import_fields_array[$r] = array('e.ref' => "LocationSummary*",
@@ -514,7 +514,7 @@ class modStock extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "Stocks"; // Translation key
 		$this->import_icon[$r] = "stock";
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('ps' => MAIN_DB_PREFIX.'product_stock');
 		$this->import_fields_array[$r] = array('ps.fk_product' => "Product*", 'ps.fk_entrepot' => "Warehouse*", 'ps.reel' => "Stock*");
 
@@ -568,7 +568,7 @@ class modStock extends DolibarrModules
 			}
 		}
 
-		$sql = array();
+		$sql = [];
 
 		$sql = array(
 			 "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[1][2])."' AND type = 'stock' AND entity = ".((int) $config->entity),

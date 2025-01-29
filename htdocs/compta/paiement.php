@@ -64,12 +64,12 @@ $sortfield	= GETPOST('sortfield', 'aZ09comma');
 $sortorder	= GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
 
-$amounts = array();
-$amountsresttopay = array();
+$amounts = [];
+$amountsresttopay = [];
 $addwarning = 0;
 
-$multicurrency_amounts = array();
-$multicurrency_amountsresttopay = array();
+$multicurrency_amounts = [];
+$multicurrency_amountsresttopay = [];
 
 // Security check
 if ($user->socid > 0) {
@@ -86,7 +86,7 @@ if ($facid > 0) {
 // Initialize a technical object to manage hooks of paiements. Note that conf->hooks_modules contains array array
 $hookManager->initHooks(array('paiementcard', 'globalcard'));
 
-$formquestion = array();
+$formquestion = [];
 
 $usercanissuepayment = $user->hasRight('facture', 'paiement');
 
@@ -113,7 +113,7 @@ if (empty($resHook)) {
 		$totalpayment = 0;
 		$multicurrency_totalpayment = 0;
 		$atleastonepaymentnotnull = 0;
-		$formquestion = array();
+		$formquestion = [];
 		$i = 0;
 
 		// Generate payment array and check if there is payment higher than invoice and payment date before invoice date
@@ -231,8 +231,8 @@ if (empty($resHook)) {
 			$thirdparty->fetch($socid);
 		}
 
-		$multicurrency_code = array();
-		$multicurrency_tx = array();
+		$multicurrency_code = [];
+		$multicurrency_tx = [];
 
 		// Clean parameters amount if payment is for a credit note
 		foreach ($amounts as $key => $value) {	// How payment is dispatched
@@ -637,7 +637,7 @@ if ($result >= 0) {
 			print '<td class="right">'.$remaindertopay.'</td>';
 			print '<td class="right">'.$langs->trans('PaymentAmount').'</td>';
 
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $facture, $action); // Note that $action and $object may have been modified by hook
 
 			print '<td align="right">&nbsp;</td>';
@@ -831,7 +831,7 @@ if ($result >= 0) {
 				}
 				print "</td>";
 
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $objp, $action); // Note that $action and $object may have been modified by hook
 
 				// Warning

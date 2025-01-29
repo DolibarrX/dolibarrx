@@ -414,8 +414,8 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter', 
 	$search_categ_cus = 0;
 
 	$search_all = '';
-	$toselect = array();
-	$search_array_options = array();
+	$toselect = [];
+	$search_array_options = [];
 }
 
 if (empty($resHook)) {
@@ -430,7 +430,7 @@ if (empty($resHook)) {
 
 if ($action == 'makepayment_confirm' && $user->hasRight('facture', 'paiement')) {
 	require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
-	$arrayofselected = is_array($toselect) ? $toselect : array();
+	$arrayofselected = is_array($toselect) ? $toselect : [];
 	if (!empty($arrayofselected)) {
 		$bankid = GETPOSTINT('bankid');
 		$paiementid = GETPOSTINT('paiementid');
@@ -527,8 +527,8 @@ if ($action == 'makepayment_confirm' && $user->hasRight('facture', 'paiement')) 
 		//Checking error
 		$error = 0;
 
-		$arrayofselected = is_array($toselect) ? $toselect : array();
-		$listofbills = array();
+		$arrayofselected = is_array($toselect) ? $toselect : [];
+		$listofbills = [];
 		foreach ($arrayofselected as $toselectid) {
 			$objecttmp = new Facture($db);
 			$result = $objecttmp->fetch($toselectid);
@@ -632,7 +632,7 @@ $formcompany = new FormCompany($db);
 $companystatic = new Societe($db);
 $companyparent = new Societe($db);
 
-$company_url_list = array();
+$company_url_list = [];
 
 if ($socid > 0) {
 	$soc = new Societe($db);
@@ -688,7 +688,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -716,7 +716,7 @@ if (!empty($search_fac_rec_source_title)) {
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as p ON p.rowid = f.fk_projet";
 $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'user AS u ON f.fk_user_author = u.rowid';
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -914,10 +914,10 @@ if ($search_sale && $search_sale != '-1') {
 	}
 }
 // Search for tag/category ($searchCategoryProductList is an array of ID)
-$searchCategoryProductList = $search_product_category ? array($search_product_category) : array();
+$searchCategoryProductList = $search_product_category ? array($search_product_category) : [];
 $searchCategoryProductOperator = 0;
 if (!empty($searchCategoryProductList)) {
-	$searchCategoryProductSqlList = array();
+	$searchCategoryProductSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
@@ -943,11 +943,11 @@ if (!empty($searchCategoryProductList)) {
 		}
 	}
 }
-$searchCategoryCustomerList = $search_categ_cus ? array($search_categ_cus) : array();
+$searchCategoryCustomerList = $search_categ_cus ? array($search_categ_cus) : [];
 $searchCategoryCustomerOperator = 0;
 // Search for tag/category ($searchCategoryCustomerList is an array of ID)
 if (!empty($searchCategoryCustomerList)) {
-	$searchCategoryCustomerSqlList = array();
+	$searchCategoryCustomerSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryCustomerList as $searchCategoryCustomer) {
 		if (intval($searchCategoryCustomer) == -2) {
@@ -976,7 +976,7 @@ if (!empty($searchCategoryCustomerList)) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -985,7 +985,7 @@ if ($search_all) {
 }
 
 // Add HAVING from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= empty($hookManager->resPrint) ? "" : " HAVING 1=1 ".$hookManager->resPrint;
 
@@ -1025,7 +1025,7 @@ if (!$resql) {
 
 $num = $db->num_rows($resql);
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $search_all) {
 	$obj = $db->fetch_object($resql);
@@ -1267,7 +1267,7 @@ if ($user->hasRight('facture', 'supprimer')) {
 	}
 }
 if (in_array($massaction, array('presend', 'predelete', 'makepayment'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -1372,7 +1372,7 @@ $moreforfilter .= '<div class="divsearchfield">';
 $moreforfilter .= '<label for="search_option">'.$langs->trans('Alert').' </label><input type="checkbox" name="search_option" id="search_option" value="late"'.($search_option == 'late' ? ' checked' : '').'>';
 $moreforfilter .= '</div>';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -1524,7 +1524,7 @@ if (!empty($arrayfields['state.nom']['checked'])) {
 // Country
 if (!empty($arrayfields['country.code_iso']['checked'])) {
 	print '<td class="liste_titre center">';
-	print $form->select_country($search_country, 'search_country', '', 0, 'minwidth150imp maxwidth150', 'code2', 1, 0, 1, array(), 1);
+	print $form->select_country($search_country, 'search_country', '', 0, 'minwidth150imp maxwidth150', 'code2', 1, 0, 1, [], 1);
 	print '</td>';
 }
 // Company type
@@ -1724,7 +1724,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print "</tr>\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1967,9 +1967,9 @@ $userstatic = new User($db);
 if ($num > 0) {
 	$i = 0;
 	$savnbfield = $totalarray['nbfield'];
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
-	$totalarray['val'] = array();
+	$totalarray['val'] = [];
 	$totalarray['val']['f.total_ht'] = 0;
 	$totalarray['val']['f.total_tva'] = 0;
 	$totalarray['val']['f.total_localtax1'] = 0;
@@ -2091,7 +2091,7 @@ if ($num > 0) {
 		$facturestatic->totalcreditnotes = $totalcreditnotes;
 		$facturestatic->totaldeposits = $totaldeposits;
 
-		$marginInfo = array();
+		$marginInfo = [];
 		if ($with_margin_info) {
 			$facturestatic->fetch_lines();
 			$marginInfo = $formmargin->getMarginInfosArray($facturestatic);

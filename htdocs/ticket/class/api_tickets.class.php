@@ -153,7 +153,7 @@ class Tickets extends DolibarrApi
 		}
 
 		// Messages of ticket
-		$messages = array();
+		$messages = [];
 		$this->ticket->loadCacheMsgsTicket();
 		if (is_array($this->ticket->cache_msgs_ticket) && count($this->ticket->cache_msgs_ticket) > 0) {
 			$num = count($this->ticket->cache_msgs_ticket);
@@ -208,7 +208,7 @@ class Tickets extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		$socid = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $socid;
 
@@ -465,7 +465,7 @@ class Tickets extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$ticket = array();
+		$ticket = [];
 		foreach (Tickets::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");
@@ -485,7 +485,7 @@ class Tickets extends DolibarrApi
 	 */
 	private function _validateMessage($data)
 	{
-		$ticket = array();
+		$ticket = [];
 		foreach (Tickets::$FIELDS_MESSAGES as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

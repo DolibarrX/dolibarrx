@@ -225,7 +225,7 @@ class BOM extends CommonObject
 	// /**
 	//  * @var array	List of child tables. To test if we can delete object.
 	//  */
-	// protected $childtables=array();
+	// protected $childtables=[];
 
 	/**
 	 * @var string[]	List of child tables. To know object to delete on cascade.
@@ -235,7 +235,7 @@ class BOM extends CommonObject
 	/**
 	 * @var BOMLine[]     Array of subtable lines
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @var float		Calculated cost for the BOM
@@ -422,7 +422,7 @@ class BOM extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -437,7 +437,7 @@ class BOM extends CommonObject
 	 */
 	public function fetchLinesbytypeproduct($typeproduct = 0)
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectlineclassname = get_class($this).'Line';
 		if (!class_exists($objectlineclassname)) {
@@ -498,7 +498,7 @@ class BOM extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList();
@@ -591,7 +591,7 @@ class BOM extends CommonObject
 	 * @param	?int		$fk_default_workstation	Default workstation
 	 * @return	int<-3,max>							Return integer <0 if KO, Id of created object if OK
 	 */
-	public function addLine($fk_product, $qty, $qty_frozen = 0, $disable_stock_change = 0, $efficiency = 1.0, $position = -1, $fk_bom_child = null, $import_key = null, $fk_unit = 0, $array_options = array(), $fk_default_workstation = null)
+	public function addLine($fk_product, $qty, $qty_frozen = 0, $disable_stock_change = 0, $efficiency = 1.0, $position = -1, $fk_bom_child = null, $import_key = null, $fk_unit = 0, $array_options = [], $fk_default_workstation = null)
 	{
 		global $mysoc, $config, $langs, $user;
 
@@ -699,7 +699,7 @@ class BOM extends CommonObject
 	 * @param	?int		$fk_default_workstation	Default workstation
 	 * @return	int<-3,max>						Return integer <0 if KO, Id of updated BOM-Line if OK
 	 */
-	public function updateLine($rowid, $qty, $qty_frozen = 0, $disable_stock_change = 0, $efficiency = 1.0, $position = -1, $import_key = null, $fk_unit = 0, $array_options = array(), $fk_default_workstation = null)
+	public function updateLine($rowid, $qty, $qty_frozen = 0, $disable_stock_change = 0, $efficiency = 1.0, $position = -1, $import_key = null, $fk_unit = 0, $array_options = [], $fk_default_workstation = null)
 	{
 		global $user;
 
@@ -1273,7 +1273,7 @@ class BOM extends CommonObject
 	 */
 	public function getLinesArray()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectline = new BOMLine($this->db);
 		$result = $objectline->fetchAll('ASC', 'position', 0, 0, '(fk_bom:=:'.((int) $this->id).')');
@@ -1415,7 +1415,7 @@ class BOM extends CommonObject
 		$this->unit_cost = 0;
 		$this->total_cost = 0;
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('calculateCostsBom', $parameters, $this); // Note that $action and $object may have been modified by hook
 
 		if ($resHook > 0) {
@@ -1487,7 +1487,7 @@ class BOM extends CommonObject
 						}
 					} else {
 						$defaultdurationofservice = $tmpproduct->duration;
-						$reg = array();
+						$reg = [];
 						$qtyhourservice = 0;
 						if (preg_match('/^(\d+)([a-z]+)$/', $defaultdurationofservice, $reg)) {
 							$qtyhourservice = convertDurationtoHour((float) $reg[1], $reg[2]);
@@ -1540,7 +1540,7 @@ class BOM extends CommonObject
 	 * @param float										$qty		qty needed (used as a factor to produce 1 unit)
 	 * @return void
 	 */
-	public function getNetNeeds(&$TNetNeeds = array(), $qty = 0)
+	public function getNetNeeds(&$TNetNeeds = [], $qty = 0)
 	{
 		if (!empty($this->lines)) {
 			foreach ($this->lines as $line) {
@@ -1569,7 +1569,7 @@ class BOM extends CommonObject
 	 * @param int<0,1000>  	$level     level of recursivity
 	 * @return void
 	 */
-	public function getNetNeedsTree(&$TNetNeeds = array(), $qty = 0, $level = 0)
+	public function getNetNeedsTree(&$TNetNeeds = [], $qty = 0, $level = 0)
 	{
 		if (!empty($this->lines)) {
 			foreach ($this->lines as $line) {
@@ -1588,10 +1588,10 @@ class BOM extends CommonObject
 					// When using nested level (or not), the qty for needs must always use the same unit to be able to be cumulated.
 					// So if unit in bom is not the same than default, we must recalculate qty after units comparisons.
 					if (!isset($TNetNeeds[$this->id]['product'])) {
-						$TNetNeeds[$this->id]['product'] = array();
+						$TNetNeeds[$this->id]['product'] = [];
 					}
 					if (!isset($TNetNeeds[$this->id]['product'][$line->fk_product])) {
-						$TNetNeeds[$this->id]['product'][$line->fk_product] = array();
+						$TNetNeeds[$this->id]['product'][$line->fk_product] = [];
 					}
 					$TNetNeeds[$this->id]['product'][$line->fk_product]['fk_unit'] = $line->fk_unit;
 					if (!isset($TNetNeeds[$this->id]['product'][$line->fk_product]['qty'])) {

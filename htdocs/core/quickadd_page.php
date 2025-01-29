@@ -88,8 +88,8 @@ $title = $langs->trans("QuickAdd");
 
 // URL http://mydolibarr/core/search_page?dol_use_jmobile=1 can be used for tests
 $head = '<!-- Quick add -->'."\n";	// This is used by DoliDroid to know page is a search page
-$arrayofjs = array();
-$arrayofcss = array();
+$arrayofjs = [];
+$arrayofcss = [];
 top_htmlhead($head, $title, 0, 0, $arrayofjs, $arrayofcss);
 
 

@@ -36,7 +36,7 @@ function receiptprinteradmin_prepare_head($mode)
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/receiptprinter.php?mode=config";
 	$head[$h][1] = $langs->trans("ListPrinters");

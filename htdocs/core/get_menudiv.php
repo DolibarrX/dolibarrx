@@ -106,8 +106,8 @@ $title = $langs->trans("Menu");
 
 // URL http://mydolibarr/core/get_menudiv.php?dol_use_jmobile=1 can be used for tests
 $head = '<!-- Menu -->'."\n";	// This is used by DoliDroid to know page is a menu page
-$arrayofjs = array();
-$arrayofcss = array();
+$arrayofjs = [];
+$arrayofcss = [];
 top_htmlhead($head, $title, 0, 0, $arrayofjs, $arrayofcss);
 
 print '<body class="getmenudiv">'."\n";

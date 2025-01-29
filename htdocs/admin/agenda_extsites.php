@@ -50,7 +50,7 @@ if (!$user->admin) {
 // Load translation files required by the page
 $langs->loadLangs(array('agenda', 'admin', 'other'));
 
-$def = array();
+$def = [];
 $action = GETPOST('action', 'alpha');
 
 if (!getDolGlobalString('AGENDA_EXT_NB')) {
@@ -61,7 +61,7 @@ $MAXAGENDA = getDolGlobalString('AGENDA_EXT_NB');
 // List of available colors
 $colorlist = array('BECEDD', 'DDBECE', 'BFDDBE', 'F598B4', 'F68654', 'CBF654', 'A4A4A5');
 
-$reg = array();
+$reg = [];
 
 
 /*
@@ -69,7 +69,7 @@ $reg = array();
  */
 
 $error = 0;
-$errors = array();
+$errors = [];
 
 if (preg_match('/set_(.*)/', $action, $reg)) {
 	$db->begin();
@@ -195,8 +195,8 @@ $form = new Form($db);
 $formadmin = new FormAdmin($db);
 $formother = new FormOther($db);
 
-$arrayofjs = array();
-$arrayofcss = array();
+$arrayofjs = [];
+$arrayofcss = [];
 
 $wikihelp = 'EN:Module_Agenda_En|FR:Module_Agenda|ES:Módulo_Agenda|DE:Modul_Terminplanung';
 llxHeader('', $langs->trans("AgendaSetup"), $wikihelp, '', 0, 0, $arrayofjs, $arrayofcss, '', 'mod-admin page-agenda-extsites');
@@ -292,7 +292,7 @@ while ($i <= $MAXAGENDA) {
 	print '<td><input type="text" class="flat hideifnotset" name="AGENDA_EXT_OFFSETTZ' . $key . '" value="' . (GETPOST('AGENDA_EXT_OFFSETTZ' . $key) ? GETPOST('AGENDA_EXT_OFFSETTZ' . $key) : getDolGlobalString($offsettz)) . '" size="2"></td>';
 	// Color (Possible colors are limited by Google)
 	print '<td class="nowraponall right">';
-	print $formother->selectColor((GETPOST("AGENDA_EXT_COLOR" . $key) ? GETPOST("AGENDA_EXT_COLOR" . $key) : getDolGlobalString($color)), "AGENDA_EXT_COLOR" . $key, 'extsitesconfig', 1, array(), 'hideifnotset');
+	print $formother->selectColor((GETPOST("AGENDA_EXT_COLOR" . $key) ? GETPOST("AGENDA_EXT_COLOR" . $key) : getDolGlobalString($color)), "AGENDA_EXT_COLOR" . $key, 'extsitesconfig', 1, [], 'hideifnotset');
 	print '</td>';
 	// Calendar active by default
 	print '<td class="nowrap right">';

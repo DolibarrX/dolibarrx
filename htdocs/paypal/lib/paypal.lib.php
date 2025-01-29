@@ -37,7 +37,7 @@ function paypaladmin_prepare_head()
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT."/paypal/admin/paypal.php";
 	$head[$h][1] = $langs->trans("PayPal");
@@ -566,7 +566,7 @@ function hash_call($methodName, $nvpStr)
 function deformatNVP($nvpstr)
 {
 	$initial = 0;
-	$nvpArray = array();
+	$nvpArray = [];
 
 	while (strlen($nvpstr)) {
 		//position of Key
@@ -591,7 +591,7 @@ function deformatNVP($nvpstr)
  */
 function getApiError()
 {
-	$errors = array();
+	$errors = [];
 
 	$resArray = $_SESSION['reshash'];
 

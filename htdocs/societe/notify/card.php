@@ -308,9 +308,9 @@ if ($result > 0) {
 
 	// Line to add a new subscription
 	if ($action == 'create') {
-		$listofemails = $object->thirdparty_and_contact_email_array();
+		$listofemails = $object->thirdparty_and_contact_email_[];
 		if (count($listofemails) > 0) {
-			$actions = array();
+			$actions = [];
 
 			// Load array of available notifications
 			$notificationtrigger = new InterfaceNotification($db);
@@ -321,7 +321,7 @@ if ($result > 0) {
 				$actions[$managedeventfornotification['rowid']] = $label;
 			}
 
-			$newlistofemails = array();
+			$newlistofemails = [];
 			foreach ($listofemails as $tmpkey => $tmpval) {
 				$labelhtml = str_replace(array('<', '>'), array(' - <span class="opacitymedium">', '</span>'), $tmpval);
 				$newlistofemails[$tmpkey] = array('label' => dol_string_nohtmltag($tmpval), 'id' => $tmpkey, 'data-html' => $labelhtml);

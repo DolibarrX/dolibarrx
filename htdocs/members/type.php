@@ -111,7 +111,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 
 // Definition of array of fields for columns
 $tableprefix = 't';
-$arrayfields = array();
+$arrayfields = [];
 foreach ($object->fields as $key => $val) {
 	// If $val['visible']==0, then we never show the field
 	if (!empty($val['visible'])) {
@@ -282,7 +282,7 @@ $help_url = 'EN:Module_Foundations|FR:Module_Adh&eacute;rents|ES:M&oacute;dulo_M
 
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-member page-type');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 // List of members type
 if (!$rowid && $action != 'create' && $action != 'edit') {
@@ -362,7 +362,7 @@ if (!$rowid && $action != 'create' && $action != 'edit') {
 		$i = 0;
 		$savnbfield = 10;
 		/*$savnbfield = $totalarray['nbfield'];
-		$totalarray = array();
+		$totalarray = [];
 		$totalarray['nbfield'] = 0;*/
 
 		$imaxinloop = ($limit ? min($num, $limit) : $num);
@@ -480,7 +480,7 @@ if ($action == 'create') {
 	print '<input type="hidden" name="action" value="add">';
 	print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
 
-	print dol_get_fiche_head(array());
+	print dol_get_fiche_head([]);
 
 	print '<table class="border centpercent">';
 	print '<tbody>';
@@ -492,7 +492,7 @@ if ($action == 'create') {
 	print '</td></tr>';
 
 	// Morphy
-	$morphys = array();
+	$morphys = [];
 	$morphys[""] = $langs->trans("MorAndPhy");
 	$morphys["phy"] = $langs->trans("Physical");
 	$morphys["mor"] = $langs->trans("Moral");

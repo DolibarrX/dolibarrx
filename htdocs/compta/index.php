@@ -165,7 +165,7 @@ if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
 		$sql .= " AND EXISTS (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_soc = f.fk_soc AND sc.fk_user = ".((int) $user->id).")";
 	}
 	// Add where from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListWhereCustomerLastModified', $parameters);
 	$sql .= $hookManager->resPrint;
 
@@ -316,7 +316,7 @@ if ((isModEnabled('fournisseur') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMO
 		$sql .= " AND EXISTS (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_soc = ff.fk_soc AND sc.fk_user = ".((int) $user->id).")";
 	}
 	// Add where from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListWhereSupplierLastModified', $parameters);
 	$sql .= $hookManager->resPrint;
 
@@ -437,7 +437,7 @@ if (isModEnabled('don') && $user->hasRight('don', 'lire')) {
 	$sql .= " FROM ".MAIN_DB_PREFIX."don as d";
 	$sql .= " WHERE d.entity IN (".getEntity('donation').")";
 	// Add where from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListWhereLastDonations', $parameters);
 	$sql .= $hookManager->resPrint;
 
@@ -532,7 +532,7 @@ if (isModEnabled('tax') && $user->hasRight('tax', 'charges', 'lire')) {
 		$sql .= " AND c.entity IN (".getEntity('tax').')';
 		$sql .= " AND c.paye = 0";
 		// Add where from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListWhereSocialContributions', $parameters);
 		$sql .= $hookManager->resPrint;
 
@@ -640,7 +640,7 @@ if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("order",
 	}
 
 	// Add where from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListWhereCustomerOrderToBill', $parameters);
 	$sql .= $hookManager->resPrint;
 

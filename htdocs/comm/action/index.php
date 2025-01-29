@@ -267,7 +267,7 @@ $nowyear = $nowarray['year'];
 $nowmonth = $nowarray['mon'];
 $nowday = $nowarray['mday'];
 
-$listofextcals = array();
+$listofextcals = [];
 
 // Define list of external calendars (global admin setup)
 if (!getDolGlobalString('AGENDA_DISABLE_EXT')) {
@@ -552,7 +552,7 @@ $viewmode .= img_picture($langs->trans("ViewPerUser"), 'object_calendarperuser',
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow" title="'.dolPrintHTML($langs->trans("ViewPerUser")).'">'.$langs->trans("ViewPerUser").'</span></a>';
 
 // Add more views from hooks
-$parameters = array();
+$parameters = [];
 $object = null;
 $resHook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
 if (empty($resHook)) {
@@ -589,7 +589,7 @@ $link = '';
 
 
 $showextcals = $listofextcals;
-$bookcalcalendars = array();
+$bookcalcalendars = [];
 
 // Load Bookcal Calendars
 if (isModEnabled("bookcal")) {
@@ -715,7 +715,7 @@ if (!empty($config->use_javascript_ajax)) {	// If javascript on
 	}
 
 	// Calendars from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addCalendarChoice', $parameters, $object, $action);
 	if (empty($resHook)) {
 		$s .= $hookManager->resPrint;
@@ -742,7 +742,7 @@ if (!empty($config->use_javascript_ajax)) {	// If javascript on
 
 
 // Load events from database into $eventarray
-$eventarray = array();
+$eventarray = [];
 
 
 // DEFAULT CALENDAR + AUTOEVENT CALENDAR + CONFERENCEBOOTH CALENDAR
@@ -760,7 +760,7 @@ $sql .= ' a.fk_soc, a.fk_contact, a.fk_project, a.fk_bookcal_calendar,';
 $sql .= ' a.fk_element, a.elementtype,';
 $sql .= ' ca.code as type_code, ca.libelle as type_label, ca.color as type_color, ca.type as type_type, ca.picture as type_picture';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -1233,7 +1233,7 @@ if (count($listofextcals)) {
 
 		// After this $ical->cal['VEVENT'] contains array of events, $ical->cal['DAYLIGHT'] contains daylight info, $ical->cal['STANDARD'] contains non daylight info, ...
 		//var_dump($ical->cal); exit;
-		$icalevents = array();
+		$icalevents = [];
 		if (is_array($ical->get_event_list())) {
 			$icalevents = array_merge($icalevents, $ical->get_event_list()); // Add $ical->cal['VEVENT']
 		}
@@ -1243,7 +1243,7 @@ if (count($listofextcals)) {
 
 		if (count($icalevents) > 0) {
 			// Duplicate all repeatable events into new entries
-			$moreicalevents = array();
+			$moreicalevents = [];
 			foreach ($icalevents as $icalevent) {
 				if (isset($icalevent['RRULE']) && is_array($icalevent['RRULE'])) { //repeatable event
 					//if ($event->date_start_in_calendar < $firstdaytoshow) $event->date_start_in_calendar=$firstdaytoshow;
@@ -1504,13 +1504,13 @@ if (count($listofextcals)) {
 }
 
 // Complete $eventarray with events coming from external module
-$parameters = array();
+$parameters = [];
 $object = null;
 $resHook = $hookManager->executeHooks('getCalendarEvents', $parameters, $object, $action);
 if (!empty($hookManager->resArray['eventarray'])) {
 	foreach ($hookManager->resArray['eventarray'] as $keyDate => $events) {
 		if (!isset($eventarray[$keyDate])) {
-			$eventarray[$keyDate] = array();
+			$eventarray[$keyDate] = [];
 		}
 		$eventarray[$keyDate] = array_merge($eventarray[$keyDate], $events);
 	}
@@ -1523,9 +1523,9 @@ foreach ($eventarray as $keyDate => &$dateeventarray) {
 
 
 $maxnbofchar = 0;
-$cachethirdparties = array();
-$cachecontacts = array();
-$cacheusers = array();
+$cachethirdparties = [];
+$cachecontacts = [];
+$cacheusers = [];
 
 // Define theme_datacolor array
 $color_file = DOL_DOCUMENT_ROOT."/theme/".$config->theme."/theme_vars.inc.php";
@@ -1841,7 +1841,7 @@ $db->close();
  * @param	array{}|array{0:array{0:int,1:int,2:int},1:array{0:int,1:int,2:int},2:array{0:int,1:int,2:int}}	$bookcalcalendarsarray	 Used for Bookcal module array of calendar of bookcal
  * @return	void
  */
-function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventarray, $maxprint = 0, $maxnbofchar = 16, $newparam = '', $showinfo = 0, $minheight = 60, $nonew = 0, $bookcalcalendarsarray = array())
+function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventarray, $maxprint = 0, $maxnbofchar = 16, $newparam = '', $showinfo = 0, $minheight = 60, $nonew = 0, $bookcalcalendarsarray = [])
 {
 	global $user, $config, $langs;
 	global $action, $mode, $filter, $filtert, $status, $actioncode, $usergroup; // Filters used into search form
@@ -1909,7 +1909,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 	$numother = 0;
 	$numbirthday = 0;
 	$numical = 0;
-	$numicals = array();
+	$numicals = [];
 	$ymd = sprintf("%04d", $year).sprintf("%02d", $month).sprintf("%02d", $day);
 
 	$colorindexused[$user->id] = 0; // Color index for current user (user->id) is always 0
@@ -2006,7 +2006,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 							$color = sprintf("%02x%02x%02x", $theme_datacolor[$colorindex][0], $theme_datacolor[$colorindex][1], $theme_datacolor[$colorindex][2]);
 						} elseif (getDolGlobalString('THEME_ELDY_BACKBODY')) {
 							require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-							$color = colorArrayToHex(colorStringToArray(getDolGlobalString('THEME_ELDY_BACKBODY'), array()), '');
+							$color = colorArrayToHex(colorStringToArray(getDolGlobalString('THEME_ELDY_BACKBODY'), []), '');
 						} else {
 							$color = "ffffff";
 						}
@@ -2160,7 +2160,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 						print $listofusertoshow;
 					}
 
-					$parameters = array();
+					$parameters = [];
 					$resHook = $hookManager->executeHooks('eventOptions', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
 					if ($resHook < 0) {
 						setEventMessages($hookManager->error, $hookManager->errors, 'errors');

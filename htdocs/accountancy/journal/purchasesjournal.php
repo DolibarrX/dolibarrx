@@ -69,7 +69,7 @@ if ($in_bookkeeping == '') {
 $now = dol_now();
 
 $hookManager->initHooks(array('purchasesjournal'));
-$parameters = array();
+$parameters = [];
 
 // Security check
 if (!isModEnabled('accounting')) {
@@ -84,16 +84,16 @@ if (!$user->hasRight('accounting', 'bind', 'write')) {
 
 $error = 0;
 
-$tabfac = array();
-$tabht = array();
-$tabtva = array();
-$tabttc = array();
-$tablocaltax1 = array();
-$tablocaltax2 = array();
-$tabrctva = array();
-$tabrclocaltax1 = array();
-$tabrclocaltax2 = array();
-$tabpay = array();
+$tabfac = [];
+$tabht = [];
+$tabtva = [];
+$tabttc = [];
+$tablocaltax1 = [];
+$tablocaltax2 = [];
+$tabrctva = [];
+$tabrclocaltax1 = [];
+$tabrclocaltax2 = [];
+$tabpay = [];
 
 $cptcli = 'NotDefined';
 $cptfour = 'NotDefined';
@@ -160,7 +160,7 @@ if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 	$sql .= " p.accountancy_code_buy,";
 }
 $sql .= " aa.rowid as fk_compte, aa.account_number as compte, aa.label as label_compte";
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn_det as fd";
@@ -175,7 +175,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co ON co.rowid = s.fk_pays ";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 }
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " WHERE f.fk_statut > 0";
@@ -200,25 +200,25 @@ if ($in_bookkeeping == 'already') {
 if ($in_bookkeeping == 'notyet') {
 	$sql .= " AND f.rowid NOT IN (SELECT fk_doc FROM ".MAIN_DB_PREFIX."accounting_bookkeeping as ab WHERE ab.doc_type='supplier_invoice')";
 }
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " ORDER BY f.datef";
 
 dol_syslog('accountancy/journal/purchasesjournal.php', LOG_DEBUG);
-$tabfac = array();
-$tabht = array();
-$tabtva = array();
-$def_tva = array();
-$tabttc = array();
-$tablocaltax1 = array();
-$tablocaltax2 = array();
-$tabcompany = array();
-$tabother = array();
-$tabrctva = array();
-$tabrclocaltax1 = array();
-$tabrclocaltax2 = array();
-$vatdata_cache = array();
+$tabfac = [];
+$tabht = [];
+$tabtva = [];
+$def_tva = [];
+$tabttc = [];
+$tablocaltax1 = [];
+$tablocaltax2 = [];
+$tabcompany = [];
+$tabother = [];
+$tabrctva = [];
+$tabrclocaltax1 = [];
+$tabrclocaltax2 = [];
+$vatdata_cache = [];
 
 // Variables
 $cptfour = getDolGlobalString('ACCOUNTING_ACCOUNT_SUPPLIER', 'NotDefined');
@@ -378,7 +378,7 @@ if ($result) {
 	dol_print_error($db);
 }
 
-$errorforinvoice = array();
+$errorforinvoice = [];
 
 /*
 // Old way, 1 query for each invoice
@@ -646,7 +646,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 							$arrayofvat = $tabrclocaltax2;
 						}
 						if (!isset($arrayofvat[$key]) || !is_array($arrayofvat[$key])) {
-							$arrayofvat[$key] = array();
+							$arrayofvat[$key] = [];
 						}
 					}
 				}
@@ -925,7 +925,7 @@ if ($action == 'exportcsv' && !$error) {		// ISO and not UTF8 !
 						$arrayofvat = $tabrclocaltax2;
 					}
 					if (!isset($arrayofvat[$key]) || !is_array($arrayofvat[$key])) {
-						$arrayofvat[$key] = array();
+						$arrayofvat[$key] = [];
 					}
 				}
 			}
@@ -1253,7 +1253,7 @@ if (empty($action) || $action == 'view') {
 						$arrayofvat = $tabrclocaltax2;
 					}
 					if (!isset($arrayofvat[$key]) || !is_array($arrayofvat[$key])) {
-						$arrayofvat[$key] = array();
+						$arrayofvat[$key] = [];
 					}
 				}
 			}

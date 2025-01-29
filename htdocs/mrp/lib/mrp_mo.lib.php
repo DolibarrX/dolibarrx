@@ -36,7 +36,7 @@ function moPrepareHead($object)
 	$langs->loadLangs(array("mrp", "stocks"));
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/mrp/mo_card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("ManufacturingOrder");

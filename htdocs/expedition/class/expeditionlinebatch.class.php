@@ -251,7 +251,7 @@ class ExpeditionLineBatch extends CommonObject
 		if ($resql) {
 			$num = $this->db->num_rows($resql);
 			$i = 0;
-			$ret = array();
+			$ret = [];
 			while ($i < $num) {
 				$obj = $this->db->fetch_object($resql);
 

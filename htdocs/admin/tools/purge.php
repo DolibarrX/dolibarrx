@@ -147,7 +147,7 @@ print '</form>';
 
 if (preg_match('/^confirm/i', $choice)) {
 	print '<br>';
-	$formquestion = array();
+	$formquestion = [];
 	print $form->formconfirm($_SERVER["PHP_SELF"].'?choice=allfiles&nbsecondsold='.$nbsecondsold, $langs->trans('Purge'), $langs->trans('ConfirmPurge').img_warning().' ', 'purge', $formquestion, 'no', 2);
 }
 

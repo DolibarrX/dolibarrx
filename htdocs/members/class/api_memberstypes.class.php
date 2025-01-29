@@ -92,7 +92,7 @@ class MembersTypes extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $sqlfilters = '', $properties = '')
 	{
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('member', 'lire')) {
 			throw new RestException(401);
@@ -275,7 +275,7 @@ class MembersTypes extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$membertype = array();
+		$membertype = [];
 		foreach (MembersTypes::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

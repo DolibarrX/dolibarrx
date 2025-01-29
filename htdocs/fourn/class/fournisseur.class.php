@@ -127,7 +127,7 @@ class Fournisseur extends Societe
 	{
 		global $config, $user, $hookManager;
 
-		$this->nb = array();
+		$this->nb = [];
 		$clause = "WHERE";
 
 		$sql = "SELECT count(s.rowid) as nb";
@@ -141,7 +141,7 @@ class Fournisseur extends Societe
 		$sql .= " AND s.entity IN (".getEntity('societe').")";
 		// Add where from hooks
 		if (is_object($hookManager)) {
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 		}
@@ -199,7 +199,7 @@ class Fournisseur extends Societe
 		global $config;
 		global $user;
 
-		$arr = array();
+		$arr = [];
 
 		$sql = "SELECT s.rowid, s.nom as name";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";

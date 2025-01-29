@@ -127,7 +127,7 @@ if ($action == 'setModuleOptions' && !empty($user->admin)) {
 	// Process common param fields
 	if (is_array($_POST)) {
 		foreach ($_POST as $key => $val) {
-			$reg = array();
+			$reg = [];
 			if (preg_match('/^param(\d*)$/', $key, $reg)) {    // Works for POST['param'], POST['param1'], POST['param2'], ...
 				$param = GETPOST("param".$reg[1], 'aZ09');
 				$value = GETPOST("value".$reg[1], 'alpha');

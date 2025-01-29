@@ -34,7 +34,7 @@ function multicurrencyAdminPrepareHead()
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath("/admin/multicurrency.php", 1);
 	$head[$h][1] = $langs->trans("Parameters");
@@ -64,7 +64,7 @@ function multicurrencyLimitPrepareHead($aCurrencies)
 	global $langs;
 
 	$i = 0;
-	$head = array();
+	$head = [];
 
 	foreach ($aCurrencies as $currency) {
 		$head[$i][0] = $_SERVER['PHP_SELF'] . '?currencycode=' . $currency;

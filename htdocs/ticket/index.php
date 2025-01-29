@@ -217,8 +217,8 @@ if ($result) {
 
 	include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';	// This define $badgeStatusX
 
-	$dataseries = array();
-	$colorseries = array();
+	$dataseries = [];
+	$colorseries = [];
 
 	$dataseries[] = array('label' => $langs->transnoentitiesnoconv($object->labelStatusShort[Ticket::STATUS_NOT_READ]), 'data' => round($tick['unread']));
 	$colorseries[Ticket::STATUS_NOT_READ] = '-'.$badgeStatus0;
@@ -274,7 +274,7 @@ if ($user->hasRight('ticket', 'read')) {
 			$totalnb += $value['data'];
 		}
 
-		$data = array();
+		$data = [];
 		foreach ($dataseries as $key => $value) {
 			$data[] = array($value['label'], $value['data']);
 		}
@@ -286,7 +286,7 @@ if ($user->hasRight('ticket', 'read')) {
 
 			unset($data1);
 			$i = $startyear;
-			$legend = array();
+			$legend = [];
 			while ($i <= $endyear) {
 				$legend[] = $i;
 				$i++;

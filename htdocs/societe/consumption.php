@@ -156,7 +156,7 @@ if (getDolGlobalString('SOCIETE_USEPREFIX')) {  // Old not used prefix field
 }
 
 //if (isModEnabled('agenda') && $user->hasRight('agenda', 'myactions', 'read')) $elementTypeArray['action']=$langs->transnoentitiesnoconv('Events');
-$elementTypeArray = array();
+$elementTypeArray = [];
 
 if ($object->client) {
 	print '<tr><td class="titlefield">';
@@ -175,7 +175,7 @@ if ($object->client) {
 
 	$obj = $db->fetch_object($resql);
 	$nbFactsClient = $obj->nb;
-	$thirdTypeArray = array();
+	$thirdTypeArray = [];
 	$thirdTypeArray['customer'] = $langs->trans("customer");
 	if (isModEnabled("propal") && $user->hasRight('propal', 'lire')) {
 		$elementTypeArray['propal'] = $langs->transnoentitiesnoconv('Proposals');
@@ -381,7 +381,7 @@ if ($type_element == 'contract') { 	// Order
 	$thirdTypeSelect = 'customer';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 
 if (!empty($sql_select)) {

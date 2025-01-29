@@ -113,7 +113,7 @@ if ($mode != '') {
 
 
 $h = 0;
-$head = array();
+$head = [];
 
 $head[$h][0] = DOL_URL_ROOT.'/product/stats/card.php?id=all';
 $head[$h][1] = $langs->trans("Chart");
@@ -136,7 +136,7 @@ print dol_get_fiche_head($head, 'popularity', '', -1);
 
 
 // Array of lines to show
-$infoprod = array();
+$infoprod = [];
 
 
 // Add lines for object

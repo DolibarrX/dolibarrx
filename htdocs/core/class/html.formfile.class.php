@@ -513,7 +513,7 @@ class FormFile
 		$hookManager->initHooks(array('formfile'));
 
 		// Get list of files
-		$file_list = array();
+		$file_list = [];
 		if (!empty($filedir)) {
 			$file_list = dol_dir_list($filedir, 'files', 0, '', '(\.meta|_preview.*.*\.png)$', 'date', SORT_DESC);
 		}
@@ -574,7 +574,7 @@ class FormFile
 
 		// Show table
 		if ($genallowed) {
-			$modellist = array();
+			$modellist = [];
 
 			if ($modulepart == 'company') {
 				$showempty = 1; // can have no template active
@@ -703,7 +703,7 @@ class FormFile
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/export/modules_export.php';
 					//$modellist = ModeleExports::liste_modeles($this->db);		// liste_modeles() does not exists. We are using listOfAvailableExportFormat() method instead that return a different array format.
-					$modellist = array();
+					$modellist = [];
 				}
 			} elseif ($modulepart == 'order_fournisseur' || $modulepart == 'supplier_order') {
 				if (is_array($genallowed)) {
@@ -857,7 +857,7 @@ class FormFile
 				if ($config->browser->layout == 'phone') {
 					$morecss = 'maxwidth100';
 				}
-				$out .= $formadmin->select_language($defaultlang, 'lang_id', 0, array(), 0, 0, 0, $morecss);
+				$out .= $formadmin->select_language($defaultlang, 'lang_id', 0, [], 0, 0, 0, $morecss);
 			} else {
 				$out .= '&nbsp;';
 			}
@@ -905,7 +905,7 @@ class FormFile
 
 		// Get list of files
 		if (!empty($filedir)) {
-			$link_list = array();
+			$link_list = [];
 			if (is_object($object)) {
 				require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
 				$link = new Link($this->db);
@@ -1158,13 +1158,13 @@ class FormFile
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$out = '';
-		$this->infofiles = array('nboffiles' => 0, 'extensions' => array(), 'files' => array());
+		$this->infofiles = array('nboffiles' => 0, 'extensions' => [], 'files' => []);
 
 		$entity = 1; // Without multicompany
 
 		// Get object entity
 		if (isModEnabled('multicompany')) {
-			$regs = array();
+			$regs = [];
 			preg_match('/\/([0-9]+)\/[^\/]+\/'.preg_quote($modulesubdir, '/').'$/', $filedir, $regs);
 			$entity = ((!empty($regs[1]) && $regs[1] > 1) ? $regs[1] : 1); // If entity id not found in $filedir this is entity 1 by default
 		}
@@ -1294,7 +1294,7 @@ class FormFile
 	 * 	@return	 int								Return integer <0 if KO, nb of files shown if OK
 	 *  @see list_of_autoecmfiles()
 	 */
-	public function list_of_documents($filearray, $object, $modulepart, $param = '', $forcedownload = 0, $relativepath = '', $permonobject = 1, $useinecm = 0, $textifempty = '', $maxlength = 0, $title = '', $url = '', $showrelpart = 0, $permtoeditline = -1, $upload_dir = '', $sortfield = '', $sortorder = 'ASC', $disablemove = 1, $addfilterfields = 0, $disablecrop = -1, $moreattrondiv = '', $moreoptions = array())
+	public function list_of_documents($filearray, $object, $modulepart, $param = '', $forcedownload = 0, $relativepath = '', $permonobject = 1, $useinecm = 0, $textifempty = '', $maxlength = 0, $title = '', $url = '', $showrelpart = 0, $permtoeditline = -1, $upload_dir = '', $sortfield = '', $sortorder = 'ASC', $disablemove = 1, $addfilterfields = 0, $disablecrop = -1, $moreattrondiv = '', $moreoptions = [])
 	{
 		// phpcs:enable
 		global $user, $config, $langs, $hookManager, $form;
@@ -1977,7 +1977,7 @@ class FormFile
 
 				// To show ref or specific information according to view to show (defined by $modulepart)
 				// $modulepart can be $object->table_name (that is 'mymodule_myobject') or $object->element.'-'.$module (for compatibility purpose)
-				$reg = array();
+				$reg = [];
 				if ($modulepart == 'company' || $modulepart == 'tax' || $modulepart == 'tax-vat' || $modulepart == 'salaries') {
 					preg_match('/(\d+)\/[^\/]+$/', $relativefile, $reg);
 					$id = (isset($reg[1]) ? $reg[1] : '');
@@ -2198,7 +2198,7 @@ class FormFile
 	 * @param	array<string,mixed>	$moreoptions	Add more options like array('afterlinktitle', ...)
 	 * @return 	int							Number of links
 	 */
-	public function listOfLinks($object, $permissiontodelete = 1, $action = null, $selected = null, $param = '', $htmlname = 'formaddlink', $moreoptions = array())
+	public function listOfLinks($object, $permissiontodelete = 1, $action = null, $selected = null, $param = '', $htmlname = 'formaddlink', $moreoptions = [])
 	{
 		global $config, $langs;
 		global $sortfield, $sortorder;
@@ -2207,7 +2207,7 @@ class FormFile
 
 		require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
 		$link = new Link($this->db);
-		$links = array();
+		$links = [];
 		if ($sortfield == "name") {
 			$sortfield = "label";
 		} elseif ($sortfield == "date") {

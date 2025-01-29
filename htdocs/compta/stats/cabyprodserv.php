@@ -166,7 +166,7 @@ $tmpe = dol_getdate($date_end);
 $year_end = $tmpe['year'];
 $nbofyear = ($year_end - $year_start) + 1;
 
-$commonparams = array();
+$commonparams = [];
 if (!empty($modecompta)) {
 	$commonparams['modecompta'] = $modecompta;
 }
@@ -177,7 +177,7 @@ if (!empty($sortfield)) {
 	$commonparams['sortfield'] = $sortfield;
 }
 
-$headerparams = array();
+$headerparams = [];
 if (!empty($date_startyear)) {
 	$headerparams['date_startyear'] = $date_startyear;
 }
@@ -206,7 +206,7 @@ if (!empty($q)) {
 	$headerparams['q'] = $q;
 }
 
-$tableparams = array();
+$tableparams = [];
 if (!empty($selected_cat)) {
 	$tableparams['search_categ'] = $selected_cat;
 }
@@ -309,7 +309,7 @@ if (isModEnabled('accounting') && $modecompta != 'BOOKKEEPING') {
 }
 
 
-$name = array();
+$name = [];
 
 // SQL request
 $catotal = 0;
@@ -321,7 +321,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$sql .= " SUM(l.total_ht) as amount, SUM(l.total_ttc) as amount_ttc,";
 	$sql .= " SUM(CASE WHEN f.type = 2 THEN -l.qty ELSE l.qty END) as qty";
 
-	$parameters = array();
+	$parameters = [];
 	$hookManager->executeHooks('printFieldListSelect', $parameters);
 	$sql .= $hookManager->resPrint;
 
@@ -331,7 +331,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	if ($typent_id > 0) {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as soc ON (soc.rowid = f.fk_soc)";
 	}
-	$parameters = array();
+	$parameters = [];
 	$hookManager->executeHooks('printFieldListFrom', $parameters);
 	$sql .= $hookManager->resPrint;
 
@@ -355,13 +355,13 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$searchCategoryProductList = array($selected_cat);
 	if ($subcat) {
 		$TListOfCats = $category->get_full_arbo('product', $selected_cat, 1);
-		$searchCategoryProductList = array();
+		$searchCategoryProductList = [];
 		foreach ($TListOfCats as $key => $cat) {
 			$searchCategoryProductList[] = $cat['id'];
 		}
 	}
 	if (!empty($searchCategoryProductList)) {
-		$searchCategoryProductSqlList = array();
+		$searchCategoryProductSqlList = [];
 		$listofcategoryid = '';
 		foreach ($searchCategoryProductList as $searchCategoryProduct) {
 			if (intval($searchCategoryProduct) == -2) {
@@ -392,7 +392,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$searchCategorySocieteOperator = -1;
 	$searchCategorySocieteList = array($selected_catsoc);
 	if (!empty($searchCategorySocieteList)) {
-		$searchCategorySocieteSqlList = array();
+		$searchCategorySocieteSqlList = [];
 		$listofcategoryid = '';
 		foreach ($searchCategorySocieteList as $searchCategorySociete) {
 			if (intval($searchCategorySociete) == -2) {
@@ -429,7 +429,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 
 	$sql .= " AND f.entity IN (".getEntity('invoice').")";
 
-	$parameters = array();
+	$parameters = [];
 	$hookManager->executeHooks('printFieldListWhere', $parameters);
 	$sql .= $hookManager->resPrint;
 
@@ -439,9 +439,9 @@ if ($modecompta == 'CREANCES-DETTES') {
 	dol_syslog("cabyprodserv", LOG_DEBUG);
 	$result = $db->query($sql);
 
-	$amount_ht = array();
-	$amount = array();
-	$qty = array();
+	$amount_ht = [];
+	$amount = [];
+	$qty = [];
 	if ($result) {
 		$num = $db->num_rows($result);
 		$i = 0;

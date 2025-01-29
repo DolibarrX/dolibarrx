@@ -92,8 +92,8 @@ class RejetPrelevement
 		$this->user = $user;
 		$this->type = $type;
 
-		$this->motifs = array();
-		$this->labelsofinvoicing = array();
+		$this->motifs = [];
+		$this->labelsofinvoicing = [];
 
 		$this->motifs[0] = "";
 		$this->motifs[1] = $langs->trans("StatusMotif1");
@@ -190,7 +190,7 @@ class RejetPrelevement
 
 			// Make a negative payment
 			// Amount must be an array (id of invoice -> amount)
-			$pai->amounts = array();
+			$pai->amounts = [];
 			$pai->amounts[$facs[$i][0]] = price2num($amountrejected * -1);		// The payment must be negative because it is a refund
 
 			$pai->datepaye = $date_rejet;
@@ -290,9 +290,9 @@ class RejetPrelevement
 			$msgishtml = 1;
 			$trackid = 'use'.$emuser->id;
 
-			$arr_file = array();
-			$arr_mime = array();
-			$arr_name = array();
+			$arr_file = [];
+			$arr_mime = [];
+			$arr_name = [];
 			$facref = $fac->ref;
 			$socname = $soc->name;
 			$amount = price($fac->total_ttc);
@@ -325,7 +325,7 @@ class RejetPrelevement
 	{
 		global $config;
 
-		$arr = array();
+		$arr = [];
 
 		//Returns all invoices of a withdrawal
 		$sql = "SELECT f.rowid as facid, pl.amount";

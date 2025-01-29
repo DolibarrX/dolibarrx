@@ -60,7 +60,7 @@ if (!$sortorder) {
 $langs->loadLangs(array("admin", "compta"));
 
 $error = 0;
-$errors = array();
+$errors = [];
 
 // List of status
 static $tmpstatut2label = array(

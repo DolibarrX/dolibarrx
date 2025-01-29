@@ -237,7 +237,7 @@ function print_start_menu_entry_auguria($idsel, $classname, $showmode)
  * @param	array{rowid:string,fk_menu:string,langs:string,enabled:int<0,2>,type:string,fk_mainmenu:string,fk_leftmenu:string,url:string,titre:string,perms:string,target:string,mainmenu:string,leftmenu:string,position:int,level:int,prefix:string}|array{}	$menuval	The full $menuval array
  * @return	void
  */
-function print_text_menu_entry_auguria($text, $showmode, $url, $id, $idsel, $classname, $atarget, $menuval = array())
+function print_text_menu_entry_auguria($text, $showmode, $url, $id, $idsel, $classname, $atarget, $menuval = [])
 {
 	global $langs;
 
@@ -513,7 +513,7 @@ function print_left_auguria_menu($db, $menu_array_before, $menu_array_after, &$t
 		}
 
 		// @todo Sort menu items by 'position' value
-		//      $position = array();
+		//      $position = [];
 		//      foreach ($menu_array as $key => $row) {
 		//          $position[$key] = $row['position'];
 		//      }

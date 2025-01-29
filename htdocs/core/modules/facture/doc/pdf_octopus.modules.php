@@ -233,10 +233,10 @@ class pdf_octopus extends ModelePDFFactures
 
 		//  Use new system for position of columns, view  $this->defineColumnField()
 
-		$this->tva = array();
-		$this->tva_array = array();
-		$this->localtax1 = array();
-		$this->localtax2 = array();
+		$this->tva = [];
+		$this->tva_array = [];
+		$this->localtax1 = [];
+		$this->localtax2 = [];
 		$this->atleastoneratenotnull = 0;
 		$this->atleastonediscount = 0;
 		$this->situationinvoice = true;
@@ -314,7 +314,7 @@ class pdf_octopus extends ModelePDFFactures
 		}
 
 		// Loop on each lines to detect if there is at least one image to show
-		$realpatharray = array();
+		$realpatharray = [];
 		$this->atleastonephoto = false;
 		if (getDolGlobalString('MAIN_GENERATE_INVOICES_WITH_PICTURE')) {
 			$objphoto = new Product($this->db);
@@ -326,7 +326,7 @@ class pdf_octopus extends ModelePDFFactures
 
 				$objphoto->fetch($object->lines[$i]->fk_product);
 				//var_dump($objphoto->ref);exit;
-				$pdir = array();
+				$pdir = [];
 				if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {
 					$pdir[0] = get_exdir($objphoto->id, 2, 0, 0, $objphoto, 'product').$objphoto->id."/photos/";
 					$pdir[1] = get_exdir(0, 0, 0, 0, $objphoto, 'product').dol_sanitizeFileName($objphoto->ref).'/';
@@ -779,7 +779,7 @@ class pdf_octopus extends ModelePDFFactures
 					$pdf->SetTextColor(0, 0, 0);
 
 					// Define size of image if we need it
-					$imglinesize = array();
+					$imglinesize = [];
 					if (!empty($realpatharray[$i])) {
 						$imglinesize = pdf_getSizeForImage($realpatharray[$i]);
 					}
@@ -1524,7 +1524,7 @@ class pdf_octopus extends ModelePDFFactures
 					if (isModEnabled('paybox')) {
 						$useonlinepayment++;
 					}
-					$parameters = array();
+					$parameters = [];
 					$action = '';
 					$resHook = $hookManager->executeHooks('doShowOnlinePaymentUrl', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 					if ($resHook > 0) {
@@ -1788,7 +1788,7 @@ class pdf_octopus extends ModelePDFFactures
 
 				if (!getDolGlobalInt('PDF_INVOICE_SHOW_VAT_ANALYSIS')) {
 					// VAT
-					$tvas = array();
+					$tvas = [];
 					$nblines = count($object->lines);
 					for ($i = 0; $i < $nblines; $i++) {
 						$tvaligne = $object->lines[$i]->total_tva;
@@ -3089,7 +3089,7 @@ class pdf_octopus extends ModelePDFFactures
 		$TPreviousInvoices = array_reverse($TPreviousInvoices);
 		$facDerniereSituation = $TPreviousInvoices[0];
 
-		$TDataSituation = array();
+		$TDataSituation = [];
 
 		if (! empty($facDerniereSituation)) {
 			$TDataSituation['derniere_situation'] = $facDerniereSituation;
@@ -3207,7 +3207,7 @@ class pdf_octopus extends ModelePDFFactures
 	 */
 	public function sumSituation($a, $b)
 	{
-		$ret = array();
+		$ret = [];
 		if (is_array($a)) {
 			foreach ($a as $k => $v) {
 				if (is_array($v)) {
@@ -3492,29 +3492,29 @@ class pdf_octopus extends ModelePDFFactures
 			$object->fetchPreviousNextSituationInvoice();
 		}
 
-		$previousinvoices = count($object->tab_previous_situation_invoice) ? $object->tab_previous_situation_invoice : array();
+		$previousinvoices = count($object->tab_previous_situation_invoice) ? $object->tab_previous_situation_invoice : [];
 
 		$remain_to_pay = 0;
 
 		// Proposal total
-		$propals = array();
-		$orders = array();
+		$propals = [];
+		$orders = [];
 
 		if (count($previousinvoices)) {
 			foreach ($previousinvoices as $invoice) {
 				if ($invoice->is_first()) {
 					$invoice->fetchObjectLinked();
 
-					$propals = isset($invoice->linkedObjects['propal']) ? $invoice->linkedObjects['propal'] : array();
-					$orders = isset($invoice->linkedObjects['order']) ? $invoice->linkedObjects['order'] : array();
+					$propals = isset($invoice->linkedObjects['propal']) ? $invoice->linkedObjects['propal'] : [];
+					$orders = isset($invoice->linkedObjects['order']) ? $invoice->linkedObjects['order'] : [];
 				}
 			}
 		} else {
 			if ($object->is_first()) {
 				$object->fetchObjectLinked();
 
-				$propals = isset($object->linkedObjects['propal']) ? $object->linkedObjects['propal'] : array();
-				$orders = isset($object->linkedObjects['order']) ? $object->linkedObjects['order'] : array();
+				$propals = isset($object->linkedObjects['propal']) ? $object->linkedObjects['propal'] : [];
+				$orders = isset($object->linkedObjects['order']) ? $object->linkedObjects['order'] : [];
 			}
 		}
 
@@ -3617,7 +3617,7 @@ class pdf_octopus extends ModelePDFFactures
 			$pdf->SetXY($posx + $width, $posy);
 			$pdf->MultiCell($width2, $height, price($sign * ($total_ht + (!empty($invoice->remise) ? $invoice->remise : 0)), 0, $outputlangs), 0, 'R', 1);
 
-			$tvas = array();
+			$tvas = [];
 			$nblines = count($invoice->lines);
 			for ($i = 0; $i < $nblines; $i++) {
 				$tvaligne = $invoice->lines[$i]->total_tva;

@@ -60,7 +60,7 @@ class modSupplierProposal extends DolibarrModules
 		$this->picture = 'supplier_proposal';
 
 		// Data directories to create when module is enabled.
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Config pages. Put here list of php page names stored in admin directory used to setup module.
 		$this->config_page_url = array("supplier_proposal.php");
@@ -68,13 +68,13 @@ class modSupplierProposal extends DolibarrModules
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
 		$this->depends = array('modFournisseur'); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->langfiles = array("supplier_proposal");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 		$r = 0;
 
 		$this->const[$r][0] = "SUPPLIER_PROPOSAL_ADDON_PDF";
@@ -98,10 +98,10 @@ class modSupplierProposal extends DolibarrModules
 		$this->const[$r][4] = 0;
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'supplier_proposal';
 		$r = 0;
 
@@ -142,7 +142,7 @@ class modSupplierProposal extends DolibarrModules
 		$this->rights[$r][4] = 'cloturer';
 
 		// Main menu entries
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 	}
 

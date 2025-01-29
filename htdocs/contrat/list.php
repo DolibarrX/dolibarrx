@@ -167,7 +167,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 
 $search_array_options = $extrafields->getOptionalsFromPost($object->table_element, '', 'search_');
 // List of fields to search into when doing a "search in all"
-$fieldstosearchall = array();
+$fieldstosearchall = [];
 foreach ($object->fields as $key => $val) {
 	if (!empty($val['searchall'])) {
 		$fieldstosearchall['c.'.$key] = $val['label'];
@@ -288,10 +288,10 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_date_modif_end = "";
 	$search_status = "";
 	$search_signed_status = '';
-	$toselect = array();
+	$toselect = [];
 	$search_type_thirdparty = '';
-	$searchCategoryCustomerList = array();
-	$search_array_options = array();
+	$searchCategoryCustomerList = [];
+	$search_array_options = [];
 }
 
 if (empty($resHook)) {
@@ -337,7 +337,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -416,7 +416,7 @@ if ($search_sale && $search_sale != '-1') {
 $searchCategoryProductOperator = -1;
 $searchCategoryProductList = array($search_product_category);
 if (!empty($searchCategoryProductList)) {
-	$searchCategoryProductSqlList = array();
+	$searchCategoryProductSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
@@ -442,9 +442,9 @@ if (!empty($searchCategoryProductList)) {
 		}
 	}
 }
-$searchCategoryCustomerSqlList = array();
+$searchCategoryCustomerSqlList = [];
 if ($searchCategoryCustomerOperator == 1) {
-	$existsCategoryCustomerList = array();
+	$existsCategoryCustomerList = [];
 	foreach ($searchCategoryCustomerList as $searchCategoryCustomer) {
 		if (intval($searchCategoryCustomer) == -2) {
 			$sqlCategoryCustomerNotExists  = " NOT EXISTS (";
@@ -507,7 +507,7 @@ if ($search_signed_status != '' && $search_signed_status >= 0) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " GROUP BY c.rowid, c.ref, c.datec, c.tms, c.date_contrat, c.statut, c.ref_customer, c.ref_supplier, c.note_private, c.note_public, c.entity, c.signed_status,";
@@ -614,7 +614,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contrat page-list bo
 
 $i = 0;
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 if ($socid > 0) {
 	$soc = new Societe($db);
@@ -767,7 +767,7 @@ if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -853,7 +853,7 @@ if (getDolGlobalString('MAIN_SEARCH_CATEGORY_CUSTOMER_ON_CONTRACT_LIST') && isMo
 	$moreforfilter .= '</div>';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -1011,7 +1011,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1112,10 +1112,10 @@ print "</tr>\n";
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
-$typenArray = array();
-$cacheCountryIDCode = array();
+$typenArray = [];
+$cacheCountryIDCode = [];
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {
 	$obj = $db->fetch_object($resql);
@@ -1159,7 +1159,7 @@ while ($i < $imaxinloop) {
 			print '<div class="box-flex-container kanban">';
 		}
 		// Output Kanban
-		$arraydata = array();
+		$arraydata = [];
 		$arraydata['thirdparty'] = $socstatic;
 		$arraydata['selected'] = in_array($obj->rowid, $arrayofselected);
 		$contracttmp->date_contrat = $obj->date_contrat;

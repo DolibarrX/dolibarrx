@@ -232,7 +232,7 @@ $documentation->showSidebar(); ?>
 						'enabled' => true,
 					),
 				);
-				$params = array();
+				$params = [];
 				print dolGetButtonAction($label, $html, $actionType, $url, $id, $userRight, $params); ?>
 			</div>
 			<?php

@@ -151,7 +151,7 @@ llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-bookmarks page-card');
 $form = new Form($db);
 
 
-$head = array();
+$head = [];
 $h = 1;
 
 $head[$h][0] = $_SERVER["PHP_SELF"].($object->id ? '?id='.$object->id : '');

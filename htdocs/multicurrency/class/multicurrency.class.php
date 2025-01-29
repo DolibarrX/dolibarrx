@@ -56,7 +56,7 @@ class MultiCurrency extends CommonObject
 	/**
 	 * @var CurrencyRate[]	Currency rates
 	 */
-	public $rates = array();
+	public $rates = [];
 
 	/**
 	 * @var int 			The environment ID when using a multicompany module
@@ -246,7 +246,7 @@ class MultiCurrency extends CommonObject
 		$sql .= ' WHERE cr.fk_multicurrency = '.((int) $this->id);
 		$sql .= ' ORDER BY cr.date_sync DESC';
 
-		$this->rates = array();
+		$this->rates = [];
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 		$resql = $this->db->query($sql);

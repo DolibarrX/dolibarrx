@@ -96,7 +96,7 @@ if (!empty($id)) {
  * Actions
  */
 
-$resHook = $hookManager->executeHooks('doActions', array(), $object, $action); // Note that $action and $object may have been modified by some hooks
+$resHook = $hookManager->executeHooks('doActions', [], $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
@@ -178,7 +178,7 @@ if ($id > 0 || !empty($ref)) {
 			print '<input type="hidden" name="backtopageforcancel" value="' . $backtopageforcancel . '">';
 		}
 
-		print dol_get_fiche_head(array(), '');
+		print dol_get_fiche_head([], '');
 
 		include DOL_DOCUMENT_ROOT . '/asset/tpl/accountancy_codes_edit.tpl.php';
 
@@ -195,7 +195,7 @@ if ($id > 0 || !empty($ref)) {
 
 	if ($action != 'edit') {
 		print '<div class="tabsAction">' . "\n";
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');

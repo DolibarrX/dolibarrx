@@ -39,7 +39,7 @@ function recruitmentAdminPrepareHead()
 	$langs->load("recruitment");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/recruitment/admin/setup.php';
 	$head[$h][1] = $langs->trans("JobPositions");

@@ -94,7 +94,7 @@ function check_user_password_googleoauth($usertotest, $passwordtotest, $entityto
 			// We reach this code after a call of a redirect to the targeted page from the callback url page of Google OAUTH2
 			dol_syslog("We reach the code after a call of a redirect to the targeted page from the callback url page of Google OAUTH2");
 
-			$tmparray = (empty($_SESSION['datafromloginform']) ? array() : $_SESSION['datafromloginform']);
+			$tmparray = (empty($_SESSION['datafromloginform']) ? [] : $_SESSION['datafromloginform']);
 
 			if (!empty($tmparray)) {
 				$_POST['entity'] = $tmparray['entity'];

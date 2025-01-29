@@ -41,7 +41,7 @@ function bank_prepare_head(Account $object)
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/compta/bank/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("BankAccount");
@@ -169,7 +169,7 @@ function bank_report_prepare_head(Account $object)
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/compta/bank/annuel.php?account=" . $object->id;
 	$head[$h][1] = $langs->trans("IOMonthlyReporting");
@@ -200,7 +200,7 @@ function bank_admin_prepare_head($object)
 	$extrafields->fetch_name_optionals_label('bank');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/bank.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
@@ -255,7 +255,7 @@ function account_statement_prepare_head($object, $num)
 {
 	global $langs, $config, $db;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/compta/bank/releve.php?account=' . $object->id . '&num=' . $num;
 	$head[$h][1] = $langs->trans("AccountStatement");
@@ -296,7 +296,7 @@ function various_payment_prepare_head($object)
 	global $db, $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/compta/bank/various_payment/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("VariousPayment");

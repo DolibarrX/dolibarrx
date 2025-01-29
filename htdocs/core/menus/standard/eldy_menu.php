@@ -137,7 +137,7 @@ class MenuManager
 		}
 
 		require_once DOL_DOCUMENT_ROOT.'/core/class/menubase.class.php';
-		$tabMenu = array();
+		$tabMenu = [];
 		$menuArbo = new Menubase($this->db, 'eldy');
 		$menuArbo->menuLoad($mainmenu, $leftmenu, $this->type_user, 'eldy', $tabMenu);
 		$this->tabMenu = $tabMenu;
@@ -196,7 +196,7 @@ class MenuManager
 
 			// $this->menu->liste is top menu
 			//var_dump($this->menu->liste);exit;
-			$lastlevel = array();
+			$lastlevel = [];
 			print '<!-- Generate menu list from menu handler '.$this->name.' -->'."\n";
 			foreach ($this->menu->liste as $key => $val) {		// $val['url','titre','level','enabled'=0|1|2,'target','mainmenu','leftmenu'
 				print '<ul class="ulmenu" data-inset="true">';
@@ -284,7 +284,7 @@ class MenuManager
 					}
 					*/
 
-					$lastlevel2 = array();
+					$lastlevel2 = [];
 					'@phan-var-force array<string> $lastlevel2';
 					foreach ($submenu->liste as $key2 => $val2) {		// $val['url','titre','level','enabled'=0|1|2,'target','mainmenu','leftmenu','prefix']
 						$showmenu = true;

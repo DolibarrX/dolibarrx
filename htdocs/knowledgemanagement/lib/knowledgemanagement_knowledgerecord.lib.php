@@ -35,7 +35,7 @@ function knowledgerecordPrepareHead($object)
 	$langs->load("knowledgemanagement");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT.'/knowledgemanagement/knowledgerecord_card.php?id='.$object->id;
 	$head[$h][1] = $langs->trans("KnowledgeRecord");

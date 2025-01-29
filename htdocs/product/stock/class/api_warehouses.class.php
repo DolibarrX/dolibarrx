@@ -98,7 +98,7 @@ class Warehouses extends DolibarrApi
 	{
 		global $db, $config;
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('stock', 'lire')) {
 			throw new RestException(403);
@@ -296,7 +296,7 @@ class Warehouses extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$warehouse = array();
+		$warehouse = [];
 		foreach (Warehouses::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

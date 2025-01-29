@@ -119,7 +119,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -134,15 +134,15 @@ if (empty($resHook)) {
 		$search_label = '';
 		$search_status = -1;
 		$search_lastresult = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
 		$massaction = ''; // Protection to avoid mass action if we force a new search during a mass action confirmation
 	}
 
-	$filter = array();
+	$filter = [];
 	if (!empty($search_label)) {
 		$filter['t.label'] = $search_label;
 	}
@@ -251,7 +251,7 @@ $title = $langs->trans("CronList");
 
 llxHeader('', $title, '', '', 0, 0, '', '', '', 'bodyforlist');
 
-$TTestNotAllowed = array();
+$TTestNotAllowed = [];
 $sqlTest = 'SELECT rowid, test FROM '.MAIN_DB_PREFIX.'cronjob';
 $resultTest = $db->query($sqlTest);
 if ($resultTest) {
@@ -321,7 +321,7 @@ if (!empty($search_module_name)) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -346,7 +346,7 @@ if (!$result) {
 
 $num = $db->num_rows($result);
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
@@ -397,7 +397,7 @@ if ($user->hasRight('cron', 'delete')) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -534,7 +534,7 @@ if ($num > 0) {
 			break;
 		}
 
-		$reg = array();
+		$reg = [];
 		if (preg_match('/:(.*)$/', $obj->label, $reg)) {
 			$langs->load($reg[1]);
 		}

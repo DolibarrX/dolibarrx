@@ -84,7 +84,7 @@ class CActionComm
 	/**
 	 * @var array array of type_actions  // TODO: Remove or explain
 	 */
-	public $type_actions = array();
+	public $type_actions = [];
 
 
 	/**
@@ -166,9 +166,9 @@ class CActionComm
 		/*
 		$actionstatic = new ActionComm($this->db);
 
-		$rep_id = array();
-		$rep_code = array();
-		$rep_all = array();
+		$rep_id = [];
+		$rep_code = [];
+		$rep_all = [];
 		*/
 
 		$sql = "SELECT id, code, libelle as label, module, type, color, picture";
@@ -254,7 +254,7 @@ class CActionComm
 							$qualified = 1;
 						}
 						// For the generic case with type = 'module...' and module = 'myobject@mymodule'
-						$regs = array();
+						$regs = [];
 						if (preg_match('/^module/', $obj->type)) {
 							if (preg_match('/^(.+)@(.+)$/', $obj->module, $regs)) {
 								$tmpobject = $regs[1];

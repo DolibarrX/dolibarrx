@@ -111,7 +111,7 @@ class Delivery extends CommonObject
 	/**
 	 * @var DeliveryLine[] lines
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @var int user_author_id
@@ -560,7 +560,7 @@ class Delivery extends CommonObject
 			return $result;
 		}
 
-		$this->lines = array();
+		$this->lines = [];
 
 		$num = count($expedition->lines);
 		for ($i = 0; $i < $num; $i++) {
@@ -842,7 +842,7 @@ class Delivery extends CommonObject
 	public function fetch_lines()
 	{
 		// phpcs:enable
-		$this->lines = array();
+		$this->lines = [];
 
 		$sql = "SELECT ld.rowid, ld.fk_product, ld.description, ld.subprice, ld.total_ht, ld.qty as qty_shipped, ld.fk_origin_line, ";
 		$sql .= " cd.qty as qty_asked, cd.label as custom_label, cd.fk_unit,";
@@ -970,7 +970,7 @@ class Delivery extends CommonObject
 
 		// Load array of products prodids
 		$num_prods = 0;
-		$prodids = array();
+		$prodids = [];
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product";
 		$sql .= " WHERE entity IN (".getEntity('product').")";
@@ -1035,7 +1035,7 @@ class Delivery extends CommonObject
 		if ($resultSourceLine) {
 			$num_lines = $this->db->num_rows($resultSourceLine);
 			$i = 0;
-			$array = array();
+			$array = [];
 			while ($i < $num_lines) {
 				$objSourceLine = $this->db->fetch_object($resultSourceLine);
 

@@ -148,7 +148,7 @@ if ($id > 0) {
 		print '<td class="right">'.$langs->trans("Author").'</td>';
 		print '</tr>';
 
-		$TData = array();
+		$TData = [];
 
 		$sql = "SELECT s.nom, s.rowid as socid, f.ref, f.total_ttc, f.datef as df,";
 		$sql .= " f.paye as paye, f.fk_statut as statut, f.rowid as facid,";

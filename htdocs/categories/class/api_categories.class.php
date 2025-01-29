@@ -112,7 +112,7 @@ class Categories extends DolibarrApi
 			if (!is_array($cats)) {
 				throw new RestException(500, 'Error when fetching child categories', array_merge(array($this->category->error), $this->category->errors));
 			}
-			$this->category->childs = array();
+			$this->category->childs = [];
 			foreach ($cats as $cat) {
 				$this->category->childs[] = $this->_cleanObjectDatas($cat);
 			}
@@ -139,7 +139,7 @@ class Categories extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $type = '', $sqlfilters = '', $properties = '')
 	{
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('category', 'lire')) {
 			throw new RestException(403);
@@ -747,7 +747,7 @@ class Categories extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$category = array();
+		$category = [];
 		foreach (Categories::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");
@@ -796,7 +796,7 @@ class Categories extends DolibarrApi
 		}
 
 		$objects = $result;
-		$cleaned_objects = array();
+		$cleaned_objects = [];
 		$objects_api = null;
 		if ($type == 'member') {
 			$objects_api = new Members();

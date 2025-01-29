@@ -215,8 +215,8 @@ if (empty($resHook)) {
 		$search_date_endyear = '';
 		$search_date_start = '';
 		$search_date_end = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 
 	// Mass actions
@@ -248,8 +248,8 @@ $now = dol_now();
 
 $title = $langs->trans("Interventions");
 $help_url = '';
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 
 $varpage = empty($contextpage) ? $_SERVER["PHP_SELF"] : $contextpage;
@@ -282,7 +282,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -303,7 +303,7 @@ if (!getDolGlobalString('FICHINTER_DISABLE_DETAILS') && $atleastonefieldinlines)
 }
 
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -370,7 +370,7 @@ if ($search_sale && $search_sale != '-1') {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 // Add GroupBy from hooks
@@ -429,7 +429,7 @@ if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $s
 llxHeader('', $title, $help_url, '', 0, 0, $morejs, $morecss, '', 'bodyforlist mod-fichinter page-list');	// Can use also classforhorizontalscrolloftabs instead of bodyforlist for no horizontal scroll
 
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 if ($socid > 0) {
 	$soc = new Societe($db);
@@ -514,7 +514,7 @@ if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -564,7 +564,7 @@ if ($search_all) {
 
 $moreforfilter = '';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -702,7 +702,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -793,9 +793,9 @@ print "</tr>\n";
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
-$totalarray['val'] = array();
+$totalarray['val'] = [];
 $totalarray['val']['fd.duree'] = 0;
 $total = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
@@ -838,7 +838,7 @@ while ($i < $imaxinloop) {
 		}
 
 		$objectstatic->duration = $obj->duree;
-		$arraydata = array();
+		$arraydata = [];
 		$arraydata['thirdparty'] = $companystatic;
 		print $objectstatic->getKanbanView('', $arraydata);
 		if ($i == ($imaxinloop - 1)) {

@@ -35,7 +35,7 @@ function stocktransferAdminPrepareHead()
 	$langs->load("stocks");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath("/admin/stocktransfer.php", 1);
 	$head[$h][1] = $langs->trans("Settings");

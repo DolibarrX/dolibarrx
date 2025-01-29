@@ -217,7 +217,7 @@ function rebuild_merge_pdf($db, $langs, $config, $diroutputpdf, $newlangid, $fil
 
 	$error = 0;
 	$result = 0;
-	$files = array(); // liste les fichiers
+	$files = []; // liste les fichiers
 
 	dol_syslog("scripts/invoices/rebuild_merge.php", LOG_DEBUG);
 	if ($resql = $db->query($sql)) {

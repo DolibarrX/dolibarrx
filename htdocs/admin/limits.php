@@ -274,7 +274,7 @@ if (empty($mysoc->country_code)) {
 	print ' &nbsp; -> &nbsp; <span class="opacitymedium">'.$langs->trans("TotalPriceAfterRounding").":</span> ".$tmparray[0].' / '.$tmparray[1].' / '.$tmparray[2]."<br>\n";
 
 	// Add vat rates examples specific to country
-	$vat_rates = array();
+	$vat_rates = [];
 
 	$sql = "SELECT taux as vat_rate, t.code as vat_code, t.localtax1 as localtax_rate1, t.localtax2 as localtax_rate2";
 	$sql .= " FROM ".MAIN_DB_PREFIX."c_tva as t, ".MAIN_DB_PREFIX."c_country as c";
@@ -335,7 +335,7 @@ if (empty($mysoc->country_code)) {
 		// This example must be kept for test purpose with current value because value used (2/7, 10/3, and vat 0, 10)
 		// were calculated to show all possible cases of rounding. If we change this, examples becomes useless or show the same rounding rule.
 
-		$localtax_array = array();
+		$localtax_array = [];
 
 		$s = 10 / 3;
 		$qty = 1;

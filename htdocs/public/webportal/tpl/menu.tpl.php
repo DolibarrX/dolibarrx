@@ -27,7 +27,7 @@ if (empty($context) || !is_object($context)) {
 
 global $config, $hookManager, $langs;
 
-$navMenu = $navGroupMenu = $navUserMenu = array();
+$navMenu = $navGroupMenu = $navUserMenu = [];
 
 $maxTopMenu = 0;
 
@@ -113,14 +113,14 @@ $navGroupMenu = array(
 		'rank' => -1, // negative value for undefined, it will be set by the min item rank for this group
 		'url' => '',
 		'name' => $langs->trans('WebPortalGroupMenuAdmin'),
-		'children' => array()
+		'children' => []
 	),
 	'technical' => array(
 		'id' => 'technical',
 		'rank' => -1, // negative value for undefined, it will be set by the min item rank for this group
 		'url' => '',
 		'name' => $langs->trans('WebPortalGroupMenuTechnical'),
-		'children' => array()
+		'children' => []
 	),
 );
 

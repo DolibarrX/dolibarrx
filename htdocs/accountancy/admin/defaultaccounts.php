@@ -65,7 +65,7 @@ if (isModEnabled('expensereport')) {
 	$list_account_main[] = 'ACCOUNTING_ACCOUNT_EXPENSEREPORT';
 }
 
-$list_account = array();
+$list_account = [];
 
 $list_account[] = '---Product---';
 $list_account[] = 'ACCOUNTING_PRODUCT_SOLD_ACCOUNT';
@@ -145,7 +145,7 @@ if ($action == 'update') {
 	}
 	// Process $list_account
 	foreach ($list_account as $constname) {
-		$reg = array();
+		$reg = [];
 		if (preg_match('/---(.*)---/', $constname, $reg)) {	// This is a separator
 			continue;
 		}
@@ -266,7 +266,7 @@ print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
 
 foreach ($list_account as $key) {
-	$reg = array();
+	$reg = [];
 	if (preg_match('/---(.*)---/', $key, $reg)) {
 		print '<tr class="liste_titre"><td>'.$langs->trans($reg[1]).'</td><td></td></tr>';
 	} else {

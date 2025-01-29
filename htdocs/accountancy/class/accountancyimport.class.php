@@ -48,7 +48,7 @@ class AccountancyImport
 	/**
 	 * @var string[]	Array of error strings
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * Constructor
@@ -162,7 +162,7 @@ class AccountancyImport
 				// define memory for last record values and keep next piece number
 				if (!isset($config->cache['accounting'])) {
 					$config->cache['accounting'] = array(
-						'lastRecordCompareValues' => array(),
+						'lastRecordCompareValues' => [],
 						'nextPieceNum' => 0,
 					);
 				}

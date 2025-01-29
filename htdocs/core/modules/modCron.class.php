@@ -58,7 +58,7 @@ class modCron extends DolibarrModules
 		$this->picture = 'cron';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Config pages
 		//-------------
@@ -67,9 +67,9 @@ class modCron extends DolibarrModules
 		// Dependencies
 		//-------------
 		$this->hidden = getDolGlobalInt('MODULE_CRON_DISABLED'); // A condition to disable module
-		$this->depends = array(); // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of modules id to disable if this one is disabled
-		$this->conflictwith = array(); // List of modules id this module is in conflict with
+		$this->depends = []; // List of modules id that must be enabled if this module is enabled
+		$this->requiredby = []; // List of modules id to disable if this one is disabled
+		$this->conflictwith = []; // List of modules id this module is in conflict with
 		$this->langfiles = array("cron");
 
 		// Constants
@@ -87,7 +87,7 @@ class modCron extends DolibarrModules
 
 		// New pages on tabs
 		// -----------------
-		$this->tabs = array();
+		$this->tabs = [];
 
 		// Boxes
 		//------
@@ -105,7 +105,7 @@ class modCron extends DolibarrModules
 		);
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$this->rightsClass = 'cron';
 		$r = 0;
 

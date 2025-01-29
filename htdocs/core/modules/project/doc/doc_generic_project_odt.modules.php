@@ -148,7 +148,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 		// phpcs:enable
 		if (!$object instanceof Project) {
 			dol_syslog("Expected Project object, got ".gettype($object), LOG_ERR);
-			return array();
+			return [];
 		}
 
 		$resarray = array(
@@ -414,7 +414,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
 		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim(getDolGlobalString('PROJECT_ADDON_PDF_ODT_PATH'))));
-		$listoffiles = array();
+		$listoffiles = [];
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
 			$tmpdir = preg_replace('/DOL_DATA_ROOT/', DOL_DATA_ROOT, $tmpdir);
@@ -640,7 +640,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 				$array_thirdparty = $this->get_substitutionarray_thirdparty($socobject, $outputlangs);
 				$array_other = $this->get_substitutionarray_other($outputlangs);
 				// retrieve contact information for use in object as contact_xxx tags
-				$array_project_contact = array();
+				$array_project_contact = [];
 				if ($usecontact && is_object($contactobject)) {
 					$array_project_contact = $this->get_substitutionarray_contact($contactobject, $outputlangs, 'contact');
 				}
@@ -699,7 +699,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 
 						// Replace tags of lines for contacts task
 						$sourcearray = array('internal', 'external');
-						$contact_arrray = array();
+						$contact_arrray = [];
 						foreach ($sourcearray as $source) {
 							$contact_temp = $taskobj->liste_contact(-1, $source);
 							if ((is_array($contact_temp) && count($contact_temp) > 0)) {
@@ -754,8 +754,8 @@ class doc_generic_project_odt extends ModelePDFProjects
 						if ($resql) {
 							$num = $this->db->num_rows($resql);
 							$i = 0;
-							$tasks = array();
-							$row = array();
+							$tasks = [];
+							$row = [];
 							$listlinestasktime = $listlines->__get('taskstimes');
 							if (empty($num)) {
 								$row['rowid'] = 0;
@@ -877,7 +877,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 
 				// Replace tags of lines for contacts
 				$sourcearray = array('internal', 'external');
-				$contact_arrray = array();
+				$contact_arrray = [];
 				foreach ($sourcearray as $source) {
 					$contact_temp = $object->liste_contact(-1, $source);
 					if ((is_array($contact_temp) && count($contact_temp) > 0)) {
@@ -1049,7 +1049,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 								$total_ttc = 0;
 								$num = count($elementarray);
 								for ($i = 0; $i < $num; $i++) {
-									$ref_array = array();
+									$ref_array = [];
 									$ref_array['type'] = (string) $langs->trans($classname);
 
 									$element = new $classname($this->db);

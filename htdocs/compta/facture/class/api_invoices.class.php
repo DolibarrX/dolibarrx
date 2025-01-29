@@ -195,7 +195,7 @@ class Invoices extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $thirdparty_ids param is ignored and replaced by user's socid
 		$socids = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $thirdparty_ids;
@@ -345,7 +345,7 @@ class Invoices extends DolibarrApi
 		}
 		/* We keep lines as an array
 		 if (isset($request_data["lines"])) {
-			$lines = array();
+			$lines = [];
 			foreach ($request_data["lines"] as $line) {
 				array_push($lines, (object) $line);
 			}
@@ -463,7 +463,7 @@ class Invoices extends DolibarrApi
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 		$this->invoice->getLinesArray();
-		$result = array();
+		$result = [];
 		foreach ($this->invoice->lines as $line) {
 			array_push($result, $this->_cleanObjectDatas($line));
 		}
@@ -1206,8 +1206,8 @@ class Invoices extends DolibarrApi
 		if ($canconvert) {
 			$this->db->begin();
 
-			$amount_ht = $amount_tva = $amount_ttc = array();
-			$multicurrency_amount_ht = $multicurrency_amount_tva = $multicurrency_amount_ttc = array();
+			$amount_ht = $amount_tva = $amount_ttc = [];
+			$multicurrency_amount_ht = $multicurrency_amount_tva = $multicurrency_amount_ttc = [];
 			'
 			@phan-var-force array<string,float> $amount_ht
 			@phan-var-force array<string,float> $amount_tva
@@ -1532,8 +1532,8 @@ class Invoices extends DolibarrApi
 
 		$this->db->begin();
 
-		$amounts = array();
-		$multicurrency_amounts = array();
+		$amounts = [];
+		$multicurrency_amounts = [];
 
 		// Clean parameters amount if payment is for a credit note
 		if ($this->invoice->type == Facture::TYPE_CREDIT_NOTE) {
@@ -1644,8 +1644,8 @@ class Invoices extends DolibarrApi
 
 		$this->db->begin();
 
-		$amounts = array();
-		$multicurrency_amounts = array();
+		$amounts = [];
+		$multicurrency_amounts = [];
 
 		// Loop on each invoice to pay
 		foreach ($arrayofamounts as $id => $amountarray) {
@@ -1821,7 +1821,7 @@ class Invoices extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$invoice = array();
+		$invoice = [];
 		foreach (Invoices::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

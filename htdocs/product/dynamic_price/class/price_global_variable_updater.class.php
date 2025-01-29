@@ -44,7 +44,7 @@ class PriceGlobalVariableUpdater
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var int[]
@@ -407,7 +407,7 @@ class PriceGlobalVariableUpdater
 		dol_syslog(__METHOD__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$retarray = array();
+			$retarray = [];
 
 			while ($record = $this->db->fetch_array($resql)) {
 				$updater_obj = new PriceGlobalVariableUpdater($this->db);
@@ -445,7 +445,7 @@ class PriceGlobalVariableUpdater
 		dol_syslog(__METHOD__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$retarray = array();
+			$retarray = [];
 
 			while ($record = $this->db->fetch_array($resql)) {
 				$updater_obj = new PriceGlobalVariableUpdater($this->db);
@@ -517,7 +517,7 @@ class PriceGlobalVariableUpdater
 			if ($this->type == 0) {
 				// Call JSON request
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-				$tmpresult = getURLContent($url, 'GET', '', 1, array(), array('http', 'https'), 0);
+				$tmpresult = getURLContent($url, 'GET', '', 1, [], array('http', 'https'), 0);
 				$code = $tmpresult['http_code'];
 				$result = $tmpresult['content'];
 

@@ -151,7 +151,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -174,8 +174,8 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_batch = "";
 	$search_qty = '';
 	$sall = "";
-	$toselect = array();
-	$search_array_options = array();
+	$toselect = [];
+	$search_array_options = [];
 }
 
 // Correct stock
@@ -457,7 +457,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " FROM ".MAIN_DB_PREFIX."entrepot as e,";
@@ -517,7 +517,7 @@ if ($search_type_mouvement != '' && $search_type_mouvement != '-1') {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= $db->order($sortfield, $sortorder);
@@ -552,7 +552,7 @@ if ($resql) {
 
 	$num = $db->num_rows($resql);
 
-	$arrayofselected = is_array($toselect) ? $toselect : array();
+	$arrayofselected = is_array($toselect) ? $toselect : [];
 
 
 	$i = 0;
@@ -740,7 +740,7 @@ if ($resql) {
 	);
 	//if ($user->rights->stock->supprimer) $arrayofmassactions['predelete']='<span class="fa fa-trash paddingrightonly"></span>'.$langs->trans("Delete");
 	if (in_array($massaction, array('presend', 'predelete'))) {
-		$arrayofmassactions = array();
+		$arrayofmassactions = [];
 	}
 	$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -768,7 +768,7 @@ if ($resql) {
 	if ($sall) {
 		if (!isset($fieldstosearchall) || !is_array($fieldstosearchall)) {
 			// Ensure $fieldstosearchall is array
-			$fieldstosearchall = array();
+			$fieldstosearchall = [];
 		}
 		foreach ($fieldstosearchall as $key => $val) {
 			$fieldstosearchall[$key] = $langs->trans($val);
@@ -778,7 +778,7 @@ if ($resql) {
 
 	$moreforfilter = '';
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
 	if (empty($resHook)) {
 		$moreforfilter .= $hookManager->resPrint;
@@ -846,7 +846,7 @@ if ($resql) {
 	if (!empty($arrayfields['e.ref']['checked'])) {
 		print '<td class="liste_titre maxwidthonsmartphone left">';
 		//print '<input class="flat" type="text" size="8" name="search_warehouse" value="'.($search_warehouse).'">';
-		print $formproduct->selectWarehouses($search_warehouse, 'search_warehouse', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, array(), 'maxwidth200');
+		print $formproduct->selectWarehouses($search_warehouse, 'search_warehouse', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, [], 'maxwidth200');
 		print '</td>';
 	}
 	if (!empty($arrayfields['m.fk_user_author']['checked'])) {
@@ -992,7 +992,7 @@ if ($resql) {
 	print "</tr>\n";
 
 
-	$arrayofuniqueproduct = array();
+	$arrayofuniqueproduct = [];
 	while ($i < ($limit ? min($num, $limit) : $num)) {
 		$objp = $db->fetch_object($resql);
 

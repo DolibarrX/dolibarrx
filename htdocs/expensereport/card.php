@@ -433,9 +433,9 @@ if (empty($resHook)) {
 			$emailFrom = getDolGlobalString('MAIN_MAIL_EMAIL_FROM');
 
 			if ($emailTo && $emailFrom) {
-				$filename = array();
-				$filedir = array();
-				$mimetype = array();
+				$filename = [];
+				$filedir = [];
+				$mimetype = [];
 
 				// SUBJECT
 				$societeName = getDolGlobalString('MAIN_INFO_SOCIETE_NOM');
@@ -542,9 +542,9 @@ if (empty($resHook)) {
 			$emailFrom = getDolGlobalString('MAIN_MAIL_EMAIL_FROM');
 
 			if ($emailFrom && $emailTo) {
-				$filename = array();
-				$filedir = array();
-				$mimetype = array();
+				$filename = [];
+				$filedir = [];
+				$mimetype = [];
 
 				// SUBJECT
 				$societeName = getDolGlobalString('MAIN_INFO_SOCIETE_NOM');
@@ -568,7 +568,7 @@ if (empty($resHook)) {
 				   if($resultPDF)
 				   {
 					   // ATTACHMENT
-					   $filename=array(); $filedir=array(); $mimetype=array();
+					   $filename=[]; $filedir=[]; $mimetype=[];
 					   array_push($filename,dol_sanitizeFileName($object->ref).".pdf");
 					   array_push($filedir,$config->expensereport->dir_output . "/" . dol_sanitizeFileName($object->ref) . "/" . dol_sanitizeFileName($object->ref_number).".pdf");
 					   array_push($mimetype,"application/pdf");
@@ -660,9 +660,9 @@ if (empty($resHook)) {
 			$emailFrom = getDolGlobalString('MAIN_MAIL_EMAIL_FROM');
 
 			if ($emailFrom && $emailTo) {
-				$filename = array();
-				$filedir = array();
-				$mimetype = array();
+				$filename = [];
+				$filedir = [];
+				$mimetype = [];
 
 				// SUBJECT
 				$societeName = getDolGlobalString('MAIN_INFO_SOCIETE_NOM');
@@ -685,7 +685,7 @@ if (empty($resHook)) {
 				if($resultPDF
 				{
 					// ATTACHMENT
-					$filename=array(); $filedir=array(); $mimetype=array();
+					$filename=[]; $filedir=[]; $mimetype=[];
 					array_push($filename,dol_sanitizeFileName($object->ref).".pdf");
 					array_push($filedir, $config->expensereport->dir_output."/".dol_sanitizeFileName($object->ref)."/".dol_sanitizeFileName($object->ref).".pdf");
 					array_push($mimetype,"application/pdf");
@@ -770,9 +770,9 @@ if (empty($resHook)) {
 			$emailFrom = getDolGlobalString('MAIN_MAIL_EMAIL_FROM');
 
 			if ($emailFrom && $emailTo) {
-				$filename = array();
-				$filedir = array();
-				$mimetype = array();
+				$filename = [];
+				$filedir = [];
+				$mimetype = [];
 
 				// SUBJECT
 				$societeName = getDolGlobalString('MAIN_INFO_SOCIETE_NOM');
@@ -795,7 +795,7 @@ if (empty($resHook)) {
 				if($resultPDF
 				{
 					// ATTACHMENT
-					$filename=array(); $filedir=array(); $mimetype=array();
+					$filename=[]; $filedir=[]; $mimetype=[];
 					array_push($filename,dol_sanitizeFileName($object->ref).".pdf");
 					array_push($filedir, $config->expensereport->dir_output."/".dol_sanitizeFileName($object->ref)."/".dol_sanitizeFileName($object->ref).".pdf");
 					array_push($mimetype,"application/pdf");
@@ -886,9 +886,9 @@ if (empty($resHook)) {
 					$emailFrom = getDolGlobalString('MAIN_MAIL_EMAIL_FROM');
 
 					if ($emailFrom && $emailTo) {
-						$filename = array();
-						$filedir = array();
-						$mimetype = array();
+						$filename = [];
+						$filedir = [];
+						$mimetype = [];
 
 						// SUBJECT
 						$societeName = getDolGlobalString('MAIN_INFO_SOCIETE_NOM');
@@ -911,7 +911,7 @@ if (empty($resHook)) {
 						if($resultPDF
 						{
 							// ATTACHMENT
-							$filename=array(); $filedir=array(); $mimetype=array();
+							$filename=[]; $filedir=[]; $mimetype=[];
 							array_push($filename,dol_sanitizeFileName($object->ref).".pdf");
 							array_push($filedir, $config->expensereport->dir_output."/".dol_sanitizeFileName($object->ref)."/".dol_sanitizeFileName($object->ref).".pdf");
 							array_push($mimetype,"application/pdf");
@@ -1068,9 +1068,9 @@ if (empty($resHook)) {
 			$emailFrom = getDolGlobalString('MAIN_MAIL_EMAIL_FROM');
 
 			if ($emailFrom && $emailTo) {
-				$filename = array();
-				$filedir = array();
-				$mimetype = array();
+				$filename = [];
+				$filedir = [];
+				$mimetype = [];
 
 				// SUBJECT
 				$societeName = getDolGlobalString('MAIN_INFO_SOCIETE_NOM');
@@ -1472,7 +1472,7 @@ if ($action == 'create') {
 	}
 	$include_users = 'hierarchyme';
 	if (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('expensereport', 'writeall_advance')) {
-		$include_users = array();
+		$include_users = [];
 	}
 	$s = $form->select_dolusers($defaultselectuser, "fk_user_author", 0, "", 0, $include_users, '', '0,'.$config->entity);
 	print $s;
@@ -2412,7 +2412,7 @@ if ($action == 'create') {
 						if (getDolGlobalString('MAIN_USE_EXPENSE_IK')) {
 							print '<td class="fk_c_exp_tax_cat">';
 							$params = array('fk_expense' => $object->id, 'fk_expense_det' => $line->id, 'date' => $line->date);
-							print $form->selectExpenseCategories($line->fk_c_exp_tax_cat, 'fk_c_exp_tax_cat', 1, array(), 'fk_c_type_fees', $userauthor->default_c_exp_tax_cat, $params);
+							print $form->selectExpenseCategories($line->fk_c_exp_tax_cat, 'fk_c_exp_tax_cat', 1, [], 'fk_c_type_fees', $userauthor->default_c_exp_tax_cat, $params);
 							print '</td>';
 						}
 
@@ -2455,7 +2455,7 @@ if ($action == 'create') {
 
 						print '<td>';
 						print '<input type="hidden" name="rowid" value="'.$line->rowid.'">';
-						print $form->buttonsSaveCancel('Save', 'Cancel', array(), 0, 'small');
+						print $form->buttonsSaveCancel('Save', 'Cancel', [], 0, 'small');
 						print '</td>';
 
 						print '</tr>';
@@ -2479,7 +2479,7 @@ if ($action == 'create') {
 				}
 
 				$nbFiles = $nbLinks = 0;
-				$arrayoffiles = array();
+				$arrayoffiles = [];
 				if (!getDolGlobalString('EXPENSEREPORT_DISABLE_ATTACHMENT_ON_LINES')) {
 					require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 					require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
@@ -2594,7 +2594,7 @@ if ($action == 'create') {
 				if (getDolGlobalString('MAIN_USE_EXPENSE_IK')) {
 					print '<td class="fk_c_exp_tax_cat">';
 					$params = array('fk_expense' => $object->id);
-					print $form->selectExpenseCategories('', 'fk_c_exp_tax_cat', 1, array(), 'fk_c_type_fees', $userauthor->default_c_exp_tax_cat, $params, 0);
+					print $form->selectExpenseCategories('', 'fk_c_exp_tax_cat', 1, [], 'fk_c_type_fees', $userauthor->default_c_exp_tax_cat, $params, 0);
 					print '</td>';
 				}
 
@@ -2890,7 +2890,7 @@ if ($action != 'create' && $action != 'edit' && $action != 'editline') {
 		print '<div class="inline-block divButAction"><a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&id='.$object->id.'">'.$langs->trans('Delete').'</a></div>';
 	}
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 }
 
@@ -2925,7 +2925,7 @@ if ($action != 'presend') {
 	/*
 	if ($action != 'create' && $action != 'edit' && ($id || $ref))
 	{
-		$tmparray = $form->showLinkToObjectBlock($object, array(), array('expensereport'), 1);
+		$tmparray = $form->showLinkToObjectBlock($object, [], array('expensereport'), 1);
 		$linktoelem = $tmparray['linktoelem'];
 		$htmltoenteralink = $tmparray['htmltoenteralink'];
 		print $htmltoenteralink;

@@ -36,7 +36,7 @@ function stocktransferPrepareHead($object)
 	$langs->load("stocks");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath("/product/stock/stocktransfer/stocktransfer_card.php", 1).'?id='.$object->id;
 	$head[$h][1] = $langs->trans("StockTransfer");

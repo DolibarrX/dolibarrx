@@ -85,7 +85,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 
 // Initialize array of search criteria
 $search_all = trim(GETPOST("search_all", 'alpha'));
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha')) {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -122,7 +122,7 @@ if (!$permissiontoread || ($action === 'create' && !$permissiontoadd)) {
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -463,7 +463,7 @@ if ($action == 'create') {
 		print '<input type="hidden" name="backtopageforcancel" value="'.$backtopageforcancel.'">';
 	}
 
-	print dol_get_fiche_head(array(), '');
+	print dol_get_fiche_head([], '');
 
 
 	print '<table class="border centpercent tableforfieldcreate">'."\n";
@@ -558,7 +558,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	if ($action == 'deleteline') {
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id.'&lineid='.$lineid, $langs->trans('DeleteLine'), $langs->trans('ConfirmDeleteLine'), 'confirm_deleteline', '', 0, 1);
 	}
-	$formquestion = array();
+	$formquestion = [];
 	// Clone confirmation
 	if ($action == 'clone') {
 		// Create an array for form
@@ -595,7 +595,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	// Confirmation of action xxxx (You can use it for xxx = 'close', xxx = 'reopen', ...)
 	if ($action == 'xxx') {
-		$formquestion = array();
+		$formquestion = [];
 		/*
 		$forcecombo=0;
 		if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
@@ -756,7 +756,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			if ($action != 'editline') {
 				// Add products/services form
 
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -833,7 +833,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		print '<tr id="row-'.$line->id.'" class="drag drop oddeven" '.$domData.'>';
 		print '<td class="titlefield">';
 		if ($action === 'editline' && $line->id == $lineid) {
-			$form->select_produits($line->fk_product, 'fk_product', '', 0, 0, -1, 2, '', 0, array(), 0, 0, 0, 'minwidth200imp maxwidth300', 1);
+			$form->select_produits($line->fk_product, 'fk_product', '', 0, 0, -1, 2, '', 0, [], 0, 0, 0, 'minwidth200imp maxwidth300', 1);
 		} else {
 			print $productstatic->getNomUrl(1).' - '.$productstatic->label;
 		}
@@ -856,7 +856,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		// Warehouse source
 		print '<td class="tdoverflowmax150">';
 		if ($action === 'editline' && $line->id == $lineid) {
-			print $formproduct->selectWarehouses($line->fk_warehouse_source, 'fk_warehouse_source', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, array(), 'minwidth200imp maxwidth200');
+			print $formproduct->selectWarehouses($line->fk_warehouse_source, 'fk_warehouse_source', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, [], 'minwidth200imp maxwidth200');
 		} else {
 			print $warehousestatics->getNomUrl(1);
 		}
@@ -865,7 +865,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		// Warehouse target
 		print '<td class="tdoverflowmax150">';
 		if ($action === 'editline' && $line->id == $lineid) {
-			print $formproduct->selectWarehouses($line->fk_warehouse_destination, 'fk_warehouse_destination', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, array(), 'minwidth200imp maxwidth200');
+			print $formproduct->selectWarehouses($line->fk_warehouse_destination, 'fk_warehouse_destination', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, [], 'minwidth200imp maxwidth200');
 		} else {
 			print $warehousestatict->getNomUrl(1);
 		}
@@ -946,7 +946,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			$limit = getDolGlobalString('PRODUIT_LIMIT_SIZE');
 		}
 
-		$form->select_produits($fk_product, 'fk_product', $filtertype, $limit, 0, -1, 2, '', 0, array(), 0, 0, 0, 'minwidth200imp maxwidth300', 1);
+		$form->select_produits($fk_product, 'fk_product', $filtertype, $limit, 0, -1, 2, '', 0, [], 0, 0, 0, 'minwidth200imp maxwidth300', 1);
 		print '</td>';
 		// Batch number
 		if (isModEnabled('productbatch')) {
@@ -958,7 +958,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$formproduct->loadWarehouses(); // Pour charger la totalité des entrepôts
 
 		// Define a list of warehouse to not show on the list
-		$TExcludedWarehouseSource = array();
+		$TExcludedWarehouseSource = [];
 		if (!empty($object->fk_warehouse_source)) {
 			$source_ent = new Entrepot($db);
 			$source_ent->fetch($object->fk_warehouse_source);
@@ -970,7 +970,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		}
 
 		// Define a list of warehouse to not show on the list
-		$TExcludedWarehouseDestination = array();
+		$TExcludedWarehouseDestination = [];
 		if (!empty($object->fk_warehouse_destination)) {
 			$dest_ent = new Entrepot($db);
 			$dest_ent->fetch($object->fk_warehouse_destination);
@@ -982,17 +982,17 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		}
 
 		// We clean array. It is filled automatically when calling function select_warehouses
-		$formproduct->cache_warehouses = array();
+		$formproduct->cache_warehouses = [];
 		// In warehouse
 		print '<td>';
-		print $formproduct->selectWarehouses(empty($fk_warehouse_source) ? $object->fk_warehouse_source : $fk_warehouse_source, 'fk_warehouse_source', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, array(), 'minwidth200imp maxwidth200', $TExcludedWarehouseSource);
+		print $formproduct->selectWarehouses(empty($fk_warehouse_source) ? $object->fk_warehouse_source : $fk_warehouse_source, 'fk_warehouse_source', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, [], 'minwidth200imp maxwidth200', $TExcludedWarehouseSource);
 		print '</td>';
 
 		// We clean array. It is filled automatically when calling function select_warehouses
-		$formproduct->cache_warehouses = array();
+		$formproduct->cache_warehouses = [];
 		// Out warehouse
 		print '<td>';
-		print $formproduct->selectWarehouses(empty($fk_warehouse_destination) ? $object->fk_warehouse_destination : $fk_warehouse_destination, 'fk_warehouse_destination', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, array(), 'minwidth200imp maxwidth200', $TExcludedWarehouseDestination);
+		print $formproduct->selectWarehouses(empty($fk_warehouse_destination) ? $object->fk_warehouse_destination : $fk_warehouse_destination, 'fk_warehouse_destination', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, [], 'minwidth200imp maxwidth200', $TExcludedWarehouseDestination);
 		print '</td>';
 
 		// Qty
@@ -1025,7 +1025,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	if ($action != 'presend' && $action != 'editline') {
 		print '<div class="tabsAction">'."\n";
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -1092,7 +1092,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 				$deleteUrl = '';
 				$buttonId = 'action-delete';
 			}
-			$params = array();
+			$params = [];
 			print dolGetButtonAction('', $langs->trans("Delete"), 'delete', $deleteUrl, $buttonId, $permissiontodelete, $params);
 		}
 		print '</div>'."\n";
@@ -1122,7 +1122,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		}
 
 		// Show links to link elements
-		$tmparray = $form->showLinkToObjectBlock($object, array(), array('stocktransfer'), 1);
+		$tmparray = $form->showLinkToObjectBlock($object, [], array('stocktransfer'), 1);
 		$linktoelem = $tmparray['linktoelem'];
 		$htmltoenteralink = $tmparray['htmltoenteralink'];
 		print $htmltoenteralink;

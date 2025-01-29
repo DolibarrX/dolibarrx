@@ -85,7 +85,7 @@ $hookManager->initHooks(array('printsheettools'));
 
 restrictedArea($user, 'barcode');
 
-$parameters = array();
+$parameters = [];
 
 // Note that $action and $object may have been modified by some
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
@@ -245,7 +245,7 @@ if (empty($resHook)) {
 			);
 			complete_substitutions_array($substitutionArray, $langs);
 
-			$arrayofrecords = array();
+			$arrayofrecords = [];
 			// For labels
 			if ($mode == 'label') {
 				$txtforsticker = "%PHOTO%"; // Photo will be barcode image, %BARCODE% possible when using TCPDF generator
@@ -350,7 +350,7 @@ print '	<div class="tagtd">';
 print $langs->trans("DescADHERENT_ETIQUETTE_TYPE").' &nbsp; ';
 print '</div><div class="tagtd maxwidthonsmartphone" style="overflow: hidden; white-space: nowrap;">';
 // List of possible labels (defined into $_Avery_Labels variable set into core/lib/format_cards.lib.php)
-$arrayoflabels = array();
+$arrayoflabels = [];
 foreach (array_keys($_Avery_Labels) as $codecards) {
 	$labeltoshow = $_Avery_Labels[$codecards]['name'];
 	//$labeltoshow.=' ('.$_Avery_Labels[$row['code']]['paper-size'].')';
@@ -441,7 +441,7 @@ if ($user->hasRight('produit', 'lire') || $user->hasRight('service', 'lire')) {
 	print '<input id="fillfromproduct" type="radio" '.((GETPOST("selectorforbarcode") == 'fillfromproduct') ? 'checked ' : '').'name="selectorforbarcode" value="fillfromproduct" class="radiobarcodeselect"><label for="fillfromproduct"> '.$langs->trans("FillBarCodeTypeAndValueFromProduct").'</label>';
 	print '<br>';
 	print '<div class="showforproductselector">';
-	$form->select_produits(GETPOSTINT('productid'), 'productid', '', 0, 0, -1, 2, '', 0, array(), 0, '1', 0, 'minwidth400imp', 1);
+	$form->select_produits(GETPOSTINT('productid'), 'productid', '', 0, 0, -1, 2, '', 0, [], 0, '1', 0, 'minwidth400imp', 1);
 	print ' &nbsp; <input type="submit" class="button small" id="submitproduct" name="submitproduct" value="'.(dol_escape_htmltag($langs->trans("GetBarCode"))).'">';
 	print '</div>';
 }
@@ -450,7 +450,7 @@ if ($user->hasRight('societe', 'lire')) {
 	print '<input id="fillfromthirdparty" type="radio" '.((GETPOST("selectorforbarcode") == 'fillfromthirdparty') ? 'checked ' : '').'name="selectorforbarcode" value="fillfromthirdparty" class="radiobarcodeselect"><label for="fillfromthirdparty"> '.$langs->trans("FillBarCodeTypeAndValueFromThirdParty").'</label>';
 	print '<br>';
 	print '<div class="showforthirdpartyselector">';
-	print $form->select_company(GETPOSTINT('socid'), 'socid', '', 'SelectThirdParty', 0, 0, array(), 0, 'minwidth300');
+	print $form->select_company(GETPOSTINT('socid'), 'socid', '', 'SelectThirdParty', 0, 0, [], 0, 'minwidth300');
 	print ' &nbsp; <input type="submit" id="submitthirdparty" name="submitthirdparty" class="button showforthirdpartyselector small" value="'.(dol_escape_htmltag($langs->trans("GetBarCode"))).'">';
 	print '</div>';
 }

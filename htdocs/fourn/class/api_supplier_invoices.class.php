@@ -113,7 +113,7 @@ class SupplierInvoices extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $thirdparty_ids param is ignored and replaced by user's socid
 		$socids = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $thirdparty_ids;
@@ -489,8 +489,8 @@ class SupplierInvoices extends DolibarrApi
 
 		$this->db->begin();
 
-		$amounts = array();
-		$multicurrency_amounts = array();
+		$amounts = [];
+		$multicurrency_amounts = [];
 
 		$paymentamount = (float) price2num($paymentamount, 'MT');
 
@@ -556,7 +556,7 @@ class SupplierInvoices extends DolibarrApi
 		}
 
 		$this->invoice->fetch_lines();
-		$result = array();
+		$result = [];
 		foreach ($this->invoice->lines as $line) {
 			array_push($result, $this->_cleanObjectDatas($line));
 		}
@@ -778,7 +778,7 @@ class SupplierInvoices extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$invoice = array();
+		$invoice = [];
 		foreach (SupplierInvoices::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

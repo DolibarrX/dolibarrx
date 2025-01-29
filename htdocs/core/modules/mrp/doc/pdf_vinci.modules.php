@@ -165,7 +165,7 @@ class pdf_vinci extends ModelePDFMo
 		}
 
 		if (!isset($object->lines) || !is_array($object->lines)) {
-			$object->lines = array();
+			$object->lines = [];
 		}
 
 		$nblines = count($object->lines);

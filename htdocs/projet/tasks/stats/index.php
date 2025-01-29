@@ -69,7 +69,7 @@ $langs->loadlangs(array('companies', 'projects'));
 
 $form = new Form($db);
 
-$includeuserlist = array();
+$includeuserlist = [];
 
 
 llxHeader('', $langs->trans('Tasks'), '', '', 0, 0, '', '', '', 'mod-project project-tasks page-stats');
@@ -108,7 +108,7 @@ $mesg = $px1->isGraphKo();
 if (!$mesg) {
 	$px1->SetData($data);
 	$i = $startyear;
-	$legend = array();
+	$legend = [];
 	while ($i <= $endyear) {
 		$legend[] = $i;
 		$i++;
@@ -134,7 +134,7 @@ $data_all_year = $stats_tasks->getAllByYear();
 if (!empty($year)) {
 	$stats_tasks->year = $year;
 }
-$arrayyears = array();
+$arrayyears = [];
 foreach ($data_all_year as $val) {
 	$arrayyears[$val['year']] = $val['year'];
 }
@@ -144,7 +144,7 @@ if (!count($arrayyears)) {
 
 
 $h = 0;
-$head = array();
+$head = [];
 $head[$h][0] = DOL_URL_ROOT.'/projet/tasks/stats/index.php';
 $head[$h][1] = $langs->trans("ByMonthYear");
 $head[$h][2] = 'byyear';
@@ -164,12 +164,12 @@ print '<table class="noborder centpercent">';
 print '<tr class="liste_titre"><td class="liste_titre" colspan="2">'.$langs->trans("Filter").'</td></tr>';
 // Company
 /*print '<tr><td>'.$langs->trans("ThirdParty").'</td><td>';
-print $form->select_company($socid,'socid','',1,0,0,array(),0,'','style="width: 95%"');
+print $form->select_company($socid,'socid','',1,0,0,[],0,'','style="width: 95%"');
 print '</td></tr>';
 */
 // User
 /*print '<tr><td>'.$langs->trans("ProjectCommercial").'</td><td>';
-print $form->select_dolusers($userId, 'userid', 1, array(),0,$includeuserlist);
+print $form->select_dolusers($userId, 'userid', 1, [],0,$includeuserlist);
 print '</td></tr>';*/
 // Year
 print '<tr><td>'.$langs->trans("Year").'</td><td>';

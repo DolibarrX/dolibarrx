@@ -49,7 +49,7 @@ if (empty($action)) {
 	$action = 'edit';
 }
 
-$arrayofparameters = array();
+$arrayofparameters = [];
 // ThirdParty
 $arrayofparameters['ThirdParty'] = array(
 		'DATAPOLICY_TIERS_CLIENT'=>array('css'=>'minwidth200', 'picture'=>img_picture('', 'company', 'class="picturefixedwidth"')),

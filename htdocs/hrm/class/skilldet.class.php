@@ -156,7 +156,7 @@ class Skilldet extends CommonObjectLine
 	// /**
 	//  * @var array	List of child tables. To test if we can delete object.
 	//  */
-	// protected $childtables = array();
+	// protected $childtables = [];
 
 	// /**
 	//  * @var array    List of child tables. To know object to delete on cascade.
@@ -168,7 +168,7 @@ class Skilldet extends CommonObjectLine
 	// /**
 	//  * @var SkilldetLine[]     Array of subtable lines
 	//  */
-	// public $lines = array();
+	// public $lines = [];
 
 
 
@@ -355,7 +355,7 @@ class Skilldet extends CommonObjectLine
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -378,7 +378,7 @@ class Skilldet extends CommonObjectLine
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList('t');

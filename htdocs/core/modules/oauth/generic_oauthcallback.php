@@ -100,7 +100,7 @@ $state = GETPOST('state');
 $statewithscopeonly = '';
 $statewithanticsrfonly = '';
 
-$requestedpermissionsarray = array();
+$requestedpermissionsarray = [];
 if ($state) {
 	// 'state' parameter is standard to store a hash value and can be used to retrieve some parameters back
 	$statewithscopeonly = preg_replace('/\-.*$/', '', preg_replace('/^forlogin-/', '', $state));
@@ -333,7 +333,7 @@ if (!GETPOST('code') && !GETPOST('error')) {
 				if ($forlogin) {
 					dol_syslog("we received the login/email to log to, it is ".$useremail);
 
-					$tmparray = (empty($_SESSION['datafromloginform']) ? array() : $_SESSION['datafromloginform']);
+					$tmparray = (empty($_SESSION['datafromloginform']) ? [] : $_SESSION['datafromloginform']);
 					$entitytosearchuser = ((isset($tmparray['entity']) && $tmparray['entity'] != '') ? $tmparray['entity'] : -1);
 
 					// Delete the old token

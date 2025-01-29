@@ -88,7 +88,7 @@ top_httphead();
 
 if ($action == 'getContacts') {	// Test on permission not required here. Access is allowed only if TICKET_CREATE_THIRD_PARTY_WITH_CONTACT_IF_NOT_EXIST is on and option has been disabled because not secured.
 	$return = array(
-		'contacts' => array(),
+		'contacts' => [],
 		'error' => '',
 	);
 
@@ -98,7 +98,7 @@ if ($action == 'getContacts') {	// Test on permission not required here. Access 
 		$ticket = new Ticket($db);
 		$arrayofcontacts = $ticket->searchContactByEmail($email);
 		if (is_array($arrayofcontacts)) {
-			$arrayofminimalcontacts = array();
+			$arrayofminimalcontacts = [];
 			foreach ($arrayofcontacts as $tmpval) {
 				$tmpresult = new stdClass();
 				$tmpresult->id = $tmpval->id;

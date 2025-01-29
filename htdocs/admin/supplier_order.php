@@ -178,7 +178,7 @@ if ($action == 'specimen') {  // For orders
 
 	if ($config->global->SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED) {
 		// clear default rights array
-		$newmodule->rights = array();
+		$newmodule->rights = [];
 		// add new right
 		$r = 0;
 		$newmodule->rights[$r][0] = 1190;
@@ -342,7 +342,7 @@ print '</table></div><br>';
 print load_fiche_titre($langs->trans("OrdersModelModule"), '', '');
 
 // Defini tableau def de modele
-$def = array();
+$def = [];
 
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";

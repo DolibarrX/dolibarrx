@@ -87,7 +87,7 @@ if ($invoiceid > 0) {
 
 $head = '';
 $arrayofcss = array('/takepos/css/pos.css.php');
-$arrayofjs  = array();
+$arrayofjs  = [];
 
 top_htmlhead($head, '', 0, 0, $arrayofjs, $arrayofcss);
 

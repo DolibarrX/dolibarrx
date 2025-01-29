@@ -70,7 +70,7 @@ class modApi extends DolibarrModules
 		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'
 		$this->picture = 'technic';
 
-		$this->module_parts = array();
+		$this->module_parts = [];
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/api/temp");
@@ -81,9 +81,9 @@ class modApi extends DolibarrModules
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of modules id that must be enabled if this module is enabled
+		$this->depends = []; // List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array('modZapier'); // List of modules id to disable if this one is disabled
-		$this->conflictwith = array(); // List of modules id this module is in conflict with
+		$this->conflictwith = []; // List of modules id this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->langfiles = array("other");
 
@@ -92,7 +92,7 @@ class modApi extends DolibarrModules
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = [];
 
 		// Array to add new pages in new tabs
 		// Example: $this->tabs = array('objecttype:+tabname1:Title1:mylangfile@api:$user->hasRight('api','read'):/api/mynewtab1.php?id=__ID__',  					// To add a new tab identified by code tabname1
@@ -118,23 +118,23 @@ class modApi extends DolibarrModules
 		// 'stock'            to add a tab in stock view
 		// 'thirdparty'       to add a tab in third party view
 		// 'user'             to add a tab in user view
-		$this->tabs = array();
+		$this->tabs = [];
 
 		// Dictionaries
 		if (!isset($config->api->enabled)) {
 			$config->api = new stdClass();
 			$config->api->enabled = 0;
 		}
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 
 		// Boxes
 		// Add here list of php file(s) stored in core/boxes that contains class to show a box.
-		$this->boxes = array(); // List of boxes
+		$this->boxes = []; // List of boxes
 		// Example:
 		//$this->boxes=array(array(0=>array('file'=>'myboxa.php','note'=>'','enabledbydefaulton'=>'Home'),1=>array('file'=>'myboxb.php','note'=>''),2=>array('file'=>'myboxc.php','note'=>'')););
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$this->rightsAdminAllowed = 1; // Admin is always granted of permission (even when module is disabled)
 
 		$r = 0;
@@ -150,7 +150,7 @@ class modApi extends DolibarrModules
 
 
 		// Main menu entries
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 
 		$this->menu[$r] = array('fk_menu'=>'fk_mainmenu=tools',
@@ -211,7 +211,7 @@ class modApi extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

@@ -106,23 +106,23 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 *
 	 * e.g.: array('/mymodule/temp')
 	 */
-	public $dirs = array();
+	public $dirs = [];
 
 	/**
 	 * @var array<array{file?:string,note?:string,enabledbydefaulton:string,1?:string}> Module boxes
 	 */
-	public $boxes = array();
+	public $boxes = [];
 
 	/**
 	 * @var	array<array{0:string,1:string,2:string|int,3:string,4?:int<0,1>,5?:string,6?:int<0,1>}> Module constants
 	 *		(0:name,1:type,2:val,3:note,4:visible,5:entity,6:deleteonunactive)
 	 */
-	public $const = array();
+	public $const = [];
 
 	/**
 	 * @var array<array{entity?:int,label?:string,jobtype?:string,class?:string,objectname?:string,method?:string,command?:string,parameters?:string,md5params?:string,comment?:string,frequency?:int,unitfrequency?:int,priority?:int,datestart?:int,dateend?:int,datenextrun?:string,status?:int,maxrun?:int,libname?:string,test?:string|bool}> Module cron jobs entries
 	 */
-	public $cronJobs = array();
+	public $cronJobs = [];
 
 	/**
 	 * @var array<int,array<int<0,7>,string|int>> 	Module access rights
@@ -153,7 +153,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var array<array{commentgroup?:string,mainmenu:string,leftmenu:string,langs:string,enabled:int|string,target:string,titre:string,user:int,fk_menu:string,fk_parent:string,url:string,position:int,perms:string,type:string}>|int<1,1> 	Module menu entries (1 means the menu entries are not declared into module descriptor but are hardcoded into menu manager)
 	 */
-	public $menu = array();
+	public $menu = [];
 
 	/**
 	 * @var array{triggers?:int<0,1>,login?:int<0,1>,substitutions?:int<0,1>,menus?:int<0,1>,theme?:int<0,1>,tpl?:int<0,1>,barcode?:int<0,1>,models?:int<0,1>,printing?:int<0,1>,css?:string[],js?:string[],hooks?:array{data?:string[],entity?:string},moduleforexternal?:int<0,1>,websitetemplates?:int<0,1>,contactelement?:int<0,1>} Module parts
@@ -182,7 +182,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 *      'hooks' => array('hookcontext1','hookcontext2')
 	 *  )
 	 */
-	public $module_parts = array();
+	public $module_parts = [];
 
 	/**
 	 * @var string Error message
@@ -236,7 +236,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var array{}|array{langs:string,tabname:string[],tablib:string[],tabsql:string[],tabsqlsort:string[],tabfield:string[],tabfieldvalue:string[],tabfieldinsert:string[],tabrowid:string[],tabcond:array<bool|int<0,1>>,tabhelp:array<array<string,string>>} dictionaries description
 	 */
-	public $dictionaries = array();
+	public $dictionaries = [];
 
 	/**
 	 * @var array<string|array{data:string,entity:int}> tabs description
@@ -1140,7 +1140,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		} else {
 			$obj = $this->db->fetch_object($resql);
 			if ($obj) {
-				$tmp = array();
+				$tmp = [];
 				if ($obj->note) {
 					$tmp = json_decode($obj->note, true);
 				}
@@ -1153,7 +1153,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 			}
 		}
 
-		return array();
+		return [];
 	}
 
 
@@ -1284,7 +1284,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 						$dirfound++;
 
 						// Run llx_mytable.sql files, then llx_mytable_*.sql
-						$files = array();
+						$files = [];
 						while (($file = readdir($handle)) !== false) {
 							$files[] = $file;
 						}
@@ -1309,7 +1309,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 						rewinddir($handle);
 
 						// Run llx_mytable.key.sql files (Must be done after llx_mytable.sql) then then llx_mytable_*.key.sql
-						$files = array();
+						$files = [];
 						while (($file = readdir($handle)) !== false) {
 							$files[] = $file;
 						}
@@ -1334,7 +1334,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 						rewinddir($handle);
 
 						// Run functions-xxx.sql files (Must be done after llx_mytable.key.sql)
-						$files = array();
+						$files = [];
 						while (($file = readdir($handle)) !== false) {
 							$files[] = $file;
 						}
@@ -1359,7 +1359,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 						rewinddir($handle);
 
 						// Run data_xxx.sql files (Must be done after llx_mytable.key.sql)
-						$files = array();
+						$files = [];
 						while (($file = readdir($handle)) !== false) {
 							$files[] = $file;
 						}
@@ -1384,7 +1384,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 						rewinddir($handle);
 
 						// Run update_xxx.sql files
-						$files = array();
+						$files = [];
 						while (($file = readdir($handle)) !== false) {
 							$files[] = $file;
 						}
@@ -2192,7 +2192,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 			} else {
 				$foundparent = 0;
 				$fk_parent = $this->menu[$key]['fk_menu'];
-				$reg = array();
+				$reg = [];
 				if (preg_match('/^r=/', $fk_parent)) {    // old deprecated method
 					$fk_parent = str_replace('r=', '', $fk_parent);
 					if (isset($this->menu[$fk_parent]['rowid'])) {
@@ -2586,7 +2586,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 */
 	public function init($options = '')
 	{
-		return $this->_init(array(), $options);
+		return $this->_init([], $options);
 	}
 
 	/**
@@ -2599,7 +2599,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 */
 	public function remove($options = '')
 	{
-		return $this->_remove(array(), $options);
+		return $this->_remove([], $options);
 	}
 
 
@@ -2706,7 +2706,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	{
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 		if (!empty($this->url_last_version)) {
-			$lastVersion = getURLContent($this->url_last_version, 'GET', '', 1, array(), array('http', 'https'), 0);	// Accept http or https links on external remote server only
+			$lastVersion = getURLContent($this->url_last_version, 'GET', '', 1, [], array('http', 'https'), 0);	// Accept http or https links on external remote server only
 			if (isset($lastVersion['content']) && strlen($lastVersion['content']) < 30) {
 				// Security warning :  be careful with remote data content, the module editor could be hacked (or evil) so limit to a-z A-Z 0-9 _ . -
 				$this->lastVersion = preg_replace("/[^a-zA-Z0-9_\.\-]+/", "", $lastVersion['content']);
@@ -2743,7 +2743,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		if (empty($config->cache['noncompliantmodules'])) {
 			require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 
-			$result = getURLContent(self::URL_FOR_BLACKLISTED_MODULES, 'GET', '', 1, array(), array('http', 'https'), 0);	// Accept http or https links on external remote server only
+			$result = getURLContent(self::URL_FOR_BLACKLISTED_MODULES, 'GET', '', 1, [], array('http', 'https'), 0);	// Accept http or https links on external remote server only
 			if (isset($result['content']) && $result['http_code'] == 200) {
 				$langs->load("errors");
 

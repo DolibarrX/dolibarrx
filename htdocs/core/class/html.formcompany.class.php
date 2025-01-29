@@ -54,7 +54,7 @@ class FormCompany extends Form
 		// phpcs:enable
 		global $langs, $mysoc;
 
-		$effs = array();
+		$effs = [];
 
 		$sql = "SELECT id, code, libelle as label";
 		$sql .= " FROM " . $this->db->prefix() . "c_typent";
@@ -103,7 +103,7 @@ class FormCompany extends Form
 	public function effectif_array($mode = 0, $filter = '')
 	{
 		// phpcs:enable
-		$effs = array();
+		$effs = [];
 
 		$sql = "SELECT id, code, libelle as label";
 		$sql .= " FROM " . $this->db->prefix() . "c_effectif";
@@ -164,7 +164,7 @@ class FormCompany extends Form
 		$sql .= " ORDER BY sortorder";
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$options = array();
+			$options = [];
 
 			if ($empty) {
 				$options[''] = '';
@@ -215,7 +215,7 @@ class FormCompany extends Form
 		$sql .= " ORDER BY sortorder";
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$options = array();
+			$options = [];
 
 			if ($empty) {
 				$options[''] = '';
@@ -582,7 +582,7 @@ class FormCompany extends Form
 			if ($num) {
 				$i = 0;
 				$country = '';
-				$arraydata = array();
+				$arraydata = [];
 				while ($i < $num) {
 					$obj = $this->db->fetch_object($resql);
 
@@ -669,7 +669,7 @@ class FormCompany extends Form
 			}
 
 
-			$events = array();
+			$events = [];
 			// Add an entry 'method' to say 'yes, we must execute url with param action = method';
 			// Add an entry 'url' to say which url to execute
 			// Add an entry htmlname to say which element we must change once url is called
@@ -752,7 +752,7 @@ class FormCompany extends Form
 				$sql .= " AND s.rowid IN (" . $this->db->sanitize(implode(',', $limitto)) . ")";
 			}
 			// Add where from hooks
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('selectCompaniesForNewContactListWhere', $parameters); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 			$sql .= " ORDER BY s.nom ASC";
@@ -868,10 +868,10 @@ class FormCompany extends Form
 	 * @param	string		$placeholder	Placeholder text (used when $rendermode is 'edit')
 	 * @return 	string   					String with contacts roles
 	 */
-	public function showRoles($htmlname, Contact $contact, $rendermode = 'view', $selected = array(), $morecss = 'minwidth500', $placeholder = '')
+	public function showRoles($htmlname, Contact $contact, $rendermode = 'view', $selected = [], $morecss = 'minwidth500', $placeholder = '')
 	{
 		if ($rendermode === 'view') {
-			$toprint = array();
+			$toprint = [];
 			foreach ($contact->roles as $key => $val) {
 				$toprint[] = '<li class="select2-search-choice-dolibarr noborderoncategories" style="background: #bbb;">' . $val['label'] . '</li>';
 			}
@@ -881,7 +881,7 @@ class FormCompany extends Form
 		if ($rendermode === 'edit') {	// A multiselect combo list
 			$contactType = $contact->listeTypeContacts('external', 0, 1, '', '', 'agenda'); // We exclude agenda as there is no contact on such element
 			if (count($selected) > 0) {
-				$newselected = array();
+				$newselected = [];
 				foreach ($selected as $key => $val) {
 					if (is_array($val) && array_key_exists('id', $val) && in_array($val['id'], array_keys($contactType))) {
 						$newselected[] = $val['id'];
@@ -912,7 +912,7 @@ class FormCompany extends Form
 	 *    @param    string      $morecss                More css
 	 *    @return	string
 	 */
-	public function select_ziptown($selected = '', $htmlname = 'zipcode', $fields = array(), $fieldsize = 0, $disableautocomplete = 0, $moreattrib = '', $morecss = '')
+	public function select_ziptown($selected = '', $htmlname = 'zipcode', $fields = [], $fieldsize = 0, $disableautocomplete = 0, $moreattrib = '', $morecss = '')
 	{
 		// phpcs:enable
 		global $config;

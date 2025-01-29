@@ -223,7 +223,7 @@ class ActionComm extends CommonObject
 	/**
 	 * @var array<int,array{id:int,transparency:int<0,1>}> 	Array of users
 	 */
-	public $userassigned = array();
+	public $userassigned = [];
 
 	/**
 	 * @var int 	Id of user owner = fk_user_action into table
@@ -233,17 +233,17 @@ class ActionComm extends CommonObject
 	/**
 	 * @var array<int,array{id:int,mandatory:int<0,1>,answer_status:int,transparency:int<0,1>}|int> Array of contact ids
 	 */
-	public $socpeopleassigned = array();
+	public $socpeopleassigned = [];
 
 	/**
 	 * @var int[] 	Array of other contact emails (not user, not contact)
 	 */
-	public $otherassigned = array();
+	public $otherassigned = [];
 
 	/**
 	 * @var array<int,ActionCommReminder>	Array of reminders
 	 */
-	public $reminders = array();
+	public $reminders = [];
 
 	/**
 	 * @var int 	thirdparty id linked to action
@@ -314,7 +314,7 @@ class ActionComm extends CommonObject
 	/**
 	 * @var array<int,array{id:int,type:string,actionparam:string,status:int}> Actions
 	 */
-	public $actions = array();
+	public $actions = [];
 
 	/**
 	 * @var string Email msgid
@@ -405,7 +405,7 @@ class ActionComm extends CommonObject
 	const EVENT_FINISHED = 100;
 
 
-	public $fields = array();
+	public $fields = [];
 
 	/**
 	 *      Constructor
@@ -494,7 +494,7 @@ class ActionComm extends CommonObject
 
 		if (!is_array($this->userassigned) && !empty($this->userassigned)) {	// For backward compatibility when userassigned was an int instead of an array
 			$tmpid = (int) $this->userassigned;
-			$this->userassigned = array();
+			$this->userassigned = [];
 			$this->userassigned[$tmpid] = array('id' => $tmpid, 'transparency' => $this->transparency);
 		}
 
@@ -630,7 +630,7 @@ class ActionComm extends CommonObject
 			// Now insert assigned users
 			if (!$error) {
 				//dol_syslog(var_export($this->userassigned, true));
-				$already_inserted = array();
+				$already_inserted = [];
 				foreach ($this->userassigned as $key => $val) {
 					// Common value with new behavior is to have $val = array('id'=>iduser, 'transparency'=>0|1) and $this->userassigned is an array of iduser => $val.
 					if (!is_array($val)) {	// For backward compatibility when $val='id'.
@@ -660,7 +660,7 @@ class ActionComm extends CommonObject
 
 			if (!$error) {
 				if (!empty($this->socpeopleassigned)) {
-					$already_inserted = array();
+					$already_inserted = [];
 					foreach ($this->socpeopleassigned as $id => $val) {
 						// Common value with new behavior is to have $this->socpeopleassigned an array of idcontact => dummyvalue
 						if (!empty($already_inserted[$id])) {
@@ -938,8 +938,8 @@ class ActionComm extends CommonObject
 	 */
 	public function fetchResources()
 	{
-		$this->userassigned = array();
-		$this->socpeopleassigned = array();
+		$this->userassigned = [];
+		$this->socpeopleassigned = [];
 
 		$sql = 'SELECT fk_actioncomm, element_type, fk_element, answer_status, mandatory, transparency';
 		$sql .= ' FROM '.MAIN_DB_PREFIX.'actioncomm_resources';
@@ -991,7 +991,7 @@ class ActionComm extends CommonObject
 
 		$resql2 = $this->db->query($sql);
 		if ($resql2) {
-			$this->userassigned = array();
+			$this->userassigned = [];
 
 			// If owner is known, we must but id first into list
 			if ($this->userownerid > 0) {
@@ -1234,7 +1234,7 @@ class ActionComm extends CommonObject
 				$sql = "DELETE FROM ".MAIN_DB_PREFIX."actioncomm_resources where fk_actioncomm = ".((int) $this->id)." AND element_type = 'user'";
 				$resql = $this->db->query($sql);
 
-				$already_inserted = array();
+				$already_inserted = [];
 				foreach ($this->userassigned as $key => $val) {
 					if (!is_array($val)) {	// For backward compatibility when val=id
 						$val = array('id' => $val);
@@ -1262,7 +1262,7 @@ class ActionComm extends CommonObject
 				$resql = $this->db->query($sql);
 
 				if (!empty($this->socpeopleassigned)) {
-					$already_inserted = array();
+					$already_inserted = [];
 					foreach ($this->socpeopleassigned as $val) {
 						if (!is_array($val)) {	// For backward compatibility when val=id
 							$val = array('id' => $val);
@@ -1326,7 +1326,7 @@ class ActionComm extends CommonObject
 	{
 		global $hookManager;
 
-		$resarray = array();
+		$resarray = [];
 
 		dol_syslog(get_class($this)."::getActions", LOG_DEBUG);
 
@@ -1414,7 +1414,7 @@ class ActionComm extends CommonObject
 		if (empty($load_state_board)) {
 			$sql = "SELECT a.id, a.datep as dp";
 		} else {
-			$this->nb = array();
+			$this->nb = [];
 			$sql = "SELECT count(a.id) as nb";
 		}
 		$sql .= " FROM ".MAIN_DB_PREFIX."actioncomm as a";
@@ -1604,7 +1604,7 @@ class ActionComm extends CommonObject
 
 		$langs->load('agenda');
 
-		$datas = array();
+		$datas = [];
 		$nofetch = !empty($params['nofetch']);
 
 		// Set label of type
@@ -1986,7 +1986,7 @@ class ActionComm extends CommonObject
 			$to_del = array_diff($existing, $categories);
 			$to_add = array_diff($categories, $existing);
 		} else {
-			$to_del = array(); // Nothing to delete
+			$to_del = []; // Nothing to delete
 			$to_add = $categories;
 		}
 
@@ -2068,7 +2068,7 @@ class ActionComm extends CommonObject
 
 		if ($buildfile) {
 			// Build event array
-			$eventarray = array();
+			$eventarray = [];
 
 			if (!empty($filters['module']) && $filters['module'] == 'project@eventorganization') {
 				$sql = "SELECT p.rowid as id,";
@@ -2282,7 +2282,7 @@ class ActionComm extends CommonObject
 					$qualified = true;
 
 					// 'eid','startdate','duration','enddate','title','summary','category','email','url','desc','author'
-					$event = array();
+					$event = [];
 					$event['uid'] = 'dolibarragenda-'.$this->db->database_name.'-'.$obj->id."@".$_SERVER["SERVER_NAME"];
 					$event['type'] = $type;
 
@@ -2334,7 +2334,7 @@ class ActionComm extends CommonObject
 					$this->id = $obj->id;
 					$this->fetch_userassigned(false);
 
-					$assignedUserArray = array();
+					$assignedUserArray = [];
 
 					foreach ($this->userassigned as $key => $value) {
 						$assignedUser = new User($this->db);
@@ -2380,7 +2380,7 @@ class ActionComm extends CommonObject
 
 					while ($i < $num) {
 						$obj   = $this->db->fetch_object($resql);
-						$event = array();
+						$event = [];
 
 						if ($obj->halfday == 1) {
 							$event['fulldayevent'] = false;
@@ -2606,7 +2606,7 @@ class ActionComm extends CommonObject
 
 		$error = 0;
 
-		$this->reminders = array();
+		$this->reminders = [];
 
 		//Select all action comm reminders for event
 		$sql = "SELECT rowid as id, typeremind, dateremind, status, offsetvalue, offsetunit, fk_user, fk_email_template, lasterror";
@@ -2669,7 +2669,7 @@ class ActionComm extends CommonObject
 		$this->output = '';
 		$this->error = '';
 		$nbMailSend = 0;
-		$errorsMsg = array();
+		$errorsMsg = [];
 
 		if (!isModEnabled('agenda')) {	// Should not happen. If module disabled, cron job should not be visible.
 			$langs->load("agenda");
@@ -2760,7 +2760,7 @@ class ActionComm extends CommonObject
 								$errors_to = getDolGlobalString('MAIN_MAIL_ERRORS_TO');
 
 								// Mail Creation
-								$cMailFile = new CMailFile($sendTopic, $to, $from, $sendContent, array(), array(), array(), '', "", 0, 1, $errors_to, '', '', '', '', '');
+								$cMailFile = new CMailFile($sendTopic, $to, $from, $sendContent, [], [], [], '', "", 0, 1, $errors_to, '', '', '', '', '');
 
 								// Sending Mail
 								if ($cMailFile->sendfile()) {

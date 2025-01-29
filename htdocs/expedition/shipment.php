@@ -643,7 +643,7 @@ if ($id > 0 || !empty($ref)) {
 			print "</tr>\n";
 			print '</thead>';
 
-			$toBeShipped = array();
+			$toBeShipped = [];
 			$toBeShippedTotal = 0;
 			while ($i < $num) {
 				$objp = $db->fetch_object($resql);
@@ -901,7 +901,7 @@ if ($id > 0 || !empty($ref)) {
 					print $langs->trans("WarehouseSource");
 					//print '</td>';
 					//print '<td>';
-					print $formproduct->selectWarehouses(!empty($object->warehouse_id) ? $object->warehouse_id : 'ifone', 'entrepot_id', '', 1, 0, 0, '', 0, 0, array(), 'minwidth200');
+					print $formproduct->selectWarehouses(!empty($object->warehouse_id) ? $object->warehouse_id : 'ifone', 'entrepot_id', '', 1, 0, 0, '', 0, 0, [], 'minwidth200');
 					if (count($formproduct->cache_warehouses) <= 0) {
 						print ' &nbsp; '.$langs->trans("WarehouseSourceNotDefined").' <a href="'.DOL_URL_ROOT.'/product/stock/card.php?action=create">'.$langs->trans("AddOne").'</a>';
 					}

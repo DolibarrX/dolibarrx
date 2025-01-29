@@ -60,7 +60,7 @@ if (!$user->admin) {
 }
 
 $moduledir = 'workstation';
-$myTmpObjects = array();
+$myTmpObjects = [];
 $myTmpObjects['workstation'] = array('label' => 'Workstation', 'includerefgeneration' => 1, 'includedocgeneration' => 0, 'class' => 'Workstation');
 
 $tmpobjectkey = GETPOST('object', 'aZ09');
@@ -354,7 +354,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 		print load_fiche_titre($langs->trans("DocumentModules", $myTmpObjectKey), '', '');
 
 		// Load array def with activated templates
-		$def = array();
+		$def = [];
 		$sql = "SELECT nom";
 		$sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 		$sql .= " WHERE type = '".$db->escape($type)."'";
@@ -394,7 +394,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 				if (is_dir($dir)) {
 					$handle = opendir($dir);
 					if (is_resource($handle)) {
-						$filelist = array();
+						$filelist = [];
 						while (($file = readdir($handle)) !== false) {
 							$filelist[] = $file;
 						}

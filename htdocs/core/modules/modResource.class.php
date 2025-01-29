@@ -80,7 +80,7 @@ class modResource extends DolibarrModules
 		// for default path (eg: /resource/core/xxxxx) (0=disable, 1=enable)
 		// for specific path of parts (eg: /resource/core/modules/barcode)
 		// for specific css file (eg: /resource/css/resource.css.php)
-		$this->module_parts = array();
+		$this->module_parts = [];
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/resource/temp");
@@ -92,7 +92,7 @@ class modResource extends DolibarrModules
 
 		// Dependencies
 		// List of modules id that must be enabled if this module is enabled
-		$this->depends = array();
+		$this->depends = [];
 		// List of modules id to disable if this one is disabled
 		$this->requiredby = array('');
 		// Minimum version of PHP required by module
@@ -103,7 +103,7 @@ class modResource extends DolibarrModules
 		// List of particular constants to add when module is enabled
 		// (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
 		// Example:
-		$this->const = array();
+		$this->const = [];
 
 		// Array to add new pages in new tabs
 		// Example:
@@ -135,7 +135,7 @@ class modResource extends DolibarrModules
 
 		// Boxes
 		// Add here list of php file(s) stored in core/boxes that contains class to show a box.
-		$this->boxes = array(); // Boxes list
+		$this->boxes = []; // Boxes list
 		$r = 0;
 		// Example:
 
@@ -147,7 +147,7 @@ class modResource extends DolibarrModules
 		 */
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$r = 0;
 
 		$this->rights[$r][0] = 63001;
@@ -181,7 +181,7 @@ class modResource extends DolibarrModules
 
 
 		// Main menu entries
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 
 		// Menus declaration
@@ -269,7 +269,7 @@ class modResource extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'ImportDataset_resource_1';
 		$this->import_icon[$r] = 'resource';
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('r' => MAIN_DB_PREFIX.'resource', 'extra' => MAIN_DB_PREFIX.'resource_extrafields'); // List of tables to insert into (insert done in same order)
 		$this->import_fields_array[$r] = array('r.ref' => "ResourceFormLabel_ref*", 'r.fk_code_type_resource' => 'ResourceTypeCode', 'r.description' => 'ResourceFormLabel_description', 'r.note_private' => "NotePrivate", 'r.note_public' => "NotePublic", 'r.asset_number' => 'AssetNumber', 'r.datec' => 'DateCreation');
 		// Add extra fields
@@ -304,7 +304,7 @@ class modResource extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

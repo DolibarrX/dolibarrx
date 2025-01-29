@@ -130,11 +130,11 @@ class FormSms
 	/**
 	 * @var array<string,string>
 	 */
-	public $substit = array();
+	public $substit = [];
 	/**
 	 * @var array{}|array{action:string,models:string,smsid:int,returnurl:string}
 	 */
-	public $param = array();
+	public $param = [];
 
 	/**
 	 * @var string Error code (or message)
@@ -144,7 +144,7 @@ class FormSms
 	/**
 	 * @var string[]	Array of error strings
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -254,7 +254,7 @@ function limitChars(textarea, limit, infodiv)
 				print "</td></tr>\n";
 			} else {
 				print '<tr><td class="'.$morecss.'">'.$langs->trans("SmsFrom")."</td><td>";
-				$resultsender = array();
+				$resultsender = [];
 				$sms = null;
 				if (getDolGlobalString('MAIN_SMS_SENDMODE')) {
 					$sendmode = getDolGlobalString('MAIN_SMS_SENDMODE');	// $config->global->MAIN_SMS_SENDMODE looks like a value 'module'
@@ -317,8 +317,8 @@ function limitChars(textarea, limit, infodiv)
 			} else {
 				print '<input class="width150" id="sendto" name="sendto" value="'.dol_escape_htmltag(!is_array($this->withto) && $this->withto != '1' ? (GETPOSTISSET("sendto") ? GETPOST("sendto") : $this->withto) : "+").'">';
 				if (!empty($this->withtosocid) && $this->withtosocid > 0) {
-					$liste = array();
-					foreach ($soc->thirdparty_and_contact_phone_array() as $key => $value) {
+					$liste = [];
+					foreach ($soc->thirdparty_and_contact_phone_[] as $key => $value) {
 						$liste[$key] = $value;
 					}
 					print " ".$langs->trans("or")." ";

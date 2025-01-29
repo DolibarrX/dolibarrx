@@ -188,7 +188,7 @@ if ($object->id > 0) {
 	$linkback .= '</a>';
 
 	// Add more views from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
 	if (empty($resHook)) {
 		$linkback .= $hookManager->resPrint;
@@ -276,7 +276,7 @@ if ($object->id > 0) {
 
 	// Assigned to
 	print '<tr><td class="nowrap">'.$langs->trans("ActionAffectedTo").'</td><td colspan="3">';
-	$listofuserid = array();
+	$listofuserid = [];
 	if (empty($donotclearsession)) {
 		if ($object->userownerid > 0) {
 			$listofuserid[$object->userownerid] = array('id' => $object->userownerid, 'transparency' => $object->transparency); // Owner first
@@ -296,10 +296,10 @@ if ($object->id > 0) {
 			$listofuserid = json_decode($_SESSION['assignedtouser'], true);
 		}
 	}
-	$listofcontactid = array(); // not used yet
-	$listofotherid = array(); // not used yet
+	$listofcontactid = []; // not used yet
+	$listofotherid = []; // not used yet
 	print '<div class="assignedtouser">';
-	print $form->select_dolusers_forevent('view', 'assignedtouser', 1, array(), 0, '', array(), 0, 0, 0, '', ($object->datep != $object->datef) ? 1 : 0, $listofuserid, $listofcontactid, $listofotherid);
+	print $form->select_dolusers_forevent('view', 'assignedtouser', 1, [], 0, '', [], 0, 0, 0, '', ($object->datep != $object->datef) ? 1 : 0, $listofuserid, $listofcontactid, $listofotherid);
 	print '</div>';
 	/*if (in_array($user->id,array_keys($listofuserid)))
 	{

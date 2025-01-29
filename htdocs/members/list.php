@@ -281,12 +281,12 @@ if (empty($resHook)) {
 		$search_status = "";
 		$search_import_key = '';
 		$search_all = "";
-		$toselect = array();
+		$toselect = [];
 		$search_datec_start = '';
 		$search_datec_end = '';
 		$search_datem_start = '';
 		$search_datem_end = '';
-		$search_array_options = array();
+		$search_array_options = [];
 	}
 
 	// Close
@@ -405,8 +405,8 @@ $now = dol_now();
 // Page Header
 $title = $langs->trans("Members")." - ".$langs->trans("List");
 $help_url = 'EN:Module_Foundations|FR:Module_Adh&eacute;rents|ES:M&oacute;dulo_Miembros|DE:Modul_Mitglieder';
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 
 // Build and execute select
@@ -430,7 +430,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 }
 
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -450,11 +450,11 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s on (s.rowid = d.fk_soc)";
 $sql .= ", ".MAIN_DB_PREFIX."member_type as t";
 $sql .= " WHERE d.fk_member_type = t.rowid";
 
-$searchCategoryContactList = $search_categ ? array($search_categ) : array();
+$searchCategoryContactList = $search_categ ? array($search_categ) : [];
 $searchCategoryContactOperator = 0;
 // Search for tag/category ($searchCategoryContactList is an array of ID)
 if (!empty($searchCategoryContactList)) {
-	$searchCategoryContactSqlList = array();
+	$searchCategoryContactSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryContactList as $searchCategoryContact) {
 		if (intval($searchCategoryContact) == -2) {
@@ -578,7 +578,7 @@ if ($search_datem_end) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -632,7 +632,7 @@ if ($num == 1 && getDolGlobalInt('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $sear
 
 llxHeader('', $title, $help_url, '', 0, 0, $morejs, $morecss, '', 'mod-member page-list bodyforlist');	// Can use also classforhorizontalscrolloftabs instead of bodyforlist for no horizontal scroll
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 
 if ($search_type > 0) {
@@ -755,7 +755,7 @@ if ($user->hasRight('member', 'creer')) {
 	$arrayofmassactions['createsubscription'] = img_picture('', 'payment', 'class="picturefixedwidth"').$langs->trans("CreateSubscription");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete', 'preaffecttag'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -936,7 +936,7 @@ if (!empty($arrayfields['t.libelle']['checked'])) {
 }
 if (!empty($arrayfields['t.libelle']['checked'])) {
 	print '<td class="liste_titre">';
-	$listetype = $membertypestatic->liste_array();
+	$listetype = $membertypestatic->liste_[];
 	// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
 	print $form->selectarray("search_type", $listetype, $search_type, 1, 0, 0, '', 0, 32);
 	print '</td>';
@@ -1075,7 +1075,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1205,7 +1205,7 @@ print "</tr>\n";
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {

@@ -94,7 +94,7 @@ $vatRateDefault = get_default_tva($mysoc, $soc);
  */
 
 $arrayofcss = array('/takepos/css/pos.css.php');
-$arrayofjs = array();
+$arrayofjs = [];
 
 top_htmlhead('', '', 0, 0, $arrayofjs, $arrayofcss);
 ?>

@@ -58,7 +58,7 @@ class printing_printgcp extends PrintingDriver
 	/**
 	 * @var array<string|int,string|array{varname:string,info:string,type:'info',renew?:string,delete?:string}|array{enabled:int<0,1>,type:'submit'}> module parameters
 	 */
-	public $config = array();
+	public $config = [];
 
 	/**
 	 * @var string google id
@@ -124,7 +124,7 @@ class printing_printgcp extends PrintingDriver
 			);
 			$access = ($storage->hasAccessToken($this->OAUTH_SERVICENAME_GOOGLE) ? 'HasAccessToken' : 'NoAccessToken');
 			$serviceFactory = new \OAuth\ServiceFactory();
-			$apiService = $serviceFactory->createService($this->OAUTH_SERVICENAME_GOOGLE, $credentials, $storage, array());
+			$apiService = $serviceFactory->createService($this->OAUTH_SERVICENAME_GOOGLE, $credentials, $storage, []);
 			'@phan-var-force OAuth\OAuth2\Service\Google $apiService'; // createService is only ServiceInterface
 			$token_ok = true;
 			try {
@@ -250,7 +250,7 @@ class printing_printgcp extends PrintingDriver
 	public function getlistAvailablePrinters()
 	{
 		global $config;
-		$ret = array();
+		$ret = [];
 
 		$keyforprovider = '';	// @FIXME
 
@@ -263,7 +263,7 @@ class printing_printgcp extends PrintingDriver
 			DOL_MAIN_URL_ROOT.'/core/modules/oauth/google_oauthcallback.php'
 		);
 		$serviceFactory = new \OAuth\ServiceFactory();
-		$apiService = $serviceFactory->createService($this->OAUTH_SERVICENAME_GOOGLE, $credentials, $storage, array());
+		$apiService = $serviceFactory->createService($this->OAUTH_SERVICENAME_GOOGLE, $credentials, $storage, []);
 		'@phan-var-force OAuth\OAuth2\Service\Google $apiService'; // createService is only ServiceInterface
 		// Check if we have auth token
 		$token_ok = true;
@@ -304,7 +304,7 @@ class printing_printgcp extends PrintingDriver
 		// Check if we have printers?
 		if (is_array($printers) && count($printers) == 0) {
 			// We don't have printers so return blank array
-			$ret['available'] = array();
+			$ret['available'] = [];
 		} else {
 			// We have printers so returns printers as array
 			$ret['available'] = $printers;
@@ -406,7 +406,7 @@ class printing_printgcp extends PrintingDriver
 			DOL_MAIN_URL_ROOT.'/core/modules/oauth/google_oauthcallback.php?service=google'
 		);
 		$serviceFactory = new \OAuth\ServiceFactory();
-		$apiService = $serviceFactory->createService($this->OAUTH_SERVICENAME_GOOGLE, $credentials, $storage, array());
+		$apiService = $serviceFactory->createService($this->OAUTH_SERVICENAME_GOOGLE, $credentials, $storage, []);
 		'@phan-var-force OAuth\OAuth2\Service\Google $apiService'; // createService is only ServiceInterface
 
 		// Check if we have auth token and refresh it
@@ -461,7 +461,7 @@ class printing_printgcp extends PrintingDriver
 			DOL_MAIN_URL_ROOT.'/core/modules/oauth/google_oauthcallback.php'
 		);
 		$serviceFactory = new \OAuth\ServiceFactory();
-		$apiService = $serviceFactory->createService($this->OAUTH_SERVICENAME_GOOGLE, $credentials, $storage, array());
+		$apiService = $serviceFactory->createService($this->OAUTH_SERVICENAME_GOOGLE, $credentials, $storage, []);
 		'@phan-var-force OAuth\OAuth2\Service\Google $apiService'; // createService is only ServiceInterface
 		// Check if we have auth token
 		$token_ok = true;

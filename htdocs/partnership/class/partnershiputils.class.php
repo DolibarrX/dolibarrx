@@ -49,7 +49,7 @@ class PartnershipUtils
 	/**
 	 * @var string[]
 	 */
-	public $errors = array(); //!< To return several error codes (or messages)
+	public $errors = []; //!< To return several error codes (or messages)
 
 	/**
 	 * @var string To store output of some cron methods
@@ -93,7 +93,7 @@ class PartnershipUtils
 		$erroremail = '';
 		$this->output = '';
 		$this->error = '';
-		$partnershipsprocessed = array();
+		$partnershipsprocessed = [];
 
 		$gracedelay = getDolGlobalString('PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL');
 		if ($gracedelay < 1) {
@@ -205,7 +205,7 @@ class PartnershipUtils
 							$trackid = 'par'.$object->id;
 							$sendcontext = 'standard';
 
-							$cmail = new CMailFile($subject, $sendto, $from, $msg, array(), array(), array(), '', '', 0, 1, '', '', $trackid, '', $sendcontext);
+							$cmail = new CMailFile($subject, $sendto, $from, $msg, [], [], [], '', '', 0, 1, '', '', $trackid, '', $sendcontext);
 
 							$result = $cmail->sendfile();
 
@@ -219,7 +219,7 @@ class PartnershipUtils
 								// Initialisation of datas of object to call trigger
 								if (is_object($object)) {
 									$actiontypecode = 'AC_OTH_AUTO'; // Event insert into agenda automatically
-									$attachedfiles = array();
+									$attachedfiles = [];
 
 									$object->actiontypecode = $actiontypecode; // Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
 									$object->actionmsg = $arraydefaultmessage->topic."\n".$arraydefaultmessage->content; // Long text
@@ -305,7 +305,7 @@ class PartnershipUtils
 		$erroremail = '';
 		$this->output = '';
 		$this->error = '';
-		$partnershipsprocessed = array();
+		$partnershipsprocessed = [];
 		$emailnotfound = '';
 		$websitenotfound = '';
 
@@ -426,7 +426,7 @@ class PartnershipUtils
 									$trackid = 'par'.$object->id;
 									$sendcontext = 'standard';
 
-									$cmail = new CMailFile($subject, $sendto, $from, $msg, array(), array(), array(), '', '', 0, 1, '', '', $trackid, '', $sendcontext);
+									$cmail = new CMailFile($subject, $sendto, $from, $msg, [], [], [], '', '', 0, 1, '', '', $trackid, '', $sendcontext);
 
 									$result = $cmail->sendfile();
 
@@ -440,7 +440,7 @@ class PartnershipUtils
 										// Initialisation of datas of object to call trigger
 										if (is_object($object)) {
 											$actiontypecode = 'AC_OTH_AUTO'; // Event insert into agenda automatically
-											$attachedfiles = array();
+											$attachedfiles = [];
 
 											if ($managedfor != 'member') {
 												$object->socid = $fk_partner; // To link to a company
@@ -538,7 +538,7 @@ class PartnershipUtils
 		$webcontent = '';
 
 		// $website = 'https://nextgestion.com/'; // For Test
-		$tmpgeturl = getURLContent($website, 'GET', '', 1, array(), array('http', 'https'), 0);
+		$tmpgeturl = getURLContent($website, 'GET', '', 1, [], array('http', 'https'), 0);
 		if ($tmpgeturl['curl_error_no']) {
 			$error++;
 			dol_syslog('Error getting '.$website.': '.$tmpgeturl['curl_error_msg']);

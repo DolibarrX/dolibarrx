@@ -279,7 +279,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 						if (is_array($values)) {
 							$i = 0;
 							$createsql = $values[1];
-							$reg = array();
+							$reg = [];
 							while (preg_match('/CONSTRAINT `(0_[0-9a-zA-Z]+|[_0-9a-zA-Z]+_ibfk_[0-9]+)`/i', $createsql, $reg) && $i < 100) {
 								$sqldrop = "ALTER TABLE ".$val." DROP FOREIGN KEY ".$reg[1];
 								$resqldrop = $db->query($sqldrop);
@@ -315,14 +315,14 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 		$newversionfrom = preg_replace('/(\.[0-9]+)$/i', '.0', $versionfrom);
 		$newversionto = preg_replace('/(\.[0-9]+)$/i', '.0', $versionto);
 
-		$filelist = array();
+		$filelist = [];
 		$i = 0;
 		$ok = 0;
 		$from = '^'.preg_quote($newversionfrom, '/');
 		$to = preg_quote($newversionto.'.sql', '/').'$';
 
 		// Get files list
-		$filesindir = array();
+		$filesindir = [];
 		$handle = opendir($dir);
 		if (is_resource($handle)) {
 			while (($file = readdir($handle)) !== false) {
@@ -347,7 +347,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 		if (count($filelist) == 0) {
 			print '<div class="error">'.$langs->trans("ErrorNoMigrationFilesFoundForParameters").'</div>';
 		} else {
-			$listoffileprocessed = array(); // Protection to avoid to process twice the same file
+			$listoffileprocessed = []; // Protection to avoid to process twice the same file
 
 			// Loop on each migrate files
 			foreach ($filelist as $file) {
@@ -365,7 +365,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 				// Scan if there is migration scripts that depends of Dolibarr version
 				// for modules htdocs/module/sql or htdocs/custom/module/sql (files called "dolibarr_x.y.z-a.b.c.sql" or "dolibarr_always.sql")
-				$modulesfile = array();
+				$modulesfile = [];
 				foreach ($config->file->dol_document_root as $type => $dirroot) {
 					$handlemodule = @opendir($dirroot); // $dirroot may be '..'
 					if (is_resource($handlemodule)) {

@@ -316,7 +316,7 @@ if (function_exists("ldap_connect")) {
 			$ldapgroups = $ldap->getRecords('*', getDolGlobalString('LDAP_GROUP_DN'), getDolGlobalString('LDAP_KEY_GROUPS'), $required_fields, 'group');
 			//$ldapgroups = $ldap->getRecords('*', $config->global->LDAP_GROUP_DN, $config->global->LDAP_KEY_GROUPS, '', 'group');
 
-			$liste = array();
+			$liste = [];
 			if (is_array($ldapgroups)) {
 				foreach ($ldapgroups as $key => $ldapgroup) {
 					// Define the label string for this group

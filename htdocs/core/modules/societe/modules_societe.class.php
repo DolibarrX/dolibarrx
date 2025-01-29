@@ -47,7 +47,7 @@ abstract class ModeleThirdPartyDoc extends CommonDocGenerator
 	{
 		// phpcs:enable
 		$type = 'company';
-		$list = array();
+		$list = [];
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 		$list = getListOfModels($db, $type, $maxfilenamelength);
@@ -121,7 +121,7 @@ abstract class ModeleThirdPartyCode extends CommonNumRefGenerator
 	public static function liste_modeles($dbs, $maxfilenamelength = 0)
 	{
 		// phpcs:enable
-		$list = array();
+		$list = [];
 		$sql = "";
 
 		$resql = $dbs->query($sql);

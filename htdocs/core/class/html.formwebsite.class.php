@@ -208,10 +208,10 @@ class FormWebsite
 		$langs->load("admin");
 
 		$listofsamples = dol_dir_list(DOL_DOCUMENT_ROOT.'/website/samples', 'files', 0, '^page-sample-.*\.html$');
-		$arrayofsamples = array();
+		$arrayofsamples = [];
 		$arrayofsamples['empty'] = 'EmptyPage'; // Always this one first
 		foreach ($listofsamples as $sample) {
-			$reg = array();
+			$reg = [];
 			if (preg_match('/^page-sample-(.*)\.html$/', $sample['name'], $reg)) {
 				$key = $reg[1];
 				$labelkey = ucfirst($key);
@@ -356,10 +356,10 @@ class FormWebsite
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/emaillayout.lib.php';
 
 		$listofsamples = dol_dir_list(DOL_DOCUMENT_ROOT.'/website/samples', 'files', 0, '^page-sample-.*\.html$');
-		$arrayofsamples = array();
+		$arrayofsamples = [];
 		$arrayofsamples['empty'] = 'EmptyPage'; // Always this one first
 		foreach ($listofsamples as $sample) {
-			$reg = array();
+			$reg = [];
 			if (preg_match('/^page-sample-(.*)\.html$/', $sample['name'], $reg)) {
 				$key = $reg[1];
 				$labelkey = ucfirst($key);
@@ -378,7 +378,7 @@ class FormWebsite
 		$templates = $arrayofsamples;
 
 		foreach ($templates as $template => $templateFunction) {
-			$substitutionArray = array();
+			$substitutionArray = [];
 			$substitutionArray['__WEBSITE_CREATED_BY__'] = $user->getFullName($langs);
 			$substitutionArray['__WEBSITE_CONTENT__'] = $langs->trans("WebpageContent");
 			$substitutionArray['__WEBSITE_TITLE1__'] = $langs->trans("Title1");

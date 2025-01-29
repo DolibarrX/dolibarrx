@@ -117,7 +117,7 @@ class CdavLib
 	 */
 	public function toVCalendar($calid, $obj)
 	{
-		/*$categ = array();
+		/*$categ = [];
 		if($obj->soc_client)
 		{
 			$nick[] = $obj->soc_code_client;
@@ -251,7 +251,7 @@ class CdavLib
 	public function getFullCalendarObjects($calendarId, $bCalendarData)
 	{
 		$calid = (int) $calendarId;
-		$calevents = array();
+		$calevents = [];
 
 		if (!$this->user->rights->agenda->myactions->read) {
 			return $calevents;

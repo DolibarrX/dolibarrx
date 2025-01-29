@@ -140,12 +140,12 @@ $tmpe = dol_getdate($date_end);
 $year_end = $tmpe['year'];
 $nbofyear = ($year_end - $year_start) + 1;
 
-$commonparams = array();
+$commonparams = [];
 $commonparams['modecompta'] = $modecompta;
 $commonparams['sortorder'] = $sortorder;
 $commonparams['sortfield'] = $sortfield;
 
-$headerparams = array();
+$headerparams = [];
 if (!empty($date_startyear)) {
 	$headerparams['date_startyear'] = $date_startyear;
 }
@@ -168,7 +168,7 @@ if (!empty($q)) {
 	$headerparams['q'] = $q;
 }
 
-$tableparams = array();
+$tableparams = [];
 
 // Adding common parameters
 $allparams = array_merge($commonparams, $headerparams, $tableparams);
@@ -237,7 +237,7 @@ if ($date_end == dol_time_plus_duree($date_start, 1, 'y') - 1) {
 	$periodlink = '';
 }
 
-$moreparam = array();
+$moreparam = [];
 if (!empty($modecompta)) {
 	$moreparam['modecompta'] = $modecompta;
 }
@@ -249,7 +249,7 @@ if (isModEnabled('accounting') && $modecompta != 'BOOKKEEPING') {
 }
 
 
-$name = array();
+$name = [];
 
 // Show array
 print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
@@ -299,8 +299,8 @@ if ($socid) {
 $sql .= " GROUP BY u.rowid, u.lastname, u.firstname";
 $sql .= " ORDER BY u.rowid";
 
-$amount = array();
-$amount_ht = array();
+$amount = [];
+$amount_ht = [];
 
 dol_syslog("cabyuser", LOG_DEBUG);
 $result = $db->query($sql);

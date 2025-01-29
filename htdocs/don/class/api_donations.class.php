@@ -104,7 +104,7 @@ class Donations extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $thirdparty_ids param is ignored and replaced by user's socid
 		$socids = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $thirdparty_ids;
@@ -211,7 +211,7 @@ class Donations extends DolibarrApi
 			$this->don->$field = $this->_checkValForAPI($field, $value, $this->don);
 		}
 		/*if (isset($request_data["lines"])) {
-		  $lines = array();
+		  $lines = [];
 		  foreach ($request_data["lines"] as $line) {
 			array_push($lines, (object) $line);
 		  }
@@ -396,7 +396,7 @@ class Donations extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$don = array();
+		$don = [];
 		foreach (Donations::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, $field." field missing");

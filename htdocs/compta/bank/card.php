@@ -97,7 +97,7 @@ $result = restrictedArea($user, 'bank', $id, 'bank_account&bank_account', '', ''
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -497,7 +497,7 @@ if ($action == 'create') {
 		print '<tr><td>'.$langs->trans("Categories").'</td><td>';
 		$cate_arbo = $form->select_all_categories(Category::TYPE_ACCOUNT, '', 'parent', 64, 0, 3);
 
-		$arrayselected = array();
+		$arrayselected = [];
 		$c = new Category($db);
 		$cats = $c->containing($object->id, Category::TYPE_ACCOUNT);
 		if (is_array($cats)) {
@@ -519,7 +519,7 @@ if ($action == 'create') {
 	print '</td></tr>';
 
 	// Other attributes
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	if (empty($resHook)) {
@@ -655,7 +655,7 @@ if ($action == 'create') {
 		print '<tr><td class="'.$fieldrequired.'titlefieldcreate">'.$langs->trans("AccountancyCode").'</td>';
 		print '<td>';
 		print img_picture('', 'accounting_account', 'class="picturefixedwidth"');
-		print $formaccounting->select_account($object->account_number, 'account_number', 1, array(), 1, 1);
+		print $formaccounting->select_account($object->account_number, 'account_number', 1, [], 1, 1);
 		if ($formaccounting->nbaccounts == 0) {
 			$langs->load("errors");
 			$htmltext = $langs->transnoentitiesnoconv("WarningGoOnAccountancySetupToAddAccounts", $langs->transnoentitiesnoconv("MenuAccountancy"), $langs->transnoentitiesnoconv("Setup"), $langs->transnoentitiesnoconv("Chartofaccounts"));
@@ -955,7 +955,7 @@ if ($action == 'create') {
 		print '<input type="hidden" name="id" value="'.GETPOSTINT("id").'">'."\n\n";
 		print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
 
-		print dol_get_fiche_head(array(), '', '', 0);
+		print dol_get_fiche_head([], '', '', 0);
 
 		//print '<div class="underbanner clearboth"></div>';
 
@@ -1065,7 +1065,7 @@ if ($action == 'create') {
 			print '<tr><td>'.$langs->trans("Categories").'</td><td>';
 			$cate_arbo = $form->select_all_categories(Category::TYPE_ACCOUNT, '', 'parent', 64, 0, 3);
 
-			$arrayselected = array();
+			$arrayselected = [];
 			$c = new Category($db);
 			$cats = $c->containing($object->id, Category::TYPE_ACCOUNT);
 			if (is_array($cats)) {
@@ -1087,7 +1087,7 @@ if ($action == 'create') {
 		print '</td></tr>';
 
 		// Other attributes
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		if (empty($resHook)) {
@@ -1114,7 +1114,7 @@ if ($action == 'create') {
 		if (isModEnabled('accounting')) {
 			/** @var FormAccounting $formaccounting */
 			print img_picture('', 'accounting_account', 'class="picturefixedwidth"');
-			print $formaccounting->select_account($object->account_number, 'account_number', 1, array(), 1, 1);
+			print $formaccounting->select_account($object->account_number, 'account_number', 1, [], 1, 1);
 			if ($formaccounting->nbaccounts == 0) {
 				$langs->load("errors");
 				$htmltext = $langs->transnoentitiesnoconv("WarningGoOnAccountancySetupToAddAccounts", $langs->transnoentitiesnoconv("MenuAccountancy"), $langs->transnoentitiesnoconv("Setup"), $langs->transnoentitiesnoconv("Chartofaccounts"));

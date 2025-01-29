@@ -64,31 +64,31 @@ class modStripe extends DolibarrModules
 		$this->picture = 'stripe';
 
 		// Data directories to create when module is enabled.
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Config pages. Put here list of php page names stored in admin directory used to setup module.
 		$this->config_page_url = array("stripe.php@stripe");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of modules id to disable if this one is disabled
+		$this->depends = []; // List of modules id that must be enabled if this module is enabled
+		$this->requiredby = []; // List of modules id to disable if this one is disabled
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(5, 0); // Minimum version of Dolibarr required by module
 		$this->langfiles = array("stripe");
 
 		// Constants
-		$this->const = array(); // List of particular constants to add when module is enabled
+		$this->const = []; // List of particular constants to add when module is enabled
 
 		// New pages on tabs
-		$this->tabs = array();
+		$this->tabs = [];
 
 		// List of boxes
-		$this->boxes = array();
+		$this->boxes = [];
 		$r = 0;
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$r = 0;
 
 		// Main menu entries

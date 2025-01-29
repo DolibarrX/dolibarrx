@@ -54,7 +54,7 @@ if (empty($config) || !is_object($config)) {
 
 // Other attributes
 if (!isset($parameters)) {
-	$parameters = array();
+	$parameters = [];
 }
 '
 @phan-var-force CommonObject $object
@@ -67,7 +67,7 @@ if (!isset($parameters)) {
 $resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 if (empty($resHook)) {
-	$params = array();
+	$params = [];
 	if (isset($tpl_context)) {
 		$params['tpl_context'] = $tpl_context;
 	}

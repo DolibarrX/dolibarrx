@@ -134,7 +134,7 @@ if ($tmpbom->id > 0) {
 
 // Line extrafield
 if (!empty($extrafields)) {
-	$temps = $line->showOptionals($extrafields, 'view', array(), '', '', 1, 'line');
+	$temps = $line->showOptionals($extrafields, 'view', [], '', '', 1, 'line');
 	if (!empty($temps)) {
 		print '<div style="padding-top: 10px" id="extrafield_lines_area_'.$line->id.'" name="extrafield_lines_area_'.$line->id.'">';
 		print $temps;

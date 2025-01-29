@@ -37,7 +37,7 @@ function mymoduleAdminPrepareHead()
 	$langs->load("mymodule@mymodule");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = dol_buildpath("/mymodule/admin/setup.php", 1);
 	$head[$h][1] = $langs->trans("Settings");

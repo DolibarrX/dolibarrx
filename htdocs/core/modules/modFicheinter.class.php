@@ -65,15 +65,15 @@ class modFicheinter extends DolibarrModules
 
 		// Dependencies
 		$this->depends = array("modSociete");
-		$this->requiredby = array();
-		$this->conflictwith = array();
+		$this->requiredby = [];
+		$this->conflictwith = [];
 		$this->langfiles = array("bills", "companies", "interventions");
 
 		// Config pages
 		$this->config_page_url = array("fichinter.php");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 		$r = 0;
 
 		if (!isset($config->ficheinter) || !isset($config->ficheinter->enabled)) {
@@ -95,7 +95,7 @@ class modFicheinter extends DolibarrModules
 		$this->boxes = array(0=>array('file'=>'box_ficheinter.php', 'enabledbydefaulton'=>'Home'));
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'ficheinter';
 		$r = 0;
 

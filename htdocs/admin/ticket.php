@@ -61,7 +61,7 @@ $scandir = GETPOST('scan_dir', 'alpha');
 $type = 'ticket';
 
 $error = 0;
-$reg = array();
+$reg = [];
 
 // Initiate status list
 $statuslist = array(
@@ -384,7 +384,7 @@ print '<br>';
 print load_fiche_titre($langs->trans("TicketsModelModule"), '', '');
 
 // Load array def with activated templates
-$def = array();
+$def = [];
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
@@ -426,7 +426,7 @@ foreach ($dirmodels as $reldir) {
 		if (is_dir($dir)) {
 			$handle = opendir($dir);
 			if (is_resource($handle)) {
-				$filelist = array();
+				$filelist = [];
 				while (($file = readdir($handle)) !== false) {
 					$filelist[] = $file;
 				}
@@ -619,7 +619,7 @@ print '</tr>';
 
 print '</table>';
 
-print $formcategory->buttonsSaveCancel("Save", '', array(), 0, 'reposition');
+print $formcategory->buttonsSaveCancel("Save", '', [], 0, 'reposition');
 
 print '</form>';
 
@@ -713,7 +713,7 @@ print '</td></tr>';
 
 print '</table>';
 
-print $formcategory->buttonsSaveCancel("Save", '', array(), 0, 'reposition');
+print $formcategory->buttonsSaveCancel("Save", '', [], 0, 'reposition');
 
 print '</form>';
 

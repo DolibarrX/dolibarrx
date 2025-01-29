@@ -53,7 +53,7 @@ abstract class ActionsContactCardCommon
 	/**
 	 * @var array<string,mixed> Template container
 	 */
-	public $tpl = array();
+	public $tpl = [];
 	//!
 	/**
 	 * @var Contact Object container
@@ -69,7 +69,7 @@ abstract class ActionsContactCardCommon
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -206,7 +206,7 @@ abstract class ActionsContactCardCommon
 			}
 
 			// Linked element
-			$this->tpl['contact_element'] = array();
+			$this->tpl['contact_element'] = [];
 			$i = 0;
 
 			$this->object->load_ref_elements();

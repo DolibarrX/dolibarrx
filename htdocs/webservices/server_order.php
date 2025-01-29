@@ -143,7 +143,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($elementtype, true);
 $extrafield_line_array = null;
 if (is_array($extrafields->attributes) && $extrafields->attributes[$elementtype]['count'] > 0) {
-	$extrafield_line_array = array();
+	$extrafield_line_array = [];
 }
 if (isset($extrafields->attributes[$elementtype]['label']) && is_array($extrafields->attributes[$elementtype]['label']) && count($extrafields->attributes[$elementtype]['label'])) {
 	foreach ($extrafields->attributes[$elementtype]['label'] as $key => $label) {
@@ -177,7 +177,7 @@ $server->wsdl->addComplexType(
 		'array',
 		'',
 		'SOAP-ENC:Array',
-		array(),
+		[],
 		array(
 				array(
 						'ref'=>'SOAP-ENC:arrayType',
@@ -246,7 +246,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($elementtype, true);
 $extrafield_array = null;
 if (is_array($extrafields->attributes) && $extrafields->attributes[$elementtype]['count'] > 0) {
-	$extrafield_array = array();
+	$extrafield_array = [];
 }
 if (isset($extrafields->attributes[$elementtype]['label']) && is_array($extrafields->attributes[$elementtype]['label']) && count($extrafields->attributes[$elementtype]['label'])) {
 	foreach ($extrafields->attributes[$elementtype]['label'] as $key => $label) {
@@ -280,7 +280,7 @@ $server->wsdl->addComplexType(
 		'array',
 		'',
 		'SOAP-ENC:Array',
-		array(),
+		[],
 		array(
 				array(
 						'ref'=>'SOAP-ENC:arrayType',
@@ -390,7 +390,7 @@ function getOrder($authentication, $id = 0, $ref = '', $ref_ext = '')
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -424,7 +424,7 @@ function getOrder($authentication, $id = 0, $ref = '', $ref_ext = '')
 				}
 
 				if (!$error) {
-					$linesresp = array();
+					$linesresp = [];
 					$i = 0;
 					foreach ($order->lines as $line) {
 						//var_dump($line); exit;
@@ -533,7 +533,7 @@ function getOrdersForThirdParty($authentication, $idthirdparty)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -553,7 +553,7 @@ function getOrdersForThirdParty($authentication, $idthirdparty)
 	}
 
 	if (!$error) {
-		$linesorders = array();
+		$linesorders = [];
 
 		$sql = 'SELECT c.rowid as orderid';
 		$sql .= ' FROM '.MAIN_DB_PREFIX.'order as c';
@@ -583,7 +583,7 @@ function getOrdersForThirdParty($authentication, $idthirdparty)
 
 				if (!$error) {
 					// Define lines of invoice
-					$linesresp = array();
+					$linesresp = [];
 					foreach ($order->lines as $line) {
 						$linesresp[] = array(
 						'id' => $line->rowid,
@@ -692,7 +692,7 @@ function createOrder($authentication, $order)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -732,14 +732,14 @@ function createOrder($authentication, $order)
 		}
 
 		// Trick because nusoap does not store data with same structure if there is one or several lines
-		$arrayoflines = array();
+		$arrayoflines = [];
 		if (isset($order['lines']['line'][0])) {
 			$arrayoflines = $order['lines']['line'];  // @phan-suppress-current-line PhanTypeInvalidDimOffset
 		} else {
 			$arrayoflines = $order['lines'];
 		}
 		if (!is_array($arrayoflines)) {
-			$arrayoflines = array();
+			$arrayoflines = [];
 		}
 
 		foreach ($arrayoflines as $key => $line) {
@@ -830,7 +830,7 @@ function validOrder($authentication, $id = 0, $id_warehouse = 0)
 	dol_syslog("Function: validOrder login=".$authentication['login']." id=".$id." id_warehouse=".$id_warehouse);
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -903,7 +903,7 @@ function updateOrder($authentication, $order)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;

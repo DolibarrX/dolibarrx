@@ -58,10 +58,10 @@ if (!$user->admin) {
  * Action
  */
 
-$parameters = array();
-$rules = array();
-$tab_apply = array();
-$tab_rules_type = array();
+$parameters = [];
+$rules = [];
+$tab_apply = [];
+$tab_rules_type = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');

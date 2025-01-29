@@ -226,7 +226,7 @@ if ($object->id > 0) {
 
 	print dol_get_fiche_head($head, 'documents', $titre, -1, $picture);
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	if ($resHook < 0) {

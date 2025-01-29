@@ -68,7 +68,7 @@ if (!defined("MAIN_MOTD")) {
  * Action
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -79,7 +79,7 @@ if (GETPOST('cancel', 'alpha')) {
 }
 
 // Convert action set_XXX and del_XXX to set var (this is used when no javascript on for ajax_constantonoff)
-$regs = array();
+$regs = [];
 if (preg_match('/^(set|del)_([A-Z_]+)$/', $action, $regs)) {
 	if ($regs[1] == 'set') {
 		dolibarr_set_const($db, $regs[2], 1, 'chaine', 0, '', $config->entity);
@@ -145,110 +145,110 @@ if ($action == 'update') {
 			dolibarr_set_const($db, 'THEME_ELDY_BORDER_RADIUS', GETPOSTINT('THEME_ELDY_BORDER_RADIUS'), 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_BACKBODY'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_BACKBODY'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_BACKBODY', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_BACKBODY', $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TOPMENU_BACK1'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TOPMENU_BACK1'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_TOPMENU_BACK1', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_TOPMENU_BACK1', $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_VERMENU_BACK1'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_VERMENU_BACK1'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_VERMENU_BACK1', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_VERMENU_BACK1', $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTTITLENOTAB'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTTITLENOTAB'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_TEXTTITLENOTAB', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_TEXTTITLENOTAB', $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_BACKTITLE1'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_BACKTITLE1'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_BACKTITLE1', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_BACKTITLE1', $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTTITLE'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTTITLE'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_TEXTTITLE', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_TEXTTITLE', $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTTITLELINK'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTTITLELINK'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_TEXTTITLELINK', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_TEXTTITLELINK', $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_LINEIMPAIR1'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_LINEIMPAIR1'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_LINEIMPAIR1', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_LINEIMPAIR1', $val, 'chaine', 0, '', $config->entity);
 		}
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_LINEIMPAIR1'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_LINEIMPAIR1'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_LINEIMPAIR2', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_LINEIMPAIR2', $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_LINEPAIR1'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_LINEPAIR1'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_LINEPAIR1', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_LINEPAIR1', $val, 'chaine', 0, '', $config->entity);
 		}
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_LINEPAIR1'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_LINEPAIR1'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_LINEPAIR2', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_LINEPAIR2', $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTLINK'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTLINK'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_TEXTLINK', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_TEXTLINK', $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_USE_HOVER'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_USE_HOVER'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_USE_HOVER', $config->entity);
 		} else {
 			dolibarr_set_const($db, "THEME_ELDY_USE_HOVER", $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_USE_CHECKED'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_USE_CHECKED'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_USE_CHECKED', $config->entity);
 		} else {
 			dolibarr_set_const($db, "THEME_ELDY_USE_CHECKED", $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_BTNACTION'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_BTNACTION'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_BTNACTION', $config->entity);
 		} else {
 			dolibarr_set_const($db, 'THEME_ELDY_BTNACTION', $val, 'chaine', 0, '', $config->entity);
 		}
 
-		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTBTNACTION'), array()))));
+		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTBTNACTION'), []))));
 		if ($val == '') {
 			dolibarr_del_const($db, 'THEME_ELDY_TEXTBTNACTION', $config->entity);
 		} else {
@@ -291,7 +291,7 @@ if ($action == 'update') {
 		$varforimage = 'imagebackground';
 		$dirforimage = $config->mycompany->dir_output . '/logos/';
 		if ($_FILES[$varforimage]["tmp_name"]) {
-			$reg = array();
+			$reg = [];
 			if (preg_match('/([^\\/:]+)$/i', $_FILES[$varforimage]["name"], $reg)) {
 				$original_file = $reg[1];
 
@@ -362,7 +362,7 @@ llxHeader(
 		'/includes/ace/src/ext-statusbar.js',
 		'/includes/ace/src/ext-language_tools.js',
 	),
-	array(),
+	[],
 	'',
 	'mod-admin page-ihm'
 );
@@ -406,14 +406,14 @@ if ($mode == 'other') {
 	// Default language
 	print '<tr class="oddeven"><td>'.$langs->trans("DefaultLanguage").'</td><td>';
 	print img_picture('', 'language', 'class="picturefixedwidth"');
-	print $formadmin->select_language(getDolGlobalString('MAIN_LANG_DEFAULT'), 'MAIN_LANG_DEFAULT', 1, array(), '', 0, 0, 'minwidth300', 2);
+	print $formadmin->select_language(getDolGlobalString('MAIN_LANG_DEFAULT'), 'MAIN_LANG_DEFAULT', 1, [], '', 0, 0, 'minwidth300', 2);
 	//print '<input class="button button-save smallpaddingimp" type="submit" name="submit" value="'.$langs->trans("Save").'">';
 	print '</td>';
 	print '</tr>';
 
 	// Multilingual GUI
 	print '<tr class="oddeven"><td>' . $langs->trans("EnableMultilangInterface") . '</td><td>';
-	print ajax_constantonoff("MAIN_MULTILANGS", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'language');
+	print ajax_constantonoff("MAIN_MULTILANGS", [], $config->entity, 0, 0, 1, 0, 0, 0, '', 'language');
 	print '</td>';
 	print '</tr>';
 
@@ -441,7 +441,7 @@ if ($mode == 'other') {
 	if (!empty($config->use_javascript_ajax)) {
 		// Show Quick Add link
 		print '<tr class="oddeven"><td>' . $langs->trans("ShowQuickAddLink") . '</td><td>';
-		print ajax_constantonoff("MAIN_USE_TOP_MENU_QUICKADD_DROPDOWN", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
+		print ajax_constantonoff("MAIN_USE_TOP_MENU_QUICKADD_DROPDOWN", [], $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 		print '</td>';
 		print '</tr>';
 	}
@@ -449,7 +449,7 @@ if ($mode == 'other') {
 	// Hide wiki link on login page
 	$pictureHelp = '<span class="fa fa-question-circle"></span>';
 	print '<tr class="oddeven"><td>' . str_replace('{picture}', $pictureHelp, $langs->trans("DisableLinkToHelp", '{picture}')) . '</td><td>';
-	print ajax_constantonoff("MAIN_HELP_DISABLELINK", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
+	print ajax_constantonoff("MAIN_HELP_DISABLELINK", [], $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 	//print $form->selectyesno('MAIN_HELP_DISABLELINK', isset($config->global->MAIN_HELP_DISABLELINK) ? $config->global->MAIN_HELP_DISABLELINK : 0, 1);
 	print '</td>';
 	print '</tr>';
@@ -472,7 +472,7 @@ if ($mode == 'other') {
 
 	// Display checkboxes and fields menu left / right
 	print '<tr class="oddeven"><td>' . $langs->trans("MAIN_CHECKBOX_LEFT_COLUMN") . '</td><td>';
-	print ajax_constantonoff("MAIN_CHECKBOX_LEFT_COLUMN", array(), $config->entity, 0, 0, 1, 0, 0, 1, '', 'other');
+	print ajax_constantonoff("MAIN_CHECKBOX_LEFT_COLUMN", [], $config->entity, 0, 0, 1, 0, 0, 1, '', 'other');
 	print '</td>';
 	print '</tr>';
 
@@ -504,14 +504,14 @@ if ($mode == 'other') {
 	// Hide unauthorized menus
 	print '<tr class="oddeven"><td>' . $langs->trans("HideUnauthorizedMenu") . '</td><td>';
 	//print $form->selectyesno('MAIN_MENU_HIDE_UNAUTHORIZED', isset($config->global->MAIN_MENU_HIDE_UNAUTHORIZED) ? $config->global->MAIN_MENU_HIDE_UNAUTHORIZED : 0, 1);
-	print ajax_constantonoff("MAIN_MENU_HIDE_UNAUTHORIZED", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
+	print ajax_constantonoff("MAIN_MENU_HIDE_UNAUTHORIZED", [], $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 	print '</td>';
 	print '</tr>';
 
 	// Hide unauthorized button
 	print '<tr class="oddeven"><td>' . $langs->trans("ButtonHideUnauthorized") . '</td><td>';
 	//print $form->selectyesno('MAIN_BUTTON_HIDE_UNAUTHORIZED', isset($config->global->MAIN_BUTTON_HIDE_UNAUTHORIZED) ? $config->global->MAIN_BUTTON_HIDE_UNAUTHORIZED : 0, 1);
-	print ajax_constantonoff("MAIN_BUTTON_HIDE_UNAUTHORIZED", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
+	print ajax_constantonoff("MAIN_BUTTON_HIDE_UNAUTHORIZED", [], $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 	print '</td>';
 	print '</tr>';
 
@@ -527,7 +527,7 @@ if ($mode == 'other') {
 
 	// Show search area in top menu
 	print '<tr class="oddeven"><td>' . $langs->trans("ShowSearchAreaInTopMenu") . '</td><td>';
-	print ajax_constantonoff("MAIN_USE_TOP_MENU_SEARCH_DROPDOWN", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
+	print ajax_constantonoff("MAIN_USE_TOP_MENU_SEARCH_DROPDOWN", [], $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 	print '</td>';
 	print '</tr>';
 
@@ -541,7 +541,7 @@ if ($mode == 'other') {
 
 	// Disable javascript and ajax
 	print '<tr class="oddeven"><td>' . $form->textWithPicture($langs->trans("DisableJavascript"), $langs->trans("DisableJavascriptNote")) . '</td><td>';
-	print ajax_constantonoff("MAIN_DISABLE_JAVASCRIPT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
+	print ajax_constantonoff("MAIN_DISABLE_JAVASCRIPT", [], $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 	print '</td>';
 	print '</tr>';
 
@@ -592,74 +592,74 @@ if ($mode == 'dashboard') {
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableGlobal') . '</td><td>';
-	print ajax_constantonoff("MAIN_DISABLE_GLOBAL_WORKBOARD", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+	print ajax_constantonoff("MAIN_DISABLE_GLOBAL_WORKBOARD", [], $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 	print '</td>';
 	print '</tr>';
 
 	if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD')) {
 		// Block meteo
 		print '<tr class="oddeven"><td>' . $langs->trans('MAIN_DISABLE_METEO') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_METEO", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_METEO", [], $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block agenda
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockAgenda') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_AGENDA", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_AGENDA", [], $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block agenda
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockProject') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_PROJECT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_PROJECT", [], $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block customer
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockCustomer') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_CUSTOMER", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_CUSTOMER", [], $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block supplier
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockSupplier') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_SUPPLIER", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_SUPPLIER", [], $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block contract
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockContract') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_CONTRACT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_CONTRACT", [], $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block ticket
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockTicket') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_TICKET", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_TICKET", [], $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block bank
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockBank') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_BANK", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_BANK", [], $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block member
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockMember') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_ADHERENT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_ADHERENT", [], $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block expense report
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockExpenseReport') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_EXPENSEREPORT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_EXPENSEREPORT", [], $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block holiday
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockHoliday') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_HOLIDAY", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_HOLIDAY", [], $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 	}
@@ -683,7 +683,7 @@ if ($mode == 'login') {
 	// Hide helpcenter link on login page
 	/*
 	print '<tr class="oddeven"><td>' . $langs->trans("DisableLinkToHelpCenter") . '</td><td>';
-	print ajax_constantonoff("MAIN_HELPCENTER_DISABLELINK", array(), $config->entity, 0, 0, 0, 0, 0, 0, '', 'login');
+	print ajax_constantonoff("MAIN_HELPCENTER_DISABLELINK", [], $config->entity, 0, 0, 0, 0, 0, 0, '', 'login');
 	print '</td>';
 	print '</tr>';
 	*/

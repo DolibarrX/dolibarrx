@@ -79,7 +79,7 @@ class mailing_fraise extends MailingTargets
 		$langs->load("members");
 
 		// Array for requests for statistics board
-		$statssql = array();
+		$statssql = [];
 
 		$statssql[0] = "SELECT '".$this->db->escape($langs->trans("FundationMembers"))."' as label, count(*) as nb";
 		$statssql[0] .= " FROM ".MAIN_DB_PREFIX."member where statut = 1 and entity IN (".getEntity('member').")";
@@ -242,7 +242,7 @@ class mailing_fraise extends MailingTargets
 		// Load translation files required by the page
 		$langs->loadLangs(array("members", "companies"));
 
-		$cibles = array();
+		$cibles = [];
 		$now = dol_now();
 
 		$dateendsubscriptionafter = dol_mktime(GETPOSTINT('subscriptionafterhour'), GETPOSTINT('subscriptionaftermin'), GETPOSTINT('subscriptionaftersec'), GETPOSTINT('subscriptionaftermonth'), GETPOSTINT('subscriptionafterday'), GETPOSTINT('subscriptionafteryear'));

@@ -238,7 +238,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-admin page-oauth');
 
 // Confirmation of action process
 if ($action == 'delete') {
-	$formquestion = array();
+	$formquestion = [];
 	$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?provider='.GETPOST('provider').'&label='.GETPOST('label'), $langs->trans('OAuthServiceConfirmDeleteTitle'), $langs->trans('OAuthServiceConfirmDeleteMessage'), 'confirm_delete', $formquestion, 0, 1, 220);
 	print $formconfirm;
 }
@@ -465,7 +465,7 @@ if (count($listinsetup) > 0) {
 			} else {
 				$availablescopes = array_flip(explode(',', $supportedoauth2array[$keyforsupportedoauth2array]['availablescopes']));
 				$currentscopes = explode(',', getDolGlobalString($key[4]));
-				$scopestodispay = array();
+				$scopestodispay = [];
 				foreach ($availablescopes as $keyscope => $valscope) {
 					if (in_array($keyscope, $currentscopes)) {
 						$scopestodispay[$keyscope] = 1;

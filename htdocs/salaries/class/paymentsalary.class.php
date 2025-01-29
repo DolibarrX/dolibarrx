@@ -94,7 +94,7 @@ class PaymentSalary extends CommonObject
 	/**
 	 * @var array<float|string>	Array of amounts
 	 */
-	public $amounts = array();
+	public $amounts = [];
 
 	/**
 	 * @var int 			Payment type ID

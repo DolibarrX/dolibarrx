@@ -46,7 +46,7 @@ class ExtraLanguages
 	/**
 	 * @var string[] Array of Error code (or message)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string DB Error number
@@ -63,8 +63,8 @@ class ExtraLanguages
 	{
 		$this->db = $db;
 		$this->error = '';
-		$this->errors = array();
-		$this->attributes = array();
+		$this->errors = [];
+		$this->attributes = [];
 	}
 
 
@@ -85,7 +85,7 @@ class ExtraLanguages
 		global $config;
 
 		if (empty($elementtype)) {
-			return array();
+			return [];
 		}
 
 		if ($elementtype == 'thirdparty') {
@@ -99,14 +99,14 @@ class ExtraLanguages
 		}
 
 
-		$array_name_label = array();
+		$array_name_label = [];
 		if (getDolGlobalString('MAIN_USE_ALTERNATE_TRANSLATION_FOR')) {
 			$tmpelement = explode(';', getDolGlobalString('MAIN_USE_ALTERNATE_TRANSLATION_FOR'));
 			foreach ($tmpelement as $elementstring) {
-				$reg = array();
+				$reg = [];
 				preg_match('/^(.*):(.*)$/', $elementstring, $reg);
 				$element = $reg[1];
-				$array_name_label[$element] = array();
+				$array_name_label[$element] = [];
 				$tmpfields = explode(',', $reg[2]);
 				foreach ($tmpfields as $field) {
 					//var_dump($fields);

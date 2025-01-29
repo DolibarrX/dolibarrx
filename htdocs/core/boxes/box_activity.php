@@ -101,7 +101,7 @@ class box_activity extends ModeleBoxes
 			include_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 			$propalstatic = new Propal($this->db);
 
-			$data = array();
+			$data = [];
 
 			$sql = "SELECT p.fk_statut, SUM(p.total_ttc) as Mnttot, COUNT(*) as nb";
 			$sql .= " FROM (".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."propal as p";
@@ -190,7 +190,7 @@ class box_activity extends ModeleBoxes
 
 			$langs->load("orders");
 
-			$data = array();
+			$data = [];
 
 			$sql = "SELECT c.fk_statut, sum(c.total_ttc) as Mnttot, count(*) as nb";
 			$sql .= " FROM (".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."order as c";
@@ -276,7 +276,7 @@ class box_activity extends ModeleBoxes
 			$facturestatic = new Facture($this->db);
 
 			// part 1
-			$data = array();
+			$data = [];
 			$sql = "SELECT f.fk_statut, SUM(f.total_ttc) as Mnttot, COUNT(*) as nb";
 			$sql .= " FROM (".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."facture as f";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
@@ -357,7 +357,7 @@ class box_activity extends ModeleBoxes
 			}
 
 			// part 2
-			$data = array();
+			$data = [];
 			$sql = "SELECT f.fk_statut, SUM(f.total_ttc) as Mnttot, COUNT(*) as nb";
 			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."facture as f";
 			$sql .= " WHERE f.entity IN (".getEntity('invoice').')';

@@ -123,7 +123,7 @@ class EvalMath
 	/**
 	 * @var array<string,array{args:string[],func:array<string|float>}>  user-defined functions
 	 */
-	public $f = array();
+	public $f = [];
 
 	/**
 	 * @var string[] constants
@@ -178,7 +178,7 @@ class EvalMath
 		}
 		// ===============
 		// is it a variable assignment?
-		$matches = array();
+		$matches = [];
 		if (preg_match('/^\s*([a-z]\w*)\s*=\s*(.+)$/', $expr, $matches)) {
 			if (in_array($matches[1], $this->vb)) { // make sure we're not assigning to a constant
 				return $this->trigger(1, "cannot assign to constant '$matches[1]'", $matches[1]);
@@ -238,7 +238,7 @@ class EvalMath
 	 */
 	private function funcs() // @phpstan-ignore-line
 	{
-		$output = array();
+		$output = [];
 		foreach ($this->f as $fnn => $dat) {
 			$output[] = $fnn.'('.implode(',', $dat['args']).')';
 		}
@@ -257,7 +257,7 @@ class EvalMath
 	{
 		$index = 0;
 		$stack = new EvalMathStack();
-		$output = array(); // postfix form of expression, to be passed to pfx()
+		$output = []; // postfix form of expression, to be passed to pfx()
 		$expr = trim(strtolower($expr));
 
 		$ops = array('+', '-', '*', '/', '^', '_');
@@ -267,7 +267,7 @@ class EvalMath
 		$expecting_op = false; // we use this in syntax-checking the expression
 		// and determining when a - is a negation
 
-		$matches = array();
+		$matches = [];
 		if (preg_match("/[^\w\s+*^\/()\.,-]/", $expr, $matches)) { // make sure the characters are all good
 			return $this->trigger(4, "illegal character '".$matches[0]."'", $matches[0]);
 		}
@@ -275,7 +275,7 @@ class EvalMath
 		while (1) { // 1 Infinite Loop ;)
 			$op = substr($expr, $index, 1); // get the first character at the current index
 			// find out if we're currently at the beginning of a number/variable/function/parenthesis/operand
-			$match = array();
+			$match = [];
 			$ex = preg_match('/^([a-z]\w*\(?|\d+(?:\.\d*)?|\.\d+|\()/', substr($expr, $index), $match);
 			// ===============
 			if ($op == '-' and !$expecting_op) { // is it a negation instead of a minus?
@@ -399,13 +399,13 @@ class EvalMath
 	 * @param array<string,string>	$vars       	Array
 	 * @return string|false							Output or false if error
 	 */
-	private function pfx($tokens, $vars = array())
+	private function pfx($tokens, $vars = [])
 	{
 		$stack = new EvalMathStack();
 
 		foreach ($tokens as $token) { // nice and easy
 			// if the token is a binary operator, pop two values off the stack, do the operation, and push the result back on
-			$matches = array();
+			$matches = [];
 			if (in_array($token, array('+', '-', '*', '/', '^'))) {
 				if (is_null($op2 = $stack->pop())) {
 					return $this->trigger(12, "internal error");
@@ -451,7 +451,7 @@ class EvalMath
 					eval('$stack->push('.$fnn.'($op1));'); // perfectly safe eval()
 				} elseif (array_key_exists($fnn, $this->f)) { // user function
 					// get args
-					$args = array();
+					$args = [];
 					for ($i = count($this->f[$fnn]['args']) - 1; $i >= 0; $i--) {
 						if (is_null($args[$this->f[$fnn]['args'][$i]] = $stack->pop())) {
 							return $this->trigger(16, "internal error");
@@ -504,7 +504,7 @@ class EvalMath
 class EvalMathStack
 {
 	/** @var mixed[] */
-	public $stack = array();
+	public $stack = [];
 
 	/** @var int */
 	public $count = 0;

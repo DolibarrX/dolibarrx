@@ -313,7 +313,7 @@ abstract class DoliDB implements Database
 			$oldsortorder = '';
 			$return = '';
 			$fields = explode(',', $sortfield);
-			$orders = (!empty($sortorder) ? explode(',', $sortorder) : array());
+			$orders = (!empty($sortorder) ? explode(',', $sortorder) : []);
 			$i = 0;
 			foreach ($fields as $val) {
 				if (!$return) {
@@ -428,7 +428,7 @@ abstract class DoliDB implements Database
 
 		$resql = $this->query($sql);
 		if ($resql) {
-			$results = array();
+			$results = [];
 			if ($this->num_rows($resql) > 0) {
 				while ($obj = $this->fetch_object($resql)) {
 					$results[] = $obj;

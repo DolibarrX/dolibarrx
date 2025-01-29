@@ -173,8 +173,8 @@ if (empty($resHook)) {
 		$search_noteprivate = '';
 		$search_status = '';
 		$option = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 }
 
@@ -201,7 +201,7 @@ if (GETPOST("orphelins", "alpha")) {
 	$sqlfields = $sql; // $sql fields to remove for count total
 
 	// Add fields from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 	$sql .= " FROM ".MAIN_DB_PREFIX."paiement as p LEFT JOIN ".MAIN_DB_PREFIX."c_paiement as c ON p.fk_paiement = c.id";
@@ -210,7 +210,7 @@ if (GETPOST("orphelins", "alpha")) {
 	$sql .= " AND pf.fk_facture IS NULL";
 
 	// Add where from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 } else {
@@ -223,7 +223,7 @@ if (GETPOST("orphelins", "alpha")) {
 	$sql .= ", SUM(pf.amount) as totalamount, COUNT(f.rowid) as nbinvoices";
 
 	// Add fields from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 
@@ -296,7 +296,7 @@ if (GETPOST("orphelins", "alpha")) {
 	}
 
 	// Add where from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 
@@ -536,7 +536,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -621,7 +621,7 @@ if (isset($extrafields->attributes[$object->table_element]['computed']) && is_ar
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {

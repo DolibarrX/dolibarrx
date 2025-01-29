@@ -36,7 +36,7 @@ abstract class CommonHookActions
 	/**
 	 * @var array<mixed|mixed[]> 	Array of results.
 	 */
-	public $results = array();
+	public $results = [];
 
 	/**
 	 * @var string
@@ -46,7 +46,7 @@ abstract class CommonHookActions
 	/**
 	 * @var string[]
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * Check context of hook

@@ -131,10 +131,10 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 			$this->posxtotalttc -= 20;
 		}
 
-		$this->tva = array();
-		$this->tva_array = array();
-		$this->localtax1 = array();
-		$this->localtax2 = array();
+		$this->tva = [];
+		$this->tva_array = [];
+		$this->localtax1 = [];
+		$this->localtax2 = [];
 		$this->atleastoneratenotnull = 0;
 		$this->atleastonediscount = 0;
 
@@ -179,7 +179,7 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "suppliers", "companies", "bills", "dict", "products"));
 
-		$object->factures = array();
+		$object->factures = [];
 
 		if ($config->fournisseur->payment->dir_output) {
 			$object->fetch_thirdparty();

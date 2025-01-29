@@ -101,7 +101,7 @@ if ($action == 'confirm_valide' && $confirm == 'yes' && $user->rights->tax->char
 	{
 		$db->commit();
 
-		$factures=array();	// TODO Get all id of invoices linked to this payment
+		$factures=[];	// TODO Get all id of invoices linked to this payment
 		foreach($factures as $id)
 		{
 			$fac = new Facture($db);
@@ -141,7 +141,7 @@ $form = new Form($db);
 
 $h = 0;
 
-$head = array();
+$head = [];
 $head[$h][0] = DOL_URL_ROOT.'/compta/payment_vat/card.php?id='.$id;
 $head[$h][1] = $langs->trans("VATPayment");
 $hselected = (string) $h;

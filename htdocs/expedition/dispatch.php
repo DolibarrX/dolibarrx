@@ -70,7 +70,7 @@ $cancel = GETPOST('cancel', 'alpha');
 $confirm = GETPOST('confirm', 'alpha');
 
 $error = 0;
-$errors = array();
+$errors = [];
 
 if ($user->socid) {
 	$socid = $user->socid;
@@ -120,7 +120,7 @@ $permissiontoadd = $usercancreate; // Used by the include of actions_addupdatede
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -138,7 +138,7 @@ if ($action == 'updatelines' && $usercancreate) {
 
 	foreach ($_POST as $key => $value) {
 		// without batch module enabled
-		$reg = array();
+		$reg = [];
 		if (preg_match('/^product_.*([0-9]+)_([0-9]+)$/i', $key, $reg)) {
 			$pos++;
 			if (preg_match('/^product_([0-9]+)_([0-9]+)$/i', $key, $reg)) {
@@ -557,7 +557,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 		print '<table class="noborder centpercent">';
 
 		// Get list of lines of the shipment $products_dispatched, with qty dispatched for each product id
-		$products_dispatched = array();
+		$products_dispatched = [];
 		$sql = "SELECT ed.fk_elementdet as rowid, sum(ed.qty) as qty";
 		$sql .= " FROM ".MAIN_DB_PREFIX."expeditiondet as ed";
 		$sql .= " WHERE ed.fk_expedition = ".((int) $object->id);
@@ -582,7 +582,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 		$sql = "SELECT l.rowid, l.fk_product, l.subprice, l.remise_percent, '' AS sref, l.qty as qty,";
 		$sql .= " p.ref, p.label, p.tobatch, p.fk_default_warehouse, p.barcode";
 		// Enable hooks to alter the SQL query (SELECT)
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks(
 			'printFieldListSelect',
 			$parameters,
@@ -601,7 +601,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 			$sql .= " AND l.product_type = 0";
 		}
 		// Enable hooks to alter the SQL query (WHERE)
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks(
 			'printFieldListWhere',
 			$parameters,
@@ -668,7 +668,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 				print '</td>';
 
 				// Enable hooks to append additional columns
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks(
 					'printFieldListTitle',
 					$parameters,
@@ -687,7 +687,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 			$nbproduct = 0; // Nb of predefined product lines to dispatch (already done or not) if SUPPLIER_ORDER_DISABLE_STOCK_DISPATCH_WHEN_TOTAL_REACHED is off (default)
 			// or nb of line that remain to dispatch if SUPPLIER_ORDER_DISABLE_STOCK_DISPATCH_WHEN_TOTAL_REACHED is on.
 
-			$config->cache['product'] = array();
+			$config->cache['product'] = [];
 
 			// Loop on each line of origin order
 			while ($i < $num) {
@@ -910,9 +910,9 @@ if ($object->id > 0 || !empty($object->ref)) {
 								// Warehouse
 								print '<td class="right">';
 								if (count($listwarehouses) > 1) {
-									print $formproduct->selectWarehouses(GETPOST("entrepot".$suffix) ? GETPOST("entrepot".$suffix) : $objd->fk_entrepot, "entrepot".$suffix, '', 1, 0, $objp->fk_product, '', 1, 0, array(), 'csswarehouse'.$suffix);
+									print $formproduct->selectWarehouses(GETPOST("entrepot".$suffix) ? GETPOST("entrepot".$suffix) : $objd->fk_entrepot, "entrepot".$suffix, '', 1, 0, $objp->fk_product, '', 1, 0, [], 'csswarehouse'.$suffix);
 								} elseif (count($listwarehouses) == 1) {
-									print $formproduct->selectWarehouses(GETPOST("entrepot".$suffix) ? GETPOST("entrepot".$suffix) : $objd->fk_entrepot, "entrepot".$suffix, '', 0, 0, $objp->fk_product, '', 1, 0, array(), 'csswarehouse'.$suffix);
+									print $formproduct->selectWarehouses(GETPOST("entrepot".$suffix) ? GETPOST("entrepot".$suffix) : $objd->fk_entrepot, "entrepot".$suffix, '', 0, 0, $objp->fk_product, '', 1, 0, [], 'csswarehouse'.$suffix);
 								} else {
 									$langs->load("errors");
 									print $langs->trans("ErrorNoWarehouseDefined");
@@ -1060,9 +1060,9 @@ if ($object->id > 0 || !empty($object->ref)) {
 							// Warehouse
 							print '<td class="right">';
 							if (count($listwarehouses) > 1) {
-								print $formproduct->selectWarehouses(GETPOST("entrepot".$suffix) ? GETPOST("entrepot".$suffix) : ($objp->fk_default_warehouse ? $objp->fk_default_warehouse : ''), "entrepot".$suffix, '', 1, 0, $objp->fk_product, '', 1, 0, array(), 'csswarehouse'.$suffix);
+								print $formproduct->selectWarehouses(GETPOST("entrepot".$suffix) ? GETPOST("entrepot".$suffix) : ($objp->fk_default_warehouse ? $objp->fk_default_warehouse : ''), "entrepot".$suffix, '', 1, 0, $objp->fk_product, '', 1, 0, [], 'csswarehouse'.$suffix);
 							} elseif (count($listwarehouses) == 1) {
-								print $formproduct->selectWarehouses(GETPOST("entrepot".$suffix) ? GETPOST("entrepot".$suffix) : ($objp->fk_default_warehouse ? $objp->fk_default_warehouse : ''), "entrepot".$suffix, '', 0, 0, $objp->fk_product, '', 1, 0, array(), 'csswarehouse'.$suffix);
+								print $formproduct->selectWarehouses(GETPOST("entrepot".$suffix) ? GETPOST("entrepot".$suffix) : ($objp->fk_default_warehouse ? $objp->fk_default_warehouse : ''), "entrepot".$suffix, '', 0, 0, $objp->fk_product, '', 1, 0, [], 'csswarehouse'.$suffix);
 							} else {
 								$langs->load("errors");
 								print $langs->trans("ErrorNoWarehouseDefined");
@@ -1104,7 +1104,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 			//$checkboxlabel = $langs->trans("CloseReceivedSupplierOrdersAutomatically", $langs->transnoentitiesnoconv('StatusOrderReceivedAll'));
 
 			print '<div class="center">';
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 			// modified by hook
 			if (empty($resHook)) {

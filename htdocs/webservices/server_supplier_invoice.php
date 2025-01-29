@@ -137,7 +137,7 @@ $server->wsdl->addComplexType(
 	'array',
 	'',
 	'SOAP-ENC:Array',
-	array(),
+	[],
 	array(
 		array('ref' => 'SOAP-ENC:arrayType', 'wsdl:arrayType' => 'tns:line[]')
 	),
@@ -183,7 +183,7 @@ $server->wsdl->addComplexType(
 	'array',
 	'',
 	'SOAP-ENC:Array',
-	array(),
+	[],
 	array(
 		array('ref' => 'SOAP-ENC:arrayType', 'wsdl:arrayType' => 'tns:invoice[]')
 	),
@@ -196,7 +196,7 @@ $server->wsdl->addComplexType(
 	'array',
 	'',
 	'SOAP-ENC:Array',
-	array(),
+	[],
 	array(
 		array('ref' => 'SOAP-ENC:arrayType', 'wsdl:arrayType' => 'tns:invoice[]')
 	),
@@ -259,7 +259,7 @@ function getSupplierInvoice($authentication, $id = 0, $ref = '', $ref_ext = '')
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -278,7 +278,7 @@ function getSupplierInvoice($authentication, $id = 0, $ref = '', $ref_ext = '')
 			$invoice = new FactureFournisseur($db);
 			$result = $invoice->fetch($id, $ref, $ref_ext);
 			if ($result > 0) {
-				$linesresp = array();
+				$linesresp = [];
 				$i = 0;
 				foreach ($invoice->lines as $line) {
 					//var_dump($line); exit;
@@ -364,7 +364,7 @@ function getSupplierInvoicesForThirdParty($authentication, $idthirdparty)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -378,7 +378,7 @@ function getSupplierInvoicesForThirdParty($authentication, $idthirdparty)
 	}
 
 	if (!$error) {
-		$linesinvoice = array();
+		$linesinvoice = [];
 
 		$sql = "SELECT f.rowid as facid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
@@ -405,7 +405,7 @@ function getSupplierInvoicesForThirdParty($authentication, $idthirdparty)
 				}
 
 				// Define lines of invoice
-				$linesresp = array();
+				$linesresp = [];
 				foreach ($invoice->lines as $line) {
 					$linesresp[] = array(
 						'id' => $line->rowid,

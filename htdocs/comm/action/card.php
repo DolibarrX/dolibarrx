@@ -99,7 +99,7 @@ if ($fulldayevent) {
 	$datep = dol_mktime($aphour, $apmin, 0, GETPOSTINT("apmonth"), GETPOSTINT("apday"), GETPOSTINT("apyear"), 'tzuserrel');
 	$datef = dol_mktime($p2hour, $p2min, 59, GETPOSTINT("p2month"), GETPOSTINT("p2day"), GETPOSTINT("p2year"), 'tzuserrel');
 }
-$reg = array();
+$reg = [];
 if (GETPOST('datep')) {
 	if (GETPOST('datep') == 'now') {
 		$datep = dol_now();
@@ -154,7 +154,7 @@ if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-$TRemindTypes = array();
+$TRemindTypes = [];
 if (getDolGlobalString('AGENDA_REMINDER_BROWSER')) {
 	$TRemindTypes['browser'] = array('label' => $langs->trans('BrowserPush'), 'disabled' => (getDolGlobalString('AGENDA_REMINDER_BROWSER') ? 0 : 1));
 }
@@ -175,7 +175,7 @@ $usercancreate = $user->hasRight('agenda', 'allactions', 'create') || ((empty($o
 
 $listUserAssignedUpdated = false;
 $listResourceAssignedUpdated = false;
-$assignedtouser = array();
+$assignedtouser = [];
 
 // Remove user to assigned list
 if (empty($resHook) && (GETPOST('removedassigned') || GETPOST('removedassigned') == '0')) {
@@ -184,7 +184,7 @@ if (empty($resHook) && (GETPOST('removedassigned') || GETPOST('removedassigned')
 	if (!empty($_SESSION['assignedtouser'])) {
 		$tmpassigneduserids = json_decode($_SESSION['assignedtouser'], true);
 	} else {
-		$tmpassigneduserids = array();
+		$tmpassigneduserids = [];
 	}
 
 	foreach ($tmpassigneduserids as $key => $val) {
@@ -211,7 +211,7 @@ if (empty($resHook) && (GETPOST('removedassignedresource') || GETPOST('removedas
 	if (!empty($_SESSION['assignedtoresource'])) {
 		$tmpassignedresourceids = json_decode($_SESSION['assignedtoresource'], true);
 	} else {
-		$tmpassignedresourceids = array();
+		$tmpassignedresourceids = [];
 	}
 
 	foreach ($tmpassignedresourceids as $key => $val) {
@@ -236,7 +236,7 @@ if (empty($resHook) && (GETPOST('removedassignedresource') || GETPOST('removedas
 if (empty($resHook) && (GETPOST('addassignedtouser') || GETPOST('updateassignedtouser'))) {
 	// Add a new user
 	if (GETPOST('assignedtouser') > 0) {
-		$assignedtouser = array();
+		$assignedtouser = [];
 		if (!empty($_SESSION['assignedtouser'])) {
 			$assignedtouser = json_decode($_SESSION['assignedtouser'], true);
 		}
@@ -258,7 +258,7 @@ if (empty($resHook) && (GETPOST('addassignedtouser') || GETPOST('updateassignedt
 if (empty($resHook) && (GETPOST('addassignedtoresource') || GETPOST('updateassignedtoresource'))) {
 	// Add a new user
 	if (GETPOST('assignedtoresource') > 0) {
-		$assignedtoresource = array();
+		$assignedtoresource = [];
 		if (!empty($_SESSION['assignedtoresource'])) {
 			$assignedtoresource = json_decode($_SESSION['assignedtoresource'], true);
 		}
@@ -367,7 +367,7 @@ if (empty($resHook) && $action == 'add' && $usercancreate) {
 		$object->type_code = GETPOST('actioncode', 'aZ09');
 	}
 
-	$listofresourceid = array();
+	$listofresourceid = [];
 
 	if (!$error) {
 		// Initialisation of object actioncomm
@@ -428,7 +428,7 @@ if (empty($resHook) && $action == 'add' && $usercancreate) {
 
 		$transparency = (GETPOST("transparency") == 'on' ? 1 : 0);
 
-		$listofuserid = array();
+		$listofuserid = [];
 		if (!empty($_SESSION['assignedtouser'])) {
 			$listofuserid = json_decode($_SESSION['assignedtouser'], true);
 		}
@@ -516,9 +516,9 @@ if (empty($resHook) && $action == 'add' && $usercancreate) {
 		$object->recurrule .= (GETPOST('recurrulefreq', 'alpha') == 'MONTHLY' && GETPOSTISSET('BYMONTHDAY')) ? "_BYMONTHDAY".GETPOST('BYMONTHDAY', 'alpha') : "";
 		$object->recurrule .= (GETPOST('recurrulefreq', 'alpha') == 'WEEKLY' && GETPOSTISSET('BYDAY')) ? "_BYDAY".GETPOST('BYDAY', 'alpha') : "";
 
-		$reg1 = array();
-		$reg2 = array();
-		$reg3 = array();
+		$reg1 = [];
+		$reg2 = [];
+		$reg3 = [];
 		if ($object->recurrule && preg_match('/FREQ=([A-Z]+)/i', $object->recurrule, $reg1)) {
 			$selectedrecurrulefreq = $reg1[1];
 		}
@@ -905,7 +905,7 @@ if (empty($resHook) && $action == 'update' && $usercancreate) {
 		$object->location    = GETPOST('location', "alphanohtml");
 		$object->socid       = GETPOSTINT("socid");
 		$socpeopleassigned   = GETPOST("socpeopleassigned", 'array');
-		$object->socpeopleassigned = array();
+		$object->socpeopleassigned = [];
 		foreach ($socpeopleassigned as $cid) {
 			$object->socpeopleassigned[$cid] = array('id' => $cid);
 		}
@@ -936,7 +936,7 @@ if (empty($resHook) && $action == 'update' && $usercancreate) {
 		$transparency = (GETPOST("transparency") == 'on' ? 1 : 0);
 
 		// Users
-		$listofuserid = array();
+		$listofuserid = [];
 		if (!empty($_SESSION['assignedtouser'])) {	// Now concat assigned users
 			// Restore array with key with same value than param 'id'
 			$tmplist1 = json_decode($_SESSION['assignedtouser'], true);
@@ -951,7 +951,7 @@ if (empty($resHook) && $action == 'update' && $usercancreate) {
 				$listofuserid[$assignedtouser] = array('id' => $assignedtouser, 'mandatory' => 0, 'transparency' => ($user->id == $assignedtouser ? $transparency : '')); // Owner first
 			}
 		}
-		$object->userassigned = array();
+		$object->userassigned = [];
 		$object->userownerid = 0; // Clear old content
 		$i = 0;
 		foreach ($listofuserid as $key => $val) {
@@ -1065,7 +1065,7 @@ if (empty($resHook) && $action == 'update' && $usercancreate) {
 							$reminder->delete($user);
 						}
 					}
-					$object->reminders = array();
+					$object->reminders = [];
 				}
 
 				// Create reminders for every assigned user if reminder is on
@@ -1449,7 +1449,7 @@ if ($action == 'create') {
 		$object->recurrule .= GETPOSTISSET('BYDAY') ? "_BYDAY".GETPOST('BYDAY', 'alpha') : "";
 
 
-		$reg = array();
+		$reg = [];
 		if ($object->recurrule && preg_match('/FREQ=([A-Z]+)/i', $object->recurrule, $reg)) {
 			$selectedrecurrulefreq = $reg[1];
 		}
@@ -1522,9 +1522,9 @@ if ($action == 'create') {
 
 	// Assigned to user
 	print '<tr><td class="tdtop nowrap"><span class="fieldrequired">'.$langs->trans("ActionAffectedTo").'</span></td><td>';
-	$listofuserid = array();
-	$listofcontactid = array();
-	$listofotherid = array();
+	$listofuserid = [];
+	$listofcontactid = [];
+	$listofotherid = [];
 
 	if (empty($donotclearsession)) {
 		$assignedtouser = GETPOST("assignedtouser") ? GETPOST("assignedtouser") : (!empty($object->userownerid) && $object->userownerid > 0 ? $object->userownerid : $user->id);
@@ -1539,7 +1539,7 @@ if ($action == 'create') {
 			$listofuserid = json_decode($_SESSION['assignedtouser'], true);
 		}
 		if (!is_array($listofuserid)) {
-			$listofuserid = array();
+			$listofuserid = [];
 		}
 		$firstelem = reset($listofuserid);
 		if (isset($listofuserid[$firstelem['id']])) {
@@ -1547,7 +1547,7 @@ if ($action == 'create') {
 		}
 	}
 	print '<!-- list of user to assign --><div class="assignedtouser">';
-	print $form->select_dolusers_forevent(($action == 'create' ? 'add' : 'update'), 'assignedtouser', 1, array(), 0, '', array(), 0, 0, 0, 'u.statut:<>:0', 1, $listofuserid, $listofcontactid, $listofotherid);
+	print $form->select_dolusers_forevent(($action == 'create' ? 'add' : 'update'), 'assignedtouser', 1, [], 0, '', [], 0, 0, 0, 'u.statut:<>:0', 1, $listofuserid, $listofcontactid, $listofotherid);
 	print '</div>';
 	print '</td></tr>';
 
@@ -1568,7 +1568,7 @@ if ($action == 'create') {
 		// Categories
 		print '<tr><td class="tdtop nowrap">'.$langs->trans("Resource").'</td><td>';
 
-		$listofresourceid = array();
+		$listofresourceid = [];
 		if (empty($donotclearsession)) {
 			$assignedtoresource = GETPOST("assignedtoresource");
 			if ($assignedtoresource) {
@@ -1580,7 +1580,7 @@ if ($action == 'create') {
 				$listofresourceid = json_decode($_SESSION['assignedtoresource'], true);
 			}
 			if (!is_array($listofresourceid)) {
-				$listofresourceid = array();
+				$listofresourceid = [];
 			}
 			$firstelem = reset($listofresourceid);
 			if (isset($listofresourceid[$firstelem['id']])) {
@@ -1588,7 +1588,7 @@ if ($action == 'create') {
 			}
 		}
 		print '<div class="assignedtoresource">';
-		print $form->select_dolresources_forevent(($action == 'create' ? 'add' : 'update'), 'assignedtoresource', 1, array(), 0, '', array(), 0, 0, 0, 'AND u.statut != 0', 1, $listofresourceid);
+		print $form->select_dolresources_forevent(($action == 'create' ? 'add' : 'update'), 'assignedtoresource', 1, [], 0, '', [], 0, 0, 0, 'AND u.statut != 0', 1, $listofresourceid);
 		print '</div>';
 		print '</td></tr>';
 	}
@@ -1628,7 +1628,7 @@ if ($action == 'create') {
 			print $societe->getNomUrl(1);
 			print '<input type="hidden" id="socid" name="socid" value="'.GETPOSTINT('socid').'">';
 		} else {
-			$events = array();
+			$events = [];
 			$events[] = array('method' => 'getContacts', 'url' => dol_buildpath('/core/ajax/contacts.php?showempty=1&token='.currentToken(), 1), 'htmlname' => 'contactid', 'params' => array('add-customer-contact' => 'disabled'));
 			//For external user force the company to user company
 			if (!empty($user->socid)) {
@@ -1661,14 +1661,14 @@ if ($action == 'create') {
 			// FIXME Use a select without the "multiple" (not supported when CONTACT_USE_SEARCH_TO_SELECT is on) or allow use only when $object->socid is set...
 			/*
 			 $selected = array_keys($object->socpeopleassigned);
-			 print $form->select_contact(getDolGlobalString('MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT') ? 0 : $object->socid, $selected, 'socpeopleassigned', 1, '', '', 1, 'minwidth300 widthcentpercentminusx', false, 0, 0, array());
+			 print $form->select_contact(getDolGlobalString('MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT') ? 0 : $object->socid, $selected, 'socpeopleassigned', 1, '', '', 1, 'minwidth300 widthcentpercentminusx', false, 0, 0, []);
 			 */
 			$sav = getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT');
 			$config->global->CONTACT_USE_SEARCH_TO_SELECT = 0;
-			print $form->selectcontacts(GETPOSTISSET('socid') ? GETPOSTINT('socid') : $select_contact_default, $preselectedids, 'socpeopleassigned[]', 1, '', '', 0, 'minwidth300 widthcentpercentminusxx maxwidth500', 0, 0, 0, array(), 'multiple', 'contactid');
+			print $form->selectcontacts(GETPOSTISSET('socid') ? GETPOSTINT('socid') : $select_contact_default, $preselectedids, 'socpeopleassigned[]', 1, '', '', 0, 'minwidth300 widthcentpercentminusxx maxwidth500', 0, 0, 0, [], 'multiple', 'contactid');
 			$config->global->CONTACT_USE_SEARCH_TO_SELECT = $sav;
 		} else {
-			print $form->selectcontacts(GETPOSTISSET('socid') ? GETPOSTINT('socid') : $select_contact_default, $preselectedids, 'socpeopleassigned[]', 1, '', '', 0, 'minwidth300 widthcentpercentminusxx maxwidth500', 0, 0, 0, array(), 'multiple', 'contactid');
+			print $form->selectcontacts(GETPOSTISSET('socid') ? GETPOSTINT('socid') : $select_contact_default, $preselectedids, 'socpeopleassigned[]', 1, '', '', 0, 'minwidth300 widthcentpercentminusxx maxwidth500', 0, 0, 0, [], 'multiple', 'contactid');
 		}
 
 		print '</td></tr>';
@@ -1763,7 +1763,7 @@ if ($action == 'create') {
 	print '</td></tr>';
 
 	// Other attributes
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	if (empty($resHook)) {
@@ -2136,7 +2136,7 @@ if ($id > 0) {
 		print '<tr><td class="">&nbsp;</td><td></td></tr>';
 
 		// Assigned to
-		$listofuserid = array(); // User assigned
+		$listofuserid = []; // User assigned
 		if (empty($donotclearsession)) {
 			if ($object->userownerid > 0) {
 				$listofuserid[$object->userownerid] = array(
@@ -2169,7 +2169,7 @@ if ($id > 0) {
 
 		print '<tr><td class="tdtop nowrap fieldrequired">'.$langs->trans("ActionAssignedTo").'</td><td colspan="3">';
 		print '<div class="assignedtouser">';
-		print $form->select_dolusers_forevent(($action == 'create' ? 'add' : 'update'), 'assignedtouser', 1, array(), 0, '', array(), 0, 0, 0, 'u.statut:<>:0', 1, $listofuserid, $listofcontactid, $listofotherid, $caneditdateorowner);
+		print $form->select_dolusers_forevent(($action == 'create' ? 'add' : 'update'), 'assignedtouser', 1, [], 0, '', [], 0, 0, 0, 'u.statut:<>:0', 1, $listofuserid, $listofcontactid, $listofotherid, $caneditdateorowner);
 		print '</div>';
 		/*if (in_array($user->id,array_keys($listofuserid)))
 		{
@@ -2196,7 +2196,7 @@ if ($id > 0) {
 			$cate_arbo = $form->select_all_categories(Category::TYPE_ACTIONCOMM, '', 'parent', 64, 0, 3);
 			$c = new Category($db);
 			$cats = $c->containing($object->id, Category::TYPE_ACTIONCOMM);
-			$arrayselected = array();
+			$arrayselected = [];
 			foreach ($cats as $cat) {
 				$arrayselected[] = $cat->id;
 			}
@@ -2217,7 +2217,7 @@ if ($id > 0) {
 			print '<tr><td class="titlefieldcreate">'.$langs->trans("ActionOnCompany").'</td>';
 			print '<td>';
 			print '<div>';
-			$events = array(); // 'method'=parameter action of url, 'url'=url to call that return new list of contacts
+			$events = []; // 'method'=parameter action of url, 'url'=url to call that return new list of contacts
 			$events[] = array('method' => 'getContacts', 'url' => dol_buildpath('/core/ajax/contacts.php?showempty=1&token='.currentToken(), 1), 'htmlname' => 'contactid', 'params' => array('add-customer-contact' => 'disabled'));
 			// TODO Refresh also list of project if conf PROJECT_ALLOW_TO_LINK_FROM_OTHER_COMPANY not defined with list linked to socid ?
 			// FIXME If we change company, we may get a project that does not match
@@ -2234,15 +2234,15 @@ if ($id > 0) {
 				// FIXME Use the select_contact supporting the "multiple"
 				/*
 				$selected = array_keys($object->socpeopleassigned);
-				print $form->select_contact(getDolGlobalString('MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT') ? 0 : $object->socid, $selected, 'socpeopleassigned', 1, '', '', 1, 'minwidth300 widthcentpercentminusx', false, 0, 0, array());
+				print $form->select_contact(getDolGlobalString('MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT') ? 0 : $object->socid, $selected, 'socpeopleassigned', 1, '', '', 1, 'minwidth300 widthcentpercentminusx', false, 0, 0, []);
 				*/
 				$sav = getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT');
 				$config->global->CONTACT_USE_SEARCH_TO_SELECT = 0;
-				print $form->selectcontacts(getDolGlobalString('MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT') ? 0 : ($object->socid > 0 ? $object->socid : -1), array_keys($object->socpeopleassigned), 'socpeopleassigned[]', 1, '', '', 1, 'minwidth300 widthcentpercentminusx', 0, 0, 0, array(), 'multiple', 'contactid');
+				print $form->selectcontacts(getDolGlobalString('MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT') ? 0 : ($object->socid > 0 ? $object->socid : -1), array_keys($object->socpeopleassigned), 'socpeopleassigned[]', 1, '', '', 1, 'minwidth300 widthcentpercentminusx', 0, 0, 0, [], 'multiple', 'contactid');
 				$config->global->CONTACT_USE_SEARCH_TO_SELECT = $sav;
 			} else {
 				// Warning: MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT will hangs on large databases
-				print $form->selectcontacts(getDolGlobalString('MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT') ? 0 : $object->socid, array_keys($object->socpeopleassigned), 'socpeopleassigned[]', 1, '', '', 1, 'minwidth300 widthcentpercentminusx', 0, 0, 0, array(), 'multiple', 'contactid');
+				print $form->selectcontacts(getDolGlobalString('MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT') ? 0 : $object->socid, array_keys($object->socpeopleassigned), 'socpeopleassigned[]', 1, '', '', 1, 'minwidth300 widthcentpercentminusx', 0, 0, 0, [], 'multiple', 'contactid');
 			}
 			print '</div>';
 			print '</td>';
@@ -2318,7 +2318,7 @@ if ($id > 0) {
 		print '</td></tr>';
 
 		// Other attributes
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		if (empty($resHook)) {
@@ -2461,11 +2461,11 @@ if ($id > 0) {
 
 		// Clone event
 		if ($action == 'clone') {
-			$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.GETPOST('id'), $langs->trans('ToClone'), $langs->trans('ConfirmCloneEvent', $object->label), 'confirm_clone', array(), 'yes', 1);
+			$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.GETPOST('id'), $langs->trans('ToClone'), $langs->trans('ConfirmCloneEvent', $object->label), 'confirm_clone', [], 'yes', 1);
 		}
 
 		// Call Hook formConfirm
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($resHook)) {
 			$formconfirm .= $hookManager->resPrint;
@@ -2508,7 +2508,7 @@ if ($id > 0) {
 		$linkback .= '</a>';
 
 		// Add more views from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
 		if (empty($resHook)) {
 			$linkback .= $hookManager->resPrint;
@@ -2619,7 +2619,7 @@ if ($id > 0) {
 
 		// Assigned to user
 		print '<tr><td class="nowrap">'.$langs->trans("ActionAssignedTo").'</td><td>';
-		$listofuserid = array();
+		$listofuserid = [];
 		if (empty($donotclearsession)) {
 			if ($object->userownerid > 0) {
 				$listofuserid[$object->userownerid] = array(
@@ -2645,10 +2645,10 @@ if ($id > 0) {
 			}
 		}
 
-		$listofcontactid = array(); // not used yet
-		$listofotherid = array(); // not used yet
+		$listofcontactid = []; // not used yet
+		$listofotherid = []; // not used yet
 		print '<div class="assignedtouser">';
-		print $form->select_dolusers_forevent('view', 'assignedtouser', 1, array(), 0, '', array(), 0, 0, 0, '', ($object->datep != $object->datef) ? 1 : 0, $listofuserid, $listofcontactid, $listofotherid);
+		print $form->select_dolusers_forevent('view', 'assignedtouser', 1, [], 0, '', [], 0, 0, 0, '', ($object->datep != $object->datef) ? 1 : 0, $listofuserid, $listofcontactid, $listofotherid);
 		print '</div>';
 		/*
 		if ($object->datep != $object->datef && in_array($user->id,array_keys($listofuserid)))
@@ -2816,7 +2816,7 @@ if ($id > 0) {
 	 */
 	print '<div class="tabsAction">';
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($resHook)) {
 		if ($action != 'edit') {

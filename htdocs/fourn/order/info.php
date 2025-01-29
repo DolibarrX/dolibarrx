@@ -239,7 +239,7 @@ if (!empty($object->id)) {
 	//show_actions_done($config,$langs,$db,$object,null,0,$actioncode, '', $filters, $sortfield, $sortorder);
 
 	// List of all actions
-	$filters = array();
+	$filters = [];
 	$filters['search_agenda_label'] = $search_agenda_label;
 	$filters['search_rowid'] = $search_rowid;
 

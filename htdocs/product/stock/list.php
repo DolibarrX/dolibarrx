@@ -62,7 +62,7 @@ $search_ref = GETPOST("sref", "alpha") ? GETPOST("sref", "alpha") : GETPOST("sea
 $search_label = GETPOST("snom", "alpha") ? GETPOST("snom", "alpha") : GETPOST("search_label", "alpha");
 $search_status = GETPOST("search_status", "intcomma");
 
-$search_category_list = array();
+$search_category_list = [];
 if (isModEnabled('category')) {
 	$search_category_list = GETPOST("search_category_".Category::TYPE_WAREHOUSE."_list", "array");
 }
@@ -100,7 +100,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 
 // Initialize array of search criteria
 $search_all = GETPOST("search_all", 'alphanohtml');
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	$search_key = $key;
 	if ($search_key == 'statut') {
@@ -112,7 +112,7 @@ foreach ($object->fields as $key => $val) {
 }
 
 // List of fields to search into when doing a "search in all"
-$fieldstosearchall = array();
+$fieldstosearchall = [];
 foreach ($object->fields as $key => $val) {
 	if (!empty($val['searchall'])) {
 		$fieldstosearchall['t.'.$key] = $val['label'];
@@ -164,7 +164,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -183,9 +183,9 @@ if (empty($resHook)) {
 				$search[$key.'_dtend'] = '';
 			}
 		}
-		$toselect = array();
-		$search_array_options = array();
-		$search_category_list = array();
+		$toselect = [];
+		$search_array_options = [];
+		$search_category_list = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
@@ -235,7 +235,7 @@ if (getDolGlobalString('MULTICOMPANY_PRODUCT_SHARING_ENABLED') && getDolGlobalSt
 
 
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -294,7 +294,7 @@ if ($search_all) {
 $searchCategoryWarehouseList = $search_category_list;
 $searchCategoryWarehouseOperator = 0;
 if (!empty($searchCategoryWarehouseList)) {
-	$searchCategoryWarehouseSqlList = array();
+	$searchCategoryWarehouseSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryWarehouseList as $searchCategoryWarehouse) {
 		if (intval($searchCategoryWarehouse) == -2) {
@@ -324,7 +324,7 @@ if (!empty($searchCategoryWarehouseList)) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -339,7 +339,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add groupby from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListGroupBy', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -414,7 +414,7 @@ if ($num == 1 && getDolGlobalInt('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $sear
 
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'bodyforlist mod-product page-stock_list');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -458,7 +458,7 @@ $arrayofmassactions = array(
 );
 //if ($user->rights->stock->supprimer) $arrayofmassactions['predelete']=img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete','preaffecttag'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 if (isModEnabled('category') && $user->hasRight('stock', 'creer')) {
 	$arrayofmassactions['preaffecttag'] = img_picture('', 'label', 'class="picturefixedwidth"').$langs->trans("AffectTag");
@@ -517,7 +517,7 @@ if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
  $moreforfilter.= $langs->trans('MyFilter') . ': <input type="text" name="search_myfield" value="'.dol_escape_htmltag($search_myfield).'">';
  $moreforfilter.= '</div>';*/
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -624,7 +624,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -803,7 +803,7 @@ while ($i < $imaxinloop) {
 						$totalarray['pos'][$totalarray['nbfield']] = 't.'.$key;
 					}
 					if (!isset($totalarray['val'])) {
-						$totalarray['val'] = array();
+						$totalarray['val'] = [];
 					}
 					if (!isset($totalarray['val']['t.'.$key])) {
 						$totalarray['val']['t.'.$key] = 0;

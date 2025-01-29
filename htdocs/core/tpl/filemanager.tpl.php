@@ -213,7 +213,7 @@ if ($action == 'confirmconvertimgwebp') {
 	$section = GETPOST('section', 'alpha');
 	$file = GETPOST('filetoregenerate', 'alpha');
 	$form = new Form($db);
-	$formquestion = array();
+	$formquestion = [];
 	$formquestion['section_dir'] = array('type' => 'hidden', 'value' => $section_dir, 'name' => 'section_dir');
 	$formquestion['section'] = array('type' => 'hidden', 'value' => $section, 'name' => 'section');
 	$formquestion['filetoregenerate'] = array('type' => 'hidden', 'value' => $file, 'name' => 'filetoregenerate');
@@ -244,7 +244,7 @@ if ($action == 'convertimgwebp' && $permtoadd) {
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 
 	if (!empty($file)) {
-		$filelist = array();
+		$filelist = [];
 		$filelist[]["fullname"] = dol_osencode($imagefolder.'/'.$file); // get $imagefolder.'/'.$file infos
 	} else {
 		$regeximgext = getListOfPossibleImageExt();

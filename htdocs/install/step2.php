@@ -191,7 +191,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 		$handle = opendir($dir);
 		dolibarr_install_syslog("step2: open tables directory " . $dir . " handle=" . (is_bool($handle) ? json_encode($handle) : $handle));
 		$tablefound = 0;
-		$tabledata = array();
+		$tabledata = [];
 		if (is_resource($handle)) {
 			while (($file = readdir($handle)) !== false) {
 				if (preg_match('/\.sql$/i', $file) && preg_match('/^llx_/i', $file) && !preg_match('/\.key\.sql$/i', $file) && !preg_match('/\-/', $file)) {
@@ -291,7 +291,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 		$handle = opendir($dir);
 		dolibarr_install_syslog("step2: open keys directory " . $dir . " handle=" . (is_bool($handle) ? json_encode($handle) : $handle));
 		$tablefound = 0;
-		$tabledata = array();
+		$tabledata = [];
 		if (is_resource($handle)) {
 			while (($file = readdir($handle)) !== false) {
 				if (preg_match('/\.sql$/i', $file) && preg_match('/^llx_/i', $file) && preg_match('/\.key\.sql$/i', $file) && !preg_match('/\-/', $file)) {
@@ -499,7 +499,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 		$handle = opendir($dir);
 		dolibarr_install_syslog("step2: open directory data " . $dir . " handle=" . (is_bool($handle) ? json_encode($handle) : $handle));
 		$tablefound = 0;
-		$tabledata = array();
+		$tabledata = [];
 		if (is_resource($handle)) {
 			while (($file = readdir($handle)) !== false) {
 				if (preg_match('/\.sql$/i', $file) && preg_match('/^llx_/i', $file) && !preg_match('/\-/', $file)) {
@@ -524,7 +524,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 			$fp = fopen($dir . $file, "r");
 			dolibarr_install_syslog("step2: open data file " . $dir . $file . " handle=" . (is_bool($fp) ? json_encode($fp) : $fp));
 			if ($fp) {
-				$arrayofrequests = array();
+				$arrayofrequests = [];
 				$linefound = 0;
 				$linegroup = 0;
 				$sizeofgroup = 1; // Grouping request to have 1 query for several requests does not works with mysql, so we use 1.

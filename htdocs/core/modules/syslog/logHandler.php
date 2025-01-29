@@ -96,7 +96,7 @@ abstract class LogHandler
 	 */
 	public function configure()
 	{
-		return array();
+		return [];
 	}
 
 	/**

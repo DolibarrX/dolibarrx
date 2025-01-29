@@ -231,7 +231,7 @@ class pdf_standard_movementstock extends ModelePDFMovement
 			}
 		}
 		// Add fields from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		$sql .= " FROM ".MAIN_DB_PREFIX."entrepot as e,";
@@ -299,7 +299,7 @@ class pdf_standard_movementstock extends ModelePDFMovement
 		// Add where from extra fields
 		include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 		// Add where from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		$sql .= $this->db->order($sortfield, $sortorder);
@@ -448,7 +448,7 @@ class pdf_standard_movementstock extends ModelePDFMovement
 
 				$totalunit = 0;
 				$totalvalue = $totalvaluesell = 0;
-				$arrayofuniqueproduct = array();
+				$arrayofuniqueproduct = [];
 
 				//dol_syslog('List products', LOG_DEBUG);
 				$resql = $this->db->query($sql);
@@ -819,7 +819,7 @@ class pdf_standard_movementstock extends ModelePDFMovement
 
 			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
-				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, 5, $this->corner_radius, '1001', 'F', array(), explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
+				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, 5, $this->corner_radius, '1001', 'F', [], explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
 		}
 

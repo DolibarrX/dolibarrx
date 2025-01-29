@@ -95,7 +95,7 @@ if ($object->element == 'product') {
 	print img_picture('', 'stock');
 	$selected = (GETPOST("dwid") ? GETPOSTINT("dwid") : (GETPOST('id_entrepot') ? GETPOSTINT('id_entrepot') : ($object->element == 'product' && $object->fk_default_warehouse ? $object->fk_default_warehouse : 'ifone')));
 	$warehousestatus = 'warehouseopen,warehouseinternal';
-	print $formproduct->selectWarehouses($selected, 'id_entrepot', $warehousestatus, 1, 0, 0, '', 0, 0, array(), 'minwidth75 maxwidth300 widthcentpercentminusx');
+	print $formproduct->selectWarehouses($selected, 'id_entrepot', $warehousestatus, 1, 0, 0, '', 0, 0, [], 'minwidth75 maxwidth300 widthcentpercentminusx');
 	print '</td>';
 }
 if ($object->element == 'stockmouvement') {
@@ -103,12 +103,12 @@ if ($object->element == 'stockmouvement') {
 	print '<td class="fieldrequired">'.$langs->trans("Product").'</td>';
 	print '<td>';
 	print img_picture('', 'product');
-	$form->select_produits(GETPOSTINT('product_id'), 'product_id', (!getDolGlobalString('STOCK_SUPPORTS_SERVICES') ? '0' : ''), 0, 0, -1, 2, '', 0, array(), 0, 1, 0, 'maxwidth500');
+	$form->select_produits(GETPOSTINT('product_id'), 'product_id', (!getDolGlobalString('STOCK_SUPPORTS_SERVICES') ? '0' : ''), 0, 0, -1, 2, '', 0, [], 0, 1, 0, 'maxwidth500');
 	print '</td>';
 }
 
 print '<td class="fieldrequired">'.$langs->trans("WarehouseTarget").'</td><td>';
-print img_picture('', 'stock').$formproduct->selectWarehouses(GETPOST('id_entrepot_destination'), 'id_entrepot_destination', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, array(), 'minwidth75 maxwidth300 widthcentpercentminusx');
+print img_picture('', 'stock').$formproduct->selectWarehouses(GETPOST('id_entrepot_destination'), 'id_entrepot_destination', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, [], 'minwidth75 maxwidth300 widthcentpercentminusx');
 print '</td></tr>';
 print '<tr><td class="fieldrequired">'.$langs->trans("NumberOfUnit").'</td><td colspan="3"><input type="text" name="nbpiece" class="center maxwidth75" value="'.dol_escape_htmltag(GETPOST("nbpiece")).'"></td>';
 print '</tr>';

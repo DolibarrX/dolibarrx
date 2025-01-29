@@ -52,7 +52,7 @@ $action = GETPOST('action', 'aZ09');
 
 // Define possible position of boxes
 $arrayofhomepages = InfoBox::getListOfPagesForBoxes();
-$boxes = array();
+$boxes = [];
 
 
 /*
@@ -74,7 +74,7 @@ if ($action == 'add') {
 				$pos = $boxid['pos'];
 
 				// Initialize distinct fk_user with all already existing values of fk_user (user that use a personalized view of boxes for page "pos")
-				$distinctfkuser = array();
+				$distinctfkuser = [];
 				if (!$error) {
 					$sql = "SELECT fk_user";
 					$sql .= " FROM ".MAIN_DB_PREFIX."user_param";
@@ -100,7 +100,7 @@ if ($action == 'add') {
 
 				foreach ($distinctfkuser as $fk_user) {
 					if (!$error && $fk_user != '') {
-						$arrayofexistingboxid = array();
+						$arrayofexistingboxid = [];
 						$nbboxonleft = $nbboxonright = 0;
 						$sql = "SELECT box_id, box_order FROM ".MAIN_DB_PREFIX."boxes";
 						$sql .= " WHERE position = ".((int) $pos)." AND fk_user = ".((int) $fk_user)." AND entity = ".((int) $config->entity);
@@ -231,7 +231,7 @@ print '<br>';
  * We store the active boxes by default in $boxes[position][id_boite]=1
  */
 
-$actives = array();
+$actives = [];
 
 $sql = "SELECT b.rowid, b.box_id, b.position, b.box_order,";
 $sql .= " bd.rowid as boxid";
@@ -461,7 +461,7 @@ print '</tr>';
 // Activate FileCache (so content of file boxes are stored into a cache file int boxes/temp for 3600 seconds)
 print '<tr class="oddeven"><td>'.$langs->trans("EnableFileCache").'</td><td>';
 if ($config->use_javascript_ajax) {
-	print ajax_constantonoff('MAIN_ACTIVATE_FILECACHE', array(), null, 0, 0, 0, 2, 0, 1);
+	print ajax_constantonoff('MAIN_ACTIVATE_FILECACHE', [], null, 0, 0, 0, 2, 0, 1);
 } else {
 	print $form->selectyesno('MAIN_ACTIVATE_FILECACHE', getDolGlobalInt('MAIN_ACTIVATE_FILECACHE', 0), 1);
 }
@@ -471,7 +471,7 @@ print '</tr>';
 print '</table>';
 print '</div>';
 
-print $form->buttonsSaveCancel("Save", '', array(), 0, 'reposition');
+print $form->buttonsSaveCancel("Save", '', [], 0, 'reposition');
 
 print '</form>';
 print "\n".'<!-- End Other Const -->'."\n";

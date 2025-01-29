@@ -114,7 +114,7 @@ class ExpenseReports extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $societe param is ignored and replaced by user's socid
 		//$socid = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $societe;
@@ -211,7 +211,7 @@ class ExpenseReports extends DolibarrApi
 			$this->expensereport->$field = $this->_checkValForAPI($field, $value, $this->expensereport);
 		}
 		/*if (isset($request_data["lines"])) {
-		  $lines = array();
+		  $lines = [];
 		  foreach ($request_data["lines"] as $line) {
 			array_push($lines, (object) $line);
 		  }
@@ -249,7 +249,7 @@ class ExpenseReports extends DolibarrApi
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 		$this->expensereport->getLinesArray();
-		$result = array();
+		$result = [];
 		foreach ($this->expensereport->lines as $line) {
 			array_push($result,$this->_cleanObjectDatas($line));
 		}
@@ -571,7 +571,7 @@ class ExpenseReports extends DolibarrApi
 	 */
 	public function getAllPayments($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0)
 	{
-		$list = array();
+		$list = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('expensereport', 'lire')) {
 			throw new RestException(403);
@@ -807,7 +807,7 @@ class ExpenseReports extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$expensereport = array();
+		$expensereport = [];
 		foreach (ExpenseReports::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");
@@ -826,7 +826,7 @@ class ExpenseReports extends DolibarrApi
 	 */
 	private function _validatepayment($data)
 	{
-		$expensereport = array();
+		$expensereport = [];
 		foreach (ExpenseReports::$FIELDSPAYMENT as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

@@ -77,7 +77,7 @@ $usercancreate = $user->hasRight("propal", "creer");
 
 $permissionnote = $user->hasRight('propal', 'creer'); // Used by the include of actions_setnotes.inc.php
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');

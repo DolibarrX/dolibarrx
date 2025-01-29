@@ -71,8 +71,8 @@ class modMargin extends DolibarrModules
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
 		$this->depends = array("modPropale", "modProduct"); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3, 2); // Minimum version of Dolibarr required by module
 		$this->langfiles = array("margins");
@@ -92,15 +92,15 @@ class modMargin extends DolibarrModules
 
 
 		// Boxes
-		$this->boxes = array(); // List of boxes
+		$this->boxes = []; // List of boxes
 		$r = 0;
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$r = 0;
 
 		// Main menu entries
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 
 		// left menu entry
@@ -122,7 +122,7 @@ class modMargin extends DolibarrModules
 		$r++;
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$r = 0;
 
 		$r++;

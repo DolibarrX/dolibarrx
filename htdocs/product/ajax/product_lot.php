@@ -66,7 +66,7 @@ $permissiontoread = $user->hasRight('stock', 'lire');
 
 top_httphead('application/json');
 
-$rows = array();
+$rows = [];
 
 if ($action == 'search' && $batch != '' && $permissiontoread) {
 	$productLot = new Productlot($db);

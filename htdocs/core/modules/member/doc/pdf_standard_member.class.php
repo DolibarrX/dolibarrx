@@ -325,7 +325,7 @@ class pdf_standard_member extends CommonStickerGenerator
 				$nb = 1; // Protection to avoid empty page
 			}
 
-			$arrayofmembers = array();
+			$arrayofmembers = [];
 			for ($j = 0; $j < $nb; $j++) {
 				$arrayofmembers[] = array(
 					'textleft' => $textleft,

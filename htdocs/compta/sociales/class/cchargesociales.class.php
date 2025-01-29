@@ -97,7 +97,7 @@ class Cchargesociales
 	/**
 	 * @var string[] array of errors
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * Constructor

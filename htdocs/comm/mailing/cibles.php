@@ -93,10 +93,10 @@ $result = $object->fetch($id);
 $hookManager->initHooks(array('ciblescard', 'globalcard'));
 
 $sqlmessage = '';
-$mesgs = array();
+$mesgs = [];
 
 // List of sending methods
-$listofmethods = array();
+$listofmethods = [];
 //$listofmethods['default'] = $langs->trans('DefaultOutgoingEmailSetup');
 $listofmethods['mail'] = 'PHP mail function';
 //$listofmethods['simplemail']='Simplemail class';
@@ -284,7 +284,7 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_email = '';
 	$search_other = '';
 	$search_dest_status = '';
-	$toselect = array();
+	$toselect = [];
 }
 
 // Action update description of emailing
@@ -329,7 +329,7 @@ llxHeader('', $langs->trans("Mailing"), 'EN:Module_EMailing|FR:Module_Mailing|ES
 
 $form = new Form($db);
 $formmailing = new FormMailing($db);
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 $totalarray = [
 	'nbfield' => 0,
 ];
@@ -531,7 +531,7 @@ if ($object->fetch($id) >= 0) {
 		print '<div class="tagtd left"><div class="inline-block">'.$langs->trans("Filters").'</div>';
 		if ($object->messtype != 'sms') {
 			print ' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <div class=" inline-block">'.$langs->trans("EvenUnsubscribe").' ';
-			print ajax_object_onoff($object, 'evenunsubscribe', 'evenunsubscribe', 'EvenUnsubscribe:switch_on:warning', 'EvenUnsubscribe', array(), 'small valignmiddle', '', 1);
+			print ajax_object_onoff($object, 'evenunsubscribe', 'evenunsubscribe', 'EvenUnsubscribe:switch_on:warning', 'EvenUnsubscribe', [], 'small valignmiddle', '', 1);
 			print '</div>';
 		}
 		print '</div>';
@@ -541,7 +541,7 @@ if ($object->fetch($id) >= 0) {
 		clearstatcache();
 
 		foreach ($modulesdir as $dir) {
-			$modulenames = array();
+			$modulenames = [];
 
 			// Load modules attributes in arrays (name, number, orders) from dir directory
 			//print $dir."\n<br>";
@@ -550,7 +550,7 @@ if ($object->fetch($id) >= 0) {
 			if (is_resource($handle)) {
 				while (($file = readdir($handle)) !== false) {
 					if (substr($file, 0, 1) != '.' && substr($file, 0, 3) != 'CVS') {
-						$reg = array();
+						$reg = [];
 						if (preg_match("/(.*)\.modules\.php$/i", $file, $reg)) {
 							if ($reg[1] == 'example') {
 								continue;
@@ -664,7 +664,7 @@ if ($object->fetch($id) >= 0) {
 			}
 		}	// End foreach dir
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 
@@ -770,7 +770,7 @@ if ($object->fetch($id) >= 0) {
 		print '<input type="hidden" name="page_y" value="">';
 
 		$morehtmlcenter = '';
-		$arrayofmassactions = array();
+		$arrayofmassactions = [];
 		if ($permissiontocreate) {
 			$arrayofmassactions['reset_target'] = img_picture('', 'refresh', 'class="picturefixedwidth"').$langs->trans("ResetMailingTargetMassaction");
 		}

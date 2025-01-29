@@ -67,14 +67,14 @@ class modPropale extends DolibarrModules
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
 		$this->depends = array("modSociete"); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->config_page_url = array("propal.php");
 		$this->langfiles = array("propal", "bills", "companies", "deliveries", "products");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 		$r = 0;
 
 		$this->const[$r][0] = "PROPALE_ADDON_PDF";
@@ -125,7 +125,7 @@ class modPropale extends DolibarrModules
 		);
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'propale';
 		$r = 0;
 
@@ -308,7 +308,7 @@ class modPropale extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'Proposals'; // Translation key
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('c' => MAIN_DB_PREFIX.'propal', 'extra' => MAIN_DB_PREFIX.'propal_extrafields');
 		$this->import_tables_creator_array[$r] = array('c'=>'fk_user_author'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(
@@ -334,7 +334,7 @@ class modPropale extends DolibarrModules
 			$this->import_fields_array[$r]['c.multicurrency_total_ttc'] = 'MulticurrencyAmountTTC';
 		}
 		// Add extra fields
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'propal' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -392,7 +392,7 @@ class modPropale extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'line_'.$r;
 		$this->import_label[$r] = "ProposalLines"; // Translation key
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array(
 			'cd' => MAIN_DB_PREFIX.'propaldet',
 			'extra' => MAIN_DB_PREFIX.'propaldet_extrafields'
@@ -423,7 +423,7 @@ class modPropale extends DolibarrModules
 			$this->import_fields_array[$r]['cd.multicurrency_total_ttc'] = 'MulticurrencyAmountTTC';
 		}
 		// Add extra fields
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'propaldet' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {

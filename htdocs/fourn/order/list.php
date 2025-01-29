@@ -181,7 +181,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 $search_array_options = $extrafields->getOptionalsFromPost($object->table_element, '', 'search_');
 
 // List of fields to search into when doing a "search in all"
-$fieldstosearchall = array();
+$fieldstosearchall = [];
 foreach ($object->fields as $key => $val) {
 	if (!empty($val['searchall'])) {
 		$fieldstosearchall['cf.'.$key] = $val['label'];
@@ -336,8 +336,8 @@ if (empty($resHook)) {
 		$search_date_approve_end = '';
 		$billed = '';
 		$search_billed = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')
 		|| GETPOST('button_search_x', 'alpha') || GETPOST('button_search.x', 'alpha') || GETPOST('button_search', 'alpha')) {
@@ -391,9 +391,9 @@ if (empty($resHook)) {
 		$createbills_onebythird = GETPOSTINT('createbills_onebythird');
 		$validate_invoices = GETPOSTINT('validate_invoices');
 
-		$TFact = array();
+		$TFact = [];
 		/** @var FactureFournisseur[] $TFactThird */
-		$TFactThird = array();
+		$TFactThird = [];
 
 		$nb_bills_created = 0;
 		$lastid = 0;
@@ -597,7 +597,7 @@ if (empty($resHook)) {
 
 		// Build doc with all invoices
 		$TAllFact = empty($createbills_onebythird) ? $TFact : $TFactThird;
-		$toselect = array();
+		$toselect = [];
 
 		if (!$error && $validate_invoices) {
 			$massaction = $action = 'builddoc';
@@ -832,7 +832,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -851,7 +851,7 @@ if ($search_all) {
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON cf.fk_user_author = u.rowid";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as p ON p.rowid = cf.fk_projet";
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= ' WHERE cf.fk_soc = s.rowid';
@@ -984,7 +984,7 @@ if ($search_sale && $search_sale != '-1') {
 $searchCategoryProductOperator = -1;
 $searchCategoryProductList = array($search_product_category);
 if (!empty($searchCategoryProductList)) {
-	$searchCategoryProductSqlList = array();
+	$searchCategoryProductSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
@@ -1013,7 +1013,7 @@ if (!empty($searchCategoryProductList)) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -1048,7 +1048,7 @@ $resql = $db->query($sql);
 if ($resql) {
 	$num = $db->num_rows($resql);
 
-	$arrayofselected = is_array($toselect) ? $toselect : array();
+	$arrayofselected = is_array($toselect) ? $toselect : [];
 
 	if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $search_all) {
 		$obj = $db->fetch_object($resql);
@@ -1243,7 +1243,7 @@ if ($resql) {
 		$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 	}
 	if (in_array($massaction, array('presend', 'predelete', 'createbills'))) {
-		$arrayofmassactions = array();
+		$arrayofmassactions = [];
 	}
 	$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -1360,7 +1360,7 @@ if ($resql) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$moreforfilter .= $langs->trans('Alert').' <input type="checkbox" name="search_option" value="late"'.($search_option == 'late' ? ' checked' : '').'>';
 	$moreforfilter .= '</div>';
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($resHook)) {
 		$moreforfilter .= $hookManager->resPrint;
@@ -1592,7 +1592,7 @@ if ($resql) {
 
 	print "</tr>\n";
 
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
 
 	// Fields title
@@ -1736,7 +1736,7 @@ if ($resql) {
 
 	$total = 0;
 	$subtotal = 0;
-	$productstat_cache = array();
+	$productstat_cache = [];
 
 	$userstatic = new User($db);
 	$objectstatic = new OrderFournisseur($db);
@@ -1744,7 +1744,7 @@ if ($resql) {
 
 	$i = 0;
 	$savnbfield = $totalarray['nbfield'];
-	$totalarray = array('nbfield' => 0, 'val' => array(), 'pos' => array());
+	$totalarray = array('nbfield' => 0, 'val' => [], 'pos' => []);
 	$totalarray['val']['cf.total_ht'] = 0;
 	$totalarray['val']['cf.total_ttc'] = 0;
 	$totalarray['val']['cf.total_tva'] = 0;

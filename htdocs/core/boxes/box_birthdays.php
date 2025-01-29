@@ -77,7 +77,7 @@ class box_birthdays extends ModeleBoxes
 		$this->info_box_head = array('text' => $langs->trans("BoxTitleUserBirthdaysOfMonth"));
 
 		if ($user->hasRight('user', 'user', 'lire')) {
-			$data = array();
+			$data = [];
 
 			$tmparray = dol_getdate(dol_now(), true);
 

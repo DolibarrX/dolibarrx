@@ -116,12 +116,12 @@ class SMTPs
 	 *
 	 * @var array{}|array{html?:array{mimeType:string,data:string,dataText:string,md5?:string},plain?:array{mimeType:string,data:string,dataText:string,md5?:string},image:array<string,array{imageName:string,cid:string,md5?:string,data:string}>,attachment:array<string,array{filename:string,cid?:string,md5?:string,data:string}>}	Array of messages
 	 */
-	private $_msgContent = array();
+	private $_msgContent = [];
 
 	/**
 	 * @var string[] Custom X-Headers
 	 */
-	private $_msgXheader = array();
+	private $_msgXheader = [];
 
 	/**
 	 * @var string
@@ -229,7 +229,7 @@ class SMTPs
 	/**
 	 * @var array<array{num:int,msg:string}>	Class error codes and messages
 	 */
-	private $_smtpsErrors = array();
+	private $_smtpsErrors = [];
 
 	/**
 	 * @var int<0,3> Defines log level
@@ -274,7 +274,7 @@ class SMTPs
 	/**
 	 * @var array<string,string>
 	 */
-	private $_errorsTo = array();
+	private $_errorsTo = [];
 	/**
 	 * @var int
 	 */
@@ -291,7 +291,7 @@ class SMTPs
 	/**
 	 * @var array<string,array<string,mixed>> An array of options for stream_context_create()
 	 */
-	private $_options = array();
+	private $_options = [];
 
 	/**
 	 * Set delivery receipt
@@ -299,7 +299,7 @@ class SMTPs
 	 * @param	array<string,array<string,mixed>>	$_options	An array of options for stream_context_create()
 	 * @return	void
 	 */
-	public function setOptions($_options = array())
+	public function setOptions($_options = [])
 	{
 		$this->_options = $_options;
 	}
@@ -1302,7 +1302,7 @@ class SMTPs
 	private function _strip_email($_strAddr)
 	{
 		// phpcs:enable
-		$_aryEmail = array();
+		$_aryEmail = [];
 		// Keep the original
 		$_aryEmail['org'] = $_strAddr;
 
@@ -1352,7 +1352,7 @@ class SMTPs
 		/**
 		 * An array of bares addresses for use with 'RCPT TO:'
 		 */
-		$_RCPT_list = array();
+		$_RCPT_list = [];
 
 		// walk down Recipients array and pull just email addresses
 		foreach ($this->_msgRecipients as $_host => $_list) {
@@ -1381,7 +1381,7 @@ class SMTPs
 		if ($_which) {
 			// Make sure we have addresses to process
 			if ($this->_msgRecipients) {
-				$_RCPT_list = array();
+				$_RCPT_list = [];
 				// walk down Recipients array and pull just email addresses
 				foreach ($this->_msgRecipients as $_host => $_list) {
 					if (!empty($this->_msgRecipients[$_host][$_which])) {
@@ -1614,7 +1614,7 @@ class SMTPs
 		//$strContent = rtrim(chunk_split($strContent));    // Function chunck_split seems ko if not used on a base64 content
 		$strContent = rtrim(wordwrap($strContent, 75, "\r\n")); // TODO Using this method creates unexpected line break on text/plain content.
 
-		$this->_msgContent[$strType] = array();
+		$this->_msgContent[$strType] = [];
 
 		$this->_msgContent[$strType]['mimeType'] = $strMimeType;
 		$this->_msgContent[$strType]['data']     = $strContent;
@@ -2082,7 +2082,7 @@ class SMTPs
 	 */
 	public function getErrors()
 	{
-		$_errMsg = array();
+		$_errMsg = [];
 
 		if (is_array($this->_smtpsErrors)) {
 			foreach ($this->_smtpsErrors as $_err => $_info) {

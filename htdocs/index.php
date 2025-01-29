@@ -155,7 +155,7 @@ if (!getDolGlobalString('MAIN_REMOVE_INSTALL_WARNING')) {
 	}
 
 	$object = new stdClass();
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('infoadmin', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 	if ($resHook == 0) {
 		$message .= $hookManager->resPrint;
@@ -183,7 +183,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	$showWeather = (!getDolGlobalString('MAIN_DISABLE_METEO') || getDolGlobalInt('MAIN_DISABLE_METEO') == 2) ? 1 : 0;
 
 	// Array that contains all WorkboardResponse classes to process them
-	$dashboardLines = array();
+	$dashboardLines = [];
 
 	// Do not include sections without management permission
 	require_once DOL_DOCUMENT_ROOT . '/core/class/workboardresponse.class.php';
@@ -342,7 +342,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	}
 
 	$object = new stdClass();
-	$parameters = array();
+	$parameters = [];
 	$action = '';
 	$resHook = $hookManager->executeHooks(
 		'addOpenElementsDashboardLine',
@@ -468,7 +468,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 
 	//Remove any invalid response
 	//load_board can return an integer if failed, or WorkboardResponse if OK
-	$validDashboardLines = array();
+	$validDashboardLines = [];
 	foreach ($dashboardLines as $workboardid => $tmp) {
 		if ($tmp instanceof WorkboardResponse) {
 			$tmp->id = $workboardid; // Complete the object to add its id into its name
@@ -523,13 +523,13 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 
 	// Show dashboard
 	$nbworkboardempty = 0;
-	$isIntopOpenedDashBoard = $globalStatInTopOpenedDashBoard = array();
+	$isIntopOpenedDashBoard = $globalStatInTopOpenedDashBoard = [];
 	$openedDashBoard = '';
 	if (!empty($validDashboardLines)) {
 		$boxwork .= '<tr class="nobottom nohover"><td class="tdboxstats nohover flexcontainer centpercent"><div style="display: flex: flex-wrap: wrap">';
 
 		foreach ($dashboardgroup as $groupKey => $groupElement) {
-			$boards = array();
+			$boards = [];
 
 			// Scan $groupElement and save the one with 'stats' that must be used for the open objects dashboard
 			if (!getDolGlobalString('MAIN_DISABLE_NEW_OPENED_DASH_BOARD')) {
@@ -553,7 +553,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 				$globalStatsKey = false;
 				if (!empty($groupElement['globalStatsKey']) && empty($groupElement['globalStats'])) { // can be filled by hook
 					$globalStatsKey = $groupElement['globalStatsKey'];
-					$groupElement['globalStats'] = array();
+					$groupElement['globalStats'] = [];
 				}
 
 				$openedDashBoard .= '<div class="box-flex-item"><div class="box-flex-item-with-margin">' . "\n";

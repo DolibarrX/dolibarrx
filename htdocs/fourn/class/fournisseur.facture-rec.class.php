@@ -221,7 +221,7 @@ class FactureFournisseurRec extends CommonInvoice
 	 * Invoice lines
 	 * @var CommonInvoiceLine[]
 	 */
-	public $lines = array();
+	public $lines = [];
 
 
 	/* Override fields in CommonObject
@@ -785,7 +785,7 @@ class FactureFournisseurRec extends CommonInvoice
 	public function fetch_lines()
 	{
 		// phpcs:enable
-		$this->lines = array();
+		$this->lines = [];
 
 		// Retrieve all extrafield for line
 		// fetch optionals attributes and labels
@@ -986,7 +986,7 @@ class FactureFournisseurRec extends CommonInvoice
 			$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $this->thirdparty, $mysoc);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', (string) $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -1206,7 +1206,7 @@ class FactureFournisseurRec extends CommonInvoice
 
 			// Clean vat code
 			$vat_src_code = '';
-			$reg = array();
+			$reg = [];
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
 				$txtva = preg_replace('/\s*\(.*\)/', '', $txtva); // Remove code into vatrate.
@@ -1745,7 +1745,7 @@ class FactureFournisseurRec extends CommonInvoice
 
 		// Load array of products prodids
 		$num_prods = 0;
-		$prodids = array();
+		$prodids = [];
 
 		$sql = 'SELECT rowid';
 		$sql .= ' FROM ' .MAIN_DB_PREFIX. 'product';

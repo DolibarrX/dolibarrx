@@ -55,7 +55,7 @@ if (!is_object($form)) {
 <?php
 
 if (!is_array($parameters)) {
-	$parameters = array();
+	$parameters = [];
 }
 if (empty($parameters['assetdepreciationoptions'])) {
 	$parameters['assetdepreciationoptions'] = &$assetdepreciationoptions;

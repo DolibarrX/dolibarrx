@@ -263,7 +263,7 @@ class PriceParser
 	 *	@param	array<string,mixed>	$extra_values   Any additional values for expression
 	 *	@return int 						> 0 if OK, < 1 if KO
 	 */
-	public function parseProduct($product, $extra_values = array())
+	public function parseProduct($product, $extra_values = [])
 	{
 		//Get the expression from db
 		$price_expression = new PriceExpression($this->db);
@@ -310,7 +310,7 @@ class PriceParser
 	 *	@param	array<string,mixed>	$extra_values       Any additional values for expression
 	 *  @return int 				> 0 if OK, < 1 if KO
 	 */
-	public function parseProductSupplier($product_supplier, $extra_values = array())
+	public function parseProductSupplier($product_supplier, $extra_values = [])
 	{
 		//Get the expression from db
 		$price_expression = new PriceExpression($this->db);
@@ -341,7 +341,7 @@ class PriceParser
 	 *  @param  array<string,mixed>	$extra_values   Any additional values for expression
 	 *  @return int 				> 0 if OK, < 1 if KO
 	 */
-	public function testExpression($product_id, $expression, $extra_values = array())
+	public function testExpression($product_id, $expression, $extra_values = [])
 	{
 		//Get the product data
 		$product = new Product($this->db);

@@ -83,7 +83,7 @@ print load_fiche_titre($langs->trans("EMailsSetup"), '', 'title_setup');
 $head = email_admin_prepare_head();
 
 // List of sending methods
-$listofmethods = array();
+$listofmethods = [];
 $listofmethods['mail'] = 'PHP mail function';
 $listofmethods['smtps'] = 'SMTP/SMTPS socket library';
 if (version_compare(phpversion(), '7.0', '>=')) {
@@ -91,7 +91,7 @@ if (version_compare(phpversion(), '7.0', '>=')) {
 }
 
 // List of oauth services
-$oauthservices = array();
+$oauthservices = [];
 
 foreach ($config->global as $key => $val) {
 	if (!empty($val) && preg_match('/^OAUTH_.*_ID$/', $key)) {

@@ -44,7 +44,7 @@ class DolGraph
 	/**
 	 * @var string[]
 	 */
-	public $type = array(); // Array with type of each series. Example: array('bars', 'horizontalbars', 'lines', 'pies', 'piesemicircle', 'polar'...)
+	public $type = []; // Array with type of each series. Example: array('bars', 'horizontalbars', 'lines', 'pies', 'piesemicircle', 'polar'...)
 	/**
 	 * @var string
 	 */
@@ -122,7 +122,7 @@ class DolGraph
 	/**
 	 * @var string[]
 	 */
-	public $Legend = array();
+	public $Legend = [];
 	/**
 	 * @var float
 	 */
@@ -886,7 +886,7 @@ class DolGraph
 			return;
 		}
 
-		$legends = array();
+		$legends = [];
 		$nblot = 0;
 		if (is_array($this->data) && is_array($this->data[0])) {
 			$nblot = count($this->data[0]) - 1; // -1 to remove legend
@@ -899,9 +899,9 @@ class DolGraph
 		//if ($nblot > 2) $firstlot = ($nblot - 2);        // We limit nblot to 2 because jflot can't manage more than 2 bars on same x
 
 		$i = $firstlot;
-		$series = array();
+		$series = [];
 		while ($i < $nblot) {	// Loop on each series
-			$values = array(); // Array with horizontal y values (specific values of a series) for each abscisse x
+			$values = []; // Array with horizontal y values (specific values of a series) for each abscisse x
 			$series[$i] = "var d" . $i . " = [];\n";
 
 			// Fill array $values
@@ -964,7 +964,7 @@ class DolGraph
 
 		// Special case for Graph of type 'pie'
 		if (isset($this->type[$firstlot]) && in_array($this->type[$firstlot], array('pie', 'piesemicircle', 'polar'))) {
-			$datacolor = array();
+			$datacolor = [];
 			foreach ($this->datacolor as $val) {
 				if (is_array($val)) {
 					$datacolor[] = "#" . sprintf("%02x%02x%02x", $val[0], $val[1], $val[2]); // If datacolor is array(R, G, B)
@@ -1176,7 +1176,7 @@ class DolGraph
 		$showlegend = $this->showlegend;
 		$bordercolor = "";
 
-		$legends = array();
+		$legends = [];
 		$nblot = 0;
 		if (is_array($this->data)) {
 			foreach ($this->data as $valarray) {      // Loop on each x
@@ -1191,14 +1191,14 @@ class DolGraph
 		// Works with line but not with bars
 		//if ($nblot > 2) $firstlot = ($nblot - 2);        // We limit nblot to 2 because jflot can't manage more than 2 bars on same x
 
-		$series = array();
+		$series = [];
 		'@phan-var-force array<int,array{stacknum:int,legend:string,legendwithgroup:string}> $arrayofgroupslegend';
-		$arrayofgroupslegend = array();
+		$arrayofgroupslegend = [];
 		//var_dump($this->data);
 
 		$i = $firstlot;
 		while ($i < $nblot) {	// Loop on each series
-			$values = array(); // Array with horizontal y values (specific values of a series) for each abscisse x (with x=0,1,2,...)
+			$values = []; // Array with horizontal y values (specific values of a series) for each abscisse x (with x=0,1,2,...)
 			$series[$i] = "";
 
 			// Fill array $series from $this->data

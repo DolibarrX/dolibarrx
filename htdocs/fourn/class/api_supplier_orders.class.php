@@ -106,7 +106,7 @@ class SupplierOrders extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $thirdparty_ids param is ignored and replaced by user's socid
 		$socids = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $thirdparty_ids;
@@ -262,7 +262,7 @@ class SupplierOrders extends DolibarrApi
 		}
 		/* We keep lines as an array
 		 if (isset($request_data["lines"])) {
-			$lines = array();
+			$lines = [];
 			foreach ($request_data["lines"] as $line) {
 				array_push($lines, (object) $line);
 			}
@@ -351,7 +351,7 @@ class SupplierOrders extends DolibarrApi
 		if (!DolibarrApi::_checkAccessToResource('fournisseur', $this->order->id, 'order_fournisseur', 'order')) {
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
-		$contacts = array();
+		$contacts = [];
 
 		if ($source == 'all' || $source == 'external') {
 			$tmpContacts = $this->order->liste_contact(-1, 'external', 0, $type);
@@ -769,7 +769,7 @@ class SupplierOrders extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$order = array();
+		$order = [];
 		foreach (SupplierOrders::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

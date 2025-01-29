@@ -35,17 +35,17 @@ class SimpleOpenID
 	/**
 	 * @var array{openid_server?:string,trust_root?:string,cancel?:string,approved?:string}
 	 */
-	public $URLs = array();
+	public $URLs = [];
 	/**
 	 * @var array{}|array{0:string,1:string}
 	 */
-	public $error = array();
+	public $error = [];
 	/**
 	 * @var array{required:string[],optional:string[]}
 	 */
 	public $fields = array(
-		'required' => array(),
-		'optional' => array(),
+		'required' => [],
+		'optional' => [],
 	);
 
 	/**
@@ -212,7 +212,7 @@ class SimpleOpenID
 	public function ErrorStore($code, $desc = null)
 	{
 		// phpcs:enable
-		$errs = array();
+		$errs = [];
 		$errs['OPENID_NOSERVERSFOUND'] = 'Cannot find OpenID Server TAG on Identity page.';
 		if ($desc == null) {
 			$desc = $errs[$code];
@@ -244,7 +244,7 @@ class SimpleOpenID
 	 */
 	public function splitResponse($response)
 	{
-		$r = array();
+		$r = [];
 		$response = explode("\n", $response);
 		foreach ($response as $line) {
 			$line = trim($line);
@@ -348,10 +348,10 @@ class SimpleOpenID
 	public function HTML2OpenIDServer($content)
 	{
 		// phpcs:enable
-		$get = array();
+		$get = [];
 
-		$matches1 = array();
-		$matches2 = array();
+		$matches1 = [];
+		$matches2 = [];
 
 		// Get details of their OpenID server and (optional) delegate
 		preg_match_all('/<link[^>]*rel=[\'"]openid.server[\'"][^>]*href=[\'"]([^\'"]+)[\'"][^>]*\/?>/i', $content, $matches1);
@@ -386,7 +386,7 @@ class SimpleOpenID
 			$url = getDolGlobalString('MAIN_AUTHENTICATION_OPENID_URL');
 		}
 
-		$response = getURLContent($url, 'GET', '', 1, array(), array('http', 'https'));
+		$response = getURLContent($url, 'GET', '', 1, [], array('http', 'https'));
 
 		list($servers, $delegates) = $this->HTML2OpenIDServer($response);
 		if (count($servers) == 0) {
@@ -410,7 +410,7 @@ class SimpleOpenID
 	public function GetRedirectURL()
 	{
 		// phpcs:enable
-		$params = array();
+		$params = [];
 		$params['openid.return_to'] = urlencode($this->URLs['approved']);
 		$params['openid.mode'] = 'checkid_setup';
 		$params['openid.identity'] = urlencode($this->openid_url_identity);

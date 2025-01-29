@@ -31,7 +31,7 @@ class FormMailing extends Form
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -52,7 +52,7 @@ class FormMailing extends Form
 		require_once DOL_DOCUMENT_ROOT.'/comm/mailing/class/mailing.class.php';
 		$mailing = new Mailing($this->db);
 
-		$options = array();
+		$options = [];
 
 		$options += $mailing->statut_dest;
 

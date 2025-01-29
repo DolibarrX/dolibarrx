@@ -35,7 +35,7 @@ function establishment_prepare_head($object)
 	$langs->load('hrm');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/hrm/establishment/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Establishment");
@@ -72,7 +72,7 @@ function hrm_admin_prepare_head()
 	$langs->load('hrm');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/hrm/admin/admin_hrm.php';
 	$head[$h][1] = $langs->trans("Parameters");

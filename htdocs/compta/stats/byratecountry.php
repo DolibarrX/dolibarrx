@@ -295,7 +295,7 @@ if ($date_end == dol_time_plus_duree($date_start, 1, 'y') - 1) {
 
 $description .= '  <input type="hidden" name="modecompta" value="'.$modecompta.'">';
 
-report_header($name, '', $period, $periodlink, $description, $builddate, $exportlink, array(), $calcmode);
+report_header($name, '', $period, $periodlink, $description, $builddate, $exportlink, [], $calcmode);
 
 if (isModEnabled('accounting') && $modecompta != 'BOOKKEEPING') {
 	print info_admin($langs->trans("WarningReportNotReliable"), 0, 0, '1');
@@ -346,7 +346,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$resql = $db->query($sql);
 	if ($resql) {
 		$num = $db->num_rows($resql);
-		$totalpermonth = array();
+		$totalpermonth = [];
 		while ($obj = $db->fetch_object($resql)) {
 			print '<tr class="oddeven"><td class="right">'.vatrate($obj->vatrate).'</td>';
 			if ($obj->product_type == 0) {
@@ -434,7 +434,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$resql2 = $db->query($sql2);
 	if ($resql2) {
 		$num = $db->num_rows($resql2);
-		$totalpermonth = array();
+		$totalpermonth = [];
 		while ($obj = $db->fetch_object($resql2)) {
 			print '<tr class="oddeven"><td class="right">'.vatrate($obj->vatrate).'</td>';
 			if ($obj->product_type == 0) {

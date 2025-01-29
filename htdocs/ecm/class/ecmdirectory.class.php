@@ -97,12 +97,12 @@ class EcmDirectory extends CommonObject
 	/**
 	 * @var array<int,array{id:int,id_mere:int,fulllabel:string,fullpath:string,fullrelativename:string,label:string,description:string,cachenbofdoc:int,date_c:int,fk_user_c:int,statut_c:int,login_c:int,id_children?:int[],level:int}>	Array of categories
 	 */
-	public $cats = array();
+	public $cats = [];
 
 	/**
 	 * @var array<int,int> array of children categories
 	 */
-	public $motherof = array();
+	public $motherof = [];
 
 	/**
 	 * @var string[] array of forbidden chars
@@ -568,7 +568,7 @@ class EcmDirectory extends CommonObject
 		// phpcs:enable
 		global $config;
 
-		$this->motherof = array();
+		$this->motherof = [];
 
 		// Load array[child]=parent
 		$sql = "SELECT fk_parent as id_parent, rowid as id_son";
@@ -669,7 +669,7 @@ class EcmDirectory extends CommonObject
 		dol_syslog(get_class($this)."::get_full_arbo", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->cats = array();
+			$this->cats = [];
 			$i = 0;
 			// This assignment in condition is not a bug. It allows walking the results.
 			while ($obj = $this->db->fetch_object($resql)) {

@@ -514,7 +514,7 @@ if ($resql) {
 	print '<td class="right">'.$langs->trans('RemainderToPay').'</td>';
 	print '<td class="right">'.$langs->trans('Status').'</td>';
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 	print "</tr>\n";
@@ -531,7 +531,7 @@ if ($resql) {
 			// Add Margin
 			if (isModEnabled('margin') && getDolGlobalInt('MARGIN_SHOW_MARGIN_ON_PAYMENT')) {
 				$formmargin = new FormMargin($db);
-				$marginInfo = array();
+				$marginInfo = [];
 				$invoice->fetch_lines();
 				$marginInfo = $formmargin->getMarginInfosArray($invoice);
 			}
@@ -620,7 +620,7 @@ if (getDolGlobalString('BILL_ADD_PAYMENT_VALIDATION')) {
 	}
 }
 
-$params = array();
+$params = [];
 if (! empty($title_button)) {
 	$params['attr'] = array('title' => $title_button);
 }

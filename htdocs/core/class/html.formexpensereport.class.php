@@ -85,7 +85,7 @@ class FormExpenseReport
 		}
 		$html .= '</select>'."\n";
 
-		$html .= ajax_combobox($htmlname, array(), 0, 0, 'resolve', ($useempty < 0 ? (string) $useempty : '-1'), $morecss);
+		$html .= ajax_combobox($htmlname, [], 0, 0, 'resolve', ($useempty < 0 ? (string) $useempty : '-1'), $morecss);
 
 		return $html;
 	}

@@ -253,7 +253,7 @@ $nowday   = $nowarray['mday'];
 
 
 // Define list of all external calendars (global setup)
-$listofextcals = array();
+$listofextcals = [];
 
 $prev = dol_get_first_day($year, $month);
 $first_day   = 1;
@@ -425,7 +425,7 @@ if ($config->use_javascript_ajax) {
 		//$s.='<div class="nowrap float"><input type="checkbox" id="check_birthday" name="check_birthday"> '.$langs->trans("AgendaShowBirthdayEvents").' &nbsp; </div>';
 
 		// Calendars from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addCalendarChoice', $parameters, $object, $action);
 		if (empty($resHook)) {
 			$s .= $hookManager->resPrint;
@@ -470,7 +470,7 @@ $viewmode .= img_picture($langs->trans("ViewPerUser"), 'object_calendarperuser',
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow" title="'.dolPrintHTML($langs->trans("ViewPerUser")).'">'.$langs->trans("ViewPerUser").'</span></a>';
 
 // Add more views from hooks
-$parameters = array();
+$parameters = [];
 $object = null;
 $resHook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
 if (empty($resHook)) {
@@ -520,7 +520,7 @@ print '</div>';
 
 
 // Get event in an array
-$eventarray = array();
+$eventarray = [];
 
 
 // DEFAULT CALENDAR + AUTOEVENT CALENDAR + CONFERENCEBOOTH CALENDAR
@@ -765,9 +765,9 @@ if ($resql) {
 }
 
 $maxnbofchar = 18;
-$cachethirdparties = array();
-$cachecontacts = array();
-$cacheusers = array();
+$cachethirdparties = [];
+$cachecontacts = [];
+$cacheusers = [];
 
 // Define theme_datacolor array
 $color_file = DOL_DOCUMENT_ROOT."/theme/".$config->theme."/theme_vars.inc.php";
@@ -826,11 +826,11 @@ echo "</td>\n";
 echo "</tr>\n";
 
 
-$typeofevents = array();
+$typeofevents = [];
 
 // Load array of colors by type
-$colorsbytype = array();
-$labelbytype = array();
+$colorsbytype = [];
+$labelbytype = [];
 $sql = "SELECT code, color, libelle as label FROM ".MAIN_DB_PREFIX."c_actioncomm ORDER BY position";
 $resql = $db->query($sql);
 while ($obj = $db->fetch_object($resql)) {
@@ -978,7 +978,7 @@ $db->close();
  * @param	bool	$var			true or false for alternat style on tr/td
  * @return	void
  */
-function show_day_events_pertype($username, $day, $month, $year, $monthshown, $style, &$eventarray, $maxprint = 0, $maxnbofchar = 16, $newparam = '', $showinfo = 0, $minheight = 60, $showheader = false, $colorsbytype = array(), $var = false)
+function show_day_events_pertype($username, $day, $month, $year, $monthshown, $style, &$eventarray, $maxprint = 0, $maxnbofchar = 16, $newparam = '', $showinfo = 0, $minheight = 60, $showheader = false, $colorsbytype = [], $var = false)
 {
 	global $db;
 	global $user, $config, $langs, $hookManager, $action;
@@ -987,15 +987,15 @@ function show_day_events_pertype($username, $day, $month, $year, $monthshown, $s
 	global $cachethirdparties, $cachecontacts, $cacheusers, $cacheprojects, $colorindexused;
 	global $begin_h, $end_h;
 
-	$cases1 = array(); // Color first half hour
-	$cases2 = array(); // Color second half hour
+	$cases1 = []; // Color first half hour
+	$cases2 = []; // Color second half hour
 
 	$i = 0;
 	$nummytasks = 0;
 	$numother = 0;
 	$numbirthday = 0;
 	$numical = 0;
-	$numicals = array();
+	$numicals = [];
 	$ymd = sprintf("%04d", $year).sprintf("%02d", $month).sprintf("%02d", $day);
 
 	$nextindextouse = count($colorindexused); // At first run, this is 0, so fist user has 0, next 1, ...
@@ -1021,7 +1021,7 @@ function show_day_events_pertype($username, $day, $month, $year, $monthshown, $s
 				}
 				//if ($username->id != $event->userownerid) continue;	// We discard record if event is from another user than user we want to show
 
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('formatEvent', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
 				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');

@@ -40,7 +40,7 @@ class mailing_eventorganization extends MailingTargets
 	/**
 	 * @var string[] This module allows to select by categories must be also enabled if category module is not activated
 	 */
-	public $require_module = array();
+	public $require_module = [];
 
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
@@ -79,7 +79,7 @@ class mailing_eventorganization extends MailingTargets
 		// phpcs:enable
 		global $config, $langs;
 
-		$cibles = array();
+		$cibles = [];
 		$addDescription = '';
 
 		$sql = "SELECT p.ref, p.entity, e.rowid as id, e.fk_project, e.email as email, e.email_company as company_name, e.firstname as firstname, e.lastname as lastname,";
@@ -154,9 +154,9 @@ class mailing_eventorganization extends MailingTargets
 	{
 		// CHANGE THIS: Optional
 
-		//var $statssql=array();
+		//var $statssql=[];
 		//$this->statssql[0]="SELECT field1 as label, count(distinct(email)) as nb FROM mytable WHERE email IS NOT NULL";
-		return array();
+		return [];
 	}
 
 

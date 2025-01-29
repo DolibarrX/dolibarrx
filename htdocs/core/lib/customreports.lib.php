@@ -40,7 +40,7 @@ function fillArrayOfMeasures($object, $tablealias, $labelofobject, &$arrayofmesu
 	global $langs, $extrafields, $db;
 
 	if (empty($object)) {	// Protection against bad use of method
-		return array();
+		return [];
 	}
 	if ($level > 10) {	// Protection against infinite loop
 		return $arrayofmesures;
@@ -190,7 +190,7 @@ function fillArrayOfXAxis($object, $tablealias, $labelofobject, &$arrayofxaxis, 
 	global $langs, $extrafields, $db;
 
 	if (empty($object)) {	// Protection against bad use of method
-		return array();
+		return [];
 	}
 	if ($level >= 3) {	// Limit scan on 2 levels max
 		return $arrayofxaxis;
@@ -371,7 +371,7 @@ function fillArrayOfGroupBy($object, $tablealias, $labelofobject, &$arrayofgroup
 	global $langs, $extrafields, $db;
 
 	if (empty($object)) {	// Protection against bad use of method
-		return array();
+		return [];
 	}
 	if ($level >= 3) {
 		return $arrayofgroupby;
@@ -550,7 +550,7 @@ function fillArrayOfFilterFields($object, $tablealias, $labelofobject, &$arrayof
 	$MAXLEVEL = 2;
 
 	if (empty($object)) {	// Protection against bad use of method
-		return array();
+		return [];
 	}
 	if ($level > $MAXLEVEL) {	// Limit scan on 2 levels max
 		return $arrayoffields;

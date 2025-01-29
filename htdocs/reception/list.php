@@ -212,8 +212,8 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_date_create_end = '';
 	$search_billed = '';
 	$search_status = '';
-	$toselect = array();
-	$search_array_options = array();
+	$toselect = [];
+	$search_array_options = [];
 }
 
 if (empty($resHook)) {
@@ -231,12 +231,12 @@ if (empty($resHook)) {
 		$createbills_onebythird = GETPOSTINT('createbills_onebythird');
 		$validate_invoices = GETPOSTINT('validate_invoices');
 
-		$errors = array();
+		$errors = [];
 
-		$TFact = array();
-		$TFactThird = array();
+		$TFact = [];
+		$TFactThird = [];
 		'@phan-var FactureFournisseur[] $TFactThird';
-		$TFactThirdNbLines = array();
+		$TFactThirdNbLines = [];
 
 		$nb_bills_created = 0;
 		$lastid = 0;
@@ -503,7 +503,7 @@ if (empty($resHook)) {
 								$product_type,
 								$rang,
 								false,
-								array(),
+								[],
 								null,
 								$lines[$i]->rowid,
 								0,
@@ -542,7 +542,7 @@ if (empty($resHook)) {
 
 		// Build doc with all invoices
 		$TAllFact = empty($createbills_onebythird) ? $TFact : $TFactThird;
-		$toselect = array();
+		$toselect = [];
 
 		if (!$error && $validate_invoices) {
 			$massaction = $action = 'builddoc';
@@ -624,7 +624,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -641,7 +641,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as state on (state.rowid = 
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as ee ON e.rowid = ee.fk_source AND ee.sourcetype = 'reception' AND ee.targettype = 'delivery'";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."delivery as l ON l.rowid = ee.fk_target";
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " WHERE e.entity IN (".getEntity('reception').")";
@@ -709,12 +709,12 @@ if ($search_sale && $search_sale != '-1') {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 // Add HAVING from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= empty($hookManager->resPrint) ? "" : " HAVING 1=1 ".$hookManager->resPrint;
 
@@ -755,7 +755,7 @@ $num = $db->num_rows($resql);
 
 $reception = new Reception($db);
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -879,7 +879,7 @@ if ($user->hasRight('fournisseur', 'facture', 'creer') || $user->hasRight('suppl
 	$arrayofmassactions['createbills'] = $langs->trans("CreateInvoiceForThisReceptions");
 }
 if (in_array($massaction, array('presend', 'createbills'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -1098,7 +1098,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1188,7 +1188,7 @@ print "</tr>\n";
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {

@@ -77,7 +77,7 @@ if ($mode == 'cardlogin' && empty($foruserlogin)) {
 }
 
 if ((!empty($foruserid) || !empty($foruserlogin) || !empty($mode)) && !$mesg) {
-	$arrayofmembers = array();
+	$arrayofmembers = [];
 
 	// request taking into account member with up to date subscriptions
 	$sql = "SELECT d.rowid, d.ref, d.civility, d.firstname, d.lastname, d.login, d.societe as company, d.datefin,";
@@ -124,7 +124,7 @@ if ((!empty($foruserid) || !empty($foruserlogin) || !empty($mode)) && !$mesg) {
 
 			// Format extrafield so they can be parsed in function complete_substitutions_array
 			if (isset($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) {
-				$memberStatic->array_options = array();
+				$memberStatic->array_options = [];
 				foreach ($extrafields->attributes[$object->table_element]['label'] as $key => $val) {
 					$tmpkey = 'options_'.$key;
 					if (!empty($objp->$tmpkey)) {
@@ -303,7 +303,7 @@ print '<input type="hidden" name="mode" value="card">';
 print '<input type="hidden" name="action" value="builddoc">';
 print $langs->trans("DescADHERENT_CARD_TYPE").' ';
 // List of possible labels (defined into $_Avery_Labels variable set into format_cards.lib.php)
-$arrayoflabels = array();
+$arrayoflabels = [];
 foreach (array_keys($_Avery_Labels) as $codecards) {
 	$arrayoflabels[$codecards] = $_Avery_Labels[$codecards]['name'];
 }
@@ -321,7 +321,7 @@ print '<input type="hidden" name="mode" value="cardlogin">';
 print '<input type="hidden" name="action" value="builddoc">';
 print $langs->trans("DescADHERENT_CARD_TYPE").' ';
 // List of possible labels (defined into $_Avery_Labels variable set into format_cards.lib.php)
-$arrayoflabels = array();
+$arrayoflabels = [];
 foreach (array_keys($_Avery_Labels) as $codecards) {
 	$arrayoflabels[$codecards] = $_Avery_Labels[$codecards]['name'];
 }
@@ -340,7 +340,7 @@ print '<input type="hidden" name="mode" value="label">';
 print '<input type="hidden" name="action" value="builddoc">';
 print $langs->trans("DescADHERENT_ETIQUETTE_TYPE").' ';
 // List of possible labels (defined into $_Avery_Labels variable set into format_cards.lib.php)
-$arrayoflabels = array();
+$arrayoflabels = [];
 foreach (array_keys($_Avery_Labels) as $codecards) {
 	$arrayoflabels[$codecards] = $_Avery_Labels[$codecards]['name'];
 }

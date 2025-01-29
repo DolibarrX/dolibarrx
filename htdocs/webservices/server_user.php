@@ -168,7 +168,7 @@ $server->wsdl->addComplexType(
 	'array',
 	'',
 	'SOAP-ENC:Array',
-	array(),
+	[],
 	array(
 	array('ref' => 'SOAP-ENC:arrayType', 'wsdl:arrayType' => 'tns:group[]')
 	),
@@ -216,7 +216,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($elementtype, true);
 $extrafield_array = null;
 if (is_array($extrafields->attributes) && $extrafields->attributes[$elementtype]['count'] > 0) {
-	$extrafield_array = array();
+	$extrafield_array = [];
 }
 if (isset($extrafields->attributes[$elementtype]['label']) && is_array($extrafields->attributes[$elementtype]['label']) && count($extrafields->attributes[$elementtype]['label'])) {
 	foreach ($extrafields->attributes[$elementtype]['label'] as $key => $label) {
@@ -345,7 +345,7 @@ function getUser($authentication, $id, $ref = '', $ref_ext = '')
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -435,8 +435,8 @@ function getListOfGroups($authentication)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
-	$arraygroups = array();
+	$objectresp = [];
+	$arraygroups = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -503,7 +503,7 @@ function createUserFromThirdparty($authentication, $thirdpartywithuser)
 		$config->entity = $authentication['entity'];
 	}
 
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -702,7 +702,7 @@ function setUserPassword($authentication, $shortuser)
 		$config->entity = $authentication['entity'];
 	}
 
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;

@@ -242,7 +242,7 @@ class Asset extends CommonObject
 	/**
 	 * @var array<string,array<array{id:int,ref:string,depreciation_date:string,depreciation_ht:string,cumulative_depreciation_ht:string,bookkeeping:Bookkeeping}>>	List of depreciation lines for each mode (sort by depreciation date).
 	 */
-	public $depreciation_lines = array();
+	public $depreciation_lines = [];
 
 	/**
 	 * Constructor
@@ -457,7 +457,7 @@ class Asset extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = "SELECT ";
 		$sql .= $this->getFieldList('t');
@@ -682,7 +682,7 @@ class Asset extends CommonObject
 	{
 		global $langs;
 		$langs->load('assets');
-		$this->depreciation_lines = array();
+		$this->depreciation_lines = [];
 
 		// Clean parameters
 		$this->id = $this->id > 0 ? $this->id : 0;
@@ -727,7 +727,7 @@ class Asset extends CommonObject
 
 		while ($obj = $this->db->fetch_object($resql)) {
 			if (!isset($this->depreciation_lines[$obj->depreciation_mode])) {
-				$this->depreciation_lines[$obj->depreciation_mode] = array();
+				$this->depreciation_lines[$obj->depreciation_mode] = [];
 			}
 			$this->depreciation_lines[$obj->depreciation_mode][] = array(
 				'id' => $obj->rowid,
@@ -905,7 +905,7 @@ class Asset extends CommonObject
 		$this->db->begin();
 
 		// Delete old lines
-		$modes = array();
+		$modes = [];
 		foreach ($options->deprecation_options as $mode_key => $fields) {
 			$modes[$mode_key] = $this->db->escape($mode_key);
 		}

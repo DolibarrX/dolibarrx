@@ -146,7 +146,7 @@ class box_graph_invoices_peryear extends ModeleBoxes
 				$px2->SetData($data2);
 				unset($data2);
 				$i = $startyear;
-				/*$legend = array();
+				/*$legend = [];
 				while ($i <= $endyear) {
 					if ($startmonth != 1) {
 						$legend[] = sprintf("%d/%d", $i - 2001, $i - 2000);

@@ -381,7 +381,7 @@ class Ticket extends CommonObject
 	 */
 	private function verify()
 	{
-		$this->errors = array();
+		$this->errors = [];
 
 		$result = 0;
 
@@ -743,7 +743,7 @@ class Ticket extends CommonObject
 				$this->subject = $obj->subject;
 				$this->message = $obj->message;
 				$this->model_pdf = $obj->model_pdf;
-				$this->extraparams = !empty($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : array();
+				$this->extraparams = !empty($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : [];
 				$this->ip = $obj->ip;
 
 				$this->status = $obj->status;
@@ -915,7 +915,7 @@ class Ticket extends CommonObject
 		$resql = $this->db->query($sql);
 
 		if ($resql) {
-			$this->lines = array();
+			$this->lines = [];
 
 			$num = $this->db->num_rows($resql);
 			$i = 0;
@@ -1547,7 +1547,7 @@ class Ticket extends CommonObject
 			return $hookManager->resPrint;
 		}
 
-		$params = array();
+		$params = [];
 		if ($notooltip) {
 			$params = array('tooltip' => 'no');
 		}
@@ -1576,7 +1576,7 @@ class Ticket extends CommonObject
 		$langs->load('ticket');
 		$nofetch = !empty($params['nofetch']);
 
-		$datas = array();
+		$datas = [];
 		$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("Ticket").'</u>';
 		$datas['picture'] .= ' '.$this->getLibStatut(4);
 		$datas['ref'] = '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
@@ -1816,7 +1816,7 @@ class Ticket extends CommonObject
 	 * @param	int<0,1>	$public_area		0=Default, 1 if we are creating the message from a public area (so we can search contact from email to add it as contact of ticket if TICKET_ASSIGN_CONTACT_TO_MESSAGE is set)
 	 * @return	int								Return integer <0 if KO, >0 if OK
 	 */
-	public function createTicketMessage($user, $notrigger = 0, $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array(), $send_email = false, $public_area = 0)
+	public function createTicketMessage($user, $notrigger = 0, $filename_list = [], $mimetype_list = [], $mimefilename_list = [], $send_email = false, $public_area = 0)
 	{
 		global $config;
 		$error = 0;
@@ -1876,7 +1876,7 @@ class Ticket extends CommonObject
 			}
 		}
 
-		$attachedfiles = array();
+		$attachedfiles = [];
 		$attachedfiles['paths'] = $filename_list;
 		$attachedfiles['names'] = $mimefilename_list;
 		$attachedfiles['mimes'] = $mimetype_list;
@@ -2071,9 +2071,9 @@ class Ticket extends CommonObject
 	 *     @param  string 		$clause  	Clause for filters
 	 *     @return Societe[]|int<-1,-1>		Array of thirdparties object
 	 */
-	public function searchSocidByEmail($email, $type = 0, $filters = array(), $clause = 'AND')
+	public function searchSocidByEmail($email, $type = 0, $filters = [], $clause = 'AND')
 	{
-		$thirdparties = array();
+		$thirdparties = [];
 		$exact = 0;
 
 		// Generation requete recherche
@@ -2088,7 +2088,7 @@ class Ticket extends CommonObject
 		}
 		if (!empty($email)) {
 			if (empty($exact)) {
-				$regs = array();
+				$regs = [];
 				if (preg_match('/^([\*])?[^*]+([\*])?$/', $email, $regs) && count($regs) > 1) {
 					$email = str_replace('*', '%', $email);
 				} else {
@@ -2137,7 +2137,7 @@ class Ticket extends CommonObject
 	 */
 	public function searchContactByEmail($email, $socid = 0, $case = '')
 	{
-		$contacts = array();
+		$contacts = [];
 
 		// Forge the search SQL
 		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."socpeople";
@@ -2332,7 +2332,7 @@ class Ticket extends CommonObject
 	 */
 	public function getTicketAllCustomerContacts()
 	{
-		$array_contact = array();
+		$array_contact = [];
 
 		$array_contact = array_merge($array_contact, $this->getIdTicketCustomerContact());
 
@@ -2357,7 +2357,7 @@ class Ticket extends CommonObject
 	{
 		global $langs;
 
-		$tab = array();
+		$tab = [];
 
 		$sql = "SELECT ec.rowid, ec.statut  as statuslink, ec.fk_socpeople as id, ec.fk_c_type_contact"; // This field contains id of llx_socpeople or id of llx_user
 		if ($source == 'internal') {
@@ -2570,8 +2570,8 @@ class Ticket extends CommonObject
 			dol_mkdir($destdir);
 		}
 
-		$listofpaths = array();
-		$listofnames = array();
+		$listofpaths = [];
+		$listofnames = [];
 		foreach ($filename as $i => $val) {
 			$destfile = $destdir.'/'.$filename[$i];
 			// If destination file already exists, we add a suffix to avoid to overwrite
@@ -2639,7 +2639,7 @@ class Ticket extends CommonObject
 			$to_del = array_diff($existing, $categories);
 			$to_add = array_diff($categories, $existing);
 		} else {
-			$to_del = array(); // Nothing to delete
+			$to_del = []; // Nothing to delete
 			$to_add = $categories;
 		}
 
@@ -2737,7 +2737,7 @@ class Ticket extends CommonObject
 
 						$assigned_user_dont_have_email = '';
 
-						$sendto = array();
+						$sendto = [];
 
 						if ($this->fk_user_assign > 0) {
 							$assigned_user = new User($this->db);
@@ -2827,7 +2827,7 @@ class Ticket extends CommonObject
 						// Retrieve internal contact datas
 						$internal_contacts = $object->getInfosTicketInternalContact(1);
 
-						$sendto = array();
+						$sendto = [];
 						if (is_array($internal_contacts) && count($internal_contacts) > 0) {
 							// Set default subject
 							$appli = getDolGlobalString('MAIN_APPLICATION_TITLE', $mysoc->name);
@@ -2912,7 +2912,7 @@ class Ticket extends CommonObject
 								}
 							}
 
-							$sendto = array();
+							$sendto = [];
 							if (is_array($external_contacts) && count($external_contacts) > 0) {
 								// Get default subject for email to external contacts
 								$appli = getDolGlobalString('MAIN_APPLICATION_TITLE', $mysoc->name);
@@ -3036,7 +3036,7 @@ class Ticket extends CommonObject
 	 * @param string[]	$mimefilename_list   List of attached file name in message
 	 * @return boolean     					True if mail sent to at least one receiver, false otherwise
 	 */
-	public function sendTicketMessageByEmail($subject, $message, $send_internal_cc = 0, $array_receiver = array(), $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array())
+	public function sendTicketMessageByEmail($subject, $message, $send_internal_cc = 0, $array_receiver = [], $filename_list = [], $mimetype_list = [], $mimefilename_list = [])
 	{
 		global $config, $langs, $user;
 
@@ -3214,7 +3214,7 @@ class Ticket extends CommonObject
 	{
 		global $user;
 
-		$this->nb = array();
+		$this->nb = [];
 		$clause = "WHERE";
 
 		$sql = "SELECT count(p.rowid) as nb";

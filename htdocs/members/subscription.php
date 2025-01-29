@@ -133,7 +133,7 @@ $result = restrictedArea($user, 'member', $object->id, '', '', 'socid', 'rowid',
  * 	Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -396,9 +396,9 @@ if (empty($resHook) && $user->hasRight('member', 'cotisation', 'creer') && $acti
 
 					// Attach a file ?
 					$file = '';
-					$listofpaths = array();
-					$listofnames = array();
-					$listofmimes = array();
+					$listofpaths = [];
+					$listofnames = [];
+					$listofmimes = [];
 					if (is_object($object->invoice) && (!is_object($arraydefaultmessage) || intval($arraydefaultmessage->joinfiles))) {
 						$invoicediroutput = $config->facture->dir_output;
 						$fileparams = dol_most_recent_file($invoicediroutput.'/'.$object->invoice->ref, preg_quote($object->invoice->ref, '/').'[^\-]+');
@@ -670,7 +670,7 @@ if ($action != 'editlogin' && $user->hasRight('member', 'creer')) {
 print '</tr></table>';
 print '</td><td colspan="2" class="valeur">';
 if ($action == 'editlogin') {
-	$form->form_users($_SERVER['PHP_SELF'].'?rowid='.$object->id, $object->user_id, 'userid', array());
+	$form->form_users($_SERVER['PHP_SELF'].'?rowid='.$object->id, $object->user_id, 'userid', []);
 } else {
 	if ($object->user_id) {
 		$linkeduser = new User($db);
@@ -956,7 +956,7 @@ if (($action == 'addsubscription' || $action == 'create_thirdparty') && $user->h
 	print '<input type="hidden" name="memberlabel" id="memberlabel" value="'.dol_escape_htmltag($object->getFullName($langs)).'">';
 	print '<input type="hidden" name="thirdpartylabel" id="thirdpartylabel" value="'.dol_escape_htmltag($object->company).'">';
 
-	print dol_get_fiche_head(array());
+	print dol_get_fiche_head([]);
 
 	print '<div class="div-table-responsive">';
 	print '<table class="border centpercent">'."\n";
@@ -1209,7 +1209,7 @@ if (($action == 'addsubscription' || $action == 'create_thirdparty') && $user->h
 	print dol_get_fiche_end();
 
 	print '<div class="center">';
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
 	if (empty($resHook)) {
 		print '<input type="submit" class="button" name="add" value="'.$langs->trans("AddSubscription").'">';

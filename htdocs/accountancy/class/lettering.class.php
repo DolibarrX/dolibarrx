@@ -148,8 +148,8 @@ class Lettering extends BookKeeping
 			$num = $this->db->num_rows($resql);
 
 			while ($obj = $this->db->fetch_object($resql)) {
-				$ids = array();
-				$ids_fact = array();
+				$ids = [];
+				$ids_fact = [];
 
 				if ($obj->type == 'payment_supplier') {
 					$sql = 'SELECT DISTINCT bk.rowid, facf.ref, facf.ref_supplier, payf.fk_bank, facf.rowid as fact_id';
@@ -298,7 +298,7 @@ class Lettering extends BookKeeping
 	 * @param	bool		$partial		Partial lettering
 	 * @return	int
 	 */
-	public function updateLettering($ids = array(), $notrigger = 0, $partial = false)
+	public function updateLettering($ids = [], $notrigger = 0, $partial = false)
 	{
 		$now = dol_now();
 		$error = 0;
@@ -481,7 +481,7 @@ class Lettering extends BookKeeping
 		dol_syslog(__METHOD__ . " - ", LOG_DEBUG);
 
 		$error = 0;
-		$errors = array();
+		$errors = [];
 		$nb_lettering = 0;
 
 		$result = $this->bookkeepingLettering($bookkeeping_ids, $unlettering);
@@ -512,10 +512,10 @@ class Lettering extends BookKeeping
 	{
 		global $langs;
 
-		$this->errors = array();
+		$this->errors = [];
 
 		// Clean parameters
-		$bookkeeping_ids = is_array($bookkeeping_ids) ? $bookkeeping_ids : array();
+		$bookkeeping_ids = is_array($bookkeeping_ids) ? $bookkeeping_ids : [];
 
 		$error = 0;
 		$nb_lettering = 0;
@@ -529,8 +529,8 @@ class Lettering extends BookKeeping
 			$total = 0;
 			$do_it = !$unlettering;
 			$lettering_code = null;
-			$piece_num_lines = array();
-			$bookkeeping_lines = array();
+			$piece_num_lines = [];
+			$bookkeeping_lines = [];
 			foreach ($lines as $line_infos) {
 				$bookkeeping_lines[$line_infos['id']] = $line_infos['id'];
 				$piece_num_lines[$line_infos['piece_num']] = $line_infos['piece_num'];
@@ -597,10 +597,10 @@ class Lettering extends BookKeeping
 	public function getLinkedLines($bookkeeping_ids, $only_has_subledger_account = true)
 	{
 		global $config, $langs;
-		$this->errors = array();
+		$this->errors = [];
 
 		// Clean parameters
-		$bookkeeping_ids = is_array($bookkeeping_ids) ? $bookkeeping_ids : array();
+		$bookkeeping_ids = is_array($bookkeeping_ids) ? $bookkeeping_ids : [];
 
 		// Get all bookkeeping lines
 		$sql = "SELECT DISTINCT ab.doc_type, ab.fk_doc";
@@ -628,14 +628,14 @@ class Lettering extends BookKeeping
 			return -1;
 		}
 
-		$bookkeeping_lines_by_type = array();
+		$bookkeeping_lines_by_type = [];
 		while ($obj = $this->db->fetch_object($resql)) {
 			$bookkeeping_lines_by_type[$obj->doc_type][$obj->fk_doc] = $obj->fk_doc;
 		}
 		$this->db->free($resql);
 
 		if (empty($bookkeeping_lines_by_type)) {
-			return array();
+			return [];
 		}
 
 		if (!empty($bookkeeping_lines_by_type['bank'])) {
@@ -650,7 +650,7 @@ class Lettering extends BookKeeping
 			}
 		}
 
-		$grouped_lines = array();
+		$grouped_lines = [];
 		foreach (self::$doc_type_infos as $doc_type => $doc_type_info) {
 			if (!is_array($bookkeeping_lines_by_type[$doc_type])) {
 				continue;
@@ -704,7 +704,7 @@ class Lettering extends BookKeeping
 					return -1;
 				}
 
-				$group = array();
+				$group = [];
 				while ($obj = $this->db->fetch_object($resql)) {
 					$group[$obj->rowid] = array(
 						'id' => $obj->rowid,
@@ -736,13 +736,13 @@ class Lettering extends BookKeeping
 		dol_syslog(__METHOD__ . " - bank_ids=" . json_encode($bank_ids), LOG_DEBUG);
 
 		// Clean parameters
-		$bank_ids = is_array($bank_ids) ? $bank_ids : array();
+		$bank_ids = is_array($bank_ids) ? $bank_ids : [];
 
 		if (empty($bank_ids)) {
-			return array();
+			return [];
 		}
 
-		$bookkeeping_lines_by_type = array();
+		$bookkeeping_lines_by_type = [];
 		foreach (self::$doc_type_infos as $doc_type => $doc_type_info) {
 			// Get all fk_doc by doc_type from bank ids
 			$sql = "SELECT DISTINCT dp." . $this->db->sanitize($doc_type_info['doc_payment_table_fk_doc']) . " AS fk_doc";
@@ -781,14 +781,14 @@ class Lettering extends BookKeeping
 		dol_syslog(__METHOD__ . " - bank_ids=" . json_encode($document_ids) . ", doc_type=$doc_type", LOG_DEBUG);
 
 		// Clean parameters
-		$document_ids = is_array($document_ids) ? $document_ids : array();
+		$document_ids = is_array($document_ids) ? $document_ids : [];
 		//remove empty entries
 		$document_ids = array_filter($document_ids);
 
 		$doc_type = trim($doc_type);
 
 		if (empty($document_ids)) {
-			return array();
+			return [];
 		}
 		if (!is_array(self::$doc_type_infos[$doc_type])) {
 			$langs->load('errors');
@@ -797,7 +797,7 @@ class Lettering extends BookKeeping
 		}
 
 		$doc_type_info = self::$doc_type_infos[$doc_type];
-		$bank_ids = array();
+		$bank_ids = [];
 
 		// Get all fk_doc by doc_type from bank ids
 		$sql = "SELECT DISTINCT p." . $this->db->sanitize($doc_type_info['payment_table_fk_bank']) . " AS fk_doc";
@@ -834,13 +834,13 @@ class Lettering extends BookKeeping
 		global $langs;
 
 		// Clean parameters
-		$document_ids = is_array($document_ids) ? $document_ids : array();
+		$document_ids = is_array($document_ids) ? $document_ids : [];
 		$doc_type = trim($doc_type);
 		//remove empty entries
 		$document_ids = array_filter($document_ids);
 
 		if (empty($document_ids)) {
-			return array();
+			return [];
 		}
 
 		if (!is_array(self::$doc_type_infos[$doc_type])) {
@@ -852,9 +852,9 @@ class Lettering extends BookKeeping
 		$doc_type_info = self::$doc_type_infos[$doc_type];
 
 		// Get document lines
-		$current_document_ids = array();
-		$link_by_element = array();
-		$element_by_link = array();
+		$current_document_ids = [];
+		$link_by_element = [];
+		$element_by_link = [];
 		foreach ($doc_type_info['linked_info'] as $linked_info) {
 			if (empty($linked_info['fk_line_link'])) {
 				$sql = "SELECT DISTINCT tl2." . $this->db->sanitize($linked_info['fk_link']) . " AS fk_link, tl2." . $this->db->sanitize($linked_info['fk_doc']) . " AS fk_doc";
@@ -919,9 +919,9 @@ class Lettering extends BookKeeping
 	 * @param	array<int,int>		$current_group		Current group (used for recursive function)
 	 * @return	array<int,array<int,int>>			List of element ids grouped by link or element in common
 	 */
-	public function getGroupElements(&$link_by_element, &$element_by_link, $link_key = '', &$current_group = array())
+	public function getGroupElements(&$link_by_element, &$element_by_link, $link_key = '', &$current_group = [])
 	{
-		$grouped_elements = array();
+		$grouped_elements = [];
 		if (!empty($link_key) && !isset($element_by_link[$link_key])) {
 			// Return if specific link key not found
 			return $grouped_elements;
@@ -962,7 +962,7 @@ class Lettering extends BookKeeping
 			if (empty($link_key)) {
 				// Save current group and reset the current group when is the begin of recursive function
 				$grouped_elements[] = $current_group;
-				$current_group = array();
+				$current_group = [];
 			}
 		} while (!empty($element_by_link) && empty($link_key));
 

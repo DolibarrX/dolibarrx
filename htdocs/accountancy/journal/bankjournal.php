@@ -222,13 +222,13 @@ $accountingjournalstatic->fetch($id_journal);
 $journal = $accountingjournalstatic->code;
 $journal_label = $accountingjournalstatic->label;
 
-$tabcompany = array();
-$tabuser = array();
-$tabpay = array();
-$tabbq = array();
-$tabtp = array();
-$tabtype = array();
-$tabmoreinfo = array();
+$tabcompany = [];
+$tabuser = [];
+$tabpay = [];
+$tabbq = [];
+$tabtp = [];
+$tabtype = [];
+$tabmoreinfo = [];
 
 '
 @phan-var-force array<array{id:mixed,name:mixed,code_compta_client:string,email:string}> $tabcompany
@@ -337,7 +337,7 @@ if ($result) {
 		$tabpay[$obj->rowid]["fk_bank"] = $obj->rowid;
 		$tabpay[$obj->rowid]["bank_account_ref"] = $obj->baref;
 		$tabpay[$obj->rowid]["fk_bank_account"] = $obj->fk_account;
-		$reg = array();
+		$reg = [];
 		if (preg_match('/^\((.*)\)$/i', $obj->label, $reg)) {
 			$tabpay[$obj->rowid]["lib"] = $langs->trans($reg[1]);
 		} else {
@@ -352,7 +352,7 @@ if ($result) {
 		// By default
 		$tabpay[$obj->rowid]['type'] = 'unknown'; // Can be SOLD, miscellaneous entry, payment of patient, or any old record with no links in bank_url.
 		$tabtype[$obj->rowid] = 'unknown';
-		$tabmoreinfo[$obj->rowid] = array();
+		$tabmoreinfo[$obj->rowid] = [];
 
 		$amounttouse = $obj->amount;
 		if (!empty($obj->amount_main_currency)) {
@@ -466,7 +466,7 @@ if ($result) {
 					$chargestatic->ref = (string) $links[$key]['url_id'];
 
 					$tabpay[$obj->rowid]["lib"] .= ' '.$chargestatic->getNomUrl(2);
-					$reg = array();
+					$reg = [];
 					if (preg_match('/^\((.*)\)$/i', $links[$key]['label'], $reg)) {
 						if ($reg[1] == 'socialcontribution') {
 							$reg[1] = 'SocialContribution';

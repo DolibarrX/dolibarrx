@@ -176,7 +176,7 @@ function createPayment($authentication, $payment)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode  = '';
 	$errorlabel = '';
 	$error      = 0;

@@ -157,7 +157,7 @@ if (empty($resHook)) {
 		$search_accountparent = "";
 		$search_pcgtype = "";
 		$search_import_key = "";
-		$search_array_options = array();
+		$search_array_options = [];
 	}
 	if ((GETPOSTINT('valid_change_chart') && GETPOSTINT('chartofaccounts') > 0)	// explicit click on button 'Change and load' with js on
 		|| (GETPOSTINT('chartofaccounts') > 0 && GETPOSTINT('chartofaccounts') != getDolGlobalInt('CHARTOFACCOUNTS'))) {	// a submit of form is done and chartofaccounts combo has been modified
@@ -187,7 +187,7 @@ if (empty($resHook)) {
 				// and pass CCCNNNNN + (num of company * 100 000 000) as offset to the run_sql as a new parameter to say to update sql on the fly to add offset to rowid and account_parent value.
 				// This is to be sure there is no conflict for each chart of account, whatever is country, whatever is company when multicompany is used.
 				$tmp = file_get_contents($sqlfile);
-				$reg = array();
+				$reg = [];
 				if (preg_match('/-- ADD (\d+) to rowid/ims', $tmp, $reg)) {
 					$offsetforchartofaccount += $reg[1];
 				}
@@ -255,7 +255,7 @@ $sql .= " aa.reconcilable, aa.active, aa.import_key,";
 $sql .= " a2.rowid as rowid2, a2.label as label2, a2.account_number as account_number2";
 
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -265,7 +265,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_system as asy ON aa.fk_pcg_vers
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as a2 ON a2.rowid = aa.account_parent AND a2.entity = ".((int) $config->entity);
 
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -322,7 +322,7 @@ if (strlen(trim($search_import_key))) {
 }
 
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -348,7 +348,7 @@ $resql = $db->query($sql);
 if ($resql) {
 	$num = $db->num_rows($resql);
 
-	$arrayofselected = is_array($toselect) ? $toselect : array();
+	$arrayofselected = is_array($toselect) ? $toselect : [];
 
 	$param = '';
 	// if null contextpage is forced to 'accountingaccountlist' so never empty
@@ -381,7 +381,7 @@ if ($resql) {
 	}
 
 	// Add $param from hooks
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	$param .= $hookManager->resPrint;
 
@@ -399,12 +399,12 @@ if ($resql) {
 	}
 
 	// List of mass actions available
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 	// if ($permissiontoadd) { // test is always true
 	$arrayofmassactions['predelete'] = '<span class="fa fa-trash paddingrightonly"></span>'.$langs->trans("Delete");
 	// }
 	if (in_array($massaction, array('presend', 'predelete', 'closed'))) {
-		$arrayofmassactions = array();
+		$arrayofmassactions = [];
 	}
 
 	$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
@@ -466,7 +466,7 @@ if ($resql) {
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $accounting, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
@@ -479,7 +479,7 @@ if ($resql) {
 
 	$accountstatic = new AccountingAccount($db);
 	$accountparent = new AccountingAccount($db);
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
 
 	$moreforfilter = '';
@@ -515,7 +515,7 @@ if ($resql) {
 	}
 	if (!empty($arrayfields['aa.account_parent']['checked'])) {
 		print '<td class="liste_titre">';
-		print $formaccounting->select_account($search_accountparent, 'search_accountparent', 2, array(), 0, 0, 'maxwidth150');
+		print $formaccounting->select_account($search_accountparent, 'search_accountparent', 2, [], 0, 0, 'maxwidth150');
 		print '</td>';
 	}
 	// Predefined group
@@ -553,7 +553,7 @@ if ($resql) {
 	}
 	print '</tr>'."\n";
 
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
 
 	// Fields title label

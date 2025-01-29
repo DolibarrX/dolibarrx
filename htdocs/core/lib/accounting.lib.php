@@ -55,7 +55,7 @@ function accounting_prepare_head(AccountingAccount $object)
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/accountancy/admin/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("AccountAccounting");
@@ -180,7 +180,7 @@ function length_accounta($accounta)
  *	@param	array<string,mixed>	$moreoptions	Array with list of params to add to table
  *	@return	void
  */
-function journalHead($nom, $variant, $period, $periodlink, $description, $builddate, $exportlink = '', $moreparam = array(), $calcmode = '', $varlink = '', $moreoptions = array())
+function journalHead($nom, $variant, $period, $periodlink, $description, $builddate, $exportlink = '', $moreparam = [], $calcmode = '', $varlink = '', $moreoptions = [])
 {
 	global $langs;
 
@@ -190,7 +190,7 @@ function journalHead($nom, $variant, $period, $periodlink, $description, $buildd
 		$varlink = '?' . $varlink;
 	}
 
-	$head = array();
+	$head = [];
 	$h = 0;
 	$head[$h][0] = $_SERVER["PHP_SELF"] . $varlink;
 	$head[$h][1] = $langs->trans("Journalization");

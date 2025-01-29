@@ -351,7 +351,7 @@ class User extends CommonObject
 	/**
 	 * @var array<string,int> Cache array of already loaded permissions
 	 */
-	private $_tab_loaded = array();
+	private $_tab_loaded = [];
 
 	/**
 	 * @var stdClass To store personal config
@@ -375,7 +375,7 @@ class User extends CommonObject
 	/**
 	 *	@var array<int,User>|array<int,array{rowid:int,id:int,fk_user:int,fk_soc:int,firstname:string,lastname:string,login:string,statut:int,entity:int,email:string,gender:string|int<-1,-1>,admin:int<0,1>,photo:string,fullpath:string,fullname:string,level:int}>  Array of User (filled from fetchAll) or Array with hierarchy of user information (filled with get_full_tree()
 	 */
-	public $users = array();
+	public $users = [];
 	/**
 	 * @var array<int,int>
 	 */
@@ -683,7 +683,7 @@ class User extends CommonObject
 				$this->email = $obj->email;
 				$this->email_oauth2 = $obj->email_oauth2;
 				$this->personal_email = $obj->personal_email;
-				$this->socialnetworks = ($obj->socialnetworks ? (array) json_decode($obj->socialnetworks, true) : array());
+				$this->socialnetworks = ($obj->socialnetworks ? (array) json_decode($obj->socialnetworks, true) : []);
 
 				$this->job = $obj->job;
 				$this->signature = $obj->signature;
@@ -835,7 +835,7 @@ class User extends CommonObject
 					if (!empty($defval->page) && !empty($defval->type) && !empty($defval->param)) {
 						$pagewithoutquerystring = $defval->page;
 						$pagequeries = '';
-						$reg = array();
+						$reg = [];
 						if (preg_match('/^([^\?]+)\?(.*)$/', $pagewithoutquerystring, $reg)) {    // There is query param
 							$pagewithoutquerystring = $reg[1];
 							$pagequeries = $reg[2];
@@ -1289,7 +1289,7 @@ class User extends CommonObject
 		$this->rights = new stdClass();
 		$this->nb_rights = 0;
 		$this->all_permissions_are_loaded = 0;
-		$this->_tab_loaded = array();
+		$this->_tab_loaded = [];
 	}
 
 
@@ -2049,7 +2049,7 @@ class User extends CommonObject
 		// phpcs:enable
 		global $config;
 
-		$rd = array();
+		$rd = [];
 		$num = 0;
 		$sql = "SELECT id FROM ".$this->db->prefix()."rights_def";
 		$sql .= " WHERE bydefault = 1";
@@ -2731,9 +2731,9 @@ class User extends CommonObject
 			$this->email,
 			$config->global->MAIN_MAIL_EMAIL_FROM,
 			$mesg,
-			array(),
-			array(),
-			array(),
+			[],
+			[],
+			[],
 			'',
 			'',
 			0,
@@ -3033,7 +3033,7 @@ class User extends CommonObject
 		}
 		$data['email'] = '<br><b>'.$langs->trans("Email").':</b> '.dol_string_nohtmltag($this->email);
 		if (!empty($this->office_phone) || !empty($this->office_fax) || !empty($this->fax)) {
-			$phonelist = array();
+			$phonelist = [];
 			if ($this->office_phone) {
 				$phonelist[] = dol_print_phone($this->office_phone, $this->country_code, $this->id, 0, '', '&nbsp', 'phone');
 			}
@@ -3438,7 +3438,7 @@ class User extends CommonObject
 		// phpcs:enable
 		global $config, $langs;
 
-		$info = array();
+		$info = [];
 
 		$socialnetworks = getArrayOfSocialNetworks();
 
@@ -3811,7 +3811,7 @@ class User extends CommonObject
 		dol_syslog(get_class($this)."::get_children", LOG_DEBUG);
 		$res = $this->db->query($sql);
 		if ($res) {
-			$users = array();
+			$users = [];
 			while ($rec = $this->db->fetch_array($res)) {
 				$user = new User($this->db);
 				$user->fetch($rec['rowid']);
@@ -3834,7 +3834,7 @@ class User extends CommonObject
 	{
 		global $config;
 
-		$this->parentof = array();
+		$this->parentof = [];
 
 		// Load array[child]=parent
 		$sql = "SELECT fk_user as id_parent, rowid as id_son";
@@ -3878,7 +3878,7 @@ class User extends CommonObject
 		// Actions hooked (by external module)
 		$hookManager->initHooks(array('userdao'));
 
-		$this->users = array();
+		$this->users = [];
 
 		// Init this->parentof that is array(id_son=>id_parent, ...)
 		$this->loadParentOf();
@@ -3887,7 +3887,7 @@ class User extends CommonObject
 		$sql = "SELECT DISTINCT u.rowid, u.firstname, u.lastname, u.fk_user, u.fk_soc, u.login, u.email, u.gender, u.admin, u.statut, u.photo, u.entity"; // Distinct reduce pb with old tables with duplicates
 		$sql .= " FROM ".$this->db->prefix()."user as u";
 		// Add fields from hooks
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printUserListWhere', $parameters); // Note that $action and $object may have been modified by hook
 		if ($resHook > 0) {
 			$sql .= $hookManager->resPrint;
@@ -3971,7 +3971,7 @@ class User extends CommonObject
 	 */
 	public function getAllChildIds($addcurrentuser = 0)
 	{
-		$childids = array();
+		$childids = [];
 
 		if (isset($this->cache_childids[$this->id])) {
 			$childids = $this->cache_childids[$this->id];
@@ -4070,7 +4070,7 @@ class User extends CommonObject
 	{
 		global $config;
 
-		$this->nb = array();
+		$this->nb = [];
 
 		$sql = "SELECT COUNT(DISTINCT u.rowid) as nb";
 		$sql .= " FROM ".$this->db->prefix()."user as u";
@@ -4258,7 +4258,7 @@ class User extends CommonObject
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->users = array();
+			$this->users = [];
 			$num = $this->db->num_rows($resql);
 			if ($num) {
 				while ($obj = $this->db->fetch_object($resql)) {

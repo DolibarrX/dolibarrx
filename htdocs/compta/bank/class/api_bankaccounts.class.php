@@ -67,7 +67,7 @@ class BankAccounts extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $category = 0, $sqlfilters = '', $properties = '')
 	{
-		$list = array();
+		$list = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('bank', 'lire')) {
 			throw new RestException(403);
@@ -403,7 +403,7 @@ class BankAccounts extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$account = array();
+		$account = [];
 		foreach (BankAccounts::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");
@@ -443,7 +443,7 @@ class BankAccounts extends DolibarrApi
 	 */
 	public function getLines($id, $sqlfilters = '')
 	{
-		$list = array();
+		$list = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('bank', 'lire')) {
 			throw new RestException(403);
@@ -602,7 +602,7 @@ class BankAccounts extends DolibarrApi
 	 */
 	public function getLinks($id, $line_id)
 	{
-		$list = array();
+		$list = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('bank', 'lire')) {
 			throw new RestException(403);

@@ -150,7 +150,7 @@ $typeobject = null;
  */
 
 $error = 0;
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -279,19 +279,19 @@ if (empty($resHook)) {
 		$object->fk_incoterms = GETPOSTINT('incoterm_id');
 		$object->location_incoterms = GETPOST('location_incoterms', 'alpha');
 
-		$batch_line = array();
-		$stockLine = array();
-		$array_options = array();
+		$batch_line = [];
+		$stockLine = [];
+		$array_options = [];
 
 		$num = count($objectsrc->lines);
 		$totalqty = 0;
 
-		$product_batch_used = array();
+		$product_batch_used = [];
 
 		for ($i = 0; $i < $num; $i++) {
 			$idl = "idl".$i;
 
-			$sub_qty = array();
+			$sub_qty = [];
 			$subtotalqty = 0;
 
 			$j = 0;
@@ -1186,7 +1186,7 @@ if ($action == 'create') {
 			$object->loadExpeditions();
 
 
-			$alreadyQtyBatchSetted = $alreadyQtySetted = array();
+			$alreadyQtyBatchSetted = $alreadyQtySetted = [];
 
 			if ($numAsked) {
 				print '<tr class="liste_titre">';
@@ -1216,7 +1216,7 @@ if ($action == 'create') {
 			}
 
 			$warehouse_id = GETPOSTINT('entrepot_id');
-			$warehousePicking = array();
+			$warehousePicking = [];
 			// get all warehouse children for picking
 			if ($warehouse_id > 0) {
 				$warehousePicking[] = $warehouse_id;
@@ -1386,7 +1386,7 @@ if ($action == 'create') {
 										if (!getDolGlobalInt('STOCK_ALLOW_NEGATIVE_TRANSFER')) {
 											$stockMin = 0;
 										}
-										print $formproduct->selectWarehouses($tmpentrepot_id, 'entl'.$indiceAsked, '', 1, 0, $line->fk_product, '', 1, 0, array(), 'minwidth200', array(), 1, $stockMin, 'stock DESC, e.ref');
+										print $formproduct->selectWarehouses($tmpentrepot_id, 'entl'.$indiceAsked, '', 1, 0, $line->fk_product, '', 1, 0, [], 'minwidth200', [], 1, $stockMin, 'stock DESC, e.ref');
 
 										if ($tmpentrepot_id > 0 && $tmpentrepot_id == $warehouse_id) {
 											//print $stock.' '.$quantityToBeDelivered;
@@ -1461,11 +1461,11 @@ if ($action == 'create') {
 										$deliverableQty = min($quantityToBeDelivered, $batchStock - $alreadyQtyBatchSetted[$line->fk_product][$dbatch->batch][intval($warehouse_id)]);
 									} else {
 										if (!isset($alreadyQtyBatchSetted[$line->fk_product])) {
-											$alreadyQtyBatchSetted[$line->fk_product] = array();
+											$alreadyQtyBatchSetted[$line->fk_product] = [];
 										}
 
 										if (!isset($alreadyQtyBatchSetted[$line->fk_product][$dbatch->batch])) {
-											$alreadyQtyBatchSetted[$line->fk_product][$dbatch->batch] = array();
+											$alreadyQtyBatchSetted[$line->fk_product][$dbatch->batch] = [];
 										}
 
 										$deliverableQty = min($quantityToBeDelivered, $batchStock);
@@ -1580,7 +1580,7 @@ if ($action == 'create') {
 											$deliverableQty = min($quantityToBeDelivered, $stock - $alreadyQtySetted[$line->fk_product][intval($warehouse_id)]);
 										} else {
 											if (!isset($alreadyQtySetted[$line->fk_product])) {
-												$alreadyQtySetted[$line->fk_product] = array();
+												$alreadyQtySetted[$line->fk_product] = [];
 											}
 
 											$deliverableQty = min($quantityToBeDelivered, $stock);
@@ -1700,11 +1700,11 @@ if ($action == 'create') {
 											$deliverableQty = min($quantityToBeDelivered, $batchStock - $alreadyQtyBatchSetted[$line->fk_product][$dbatch->batch][intval($warehouse_id)]);
 										} else {
 											if (!isset($alreadyQtyBatchSetted[$line->fk_product])) {
-												$alreadyQtyBatchSetted[$line->fk_product] = array();
+												$alreadyQtyBatchSetted[$line->fk_product] = [];
 											}
 
 											if (!isset($alreadyQtyBatchSetted[$line->fk_product][$dbatch->batch])) {
-												$alreadyQtyBatchSetted[$line->fk_product][$dbatch->batch] = array();
+												$alreadyQtyBatchSetted[$line->fk_product][$dbatch->batch] = [];
 											}
 
 											$deliverableQty = min($quantityToBeDelivered, $batchStock);
@@ -1892,7 +1892,7 @@ if ($action == 'create') {
 
 	// Confirm deletion
 	if ($action == 'delete') {
-		$formquestion = array();
+		$formquestion = [];
 		if ($object->status == Expedition::STATUS_CLOSED && getDolGlobalString('STOCK_CALCULATE_ON_SHIPMENT_CLOSE')) {
 			$formquestion = array(
 					array(
@@ -2350,7 +2350,7 @@ if ($action == 'create') {
 	}
 
 	// Get list of products already sent for same source object into $alreadysent
-	$alreadysent = array();
+	$alreadysent = [];
 	if ($origin && $origin_id > 0) {
 		$sql = "SELECT obj.rowid, obj.fk_product, obj.label, obj.description, obj.product_type as fk_product_type, obj.qty as qty_asked, obj.fk_unit, obj.date_start, obj.date_end";
 		$sql .= ", ed.rowid as shipmentline_id, ed.qty as qty_shipped, ed.fk_expedition as expedition_id, ed.fk_elementdet, ed.fk_entrepot";
@@ -2755,7 +2755,7 @@ if ($action == 'create') {
 	if (($user->socid == 0) && ($action != 'presend')) {
 		print '<div class="tabsAction">';
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 		// modified by hook
 		if (empty($resHook)) {
@@ -2852,7 +2852,7 @@ if ($action == 'create') {
 
 
 		// Show links to link elements
-		$tmparray = $form->showLinkToObjectBlock($object, array(), array('shipping'), 1);
+		$tmparray = $form->showLinkToObjectBlock($object, [], array('shipping'), 1);
 		$linktoelem = $tmparray['linktoelem'];
 		$htmltoenteralink = $tmparray['htmltoenteralink'];
 		print $htmltoenteralink;

@@ -428,7 +428,7 @@ if ($cats < 0) {
 	}
 
 	// Define data (format for treeview)
-	$data = array();
+	$data = [];
 	$data[] = array('rowid' => 0, 'fk_menu' => -1, 'title' => 'racine', 'mainmenu' => '', 'leftmenu' => '', 'fk_mainmenu' => '', 'fk_leftmenu' => '');
 	foreach ($fulltree as $key => $val) {
 		$categstatic->id = $val['id'];
@@ -554,7 +554,7 @@ if ($type == Category::TYPE_PRODUCT) {
 				print '<table class="noborder centpercent">';
 				print '<tr class="liste_titre"><td>';
 				print $langs->trans("AddProductServiceIntoCategory").' &nbsp;';
-				$form->select_produits(0, 'elemid', '', 0, 0, -1, 2, '', 1, array(), 0, 1, 0, '', 0, '', null);
+				$form->select_produits(0, 'elemid', '', 0, 0, -1, 2, '', 1, [], 0, 1, 0, '', 0, '', null);
 				print '<input type="submit" class="button buttongen" name="addintocategory" value="'.$langs->trans("ClassifyInCategory").'"></td>';
 				print '</tr>';
 				print '</table>';

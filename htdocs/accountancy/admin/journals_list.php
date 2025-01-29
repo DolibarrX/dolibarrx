@@ -60,10 +60,10 @@ if (!$user->hasRight('accounting', 'chartofaccount')) {
 	accessforbidden();
 }
 
-$acts = array();
+$acts = [];
 $acts[0] = "activate";
 $acts[1] = "disable";
-$actl = array();
+$actl = [];
 $actl[0] = img_picture($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
 $actl[1] = img_picture($langs->trans("Activated"), 'switch_on', 'class="size15x"');
 
@@ -102,57 +102,57 @@ $hookManager->initHooks(array('admin'));
 $taborder = array(35);
 
 // Name of SQL tables of dictionaries
-$tabname = array();
+$tabname = [];
 $tabname[35] = MAIN_DB_PREFIX."accounting_journal";
 
 // Dictionary labels
-$tablib = array();
+$tablib = [];
 $tablib[35] = "DictionaryAccountancyJournal";
 
 // Requests to extract data
-$tabsql = array();
+$tabsql = [];
 $tabsql[35] = "SELECT a.rowid as rowid, a.code as code, a.label, a.nature, a.active FROM ".MAIN_DB_PREFIX."accounting_journal as a";
 
 // Criteria to sort dictionaries
-$tabsqlsort = array();
+$tabsqlsort = [];
 $tabsqlsort[35] = "code ASC";
 
 // Nom des champs en resultat de select pour affichage du dictionnaire
-$tabfield = array();
+$tabfield = [];
 $tabfield[35] = "code,label,nature";
 
 // Nom des champs d'edition pour modification d'un enregistrement
-$tabfieldvalue = array();
+$tabfieldvalue = [];
 $tabfieldvalue[35] = "code,label,nature";
 
 // Nom des champs dans la table pour insertion d'un enregistrement
-$tabfieldinsert = array();
+$tabfieldinsert = [];
 $tabfieldinsert[35] = "code,label,nature";
 
 // Nom du rowid si le champ n'est pas de type autoincrement
 // Example: "" if id field is "rowid" and has autoincrement on
 //          "nameoffield" if id field is not "rowid" or has not autoincrement on
-$tabrowid = array();
+$tabrowid = [];
 $tabrowid[35] = "";
 
 // Condition to show dictionary in setup page
-$tabcond = array();
+$tabcond = [];
 $tabcond[35] = isModEnabled('accounting');
 
 // List of help for fields
-$tabhelp = array();
+$tabhelp = [];
 $tabhelp[35] = array('code' => $langs->trans("EnterAnyCode"));
 
 // List of check for fields (NOT USED YET)
-$tabfieldcheck = array();
-$tabfieldcheck[35] = array();
+$tabfieldcheck = [];
+$tabfieldcheck[35] = [];
 
 // Complete all arrays with entries found into modules
 complete_dictionary_with_modules($taborder, $tabname, $tablib, $tabsql, $tabsqlsort, $tabfield, $tabfieldvalue, $tabfieldinsert, $tabrowid, $tabcond, $tabhelp, $tabfieldcheck);
 
 
 // Define elementList and sourceList (used for dictionary type of contacts "llx_c_type_contact")
-$elementList = array();
+$elementList = [];
 // Must match ids defined into eldy.lib.php
 $sourceList = array(
 	'1' => $langs->trans('AccountingJournalType1'),

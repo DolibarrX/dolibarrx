@@ -122,7 +122,7 @@ $server->wsdl->addComplexType(
 	'array',
 	'',
 	'SOAP-ENC:Array',
-	array(),
+	[],
 	array(
 		array('ref' => 'SOAP-ENC:arrayType', 'wsdl:arrayType' => 'tns:category[]')
 	),
@@ -222,7 +222,7 @@ function getCategory($authentication, $id)
 		$config->entity = $authentication['entity'];
 	}
 
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;

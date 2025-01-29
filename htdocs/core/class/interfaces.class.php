@@ -50,7 +50,7 @@ class Interfaces
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 *	Constructor
@@ -101,9 +101,9 @@ class Interfaces
 		$nbfile = $nbtotal = $nbok = $nbko = 0;
 		$this->lastmoduleerror = '';
 
-		$files = array();
-		$modules = array();
-		$orders = array();
+		$files = [];
+		$modules = [];
+		$orders = [];
 		$i = 0;
 
 		$dirtriggers = array_merge(array('/core/triggers'), $config->modules_parts['triggers']);
@@ -119,10 +119,10 @@ class Interfaces
 
 			$handle = opendir($newdir);
 			if (is_resource($handle)) {
-				$fullpathfiles = array();
+				$fullpathfiles = [];
 				'@phan-var-force array<string,string> $fullpathfiles';
 				while (($file = readdir($handle)) !== false) {
-					$reg = array();
+					$reg = [];
 					if (is_readable($newdir."/".$file) && preg_match('/^interface_([0-9]+)_([^_]+)_(.+)\.class\.php$/i', $file, $reg)) {
 						$part1 = $reg[1];
 						$part2 = $reg[2];
@@ -260,12 +260,12 @@ class Interfaces
 	{
 		global $config, $langs, $db;
 
-		$files = array();
-		$fullpath = array();
-		$relpath = array();
-		$iscoreorexternal = array();
-		$modules = array();
-		$orders = array();
+		$files = [];
+		$fullpath = [];
+		$relpath = [];
+		$iscoreorexternal = [];
+		$modules = [];
+		$orders = [];
 		$i = 0;
 
 		$dirtriggers = array_merge(array('/core/triggers/'), $config->modules_parts['triggers']);
@@ -285,7 +285,7 @@ class Interfaces
 			$handle = opendir($newdir);
 			if (is_resource($handle)) {
 				while (($file = readdir($handle)) !== false) {
-					$reg = array();
+					$reg = [];
 					if (is_readable($newdir.'/'.$file) && preg_match('/^interface_([0-9]+)_([^_]+)_(.+)\.class\.php/', $file, $reg)) {
 						if (preg_match('/\.back$/', $file)) {
 							continue;
@@ -320,7 +320,7 @@ class Interfaces
 
 		asort($orders, SORT_NATURAL);
 
-		$triggers = array();
+		$triggers = [];
 		$j = 0;
 
 		// Loop on each trigger

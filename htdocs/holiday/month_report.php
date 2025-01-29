@@ -74,8 +74,8 @@ if (empty($page) || $page == -1) {
 
 $hookManager->initHooks(array('leavemovementlist'));
 
-$arrayfields = array();
-$arrayofmassactions = array();
+$arrayfields = [];
+$arrayofmassactions = [];
 
 // Security check
 if ($user->socid > 0) {	// Protection if external user
@@ -101,7 +101,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -117,8 +117,8 @@ if (empty($resHook)) {
 		$search_employee = '';
 		$search_type = '';
 		$search_description = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 	}
 
 	if (GETPOST('button_removefilter_x', 'alpha')
@@ -268,7 +268,7 @@ if (!empty($arrayfields['cp.ref']['checked'])) {
 // Filter: Type
 if (!empty($arrayfields['cp.fk_type']['checked'])) {
 	$typeleaves = $holidaystatic->getTypes(1, -1);
-	$arraytypeleaves = array();
+	$arraytypeleaves = [];
 	foreach ($typeleaves as $key => $val) {
 		$labeltoshow = ($langs->trans($val['code']) != $val['code'] ? $langs->trans($val['code']) : $val['label']);
 		$arraytypeleaves[$val['rowid']] = $labeltoshow;

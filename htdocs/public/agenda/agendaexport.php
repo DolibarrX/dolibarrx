@@ -115,7 +115,7 @@ if (GETPOST("type", 'alpha')) {
 	$type = GETPOST("type", 'alpha');
 }
 
-$filters = array();
+$filters = [];
 if (GETPOSTINT("year")) {
 	$filters['year'] = GETPOSTINT("year");
 }

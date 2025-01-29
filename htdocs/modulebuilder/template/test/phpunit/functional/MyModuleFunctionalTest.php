@@ -66,7 +66,7 @@ class MyModuleFunctionalTest extends \PHPUnit_Extensions_Selenium2TestCase  // @
 			'browser' => 'Google Chrome on Linux',
 			'browserName' => 'chrome',
 			'sessionStrategy' => 'shared',
-			'desiredCapabilities' => array()
+			'desiredCapabilities' => []
 		),
 		// Geckodriver does not keep the session at the moment?!
 		// XPath selectors also don't seem to work

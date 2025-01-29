@@ -191,7 +191,7 @@ class Facture extends CommonInvoice
 	 * @var int id of source invoice if replacement invoice or credit note
 	 */
 	public $fk_facture_source;
-	public $linked_objects = array();
+	public $linked_objects = [];
 
 	/**
 	 * @var int ID Field to store bank id to use when payment mode is withdraw
@@ -201,7 +201,7 @@ class Facture extends CommonInvoice
 	/**
 	 * @var CommonInvoiceLine[]
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @var FactureLigne
@@ -210,7 +210,7 @@ class Facture extends CommonInvoice
 	/**
 	 * @var array<string,string>  (Encoded as JSON in database)
 	 */
-	public $extraparams = array();
+	public $extraparams = [];
 
 	/**
 	 * @var int ID facture rec
@@ -241,12 +241,12 @@ class Facture extends CommonInvoice
 	/**
 	 * @var Facture[] Table of previous situations
 	 */
-	public $tab_previous_situation_invoice = array();
+	public $tab_previous_situation_invoice = [];
 
 	/**
 	 * @var Facture[] Table of next situations
 	 */
-	public $tab_next_situation_invoice = array();
+	public $tab_next_situation_invoice = [];
 
 	/**
 	 * @var float percentage of retainage
@@ -1536,7 +1536,7 @@ class Facture extends CommonInvoice
 	 * 	@param		int[]			$lines				Ids of lines to use for invoice. If empty, all lines will be used.
 	 *  @return     int             					Return integer <0 if KO, 0 if nothing done, 1 if OK
 	 */
-	public function createFromContract($object, User $user, $lines = array())
+	public function createFromContract($object, User $user, $lines = [])
 	{
 		global $config, $hookManager;
 
@@ -1675,7 +1675,7 @@ class Facture extends CommonInvoice
 	 * @param	array<string,int|float|string>	$overrideFields	Array of fields to force values
 	 * @return	?Facture								The deposit created, or null if error (populates $origin->error in this case)
 	 */
-	public static function createDepositFromOrigin(CommonObject $origin, $date, $payment_terms_id, User $user, $notrigger = 0, $autoValidateDeposit = false, $overrideFields = array())
+	public static function createDepositFromOrigin(CommonObject $origin, $date, $payment_terms_id, User $user, $notrigger = 0, $autoValidateDeposit = false, $overrideFields = [])
 	{
 		global $config, $langs, $hookManager, $action;
 
@@ -1776,13 +1776,13 @@ class Facture extends CommonInvoice
 		}
 
 		$amount_ttc_diff = 0;
-		$amountdeposit = array();
-		$descriptions = array();
+		$amountdeposit = [];
+		$descriptions = [];
 
 		if (getDolGlobalString('MAIN_DEPOSIT_MULTI_TVA')) {
 			$amount = $origin->total_ttc * ($origin->deposit_percent / 100);
 
-			$TTotalByTva = array();
+			$TTotalByTva = [];
 			foreach ($origin->lines as &$line) {
 				if (!empty($line->special_code)) {
 					continue;
@@ -1906,7 +1906,7 @@ class Facture extends CommonInvoice
 				$deposit->lines[0]->pa_ht,
 				$deposit->lines[0]->label,
 				0,
-				array(),
+				[],
 				100
 			);
 
@@ -2282,7 +2282,7 @@ class Facture extends CommonInvoice
 				$this->retained_warranty_date_limit         = $this->db->jdate($obj->retained_warranty_date_limit);
 				$this->retained_warranty_fk_cond_reglement  = $obj->retained_warranty_fk_cond_reglement;
 
-				$this->extraparams = !empty($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : array();
+				$this->extraparams = !empty($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : [];
 
 				//Incoterms
 				$this->fk_incoterms         = $obj->fk_incoterms;
@@ -2309,7 +2309,7 @@ class Facture extends CommonInvoice
 				$this->fetch_optionals();
 
 				// Lines
-				$this->lines = array();
+				$this->lines = [];
 
 				$result = $this->fetch_lines();
 				if ($result < 0) {
@@ -2345,7 +2345,7 @@ class Facture extends CommonInvoice
 	public function fetch_lines($only_product = 0, $loadalsotranslation = 0)
 	{
 		// phpcs:enable
-		$this->lines = array();
+		$this->lines = [];
 
 		$sql = 'SELECT l.rowid, l.fk_facture, l.fk_product, l.fk_parent_line, l.label as custom_label, l.description, l.product_type, l.price, l.qty, l.vat_src_code, l.tva_tx,';
 		$sql .= ' l.localtax1_tx, l.localtax2_tx, l.localtax1_type, l.localtax2_type, l.remise_percent, l.fk_remise_except, l.subprice, l.ref_ext,';
@@ -2465,8 +2465,8 @@ class Facture extends CommonInvoice
 	{
 		global $config;
 
-		$this->tab_previous_situation_invoice = array();
-		$this->tab_next_situation_invoice = array();
+		$this->tab_previous_situation_invoice = [];
+		$this->tab_next_situation_invoice = [];
 
 		$sql = 'SELECT rowid, type, situation_cycle_ref, situation_counter FROM '.MAIN_DB_PREFIX.'facture';
 		$sql .= " WHERE rowid <> ".((int) $this->id);
@@ -2857,7 +2857,7 @@ class Facture extends CommonInvoice
 
 			// If invoice has consumed discounts
 			$this->fetch_lines();
-			$list_rowid_det = array();
+			$list_rowid_det = [];
 			foreach ($this->lines as $key => $invoiceline) {
 				$list_rowid_det[] = $invoiceline->id;
 			}
@@ -3886,7 +3886,7 @@ class Facture extends CommonInvoice
 		$fk_fournprice = null,
 		$pa_ht = 0,
 		$label = '',
-		$array_options = array(),
+		$array_options = [],
 		$situation_percent = 100,
 		$fk_prev_id = 0,
 		$fk_unit = null,
@@ -3995,7 +3995,7 @@ class Facture extends CommonInvoice
 			$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $this->thirdparty, $mysoc);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -4159,7 +4159,7 @@ class Facture extends CommonInvoice
 	 *  @param	integer		$rang		    	rank of line
 	 *  @return	int								Return integer < 0 if KO, > 0 if OK
 	 */
-	public function updateline($rowid, $desc, $pu, $qty, $remise_percent, $date_start, $date_end, $txtva, $txlocaltax1 = 0, $txlocaltax2 = 0, $price_base_type = 'HT', $info_bits = 0, $type = self::TYPE_STANDARD, $fk_parent_line = 0, $skip_update_total = 0, $fk_fournprice = null, $pa_ht = 0, $label = '', $special_code = 0, $array_options = array(), $situation_percent = 100, $fk_unit = null, $pu_ht_devise = 0, $notrigger = 0, $ref_ext = '', $rang = 0)
+	public function updateline($rowid, $desc, $pu, $qty, $remise_percent, $date_start, $date_end, $txtva, $txlocaltax1 = 0, $txlocaltax2 = 0, $price_base_type = 'HT', $info_bits = 0, $type = self::TYPE_STANDARD, $fk_parent_line = 0, $skip_update_total = 0, $fk_fournprice = null, $pa_ht = 0, $label = '', $special_code = 0, $array_options = [], $situation_percent = 100, $fk_unit = null, $pu_ht_devise = 0, $notrigger = 0, $ref_ext = '', $rang = 0)
 	{
 		global $user;
 
@@ -4234,7 +4234,7 @@ class Facture extends CommonInvoice
 			$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $this->thirdparty, $mysoc);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -4424,10 +4424,10 @@ class Facture extends CommonInvoice
 			$previous_progress = $line->getAllPrevProgress($line->fk_facture);
 			$current_progress = $percent - $previous_progress;
 			$line->situation_percent = $current_progress;
-			$tabprice = calcul_price_total($line->qty, $line->subprice, $line->remise_percent, $line->tva_tx, $line->localtax1_tx, $line->localtax2_tx, 0, 'HT', 0, $line->product_type, $mysoc, array(), $current_progress);
+			$tabprice = calcul_price_total($line->qty, $line->subprice, $line->remise_percent, $line->tva_tx, $line->localtax1_tx, $line->localtax2_tx, 0, 'HT', 0, $line->product_type, $mysoc, [], $current_progress);
 		} else {
 			$line->situation_percent = $percent;
-			$tabprice = calcul_price_total($line->qty, $line->subprice, $line->remise_percent, $line->tva_tx, $line->localtax1_tx, $line->localtax2_tx, 0, 'HT', 0, $line->product_type, $mysoc, array(), $percent);
+			$tabprice = calcul_price_total($line->qty, $line->subprice, $line->remise_percent, $line->tva_tx, $line->localtax1_tx, $line->localtax2_tx, 0, 'HT', 0, $line->product_type, $mysoc, [], $percent);
 		}
 		$line->total_ht = (float) $tabprice[0];
 		$line->total_tva = (float) $tabprice[1];
@@ -4816,7 +4816,7 @@ class Facture extends CommonInvoice
 		// phpcs:enable
 		global $user;
 
-		$ga = array();
+		$ga = [];
 
 		$sql = "SELECT s.rowid, s.nom as name, s.client,";
 		$sql .= " f.rowid as fid, f.ref as ref, f.datef as df";
@@ -4891,7 +4891,7 @@ class Facture extends CommonInvoice
 		// phpcs:enable
 		global $config;
 
-		$return = array();
+		$return = [];
 
 		$sql = "SELECT f.rowid as rowid, f.ref, f.fk_statut as status, f.paye as paid,";
 		$sql .= " ff.rowid as rowidnext";
@@ -4946,7 +4946,7 @@ class Facture extends CommonInvoice
 		// phpcs:enable
 		global $config;
 
-		$return = array();
+		$return = [];
 
 
 		$sql = "SELECT f.rowid as rowid, f.ref, f.fk_statut, f.type, f.subtype, f.paye, pf.fk_paiement";
@@ -5116,7 +5116,7 @@ class Facture extends CommonInvoice
 
 		// Load array of products prodids
 		$num_prods = 0;
-		$prodids = array();
+		$prodids = [];
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product";
 		$sql .= " WHERE entity IN (".getEntity('product').")";
@@ -5266,7 +5266,7 @@ class Facture extends CommonInvoice
 	{
 		global $config, $user;
 
-		$this->nb = array();
+		$this->nb = [];
 
 		$clause = "WHERE";
 
@@ -5399,7 +5399,7 @@ class Facture extends CommonInvoice
 		$sql .= ' AND situation_counter < '.((int) $this->situation_counter);
 		$sql .= ' AND entity = '.($this->entity > 0 ? $this->entity : $config->entity);
 		$resql = $this->db->query($sql);
-		$res = array();
+		$res = [];
 		if ($resql && $this->db->num_rows($resql) > 0) {
 			while ($row = $this->db->fetch_object($resql)) {
 				$id = $row->rowid;
@@ -5742,7 +5742,7 @@ class Facture extends CommonInvoice
 		$this->output = '';
 		$this->error = '';
 		$nbMailSend = 0;
-		$errorsMsg = array();
+		$errorsMsg = [];
 
 		$langs->load("bills");
 
@@ -5850,7 +5850,7 @@ class Facture extends CommonInvoice
 						$sendContent = make_substitutions($content, $substitutionArray, $outputlangs, 1);
 
 						// Recipient
-						$to = array();
+						$to = [];
 						if ($forcerecipient) {	// If a recipient was forced
 							$to = array($forcerecipient);
 						} else {
@@ -6072,7 +6072,7 @@ class Facture extends CommonInvoice
 			dol_print_error($this->db);
 		}
 
-		return array();
+		return [];
 	}
 
 	/**

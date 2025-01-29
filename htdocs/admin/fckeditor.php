@@ -273,7 +273,7 @@ if (empty($config->use_javascript_ajax)) {
 		print getDolGlobalString('FCKEDITOR_TEST');
 		print '</div>';
 	}
-	print $form->buttonsSaveCancel("Save", '', array(), 0, 'reposition');
+	print $form->buttonsSaveCancel("Save", '', [], 0, 'reposition');
 	print '<div id="divforlog"></div>';
 	print '</form>'."\n";
 

@@ -87,7 +87,7 @@ top_httphead('application/json');
 if (!empty($action) && $action == 'fetch' && !empty($id) && $user->hasRight('societe', 'lire')) {
 	require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 
-	$outjson = array();
+	$outjson = [];
 
 	if ($object->id > 0) {
 		$outref = $object->ref;
@@ -127,7 +127,7 @@ if (!empty($action) && $action == 'fetch' && !empty($id) && $user->hasRight('soc
 	if (!empty($excludeids)) {
 		$excludeids = explode(',', $excludeids);
 	} else {
-		$excludeids = array();
+		$excludeids = [];
 	}
 
 	// FIXME

@@ -296,7 +296,7 @@ class Member extends CommonObject
 	/**
 	 * @var Subscription[]
 	 */
-	public $subscriptions = array();
+	public $subscriptions = [];
 
 	/**
 	 * @var string ip
@@ -308,7 +308,7 @@ class Member extends CommonObject
 	/**
 	 * @var array<array<mixed>>
 	 */
-	public $partnerships = array();
+	public $partnerships = [];
 
 	/**
 	 * @var ?Facture	To store the created invoice into subscriptionComplementaryActions()
@@ -398,7 +398,7 @@ class Member extends CommonObject
 		$this->ismultientitymanaged = 1;
 		$this->isextrafieldmanaged = 1;
 		// les champs optionnels sont vides
-		$this->array_options = array();
+		$this->array_options = [];
 
 		$this->fields['ref_ext']['visible'] = getDolGlobalInt('MAIN_LIST_SHOW_REF_EXT');
 	}
@@ -423,7 +423,7 @@ class Member extends CommonObject
 	 *  @see sendEmail()
 	 *  @return	int								Return integer <0 if KO, >0 if OK
 	 */
-	public function send_an_email($text, $subject, $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array(), $addr_cc = "", $addr_bcc = "", $deliveryreceipt = 0, $msgishtml = -1, $errors_to = '', $moreinheader = '')
+	public function send_an_email($text, $subject, $filename_list = [], $mimetype_list = [], $mimefilename_list = [], $addr_cc = "", $addr_bcc = "", $deliveryreceipt = 0, $msgishtml = -1, $errors_to = '', $moreinheader = '')
 	{
 		// phpcs:enable
 		dol_syslog('Warning using deprecated Member::send_an_email', LOG_WARNING);
@@ -448,7 +448,7 @@ class Member extends CommonObject
 	 * 	@since V18
 	 *  @return	int								Return integer <0 if KO, >0 if OK
 	 */
-	public function sendEmail($text, $subject, $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array(), $addr_cc = "", $addr_bcc = "", $deliveryreceipt = 0, $msgishtml = -1, $errors_to = '', $moreinheader = '')
+	public function sendEmail($text, $subject, $filename_list = [], $mimetype_list = [], $mimefilename_list = [], $addr_cc = "", $addr_bcc = "", $deliveryreceipt = 0, $msgishtml = -1, $errors_to = '', $moreinheader = '')
 	{
 		global $config, $langs;
 
@@ -1503,7 +1503,7 @@ class Member extends CommonObject
 				$this->email = $obj->email;
 				$this->url = $obj->url;
 
-				$this->socialnetworks = ($obj->socialnetworks ? (array) json_decode($obj->socialnetworks, true) : array());
+				$this->socialnetworks = ($obj->socialnetworks ? (array) json_decode($obj->socialnetworks, true) : []);
 
 				$this->photo = $obj->photo;
 				$this->statut = $obj->statut;
@@ -1584,7 +1584,7 @@ class Member extends CommonObject
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->subscriptions = array();
+			$this->subscriptions = [];
 
 			$i = 0;
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -1637,7 +1637,7 @@ class Member extends CommonObject
 		require_once DOL_DOCUMENT_ROOT.'/partnership/class/partnership.class.php';
 
 
-		$this->partnerships[] = array();
+		$this->partnerships[] = [];
 
 		return 1;
 	}
@@ -1920,7 +1920,7 @@ class Member extends CommonObject
 				require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
 
-				$amounts = array();
+				$amounts = [];
 				$amounts[$invoice->id] = (float) price2num($amount);
 
 				$paiement = new Paiement($this->db);
@@ -2282,7 +2282,7 @@ class Member extends CommonObject
 		$langs->loadLangs(['members', 'companies']);
 		$nofetch = !empty($params['nofetch']);
 
-		$datas = array();
+		$datas = [];
 
 		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 			$langs->load("users");
@@ -2533,7 +2533,7 @@ class Member extends CommonObject
 	{
 		global $config;
 
-		$this->nb = array();
+		$this->nb = [];
 
 		$sql = "SELECT count(a.rowid) as nb";
 		$sql .= " FROM ".MAIN_DB_PREFIX."member as a";
@@ -2780,7 +2780,7 @@ class Member extends CommonObject
 		// phpcs:enable
 		global $config, $langs;
 
-		$info = array();
+		$info = [];
 		$socialnetworks = getArrayOfSocialNetworks();
 		$keymodified = false;
 
@@ -3069,8 +3069,8 @@ class Member extends CommonObject
 		$nbok = 0;
 		$nbko = 0;
 
-		$listofmembersok = array();
-		$listofmembersko = array();
+		$listofmembersok = [];
+		$listofmembersko = [];
 
 		$arraydaysbeforeend = explode(';', $daysbeforeendlist);
 		foreach ($arraydaysbeforeend as $daysbeforeend) { // Loop on each delay
@@ -3151,7 +3151,7 @@ class Member extends CommonObject
 							$moreinheader = 'X-Dolibarr-Info: sendReminderForExpiredSubscription'."\r\n";
 
 							include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-							$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), $cc, '', 0, 1, '', '', $trackid, $moreinheader);
+							$cmail = new CMailFile($subject, $to, $from, $msg, [], [], [], $cc, '', 0, 1, '', '', $trackid, $moreinheader);
 							$result = $cmail->sendfile();
 							if (!$result) {
 								$error++;

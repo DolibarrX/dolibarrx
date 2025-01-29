@@ -78,7 +78,7 @@ class TaskStats extends Stats
 		//$sql .= " AND t.fk_statut <> 0";     // We want historic also, so all task not draft
 		$sql .= " GROUP BY t.priority";
 
-		$result = array();
+		$result = [];
 
 		dol_syslog(get_class($this).'::'.__METHOD__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -144,7 +144,7 @@ class TaskStats extends Stats
 	public function buildWhere()
 	{
 		$sqlwhere_str = '';
-		$sqlwhere = array();
+		$sqlwhere = [];
 
 		$sqlwhere[] = ' t.entity IN ('.getEntity('project').')';
 
@@ -210,7 +210,7 @@ class TaskStats extends Stats
 	public function getAmountByMonth($year, $format = 0)
 	{
 		// Return an empty array at the moment because task has no amount
-		return array();
+		return [];
 	}
 
 	/**

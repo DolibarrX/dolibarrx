@@ -415,7 +415,7 @@ if (empty($resHook)) {
 									$lines[$i]->fetch_optionals();
 									$array_options = $lines[$i]->array_options;
 								} else {
-									$array_options = array();
+									$array_options = [];
 								}
 
 								$result = $object->addline(
@@ -672,7 +672,7 @@ if (empty($resHook)) {
 					$idprod = -99; // Same behaviour than with combolist. When not select idprodfournprice is now -99 (to avoid conflict with next action that may return -1, -2, ...)
 				}
 
-				$reg = array();
+				$reg = [];
 				if (preg_match('/^idprod_([0-9]+)$/', GETPOST('idprodfournprice', 'alpha'), $reg)) {
 					$idprod = $reg[1];
 					$res = $productsupplier->fetch($idprod); // Load product from its id
@@ -988,7 +988,7 @@ if (empty($resHook)) {
 			$price_base_type = 'HT';
 			$ht = price2num(GETPOST('price_ht'), '', 2);
 		} else {
-			$reg = array();
+			$reg = [];
 			$vatratecleaned = $vat_rate;
 			if (preg_match('/^(.*)\s*\((.*)\)$/', $vat_rate, $reg)) {      // If vat is "xx (yy)"
 				$vatratecleaned = trim($reg[1]);
@@ -1218,7 +1218,7 @@ if ($action == 'create') {
 	// Load objectsrc
 	if (!empty($origin) && !empty($originid)) {
 		$element = $subelement = GETPOST('origin');
-		$regs = array();
+		$regs = [];
 		if (preg_match('/^([^_]+)_([^_]+)/i', GETPOST('origin'), $regs)) {
 			$element = $regs[1];
 			$subelement = $regs[2];
@@ -1284,7 +1284,7 @@ if ($action == 'create') {
 	print dol_get_fiche_head();
 
 	// Call Hook tabContentCreateSupplierProposal
-	$parameters = array();
+	$parameters = [];
 	// Note that $action and $object may be modified by hook
 	$resHook = $hookManager->executeHooks('tabContentCreateSupplierProposal', $parameters, $object, $action);
 	if (empty($resHook)) {
@@ -1304,7 +1304,7 @@ if ($action == 'create') {
 		} else {
 			print '<td colspan="2">';
 			$filter = '((s.fournisseur:=:1) AND (s.status:=:1))';
-			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company((empty($socid) ? '' : $socid), 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth175 maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company((empty($socid) ? '' : $socid), 'socid', $filter, 'SelectThirdParty', 1, 0, [], 0, 'minwidth175 maxwidth500 widthcentpercentminusxx');
 			// reload page to retrieve customer information
 			if (!getDolGlobalString('RELOAD_PAGE_ON_SUPPLIER_CHANGE_DISABLED')) {
 				print '<script>
@@ -1486,7 +1486,7 @@ if ($action == 'create') {
 			print '<td><input type="radio" name="createmode" value="copy"></td>';
 			print '<td>'.$langs->trans("CopyAskFrom").' </td>';
 			print '<td>';
-			$liste_ask = array();
+			$liste_ask = [];
 			$liste_ask [0] = '';
 
 			$sql = "SELECT p.rowid as id, p.ref, s.nom";
@@ -1665,7 +1665,7 @@ if ($action == 'create') {
 	dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'ref', $morehtmlref);
 
 	// Call Hook tabContentViewSupplierProposal
-	$parameters = array();
+	$parameters = [];
 	// Note that $action and $object may be modified by hook
 	$resHook = $hookManager->executeHooks('tabContentViewSupplierProposal', $parameters, $object, $action);
 	if (empty($resHook)) {
@@ -1973,7 +1973,7 @@ if ($action == 'create') {
 	if ($action != 'presend') {
 		print '<div class="tabsAction">';
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 		// modified by hook
 		if (empty($resHook)) {
@@ -2056,7 +2056,7 @@ if ($action == 'create') {
 
 
 		// Show links to link elements
-		$tmparray = $form->showLinkToObjectBlock($object, array(), array('supplier_proposal'), 1);
+		$tmparray = $form->showLinkToObjectBlock($object, [], array('supplier_proposal'), 1);
 		$linktoelem = $tmparray['linktoelem'];
 		$htmltoenteralink = $tmparray['htmltoenteralink'];
 		print $htmltoenteralink;

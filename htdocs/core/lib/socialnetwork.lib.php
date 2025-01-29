@@ -31,7 +31,7 @@ function socialnetwork_prepare_head()
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/dict.php?id=38&from=socialnetworksetup';
 	$head[$h][1] = $langs->trans("Dictionary") . ' - ' . $langs->trans("SocialNetworks");

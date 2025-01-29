@@ -86,7 +86,7 @@ print '<br>';
 
 
 // Modified or missing files
-$file_list = array('missing' => array(), 'updated' => array());
+$file_list = array('missing' => [], 'updated' => []);
 
 // Local file to compare to
 $xmlshortfile = dol_sanitizeFileName(GETPOST('xmlshortfile', 'alpha') ? GETPOST('xmlshortfile', 'alpha') : 'filelist-'.DOL_VERSION.getDolGlobalString('MAIN_FILECHECK_LOCAL_SUFFIX').'.xml'.getDolGlobalString('MAIN_FILECHECK_LOCAL_EXT'));
@@ -184,7 +184,7 @@ if (GETPOST('target') == 'local') {
 	}
 }
 if (GETPOST('target') == 'remote') {
-	$xmlarray = getURLContent($xmlremote, 'GET', '', 1, array(), array('http', 'https'), 0);	// Accept http or https links on external remote server only. Same is used into api_setup.class.php.
+	$xmlarray = getURLContent($xmlremote, 'GET', '', 1, [], array('http', 'https'), 0);	// Accept http or https links on external remote server only. Same is used into api_setup.class.php.
 
 	// Return array('content'=>response,'curl_error_no'=>errno,'curl_error_msg'=>errmsg...)
 	if (!$xmlarray['curl_error_no'] && $xmlarray['http_code'] != '400' && $xmlarray['http_code'] != '404') {
@@ -207,8 +207,8 @@ if (GETPOST('target') == 'remote') {
 
 
 if (empty($error) && !empty($xml)) {
-	$checksumconcat = array();
-	$file_list = array();
+	$checksumconcat = [];
+	$file_list = [];
 	$out = '';
 
 	// Forced constants
@@ -426,7 +426,7 @@ if (empty($error) && !empty($xml)) {
 	/*
 	if (is_object($xml->dolibarr_script_dir[0]))
 	{
-		$file_list = array();
+		$file_list = [];
 		$ret = getFilesUpdated($file_list, $xml->dolibarr_htdocs_dir[0], '', ???, $checksumconcat);		// Fill array $file_list
 		'@phan-var-force array{insignature:string[],missing?:array<array{filename:string,expectedmd5:string,expectedsize:string}>,updated:array<array{filename:string,expectedmd5:string,expectedsize:string,md5:string}>} $file_list';
 	}*/

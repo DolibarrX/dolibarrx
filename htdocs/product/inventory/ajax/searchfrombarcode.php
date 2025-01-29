@@ -63,7 +63,7 @@ $mode = GETPOST("mode", "aZ");
 
 $warehousefound = 0;
 $warehouseid = 0;
-$objectreturn = array();
+$objectreturn = [];
 
 /*
  * Action

@@ -443,7 +443,7 @@ if ($object->id > 0) {
 	$object->getListIdAvoirFromInvoice();
 
 	if (!empty($object->creditnote_ids)) {
-		$invoicecredits = array();
+		$invoicecredits = [];
 		foreach ($object->creditnote_ids as $invoiceid) {
 			if ($type == 'bank-transfer') {
 				$creditnote = new FactureFournisseur($db);

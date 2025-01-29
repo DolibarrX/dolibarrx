@@ -415,7 +415,7 @@ class DoliDBSqlite3 extends DoliDB
 		$this->error = '';
 
 		// Convert MySQL syntax to SQLite syntax
-		$reg = array();
+		$reg = [];
 		if (preg_match('/ALTER\s+TABLE\s*(.*)\s*ADD\s+CONSTRAINT\s+(.*)\s*FOREIGN\s+KEY\s*\(([\w,\s]+)\)\s*REFERENCES\s+(\w+)\s*\(([\w,\s]+)\)/i', $query, $reg)) {
 			// Ajout d'une clef étrangère à la table
 			// procédure de replacement de la table pour ajouter la contrainte
@@ -880,7 +880,7 @@ class DoliDBSqlite3 extends DoliDB
 	public function DDLListTables($database, $table = '')
 	{
 		// phpcs:enable
-		$listtables = array();
+		$listtables = [];
 
 		$like = '';
 		if ($table) {
@@ -912,7 +912,7 @@ class DoliDBSqlite3 extends DoliDB
 	public function DDLListTablesFull($database, $table = '')
 	{
 		// phpcs:enable
-		$listtables = array();
+		$listtables = [];
 
 		$like = '';
 		if ($table) {
@@ -945,7 +945,7 @@ class DoliDBSqlite3 extends DoliDB
 	public function DDLInfoTable($table)
 	{
 		// phpcs:enable
-		$infotables = array();
+		$infotables = [];
 
 		$tmptable = preg_replace('/[^a-z0-9\.\-\_]/i', '', $table);
 
@@ -979,8 +979,8 @@ class DoliDBSqlite3 extends DoliDB
 		// phpcs:enable
 		// @TODO: $fulltext_keys parameter is unused
 
-		$sqlk = array();
-		$sqluq = array();
+		$sqlk = [];
+		$sqluq = [];
 
 		// Keys found into the array $fields: type,value,attribute,null,default,extra
 		// ex. : $fields['rowid'] = array(
@@ -991,7 +991,7 @@ class DoliDBSqlite3 extends DoliDB
 		//		);
 		$sql = "CREATE TABLE ".$this->sanitize($table)."(";
 		$i = 0;
-		$sqlfields = array();
+		$sqlfields = [];
 		foreach ($fields as $field_name => $field_desc) {
 			$sqlfields[$i] = $this->sanitize($field_name)." ";
 			$sqlfields[$i] .= $this->sanitize($field_desc['type']);
@@ -1260,7 +1260,7 @@ class DoliDBSqlite3 extends DoliDB
 	 */
 	public function getListOfCharacterSet()
 	{
-		$liste = array();
+		$liste = [];
 		$i = 0;
 		$liste[$i]['charset'] = 'UTF-8';
 		$liste[$i]['description'] = 'UTF-8';
@@ -1284,7 +1284,7 @@ class DoliDBSqlite3 extends DoliDB
 	 */
 	public function getListOfCollation()
 	{
-		$liste = array();
+		$liste = [];
 		$i = 0;
 		$liste[$i]['charset'] = 'UTF-8';
 		$liste[$i]['description'] = 'UTF-8';
@@ -1337,7 +1337,7 @@ class DoliDBSqlite3 extends DoliDB
 	 */
 	public function getServerParametersValues($filter = '')
 	{
-		$result = array();
+		$result = [];
 		static $pragmas;
 		if (!isset($pragmas)) {
 			// Définition de la liste des pragmas utilisés qui ne retournent qu'une seule valeur
@@ -1384,7 +1384,7 @@ class DoliDBSqlite3 extends DoliDB
 	 */
 	public function getServerStatusValues($filter = '')
 	{
-		$result = array();
+		$result = [];
 		/*
 		$sql='SHOW STATUS';
 		if ($filter) $sql.=" LIKE '".$this->escape($filter)."'";

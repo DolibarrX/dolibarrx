@@ -132,7 +132,7 @@ class doc_generic_proposal_odt extends ModelePDFPropales
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
 		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', $odtPath));
-		$listoffiles = array();
+		$listoffiles = [];
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
 			$tmpdir = preg_replace('/DOL_DATA_ROOT/', DOL_DATA_ROOT, $tmpdir);
@@ -424,7 +424,7 @@ class doc_generic_proposal_odt extends ModelePDFPropales
 				$array_objet['company_default_bank_bic'] = $companybankaccount->bic;
 
 				// retrieve contact information for use in object as contact_xxx tags
-				$array_thirdparty_contact = array();
+				$array_thirdparty_contact = [];
 				if ($usecontact && is_object($contactobject)) {
 					$array_thirdparty_contact = $this->get_substitutionarray_contact($contactobject, $outputlangs, 'contact');
 				}

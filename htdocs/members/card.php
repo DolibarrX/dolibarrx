@@ -331,7 +331,7 @@ if (empty($resHook)) {
 			$object->phone_mobile = trim(GETPOST("phone_mobile", 'alpha'));
 			$object->email = preg_replace('/\s+/', '', GETPOST("member_email", 'alpha'));
 			$object->url = trim(GETPOST('member_url', 'custom', 0, FILTER_SANITIZE_URL));
-			$object->socialnetworks = array();
+			$object->socialnetworks = [];
 			foreach ($socialnetworks as $key => $value) {
 				if (GETPOSTISSET($key) && GETPOST($key, 'alphanohtml') != '') {
 					$object->socialnetworks[$key] = trim(GETPOST($key, 'alphanohtml'));
@@ -505,7 +505,7 @@ if (empty($resHook)) {
 		$object->phone       = $phone;
 		$object->phone_perso = $phone_perso;
 		$object->phone_mobile = $phone_mobile;
-		$object->socialnetworks = array();
+		$object->socialnetworks = [];
 		if (isModEnabled('socialnetworks')) {
 			foreach ($socialnetworks as $key => $value) {
 				if (GETPOSTISSET($key) && GETPOST($key, 'alphanohtml') != '') {
@@ -707,7 +707,7 @@ if (empty($resHook)) {
 
 					$moreinheader = 'X-Dolibarr-Info: send_an_email by members/card.php'."\r\n";
 
-					$result = $object->sendEmail($texttosend, $subjecttosend, array(), array(), array(), "", "", 0, -1, '', $moreinheader);
+					$result = $object->sendEmail($texttosend, $subjecttosend, [], [], [], "", "", 0, -1, '', $moreinheader);
 					if ($result < 0) {
 						$error++;
 						setEventMessages($object->error, $object->errors, 'errors');
@@ -774,7 +774,7 @@ if (empty($resHook)) {
 
 						$moreinheader = 'X-Dolibarr-Info: send_an_email by members/card.php'."\r\n";
 
-						$result = $object->sendEmail($texttosend, $subjecttosend, array(), array(), array(), "", "", 0, -1, '', $moreinheader);
+						$result = $object->sendEmail($texttosend, $subjecttosend, [], [], [], "", "", 0, -1, '', $moreinheader);
 						if ($result < 0) {
 							$error++;
 							setEventMessages($object->error, $object->errors, 'errors');
@@ -841,7 +841,7 @@ if (empty($resHook)) {
 
 						$moreinheader = 'X-Dolibarr-Info: send_an_email by members/card.php'."\r\n";
 
-						$result = $object->sendEmail($texttosend, $subjecttosend, array(), array(), array(), "", "", 0, -1, '', $moreinheader);
+						$result = $object->sendEmail($texttosend, $subjecttosend, [], [], [], "", "", 0, -1, '', $moreinheader);
 						if ($result < 0) {
 							$error++;
 							setEventMessages($object->error, $object->errors, 'errors');
@@ -1017,7 +1017,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			print '<input type="hidden" name="backtopage" value="'.($backtopage != '1' ? $backtopage : $_SERVER["HTTP_REFERER"]).'">';
 		}
 
-		print dol_get_fiche_head(array());
+		print dol_get_fiche_head([]);
 
 		print '<table class="border centpercent">';
 		print '<tbody>';
@@ -1051,7 +1051,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		print "</td>\n";
 
 		// Morphy
-		$morphys = array();
+		$morphys = [];
 		$morphys["phy"] = $langs->trans("Physical");
 		$morphys["mor"] = $langs->trans("Moral");
 		$checkednature = (GETPOSTISSET("morphy") ? GETPOST("morphy", 'alpha') : $object->morphy);
@@ -1306,7 +1306,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		// Type
 		print '<tr><td class="fieldrequired">'.$langs->trans("Type").'</td><td>';
 		if ($user->hasRight('member', 'creer')) {
-			print $form->selectarray("typeid", $adht->liste_array(), (GETPOSTISSET("typeid") ? GETPOSTINT("typeid") : $object->typeid), 0, 0, 0, '', 0, 0, 0, '', 'minwidth200', 1);
+			print $form->selectarray("typeid", $adht->liste_[], (GETPOSTISSET("typeid") ? GETPOSTINT("typeid") : $object->typeid), 0, 0, 0, '', 0, 0, 0, '', 'minwidth200', 1);
 		} else {
 			print $adht->getNomUrl(1);
 			print '<input type="hidden" name="typeid" value="'.$object->typeid.'">';
@@ -1437,7 +1437,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		// Default language
 		if (getDolGlobalInt('MAIN_MULTILANGS')) {
 			print '<tr><td>'.$form->editfieldkey('DefaultLang', 'default_lang', '', $object, 0).'</td><td colspan="3">'."\n";
-			print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language($object->default_lang, 'default_lang', 0, array(), 1);
+			print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language($object->default_lang, 'default_lang', 0, [], 1);
 			print '</td>';
 			print '</tr>';
 		}
@@ -1457,7 +1457,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			$cate_arbo = $form->select_all_categories(Category::TYPE_MEMBER, '', '', 64, 0, 3);
 			$c = new Category($db);
 			$cats = $c->containing($object->id, Category::TYPE_MEMBER);
-			$arrayselected = array();
+			$arrayselected = [];
 			if (is_array($cats)) {
 				foreach ($cats as $cat) {
 					$arrayselected[] = $cat->id;
@@ -1634,7 +1634,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			$label = $form->textWithPicture($tmp, $helpcontent, 1, 'help');
 
 			// Create form popup
-			$formquestion = array();
+			$formquestion = [];
 			if ($object->email) {
 				$formquestion[] = array('type' => 'checkbox', 'name' => 'send_mail', 'label' => $label, 'value' => (getDolGlobalString('ADHERENT_DEFAULT_SENDINFOBYMAIL') ? true : false));
 			}
@@ -1698,7 +1698,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			$label = $form->textWithPicture($tmp, $helpcontent, 1, 'help');
 
 			// Create an array
-			$formquestion = array();
+			$formquestion = [];
 			if ($object->email) {
 				$formquestion[] = array('type' => 'checkbox', 'name' => 'send_mail', 'label' => $label, 'value' => (getDolGlobalString('ADHERENT_DEFAULT_SENDINFOBYMAIL') ? 'true' : 'false'));
 			}
@@ -1759,7 +1759,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			$label = $form->textWithPicture($tmp, $helpcontent, 1, 'help');
 
 			// Create an array
-			$formquestion = array();
+			$formquestion = [];
 			if ($object->email) {
 				$formquestion[] = array('type' => 'checkbox', 'name' => 'send_mail', 'label' => $label, 'value' => (getDolGlobalString('ADHERENT_DEFAULT_SENDINFOBYMAIL') ? 'true' : 'false'));
 			}
@@ -1771,7 +1771,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 		// Confirm remove member
 		if ($action == 'delete') {
-			$formquestion = array();
+			$formquestion = [];
 			if ($backtopage) {
 				$formquestion[] = array('type' => 'hidden', 'name' => 'backtopage', 'value' => ($backtopage != '1' ? $backtopage : $_SERVER["HTTP_REFERER"]));
 			}
@@ -1960,7 +1960,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		print $form->editfieldkey('LinkedToDolibarrUser', 'login', '', $object, $editenable);
 		print '</td><td colspan="2" class="valeur">';
 		if ($action == 'editlogin') {
-			$form->form_users($_SERVER['PHP_SELF'].'?rowid='.$object->id, $object->user_id, 'userid', array());
+			$form->form_users($_SERVER['PHP_SELF'].'?rowid='.$object->id, $object->user_id, 'userid', []);
 		} else {
 			if ($object->user_id) {
 				$linkeduser = new User($db);
@@ -1986,7 +1986,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 		print '<div class="tabsAction">';
 		$isinspip = 0;
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 		if (empty($resHook)) {
 			if ($action != 'editlogin' && $action != 'editthirdparty') {

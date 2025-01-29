@@ -65,7 +65,7 @@ class PaymentLoan extends CommonObject
 	/**
 	 * @var array<float|int> Array of amounts
 	 */
-	public $amounts = array();
+	public $amounts = [];
 
 	/**
 	 * @var float|int  Total amount of payment

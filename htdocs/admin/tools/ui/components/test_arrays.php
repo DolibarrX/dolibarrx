@@ -83,8 +83,8 @@ if (empty($usedolheader)) {
 
 	<?php
 } else {
-	$arraycss = array();
-	$arrayjs = array();
+	$arraycss = [];
+	$arrayjs = [];
 	/*
 	$arraycss=array('/includes/jquery/plugins/datatables/media/css/jquery.dataTables.css',
 			'/includes/jquery/plugins/datatables/extensions/Buttons/css/buttons.dataTables.min.css',
@@ -271,7 +271,7 @@ $moreforfilter .= '</div>';
 
 print '<div class="liste_titre liste_titre_bydiv centpercent">';
 print $moreforfilter;
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 print '</div>';

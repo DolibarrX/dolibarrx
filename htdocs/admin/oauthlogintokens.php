@@ -180,7 +180,7 @@ if ($action == 'refreshtoken' && $user->admin) {
 		//$httpClient->setCurlParameters($params);
 		$serviceFactory->setHttpClient($httpClient);
 
-		$scopes = array();
+		$scopes = [];
 		if (preg_match('/^Microsoft/', $OAUTH_SERVICENAME)) {
 			//$extraparams = $tokenobj->getExtraParams();
 			$tmp = explode('-', $OAUTH_SERVICENAME);
@@ -250,7 +250,7 @@ if ($mode == 'setup' && $user->admin) {
 	print '<span class="opacitymedium">'.$langs->trans("OAuthSetupForLogin")."</span><br><br>\n";
 
 	// Define $listinsetup
-	$listinsetup = array();
+	$listinsetup = [];
 	foreach ($config->global as $key => $val) {
 		if (!empty($val) && preg_match('/^OAUTH_.*_ID$/', $key)) {
 			$provider = preg_replace('/_ID$/', '', $key);

@@ -85,8 +85,8 @@ class box_members_subscriptions_by_year extends ModeleBoxes
 			$num = 0;
 			$line = 0;
 			// List of subscription by year
-			$Total = array();
-			$Number = array();
+			$Total = [];
+			$Number = [];
 			$tot = 0;
 			$numb = 0;
 

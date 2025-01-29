@@ -82,7 +82,7 @@ $staytopay = 0;
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -653,7 +653,7 @@ if ($id > 0) {
 		print '</tr>';
 
 		// Other attributes
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 
@@ -700,7 +700,7 @@ if ($id > 0) {
 			print '<td class="right">'.$langs->trans("Total").'</td>';
 			print '</tr>';
 
-			$config->cache['bankaccount'] = array();
+			$config->cache['bankaccount'] = [];
 
 			while ($i < $num) {
 				$objp = $db->fetch_object($resql);

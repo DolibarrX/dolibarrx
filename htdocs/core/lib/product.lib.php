@@ -51,7 +51,7 @@ function product_prepare_head($object)
 	}
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/product/card.php?id=" . $object->id;
 	$head[$h][1] = $label;
@@ -256,7 +256,7 @@ function productlot_prepare_head($object)
 	$langs->loadLangs(array("products", "productbatch"));
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/product/stock/productlot_card.php?id=" . $object->id;
 	$head[$h][1] = $langs->trans("Lot");
@@ -337,7 +337,7 @@ function product_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('product_fournisseur_price');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/product/admin/product.php";
 	$head[$h][1] = $langs->trans('Parameters');
@@ -415,7 +415,7 @@ function product_lot_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('product_lot');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/product/admin/product_lot.php";
 	$head[$h][1] = $langs->trans('Parameters');
@@ -946,7 +946,7 @@ function measuringUnitString($unitid, $measuring_style = '', $unitscale = '', $u
  */
 function measuring_units_squared($unitscale)
 {
-	$measuring_units = array();
+	$measuring_units = [];
 	$measuring_units[0] = 0; // m -> m3
 	$measuring_units[-1] = -2; // dm-> dm2
 	$measuring_units[-2] = -4; // cm -> cm2
@@ -966,7 +966,7 @@ function measuring_units_squared($unitscale)
  */
 function measuring_units_cubed($unit)
 {
-	$measuring_units = array();
+	$measuring_units = [];
 	$measuring_units[0] = 0; // m -> m2
 	$measuring_units[-1] = -3; // dm-> dm3
 	$measuring_units[-2] = -6; // cm -> cm3

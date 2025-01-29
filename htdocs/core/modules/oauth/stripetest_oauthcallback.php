@@ -88,7 +88,7 @@ $credentials = new Credentials(
 	$currentUri->getAbsoluteUri()
 );
 
-$requestedpermissionsarray = array();
+$requestedpermissionsarray = [];
 if (GETPOST('state')) {
 	$requestedpermissionsarray = explode(',', GETPOST('state')); // Example: 'userinfo_email,userinfo_profile,cloud_print'. 'state' parameter is standard to retrieve some parameters back
 }

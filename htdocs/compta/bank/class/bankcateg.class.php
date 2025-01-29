@@ -347,7 +347,7 @@ class BankCateg // extends CommonObject
 		$cats = new Category($this->db);
 		$catTypeID = $cats->getMapId()[Category::TYPE_BANK_LINE];
 
-		$return = array();
+		$return = [];
 
 		$sql = "SELECT rowid, label FROM ".MAIN_DB_PREFIX."category WHERE entity = ".$config->entity." AND type = ".((int) $catTypeID)." ORDER BY label";
 		$resql = $this->db->query($sql);

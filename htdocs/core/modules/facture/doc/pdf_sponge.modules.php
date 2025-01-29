@@ -179,10 +179,10 @@ class pdf_sponge extends ModelePDFFactures
 
 		//  Use new system for position of columns, view  $this->defineColumnField()
 
-		$this->tva = array();
-		$this->tva_array = array();
-		$this->localtax1 = array();
-		$this->localtax2 = array();
+		$this->tva = [];
+		$this->tva_array = [];
+		$this->localtax1 = [];
+		$this->localtax2 = [];
 		$this->atleastoneratenotnull = 0;
 		$this->atleastonediscount = 0;
 		$this->situationinvoice = false;
@@ -240,7 +240,7 @@ class pdf_sponge extends ModelePDFFactures
 		}
 
 		// Loop on each lines to detect if there is at least one image to show
-		$realpatharray = array();
+		$realpatharray = [];
 		$this->atleastonephoto = false;
 		if (getDolGlobalString('MAIN_GENERATE_INVOICES_WITH_PICTURE')) {
 			$objphoto = new Product($this->db);
@@ -252,7 +252,7 @@ class pdf_sponge extends ModelePDFFactures
 
 				$objphoto->fetch($object->lines[$i]->fk_product);
 				//var_dump($objphoto->ref);exit;
-				$pdir = array();
+				$pdir = [];
 				if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {
 					$pdir[0] = get_exdir($objphoto->id, 2, 0, 0, $objphoto, 'product').$objphoto->id."/photos/";
 					$pdir[1] = get_exdir(0, 0, 0, 0, $objphoto, 'product').dol_sanitizeFileName($objphoto->ref).'/';
@@ -723,7 +723,7 @@ class pdf_sponge extends ModelePDFFactures
 					$pdf->SetTextColor(0, 0, 0);
 
 					// Define size of image if we need it
-					$imglinesize = array();
+					$imglinesize = [];
 					if (!empty($realpatharray[$i])) {
 						$imglinesize = pdf_getSizeForImage($realpatharray[$i]);
 					}

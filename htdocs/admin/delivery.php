@@ -351,7 +351,7 @@ if (getDolGlobalString('MAIN_SUBMODULE_DELIVERY')) {
 
 	// Defini tableau def de modele
 	$type = "delivery";
-	$def = array();
+	$def = [];
 
 	$sql = "SELECT nom";
 	$sql .= " FROM ".MAIN_DB_PREFIX."document_model";
@@ -391,7 +391,7 @@ if (getDolGlobalString('MAIN_SUBMODULE_DELIVERY')) {
 		if (is_dir($dir)) {
 			$handle = opendir($dir);
 			if (is_resource($handle)) {
-				$filelist = array();
+				$filelist = [];
 				while (($file = readdir($handle)) !== false) {
 					$filelist[] = $file;
 				}

@@ -90,9 +90,9 @@ if (GETPOST('removedfile') && !GETPOST('removAll')) {
 if (GETPOST('removAll', 'alpha')) {
 	$trackid = GETPOST('trackid', 'aZ09');
 
-	$listofpaths = array();
-	$listofnames = array();
-	$listofmimes = array();
+	$listofpaths = [];
+	$listofnames = [];
+	$listofmimes = [];
 	$keytoavoidconflict = empty($trackid) ? '' : '-'.$trackid;
 	if (!empty($_SESSION["listofpaths".$keytoavoidconflict])) {
 		$listofpaths = explode(';', $_SESSION["listofpaths".$keytoavoidconflict]);
@@ -180,7 +180,7 @@ if (($action == 'send' || $action == 'relance') && !GETPOST('addfile') && !GETPO
 		}
 
 		if (is_object($hookManager)) {
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('initSendToSocid', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 		}
 	} else {
@@ -191,21 +191,21 @@ if (($action == 'send' || $action == 'relance') && !GETPOST('addfile') && !GETPO
 		$sendto = '';
 		$sendtocc = '';
 		$sendtobcc = '';
-		$sendtoid = array();
-		$sendtouserid = array();
-		$sendtoccuserid = array();
+		$sendtoid = [];
+		$sendtouserid = [];
+		$sendtoccuserid = [];
 
 		// Define $sendto
 		$receiver = GETPOST('receiver', 'alphawithlgt');
 		if (!is_array($receiver)) {
 			if ($receiver == '-1') {
-				$receiver = array();
+				$receiver = [];
 			} else {
 				$receiver = array($receiver);
 			}
 		}
 
-		$tmparray = array();
+		$tmparray = [];
 		if (trim(GETPOST('sendto', 'alphawithlgt'))) {
 			// Recipients are provided into free text field
 			$tmparray[] = trim(GETPOST('sendto', 'alphawithlgt'));
@@ -257,12 +257,12 @@ if (($action == 'send' || $action == 'relance') && !GETPOST('addfile') && !GETPO
 		$receivercc = GETPOST('receivercc', 'alphawithlgt');
 		if (!is_array($receivercc)) {
 			if ($receivercc == '-1') {
-				$receivercc = array();
+				$receivercc = [];
 			} else {
 				$receivercc = array($receivercc);
 			}
 		}
-		$tmparray = array();
+		$tmparray = [];
 		if (trim(GETPOST('sendtocc', 'alphawithlgt'))) {
 			$tmparray[] = trim(GETPOST('sendtocc', 'alphawithlgt'));
 		}
@@ -304,7 +304,7 @@ if (($action == 'send' || $action == 'relance') && !GETPOST('addfile') && !GETPO
 
 			$langs->load("commercial");
 
-			$reg = array();
+			$reg = [];
 			$fromtype = GETPOST('fromtype', 'alpha');
 			if ($fromtype === 'robot') {
 				$from = dol_string_nospecial($config->global->MAIN_MAIL_EMAIL_FROM, ' ', array(",")).' <' . getDolGlobalString('MAIN_MAIL_EMAIL_FROM').'>';

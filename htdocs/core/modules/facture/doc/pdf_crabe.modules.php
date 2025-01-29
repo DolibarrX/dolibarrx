@@ -166,10 +166,10 @@ class pdf_crabe extends ModelePDFFactures
 			$this->postotalht -= 20;
 		}
 
-		$this->tva = array();
-		$this->tva_array = array();
-		$this->localtax1 = array();
-		$this->localtax2 = array();
+		$this->tva = [];
+		$this->tva_array = [];
+		$this->localtax1 = [];
+		$this->localtax2 = [];
 		$this->atleastoneratenotnull = 0;
 		$this->atleastonediscount = 0;
 		$this->situationinvoice = false;
@@ -233,7 +233,7 @@ class pdf_crabe extends ModelePDFFactures
 		$nblines = count($object->lines);
 
 		// Loop on each lines to detect if there is at least one image to show
-		$realpatharray = array();
+		$realpatharray = [];
 		if (getDolGlobalString('MAIN_GENERATE_INVOICES_WITH_PICTURE')) {
 			for ($i = 0; $i < $nblines; $i++) {
 				if (empty($object->lines[$i]->fk_product)) {
@@ -579,7 +579,7 @@ class pdf_crabe extends ModelePDFFactures
 					$pdf->SetTextColor(0, 0, 0);
 
 					// Define size of image if we need it
-					$imglinesize = array();
+					$imglinesize = [];
 					if (!empty($realpatharray[$i])) {
 						$imglinesize = pdf_getSizeForImage($realpatharray[$i]);
 					}

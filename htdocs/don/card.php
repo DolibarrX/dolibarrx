@@ -107,7 +107,7 @@ $permissiontodelete = $user->hasRight('don', 'supprimer');
 
 $error = 0;
 
-$parameters = array();
+$parameters = [];
 
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some
 if ($resHook < 0) {
@@ -518,7 +518,7 @@ if ($action == 'create') {
 	}
 
 	// Other attributes
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	if (empty($resHook)) {
@@ -640,7 +640,7 @@ if (!empty($id) && $action == 'edit') {
 	}
 
 	// Other attributes
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	if (empty($resHook)) {
@@ -882,7 +882,7 @@ if (!empty($id) && $action != 'edit') {
 	// Actions buttons
 
 	print '<div class="tabsAction">';
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
 	if (empty($resHook)) {
 		// Re-open
@@ -943,7 +943,7 @@ if (!empty($id) && $action != 'edit') {
 	print $formfile->showdocuments('donation', $filename, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf);
 
 	// Show links to link elements
-	$tmparray = $form->showLinkToObjectBlock($object, array(), array('don'), 1);
+	$tmparray = $form->showLinkToObjectBlock($object, [], array('don'), 1);
 	$linktoelem = $tmparray['linktoelem'];
 	$htmltoenteralink = $tmparray['htmltoenteralink'];
 	print $htmltoenteralink;

@@ -304,7 +304,7 @@ class FactureRec extends CommonInvoice
 	 *  @param	int[]		$onlylines	Only the lines of the array
 	 *	@return	int						Return integer <0 if KO, id of invoice created if OK
 	 */
-	public function create($user, $facid, $notrigger = 0, $onlylines = array())
+	public function create($user, $facid, $notrigger = 0, $onlylines = [])
 	{
 		global $config;
 
@@ -755,7 +755,7 @@ class FactureRec extends CommonInvoice
 	{
 		// phpcs:enable
 
-		$this->lines = array();
+		$this->lines = [];
 
 		dol_syslog('FactureRec::fetch_lines', LOG_DEBUG);
 
@@ -963,7 +963,7 @@ class FactureRec extends CommonInvoice
 		$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $this->thirdparty, $mysoc);
 
 		// Clean vat code
-		$reg = array();
+		$reg = [];
 		$vat_src_code = '';
 		if (preg_match('/\((.*)\)/', (string) $txtva, $reg)) {
 			$vat_src_code = $reg[1];
@@ -1220,7 +1220,7 @@ class FactureRec extends CommonInvoice
 
 		// Clean vat code
 		$vat_src_code = '';
-		$reg = array();
+		$reg = [];
 		if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 			$vat_src_code = $reg[1];
 			$txtva = preg_replace('/\s*\(.*\)/', '', $txtva); // Remove code into vatrate.
@@ -1794,7 +1794,7 @@ class FactureRec extends CommonInvoice
 
 		// Load array of products prodids
 		$num_prods = 0;
-		$prodids = array();
+		$prodids = [];
 
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product";

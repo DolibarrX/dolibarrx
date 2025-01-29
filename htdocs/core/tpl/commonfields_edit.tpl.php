@@ -116,7 +116,7 @@ foreach ($object->fields as $key => $val) {
 	} else {
 		if ($key == 'lang') {
 			print img_picture('', 'language', 'class="picturefixedwidth"');
-			print $formadmin->select_language($value, $key, 0, array(), 1, 0, 0, 'minwidth300', 2);
+			print $formadmin->select_language($value, $key, 0, [], 1, 0, 0, 'minwidth300', 2);
 		} else {
 			print $object->showInputField($val, $key, $value, '', '', '', 0);
 		}

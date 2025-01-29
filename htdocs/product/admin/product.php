@@ -386,7 +386,7 @@ print '</table>';
 print '</div>';
 
 // Module to build doc
-$def = array();
+$def = [];
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
@@ -423,7 +423,7 @@ print "</tr>\n";
 
 clearstatcache();
 
-$filelist = array();
+$filelist = [];
 foreach ($dirmodels as $reldir) {
 	foreach (array('', '/doc') as $valdir) {
 		$dir = dol_buildpath($reldir."core/modules/product".$valdir);
@@ -555,7 +555,7 @@ print '</tr>'."\n";
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("AssociatedProductsAbility").'</td>';
 print '<td class="right">';
-print ajax_constantonoff("PRODUIT_SOUSPRODUITS", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("PRODUIT_SOUSPRODUITS", [], $config->entity, 0, 0, 1, 0);
 //print $form->selectyesno("PRODUIT_SOUSPRODUITS", $config->global->PRODUIT_SOUSPRODUITS, 1);
 print '</td>';
 print '</tr>';
@@ -566,7 +566,7 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("VariantsAbility").'</td>';
 print '<td class="right">';
-//print ajax_constantonoff("PRODUIT_SOUSPRODUITS", array(), $config->entity, 0, 0, 1, 0);
+//print ajax_constantonoff("PRODUIT_SOUSPRODUITS", [], $config->entity, 0, 0, 1, 0);
 //print $form->selectyesno("PRODUIT_SOUSPRODUITS", $config->global->PRODUIT_SOUSPRODUITS, 1);
 if (!isModEnabled('variants')) {
 	print '<span class="opacitymedium">'.$langs->trans("ModuleMustBeEnabled", $langs->transnoentitiesnoconv("Module610Name")).'</span>';
@@ -628,7 +628,7 @@ if (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
 	print '<tr class="oddeven">';
 	print '<td>'.$form->textWithPicture($langs->trans("UseProductSupplierPackaging"), $langs->trans("PackagingForThisProductDesc")).'</td>';
 	print '<td align="right">';
-	print ajax_constantonoff("PRODUCT_USE_SUPPLIER_PACKAGING", array(), $config->entity, 0, 0, 0, 0);
+	print ajax_constantonoff("PRODUCT_USE_SUPPLIER_PACKAGING", [], $config->entity, 0, 0, 0, 0);
 	//print $form->selectyesno("activate_useProdSupplierPackaging", (!empty($config->global->PRODUCT_USE_SUPPLIER_PACKAGING) ? $config->global->PRODUCT_USE_SUPPLIER_PACKAGING : 0), 1);
 	print '</td>';
 	print '</tr>';
@@ -636,7 +636,7 @@ if (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
 	print '<tr class="oddeven">';
 	print '<td>'.$langs->trans("UseProductFournDesc").'</td>';
 	print '<td class="right">';
-	print ajax_constantonoff("PRODUIT_FOURN_TEXTS", array(), $config->entity, 0, 0, 0, 0);
+	print ajax_constantonoff("PRODUIT_FOURN_TEXTS", [], $config->entity, 0, 0, 0, 0);
 	//print $form->selectyesno("activate_useProdFournDesc", (!empty($config->global->PRODUIT_FOURN_TEXTS) ? $config->global->PRODUIT_FOURN_TEXTS : 0), 1);
 	print '</td>';
 	print '</tr>';

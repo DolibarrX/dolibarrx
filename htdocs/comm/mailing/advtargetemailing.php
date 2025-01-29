@@ -86,7 +86,7 @@ if (GETPOST('button_removefilter_x', 'alpha')) {
 	$search_prenom = '';
 	$search_email = '';
 }
-$array_query = array();
+$array_query = [];
 '@phan-var-force array<string,int|string|string[]> $array_query';
 $object = new Mailing($db);
 $advTarget = new AdvanceTargetingMailing($db);
@@ -137,7 +137,7 @@ if ($action == 'loadfilter' && $permissiontoread) {
 if ($action == 'add' && $permissiontoadd) {
 	$user_contact_query = false;
 
-	$array_query = array();
+	$array_query = [];
 
 	// Get extra fields
 
@@ -146,14 +146,14 @@ if ($action == 'add' && $permissiontoadd) {
 		if (preg_match("/^options_.*(?<!_cnct)$/", $key)) {
 			// Special case for start date come with 3 inputs day, month, year
 			if (preg_match("/st_dt/", $key)) {
-				$dtarr = array();
+				$dtarr = [];
 				$dtarr = explode('_', $key);
 				if (!array_key_exists('options_'.$dtarr[1].'_st_dt', $array_query)) {
 					$array_query['options_'.$dtarr[1].'_st_dt'] = dol_mktime(0, 0, 0, GETPOSTINT('options_'.$dtarr[1].'_st_dtmonth'), GETPOSTINT('options_'.$dtarr[1].'_st_dtday'), GETPOSTINT('options_'.$dtarr[1].'_st_dtyear'));
 				}
 			} elseif (preg_match("/end_dt/", $key)) {
 				// Special case for end date come with 3 inputs day, month, year
-				$dtarr = array();
+				$dtarr = [];
 				$dtarr = explode('_', $key);
 				if (!array_key_exists('options_'.$dtarr[1].'_end_dt', $array_query)) {
 					$array_query['options_'.$dtarr[1].'_end_dt'] = dol_mktime(0, 0, 0, GETPOSTINT('options_'.$dtarr[1].'_end_dtmonth'), GETPOSTINT('options_'.$dtarr[1].'_end_dtday'), GETPOSTINT('options_'.$dtarr[1].'_end_dtyear'));
@@ -166,14 +166,14 @@ if ($action == 'add' && $permissiontoadd) {
 			$user_contact_query = true;
 			// Special case for start date come with 3 inputs day, month, year
 			if (preg_match("/st_dt/", $key)) {
-				$dtarr = array();
+				$dtarr = [];
 				$dtarr = explode('_', $key);
 				if (!array_key_exists('options_'.$dtarr[1].'_st_dt_cnct', $array_query)) {
 					$array_query['options_'.$dtarr[1].'_st_dt_cnct'] = dol_mktime(0, 0, 0, GETPOSTINT('options_'.$dtarr[1].'_st_dtmonth_cnct'), GETPOSTINT('options_'.$dtarr[1].'_st_dtday_cnct'), GETPOSTINT('options_'.$dtarr[1].'_st_dtyear_cnct'));
 				}
 			} elseif (preg_match("/end_dt/", $key)) {
 				// Special case for end date come with 3 inputs day, month, year
-				$dtarr = array();
+				$dtarr = [];
 				$dtarr = explode('_', $key);
 				if (!array_key_exists('options_'.$dtarr[1].'_end_dt_cnct', $array_query)) {
 					$array_query['options_'.$dtarr[1].'_end_dt_cnct'] = dol_mktime(0, 0, 0, GETPOSTINT('options_'.$dtarr[1].'_end_dtmonth_cnct'), GETPOSTINT('options_'.$dtarr[1].'_end_dtday_cnct'), GETPOSTINT('options_'.$dtarr[1].'_end_dtyear_cnct'));
@@ -242,7 +242,7 @@ if ($action == 'add' && $permissiontoadd) {
 			);
 		}
 	} else {
-		$advTarget->contact_lines = array();
+		$advTarget->contact_lines = [];
 	}
 
 	$mailingadvthirdparties = null;
@@ -289,21 +289,21 @@ if (($action == 'savefilter' || $action == 'createfilter') && $permissiontoadd) 
 	}
 
 	if (empty($error)) {
-		$array_query = array();
+		$array_query = [];
 
 		// Get extra fields
 		foreach ($_POST as $key => $value) {
 			if (preg_match("/^options_.*(?<!_cnct)$/", $key)) {
 				// Special case for start date come with 3 inputs day, month, year
 				if (preg_match("/st_dt/", $key)) {
-					$dtarr = array();
+					$dtarr = [];
 					$dtarr = explode('_', $key);
 					if (!array_key_exists('options_'.$dtarr[1].'_st_dt', $array_query)) {
 						$array_query['options_'.$dtarr[1].'_st_dt'] = dol_mktime(0, 0, 0, GETPOSTINT('options_'.$dtarr[1].'_st_dtmonth'), GETPOSTINT('options_'.$dtarr[1].'_st_dtday'), GETPOSTINT('options_'.$dtarr[1].'_st_dtyear'));
 					}
 				} elseif (preg_match("/end_dt/", $key)) {
 					// Special case for end date come with 3 inputs day, month, year
-					$dtarr = array();
+					$dtarr = [];
 					$dtarr = explode('_', $key);
 					if (!array_key_exists('options_'.$dtarr[1].'_end_dt', $array_query)) {
 						$array_query['options_'.$dtarr[1].'_end_dt'] = dol_mktime(0, 0, 0, GETPOSTINT('options_'.$dtarr[1].'_end_dtmonth'), GETPOSTINT('options_'.$dtarr[1].'_end_dtday'), GETPOSTINT('options_'.$dtarr[1].'_end_dtyear'));
@@ -317,14 +317,14 @@ if (($action == 'savefilter' || $action == 'createfilter') && $permissiontoadd) 
 			if (preg_match("/^options_.*_cnct/", $key)) {
 				// Special case for start date come with 3 inputs day, month, year
 				if (preg_match("/st_dt/", $key)) {
-					$dtarr = array();
+					$dtarr = [];
 					$dtarr = explode('_', $key);
 					if (!array_key_exists('options_'.$dtarr[1].'_st_dt_cnct', $array_query)) {
 						$array_query['options_'.$dtarr[1].'_st_dt_cnct'] = dol_mktime(0, 0, 0, GETPOSTINT('options_'.$dtarr[1].'_st_dtmonth_cnct'), GETPOSTINT('options_'.$dtarr[1].'_st_dtday_cnct'), GETPOSTINT('options_'.$dtarr[1].'_st_dtyear_cnct'));
 					}
 				} elseif (preg_match("/end_dt/", $key)) {
 					// Special case for end date come with 3 inputs day, month, year
-					$dtarr = array();
+					$dtarr = [];
 					$dtarr = explode('_', $key);
 					if (!array_key_exists('options_'.$dtarr[1].'_end_dt_cnct', $array_query)) {
 						$array_query['options_'.$dtarr[1].'_end_dt_cnct'] = dol_mktime(0, 0, 0, GETPOSTINT('options_'.$dtarr[1].'_end_dtmonth_cnct'), GETPOSTINT('options_'.$dtarr[1].'_end_dtday_cnct'), GETPOSTINT('options_'.$dtarr[1].'_end_dtyear_cnct'));

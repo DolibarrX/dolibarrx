@@ -81,7 +81,7 @@ if (!function_exists('json_encode') || defined('PHPUNIT_MODE')) {
 			$output = '{';
 			$last = $num - 1;
 			$i = 0;
-			$tmpelements = array();
+			$tmpelements = [];
 			if (is_array($elements)) {
 				$tmpelements = $elements;
 			}
@@ -321,7 +321,7 @@ if (!function_exists('json_decode') || defined('PHPUNIT_MODE')) {
 
 		$out = _unval($out);
 
-		$array = array();
+		$array = [];
 
 		// Return an array
 		if ($out != '') {
@@ -329,7 +329,7 @@ if (!function_exists('json_decode') || defined('PHPUNIT_MODE')) {
 				// @phan-suppress-next-line PhanPluginUnsafeEval
 				eval('$array = '.$out.';');		// not secured but this is no mode used as php json lib is always expected to be loaded now.
 			} catch (Exception $e) {
-				$array = array();
+				$array = [];
 			}
 		}
 
@@ -338,7 +338,7 @@ if (!function_exists('json_decode') || defined('PHPUNIT_MODE')) {
 			if (!empty($array)) {
 				$object = false;
 				if (count($array) > 0) {
-					$object = (object) array();
+					$object = (object) [];
 				}
 				foreach ($array as $key => $value) {
 					if ($key) {
@@ -363,7 +363,7 @@ if (!function_exists('json_decode') || defined('PHPUNIT_MODE')) {
 	 */
 	function _unval($val)
 	{
-		$reg = array();
+		$reg = [];
 		while (preg_match('/\\\u([0-9A-F]{2})([0-9A-F]{2})/i', $val, $reg)) {
 			// single, escaped unicode character
 			$utf16 = chr(hexdec($reg[1])).chr(hexdec($reg[2]));

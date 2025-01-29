@@ -45,7 +45,7 @@ class mailing_pomme extends MailingTargets
 	/**
 	 * @var string[] Module mailing actif si modules require_module actifs
 	 */
-	public $require_module = array();
+	public $require_module = [];
 
 	/**
 	 * @var int Module mailing actif pour user admin ou non
@@ -83,7 +83,7 @@ class mailing_pomme extends MailingTargets
 
 		$langs->load("users");
 
-		$statssql = array();
+		$statssql = [];
 		$sql = "SELECT '".$this->db->escape($langs->trans("DolibarrUsers"))."' as label,";
 		$sql .= " count(distinct(u.email)) as nb";
 		$sql .= " FROM ".MAIN_DB_PREFIX."user as u";
@@ -177,7 +177,7 @@ class mailing_pomme extends MailingTargets
 		global $config, $langs;
 		$langs->load("companies");
 
-		$cibles = array();
+		$cibles = [];
 
 		// La requete doit retourner: id, email, fk_contact, lastname, firstname
 		$sql = "SELECT u.rowid as id, u.email as email, null as fk_contact,";

@@ -164,7 +164,7 @@ print "<br>\n";
 print "<br>\n";
 
 // List of sending methods
-$listofmethods = (is_array($config->modules_parts['sms']) ? $config->modules_parts['sms'] : array());
+$listofmethods = (is_array($config->modules_parts['sms']) ? $config->modules_parts['sms'] : []);
 asort($listofmethods);
 
 if (!count($listofmethods)) {

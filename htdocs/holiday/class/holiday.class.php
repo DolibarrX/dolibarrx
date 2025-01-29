@@ -160,9 +160,9 @@ class Holiday extends CommonObject
 	 */
 	public $fk_type;
 
-	public $holiday = array();
-	public $events = array();
-	public $logs = array();
+	public $holiday = [];
+	public $events = [];
+	public $logs = [];
 
 
 	/**
@@ -1311,7 +1311,7 @@ class Holiday extends CommonObject
 		if ($resql) {
 			$num_rows = $this->db->num_rows($resql); // Note, we can have 2 records if on is morning and the other one is afternoon
 			if ($num_rows > 0) {
-				$arrayofrecord = array();
+				$arrayofrecord = [];
 				$i = 0;
 				while ($i < $num_rows) {
 					$obj = $this->db->fetch_object($resql);
@@ -1372,7 +1372,7 @@ class Holiday extends CommonObject
 		$langs->load('holiday');
 		$nofetch = !empty($params['nofetch']);
 
-		$datas = array();
+		$datas = [];
 		$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("Holiday").'</u>';
 		if (isset($this->status)) {
 			$datas['picture'] .= ' '.$this->getLibStatut(5);
@@ -1529,7 +1529,7 @@ class Holiday extends CommonObject
 			$this->labelStatusShort[self::STATUS_REFUSED] = $langs->transnoentitiesnoconv('RefuseCP');
 		}
 
-		$params = array();
+		$params = [];
 		$statusType = 'status6';
 		if (!empty($startdate) && $startdate >= dol_now()) {		// If not yet passed, we use a green "in live" color
 			$statusType = 'status4';
@@ -1584,7 +1584,7 @@ class Holiday extends CommonObject
 		$out .= "</select>\n";
 
 		$showempty = 0;
-		$out .= ajax_combobox($htmlname, array(), 0, 0, 'resolve', ($showempty < 0 ? (string) $showempty : '-1'), $morecss);
+		$out .= ajax_combobox($htmlname, [], 0, 0, 'resolve', ($showempty < 0 ? (string) $showempty : '-1'), $morecss);
 
 		return $out;
 	}
@@ -2125,7 +2125,7 @@ class Holiday extends CommonObject
 	public function fetch_users_approver_holiday()
 	{
 		// phpcs:enable
-		$users_validator = array();
+		$users_validator = [];
 
 		$sql = "SELECT DISTINCT ur.fk_user";
 		$sql .= " FROM ".MAIN_DB_PREFIX."user_rights as ur, ".MAIN_DB_PREFIX."rights_def as rd";
@@ -2373,7 +2373,7 @@ class Holiday extends CommonObject
 		if ($result) {
 			$num = $this->db->num_rows($result);
 			if ($num) {
-				$types = array();
+				$types = [];
 				while ($obj = $this->db->fetch_object($result)) {
 					$types[$obj->rowid] = array('id' => $obj->rowid, 'rowid' => $obj->rowid, 'code' => $obj->code, 'label' => $obj->label, 'affect' => $obj->affect, 'delay' => $obj->delay, 'newbymonth' => $obj->newbymonth);
 				}
@@ -2384,7 +2384,7 @@ class Holiday extends CommonObject
 			dol_print_error($this->db);
 		}
 
-		return array();
+		return [];
 	}
 
 
@@ -2480,7 +2480,7 @@ class Holiday extends CommonObject
 	{
 		global $user;
 
-		$this->nb = array();
+		$this->nb = [];
 
 		$sql = "SELECT count(h.rowid) as nb";
 		$sql .= " FROM ".MAIN_DB_PREFIX."holiday as h";

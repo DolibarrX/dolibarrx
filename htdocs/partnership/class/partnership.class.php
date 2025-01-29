@@ -479,7 +479,7 @@ class Partnership extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -501,7 +501,7 @@ class Partnership extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList('t');
@@ -514,7 +514,7 @@ class Partnership extends CommonObject
 
 		// Manage filter
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.rowid') {
@@ -1246,7 +1246,7 @@ class Partnership extends CommonObject
 	 */
 	public function getLinesArray()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectline = new PartnershipLine($this->db);
 		$result = $objectline->fetchAll('ASC', 'position', 0, 0, '(fk_partnership:=:'.((int) $this->id).')');

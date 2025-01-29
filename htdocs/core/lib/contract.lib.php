@@ -35,7 +35,7 @@ function contract_prepare_head(Contrat $object)
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/contrat/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("ContractCard");
@@ -153,7 +153,7 @@ function contract_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('contratdet');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/contract.php";
 	$head[$h][1] = $langs->trans("Contracts");

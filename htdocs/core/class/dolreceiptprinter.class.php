@@ -181,7 +181,7 @@ class dolReceiptPrinter extends Printer
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * Constructor
@@ -284,7 +284,7 @@ class dolReceiptPrinter extends Printer
 
 		$error = 0;
 		$line = 0;
-		$listofprinters = array();
+		$listofprinters = [];
 
 		$sql = "SELECT rowid, name, fk_type, fk_profile, parameter";
 		$sql .= " FROM ".$this->db->prefix()."printer_receipt";
@@ -360,7 +360,7 @@ class dolReceiptPrinter extends Printer
 
 		$error = 0;
 		$line = 0;
-		$listofprinters = array();
+		$listofprinters = [];
 
 		$sql = "SELECT rowid, name, template";
 		$sql .= " FROM ".$this->db->prefix()."printer_receipt_template";
@@ -717,8 +717,8 @@ class dolReceiptPrinter extends Printer
 			libxml_disable_entity_loader(true);
 		}
 
-		$vals = array();
-		$index = array();
+		$vals = [];
+		$index = [];
 
 		$p = xml_parser_create();
 		xml_parse_into_struct($p, $this->template, $vals, $index);
@@ -773,7 +773,7 @@ class dolReceiptPrinter extends Printer
 						break;
 					case 'DOL_PRINT_OBJECT_TAX':
 						//var_dump($object);
-						$vatarray = array();
+						$vatarray = [];
 						foreach ($object->lines as $line) {
 							$vat_rate = $line->tva_tx;
 							if (!array_key_exists($vat_rate, $vatarray)) {

@@ -101,7 +101,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -136,7 +136,7 @@ if (empty($resHook)) {
 	// Purge search criteria
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')) { // All tests are required to be compatible with all browsers
 		$search_ref = '';
-		$search_array_options = array();
+		$search_array_options = [];
 	}
 
 	// Mass actions
@@ -219,7 +219,7 @@ print "</table>";
 print dol_get_fiche_end();
 
 
-$arrayfields = array();
+$arrayfields = [];
 $massactionbutton = '';
 
 $invoice_status_except_list = array(Facture::STATUS_DRAFT, Facture::STATUS_ABANDONED);

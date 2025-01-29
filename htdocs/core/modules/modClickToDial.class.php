@@ -54,23 +54,23 @@ class modClickToDial extends DolibarrModules
 		$this->picture = 'phoning';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Dependencies
-		$this->depends = array();
-		$this->requiredby = array();
+		$this->depends = [];
+		$this->requiredby = [];
 
 		// Config pages
 		$this->config_page_url = array("clicktodial.php");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'clicktodial';
 	}
 }

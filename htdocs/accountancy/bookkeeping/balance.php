@@ -143,7 +143,7 @@ if (!$user->hasRight('accounting', 'mouvements', 'lire')) {
 
 $param = '';
 $urlparam = '';
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -163,12 +163,12 @@ if (empty($resHook)) {
 		$search_accountancy_code_start = '';
 		$search_accountancy_code_end = '';
 		$search_not_reconciled = '';
-		$search_ledger_code = array();
-		$filter = array();
+		$search_ledger_code = [];
+		$filter = [];
 	}
 
 	// Must be after the remove filter action, before the export.
-	$filter = array();
+	$filter = [];
 
 	if (!empty($search_date_start)) {
 		$filter['t.doc_date>='] = $search_date_start;
@@ -301,7 +301,7 @@ if ($action != 'export_csv') {
 
 	$url_param = '';
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 	if ($resHook < 0) {
@@ -377,13 +377,13 @@ if ($action != 'export_csv') {
 	if ($type == 'sub') {
 		$moreforfilter .= $formaccounting->select_auxaccount($search_accountancy_code_start, 'search_accountancy_code_start', $langs->trans('From'), 'maxwidth200');
 	} else {
-		$moreforfilter .= $formaccounting->select_account($search_accountancy_code_start, 'search_accountancy_code_start', $langs->trans('From'), array(), 1, 1, 'maxwidth200', 'accounts');
+		$moreforfilter .= $formaccounting->select_account($search_accountancy_code_start, 'search_accountancy_code_start', $langs->trans('From'), [], 1, 1, 'maxwidth200', 'accounts');
 	}
 	$moreforfilter .= ' ';
 	if ($type == 'sub') {
 		$moreforfilter .= $formaccounting->select_auxaccount($search_accountancy_code_end, 'search_accountancy_code_end', $langs->trans('to'), 'maxwidth200');
 	} else {
-		$moreforfilter .= $formaccounting->select_account($search_accountancy_code_end, 'search_accountancy_code_end', $langs->trans('to'), array(), 1, 1, 'maxwidth200', 'accounts');
+		$moreforfilter .= $formaccounting->select_account($search_accountancy_code_end, 'search_accountancy_code_end', $langs->trans('to'), [], 1, 1, 'maxwidth200', 'accounts');
 	}
 	$moreforfilter .= '</div>';
 
@@ -396,7 +396,7 @@ if ($action != 'export_csv') {
 
 	print '<div class="liste_titre liste_titre_bydiv centpercent">';
 	print $moreforfilter;
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	print '</div>';
@@ -419,7 +419,7 @@ if ($action != 'export_csv') {
 	print '</td>';
 
 	// Fields from hook
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListOption', $parameters, $object); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
@@ -478,7 +478,7 @@ if ($action != 'export_csv') {
 		$sql .= " GROUP BY t.number_compte";
 
 		$resql = $db->query($sql);
-		$opening_balances = array();
+		$opening_balances = [];
 		if ($resql) {
 			$nrows = $db->num_rows($resql);
 			for ($i = 0; $i < $nrows; $i++) {
@@ -721,7 +721,7 @@ if ($action != 'export_csv') {
 		print '</tr>';
 	}
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 

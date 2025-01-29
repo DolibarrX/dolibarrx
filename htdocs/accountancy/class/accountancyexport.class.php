@@ -99,7 +99,7 @@ class AccountancyExport
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string 	Separator
@@ -114,7 +114,7 @@ class AccountancyExport
 	/**
 	 * @var array{downloadFilePath:string,downloadFileMimeType:string,downloadFileFullName:string}|array{}	Generated file
 	 */
-	public $generatedfiledata = array();
+	public $generatedfiledata = [];
 
 
 	/**
@@ -174,7 +174,7 @@ class AccountancyExport
 			ksort($listofexporttypes, SORT_NUMERIC);
 		} else {
 			ksort($listofspecialformatexport, SORT_NUMERIC);
-			$listofexporttypes = array();
+			$listofexporttypes = [];
 			$i = 0;
 			foreach ($listofgenericformatexport as $key => $val) {
 				$i++;
@@ -188,7 +188,7 @@ class AccountancyExport
 		}
 
 		// allow modules to define export formats
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('getType', $parameters, $listofexporttypes);
 
 		return $listofexporttypes;
@@ -329,7 +329,7 @@ class AccountancyExport
 		);
 
 		global $hookManager;
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('getTypeConfig', $parameters, $exporttypes);
 		return $exporttypes;
 	}
@@ -391,7 +391,7 @@ class AccountancyExport
 		$downloadFilePath = '';
 		$archiveFullName = '';
 		$archivePath = '';
-		$archiveFileList = array();
+		$archiveFileList = [];
 		if ($withAttachment == 1) {
 			if ($downloadMode == 0) {
 				$downloadMode = 1; // force to download after writing all files (can't use direct download)
@@ -646,7 +646,7 @@ class AccountancyExport
 		foreach ($objectLines as $line) {
 			$date_document = dol_print_date($line->doc_date, '%d%m%Y');
 
-			$tab = array();
+			$tab = [];
 
 			$tab[] = $date_document;
 			$tab[] = $line->code_journal;
@@ -699,7 +699,7 @@ class AccountancyExport
 				$refInvoice = $invoice->ref_supplier;
 			}
 
-			$tab = array();
+			$tab = [];
 
 			$tab[] = $line->code_journal;
 			$tab[] = $date_document;
@@ -747,7 +747,7 @@ class AccountancyExport
 		foreach ($objectLines as $line) {
 			$date_document = dol_print_date($line->doc_date, '%d/%m/%Y');
 
-			$tab = array();
+			$tab = [];
 
 			$tab[] = $date_document;
 			$tab[] = $line->code_journal;
@@ -784,7 +784,7 @@ class AccountancyExport
 		foreach ($objectLines as $line) {
 			$date_document = dol_print_date($line->doc_date, '%d/%m/%Y');
 
-			$tab = array();
+			$tab = [];
 
 			$tab[] = $line->piece_num;
 			$tab[] = $date_document;
@@ -845,7 +845,7 @@ class AccountancyExport
 			$date_document = dol_print_date($line->doc_date, '%Y%m%d');
 			$date_echeance = dol_print_date($line->date_lim_reglement, '%Y%m%d');
 
-			$tab = array();
+			$tab = [];
 
 			$tab[] = str_pad((string) $line->piece_num, 5);
 			$tab[] = str_pad(self::trunc($line->code_journal, 2), 2);
@@ -881,11 +881,11 @@ class AccountancyExport
 	 *
 	 * @param 	BookKeepingLine[]	$objectLines 	data
 	 * @param 	?resource			$exportFile		[=null] File resource to export or print if null
-	 * @param 	array<string,array{name:string,path:string}>		$archiveFileList		[=array()] Archive file list : array of ['path', 'name']
+	 * @param 	array<string,array{name:string,path:string}>		$archiveFileList		[=[]] Archive file list : array of ['path', 'name']
 	 * @param 	int<0,1>	$withAttachment			[=0] Not add files or 1 to have attached in an archive
 	 * @return	array<string,array{name:string,path:string}>	Archive file list : array of ['path', 'name']
 	 */
-	public function exportQuadratus($objectLines, $exportFile = null, $archiveFileList = array(), $withAttachment = 0)
+	public function exportQuadratus($objectLines, $exportFile = null, $archiveFileList = [], $withAttachment = 0)
 	{
 		global $config, $db;
 
@@ -912,7 +912,7 @@ class AccountancyExport
 				$code_compta = $line->subledger_account;
 			}
 
-			$tab = array();
+			$tab = [];
 
 			if (!empty($line->subledger_account)) {
 				$tab['type_ligne'] = 'C';
@@ -954,7 +954,7 @@ class AccountancyExport
 				}
 			}
 
-			$tab = array();
+			$tab = [];
 			$tab['type_ligne'] = 'M';
 			$tab['num_compte'] = str_pad(self::trunc($code_compta, 8), 8);
 			$tab['code_journal'] = str_pad(self::trunc($line->code_journal, 2), 2);
@@ -1042,7 +1042,7 @@ class AccountancyExport
 						$objectDirPath = !empty($config->fournisseur->facture->multidir_output[$config->entity]) ? $config->fournisseur->facture->multidir_output[$config->entity] : $config->fournisseur->facture->dir_output;
 						$objectDirPath .= '/' . rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
 					}
-					$arrayofinclusion = array();
+					$arrayofinclusion = [];
 					// If it is a supplier invoice, we want to use last uploaded file
 					$arrayofinclusion[] = '^' . preg_quote($objectFileName, '/') . (($line->doc_type == 'supplier_invoice') ? '.+' : '') . '\.pdf$';
 					$fileFoundList = dol_dir_list($objectDirPath . '/' . $objectFileName, 'files', 0, implode('|', $arrayofinclusion), '(\.meta|_preview.*\.png)$', 'date', SORT_DESC, 0, 1);
@@ -1117,7 +1117,7 @@ class AccountancyExport
 				$code_compta = $line->subledger_account;
 			}
 
-			$tab = array();
+			$tab = [];
 			//$tab['type_ligne'] = 'M';
 			$tab['code_journal'] = str_pad(dol_trunc($line->code_journal, 2, 'right', 'UTF-8', 1), 2);
 
@@ -1192,7 +1192,7 @@ class AccountancyExport
 		foreach ($objectLines as $line) {
 			$date_document = dol_print_date($line->doc_date, '%d%m%Y');
 
-			$tab = array();
+			$tab = [];
 
 			$tab[] = $line->id;
 			$tab[] = $date_document;
@@ -1235,7 +1235,7 @@ class AccountancyExport
 		foreach ($objectLines as $line) {
 			$date_document = dol_print_date($line->doc_date, '%d%m%Y');
 
-			$tab = array();
+			$tab = [];
 
 			$tab[] = $line->piece_num;
 			$tab[] = self::toAnsi($line->label_operation);
@@ -1282,7 +1282,7 @@ class AccountancyExport
 		foreach ($objectLines as $line) {
 			$date_document = dol_print_date($line->doc_date, '%d/%m/%Y');
 
-			$tab = array();
+			$tab = [];
 
 			$tab[] = $date_document;
 			$tab[] = $line->code_journal;
@@ -1319,7 +1319,7 @@ class AccountancyExport
 		foreach ($objectLines as $line) {
 			$date_document = dol_print_date($line->doc_date, getDolGlobalString('ACCOUNTING_EXPORT_DATE'));
 
-			$tab = array();
+			$tab = [];
 			// export configurable
 			$tab[] = $line->piece_num;
 			$tab[] = $date_document;
@@ -1349,18 +1349,18 @@ class AccountancyExport
 	 *
 	 * @param 	BookKeepingLine[]	$objectLines 			data
 	 * @param	?resource	$exportFile				[=null] File resource to export or print if null
-	 * @param 	array<string,array{name:string,path:string}>		$archiveFileList		[=array()] Archive file list : array of ['path', 'name']
+	 * @param 	array<string,array{name:string,path:string}>		$archiveFileList		[=[]] Archive file list : array of ['path', 'name']
 	 * @param 	int<0,1>	$withAttachment			[=0] Not add files or 1 to have attached in an archive
 	 * @return	array<string,array{name:string,path:string}>	Archive file list : array of ['path', 'name']
 	 */
-	public function exportFEC($objectLines, $exportFile = null, $archiveFileList = array(), $withAttachment = 0)
+	public function exportFEC($objectLines, $exportFile = null, $archiveFileList = [], $withAttachment = 0)
 	{
 		global $config, $langs;
 
 		$separator = "\t";
 		$end_line = "\r\n";
 
-		$tab = array();
+		$tab = [];
 		$tab[] = "JournalCode";
 		$tab[] = "JournalLib";
 		$tab[] = "EcritureNum";
@@ -1418,7 +1418,7 @@ class AccountancyExport
 					$refInvoice = $invoice->ref_supplier;
 				}
 
-				$tab = array();
+				$tab = [];
 
 				// FEC:JournalCode
 				$tab[] = $line->code_journal;
@@ -1506,7 +1506,7 @@ class AccountancyExport
 							$objectDirPath = !empty($config->fournisseur->facture->multidir_output[$config->entity]) ? $config->fournisseur->facture->multidir_output[$config->entity] : $config->fournisseur->facture->dir_output;
 							$objectDirPath .= '/' . rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
 						}
-						$arrayofinclusion = array();
+						$arrayofinclusion = [];
 						// If it is a supplier invoice, we want to use last uploaded file
 						$arrayofinclusion[] = '^' . preg_quote($objectFileName, '/') . (($line->doc_type == 'supplier_invoice') ? '.+' : '') . '\.pdf$';
 						$fileFoundList = dol_dir_list($objectDirPath . '/' . $objectFileName, 'files', 0, implode('|', $arrayofinclusion), '(\.meta|_preview.*\.png)$', 'date', SORT_DESC, 0, 1);
@@ -1564,18 +1564,18 @@ class AccountancyExport
 	 *
 	 * @param 	BookKeepingLine[]	$objectLines 			data
 	 * @param	?resource	$exportFile				[=null] File resource to export or print if null
-	 * @param 	array<string,array{name:string,path:string}>		$archiveFileList		[=array()] Archive file list : array of ['path', 'name']
+	 * @param 	array<string,array{name:string,path:string}>		$archiveFileList		[=[]] Archive file list : array of ['path', 'name']
 	 * @param 	int<0,1>	$withAttachment			[=0] Not add files or 1 to have attached in an archive
 	 * @return	array<string,array{name:string,path:string}>	Archive file list : array of ['path', 'name']
 	 */
-	public function exportFEC2($objectLines, $exportFile = null, $archiveFileList = array(), $withAttachment = 0)
+	public function exportFEC2($objectLines, $exportFile = null, $archiveFileList = [], $withAttachment = 0)
 	{
 		global $config, $langs;
 
 		$separator = "\t";
 		$end_line = "\r\n";
 
-		$tab = array();
+		$tab = [];
 		$tab[] = "JournalCode";
 		$tab[] = "JournalLib";
 		$tab[] = "EcritureNum";
@@ -1632,7 +1632,7 @@ class AccountancyExport
 					$refInvoice = $invoice->ref_supplier;
 				}
 
-				$tab = array();
+				$tab = [];
 
 				// FEC:JournalCode
 				$tab[] = $line->code_journal;
@@ -1720,7 +1720,7 @@ class AccountancyExport
 							$objectDirPath = !empty($config->fournisseur->facture->multidir_output[$config->entity]) ? $config->fournisseur->facture->multidir_output[$config->entity] : $config->fournisseur->facture->dir_output;
 							$objectDirPath .= '/' . rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
 						}
-						$arrayofinclusion = array();
+						$arrayofinclusion = [];
 						// If it is a supplier invoice, we want to use last uploaded file
 						$arrayofinclusion[] = '^' . preg_quote($objectFileName, '/') . (($line->doc_type == 'supplier_invoice') ? '.+' : '') . '\.pdf$';
 						$fileFoundList = dol_dir_list($objectDirPath . '/' . $objectFileName, 'files', 0, implode('|', $arrayofinclusion), '(\.meta|_preview.*\.png)$', 'date', SORT_DESC, 0, 1);
@@ -1786,7 +1786,7 @@ class AccountancyExport
 		$end_line = "\r\n";
 
 		// Print header line
-		$tab = array();
+		$tab = [];
 
 		$tab[] = "Blg";
 		$tab[] = "Datum";
@@ -1834,7 +1834,7 @@ class AccountancyExport
 				$sammelBuchung = true;
 			}
 
-			$tab = array();
+			$tab = [];
 
 			//Blg
 			$tab[] = $line->piece_num;
@@ -1944,7 +1944,7 @@ class AccountancyExport
 			$date_creation = dol_print_date($line->date_creation, '%Y%m%d');
 			$date_lim_reglement = dol_print_date($line->date_lim_reglement, '%Y%m%d');
 
-			$tab = array();
+			$tab = [];
 
 			// TYPE
 			$type_enregistrement = 'E'; // For write movement
@@ -2108,7 +2108,7 @@ class AccountancyExport
 						$address[2] = substr(str_replace(array("\t", "\r"), " ", $soc->address), 82, 40);
 					}
 
-					$tab = array();
+					$tab = [];
 
 					$type_enregistrement = 'C';
 					//TYPE
@@ -2217,7 +2217,7 @@ class AccountancyExport
 				}
 			}
 
-			$tab = array();
+			$tab = [];
 
 			$date_document = dol_print_date($line->doc_date, '%Y%m%d');
 			$date_creation = dol_print_date($line->date_creation, '%Y%m%d');
@@ -2362,7 +2362,7 @@ class AccountancyExport
 		$separator = "\t";
 		$end_line = "\n";
 
-		$tab = array();
+		$tab = [];
 
 		$tab[] = $langs->transnoentitiesnoconv('Date');
 		$tab[] = self::trunc($langs->transnoentitiesnoconv('Journal'), 6);
@@ -2389,7 +2389,7 @@ class AccountancyExport
 		foreach ($objectLines as $line) {
 			$date_document = dol_print_date($line->doc_date, '%Y%m%d');
 
-			$tab = array();
+			$tab = [];
 
 			$tab[] = $date_document; //Date
 
@@ -2439,8 +2439,8 @@ class AccountancyExport
 		$separator = ',';
 		$end_line = "\r\n";
 
-		$invoices_infos = array();
-		$supplier_invoices_infos = array();
+		$invoices_infos = [];
+		$supplier_invoices_infos = [];
 		foreach ($objectLines as $line) {
 			if ($line->debit == 0 && $line->credit == 0) {
 				//unset($array[$line]);
@@ -2495,7 +2495,7 @@ class AccountancyExport
 					}
 				}
 
-				$tab = array();
+				$tab = [];
 
 				$tab[] = $line->id;
 				$tab[] = $date_document;
@@ -2552,7 +2552,7 @@ class AccountancyExport
 			} else {
 				$date_document = dol_print_date($line->doc_date, '%d%m%Y');
 
-				$tab = array();
+				$tab = [];
 
 				$tab[] = $line->id;
 				$tab[] = $date_document;
@@ -2599,7 +2599,7 @@ class AccountancyExport
 
 
 		foreach ($objectLines as $line) {
-			$tab = array();
+			$tab = [];
 
 			$date = dol_print_date($line->doc_date, '%d/%m/%Y');
 

@@ -77,7 +77,7 @@ print load_fiche_titre($langs->trans($page_name), $linkback);
 
 //$head = export_admin_prepare_head();
 $h = 0;
-$head = array();
+$head = [];
 $head[$h][0] = DOL_URL_ROOT.'/admin/import.php';
 $head[$h][1] = $langs->trans("Setup");
 $head[$h][2] = 'setup';

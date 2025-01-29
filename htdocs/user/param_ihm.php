@@ -108,7 +108,7 @@ if ($resHook < 0) {
 if (empty($resHook)) {
 	if ($action == 'update' && ($caneditfield || !empty($user->admin))) {
 		if (!GETPOST("cancel")) {
-			$tabparam = array();
+			$tabparam = [];
 
 			if (GETPOST("check_MAIN_LANDING_PAGE") == "on") {
 				$tabparam["MAIN_LANDING_PAGE"] = GETPOST("MAIN_LANDING_PAGE", 'alphanohtml');
@@ -152,23 +152,23 @@ if (empty($resHook)) {
 				$tabparam["MAIN_THEME"] = '';
 			}
 
-			$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TOPMENU_BACK1', 'alphanohtml'), array()))));
+			$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TOPMENU_BACK1', 'alphanohtml'), []))));
 			if ($val == '') {
 				$tabparam['THEME_ELDY_TOPMENU_BACK1'] = '';
 			} else {
 				$tabparam['THEME_ELDY_TOPMENU_BACK1'] = implode(
 					',',
-					colorStringToArray(GETPOST('THEME_ELDY_TOPMENU_BACK1', 'alphanohtml'), array())
+					colorStringToArray(GETPOST('THEME_ELDY_TOPMENU_BACK1', 'alphanohtml'), [])
 				);
 			}
 
-			$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_BACKTITLE1', 'alphanohtml'), array()))));
+			$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_BACKTITLE1', 'alphanohtml'), []))));
 			if ($val == '') {
 				$tabparam['THEME_ELDY_BACKTITLE1'] = '';
 			} else {
 				$tabparam['THEME_ELDY_BACKTITLE1'] = implode(
 					',',
-					colorStringToArray(GETPOST('THEME_ELDY_BACKTITLE1', 'alphanohtml'), array())
+					colorStringToArray(GETPOST('THEME_ELDY_BACKTITLE1', 'alphanohtml'), [])
 				);
 			}
 
@@ -221,7 +221,7 @@ $help_url = '';
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-user page-card_param_ihm');
 
 // List of possible landing pages
-$tmparray = array();
+$tmparray = [];
 $tmparray['index.php'] = array('label' => 'Dashboard', 'picture' => 'graph');
 if (isModEnabled("societe")) {
 	$tmparray['societe/index.php?mainmenu=companies&leftmenu='] = array('label' => 'ThirdPartiesArea', 'picture' => 'company');
@@ -390,7 +390,7 @@ if ($action == 'edit') {
 	print empty($dolibarr_main_demo) ? '' : ' disabled="disabled"'; // Disabled for demo
 	print '> <label for="check_MAIN_LANG_DEFAULT">'.$langs->trans("UsePersonalValue").'</label></td>';
 	print '<td>';
-	print $formadmin->select_language((!empty($object->conf->MAIN_LANG_DEFAULT) ? $object->conf->MAIN_LANG_DEFAULT : ''), 'main_lang_default', 1, array(), 0, 0, (!empty($dolibarr_main_demo)));
+	print $formadmin->select_language((!empty($object->conf->MAIN_LANG_DEFAULT) ? $object->conf->MAIN_LANG_DEFAULT : ''), 'main_lang_default', 1, [], 0, 0, (!empty($dolibarr_main_demo)));
 	print '</td></tr>';
 
 	// Landing page

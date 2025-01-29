@@ -333,8 +333,8 @@ if ($modecompta == 'CREANCES-DETTES') {
 	*/
 
 	$j = 1;
-	$sommes = array();
-	$totPerAccount = array();
+	$sommes = [];
+	$totPerAccount = [];
 	if (!is_array($cats) && $cats < 0) {
 		setEventMessages(null, $AccCat->errors, 'errors');
 	} elseif (is_array($cats) && count($cats) > 0) {
@@ -355,7 +355,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 				print dol_escape_htmltag($cat['label']);
 				print '</td>';
 
-				$vars = array();
+				$vars = [];
 
 				// Unactive categories have a total of 0 to be used in the formula.
 				foreach ($unactive_cats as $un_cat) {
@@ -387,7 +387,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 				}
 
 				if (!isset($sommes[$code])) {
-					$sommes[$code] = array();
+					$sommes[$code] = [];
 				}
 				// Year N
 				$code = $cat['code']; // code of category ('VTE', 'MAR', ...)
@@ -479,25 +479,25 @@ if ($modecompta == 'CREANCES-DETTES') {
 			} else { // normal category
 				$code = $cat['code']; // Category code we process
 
-				$totCat = array();
+				$totCat = [];
 				$totCat['NP'] = 0;
 				$totCat['N'] = 0;
-				$totCat['M'] = array();
+				$totCat['M'] = [];
 				foreach ($months as $k => $v) {
 					$totCat['M'][$k] = 0;
 				}
 				if (!isset($sommes[$code])) {
-					$sommes[$code] = array();
+					$sommes[$code] = [];
 				}
 
 				// Set $cpts with array of accounts in the category/group
 				$cpts = $AccCat->getCptsCat($cat['rowid']);
 				// We should loop over empty $cpts array, else the category _code_ is used in the formula, which leads to wrong result if the code is a number.
 				if (empty($cpts)) {
-					$cpts[] = array();
+					$cpts[] = [];
 				}
 
-				$arrayofaccountforfilter = array();
+				$arrayofaccountforfilter = [];
 				foreach ($cpts as $i => $cpt) {    // Loop on each account.
 					if (isset($cpt['account_number'])) {
 						$arrayofaccountforfilter[] = $cpt['account_number'];

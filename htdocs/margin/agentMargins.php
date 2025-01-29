@@ -280,7 +280,7 @@ if ($result) {
 	print "</tr>\n";
 
 	if ($num > 0) {
-		$group_list = array();
+		$group_list = [];
 		while ($objp = $db->fetch_object($result)) {
 			if ($agentid > 0) {
 				$group_id = $objp->socid;

@@ -82,7 +82,7 @@ class modFournisseur extends DolibarrModules
 		$this->config_page_url = array("supplier_order.php");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 		$r = 0;
 
 		$this->const[$r][0] = "COMMANDE_SUPPLIER_ADDON_PDF";
@@ -178,7 +178,7 @@ class modFournisseur extends DolibarrModules
 
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'fournisseur';
 		$r = 0;
 
@@ -624,7 +624,7 @@ class modFournisseur extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "SupplierInvoices"; // Translation key
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('f' => MAIN_DB_PREFIX.'facture_fourn', 'extra' => MAIN_DB_PREFIX.'facture_fourn_extrafields');
 		$this->import_tables_creator_array[$r] = array('f' => 'fk_user_author'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(
@@ -660,7 +660,7 @@ class modFournisseur extends DolibarrModules
 			$this->import_fields_array[$r]['f.multicurrency_total_ttc'] = 'MulticurrencyAmountTTC';
 		}
 		// Add extra fields
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'facture_fourn' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -726,7 +726,7 @@ class modFournisseur extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "SupplierInvoiceLines"; // Translation key
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('fd' => MAIN_DB_PREFIX.'facture_fourn_det', 'extra' => MAIN_DB_PREFIX.'facture_fourn_det_extrafields');
 		$this->import_fields_array[$r] = array(
 			'fd.fk_facture_fourn' => 'InvoiceRef*',
@@ -755,7 +755,7 @@ class modFournisseur extends DolibarrModules
 			$this->import_fields_array[$r]['fd.multicurrency_total_ttc'] = 'MulticurrencyAmountTTC';
 		}
 		// Add extra fields
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'facture_fourn_det' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -804,7 +804,7 @@ class modFournisseur extends DolibarrModules
 		$this->import_code[$r] = 'order_fournisseur_'.$r;
 		$this->import_label[$r] = 'SuppliersOrders';
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array();
+		$this->import_entities_array[$r] = [];
 		$this->import_tables_array[$r] = array('c' => MAIN_DB_PREFIX.'order_fournisseur', 'extra' => MAIN_DB_PREFIX.'order_fournisseur_extrafields');
 		$this->import_tables_creator_array[$r] = array('c' => 'fk_user_author'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(
@@ -842,7 +842,7 @@ class modFournisseur extends DolibarrModules
 		}
 
 		// Add extra fields
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'order_fournisseur' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 
@@ -892,7 +892,7 @@ class modFournisseur extends DolibarrModules
 		$this->import_code[$r] = 'order_fournisseurdet_'.$r;
 		$this->import_label[$r] = 'PurchaseOrderLines';
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array();
+		$this->import_entities_array[$r] = [];
 		$this->import_tables_array[$r] = array('cd' => MAIN_DB_PREFIX.'order_fournisseurdet', 'extra' => MAIN_DB_PREFIX.'order_fournisseurdet_extrafields');
 		$this->import_fields_array[$r] = array(
 			'cd.fk_order'    => 'PurchaseOrder*',

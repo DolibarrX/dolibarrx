@@ -114,8 +114,8 @@ $entity = GETPOST('entity', 'alpha');	// Do not use GETPOSTINT here. Should be '
 $code = GETPOST('code', 'alpha');
 $from = GETPOST('from', 'alpha');
 
-$acts = array();
-$actl = array();
+$acts = [];
+$actl = [];
 $acts[0] = "activate";
 $acts[1] = "disable";
 $actl[0] = img_picture($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
@@ -171,7 +171,7 @@ $permissiontoadd = $allowed;
 $taborder = array(DICT_CURRENCIES, DICT_PAPER_FORMAT, DICT_FORMAT_CARDS, 0, DICT_COUNTRY, DICT_REGIONS, DICT_DEPARTEMENTS, 0, DICT_FORME_JURIDIQUE, DICT_TYPENT, DICT_EFFECTIF, DICT_PROSPECTLEVEL, DICT_PROSPECTCONTACTLEVEL, DICT_STCOMM, DICT_STCOMMCONTACT, DICT_SOCIALNETWORKS, 0, DICT_CIVILITY, DICT_TYPE_CONTACT, 0, DICT_ACTIONCOMM, DICT_TYPE_RESOURCE, 0, DICT_LEAD_STATUS, 0, DICT_HRM_DEPARTMENT, DICT_HRM_FUNCTION, DICT_HRM_PUBLIC_HOLIDAY, DICT_HOLIDAY_TYPES, DICT_TYPE_FEES, DICT_EXP_TAX_CAT, DICT_EXP_TAX_RANGE, 0, DICT_TVA, DICT_INVOICE_SUBTYPE, DICT_REVENUESTAMP, DICT_PAYMENT_TERM, DICT_PAIEMENT, DICT_CHARGESOCIALES, 0, DICT_ECOTAXE, 0, DICT_INPUT_REASON, DICT_INPUT_METHOD, DICT_SHIPMENT_MODE, DICT_AVAILABILITY, DICT_TRANSPORT_MODE, 0, DICT_UNITS, DICT_PRODUCT_NATURE, 0, DICT_PRODUCTBATCH_QCSTATUS, 0, DICT_TYPE_CONTAINER, 0, DICT_ASSET_DISPOSAL_TYPE, 0);
 
 // Name of SQL tables of dictionaries
-$tabname = array();
+$tabname = [];
 $tabname[DICT_FORME_JURIDIQUE] = "c_forme_juridique";
 $tabname[DICT_DEPARTEMENTS] = "c_departements";
 $tabname[DICT_REGIONS] = "c_regions";
@@ -218,7 +218,7 @@ $tabname[DICT_PRODUCTBATCH_QCSTATUS] = "c_productbatch_qcstatus";
 $tabname[DICT_ASSET_DISPOSAL_TYPE] = "c_asset_disposal_type";
 
 // Dictionary labels
-$tablib = array();
+$tablib = [];
 $tablib[DICT_FORME_JURIDIQUE] = "DictionaryCompanyJuridicalType";
 $tablib[DICT_DEPARTEMENTS] = "DictionaryCanton";
 $tablib[DICT_REGIONS] = "DictionaryRegion";
@@ -265,7 +265,7 @@ $tablib[DICT_PRODUCTBATCH_QCSTATUS] = "DictionaryBatchStatus";
 $tablib[DICT_ASSET_DISPOSAL_TYPE] = "DictionaryAssetDisposalType";
 
 // Requests to extract data
-$tabsql = array();
+$tabsql = [];
 $tabsql[DICT_FORME_JURIDIQUE] = "SELECT f.rowid as rowid, f.code, f.libelle, c.code as country_code, c.label as country, f.active FROM ".MAIN_DB_PREFIX."c_forme_juridique as f, ".MAIN_DB_PREFIX."c_country as c WHERE f.fk_pays=c.rowid";
 $tabsql[DICT_DEPARTEMENTS] = "SELECT d.rowid as rowid, d.code_departement as code, d.nom as libelle, d.fk_region as region_id, r.nom as region, c.code as country_code, c.label as country, d.active FROM ".MAIN_DB_PREFIX."c_departements as d, ".MAIN_DB_PREFIX."c_regions as r, ".MAIN_DB_PREFIX."c_country as c WHERE d.fk_region=r.code_region and r.fk_pays=c.rowid and r.active=1 and c.active=1";
 $tabsql[DICT_REGIONS] = "SELECT r.rowid as rowid, r.code_region as code, r.nom as libelle, r.fk_pays as country_id, c.code as country_code, c.label as country, r.active FROM ".MAIN_DB_PREFIX."c_regions as r, ".MAIN_DB_PREFIX."c_country as c WHERE r.fk_pays=c.rowid and c.active=1";
@@ -312,7 +312,7 @@ $tabsql[DICT_PRODUCTBATCH_QCSTATUS] = "SELECT t.rowid, t.code, t.label, t.active
 $tabsql[DICT_ASSET_DISPOSAL_TYPE] = "SELECT t.rowid, t.code, t.label, t.active FROM ".MAIN_DB_PREFIX."c_asset_disposal_type as t";
 
 // Criteria to sort dictionaries
-$tabsqlsort = array();
+$tabsqlsort = [];
 $tabsqlsort[DICT_FORME_JURIDIQUE] = "country ASC, code ASC";
 $tabsqlsort[DICT_DEPARTEMENTS] = "country ASC, code ASC";
 $tabsqlsort[DICT_REGIONS] = "country ASC, code ASC";
@@ -359,7 +359,7 @@ $tabsqlsort[DICT_PRODUCTBATCH_QCSTATUS] = "code ASC";
 $tabsqlsort[DICT_ASSET_DISPOSAL_TYPE] = "code ASC";
 
 // Field names in select result for dictionary display
-$tabfield = array();
+$tabfield = [];
 $tabfield[DICT_FORME_JURIDIQUE] = "code,libelle,country";
 $tabfield[DICT_DEPARTEMENTS] = "code,libelle,region_id,region,country"; // "code,libelle,region,country_code-country"
 $tabfield[DICT_REGIONS] = "code,libelle,country_id,country";
@@ -406,7 +406,7 @@ $tabfield[DICT_PRODUCTBATCH_QCSTATUS] = "code,label";
 $tabfield[DICT_ASSET_DISPOSAL_TYPE] = "code,label";
 
 // Edit field names for editing a record
-$tabfieldvalue = array();
+$tabfieldvalue = [];
 $tabfieldvalue[DICT_FORME_JURIDIQUE] = "code,libelle,country";
 $tabfieldvalue[DICT_DEPARTEMENTS] = "code,libelle,region"; // "code,libelle,region"
 $tabfieldvalue[DICT_REGIONS] = "code,libelle,country";
@@ -453,7 +453,7 @@ $tabfieldvalue[DICT_PRODUCTBATCH_QCSTATUS] = "code,label";
 $tabfieldvalue[DICT_ASSET_DISPOSAL_TYPE] = "code,label";
 
 // Field names in the table for inserting a record (add field "entity" only here when dictionary is ready to personalized by entity)
-$tabfieldinsert = array();
+$tabfieldinsert = [];
 $tabfieldinsert[DICT_FORME_JURIDIQUE] = "code,libelle,fk_pays";
 $tabfieldinsert[DICT_DEPARTEMENTS] = "code_departement,nom,fk_region";
 $tabfieldinsert[DICT_REGIONS] = "code_region,nom,fk_pays";
@@ -502,7 +502,7 @@ $tabfieldinsert[DICT_ASSET_DISPOSAL_TYPE] = "code,label";
 // Rowid name of field depending if field is autoincrement on or off..
 // Use "" if id field is "rowid" and has autoincrement on
 // Use "nameoffield" if id field is not "rowid" or has not autoincrement on
-$tabrowid = array();
+$tabrowid = [];
 $tabrowid[DICT_FORME_JURIDIQUE] = "";
 $tabrowid[DICT_DEPARTEMENTS] = "";
 $tabrowid[DICT_REGIONS] = "";
@@ -549,7 +549,7 @@ $tabrowid[DICT_PRODUCTBATCH_QCSTATUS] = "rowid";
 $tabrowid[DICT_ASSET_DISPOSAL_TYPE] = "rowid";
 
 // Condition to show dictionary in setup page
-$tabcond = array();
+$tabcond = [];
 $tabcond[DICT_FORME_JURIDIQUE] = (isModEnabled("societe"));
 $tabcond[DICT_DEPARTEMENTS] = true;
 $tabcond[DICT_REGIONS] = true;
@@ -596,7 +596,7 @@ $tabcond[DICT_PRODUCTBATCH_QCSTATUS] = isModEnabled("product") && isModEnabled('
 $tabcond[DICT_ASSET_DISPOSAL_TYPE] = isModEnabled('asset');
 
 // List of help for fields (no more used, help is defined into tabcomplete)
-$tabhelp = array();
+$tabhelp = [];
 
 // Table to store complete information (will replace all other tables). Key is table name.
 $tabcomplete = array(
@@ -641,7 +641,7 @@ $tabcomplete = array(
 	'c_hrm_public_holiday' => array('picture' => 'holiday', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'dayrule' => "Keep empty for a date defined with month and day (most common case).<br>Use a keyword like 'easter', 'eastermonday', ... for a date predefined by complex rules.", 'country' => $langs->trans("CountryIfSpecificToOneCountry"), 'year' => $langs->trans("ZeroMeansEveryYear"))),
 	'c_hrm_department' => array('picture' => 'hrm', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
 	'c_hrm_function' => array('picture' => 'hrm', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_exp_tax_cat' => array('picture' => 'expensereport', 'help' => array()),
+	'c_exp_tax_cat' => array('picture' => 'expensereport', 'help' => []),
 	'c_exp_tax_range' => array('picture' => 'expensereport', 'help' => array('range_ik' => $langs->trans('PrevRangeToThisRange'))),
 	'c_units' => array('picture' => 'product', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'unit_type' => $langs->trans('Measuringtype_durationDesc'), 'scale' => $langs->trans('MeasuringScaleDesc'))),
 	'c_socialnetworks' => array('picture' => 'share-alt', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'url' => $langs->trans('UrlSocialNetworksDesc'), 'icon' => $langs->trans('FafaIconSocialNetworksDesc'))),
@@ -699,8 +699,8 @@ if (empty($sortfield)) {
 }
 
 // Define elementList and sourceList (used for dictionary type of contacts "llx_c_type_contact")
-$elementList = array();
-$sourceList = array();
+$elementList = [];
+$sourceList = [];
 if ($id == DICT_TYPE_CONTACT) {
 	$elementList = array(
 		'' => '',
@@ -1403,7 +1403,7 @@ if ($id > 0) {
 		$tablecode = $tableprefixarray[$id];
 		$tableprefix = preg_replace('/\..*$/', '.', $tablecode);
 	}
-	$reg = array();
+	$reg = [];
 	if (empty($tableprefix) && preg_match('/SELECT ([a-z]\.)rowid/i', $sqlfields, $reg)) {
 		$tableprefix = $reg[1];
 	}
@@ -1961,7 +1961,7 @@ if ($id > 0) {
 
 			if (in_array($value, array('label', 'libelle', 'libelle_facture')) && empty($tabcomplete[$tabname[$id]]['help'][$value])) {
 				if (!isset($tabcomplete[$tabname[$id]]['help']) || !is_array($tabcomplete[$tabname[$id]]['help'])) {	// protection when $tabcomplete[$tabname[$id]]['help'] is a an empty string, we must force it into an array
-					$tabcomplete[$tabname[$id]]['help'] = array();
+					$tabcomplete[$tabname[$id]]['help'] = [];
 				}
 				$tabcomplete[$tabname[$id]]['help'][$value] = $langs->trans('LabelUsedByDefault');
 			}
@@ -2815,7 +2815,7 @@ function dictFieldList($fieldlist, $obj = null, $tabname = '', $context = '')
 			print $formadmin->select_language(getDolGlobalString('MAIN_LANG_DEFAULT'), 'lang');
 			print '</td>';
 		} elseif (in_array($value, array('element', 'source'))) {	// Example: the type and source of the element (for contact types)
-			$tmparray = array();
+			$tmparray = [];
 			if ($value == 'element') {
 				$tmparray = $elementList;
 			} else {
@@ -2924,7 +2924,7 @@ function dictFieldList($fieldlist, $obj = null, $tabname = '', $context = '')
 			if (isModEnabled('accounting')) {
 				$fieldname = $value;
 				$accountancy_account = (empty($obj->$fieldname) ? 0 : $obj->$fieldname);
-				print $formaccounting->select_account($accountancy_account, '.'. $value, 1, array(), 1, 1, 'maxwidth125 maxwidthonsmartphone');
+				print $formaccounting->select_account($accountancy_account, '.'. $value, 1, [], 1, 1, 'maxwidth125 maxwidthonsmartphone');
 			} else {
 				$fieldname = $value;
 				print '<input type="text" class="flat minwidth100" value="'.(isset($obj->$fieldname) ? $obj->$fieldname : '').'" name="'. $value .'">';

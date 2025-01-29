@@ -93,7 +93,7 @@ if ($action == 'fetch' && !empty($id)) {
 
 	top_httphead('application/json');
 
-	$outjson = array();
+	$outjson = [];
 
 	$object = new Product($db);
 	$ret = $object->fetch($id);
@@ -252,7 +252,7 @@ if ($action == 'fetch' && !empty($id)) {
 			$tmpvatwithcode = get_default_tva($mysoc, $thirdparty_buyer, $id, 0);
 
 			if (!is_numeric($tmpvatwithcode) || $tmpvatwithcode != -1) {
-				$reg =array();
+				$reg =[];
 				if (preg_match('/(.+)\s\((.+)\)/', $tmpvatwithcode, $reg)) {
 					$outtva_tx = price2num($reg[1]);
 					$outtva_tx_formated = price($outtva_tx);
@@ -299,7 +299,7 @@ if ($action == 'fetch' && !empty($id)) {
 	top_httphead();
 
 	if (empty($htmlname)) {
-		print json_encode(array());
+		print json_encode([]);
 		return;
 	}
 
@@ -312,7 +312,7 @@ if ($action == 'fetch' && !empty($id)) {
 	$idprod = (empty($match[0]) ? '' : $match[0]);		// Take first key found into GET array with matching $htmlname123
 
 	if (GETPOST($htmlname, 'alpha') == '' && (!$idprod || !GETPOST($idprod, 'alpha'))) {
-		print json_encode(array());
+		print json_encode([]);
 		return;
 	}
 

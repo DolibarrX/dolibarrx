@@ -43,7 +43,7 @@ class FormProjets extends Form
 	 */
 	public $error = '';
 
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -113,7 +113,7 @@ class FormProjets extends Form
 			}
 			$out .= '<input type="text" class="minwidth200' . ($morecss ? ' ' . $morecss : '') . '" name="search_' . $htmlname . '" id="search_' . $htmlname . '" value="' . $selected_input_value . '"' . $placeholder . ' />';
 
-			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/projet/ajax/projects.php', $urloption, $config->global->PROJECT_USE_SEARCH_TO_SELECT, 0, array());
+			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/projet/ajax/projects.php', $urloption, $config->global->PROJECT_USE_SEARCH_TO_SELECT, 0, []);
 		} else {
 			$out .= $this->select_projects_list($socid, $selected, $htmlname, $maxlength, $option_only, $show_empty, abs($discard_closed), $forcefocus, $disabled, 0, $filterkey, 1, $forceaddid, $htmlid, $morecss, $morefilter);
 		}
@@ -167,7 +167,7 @@ class FormProjets extends Form
 		}
 
 		$out = '';
-		$outarray = array();
+		$outarray = [];
 
 		$hideunselectables = false;
 		if (getDolGlobalString('PROJECT_HIDE_UNSELECTABLES')) {
@@ -306,7 +306,7 @@ class FormProjets extends Form
 				// Use select2 selector
 				if (!empty($config->use_javascript_ajax)) {
 					include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
-					$comboenhancement = ajax_combobox($htmlid, array(), 0, $forcefocus);
+					$comboenhancement = ajax_combobox($htmlid, [], 0, $forcefocus);
 					$out .= $comboenhancement;
 					$morecss .= ' minwidth100';
 				}
@@ -787,7 +787,7 @@ class FormProjets extends Form
 	 */
 	public function selectProjectsStatus($selected = '', $short = 0, $hmlname = 'order_status')
 	{
-		$options = array();
+		$options = [];
 
 		// 7 is same label than 6. 8 does not exists (billed is another field)
 		$statustohow = array(
@@ -828,7 +828,7 @@ class FormProjets extends Form
 	 * @param int $lineOnly return only option for line
 	 * @return string                    HTML Select
 	 */
-	public function selectInvoiceAndLine($selectedInvoiceId = 0, $selectedLineId = 0, $htmlNameInvoice = 'invoiceid', $htmlNameInvoiceLine = 'invoicelineid', $morecss = 'maxwidth500', $filters = array(), $lineOnly = 0)
+	public function selectInvoiceAndLine($selectedInvoiceId = 0, $selectedLineId = 0, $htmlNameInvoice = 'invoiceid', $htmlNameInvoiceLine = 'invoicelineid', $morecss = 'maxwidth500', $filters = [], $lineOnly = 0)
 	{
 		global $user, $config, $langs;
 

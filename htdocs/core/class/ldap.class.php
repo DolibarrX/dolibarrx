@@ -45,12 +45,12 @@ class Ldap
 	/**
 	 * @var string[]	Array of error strings
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string[] Servers (IP addresses or hostnames)
 	 */
-	public $server = array();
+	public $server = [];
 
 	/**
 	 * @var string Current connected server
@@ -910,7 +910,7 @@ class Ldap
 	 */
 	public function serverPing($host, $port = 389, $timeout = 1)
 	{
-		$regs = array();
+		$regs = [];
 		if (preg_match('/^ldaps:\/\/([^\/]+)\/?$/', $host, $regs)) {
 			// Replace ldaps:// by ssl://
 			$host = 'ssl://'.$regs[1];
@@ -1136,7 +1136,7 @@ class Ldap
 	 */
 	public function getAttributeValues($filterrecord, $attribute)
 	{
-		$attributes = array();
+		$attributes = [];
 		$attributes[0] = $attribute;
 
 		// We need to search for this user in order to get their entry.
@@ -1177,9 +1177,9 @@ class Ldap
 	 *	@param	string[]		$attributeAsArray 	Array of fields wanted as an array not a string
 	 *	@return	array<string,array<string,string>>|int<min,-1>				if KO: <0 || if OK: array of [id_record][ldap_field]=value
 	 */
-	public function getRecords($search, $userDn, $userIdentifier, $attributeArray, $activefilter = 0, $attributeAsArray = array())
+	public function getRecords($search, $userDn, $userIdentifier, $attributeArray, $activefilter = 0, $attributeAsArray = [])
 	{
-		$fulllist = array();
+		$fulllist = [];
 
 		dol_syslog(get_class($this)."::getRecords search=".$search." userDn=".$userDn." useridentifier=".$userIdentifier." attributeArray=array(".implode(',', $attributeArray).") activefilter=".$activefilter);
 
@@ -1245,7 +1245,7 @@ class Ldap
 						$fulllist[$recordid][$attributeArray[$j]] = $objectsid;
 					} else {
 						if (in_array($attributeArray[$j], $attributeAsArray) && is_array($info[$i][$keyattributelower])) {
-							$valueTab = array();
+							$valueTab = [];
 							foreach ($info[$i][$keyattributelower] as $key => $value) {
 								$valueTab[$key] = $this->convToOutputCharset($value, $this->ldapcharset);
 							}
@@ -1524,7 +1524,7 @@ class Ldap
 		);
 
 		//Parse flags to text
-		$retval = array();
+		$retval = [];
 		//while (list($flag, $val) = each($flags)) {
 		foreach ($flags as $flag => $val) {
 			if ($uacf >= $val) {
@@ -1647,7 +1647,7 @@ class Ldap
 		$result = $this->search($this->groups, $search);
 		if ($result) {
 			$c = $result['count'];
-			$gids = array();
+			$gids = [];
 			for ($i = 0; $i < $c; $i++) {
 				$gids[] = $result[$i]['gidnumber'][0];
 			}

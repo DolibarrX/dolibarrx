@@ -404,8 +404,8 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 					(getDolGlobalString('WORKFLOW_ORDER_CLASSIFY_SHIPPED_SHIPPING_CLOSED') && ($action == 'SHIPPING_CLOSED'))
 				)
 			) {
-				$qtyshipped = array();
-				$qtyordred = array();
+				$qtyshipped = [];
+				$qtyordred = [];
 
 				// The original sale order is id in $object->origin_id
 				// Find all shipments on sale order origin
@@ -486,8 +486,8 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 					(getDolGlobalString('WORKFLOW_ORDER_CLASSIFY_RECEIVED_RECEPTION_CLOSED') && ($action == 'RECEPTION_CLOSED'))
 				)
 			) {
-				$qtyshipped = array();
-				$qtyordred = array();
+				$qtyshipped = [];
+				$qtyordred = [];
 
 				// The original purchase order is id in $object->origin_id
 				// Find all reception on purchase order origin

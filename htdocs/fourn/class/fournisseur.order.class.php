@@ -284,12 +284,12 @@ class OrderFournisseur extends CommonOrder
 	/**
 	 * @var array<string,string>  (Encoded as JSON in database)
 	 */
-	public $extraparams = array();
+	public $extraparams = [];
 
 	/**
 	 * @var OrderFournisseurLigne[]
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @var OrderFournisseurLigne
@@ -304,7 +304,7 @@ class OrderFournisseur extends CommonOrder
 	 * @var int
 	 */
 	public $origin_id;
-	public $linked_objects = array();
+	public $linked_objects = [];
 
 	/**
 	 * @var int Date of the purchase order payment deadline
@@ -313,7 +313,7 @@ class OrderFournisseur extends CommonOrder
 	/**
 	 * @var array<int,float>
 	 */
-	public $receptions = array();
+	public $receptions = [];
 
 	// Multicurrency
 	/**
@@ -602,7 +602,7 @@ class OrderFournisseur extends CommonOrder
 			$this->multicurrency_total_tva 	= $obj->multicurrency_total_tva;
 			$this->multicurrency_total_ttc 	= $obj->multicurrency_total_ttc;
 
-			$this->extraparams = isset($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : array();
+			$this->extraparams = isset($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : [];
 
 			$this->db->free($resql);
 
@@ -635,7 +635,7 @@ class OrderFournisseur extends CommonOrder
 	{
 		// phpcs:enable
 
-		$this->lines = array();
+		$this->lines = [];
 
 		$sql = "SELECT l.rowid, l.fk_order, l.ref as ref_supplier, l.fk_product, l.product_type, l.label, l.description, l.qty,";
 		$sql .= " l.vat_src_code, l.tva_tx, l.remise_percent, l.subprice,";
@@ -2146,7 +2146,7 @@ class OrderFournisseur extends CommonOrder
 			$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $mysoc, $this->thirdparty);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -2556,7 +2556,7 @@ class OrderFournisseur extends CommonOrder
 	 */
 	public function getDispachedLines($status = -1)
 	{
-		$ret = array();
+		$ret = [];
 
 		// List of already dispatched lines
 		$sql = "SELECT p.ref, p.label,";
@@ -2615,7 +2615,7 @@ class OrderFournisseur extends CommonOrder
 
 		$result = 0;
 		$error = 0;
-		$dispatchedlinearray = array();
+		$dispatchedlinearray = [];
 
 		dol_syslog(get_class($this)."::Livraison");
 
@@ -2859,7 +2859,7 @@ class OrderFournisseur extends CommonOrder
 
 		$this->id = $idc;
 
-		$this->lines = array();
+		$this->lines = [];
 
 		$num = count($comclient->lines);
 		for ($i = 0; $i < $num; $i++) {
@@ -2907,7 +2907,7 @@ class OrderFournisseur extends CommonOrder
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			// Trigger names for each status
-			$triggerName = array();
+			$triggerName = [];
 			$triggerName[0] = 'DRAFT';
 			$triggerName[1] = 'VALIDATED';
 			$triggerName[2] = 'APPROVED';
@@ -3025,7 +3025,7 @@ class OrderFournisseur extends CommonOrder
 			$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $mysoc, $this->thirdparty);
 
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', $txtva, $reg)) {
 				$vat_src_code = $reg[1];
@@ -3278,7 +3278,7 @@ class OrderFournisseur extends CommonOrder
 	{
 		global $config, $user;
 
-		$this->nb = array();
+		$this->nb = [];
 		$clause = "WHERE";
 
 		$sql = "SELECT count(co.rowid) as nb";
@@ -3598,8 +3598,8 @@ class OrderFournisseur extends CommonOrder
 		if (isModEnabled("supplier_order")) {
 			require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.dispatch.class.php';
 
-			$qtydelivered = array();
-			$qtywished = array();
+			$qtydelivered = [];
+			$qtywished = [];
 
 			$supplierorderdispatch = new OrderFournisseurDispatch($this->db);
 
@@ -3732,7 +3732,7 @@ class OrderFournisseur extends CommonOrder
 	 */
 	public function loadReceptions($filtre_statut = -1)
 	{
-		$this->receptions = array();
+		$this->receptions = [];
 
 		dol_syslog(get_class($this)."::loadReceptions", LOG_DEBUG);
 

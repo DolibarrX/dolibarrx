@@ -182,7 +182,7 @@ $period = $form->selectDate($date_start, 'date_start', 0, 0, 0, '', 1, 0, 0, '',
 $period .= ' - ';
 $period .= $form->selectDate($date_end, 'date_end', 0, 0, 0, '', 1, 0, 0, '', '', '', '', 1, '', '', 'tzserver');
 
-$moreparam = array();
+$moreparam = [];
 if (!empty($modecompta)) {
 	$moreparam['modecompta'] = $modecompta;
 }
@@ -289,10 +289,10 @@ $sql .= " ORDER BY dm";
 
 $minyearmonth = $maxyearmonth = 0;
 
-$cumulative = array();
-$cumulative_ht = array();
-$total_ht = array();
-$total = array();
+$cumulative = [];
+$cumulative_ht = [];
+$total_ht = [];
+$total = [];
 
 $result = $db->query($sql);
 if ($result) {

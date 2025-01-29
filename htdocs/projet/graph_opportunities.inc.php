@@ -53,9 +53,9 @@ if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 		$totaloppnb = 0;
 		$totalamount = 0;
 		$ponderated_opp_amount = 0;
-		$valsnb = array();
-		$valsamount = array();
-		$dataseries = array();
+		$valsnb = [];
+		$valsamount = [];
+		$dataseries = [];
 		// -1=Canceled, 0=Draft, 1=Validated, (2=Accepted/On process not managed for sale orders), 3=Closed (Sent/Received, billed or not)
 		while ($i < $num) {
 			$obj = $db->fetch_object($resql);

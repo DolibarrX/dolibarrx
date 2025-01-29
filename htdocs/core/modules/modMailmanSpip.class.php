@@ -58,29 +58,29 @@ class modMailmanSpip extends DolibarrModules
 		$this->picture = 'technic';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
 		$this->depends = array('modMember'); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 
 		// Config pages
 		$this->config_page_url = array('mailman.php');
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 		$this->const[1] = array("ADHERENT_MAILMAN_UNSUB_URL", "chaine", "http://lists.example.com/cgi-bin/mailman/admin/%LISTE%/members?adminpw=%MAILMAN_ADMINPW%&user=%EMAIL%", "Url de désinscription aux listes mailman");
 		$this->const[2] = array("ADHERENT_MAILMAN_URL", "chaine", "http://lists.example.com/cgi-bin/mailman/admin/%LISTE%/members?adminpw=%MAILMAN_ADMINPW%&send_welcome_msg_to_this_batch=1&subscribees=%EMAIL%", "Url pour les inscriptions mailman");
 		$this->const[3] = array("ADHERENT_MAILMAN_LISTS", "chaine", "", "Mailing-list to subscribe new members to");
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'mailmanspip';
 
 		// Menus

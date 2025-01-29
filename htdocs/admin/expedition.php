@@ -294,7 +294,7 @@ print load_fiche_titre($langs->trans("SendingsReceiptModel"), '', '');
 
 // Defini tableau def de modele invoice
 $type = "shipping";
-$def = array();
+$def = [];
 
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
@@ -335,7 +335,7 @@ foreach ($dirmodels as $reldir) {
 		if (is_dir($dir)) {
 			$handle = opendir($dir);
 			if (is_resource($handle)) {
-				$filelist = array();
+				$filelist = [];
 				while (($file = readdir($handle)) !== false) {
 					$filelist[] = $file;
 				}
@@ -487,7 +487,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("AllowOnLineSign");
 print '</td>';
 print '<td>';
-print ajax_constantonoff('EXPEDITION_ALLOW_ONLINESIGN', array(), null, 0, 0, 0, 2, 0, 1, '', '', 'inline-block', 0, $langs->trans("WarningOnlineSignature"));
+print ajax_constantonoff('EXPEDITION_ALLOW_ONLINESIGN', [], null, 0, 0, 0, 2, 0, 1, '', '', 'inline-block', 0, $langs->trans("WarningOnlineSignature"));
 print '</td></tr>';
 
 print '</table>';

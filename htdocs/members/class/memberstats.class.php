@@ -218,7 +218,7 @@ class MemberStats extends Stats
 		dol_syslog("box_members_by_type::select nb of members per type", LOG_DEBUG);
 		$result = $this->db->query($sql);
 
-		$MembersCountArray = array();
+		$MembersCountArray = [];
 
 		if ($result) {
 			$num = $this->db->num_rows($result);

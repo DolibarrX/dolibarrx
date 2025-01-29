@@ -62,7 +62,7 @@ class MultiCurrencies extends DolibarrApi
 			throw new RestException(403, "Insufficient rights to read currency");
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		$sql = "SELECT t.rowid";
 		$sql .= " FROM ".$this->db->prefix()."multicurrency as t";

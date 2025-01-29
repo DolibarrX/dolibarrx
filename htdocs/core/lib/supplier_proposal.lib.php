@@ -39,7 +39,7 @@ function supplier_proposal_prepare_head($object)
 	$langs->loadLangs(array("supplier_proposal", "compta"));
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/supplier_proposal/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('CommRequests');
@@ -119,7 +119,7 @@ function supplier_proposal_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('supplier_proposaldet');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/supplier_proposal.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");

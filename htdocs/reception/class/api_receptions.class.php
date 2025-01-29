@@ -109,7 +109,7 @@ class Receptions extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $thirdparty_ids param is ignored and replaced by user's socid
 		$socids = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $thirdparty_ids;
@@ -222,7 +222,7 @@ class Receptions extends DolibarrApi
 			$this->reception->$field = $this->_checkValForAPI($field, $value, $this->reception);
 		}
 		if (isset($request_data["lines"]) && is_array($request_data['lines'])) {
-			$lines = array();
+			$lines = [];
 			foreach ($request_data["lines"] as $line) {
 				$receptionline = new ReceptionLineBatch($this->db);
 
@@ -279,7 +279,7 @@ class Receptions extends DolibarrApi
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 		$this->reception->getLinesArray();
-		$result = array();
+		$result = [];
 		foreach ($this->reception->lines as $line) {
 			array_push($result,$this->_cleanObjectDatas($line));
 		}
@@ -767,7 +767,7 @@ class Receptions extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$reception = array();
+		$reception = [];
 		foreach (Receptions::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

@@ -57,13 +57,13 @@ if (!defined('USE_CUSTOM_REPORT_AS_INCLUDE')) {
 	if (GETPOST('search_xaxis', 'alpha') && GETPOST('search_xaxis', 'alpha') != '-1') {
 		$search_xaxis = array(GETPOST('search_xaxis', 'alpha'));
 	} else {
-		$search_xaxis = array();
+		$search_xaxis = [];
 	}
 	//$search_groupby = GETPOST('search_groupby', 'array');
 	if (GETPOST('search_groupby', 'alpha') && GETPOST('search_groupby', 'alpha') != '-1') {
 		$search_groupby = array(GETPOST('search_groupby', 'alpha'));
 	} else {
-		$search_groupby = array();
+		$search_groupby = [];
 	}
 
 	'@phan-var-force string[] $search_groupby';
@@ -140,7 +140,7 @@ $title = '';
 $picture = '';
 $errormessage = null;
 $keyforlabeloffield = null;
-$head = array();
+$head = [];
 $ObjectClassName = '';
 // Objects available by default
 $arrayoftype = array(
@@ -277,7 +277,7 @@ if ($errorstr) {
 			$newcrit = preg_replace('/(:[!<>=\s]+:|:in:|:notin:|:like:|:notlike:)/', '', $tmpcrit);
 			//var_dump($newcrit);
 
-			$reg = array();
+			$reg = [];
 			preg_match('/:([!<>=\s]+|in|notin|like|notlike):/', $tmpcrit, $reg);
 			if (!empty($reg[1])) {
 				$operator = $reg[1];
@@ -322,12 +322,12 @@ $HH = substr($langs->trans("Hour"), 0, 1).substr($langs->trans("Hour"), 0, 1);
 $MI = substr($langs->trans("Minute"), 0, 1).substr($langs->trans("Minute"), 0, 1);
 $SS = substr($langs->trans("Second"), 0, 1).substr($langs->trans("Second"), 0, 1);
 
-$arrayoffilterfields = array();
-$arrayofmesures = array();
-$arrayofxaxis = array();
-$arrayofgroupby = array();
-$arrayofyaxis = array();
-$arrayofvaluesforgroupby = array();
+$arrayoffilterfields = [];
+$arrayofmesures = [];
+$arrayofxaxis = [];
+$arrayofgroupby = [];
+$arrayofyaxis = [];
+$arrayofvaluesforgroupby = [];
 
 $features = $object->element;
 if (!empty($object->element_for_permission)) {
@@ -366,7 +366,7 @@ if (!defined('USE_CUSTOM_REPORT_AS_INCLUDE')) {
 	}
 }
 
-$newarrayoftype = array();
+$newarrayoftype = [];
 foreach ($arrayoftype as $key => $val) {
 	if (dol_eval($val['enabled'], 1, 1, '1')) {
 		$newarrayoftype[$key] = $arrayoftype[$key];
@@ -487,7 +487,7 @@ if (is_array($search_groupby) && count($search_groupby)) {
 				$valuetranslated = $obj->val;
 			}
 
-			$regs = array();
+			$regs = [];
 			if (!empty($object->fields[$gvalwithoutprefix]['arrayofkeyval'])) {
 				$valuetranslated = $object->fields[$gvalwithoutprefix]['arrayofkeyval'][$obj->val];
 				if (is_null($valuetranslated)) {
@@ -538,7 +538,7 @@ if (is_array($search_groupby) && count($search_groupby)) {
 				$keyforlabeloffield = $extrafields->attributes[$object->table_element]['label'][$gvalwithoutprefix];
 				$labeloffield = $langs->transnoentitiesnoconv($keyforlabeloffield);
 			} elseif (strpos($fieldtocount, 't__') === 0) {		// This is a field of a foreign key
-				$reg = array();
+				$reg = [];
 				if (preg_match('/^(.*)\.(.*)/', $gvalwithoutprefix, $reg)) {
 					/*
 					$gvalwithoutprefix = preg_replace('/\..*$/', '', $gvalwithoutprefix);
@@ -551,7 +551,7 @@ if (is_array($search_groupby) && count($search_groupby)) {
 					$labeloffield = $langs->transnoentitiesnoconv($keyforlabeloffield);
 				}
 			} else {											// This is a common field
-				$reg = array();
+				$reg = [];
 				if (preg_match('/^(.*)\-(year|month|day)/', $gvalwithoutprefix, $reg)) {
 					$gvalwithoutprefix = preg_replace('/\-(year|month|day)/', '', $gvalwithoutprefix);
 					$keyforlabeloffield = $object->fields[$gvalwithoutprefix]['label'];
@@ -563,7 +563,7 @@ if (is_array($search_groupby) && count($search_groupby)) {
 			}
 			//var_dump($labeloffield);
 			setEventMessages($langs->transnoentitiesnoconv("ErrorTooManyDifferentValueForSelectedGroupBy", $MAXUNIQUEVALFORGROUP, $labeloffield), null, 'warnings');
-			$search_groupby = array();
+			$search_groupby = [];
 		}
 
 		$db->free($resql);
@@ -632,7 +632,7 @@ if (!defined('MAIN_CUSTOM_REPORT_KEEP_GRAPH_ONLY')) {
 	// Filter (you can use param &show_search_component_params_hidden=1 for debug)
 	if (!empty($object)) {
 		print '<div class="divadvancedsearchfield">';
-		print $form->searchComponent(array($object->element => $object->fields), $search_component_params, array(), $search_component_params_hidden, $arrayoffilterfields);
+		print $form->searchComponent(array($object->element => $object->fields), $search_component_params, [], $search_component_params_hidden, $arrayoffilterfields);
 		print '</div>';
 	}
 
@@ -641,7 +641,7 @@ if (!defined('MAIN_CUSTOM_REPORT_KEEP_GRAPH_ONLY')) {
 	//var_dump($arrayofmesures);
 	print '<div class="divadvancedsearchfield clearboth">';
 	print '<div class="inline-block"><span class="fas fa-ruler-combined paddingright picturefixedwidth" title="'.dol_escape_htmltag($langs->trans("Measures")).'"></span><span class="fas fa-caret-left caretleftaxis" title="'.dol_escape_htmltag($langs->trans("Measures")).'"></span></div>';
-	$simplearrayofmesures = array();
+	$simplearrayofmesures = [];
 	foreach ($arrayofmesures as $key => $val) {
 		$simplearrayofmesures[$key] = $arrayofmesures[$key]['label'];
 	}
@@ -716,7 +716,7 @@ if (!defined('MAIN_CUSTOM_REPORT_KEEP_GRAPH_ONLY')) {
 			}
 		}
 		$arrayofyaxis = dol_sort_array($arrayofyaxis, 'position');
-		$arrayofyaxislabel = array();
+		$arrayofyaxislabel = [];
 		foreach ($arrayofyaxis as $key => $val) {
 			$arrayofyaxislabel[$key] = $val['label'];
 		}
@@ -1058,7 +1058,7 @@ if ($errormessage) {
 	$sql = '';
 }
 
-$legend = array();
+$legend = [];
 foreach ($search_measures as $key => $val) {
 	$legend[] = $langs->trans($arrayofmesures[$val]['label']);
 }
@@ -1069,7 +1069,7 @@ $useagroupby = (is_array($search_groupby) && count($search_groupby));
 
 // Execute the SQL request
 $totalnbofrecord = 0;
-$data = array();
+$data = [];
 if ($sql) {
 	$resql = $db->query($sql);
 	if (!$resql) {
@@ -1128,11 +1128,11 @@ if ($sql) {
 							//var_dump('fieldforg='.$fieldforg.' obj->$fieldforg='.$obj->$fieldforg.' fieldfory='.$fieldfory.' obj->$fieldfory='.$obj->$fieldfory.' fieldforybis='.$fieldforybis);
 
 							if (!array_key_exists($xi, $data)) {
-								$data[$xi] = array();
+								$data[$xi] = [];
 							}
 
 							if (!array_key_exists('label', $data[$xi])) {
-								$data[$xi] = array();
+								$data[$xi] = [];
 								$data[$xi]['label'] = $labeltouse;
 							}
 
@@ -1213,7 +1213,7 @@ if ($mode == 'graph') {
 		$px1->SetData($data);
 		unset($data);
 
-		$arrayoftypes = array();
+		$arrayoftypes = [];
 		foreach ($search_measures as $key => $val) {
 			$arrayoftypes[] = $search_graph;
 		}

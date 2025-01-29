@@ -131,7 +131,7 @@ if ($permission) {
 		<?php echo img_object('', 'user', 'class="picturefixedwidth"').$form->select_dolusers($user->id, 'userid', 1, (!empty($userAlreadySelected) ? $userAlreadySelected : null), 0, '', '', 0, 56, 0, '', 0, '', 'minwidth100imp widthcentpercentminusxx maxwidth400 userselectcontact');
 		if (empty($hideaddcontactforgroups) && $module == 'project') {
 			print '<span> '.$langs->trans("or").' </span>';
-			echo img_object('', 'group', 'class="picturefixedwidth"').$form->select_dolgroups(0, 'groupid', 1, '', 0, '', array(), '0', false, 'minwidth100imp widthcentpercentminusxx maxwidth400 groupselectcontact');
+			echo img_object('', 'group', 'class="picturefixedwidth"').$form->select_dolgroups(0, 'groupid', 1, '', 0, '', [], '0', false, 'minwidth100imp widthcentpercentminusxx maxwidth400 groupselectcontact');
 		}
 		?>
 		<script>
@@ -178,7 +178,7 @@ if ($permission) {
 		<div class="tagtd nowrap noborderbottom">
 			<?php
 			$selectedCompany = GETPOSTISSET("newcompany") ? GETPOSTINT("newcompany") : (empty($object->socid) ? 0 : $object->socid);
-			$selectedCompany = $formcompany->selectCompaniesForNewContact($object, 'id', $selectedCompany, 'newcompany', array(), 0, '', 'minwidth300imp maxwidth400 widthcentpercentminusx');	// This also print the select component?>
+			$selectedCompany = $formcompany->selectCompaniesForNewContact($object, 'id', $selectedCompany, 'newcompany', [], 0, '', 'minwidth300imp maxwidth400 widthcentpercentminusx');	// This also print the select component?>
 		</div>
 		<div class="tagtd noborderbottom minwidth500imp">
 			<?php
@@ -224,7 +224,7 @@ if ($permission) {
 // Prepare list
 
 // TODO: replace this with 1 single direct SQL (for both eyernal and external string to use $db->sort($sortfield, $sortorder)
-$list = array();
+$list = [];
 foreach (array('internal', 'external') as $source) {
 	if (($object->element == 'shipping' || $object->element == 'reception') && is_object($objectsrc)) {
 		'@phan-var-force Order|Facture $objectsrc';
@@ -383,7 +383,7 @@ print "</form>";
 print "<!-- TEMPLATE CONTACTS HOOK BEGIN HERE -->\n";
 if (is_object($hookManager)) {
 	$hookManager->initHooks(array('contacttpl'));
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formContactTpl', $parameters, $object, $action);
 }
 print "<!-- END PHP TEMPLATE CONTACTS -->\n";

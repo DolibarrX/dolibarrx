@@ -31,7 +31,7 @@ if (!getDolGlobalString('EXPENSEREPORT_DISABLE_ATTACHMENT_ON_LINES')) {
 		$filei = 0;
 		// Loop on each attached file
 		foreach ($arrayoffiles as $file) {
-			$urlforhref = array();
+			$urlforhref = [];
 			$filei++;
 
 			print '<div class="inline-block margintoponly marginleftonly marginrightonly center valigntop">';

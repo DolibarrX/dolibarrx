@@ -39,7 +39,7 @@ function facturefourn_prepare_head(FactureFournisseur $object)
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/fourn/facture/card.php?facid=' . $object->id;
 	$head[$h][1] = $langs->trans('SupplierInvoice');
@@ -177,7 +177,7 @@ function ordersupplier_prepare_head(OrderFournisseur $object)
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/fourn/order/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("SupplierOrder");
@@ -298,7 +298,7 @@ function supplierorder_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('facture_fourn_det_rec');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/supplier_order.php";
 	$head[$h][1] = $langs->trans("SupplierOrder");

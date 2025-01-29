@@ -439,7 +439,7 @@ class WebPortalMember extends Member
 			$outdone++;
 
 			// List of extra languages
-			$arrayoflangcode = array();
+			$arrayoflangcode = [];
 			if (getDolGlobalString('PDF_USE_ALSO_LANGUAGE_CODE')) {
 				$arrayoflangcode[] = getDolGlobalString('PDF_USE_ALSO_LANGUAGE_CODE');
 			}

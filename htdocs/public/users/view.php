@@ -248,8 +248,8 @@ if (!getDolUserInt('USER_ENABLE_PUBLIC', 0, $object)) {
 	exit();
 }
 
-$arrayofjs = array();
-$arrayofcss = array();
+$arrayofjs = [];
+$arrayofcss = [];
 
 $replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';
 llxHeader($head, $object->getFullName($langs).' - '.$langs->trans("PublicVirtualCard"), '', '', 0, 0, $arrayofjs, $arrayofcss, '', 'onlinepaymentbody'.(GETPOST('mode') == 'preview' ? ' scalepreview cursorpointer virtualcardpreview' : ''), $replacemainarea, 1, 1);

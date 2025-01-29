@@ -57,10 +57,10 @@ if (!$user->hasRight('accounting', 'chartofaccount')) {
 	accessforbidden();
 }
 
-$acts = array();
+$acts = [];
 $acts[0] = "activate";
 $acts[1] = "disable";
-$actl = array();
+$actl = [];
 $actl[0] = img_picture($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
 $actl[1] = img_picture($langs->trans("Activated"), 'switch_on', 'class="size15x"');
 
@@ -90,50 +90,50 @@ $hookManager->initHooks(array('admin'));
 $taborder = array(32);
 
 // Name of SQL tables of dictionaries
-$tabname = array();
+$tabname = [];
 $tabname[32] = MAIN_DB_PREFIX."c_accounting_category";
 
 // Dictionary labels
-$tablib = array();
+$tablib = [];
 $tablib[32] = "DictionaryAccountancyCategory";
 
 // Requests to extract data
-$tabsql = array();
+$tabsql = [];
 $tabsql[32] = "SELECT a.rowid as rowid, a.code as code, a.label, a.range_account, a.category_type, a.formula, a.position as position, a.fk_country as country_id, c.code as country_code, c.label as country, a.active FROM ".MAIN_DB_PREFIX."c_accounting_category as a, ".MAIN_DB_PREFIX."c_country as c WHERE a.fk_country=c.rowid and c.active=1";
 
 // Criteria to sort dictionaries
-$tabsqlsort = array();
+$tabsqlsort = [];
 $tabsqlsort[32] = "position ASC";
 
 // Name of the fields in the result of select to display the dictionary
-$tabfield = array();
+$tabfield = [];
 $tabfield[32] = "code,label,range_account,category_type,formula,position,country";
 
 // Name of editing fields for record modification
-$tabfieldvalue = array();
+$tabfieldvalue = [];
 $tabfieldvalue[32] = "code,label,range_account,category_type,formula,position,country_id";
 
 // Name of the fields in the table for inserting a record
-$tabfieldinsert = array();
+$tabfieldinsert = [];
 $tabfieldinsert[32] = "code,label,range_account,category_type,formula,position,fk_country";
 
 // Name of the rowid if the field is not of type autoincrement
 // Example: "" if id field is "rowid" and has autoincrement on
 //          "nameoffield" if id field is not "rowid" or has not autoincrement on
-$tabrowid = array();
+$tabrowid = [];
 $tabrowid[32] = "";
 
 // Condition to show dictionary in setup page
-$tabcond = array();
+$tabcond = [];
 $tabcond[32] = isModEnabled('accounting');
 
 // List of help for fields
-$tabhelp = array();
+$tabhelp = [];
 $tabhelp[32] = array('code' => $langs->trans("EnterAnyCode"), 'category_type' => $langs->trans("SetToYesIfGroupIsComputationOfOtherGroups"), 'formula' => $langs->trans("EnterCalculationRuleIfPreviousFieldIsYes"));
 
 // List of check for fields (NOT USED YET)
-$tabfieldcheck = array();
-$tabfieldcheck[32] = array();
+$tabfieldcheck = [];
+$tabfieldcheck[32] = [];
 
 // Complete all arrays with entries found into modules
 complete_dictionary_with_modules($taborder, $tabname, $tablib, $tabsql, $tabsqlsort, $tabfield, $tabfieldvalue, $tabfieldinsert, $tabrowid, $tabcond, $tabhelp, $tabfieldcheck);

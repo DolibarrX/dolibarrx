@@ -71,7 +71,7 @@ class Diff
 		$partialDiff = self::generatePartialDiff($table, $sequence1, $sequence2, $start);
 
 		// generate the full diff
-		$diff = array();
+		$diff = [];
 		for ($index = 0; $index < $start; $index++) {
 			$diff[] = array($sequence1[$index], self::UNMODIFIED);
 		}
@@ -163,7 +163,7 @@ class Diff
 	private static function generatePartialDiff($table, $sequence1, $sequence2, $start)
 	{
 		//  initialise the diff
-		$diff = array();
+		$diff = [];
 
 		// initialise the indices
 		$index1 = count($table) - 1;

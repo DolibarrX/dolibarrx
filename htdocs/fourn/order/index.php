@@ -99,9 +99,9 @@ if ($resql) {
 	$i = 0;
 
 	$total = 0;
-	$dataseries = array();
-	$colorseries = array();
-	$vals = array();
+	$dataseries = [];
+	$colorseries = [];
+	$vals = [];
 	//	0=Draft -> 1=Validated -> 2=Approved -> 3=Process running -> 4=Received partially -> 5=Received totally -> (reopen) 4=Received partially
 	//	-> 7=Canceled/Never received -> (reopen) 3=Process running
 	//	-> 6=Canceled -> (reopen) 2=Approved

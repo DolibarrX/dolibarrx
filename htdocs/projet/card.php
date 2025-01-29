@@ -783,7 +783,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		if (getDolGlobalString('PROJECT_FILTER_FOR_THIRDPARTY_LIST')) {
 			$filter = getDolGlobalString('PROJECT_FILTER_FOR_THIRDPARTY_LIST');
 		}
-		$text = img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company(GETPOSTINT('socid'), 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
+		$text = img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company(GETPOSTINT('socid'), 'socid', $filter, 'SelectThirdParty', 1, 0, [], 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
 		if (!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') && empty($config->dol_use_jmobile)) {
 			$texthelp = $langs->trans("IfNeedToUseOtherObjectKeepEmpty");
 			print $form->textwithtooltip($text.' '.img_help(), $texthelp, 1);
@@ -814,7 +814,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 	// Visibility
 	print '<tr><td>'.$langs->trans("Visibility").'</td><td class="maxwidthonsmartphone">';
-	$array = array();
+	$array = [];
 	if (!getDolGlobalString('PROJECT_DISABLE_PRIVATE_PROJECT')) {
 		$array[0] = $langs->trans("PrivateProject");
 	}
@@ -910,7 +910,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 	print '</td></tr>';
 
 	// Other options
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	if (empty($resHook)) {
@@ -1004,7 +1004,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		$text = $langs->trans("ConfirmCloneProject");
 		$formquestion = array(
 			'text' => $langs->trans("ConfirmClone"),
-			0 => array('type' => 'other', 'name' => 'socid', 'label' => $langs->trans("SelectThirdParty"), 'value' => $form->select_company(GETPOSTINT('socid') > 0 ? GETPOSTINT('socid') : $object->socid, 'socid', '', "None", 0, 0, array(), 0, 'minwidth200 maxwidth250')),
+			0 => array('type' => 'other', 'name' => 'socid', 'label' => $langs->trans("SelectThirdParty"), 'value' => $form->select_company(GETPOSTINT('socid') > 0 ? GETPOSTINT('socid') : $object->socid, 'socid', '', "None", 0, 0, [], 0, 'minwidth200 maxwidth250')),
 			1 => array('type' => 'checkbox', 'name' => 'clone_contacts', 'label' => $langs->trans("CloneContacts"), 'value' => true),
 			2 => array('type' => 'checkbox', 'name' => 'clone_tasks', 'label' => $langs->trans("CloneTasks"), 'value' => true),
 			3 => array('type' => 'checkbox', 'name' => 'move_date', 'label' => $langs->trans("CloneMoveDate"), 'value' => true),
@@ -1200,7 +1200,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 				$filter = getDolGlobalString('PROJECT_FILTER_FOR_THIRDPARTY_LIST');
 			}
 			$text = img_picture('', 'company', 'class="picturefixedwidth"');
-			$text .= $form->select_company(!empty($object->thirdparty->id) ? $object->thirdparty->id : "", 'socid', $filter, 'None', 1, 0, array(), 0, 'minwidth300');
+			$text .= $form->select_company(!empty($object->thirdparty->id) ? $object->thirdparty->id : "", 'socid', $filter, 'None', 1, 0, [], 0, 'minwidth300');
 			if (!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') && empty($config->dol_use_jmobile)) {
 				$texthelp = $langs->trans("IfNeedToUseOtherObjectKeepEmpty");
 				print $form->textwithtooltip($text.' '.img_help(), $texthelp, 1, 0, '', '', 2);
@@ -1212,7 +1212,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 		// Visibility
 		print '<tr><td>'.$langs->trans("Visibility").'</td><td>';
-		$array = array();
+		$array = [];
 		if (!getDolGlobalString('PROJECT_DISABLE_PRIVATE_PROJECT')) {
 			$array[0] = $langs->trans("PrivateProject");
 		}
@@ -1310,7 +1310,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 		// Tags-Categories
 		if (isModEnabled('category')) {
-			$arrayselected = array();
+			$arrayselected = [];
 			print '<tr><td>'.$langs->trans("Categories").'</td><td>';
 			$cate_arbo = $form->select_all_categories(Category::TYPE_PROJECT, '', 'parent', 64, 0, 3);
 			$c = new Category($db);
@@ -1323,7 +1323,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		}
 
 		// Other options
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		if (empty($resHook)) {
@@ -1602,7 +1602,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 	 */
 
 	print '<div class="tabsAction">';
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 	// modified by hook
 	if (empty($resHook)) {
@@ -1811,7 +1811,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';
 
 	// Hook to add more things on page
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('mainCardTabAddMore', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 } else {
 	print $langs->trans("RecordNotFound");

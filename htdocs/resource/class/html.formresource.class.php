@@ -45,12 +45,12 @@ class FormResource
 	/**
 	 * @var array<string,string>
 	 */
-	public $substit = array();
+	public $substit = [];
 
 	/**
 	 * @var array<string,mixed>
 	 */
-	public $param = array();
+	public $param = [];
 
 	/**
 	 * @var string Error code (or message)
@@ -93,7 +93,7 @@ class FormResource
 		global $config, $langs;
 
 		$out = '';
-		$outarray = array();
+		$outarray = [];
 
 		$resourcestat = new Dolresource($this->db);
 
@@ -195,7 +195,7 @@ class FormResource
 
 		dol_syslog(get_class($this)."::select_types_resource ".$selected.", ".$htmlname.", ".$filtertype.", ".$format, LOG_DEBUG);
 
-		$filterarray = array();
+		$filterarray = [];
 
 		if ($filtertype != '' && $filtertype != '-1') {
 			$filterarray = explode(',', $filtertype);
@@ -268,7 +268,7 @@ class FormResource
 	 *    @param    string      $morecss                More css
 	 *    @return	string
 	 */
-	public function select_ziptown($selected = '', $htmlname = 'zipcode', $fields = array(), $fieldsize = 0, $disableautocomplete = 0, $moreattrib = '', $morecss = '')
+	public function select_ziptown($selected = '', $htmlname = 'zipcode', $fields = [], $fieldsize = 0, $disableautocomplete = 0, $moreattrib = '', $morecss = '')
 	{
 		// phpcs:enable
 		global $config;

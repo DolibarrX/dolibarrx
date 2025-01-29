@@ -74,7 +74,7 @@ if (!$user->hasRight('takepos', 'run')) {
  */
 
 if ($action == "getTables" && $user->hasRight('takepos', 'run')) {
-	$rows = array();
+	$rows = [];
 
 	$sql = "SELECT rowid, entity, label, leftpos, toppos, floor";
 	$sql .= " FROM ".MAIN_DB_PREFIX."takepos_floor_tables";
@@ -139,7 +139,7 @@ if (getDolGlobalString('MAIN_APPLICATION_TITLE')) {
 }
 $arrayofcss = array('/takepos/css/pos.css.php?a=xxx');
 
-top_htmlhead($head, $title, 0, 0, array(), $arrayofcss);
+top_htmlhead($head, $title, 0, 0, [], $arrayofcss);
 
 ?>
 <body style="overflow: hidden">

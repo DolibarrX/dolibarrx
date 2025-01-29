@@ -46,7 +46,7 @@ class CGenericDic extends CommonDict
 	/**
 	 * @var CtyperesourceLine[] Lines
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @var string
@@ -257,7 +257,7 @@ class CGenericDic extends CommonDict
 
 		// Manage filter
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					$sqlwhere[] = $this->db->sanitize($key)." LIKE '%".$this->db->escape($value)."%'";

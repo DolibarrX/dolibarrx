@@ -92,11 +92,11 @@ class InfoBox
 	 *  @param  int         $includehidden  Include also hidden boxes
 	 *  @return ModeleBoxes[]|array{error:string}	Array of boxes or error info
 	 */
-	public static function listBoxes($dbs, $mode, $zone, $user = null, $excludelist = array(), $includehidden = 1)
+	public static function listBoxes($dbs, $mode, $zone, $user = null, $excludelist = [], $includehidden = 1)
 	{
 		global $config;
 
-		$boxes = array();
+		$boxes = [];
 
 		if ($mode == 'activated') {	// activated
 			$sql = "SELECT b.rowid, b.position, b.box_order, b.fk_user,";
@@ -128,7 +128,7 @@ class InfoBox
 				$obj = $dbs->fetch_object($resql);
 
 				if (!in_array($obj->box_id, $excludelist)) {
-					$regs = array();
+					$regs = [];
 					if (preg_match('/^([^@]+)@([^@]+)$/i', $obj->file, $regs)) {
 						$boxname = preg_replace('/\.php$/i', '', $regs[1]);
 						$module = $regs[2];
@@ -243,7 +243,7 @@ class InfoBox
 		$dbs->begin();
 
 		// Save parameters to say user has a dedicated setup
-		$tab = array();
+		$tab = [];
 		$confuserzone = 'MAIN_BOXES_'.$zone;
 		$tab[$confuserzone] = '1';
 		if (dol_set_user_param($dbs, $config, $user, $tab) < 0) {

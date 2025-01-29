@@ -147,7 +147,7 @@ function GetFolders($resourceType, $currentFolder)
 	$sServerDir = ServerMapFolder($resourceType, $currentFolder, 'GetFolders');
 
 	// Array that will hold the folders names.
-	$aFolders = array();
+	$aFolders = [];
 
 	$oCurrentFolder = @opendir($sServerDir);
 
@@ -185,8 +185,8 @@ function GetFoldersAndFiles($resourceType, $currentFolder)
 	$sServerDir = ServerMapFolder($resourceType, $currentFolder, 'GetFoldersAndFiles');
 
 	// Arrays that will hold the folders and files names.
-	$aFolders = array();
-	$aFiles = array();
+	$aFolders = [];
+	$aFiles = [];
 
 	$oCurrentFolder = @opendir($sServerDir);
 
@@ -902,7 +902,7 @@ function FindBadUtf8($string)
 	$regex = '([\x00-\x7F]|[\xC2-\xDF][\x80-\xBF]|\xE0[\xA0-\xBF][\x80-\xBF]|[\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}|\xED[\x80-\x9F][\x80-\xBF]';
 	$regex .= '|\xF0[\x90-\xBF][\x80-\xBF]{2}|[\xF1-\xF3][\x80-\xBF]{3}|\xF4[\x80-\x8F][\x80-\xBF]{2}|(.{1}))';
 
-	$matches = array();
+	$matches = [];
 	while (preg_match('/'.$regex.'/S', $string, $matches)) {
 		if (isset($matches[2])) {
 			return true;
@@ -946,7 +946,7 @@ function IsHtmlExtension($ext, $formExtensions)
 	if (!$formExtensions || !is_array($formExtensions)) {
 		return false;
 	}
-	$lcaseHtmlExtensions = array();
+	$lcaseHtmlExtensions = [];
 	foreach ($formExtensions as $key => $val) {
 		$lcaseHtmlExtensions[$key] = strtolower($val);
 	}

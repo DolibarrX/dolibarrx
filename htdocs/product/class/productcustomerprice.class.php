@@ -145,7 +145,7 @@ class ProductCustomerPrice extends CommonObject
 	/**
 	 * @var PriceByCustomerLine[]
 	 */
-	public $lines = array();
+	public $lines = [];
 
 
 	/**
@@ -510,7 +510,7 @@ class ProductCustomerPrice extends CommonObject
 		dol_syslog(get_class($this)."::fetchAll", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->lines = array();
+			$this->lines = [];
 			$num = $this->db->num_rows($resql);
 
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -563,7 +563,7 @@ class ProductCustomerPrice extends CommonObject
 	 * @param 	array<string,mixed>	$filter 	Filter for sql request
 	 * @return 	int								Return integer <0 if KO, >0 if OK
 	 */
-	public function fetchAllLog($sortorder, $sortfield, $limit, $offset, $filter = array())
+	public function fetchAllLog($sortorder, $sortfield, $limit, $offset, $filter = [])
 	{
 		if (!empty($sortfield)) {
 			$sortfield = "t.rowid";
@@ -621,7 +621,7 @@ class ProductCustomerPrice extends CommonObject
 		dol_syslog(get_class($this)."::fetchAllLog", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->lines = array();
+			$this->lines = [];
 			$num = $this->db->num_rows($resql);
 
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -910,7 +910,7 @@ class ProductCustomerPrice extends CommonObject
 		$resql = $this->db->query($sql);
 
 		if ($resql) {
-			$this->lines = array();
+			$this->lines = [];
 			$num = $this->db->num_rows($resql);
 
 			while (($obj = $this->db->fetch_object($resql)) && (empty($error))) {

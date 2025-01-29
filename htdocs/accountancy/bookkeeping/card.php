@@ -112,7 +112,7 @@ $permissiontodelete = $user->hasRight('accounting', 'mouvements', 'supprimer');
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -517,7 +517,7 @@ if ($action == 'create') {
 			print load_fiche_titre($langs->trans("UpdateMvts"), $backlink);
 		}*/
 
-		$head = array();
+		$head = [];
 		$h = 0;
 		$head[$h][0] = $_SERVER['PHP_SELF'].'?piece_num='.((int) $object->piece_num).($mode ? '&mode='.$mode : '');
 		$head[$h][1] = $langs->trans("Transaction");
@@ -764,7 +764,7 @@ if ($action == 'create') {
 			setEventMessages($object->error, $object->errors, 'errors');
 		} else {
 			// Variable that contains all transaction lines
-			$tmptoselect = array();
+			$tmptoselect = [];
 			$atleastonevalidated = 0;
 			$atleastoneexported = 0;
 			foreach ($object->linesmvt as $line) {
@@ -780,7 +780,7 @@ if ($action == 'create') {
 			if ($mode != '_tmp' && !$atleastonevalidated) {
 				print "\n".'<div class="tabsAction">'."\n";
 
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if (empty($resHook)) {
 					if ($permissiontodelete) {
@@ -848,7 +848,7 @@ if ($action == 'create') {
 						print '<tr class="oddeven" data-lineid="'.((int) $line->id).'">';
 						print '<!-- td columns in edit mode -->';
 						print '<td>';
-						print $formaccounting->select_account((GETPOSTISSET("accountingaccount_number") ? GETPOST("accountingaccount_number", "alpha") : $line->number_compte), 'accountingaccount_number', 1, array(), 1, 1, 'minwidth200 maxwidth500');
+						print $formaccounting->select_account((GETPOSTISSET("accountingaccount_number") ? GETPOST("accountingaccount_number", "alpha") : $line->number_compte), 'accountingaccount_number', 1, [], 1, 1, 'minwidth200 maxwidth500');
 						print '</td>';
 						print '<td>';
 						// TODO For the moment we keep a free input text instead of a combo. The select_auxaccount has problem because:
@@ -876,7 +876,7 @@ if ($action == 'create') {
 							print '<tr class="oddeven" data-lineid="'.((int) $line->id).'">';
 							print '<!-- td columns in add mode -->';
 							print '<td>';
-							print $formaccounting->select_account($action == 'add' ? GETPOST('accountingaccount_number') : '', 'accountingaccount_number', 1, array(), 1, 1, 'minwidth200 maxwidth500');
+							print $formaccounting->select_account($action == 'add' ? GETPOST('accountingaccount_number') : '', 'accountingaccount_number', 1, [], 1, 1, 'minwidth200 maxwidth500');
 							print '</td>';
 							print '<td>';
 							// TODO For the moment we keep a free input text instead of a combo. The select_auxaccount has problem because:

@@ -232,8 +232,8 @@ if (!$config->global->RECRUITMENT_ENABLE_PUBLIC_INTERFACE) {
 	exit();
 }
 
-$arrayofjs = array();
-$arrayofcss = array();
+$arrayofjs = [];
+$arrayofcss = [];
 
 $replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';
 llxHeader($head, $langs->trans("PositionToBeFilled"), '', '', 0, 0, '', '', '', 'onlinepaymentbody', $replacemainarea, 1, 1);
@@ -302,7 +302,7 @@ print '<table id="dolpaymenttable" summary="Job position offer" class="center">'
 // Output introduction text
 $text = '';
 if (getDolGlobalString('RECRUITMENT_NEWFORM_TEXT')) {
-	$reg = array();
+	$reg = [];
 	if (preg_match('/^\((.*)\)$/', $config->global->RECRUITMENT_NEWFORM_TEXT, $reg)) {
 		$text .= $langs->trans($reg[1])."<br>\n";
 	} else {

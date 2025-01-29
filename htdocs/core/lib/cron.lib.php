@@ -33,7 +33,7 @@ function cronadmin_prepare_head()
 {
 	global $langs, $config, $user;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/cron/admin/cron.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
@@ -63,7 +63,7 @@ function cron_prepare_head(Cronjob $object)
 {
 	global $langs, $config, $user;
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/cron/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("CronTask");

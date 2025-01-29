@@ -76,7 +76,7 @@ class box_birthdays_members extends ModeleBoxes
 		$this->info_box_head = array('text' => $langs->trans("BoxTitleMemberNextBirthdays"));
 
 		if ($user->hasRight('member', 'lire')) {
-			$data = array();
+			$data = [];
 
 			$tmparray = dol_getdate(dol_now(), true);
 

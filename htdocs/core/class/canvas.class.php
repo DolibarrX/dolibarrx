@@ -42,7 +42,7 @@ class Canvas
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string
@@ -129,7 +129,7 @@ class Canvas
 		$this->card = $card;
 		$this->dirmodule = $module;
 		// Correct values if canvas is into an external module
-		$regs = array();
+		$regs = [];
 		if (preg_match('/^([^@]+)@([^@]+)$/i', $canvas, $regs)) {
 			$this->canvas = $regs[1];
 			$this->dirmodule = $regs[2];

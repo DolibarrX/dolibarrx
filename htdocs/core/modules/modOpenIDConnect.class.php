@@ -61,33 +61,33 @@ class modOpenIDConnect extends DolibarrModules
 		$this->picture = 'technic';
 
 		// Data directories to create when module is enabled.
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Config pages
 		$this->config_page_url = array("openid_connect.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module                    // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3, 7, -2); // Minimum version of Dolibarr required by module
-		$this->conflictwith = array();
+		$this->conflictwith = [];
 		$this->langfiles = array("openid_connect");
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'openid_connect';
 
 		// List of menus to add
-		$this->menu = array();
+		$this->menu = [];
 	}
 
 
@@ -106,7 +106,7 @@ class modOpenIDConnect extends DolibarrModules
 		// Clean before activation
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

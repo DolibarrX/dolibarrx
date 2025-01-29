@@ -64,7 +64,7 @@ function print_actions_filter(
 	$pid,
 	$socid,
 	$action,
-	$showextcals = array(),
+	$showextcals = [],
 	$actioncode = '',
 	$usergroupid = 0,
 	$excludetype = '',
@@ -110,7 +110,7 @@ function print_actions_filter(
 		// Assigned to user group
 		print '<div class="divsearchfield">';
 		print img_picture($langs->trans("ToUserOfGroup"), 'object_group', 'class="picturefixedwidth inline-block"');
-		print $form->select_dolgroups($usergroupid, 'usergroup', 1, '', !$canedit, '', array(), '0', false, 'minwidth100 maxwidth250 widthcentpercentminusx');
+		print $form->select_dolgroups($usergroupid, 'usergroup', 1, '', !$canedit, '', [], '0', false, 'minwidth100 maxwidth250 widthcentpercentminusx');
 		print '</div>';
 
 		if (isModEnabled('resource')) {
@@ -128,7 +128,7 @@ function print_actions_filter(
 	if (isModEnabled('societe') && $user->hasRight('societe', 'lire')) {
 		print '<div class="divsearchfield">';
 		print img_picture($langs->trans("ThirdParty"), 'company', 'class="picturefixedwidth inline-block"');
-		print $form->select_company($socid, 'search_socid', '', '&nbsp;', 0, 0, array(), 0, 'minwidth100 maxwidth250 widthcentpercentminusx');
+		print $form->select_company($socid, 'search_socid', '', '&nbsp;', 0, 0, [], 0, 'minwidth100 maxwidth250 widthcentpercentminusx');
 		print '</div>';
 	}
 
@@ -403,7 +403,7 @@ function agenda_prepare_head()
 	$extrafields->fetch_name_optionals_label('actioncomm');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/agenda_other.php";
 	$head[$h][1] = $langs->trans("Miscellaneous");
@@ -458,7 +458,7 @@ function actions_prepare_head($object)
 	global $db, $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/comm/action/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("CardAction");
@@ -519,7 +519,7 @@ function calendars_prepare_head($param)
 	global $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/comm/action/list.php?mode=show_list' . ($param ? '&' . $param : '');
 	$head[$h][1] = $langs->trans("ViewList");

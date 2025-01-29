@@ -170,7 +170,7 @@ print dol_get_fiche_head($head, 'rights', $title, -1, 'user');
 $db->begin();
 
 // Search all modules with permission and reload permissions def.
-$modules = array();
+$modules = [];
 $modulesdir = dolGetModulesDirs();
 
 foreach ($modulesdir as $dir) {
@@ -208,7 +208,7 @@ $db->commit();
 '@phan-var-force DolibarrModules[] $modules';
 
 // Read permissions of edited user
-$permsuser = array();
+$permsuser = [];
 
 $sql = "SELECT DISTINCT ur.fk_id";
 $sql .= " FROM ".MAIN_DB_PREFIX."user_rights as ur";
@@ -231,7 +231,7 @@ if ($result) {
 }
 
 // Read the permissions of a user inherited by its groups
-$permsgroupbyentity = array();
+$permsgroupbyentity = [];
 
 $sql = "SELECT DISTINCT gr.fk_id, gu.entity";	// fk_id are permission id and entity is entity of the group
 $sql .= " FROM ".MAIN_DB_PREFIX."usergroup_rights as gr,";
@@ -252,7 +252,7 @@ if ($result) {
 	while ($i < $num) {
 		$obj = $db->fetch_object($result);
 		if (!isset($permsgroupbyentity[$obj->entity])) {
-			$permsgroupbyentity[$obj->entity] = array();
+			$permsgroupbyentity[$obj->entity] = [];
 		}
 		array_push($permsgroupbyentity[$obj->entity], $obj->fk_id);
 		$i++;
@@ -346,7 +346,7 @@ if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-$listofexpandedmodules = array();
+$listofexpandedmodules = [];
 
 
 print "\n";
@@ -519,7 +519,7 @@ if ($result) {
 		$isexpanded = ! $ishidden;
 		//var_dump("isexpanded=".$isexpanded);
 
-		$permsgroupbyentitypluszero = array();
+		$permsgroupbyentitypluszero = [];
 		if (!empty($permsgroupbyentity[0])) {
 			$permsgroupbyentitypluszero = array_merge($permsgroupbyentitypluszero, $permsgroupbyentity[0]);
 		}
@@ -823,7 +823,7 @@ print '.switchfolderperms{
 }';
 print '</style>';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('insertExtraFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');

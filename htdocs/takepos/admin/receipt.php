@@ -115,7 +115,7 @@ print "</tr>\n";
 print '<tr class="oddeven"><td>';
 print $langs->trans('TicketVatGrouped');
 print '<td colspan="2">';
-print ajax_constantonoff("TAKEPOS_TICKET_VAT_GROUPPED", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_TICKET_VAT_GROUPPED", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 if (getDolGlobalString('TAKEPOS_PRINT_METHOD') == "browser" || getDolGlobalString('TAKEPOS_PRINT_METHOD') == "takeposconnector") {
@@ -162,14 +162,14 @@ if (getDolGlobalString('TAKEPOS_PRINT_METHOD') == "browser" || getDolGlobalStrin
 	print '<tr class="oddeven"><td>';
 	print $langs->trans('PrintCustomerOnReceipts');
 	print '<td colspan="2">';
-	print ajax_constantonoff("TAKEPOS_SHOW_CUSTOMER", array(), $config->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("TAKEPOS_SHOW_CUSTOMER", [], $config->entity, 0, 0, 1, 0);
 	print "</td></tr>\n";
 
 	// Print payment method
 	print '<tr class="oddeven"><td>';
 	print $langs->trans('PrintPaymentMethodOnReceipts');
 	print '<td colspan="2">';
-	print ajax_constantonoff("TAKEPOS_PRINT_PAYMENT_METHOD", array(), $config->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("TAKEPOS_PRINT_PAYMENT_METHOD", [], $config->entity, 0, 0, 1, 0);
 	print "</td></tr>\n";
 }
 
@@ -177,14 +177,14 @@ if (getDolGlobalString('TAKEPOS_PRINT_METHOD') == "browser" || getDolGlobalStrin
 print '<tr class="oddeven"><td>';
 print $langs->trans('ShowPriceHTOnReceipt');
 print '<td colspan="2">';
-print ajax_constantonoff("TAKEPOS_SHOW_HT_RECEIPT", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_SHOW_HT_RECEIPT", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 if (getDolGlobalString('TAKEPOS_PRINT_METHOD') == "takeposconnector" && filter_var(getDolGlobalString('TAKEPOS_PRINT_SERVER'), FILTER_VALIDATE_URL) == true) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans('WeighingScale');
 	print '<td colspan="2">';
-	print ajax_constantonoff("TAKEPOS_WEIGHING_SCALE", array(), $config->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("TAKEPOS_WEIGHING_SCALE", [], $config->entity, 0, 0, 1, 0);
 	print "</td></tr>\n";
 }
 
@@ -192,7 +192,7 @@ if (getDolGlobalString('TAKEPOS_PRINT_METHOD') == "takeposconnector" && filter_v
 	print '<tr class="oddeven"><td>';
 	print $langs->trans('CustomerDisplay');
 	print '<td colspan="2">';
-	print ajax_constantonoff("TAKEPOS_CUSTOMER_DISPLAY", array(), $config->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("TAKEPOS_CUSTOMER_DISPLAY", [], $config->entity, 0, 0, 1, 0);
 	print "</td></tr>\n";
 }
 
@@ -200,7 +200,7 @@ if (getDolGlobalString('TAKEPOS_PRINT_METHOD') == "takeposconnector" && filter_v
 print '<tr class="oddeven"><td>';
 print $langs->trans('PrintWithoutDetailsButton');
 print '<td colspan="2">';
-print ajax_constantonoff('TAKEPOS_PRINT_WITHOUT_DETAILS', array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff('TAKEPOS_PRINT_WITHOUT_DETAILS', [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 if (getDolGlobalString('TAKEPOS_PRINT_WITHOUT_DETAILS')) {
 	print '<tr class="oddeven"><td>';
@@ -214,7 +214,7 @@ if (getDolGlobalString('TAKEPOS_PRINT_WITHOUT_DETAILS')) {
 print '<tr class="oddeven"><td>';
 print $langs->trans("AutoPrintTickets");
 print '<td colspan="2">';
-print ajax_constantonoff("TAKEPOS_AUTO_PRINT_TICKETS", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_AUTO_PRINT_TICKETS", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 

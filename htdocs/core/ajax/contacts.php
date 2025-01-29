@@ -64,7 +64,7 @@ top_httphead();
 if (!empty($id) && !empty($action) && !empty($htmlname)) {
 	$form = new Form($db);
 
-	$return = array();
+	$return = [];
 	if (empty($showempty)) {
 		$showempty = 0;
 	}

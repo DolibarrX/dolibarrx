@@ -99,7 +99,7 @@ class FormActions
 				$canedit = 0;
 			}
 
-			print ajax_combobox('select'.$htmlname, array(), 0, 0, 'resolve', '-1', $morecss);
+			print ajax_combobox('select'.$htmlname, [], 0, 0, 'resolve', '-1', $morecss);
 
 			if (empty($onlyselect)) {
 				print ' <input type="text" id="val'.$htmlname.'" name="percentage" class="flat hideifna" value="'.($selected >= 0 ? $selected : '').'" size="2"'.($canedit && ($selected >= 0) ? '' : ' disabled').'>';
@@ -270,7 +270,7 @@ class FormActions
 			print "\n";
 
 			if (is_array($listofactions) && count($listofactions)) {
-				$cacheusers = array();
+				$cacheusers = [];
 
 				$cursorevent = 0;
 				foreach ($listofactions as $actioncomm) {
@@ -399,7 +399,7 @@ class FormActions
 		$out = '';
 
 		// Reformat the array
-		$newarraylist = array();
+		$newarraylist = [];
 		foreach ($arraylist as $key => $value) {
 			$disabled = '';
 			if (strpos($key, 'AC_ALL_') !== false && strpos($key, 'AC_ALL_AUTO') === false) {

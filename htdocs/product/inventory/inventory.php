@@ -96,7 +96,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 
 // Initialize array of search criteria
 $search_all = GETPOST("search_all", 'alpha');
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha')) {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -146,7 +146,7 @@ if ($cancel) {
 }
 
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -164,7 +164,7 @@ if (empty($resHook)) {
 		$stockmovment = new MouvementStock($db);
 		$stockmovment->setOrigin($object->element, $object->id);
 
-		$cacheOfProducts = array();
+		$cacheOfProducts = [];
 
 		$db->begin();
 
@@ -178,7 +178,7 @@ if (empty($resHook)) {
 		if ($resql) {
 			$num = $db->num_rows($resql);
 			$i = 0;
-			$totalarray = array();
+			$totalarray = [];
 			$option = '';
 
 			while ($i < $num) {
@@ -301,7 +301,7 @@ if (empty($resHook)) {
 		if ($resql) {
 			$num = $db->num_rows($resql);
 			$i = 0;
-			$totalarray = array();
+			$totalarray = [];
 			$inventoryline = new InventoryLine($db);
 
 			while ($i < $num) {
@@ -485,7 +485,7 @@ if ($action == 'deleteline') {
 // Clone confirmation
 if ($action == 'clone') {
 	// Create an array for form
-	$formquestion = array();
+	$formquestion = [];
 	$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('ToClone'), $langs->trans('ConfirmCloneMyObject', $object->ref), 'confirm_clone', $formquestion, 'yes', 1);
 }
 
@@ -610,7 +610,7 @@ if ($backtopage) {
 // Buttons for actions
 if ($action != 'record') {
 	print '<div class="tabsAction">'."\n";
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -993,7 +993,7 @@ print '</tr>';
 if ($object->status == $object::STATUS_DRAFT || $object->status == $object::STATUS_VALIDATED) {
 	print '<tr>';
 	print '<td>';
-	print $formproduct->selectWarehouses((GETPOSTISSET('fk_warehouse') ? GETPOSTINT('fk_warehouse') : $object->fk_warehouse), 'fk_warehouse', 'warehouseopen', 1, 0, 0, '', 0, 0, array(), 'maxwidth300');
+	print $formproduct->selectWarehouses((GETPOSTISSET('fk_warehouse') ? GETPOSTINT('fk_warehouse') : $object->fk_warehouse), 'fk_warehouse', 'warehouseopen', 1, 0, 0, '', 0, 0, [], 'maxwidth300');
 	print '</td>';
 	print '<td>';
 	if (getDolGlobalString('STOCK_SUPPORTS_SERVICES')) {
@@ -1051,8 +1051,8 @@ $sql .= ' WHERE id.fk_inventory = ' . ((int) $object->id);
 $sql .= $db->order($sortfield, $sortorder);
 $sql .= $db->plimit($limit, $offset);
 
-$cacheOfProducts = array();
-$cacheOfWarehouses = array();
+$cacheOfProducts = [];
+$cacheOfWarehouses = [];
 
 //$sql = '';
 $resql = $db->query($sql);
@@ -1065,7 +1065,7 @@ if ($resql) {
 
 	$i = 0;
 	$hasinput = false;
-	$totalarray = array();
+	$totalarray = [];
 	while ($i < $num) {
 		$obj = $db->fetch_object($resql);
 

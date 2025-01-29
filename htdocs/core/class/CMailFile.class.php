@@ -105,7 +105,7 @@ class CMailFile
 	/**
 	 * @var string[] Array of Error code (or message)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -163,19 +163,19 @@ class CMailFile
 	/**
 	 * @var ?string[] fullfilenames list (full path of filename on file system)
 	 */
-	public $filename_list = array();
+	public $filename_list = [];
 	/**
 	 * @var ?string[] mimetypes of files list (List of MIME type of attached files)
 	 */
-	public $mimetype_list = array();
+	public $mimetype_list = [];
 	/**
 	 * @var ?string[] filenames list (List of attached file name in message)
 	 */
-	public $mimefilename_list = array();
+	public $mimefilename_list = [];
 	/**
 	 * @var ?string[] filenames cid
 	 */
-	public $cid_list = array();
+	public $cid_list = [];
 
 	/** @var string HTML content */
 	public $html;
@@ -186,9 +186,9 @@ class CMailFile
 	/** @var int<0,1> */
 	public $atleastoneimage = 0; // at least one image file with file=xxx.ext into content (TODO Debug this. How can this case be tested. Remove if not used).
 	/** @var array<array{type:string,fullpath:string,content_type?:string,name:string,cid:string}> */
-	public $html_images = array();
+	public $html_images = [];
 	/** @var array<array{name:string,fullpath:string,content_type:string,cid:string,image_encoded:string}> */
-	public $images_encoded = array();
+	public $images_encoded = [];
 	public $image_types = array(
 		'gif'  => 'image/gif',
 		'jpg'  => 'image/jpeg',
@@ -225,7 +225,7 @@ class CMailFile
 	 *  @param	string	$in_reply_to		 Message-ID of the message we reply to
 	 *  @param	string	$references			 String with list of Message-ID of the thread ('<123> <456> ...')
 	 */
-	public function __construct($subject, $to, $from, $msg, $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array(), $addr_cc = "", $addr_bcc = "", $deliveryreceipt = 0, $msgishtml = 0, $errors_to = '', $css = '', $trackid = '', $moreinheader = '', $sendcontext = 'standard', $replyto = '', $upload_dir_tmp = '', $in_reply_to = '', $references = '')
+	public function __construct($subject, $to, $from, $msg, $filename_list = [], $mimetype_list = [], $mimefilename_list = [], $addr_cc = "", $addr_bcc = "", $deliveryreceipt = 0, $msgishtml = 0, $errors_to = '', $css = '', $trackid = '', $moreinheader = '', $sendcontext = 'standard', $replyto = '', $upload_dir_tmp = '', $in_reply_to = '', $references = '')
 	{
 		global $config, $dolibarr_main_data_root, $user;
 
@@ -240,7 +240,7 @@ class CMailFile
 			}
 		}
 
-		$cid_list = array();
+		$cid_list = [];
 
 		$this->sendcontext = $sendcontext;
 
@@ -693,7 +693,7 @@ class CMailFile
 					if (getDolGlobalString('MAIN_FORCE_DISABLE_MAIL_SPOOFING')) {
 						// Prevent email spoofing for smtp server with a strict configuration
 						$regexp = '/([a-z0-9_\.\-\+])+\@(([a-z0-9\-])+\.)+([a-z0-9]{2,4})+/i'; // This regular expression extracts all emails from a string
-						$adressEmailFrom = array();
+						$adressEmailFrom = [];
 						$emailMatchs = preg_match_all($regexp, $from, $adressEmailFrom);
 						$adressEmailFrom = reset($adressEmailFrom);
 						if ($emailMatchs !== false && filter_var($config->global->MAIN_MAIL_SMTPS_ID, FILTER_VALIDATE_EMAIL) && $config->global->MAIN_MAIL_SMTPS_ID !== $adressEmailFrom) {
@@ -840,7 +840,7 @@ class CMailFile
 			}
 			$hookManager->initHooks(array('mail'));
 
-			$parameters = array();
+			$parameters = [];
 			$action = '';
 			$resHook = $hookManager->executeHooks('sendMail', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 			if ($resHook < 0) {
@@ -857,7 +857,7 @@ class CMailFile
 			$sendingmode = $this->sendmode;
 			if ($this->sendcontext == 'emailing' && getDolGlobalString('MAILING_NO_USING_PHPMAIL') && $sendingmode == 'mail') {
 				// List of sending methods
-				$listofmethods = array();
+				$listofmethods = [];
 				$listofmethods['mail'] = 'PHP mail function';
 				//$listofmethods['simplemail']='Simplemail class';
 				$listofmethods['smtps'] = 'SMTP/SMTPS socket library';
@@ -1145,7 +1145,7 @@ class CMailFile
 							$serviceFactory = new \OAuth\ServiceFactory();
 							$oauthname = explode('-', $OAUTH_SERVICENAME);
 							// ex service is Google-Emails we need only the first part Google
-							$apiService = $serviceFactory->createService($oauthname[0], $credentials, $storage, array());
+							$apiService = $serviceFactory->createService($oauthname[0], $credentials, $storage, []);
 
 							// We have to save the refresh token because Google give it only once
 							$refreshtoken = $tokenobj->getRefreshToken();
@@ -1312,7 +1312,7 @@ class CMailFile
 							$serviceFactory = new \OAuth\ServiceFactory();
 							$oauthname = explode('-', $OAUTH_SERVICENAME);
 							// ex service is Google-Emails we need only the first part Google
-							$apiService = $serviceFactory->createService($oauthname[0], $credentials, $storage, array());
+							$apiService = $serviceFactory->createService($oauthname[0], $credentials, $storage, []);
 							$refreshtoken = $tokenobj->getRefreshToken();
 
 							if ($apiService instanceof OAuth\OAuth2\Service\AbstractService || $apiService instanceof OAuth\OAuth1\Service\AbstractService) {
@@ -1370,7 +1370,7 @@ class CMailFile
 				dol_syslog("CMailFile::sendfile: mailer->send, HOST=".$server.", PORT=" . getDolGlobalString($keyforsmtpport), LOG_NOTICE);
 
 				// send mail
-				$failedRecipients = array();
+				$failedRecipients = [];
 				try {
 					$result = $this->mailer->send($this->message, $failedRecipients);
 				} catch (Exception $e) {
@@ -2015,14 +2015,14 @@ class CMailFile
 		// We search (into mail body this->html), if we find some strings like "... file=xxx.img"
 		// For example when:
 		// <img alt="" src="/viewimage.php?modulepart=medias&amp;entity=1&amp;file=image/picture.jpg" style="height:356px; width:1040px" />
-		$matches = array();
+		$matches = [];
 		preg_match_all('/(?:"|\')([^"\']+\.('.implode('|', $extensions).'))(?:"|\')/Ui', $this->html, $matches); // If "xxx.ext" or 'xxx.ext' found
 
 		if (!empty($matches) && !empty($matches[1])) {
 			$i = 0;
 			// We are interested in $matches[1] only (the second set of parenthesis into regex)
 			foreach ($matches[1] as $full) {
-				$regs = array();
+				$regs = [];
 				if (preg_match('/file=([A-Za-z0-9_\-\/]+[\.]?[A-Za-z0-9]+)?$/i', $full, $regs)) {   // If xxx is 'file=aaa'
 					$img = $regs[1];
 
@@ -2034,7 +2034,7 @@ class CMailFile
 						// Image name
 						$this->html_images[$i]["name"] = $img;
 						// Content type
-						$regext = array();
+						$regext = [];
 						if (preg_match('/^.+\.(\w{3,4})$/', $img, $regext)) {
 							$ext = strtolower($regext[1]);
 							$this->html_images[$i]["content_type"] = $this->image_types[$ext];
@@ -2051,7 +2051,7 @@ class CMailFile
 			}
 
 			if (!empty($this->html_images)) {
-				$inline = array();
+				$inline = [];
 
 				$i = 0;
 
@@ -2063,7 +2063,7 @@ class CMailFile
 						// Read image file
 						if ($image = file_get_contents($fullpath)) {
 							// On garde que le nom de l'image
-							$regs = array();
+							$regs = [];
 							preg_match('/([A-Za-z0-9_-]+[\.]?[A-Za-z0-9]+)?$/i', $img["name"], $regs);
 							$imgName = $regs[1];
 							$this->images_encoded[$i]['name'] = $imgName;
@@ -2124,7 +2124,7 @@ class CMailFile
 		// We search (into mail body this->html), if we find some strings like "... file=xxx.img"
 		// For example when:
 		// <img alt="" src="/src="data:image....;base64,...." />
-		$matches = array();
+		$matches = [];
 		preg_match_all('/src="data:image\/('.implode('|', $extensions).');base64,([^"]+)"/Ui', $this->html, $matches); // If "xxx.ext" or 'xxx.ext' found
 
 		if (!empty($matches) && !empty($matches[1])) {
@@ -2198,12 +2198,12 @@ class CMailFile
 	{
 		$ret = '';
 
-		$arrayaddress = (!empty($address) ? explode(',', $address) : array());
+		$arrayaddress = (!empty($address) ? explode(',', $address) : []);
 
 		// Boucle sur chaque composant de l'address
 		$i = 0;
 		foreach ($arrayaddress as $val) {
-			$regs = array();
+			$regs = [];
 			if (preg_match('/^(.*)<(.*)>$/i', trim($val), $regs)) {
 				$name  = trim($regs[1]);
 				$email = trim($regs[2]);
@@ -2264,13 +2264,13 @@ class CMailFile
 	 */
 	public static function getArrayAddress($address)
 	{
-		$ret = array();
+		$ret = [];
 
 		$arrayaddress = explode(',', $address);
 
 		// Boucle sur chaque composant de l'address
 		foreach ($arrayaddress as $val) {
-			$regs = array();
+			$regs = [];
 			if (preg_match('/^(.*)<(.*)>$/i', trim($val), $regs)) {
 				$name  = trim($regs[1]);
 				$email = trim($regs[2]);

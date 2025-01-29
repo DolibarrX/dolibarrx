@@ -56,7 +56,7 @@ class BookKeeping extends CommonObject
 	/**
 	 * @var BookKeepingLine[] Lines
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @var int 	ID
@@ -178,12 +178,12 @@ class BookKeeping extends CommonObject
 	/**
 	 * @var BookKeepingLine[] Movement line array
 	 */
-	public $linesmvt = array();
+	public $linesmvt = [];
 
 	/**
 	 * @var BookKeepingLine[] export line array
 	 */
-	public $linesexport = array();
+	public $linesexport = [];
 
 	/**
 	 * @var int|string date of movement who are noticed like exported
@@ -854,13 +854,13 @@ class BookKeeping extends CommonObject
 	 * @param	int		$countonly		Do not fill the $object->lines, return only the count.
 	 * @return 	int 					Return integer <0 if KO, Number of lines if OK
 	 */
-	public function fetchAllByAccount($sortorder = '', $sortfield = '', $limit = 0, $offset = 0, array $filter = array(), $filtermode = 'AND', $option = 0, $countonly = 0)
+	public function fetchAllByAccount($sortorder = '', $sortfield = '', $limit = 0, $offset = 0, array $filter = [], $filtermode = 'AND', $option = 0, $countonly = 0)
 	{
 		global $config;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$this->lines = array();
+		$this->lines = [];
 		$num = 0;
 
 		$sql = 'SELECT';
@@ -899,7 +899,7 @@ class BookKeeping extends CommonObject
 			$sql .= " t.import_key";
 		}
 		// Manage filter
-		$sqlwhere = array();
+		$sqlwhere = [];
 		if (count($filter) > 0) {
 			foreach ($filter as $key => $value) {
 				if ($key == 't.doc_date>=') {
@@ -1099,7 +1099,7 @@ class BookKeeping extends CommonObject
 		// Manage filter
 		if (is_array($filter)) {	// deprecated, use $filter = USF syntax
 			dol_syslog("You are using a deprecated use of fetchAll. filter parameter mus be an USF string now.", LOG_WARNING);
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.doc_date') {
@@ -1175,7 +1175,7 @@ class BookKeeping extends CommonObject
 		if (!empty($limit)) {
 			$sql .= $this->db->plimit($limit + 1, $offset);
 		}
-		$this->lines = array();
+		$this->lines = [];
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -1246,7 +1246,7 @@ class BookKeeping extends CommonObject
 	{
 		global $config;
 
-		$this->lines = array();
+		$this->lines = [];
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -1263,7 +1263,7 @@ class BookKeeping extends CommonObject
 
 		// Manage filter
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.doc_date') {
@@ -2016,7 +2016,7 @@ class BookKeeping extends CommonObject
 		$resql = $this->db->query($sql);
 
 		if ($resql) {
-			$this->linesexport = array();
+			$this->linesexport = [];
 
 			$num = $this->db->num_rows($resql);
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -2197,7 +2197,7 @@ class BookKeeping extends CommonObject
 	 * @param string	$aabase		Set accounting_account base class to display empty=all or from 1 to 8 will display only account starting from this number
 	 * @return string|int	String with HTML select or -1 if KO
 	 */
-	public function select_account($selectid, $htmlname = 'account', $showempty = 0, $event = array(), $select_in = 0, $select_out = 0, $aabase = '')
+	public function select_account($selectid, $htmlname = 'account', $showempty = 0, $event = [], $select_in = 0, $select_out = 0, $aabase = '')
 	{
 		// phpcs:enable
 		global $config;
@@ -2226,7 +2226,7 @@ class BookKeeping extends CommonObject
 
 		$out = ajax_combobox($htmlname, $event);
 
-		$options = array();
+		$options = [];
 		$selected = null;
 
 		while ($obj = $this->db->fetch_object($resql)) {
@@ -2357,7 +2357,7 @@ class BookKeeping extends CommonObject
 				return null;
 			}
 
-			$sql_list = array();
+			$sql_list = [];
 			if (!empty($config->cache['active_fiscal_period_cached']) && is_array($config->cache['active_fiscal_period_cached'])) {
 				$i = 0;
 				foreach ($config->cache['active_fiscal_period_cached'] as $fiscal_period) {
@@ -2544,7 +2544,7 @@ class BookKeeping extends CommonObject
 					return -1;
 				}
 
-				$list = array();
+				$list = [];
 				while ($obj = $this->db->fetch_object($resql)) {
 					$list[] = array(
 						'date_start' => $this->db->jdate($obj->date_start),
@@ -2567,7 +2567,7 @@ class BookKeeping extends CommonObject
 					return -1;
 				}
 
-				$list = array();
+				$list = [];
 				while ($obj = $this->db->fetch_object($resql)) {
 					$list[] = array(
 						'date_start' => $this->db->jdate($obj->date_start),
@@ -2590,7 +2590,7 @@ class BookKeeping extends CommonObject
 	public function getFiscalPeriods($filter = '')
 	{
 		global $config;
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT rowid, label, date_start, date_end, statut";
 		$sql .= " FROM " . $this->db->prefix() . "accounting_fiscalyear";
@@ -2632,7 +2632,7 @@ class BookKeeping extends CommonObject
 		global $config;
 
 		$total = 0;
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT YEAR(b.doc_date) as year";
 		for ($i = 1; $i <= 12; $i++) {
@@ -2667,7 +2667,7 @@ class BookKeeping extends CommonObject
 			$total += (int) $obj->total;
 			$year_list = array(
 				'year' => (int) $obj->year,
-				'count' => array(),
+				'count' => [],
 				'total' => (int) $obj->total,
 			);
 			for ($i = 1; $i <= 12; $i++) {
@@ -2734,7 +2734,7 @@ class BookKeeping extends CommonObject
 		if (getDolGlobalString('ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENT')) {
 			$accounting_groups_used_for_income_statement = array_filter(array_map('trim', explode(',', getDolGlobalString('ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENT'))), 'strlen');
 
-			$pcg_type_filter = array();
+			$pcg_type_filter = [];
 			foreach ($accounting_groups_used_for_income_statement as $item) {
 				$pcg_type_filter[] = "'" . $this->db->escape($item) . "'";
 			}
@@ -2859,7 +2859,7 @@ class BookKeeping extends CommonObject
 				$accounting_groups_used_for_balance_sheet_account = array_filter(array_map('trim', explode(',', getDolGlobalString('ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_BALANCE_SHEET_ACCOUNT'))), 'strlen');
 				$accounting_groups_used_for_income_statement = array_filter(array_map('trim', explode(',', getDolGlobalString('ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENT'))), 'strlen');
 
-				$pcg_type_filter = array();
+				$pcg_type_filter = [];
 				$tmp = array_merge($accounting_groups_used_for_balance_sheet_account, $accounting_groups_used_for_income_statement);
 				foreach ($tmp as $item) {
 					$pcg_type_filter[] = "'" . $this->db->escape($item) . "'";

@@ -265,7 +265,7 @@ if ($action == 'create') {
 	print '<input type="hidden" name="action" value="add">';
 	print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
 
-	print dol_get_fiche_head(array(), '', '', 0, '');
+	print dol_get_fiche_head([], '', '', 0, '');
 
 	print '<table class="border centpercent tableforfieldcreate">';
 
@@ -372,7 +372,7 @@ if ($action == 'create') {
 			 */
 			print '<div class="tabsAction">';
 
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if ($resHook < 0) {
 				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -393,7 +393,7 @@ if ($action == 'create') {
 			print load_fiche_titre($langs->trans("ListOfUsersInGroup"), '', 'user');
 
 			// Select the users that do not belong to the group yet
-			$exclude = array();
+			$exclude = [];
 
 			if (!empty($object->members)) {
 				foreach ($object->members as $useringroup) {
@@ -490,7 +490,7 @@ if ($action == 'create') {
 			$somethingshown = $formfile->showdocuments('usergroup', $filename, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', 0, '', $mysoc->default_lang);
 
 			// Show links to link elements
-			$tmparray = $form->showLinkToObjectBlock($object, array(), array(), 1);
+			$tmparray = $form->showLinkToObjectBlock($object, [], [], 1);
 			$linktoelem = $tmparray['linktoelem'];
 			$htmltoenteralink = $tmparray['htmltoenteralink'];
 			print $htmltoenteralink;

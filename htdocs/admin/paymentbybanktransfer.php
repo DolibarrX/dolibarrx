@@ -227,7 +227,7 @@ print '<br>';
 print load_fiche_titre($langs->trans("OrdersModelModule"),'','');
 
 // Load array def with activated templates
-$def = array();
+$def = [];
 $sql = "SELECT nom";
 $sql.= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql.= " WHERE type = '".$db->escape($type)."'";

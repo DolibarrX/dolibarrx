@@ -64,14 +64,14 @@ class modExternalSite extends DolibarrModules
 		$this->langfiles = array("externalsite");
 
 		// Data directories to create when module is enabled
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
 		$this->config_page_url = array("index.php@externalsite");
 
 		// Dependencies
-		$this->depends = array(); // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of modules id to disable if this one is disabled
+		$this->depends = []; // List of modules id that must be enabled if this module is enabled
+		$this->requiredby = []; // List of modules id to disable if this one is disabled
 
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
@@ -81,7 +81,7 @@ class modExternalSite extends DolibarrModules
 		$this->const = array(0 => array('EXTERNALSITE_LABEL', 'chaine', 'ExternalSite', 'To declare label to use into external site menu entry', 0));
 
 		// Boxes
-		$this->boxes = array(); // List of boxes
+		$this->boxes = []; // List of boxes
 		$r = 0;
 
 		// Add here list of php file(s) stored in core/boxes that contains class to show a box.
@@ -93,7 +93,7 @@ class modExternalSite extends DolibarrModules
 
 		// Permissions
 		$this->rightsClass = 'externalsite'; // Permission key
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 
 		$this->module_parts = array(
 			'moduleforexternal' => 1 // allow access to external users

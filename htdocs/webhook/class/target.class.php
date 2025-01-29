@@ -185,7 +185,7 @@ class Target extends CommonObject
 	// /**
 	//  * @var array	List of child tables. To test if we can delete object.
 	//  */
-	// protected $childtables = array();
+	// protected $childtables = [];
 
 	// /**
 	//  * @var array    List of child tables. To know object to delete on cascade.
@@ -197,7 +197,7 @@ class Target extends CommonObject
 	// /**
 	//  * @var TargetLine[]     Array of subtable lines
 	//  */
-	// public $lines = array();
+	// public $lines = [];
 
 
 
@@ -269,7 +269,7 @@ class Target extends CommonObject
 			if ($resql) {
 				$num = $this->db->num_rows($resql);
 				$i = 0;
-				$arraytrigger = array();
+				$arraytrigger = [];
 				while ($i < $num) {
 					$obj = $this->db->fetch_object($resql);
 					$elementtype = (!empty($entitytoicon[$obj->elementtype]) ? $entitytoicon[$obj->elementtype] : $obj->elementtype);
@@ -429,7 +429,7 @@ class Target extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -452,7 +452,7 @@ class Target extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = "SELECT ";
 		$sql .= $this->getFieldList('t');

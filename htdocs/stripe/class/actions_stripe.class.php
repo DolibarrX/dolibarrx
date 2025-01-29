@@ -42,7 +42,7 @@ class ActionsStripeconnect extends CommonHookActions
 	 */
 	public $db;
 
-	private $config = array(); // @phpstan-ignore-line
+	private $config = []; // @phpstan-ignore-line
 
 
 	/**

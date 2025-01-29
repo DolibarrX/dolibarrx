@@ -253,8 +253,8 @@ llxHeader('', $name);
 $periodlink = '';
 $exportlink = '';
 
-report_header($name, '', $period, $periodlink, $description, $builddate, $exportlink, array(), $calcmode);
-//report_header($name,'',$textprevyear.$langs->trans("Year")." ".$year_start.$textnextyear,'',$description,$builddate,$exportlink,array(),$calcmode);
+report_header($name, '', $period, $periodlink, $description, $builddate, $exportlink, [], $calcmode);
+//report_header($name,'',$textprevyear.$langs->trans("Year")." ".$year_start.$textnextyear,'',$description,$builddate,$exportlink,[],$calcmode);
 
 
 print '<br>';
@@ -300,21 +300,21 @@ if ($refresh === true) {
 		$x_coll = tax_by_rate('vat', $db, $y, 0, 0, 0, $modetax, 'sell', $m);
 		$x_paye = tax_by_rate('vat', $db, $y, 0, 0, 0, $modetax, 'buy', $m);
 
-		$x_both = array();
+		$x_both = [];
 		//now, from these two arrays, get another array with one rate per line
 		foreach (array_keys($x_coll) as $my_coll_rate) {
 			$x_both[$my_coll_rate] = array(
-				'coll' => array(),
-				'paye' => array(),
-				'detail' => array(),
-				'ptype' => array(),
+				'coll' => [],
+				'paye' => [],
+				'detail' => [],
+				'ptype' => [],
 			);
 			$x_both[$my_coll_rate]['coll']['totalht'] = $x_coll[$my_coll_rate]['totalht'];
 			$x_both[$my_coll_rate]['coll']['vat'] = $x_coll[$my_coll_rate]['vat'];
 			$x_both[$my_coll_rate]['paye']['totalht'] = 0;
 			$x_both[$my_coll_rate]['paye']['vat'] = 0;
 			$x_both[$my_coll_rate]['coll']['links'] = '';
-			$x_both[$my_coll_rate]['coll']['detail'] = array();
+			$x_both[$my_coll_rate]['coll']['detail'] = [];
 			foreach ($x_coll[$my_coll_rate]['facid'] as $id => $dummy) {
 				//$invoice_customer->id=$x_coll[$my_coll_rate]['facid'][$id];
 				//$invoice_customer->ref=$x_coll[$my_coll_rate]['facnum'][$id];
@@ -352,7 +352,7 @@ if ($refresh === true) {
 				$x_both[$my_paye_rate]['coll']['vat'] = 0;
 			}
 			$x_both[$my_paye_rate]['paye']['links'] = '';
-			$x_both[$my_paye_rate]['paye']['detail'] = array();
+			$x_both[$my_paye_rate]['paye']['detail'] = [];
 
 			foreach ($x_paye[$my_paye_rate]['facid'] as $id => $dummy) {
 				// ExpenseReport

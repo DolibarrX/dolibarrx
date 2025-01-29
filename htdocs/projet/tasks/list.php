@@ -258,9 +258,9 @@ if (empty($resHook)) {
 		$search_datelimit_endyear = '';
 		$search_datelimit_start = '';
 		$search_datelimit_end = '';
-		$toselect = array();
-		$searchCategoryCustomerList = array();
-		$search_array_options = array();
+		$toselect = [];
+		$searchCategoryCustomerList = [];
+		$search_array_options = [];
 	}
 
 	// Mass actions
@@ -289,8 +289,8 @@ $now = dol_now();
 
 $title = $langs->trans("Activities");
 $help_url = "EN:Module_Projects|FR:Module_Projets|ES:M&oacute;dulo_Proyectos";
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 if ($search_project_user > 0) {
 	$puser->fetch($search_project_user);
@@ -317,7 +317,7 @@ if (!$user->hasRight('projet', 'all', 'lire')) {
 //var_dump($projectsListId);
 
 // Get id of types of contacts for projects (This list never contains a lot of elements)
-$listofprojectcontacttype = array();
+$listofprojectcontacttype = [];
 $sql = "SELECT ctc.rowid, ctc.code FROM ".MAIN_DB_PREFIX."c_type_contact as ctc";
 $sql .= " WHERE ctc.element = '".$db->escape($projectstatic->element)."'";
 $sql .= " AND ctc.source = 'internal'";
@@ -333,7 +333,7 @@ if (count($listofprojectcontacttype) == 0) {
 	$listofprojectcontacttype[0] = '0'; // To avoid sql syntax error if not found
 }
 // Get id of types of contacts for tasks (This list never contains a lot of elements)
-$listoftaskcontacttype = array();
+$listoftaskcontacttype = [];
 $sql = "SELECT ctc.rowid, ctc.code FROM ".MAIN_DB_PREFIX."c_type_contact as ctc";
 $sql .= " WHERE ctc.element = '".$db->escape($object->element)."'";
 $sql .= " AND ctc.source = 'internal'";
@@ -368,7 +368,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -468,7 +468,7 @@ if ($search_task_user > 0) {
 $searchCategoryProjectList = array($search_categ);
 $searchCategoryProjectOperator = 0;
 if (!empty($searchCategoryProjectList)) {
-	$searchCategoryProjectSqlList = array();
+	$searchCategoryProjectSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryProjectList as $searchCategoryProject) {
 		if (intval($searchCategoryProject) == -2) {
@@ -494,9 +494,9 @@ if (!empty($searchCategoryProjectList)) {
 		}
 	}
 }
-$searchCategoryCustomerSqlList = array();
+$searchCategoryCustomerSqlList = [];
 if ($searchCategoryCustomerOperator == 1) {
-	$existsCategoryCustomerList = array();
+	$existsCategoryCustomerList = [];
 	foreach ($searchCategoryCustomerList as $searchCategoryCustomer) {
 		if (intval($searchCategoryCustomer) == -2) {
 			$sqlCategoryCustomerNotExists  = " NOT EXISTS (";
@@ -541,7 +541,7 @@ if ($searchCategoryCustomerOperator == 1) {
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 if (!empty($arrayfields['t.tobill']['checked']) || !empty($arrayfields['t.billed']['checked'])) {
@@ -607,7 +607,7 @@ if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $s
 
 llxHeader('', $title, $help_url, '', 0, 0, $morejs, $morecss, '', 'bodyforlist mod-project project-tasks page-list');	// Can use also classforhorizontalscrolloftabs instead of bodyforlist for no horizontal scroll
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -726,7 +726,7 @@ if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -837,7 +837,7 @@ if (getDolGlobalString('MAIN_SEARCH_CATEGORY_CUSTOMER_ON_TASK_LIST') && isModEna
 if (!empty($moreforfilter)) {
 	print '<div class="liste_titre liste_titre_bydiv centpercent">';
 	print $moreforfilter;
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	print '</div>';
@@ -928,7 +928,7 @@ if (!empty($arrayfields['s.name_alias']['checked'])) {
 }
 if (!empty($arrayfields['p.fk_statut']['checked'])) {
 	print '<td class="liste_titre center">';
-	$arrayofstatus = array();
+	$arrayofstatus = [];
 	foreach ($projectstatic->labelStatusShort as $key => $val) {
 		$arrayofstatus[$key] = $langs->trans($val);
 	}
@@ -1187,7 +1187,7 @@ while ($i < $imaxinloop) {
 			}
 		}
 
-		$arraydata = array();
+		$arraydata = [];
 		$arraydata['projectlink'] = $projectstatic->getNomUrl(1);
 		$arraydata['selected'] = in_array($object->id, $arrayofselected);
 

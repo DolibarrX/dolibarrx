@@ -50,7 +50,7 @@ function pdf_admin_prepare_head()
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/pdf.php';
 	$head[$h][1] = $langs->trans("Parameters");
@@ -491,7 +491,7 @@ function pdf_build_address($outputlangs, $sourcecompany, $targetcompany = '', $t
 				}
 			}
 			// Professional Ids
-			$reg = array();
+			$reg = [];
 			if (getDolGlobalString('MAIN_PROFID1_IN_SOURCE_ADDRESS') && !empty($sourcecompany->idprof1)) {
 				$tmp = $outputlangs->transcountrynoentities("ProfId1", $sourcecompany->country_code);
 				if (preg_match('/\((.+)\)/', $tmp, $reg)) {
@@ -1030,7 +1030,7 @@ function pdf_pagefoot(&$pdf, $outputlangs, $paramfreetext, $fromcompany, $marge_
 
 	$outputlangs->load("dict");
 	$line = '';
-	$reg = array();
+	$reg = [];
 	$marginwithfooter = 0;  // Return value
 
 	$dims = $pdf->getPageDimensions();
@@ -1252,7 +1252,7 @@ function pdf_pagefoot(&$pdf, $outputlangs, $paramfreetext, $fromcompany, $marge_
 			if (getDolGlobalString('PDF_FOOTER_BACKGROUND_COLOR')) {
 				list($r, $g, $b) = sscanf($config->global->PDF_FOOTER_BACKGROUND_COLOR, '%d, %d, %d');
 				$pdf->SetAutoPageBreak(0, 0); // Disable auto pagebreak
-				$pdf->Rect(0, $dims['hk'] - $posy + $freetextheight, $dims['wk'] + 1, $marginwithfooter + 1, 'F', array(), $fill_color = array($r, $g, $b));
+				$pdf->Rect(0, $dims['hk'] - $posy + $freetextheight, $dims['wk'] + 1, $marginwithfooter + 1, 'F', [], $fill_color = array($r, $g, $b));
 				$pdf->SetAutoPageBreak(1, 0); // Restore pagebreak
 			}
 
@@ -1304,7 +1304,7 @@ function pdf_pagefoot(&$pdf, $outputlangs, $paramfreetext, $fromcompany, $marge_
 			if (getDolGlobalString('PDF_FOOTER_BACKGROUND_COLOR')) {
 				list($r, $g, $b) = sscanf($config->global->PDF_FOOTER_BACKGROUND_COLOR, '%d, %d, %d');
 				$pdf->SetAutoPageBreak(0, 0); // Disable auto pagebreak
-				$pdf->Rect(0, $dims['hk'] - $posy + $freetextheight, $dims['wk'] + 1, $marginwithfooter + 1, 'F', array(), $fill_color = array($r, $g, $b));
+				$pdf->Rect(0, $dims['hk'] - $posy + $freetextheight, $dims['wk'] + 1, $marginwithfooter + 1, 'F', [], $fill_color = array($r, $g, $b));
 				$pdf->SetAutoPageBreak(1, 0); // Restore pagebreak
 			}
 
@@ -1832,7 +1832,7 @@ function pdf_getlinedesc($object, $i, $outputlangs, $hideref = 0, $hidedesc = 0,
 
 		$format = 'day';
 		foreach ($dbatch as $detail) {
-			$dte = array();
+			$dte = [];
 			if ($detail->eatby) {
 				$dte[] = $outputlangs->transnoentitiesnoconv('printEatby', dol_print_date($detail->eatby, $format, false, $outputlangs));
 			}
@@ -2540,7 +2540,7 @@ function pdf_getLinkedObjects(&$object, $outputlangs)
 {
 	global $db, $hookManager;
 
-	$linkedobjects = array();
+	$linkedobjects = [];
 
 	$object->fetchObjectLinked();
 

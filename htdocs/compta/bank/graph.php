@@ -140,7 +140,7 @@ if ($result < 0) {
 
 	if ($mode == 'standard') {
 		// Loading table $amounts
-		$amounts = array();
+		$amounts = [];
 
 		$monthnext = (int) $month + 1;
 		$yearnext = (int) $year;
@@ -201,9 +201,9 @@ if ($result < 0) {
 		}
 
 		// Chargement de labels et datas pour tableau 1
-		$labels = array();
-		$datas = array();
-		$datamin = array();
+		$labels = [];
+		$datas = [];
+		$datamin = [];
 
 		$subtotal = 0;
 		$day = dol_mktime(12, 0, 0, (int) $month, 1, (int) $year);
@@ -214,7 +214,7 @@ if ($result < 0) {
 		$xmonth = substr($textdate, 4, 2);
 
 		$i = 0;
-		$dataall = array();
+		$dataall = [];
 		while ($xmonth == $month) {
 			$subtotal += (isset($amounts[$textdate]) ? $amounts[$textdate] : 0);
 			if ($day > time()) {
@@ -247,7 +247,7 @@ if ($result < 0) {
 		$file = $config->bank->dir_temp."/balance".$account."-".$year.$month.".png";
 		$fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=bank_temp&file='."/balance".$account."-".$year.$month.".png";
 		$title = $langs->transnoentities("Balance").' - '.$langs->transnoentities("Month").': '.$month.' '.$langs->transnoentities("Year").': '.$year;
-		$graph_datas = array();
+		$graph_datas = [];
 		foreach ($datas as $i => $val) {
 			$graph_datas[$i] = array(isset($labels[$i]) ? $labels[$i] : '', $datas[$i]);
 			if ($object->min_desired) {
@@ -285,7 +285,7 @@ if ($result < 0) {
 		$px1 = null;
 		$graph_datas = null;
 		$datas = null;
-		$datamin = array();
+		$datamin = [];
 		$dataall = null;
 		$labels = null;
 		$amounts = null;
@@ -295,7 +295,7 @@ if ($result < 0) {
 
 	if ($mode == 'standard') {
 		// Loading table $amounts
-		$amounts = array();
+		$amounts = [];
 		$sql = "SELECT date_format(b.datev,'%Y%m%d')";
 		$sql .= ", SUM(b.amount)";
 		$sql .= " FROM ".MAIN_DB_PREFIX."bank as b";
@@ -346,10 +346,10 @@ if ($result < 0) {
 		}
 
 		// Chargement de labels et datas pour tableau 2
-		$labels = array();
-		$datas = array();
-		$datamin = array();
-		$dataall = array();
+		$labels = [];
+		$datas = [];
+		$datamin = [];
+		$dataall = [];
 
 		$subtotal = 0;
 		$now = time();
@@ -386,7 +386,7 @@ if ($result < 0) {
 		$file = $config->bank->dir_temp."/balance".$account."-".$year.".png";
 		$fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=bank_temp&file='."/balance".$account."-".$year.".png";
 		$title = $langs->transnoentities("Balance").' - '.$langs->transnoentities("Year").': '.$year;
-		$graph_datas = array();
+		$graph_datas = [];
 		foreach ($datas as $i => $val) {
 			$graph_datas[$i] = array(isset($labels[$i]) ? $labels[$i] : '', $datas[$i]);
 			if ($object->min_desired) {
@@ -434,7 +434,7 @@ if ($result < 0) {
 
 	if ($mode == 'showalltime') {
 		// Loading table $amounts
-		$amounts = array();
+		$amounts = [];
 
 		$sql = "SELECT date_format(b.datev,'%Y%m%d')";
 		$sql .= ", SUM(b.amount)";
@@ -465,10 +465,10 @@ if ($result < 0) {
 		$solde = 0;
 
 		// Chargement de labels et datas pour tableau 3
-		$labels = array();
-		$datas = array();
-		$datamin = array();
-		$dataall = array();
+		$labels = [];
+		$datas = [];
+		$datamin = [];
+		$dataall = [];
 
 		$subtotal = 0;
 
@@ -503,7 +503,7 @@ if ($result < 0) {
 		$file = $config->bank->dir_temp."/balance".$account.".png";
 		$fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=bank_temp&file='."/balance".$account.".png";
 		$title = $langs->transnoentities("Balance")." - ".$langs->transnoentities("AllTime");
-		$graph_datas = array();
+		$graph_datas = [];
 		foreach ($datas as $i => $val) {
 			$graph_datas[$i] = array(isset($labels[$i]) ? $labels[$i] : '', $datas[$i]);
 			if ($object->min_desired) {
@@ -550,8 +550,8 @@ if ($result < 0) {
 
 	if ($mode == 'standard') {
 		// Chargement du tableau $credits, $debits
-		$credits = array();
-		$debits = array();
+		$credits = [];
+		$debits = [];
 
 		$monthnext = (int) $month + 1;
 		$yearnext = (int) $year;
@@ -625,9 +625,9 @@ if ($result < 0) {
 
 
 		// Chargement de labels et data_xxx pour tableau 4 Movements
-		$labels = array();
-		$data_credit = array();
-		$data_debit = array();
+		$labels = [];
+		$data_credit = [];
+		$data_debit = [];
 		for ($i = 0; $i < 31; $i++) {
 			$data_credit[$i] = isset($credits[substr("0".($i + 1), -2)]) ? $credits[substr("0".($i + 1), -2)] : 0;
 			$data_debit[$i] = isset($debits[substr("0".($i + 1), -2)]) ? $debits[substr("0".($i + 1), -2)] : 0;
@@ -639,7 +639,7 @@ if ($result < 0) {
 		$file = $config->bank->dir_temp."/movement".$account."-".$year.$month.".png";
 		$fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=bank_temp&file='."/movement".$account."-".$year.$month.".png";
 		$title = $langs->transnoentities("BankMovements").' - '.$langs->transnoentities("Month").': '.$month.' '.$langs->transnoentities("Year").': '.$year;
-		$graph_datas = array();
+		$graph_datas = [];
 		foreach ($data_credit as $i => $val) {
 			$graph_datas[$i] = array($labels[$i], $data_credit[$i], $data_debit[$i]);
 		}
@@ -671,8 +671,8 @@ if ($result < 0) {
 
 	if ($mode == 'standard') {
 		// Chargement du tableau $credits, $debits
-		$credits = array();
-		$debits = array();
+		$credits = [];
+		$debits = [];
 		$sql = "SELECT date_format(b.datev,'%m')";
 		$sql .= ", SUM(b.amount)";
 		$sql .= " FROM ".MAIN_DB_PREFIX."bank as b";
@@ -726,9 +726,9 @@ if ($result < 0) {
 
 
 		// Chargement de labels et data_xxx pour tableau 4 Movements
-		$labels = array();
-		$data_credit = array();
-		$data_debit = array();
+		$labels = [];
+		$data_credit = [];
+		$data_debit = [];
 		for ($i = 0; $i < 12; $i++) {
 			$data_credit[$i] = isset($credits[substr("0".($i + 1), -2)]) ? $credits[substr("0".($i + 1), -2)] : 0;
 			$data_debit[$i] = isset($debits[substr("0".($i + 1), -2)]) ? $debits[substr("0".($i + 1), -2)] : 0;
@@ -740,7 +740,7 @@ if ($result < 0) {
 		$file = $config->bank->dir_temp."/movement".$account."-".$year.".png";
 		$fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=bank_temp&file='."/movement".$account."-".$year.".png";
 		$title = $langs->transnoentities("BankMovements").' - '.$langs->transnoentities("Year").': '.$year;
-		$graph_datas = array();
+		$graph_datas = [];
 		foreach ($data_credit as $i => $val) {
 			$graph_datas[$i] = array($labels[$i], $data_credit[$i], $data_debit[$i]);
 		}

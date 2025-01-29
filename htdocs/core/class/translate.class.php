@@ -55,22 +55,22 @@ class Translate
 	/**
 	 * @var array<string,string>       Array of all translations key=>value
 	 */
-	public $tab_translate = array();
+	public $tab_translate = [];
 
 	/**
 	 * @var array<string,int<1,2>>       Array to store result after loading each language file
 	 */
-	private $_tab_loaded = array();
+	private $_tab_loaded = [];
 
 	/**
 	 * @var array<string,array<string,string>>		Cache for labels returned by getLabelFromKey method
 	 */
-	public $cache_labels = array();
+	public $cache_labels = [];
 
 	/**
 	 * @var array<string,array{label:string,unicode:string}>	Cache to store currency symbols
 	 */
-	public $cache_currencies = array();
+	public $cache_currencies = [];
 
 	/**
 	 * @var bool        True if all currencies have been loaded in this->cache_currencies
@@ -92,7 +92,7 @@ class Translate
 	/**
 	 * @var string[]    Array of error messages
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -128,7 +128,7 @@ class Translate
 
 		// If a module ask to force a priority on langs directories (to use its own lang files)
 		if (getDolGlobalString('MAIN_FORCELANGDIR')) {
-			$more = array();
+			$more = [];
 			$i = 0;
 			foreach ($config->file->dol_document_root as $dir) {
 				$newdir = $dir . getDolGlobalString('MAIN_FORCELANGDIR'); // For example $config->global->MAIN_FORCELANGDIR is '/mymodule' meaning we search files into '/mymodule/langs/xx_XX'
@@ -280,7 +280,7 @@ class Translate
 		$modulename = '';
 
 		// Search if a module directory name is provided into lang file name
-		$regs = array();
+		$regs = [];
 		if (preg_match('/^([^@]+)@([^@]+)$/i', $domain, $regs)) {
 			$newdomain = (string) $regs[1];
 			$modulename = (string) $regs[2];
@@ -354,7 +354,7 @@ class Translate
 
 				if (!$found) {
 					if ($fp = @fopen($file_lang, "rt")) {
-						// $tabtranslatedomain = array(); // To save lang content in cache when enabled (commented because initial = argument to function)
+						// $tabtranslatedomain = []; // To save lang content in cache when enabled (commented because initial = argument to function)
 
 						/**
 						 * Read each lines until a '=' (with any combination of spaces around it)
@@ -550,7 +550,7 @@ class Translate
 			if ($resql) {
 				$num = $db->num_rows($resql);
 				if ($num) {
-					$tabtranslatedomain = array(); // To save lang content in cache (when enabled)
+					$tabtranslatedomain = []; // To save lang content in cache (when enabled)
 
 					$i = 0;
 					while ($i < $num) {	// Ex: Need 225ms for all fgets on all lang file for Third party page. Same speed than file_get_contents
@@ -628,7 +628,7 @@ class Translate
 		}
 
 		$newstr = $key;
-		$reg = array();
+		$reg = [];
 		if (preg_match('/^Civility([0-9A-Z_]+)$/i', $key, $reg)) {
 			$newstr = $this->getLabelFromKey($db, $reg[1], 'c_civility', 'code', 'label');
 		} elseif (preg_match('/^Currency([A-Z][A-Z][A-Z])$/i', $key, $reg)) {
@@ -895,9 +895,9 @@ class Translate
 
 		// We scan directory langs to detect available languages
 		$handle = opendir($langdir . "/langs");
-		$langs_available = array();
+		$langs_available = [];
 		while ($dir = trim(readdir($handle))) {
-			$regs = array();
+			$regs = [];
 			if (preg_match('/^([a-z]+)_([A-Z]+)/i', $dir, $regs)) {
 				// We must keep only main languages
 				if ($mainlangonly) {
@@ -1008,7 +1008,7 @@ class Translate
 
 		$newnumber = $number;
 
-		$dirsubstitutions = array_merge(array(), $config->modules_parts['substitutions']);
+		$dirsubstitutions = array_merge([], $config->modules_parts['substitutions']);
 		foreach ($dirsubstitutions as $reldir) {
 			$dir = dol_buildpath($reldir, 0);
 			$newdir = dol_osencode($dir);
@@ -1172,7 +1172,7 @@ class Translate
 		$resql = $db->query($sql);
 		if ($resql) {
 			$this->load("dict");
-			$label = array();
+			$label = [];
 			if (!empty($currency_code)) {
 				foreach ($this->cache_currencies as $key => $val) {
 					$label[$key] = $val['label']; // Label in already loaded cache
@@ -1216,7 +1216,7 @@ class Translate
 	public function get_translations_for_substitutions()
 	{
 		// phpcs:enable
-		$substitutionArray = array();
+		$substitutionArray = [];
 
 		foreach ($this->tab_translate as $code => $label) {
 			$substitutionArray['lang_' . $code] = $label;

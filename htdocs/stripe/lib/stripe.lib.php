@@ -35,7 +35,7 @@ function stripeadmin_prepare_head()
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT."/stripe/admin/stripe.php";
 	$head[$h][1] = $langs->trans("Stripe");
@@ -77,7 +77,7 @@ function html_print_stripe_footer($fromcompany, $langs)
 		$line1 .= ($line1 ? " - " : "").$langs->transnoentities("CapitalOf", $fromcompany->capital)." ".$langs->transnoentities("Currency".$config->currency);
 	}
 
-	$reg = array();
+	$reg = [];
 
 	// Prof Id 1
 	if ($fromcompany->idprof1 && ($fromcompany->country_code != 'FR' || !$fromcompany->idprof2)) {

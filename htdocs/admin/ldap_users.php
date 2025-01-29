@@ -505,7 +505,7 @@ if (function_exists("ldap_connect")) {
 			// $filter = '('.ldap_escape(getDolGlobalString('LDAP_KEY_USERS'), '', LDAP_ESCAPE_FILTER).'=*)';
 			$ldapusers = $ldap->getRecords('*', getDolGlobalString('LDAP_USER_DN'), getDolGlobalString('LDAP_KEY_USERS'), $required_fields, 1);
 
-			$liste = array();
+			$liste = [];
 			if (is_array($ldapusers)) {
 				foreach ($ldapusers as $key => $ldapuser) {
 					// Define the label string for this user

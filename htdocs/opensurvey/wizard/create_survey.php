@@ -134,7 +134,7 @@ if (!empty($creation_sondage_date) || !empty($creation_sondage_autre)) {
 
 $form = new Form($db);
 
-$arrayofjs = array();
+$arrayofjs = [];
 $arrayofcss = array('/opensurvey/css/style.css');
 llxHeader('', $langs->trans("OpenSurvey"), '', "", 0, 0, $arrayofjs, $arrayofcss);
 

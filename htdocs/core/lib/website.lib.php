@@ -516,7 +516,7 @@ function dolWebsiteSaveContent($content)
  * @param 	array<string,mixed>	$parameters			Array of parameters to append to the URL.
  * @return  void
  */
-function redirectToContainer($containerref, $containeraliasalt = '', $containerid = 0, $permanent = 0, $parameters = array())
+function redirectToContainer($containerref, $containeraliasalt = '', $containerid = 0, $permanent = 0, $parameters = [])
 {
 	global $db, $website;
 	'@phan-var-force Website $website';
@@ -558,7 +558,7 @@ function redirectToContainer($containerref, $containeraliasalt = '', $containeri
 		}
 		if ($result > 0) {
 			$currenturi = $_SERVER["REQUEST_URI"];	// Example: /public/website/index.php?website=mywebsite.com&pageref=mywebsite-home&nocache=1708177483
-			$regtmp = array();
+			$regtmp = [];
 			if (preg_match('/&pageref=([^&]+)/', $currenturi, $regtmp)) {
 				if ($regtmp[0] == $containerref) {
 					print "Error, page with uri '.$currenturi.' try a redirect to the same alias page '" . $containerref . "' in web site '" . $website->ref . "'";
@@ -697,7 +697,7 @@ function includeContainer($containerref, $once = 0, $cachedelay = 0)
  * @param	array<string,mixed>	$data				Array of data parameters for structured data
  * @return  string							HTML content
  */
-function getStructuredData($type, $data = array())
+function getStructuredData($type, $data = [])
 {
 	global $config, $db, $hookManager, $langs, $mysoc, $user, $website, $websitepage, $weblangs, $pagelangs; // Very important. Required to have var available when running included containers.
 	'@phan-var-force Website $website';
@@ -1153,7 +1153,7 @@ function getPublicFilesOfObject($object)
 {
 	global $db;
 
-	$files = array();
+	$files = [];
 
 	include_once DOL_DOCUMENT_ROOT . '/core/lib/images.lib.php';
 	$regexforimg = getListOfPossibleImageExt(0);
@@ -1225,7 +1225,7 @@ function getPagesFromSearchCriterias(
 	'@phan-var-force Website $website';
 
 	$error = 0;
-	$arrayresult = array('code' => '', 'list' => array());
+	$arrayresult = array('code' => '', 'list' => []);
 
 	// Clean parameters
 	if (!is_object($weblangs)) {
@@ -1445,7 +1445,7 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 
 	dol_syslog("Call getAllImages with grabimagesinto=" . $grabimagesinto);
 
-	$alreadygrabbed = array();
+	$alreadygrabbed = [];
 
 	if (preg_match('/\/$/', $urltograb)) {
 		$urltograb .= '.';
@@ -1453,7 +1453,7 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 	$urltograb = dirname($urltograb); // So urltograb is now http://www.nltechno.com or http://www.nltechno.com/dir1
 
 	// Search X in "img...src=X"
-	$regs = array();
+	$regs = [];
 	preg_match_all('/<img([^\.\/]+)src="([^>"]+)"([^>]*)>/i', $tmp, $regs);
 
 	foreach ($regs[0] as $key => $val) {
@@ -1489,7 +1489,7 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 
 		if (empty($alreadygrabbed[$urltograbbis])) {
 			if ($grabimages) {
-				$tmpgeturl = getURLContent($urltograbbis, 'GET', '', 1, array(), array('http', 'https'), 0);
+				$tmpgeturl = getURLContent($urltograbbis, 'GET', '', 1, [], array('http', 'https'), 0);
 				if ($tmpgeturl['curl_error_no']) {
 					$error++;
 					setEventMessages('Error getting ' . $urltograbbis . ': ' . $tmpgeturl['curl_error_msg'], null, 'errors');
@@ -1554,7 +1554,7 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 
 		if (empty($alreadygrabbed[$urltograbbis])) {
 			if ($grabimages) {
-				$tmpgeturl = getURLContent($urltograbbis, 'GET', '', 1, array(), array('http', 'https'), 0);
+				$tmpgeturl = getURLContent($urltograbbis, 'GET', '', 1, [], array('http', 'https'), 0);
 				if ($tmpgeturl['curl_error_no']) {
 					$error++;
 					setEventMessages('Error getting ' . $urltograbbis . ': ' . $tmpgeturl['curl_error_msg'], null, 'errors');

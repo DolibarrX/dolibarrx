@@ -374,7 +374,7 @@ require_once 'filefunc.inc.php';
 if (GETPOST("DOL_AUTOSET_COOKIE")) {
 	$tmpautoset = explode(':', GETPOST("DOL_AUTOSET_COOKIE"), 2);
 	$tmplist = explode(',', $tmpautoset[1]);
-	$cookiearrayvalue = array();
+	$cookiearrayvalue = [];
 	foreach ($tmplist as $tmpkey) {
 		$postkey = $tmpautoset[0].'_'.$tmpkey;
 		//var_dump('tmpkey='.$tmpkey.' postkey='.$postkey.' value='.GETPOST($postkey);
@@ -838,7 +838,7 @@ if (!defined('NOLOGIN')) {
 		// Hooks for security access
 		$action = '';
 		$hookManager->initHooks(array('login'));
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('beforeLoginAuthentication', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
 		if ($resHook < 0) {
 			$test = false;
@@ -854,7 +854,7 @@ if (!defined('NOLOGIN')) {
 			$captcha = getDolGlobalString('MAIN_SECURITY_ENABLECAPTCHA_HANDLER', 'standard');
 
 			// List of directories where we can find captcha handlers
-			$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), isset($config->modules_parts['captcha']) && is_array($config->modules_parts['captcha']) ? $config->modules_parts['captcha'] : array());
+			$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), isset($config->modules_parts['captcha']) && is_array($config->modules_parts['captcha']) ? $config->modules_parts['captcha'] : []);
 			$fullpathclassfile = '';
 			foreach ($dirModCaptcha as $dir) {
 				$fullpathclassfile = dol_buildpath($dir."modCaptcha".ucfirst($captcha).'.class.php', 0, 2);
@@ -1120,7 +1120,7 @@ if (!defined('NOLOGIN')) {
 				$error++;
 			}
 
-			$paramsurl = array();
+			$paramsurl = [];
 			if (GETPOSTINT('textbrowser')) {
 				$paramsurl[] = 'textbrowser='.GETPOSTINT('textbrowser');
 			}
@@ -1204,7 +1204,7 @@ if (!defined('NOLOGIN')) {
 				$error++;
 			}
 
-			$paramsurl = array();
+			$paramsurl = [];
 			if (GETPOSTINT('textbrowser')) {
 				$paramsurl[] = 'textbrowser='.GETPOSTINT('textbrowser');
 			}
@@ -1257,7 +1257,7 @@ if (!defined('NOLOGIN')) {
 			}
 			if (!empty($_GET['save_pageforbacktolist']) && !empty($_SERVER["HTTP_REFERER"])) {    // We must use $_GET here
 				if (empty($_SESSION['pageforbacktolist'])) {
-					$pageforbacktolistarray = array();
+					$pageforbacktolistarray = [];
 				} else {
 					$pageforbacktolistarray = $_SESSION['pageforbacktolist'];
 				}
@@ -1269,7 +1269,7 @@ if (!defined('NOLOGIN')) {
 			}
 
 			$action = '';
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('updateSession', $parameters, $user, $action);
 			if ($resHook < 0) {
 				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -1553,9 +1553,9 @@ $mesg = '';
 $warning = '';
 $error = 0;
 // deprecated, see setEventMessages() and dol_htmloutput_events()
-$mesgs = array();
-$warnings = array();
-$errors = array();
+$mesgs = [];
+$warnings = [];
+$errors = [];
 
 // Constants used to defined number of lines in textarea
 if (empty($config->browser->firefox)) {
@@ -1701,7 +1701,7 @@ if (!function_exists("llxHeader")) {
 		}
 
 		if (empty($config->dol_hide_leftmenu) && !GETPOST('dol_openinpopup', 'aZ09')) {
-			left_menu('', $help_url, '', array(), 1, $title, 1); // $menumanager is retrieved with a global $menumanager inside this function
+			left_menu('', $help_url, '', [], 1, $title, 1); // $menumanager is retrieved with a global $menumanager inside this function
 		}
 
 		// main area
@@ -1861,7 +1861,7 @@ function top_httphead($contenttype = 'text/html', $forcenocache = 0)
  * @param   int<0,1>	$disablenoindex  Disable noindex tag for meta robots
  * @return	void
  */
-function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arrayofjs = array(), $arrayofcss = array(), $disableforlogin = 0, $disablenofollow = 0, $disablenoindex = 0)
+function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arrayofjs = [], $arrayofcss = [], $disableforlogin = 0, $disablenofollow = 0, $disablenoindex = 0)
 {
 	global $db, $config, $langs, $user, $mysoc, $hookManager;
 
@@ -2267,7 +2267,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 			print getDolGlobalString('MAIN_HTML_HEADER') . "\n";
 		}
 
-		$parameters = array();
+		$parameters = [];
 		$result = $hookManager->executeHooks('addHtmlHeader', $parameters); // Note that $action and $object may have been modified by some hooks
 		print $hookManager->resPrint; // Replace Title to show
 
@@ -2294,7 +2294,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
  * 						                		    For other external page: http://server/url
  *  @return		void
  */
-function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead = 0, $arrayofjs = array(), $arrayofcss = array(), $morequerystring = '', $helppagename = '')
+function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead = 0, $arrayofjs = [], $arrayofcss = [], $morequerystring = '', $helppagename = '')
 {
 	global $user, $config, $langs, $db, $form;
 	global $dolibarr_main_authentication, $dolibarr_main_demo;
@@ -2414,7 +2414,7 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
 		$toprightmenu .= '<div class="login_block_other valignmiddle">';
 
 		// Execute hook printTopRightMenu (hooks should output string like '<div class="login"><a href="">mylink</a></div>')
-		$parameters = array();
+		$parameters = [];
 		$result = $hookManager->executeHooks('printTopRightMenu', $parameters); // Note that $action and $object may have been modified by some hooks
 		if (is_numeric($result)) {
 			if ($result == 0) {
@@ -3131,7 +3131,7 @@ function printDropdownQuickadd($mode = 0)
 	$dropDownQuickAddHtml .= '<div class="dropdown-quickadd-list">';
 
 	// Allow the $items of the menu to be manipulated by modules
-	$parameters = array();
+	$parameters = [];
 	$hook_items = $items;
 	$resHook = $hookManager->executeHooks('menuDropdownQuickaddItems', $parameters, $hook_items); // Note that $action and $object may have been modified by some hooks
 	if (is_numeric($resHook) && !empty($hookManager->resArray) && is_array($hookManager->resArray)) {
@@ -3142,7 +3142,7 @@ function printDropdownQuickadd($mode = 0)
 		}
 
 		// Sort menu items by 'position' value
-		$position = array();
+		$position = [];
 		foreach ($items['items'] as $key => $row) {
 			$position[$key] = $row['position'];
 		}
@@ -3282,7 +3282,7 @@ function top_menu_search()
 	$html = '';
 
 	$usedbyinclude = 1;
-	$arrayresult = array();
+	$arrayresult = [];
 	include DOL_DOCUMENT_ROOT.'/core/ajax/selectsearchbox.php'; // This sets $arrayresult
 
 	// accesskey is for Windows or Linux:  ALT + key for chrome, ALT + SHIFT + KEY for firefox
@@ -3452,7 +3452,7 @@ function top_menu_search()
  *  @param  int<0,1>	$acceptdelayedhtml          1 if caller request to have html delayed content not returned but saved into global $delayedhtmlcontent (so caller can show it at end of page to avoid flash FOUC effect)
  *  @return	void
  */
-function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_array_after = array(), $leftmenuwithoutmainarea = 0, $title = '', $acceptdelayedhtml = 0)
+function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_array_after = [], $leftmenuwithoutmainarea = 0, $title = '', $acceptdelayedhtml = 0)
 {
 	global $user, $config, $langs, $db, $form;
 	global $hookManager, $menumanager;
@@ -3481,7 +3481,7 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 			}
 
 			$usedbyinclude = 1;
-			$arrayresult = array();
+			$arrayresult = [];
 			include DOL_DOCUMENT_ROOT.'/core/ajax/selectsearchbox.php'; // This make initHooks('searchform') then set $arrayresult
 
 			if ($config->use_javascript_ajax && !getDolGlobalString('MAIN_USE_OLD_SEARCH_FORM')) {
@@ -3692,7 +3692,7 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 		print "\n";
 
 		// Execute hook printLeftBlock
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printLeftBlock', $parameters); // Note that $action and $object may have been modified by some hooks
 		print $hookManager->resPrint;
 
@@ -3727,7 +3727,7 @@ function main_area($title = '')
 	print '<!-- Begin div class="fiche" -->'."\n".'<div class="fiche">'."\n";
 
 	$hookManager->initHooks(array('main'));
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printMainArea', $parameters); // Note that $action and $object may have been modified by some hooks
 	print $hookManager->resPrint;
 
@@ -3737,7 +3737,7 @@ function main_area($title = '')
 
 	// Permit to add user company information on each printed document by setting SHOW_SOCINFO_ON_PRINT
 	if (getDolGlobalString('SHOW_SOCINFO_ON_PRINT') && GETPOST('optioncss', 'aZ09') == 'print' && empty(GETPOST('disable_show_socinfo_on_print', 'aZ09'))) {
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('showSocinfoOnPrint', $parameters);
 		if (empty($resHook)) {
 			print '<!-- Begin show mysoc info header -->'."\n";
@@ -3789,7 +3789,7 @@ function getHelpParamFor($helppagename, $langs)
 		$mode = 'local';
 	} else {
 		// If WIKI URL
-		$reg = array();
+		$reg = [];
 		if (preg_match('/^es/i', $langs->defaultlang)) {
 			$helpbaseurl = 'http://wiki.dolibarr.org/index.php/%s';
 			if (preg_match('/ES:([^|]+)/i', $helppagename, $reg)) {
@@ -3887,7 +3887,7 @@ if (!function_exists("llxFooter")) {
 
 		// Hook to add more things on all pages within fiche DIV
 		$llxfooter = '';
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('llxFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($resHook)) {
 			$llxfooter .= $hookManager->resPrint;
@@ -4126,7 +4126,7 @@ if (!function_exists("llxFooter")) {
 			}
 		}
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('beforeBodyClose', $parameters); // Note that $action and $object may have been modified by some hooks
 		if ($resHook > 0) {
 			print $hookManager->resPrint;

@@ -116,7 +116,7 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 
 // Delete draft
 if (($massaction == "delete" || ($action == 'delete' && $confirm == 'yes')) && $permissiontodelete) {
-	$TMsg = array();
+	$TMsg = [];
 	$db->begin();
 	$objecttmp = new BonPrelevement($db);
 	$nbignored = 0;
@@ -248,7 +248,7 @@ $num = $db->num_rows($resql);
 
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'bodyforlist');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 $param = '';
 $param .= "&statut=".urlencode((string) ($statut));
 if ($type == 'bank-transfer') {
@@ -312,7 +312,7 @@ $moreforfilter = '';
  $moreforfilter.= $langs->trans('MyFilter') . ': <input type="text" name="search_myfield" value="'.dol_escape_htmltag($search_myfield).'">';
  $moreforfilter.= '</div>';*/
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -357,7 +357,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -388,7 +388,7 @@ print '</tr>'."\n";
 
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 $imaxinloop = ($limit ? min($num, $limit) : $num);

@@ -116,7 +116,7 @@ class Interventions extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $thirdparty_ids param is ignored and replaced by user's socid
 		$socids = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : $thirdparty_ids;
@@ -238,7 +238,7 @@ class Interventions extends DolibarrApi
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 		$this->fichinter->getLinesArray();
-		$result = array();
+		$result = [];
 		foreach ($this->fichinter->lines as $line) {
 			array_push($result,$this->_cleanObjectDatas($line));
 		}
@@ -418,7 +418,7 @@ class Interventions extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$fichinter = array();
+		$fichinter = [];
 		foreach (Interventions::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");
@@ -457,7 +457,7 @@ class Interventions extends DolibarrApi
 	 */
 	private function _validateLine($data)
 	{
-		$fichinter = array();
+		$fichinter = [];
 		foreach (Interventions::$FIELDSLINE as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

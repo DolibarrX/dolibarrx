@@ -192,35 +192,35 @@ class Product extends CommonObject
 	/**
 	 * @var array<int,float>
 	 */
-	public $multiprices = array();
+	public $multiprices = [];
 	/**
 	 * @var array<int,float>
 	 */
-	public $multiprices_ttc = array();
+	public $multiprices_ttc = [];
 	/**
 	 * @var array<int,string>
 	 */
-	public $multiprices_base_type = array();
+	public $multiprices_base_type = [];
 	/**
 	 * @var array<int,string>
 	 */
-	public $multiprices_default_vat_code = array();
+	public $multiprices_default_vat_code = [];
 	/**
 	 * @var array<int,float>
 	 */
-	public $multiprices_min = array();
+	public $multiprices_min = [];
 	/**
 	 * @var array<int,float>
 	 */
-	public $multiprices_min_ttc = array();
+	public $multiprices_min_ttc = [];
 	/**
 	 * @var array<int,null|int|float|string>
 	 */
-	public $multiprices_tva_tx = array();
+	public $multiprices_tva_tx = [];
 	/**
 	 * @var array<int,int>
 	 */
-	public $multiprices_recuperableonly = array();
+	public $multiprices_recuperableonly = [];
 
 	//! Price by quantity arrays
 	/**
@@ -230,15 +230,15 @@ class Product extends CommonObject
 	/**
 	 * @var array<int,float>
 	 */
-	public $prices_by_qty = array();
+	public $prices_by_qty = [];
 	/**
 	 * @var array<int,float>
 	 */
-	public $prices_by_qty_id = array();
+	public $prices_by_qty_id = [];
 	/**
 	 * @var array<int,array<array{rowid:int,price_base_type:string,unitprice:string}>>
 	 */
-	public $prices_by_qty_list = array();
+	public $prices_by_qty_list = [];
 
 	/**
 	 * @var int price level set after updateprice for trigger
@@ -248,7 +248,7 @@ class Product extends CommonObject
 	/**
 	 * @var ?array<string,array{label:string,description:string,note?:string}>	Array for multilangs
 	 */
-	public $multilangs = array();
+	public $multilangs = [];
 
 	/**
 	 * @var string Default VAT code for product (link to code into llx_c_tva but without foreign keys)
@@ -605,72 +605,72 @@ class Product extends CommonObject
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats propales
 	 */
-	public $stats_propale = array();
+	public $stats_propale = [];
 
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats orders
 	 */
-	public $stats_order = array();
+	public $stats_order = [];
 
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats contracts
 	 */
-	public $stats_contrat = array();
+	public $stats_contrat = [];
 
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats invoices
 	 */
-	public $stats_facture = array();
+	public $stats_facture = [];
 
 	/**
 	 * @var array{}|array{suppliers:int,nb:int,rows:int,qty:float} stats supplier propales
 	 */
-	public $stats_proposal_supplier = array();
+	public $stats_proposal_supplier = [];
 
 	/**
 	 * @var array{}|array{suppliers:int,nb:int,rows:int,qty:float} stats supplier orders
 	 */
-	public $stats_order_fournisseur = array();
+	public $stats_order_fournisseur = [];
 
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats shipping
 	 */
-	public $stats_expedition = array();
+	public $stats_expedition = [];
 
 	/**
 	 * @var array{}|array{suppliers:int,nb:int,rows:int,qty:float} stats receptions
 	 */
-	public $stats_reception = array();
+	public $stats_reception = [];
 
 	/**
 	 * @var array{}|array{customers_toconsume:int,nb_toconsume:int,qty_toconsume:float,customers_consumed:int,nb_consumed:int,qty_consumed:float,customers_toproduce:int,nb_toproduce:int,qty_toproduce:float,customers_produced:int,nb_produced:int,qty_produced:float} stats by role toconsume, consumed, toproduce, produced
 	 */
-	public $stats_mo = array();
+	public $stats_mo = [];
 
 	/**
 	 * @var array{}|array{nb_toproduce:int,nb_toconsume:int,qty_toproduce:float,qty_toconsume:float}
 	 */
-	public $stats_bom = array();
+	public $stats_bom = [];
 
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats mrp to consume
 	 */
-	public $stats_mrptoconsume = array();
+	public $stats_mrptoconsume = [];
 
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats mrp to produce
 	 */
-	public $stats_mrptoproduce = array();
+	public $stats_mrptoproduce = [];
 
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats facture rec
 	 */
-	public $stats_facturerec = array();
+	public $stats_facturerec = [];
 
 	/**
 	 * @var array{}|array{suppliers:int,nb:int,rows:int,qty:float} stats supplier invoices
 	 */
-	public $stats_facture_fournisseur = array();
+	public $stats_facture_fournisseur = [];
 
 	/**
 	 * @var int|string Size of image / height
@@ -702,7 +702,7 @@ class Product extends CommonObject
 	/**
 	 * @var array<int,stdClass> Contains detail of stock of product into each warehouse
 	 */
-	public $stock_warehouse = array();
+	public $stock_warehouse = [];
 
 	/**
 	 * @var int Default warehouse Id
@@ -1255,7 +1255,7 @@ class Product extends CommonObject
 	{
 		global $langs;
 
-		$this->errors = array();
+		$this->errors = [];
 
 		$result = 0;
 		$this->ref = trim($this->ref);
@@ -2209,11 +2209,11 @@ class Product extends CommonObject
 
 		foreach ($testExit as $field) {
 			if (!isset($this->$field)) {
-				return array();
+				return [];
 			}
 			$tmparray = $this->$field;
 			if (!isset($tmparray[$level])) {
-				return array();
+				return [];
 			}
 		}
 
@@ -2650,7 +2650,7 @@ class Product extends CommonObject
 	 * @param	int    			$notrigger			Disable triggers
 	 * @return	int<-1,1>							Return integer <0 if KO, >0 if OK
 	 */
-	public function updatePrice($newprice, $newpricebase, $user, $newvat = null, $newminprice = 0, $level = 0, $newnpr = 0, $newpbq = 0, $ignore_autogen = 0, $localtaxes_array = array(), $newdefaultvatcode = '', $price_label = '', $notrigger = 0)
+	public function updatePrice($newprice, $newpricebase, $user, $newvat = null, $newminprice = 0, $level = 0, $newnpr = 0, $newpbq = 0, $ignore_autogen = 0, $localtaxes_array = [], $newdefaultvatcode = '', $price_label = '', $notrigger = 0)
 	{
 		$lastPriceData = $this->getArrayForPriceCompare($level); // temporary store current price before update
 
@@ -3122,10 +3122,10 @@ class Product extends CommonObject
 							 $resql = $this->db->query($sql);
 							 if ($resql)
 							 {
-							 $resultat=array();
+							 $resultat=[];
 							 $ii=0;
 							 while ($result= $this->db->fetch_array($resql)) {
-							 $resultat[$ii]=array();
+							 $resultat[$ii]=[];
 							 $resultat[$ii]["rowid"]=$result["rowid"];
 							 $resultat[$ii]["price"]= $result["price"];
 							 $resultat[$ii]["unitprice"]= $result["unitprice"];
@@ -3175,10 +3175,10 @@ class Product extends CommonObject
 
 								$resql = $this->db->query($sql);
 								if ($resql) {
-									$resultat = array();
+									$resultat = [];
 									$ii = 0;
 									while ($result = $this->db->fetch_array($resql)) {
-										$resultat[$ii] = array();
+										$resultat[$ii] = [];
 										$resultat[$ii]["rowid"] = $result["rowid"];
 										$resultat[$ii]["price"] = $result["price"];
 										$resultat[$ii]["unitprice"] = $result["unitprice"];
@@ -3236,10 +3236,10 @@ class Product extends CommonObject
 
 								$resql = $this->db->query($sql);
 								if ($resql) {
-									$resultat = array();
+									$resultat = [];
 									$ii = 0;
 									while ($result = $this->db->fetch_array($resql)) {
-										$resultat[$ii] = array();
+										$resultat[$ii] = [];
 										$resultat[$ii]["rowid"] = $result["rowid"];
 										$resultat[$ii]["price"] = $result["price"];
 										$resultat[$ii]["unitprice"] = $result["unitprice"];
@@ -3273,7 +3273,7 @@ class Product extends CommonObject
 
 				// We should not load stock during the fetch. If someone need stock of product, he must call load_stock after fetching product.
 				// Instead we just init the stock_warehouse array
-				$this->stock_warehouse = array();
+				$this->stock_warehouse = [];
 
 				return 1;
 			} else {
@@ -4293,7 +4293,7 @@ class Product extends CommonObject
 	private function _get_stats($sql, $mode, $year = 0)
 	{
 		// phpcs:enable
-		$tab = array();
+		$tab = [];
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -4335,7 +4335,7 @@ class Product extends CommonObject
 			$month = 12; // We imagine we are at end of year, so we get last 12 month before, so all correct year.
 		}
 
-		$result = array();
+		$result = [];
 
 		for ($j = 0; $j < 12; $j++) {
 			// $ids is 'D', 'N', 'O', 'S', ... (First letter of month in user language)
@@ -5119,7 +5119,7 @@ class Product extends CommonObject
 		// phpcs:enable
 		global $config;
 
-		$list = array();
+		$list = [];
 
 		$sql = "SELECT DISTINCT p.fk_soc";
 		$sql .= " FROM ".$this->db->prefix()."product_fournisseur_price as p";
@@ -5380,7 +5380,7 @@ class Product extends CommonObject
 	public function get_arbo_each_prod($multiply = 1, $ignore_stock_load = 0)
 	{
 		// phpcs:enable
-		$this->res = array();
+		$this->res = [];
 		if (isset($this->sousprods) && is_array($this->sousprods)) {
 			foreach ($this->sousprods as $prod_name => $desc_product) {
 				if (is_array($desc_product)) {
@@ -5492,10 +5492,10 @@ class Product extends CommonObject
 
 		$res = $this->db->query($sql);
 		if ($res) {
-			$prods = array();
+			$prods = [];
 			while ($record = $this->db->fetch_array($res)) {
 				// $record['id'] = $record['rowid'] = id of father
-				$prods[$record['id']] = array();
+				$prods[$record['id']] = [];
 				$prods[$record['id']]['id'] = $record['rowid'];
 				$prods[$record['id']]['ref'] = $record['ref'];
 				$prods[$record['id']]['label'] = $record['label'];
@@ -5523,12 +5523,12 @@ class Product extends CommonObject
 	 * @param	int[]	$parents   	    Array of all parents of $id
 	 * @return	array<int,array{0:int,1:float,2:int,3:string,4:int,5:string}>|array{}|int<-1,-1>	Return array(prodid=>array(0=prodid, 1=>qty, 2=>product type, 3=>label, 4=>incdec, 5=>product ref,6:int,7:int)
 	 */
-	public function getChildsArbo($id, $firstlevelonly = 0, $level = 1, $parents = array())
+	public function getChildsArbo($id, $firstlevelonly = 0, $level = 1, $parents = [])
 	{
 		global $alreadyfound;
 
 		if (empty($id)) {
-			return array();
+			return [];
 		}
 
 		$sql = "SELECT p.rowid, p.ref, p.label as label, p.fk_product_type,";
@@ -5548,12 +5548,12 @@ class Product extends CommonObject
 		}
 		// Protection against infinite loop
 		if ($level > 30) {
-			return array();
+			return [];
 		}
 
 		$res = $this->db->query($sql);
 		if ($res) {
-			$prods = array();
+			$prods = [];
 			while ($rec = $this->db->fetch_array($res)) {
 				if (!empty($alreadyfound[$rec['rowid']])) {
 					dol_syslog(get_class($this).'::getChildsArbo the product id='.$rec['rowid'].' was already found at a higher level in tree. We discard to avoid infinite loop', LOG_WARNING);
@@ -5600,7 +5600,7 @@ class Product extends CommonObject
 	public function get_sousproduits_arbo()
 	{
 		// phpcs:enable
-		$parent = array();
+		$parent = [];
 
 		foreach ($this->getChildsArbo($this->id) as $keyChild => $valueChild) {    // Warning. getChildsArbo can call getChildsArbo recursively. Starting point is $value[0]=id of product
 			$parent[$this->label][$keyChild] = $valueChild;
@@ -5623,7 +5623,7 @@ class Product extends CommonObject
 
 		$langs->loadLangs(array('products', 'other'));
 
-		$datas = array();
+		$datas = [];
 		$nofetch = !empty($params['nofetch']);
 
 		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
@@ -6050,7 +6050,7 @@ class Product extends CommonObject
 				}
 				$nbpiece = abs($nbpiece);
 			}
-			$op = array();
+			$op = [];
 			$op[0] = "+".trim((string) $nbpiece);
 			$op[1] = "-".trim((string) $nbpiece);
 
@@ -6114,7 +6114,7 @@ class Product extends CommonObject
 				$nbpiece = abs($nbpiece);
 			}
 
-			$op = array();
+			$op = [];
 			$op[0] = "+".trim((string) $nbpiece);
 			$op[1] = "-".trim((string) $nbpiece);
 
@@ -6158,11 +6158,11 @@ class Product extends CommonObject
 	{
 		// phpcs:enable
 		$this->stock_reel = 0;
-		$this->stock_warehouse = array();
+		$this->stock_warehouse = [];
 		$this->stock_theorique = 0;
 
 		// Set filter on warehouse status
-		$warehouseStatus = array();
+		$warehouseStatus = [];
 		if (preg_match('/warehouseclosed/', $option)) {
 			$warehouseStatus[Entrepot::STATUS_CLOSED] = Entrepot::STATUS_CLOSED;
 		}
@@ -6378,7 +6378,7 @@ class Product extends CommonObject
 	 */
 	public function loadBatchInfo($batch)
 	{
-		$result = array();
+		$result = [];
 
 		$sql = "SELECT pb.batch, pb.eatby, pb.sellby, SUM(pb.qty) AS qty FROM ".$this->db->prefix()."product_batch as pb, ".$this->db->prefix()."product_stock as ps";
 		$sql .= " WHERE pb.fk_product_stock = ps.rowid AND ps.fk_product = ".((int) $this->id)." AND pb.batch = '".$this->db->escape($batch)."'";
@@ -6397,7 +6397,7 @@ class Product extends CommonObject
 		} else {
 			dol_print_error($this->db);
 			$this->db->rollback();
-			return array();
+			return [];
 		}
 	}
 
@@ -6500,7 +6500,7 @@ class Product extends CommonObject
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 
 		$nbphoto = 0;
-		$tabobj = array();
+		$tabobj = [];
 
 		$dir_osencoded = dol_osencode($dir);
 		$handle = @opendir($dir_osencoded);
@@ -6515,7 +6515,7 @@ class Product extends CommonObject
 					// We forge name of thumb.
 					$photo = $file;
 					$photo_vignette = '';
-					$regs = array();
+					$regs = [];
 					if (preg_match('/('.$this->regeximgext.')$/i', $photo, $regs)) {
 						$photo_vignette = preg_replace('/'.$regs[0].'/i', '', $photo).'_small'.$regs[0];
 					}
@@ -6523,7 +6523,7 @@ class Product extends CommonObject
 					$dirthumb = $dir.'thumbs/';
 
 					// Object
-					$obj = array();
+					$obj = [];
 					$obj['photo'] = $photo;
 					if ($photo_vignette && dol_is_file($dirthumb.$photo_vignette)) {
 						$obj['photo_vignette'] = 'thumbs/'.$photo_vignette;
@@ -6605,14 +6605,14 @@ class Product extends CommonObject
 	{
 		global $hookManager;
 
-		$this->nb = array();
+		$this->nb = [];
 
 		$sql = "SELECT count(p.rowid) as nb, fk_product_type";
 		$sql .= " FROM ".$this->db->prefix()."product as p";
 		$sql .= ' WHERE p.entity IN ('.getEntity($this->element, 1).')';
 		// Add where from hooks
 		if (is_object($hookManager)) {
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 		}
@@ -6886,7 +6886,7 @@ class Product extends CommonObject
 		$sql = "SELECT rowid, level, fk_level, var_percent, var_min_percent FROM ".$this->db->prefix()."product_pricerules";
 		$query = $this->db->query($sql);
 
-		$rules = array();
+		$rules = [];
 
 		while ($result = $this->db->fetch_object($query)) {
 			$rules[$result->level] = $result;
@@ -7103,7 +7103,7 @@ class Product extends CommonObject
 				LIMIT " . ((int) $limit);
 
 		$resql = $this->db->query($sql);
-		$products = array();
+		$products = [];
 
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {

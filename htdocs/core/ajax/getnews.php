@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && GETPOSTISSET('selectedIds')) {
 	$selectedIds = json_decode(GETPOST('selectedIds'), true);
 
 	$websitepage = new WebsitePage($db);
-	$selectedPosts = array();
+	$selectedPosts = [];
 
 	foreach ($selectedIds as $id) {
 		$blog = new WebsitePage($db);

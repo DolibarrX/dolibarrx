@@ -147,10 +147,10 @@ class pdf_eratosthene extends ModelePDFOrders
 
 		//  Use new system for position of columns, view  $this->defineColumnField()
 
-		$this->tva = array();
-		$this->tva_array = array();
-		$this->localtax1 = array();
-		$this->localtax2 = array();
+		$this->tva = [];
+		$this->tva_array = [];
+		$this->localtax1 = [];
+		$this->localtax2 = [];
 		$this->atleastoneratenotnull = 0;
 		$this->atleastonediscount = 0;
 	}
@@ -203,7 +203,7 @@ class pdf_eratosthene extends ModelePDFOrders
 		$hidetop = getDolGlobalInt('MAIN_PDF_DISABLE_COL_HEAD_TITLE');
 
 		// Loop on each lines to detect if there is at least one image to show
-		$realpatharray = array();
+		$realpatharray = [];
 		$this->atleastonephoto = false;
 		if (getDolGlobalInt('MAIN_GENERATE_ORDERS_WITH_PICTURE')) {
 			$objphoto = new Product($this->db);
@@ -213,7 +213,7 @@ class pdf_eratosthene extends ModelePDFOrders
 					continue;
 				}
 
-				$pdir = array();
+				$pdir = [];
 
 				$objphoto->fetch($object->lines[$i]->fk_product);
 				//var_dump($objphoto->ref);exit;
@@ -572,7 +572,7 @@ class pdf_eratosthene extends ModelePDFOrders
 					$pdf->SetTextColor(0, 0, 0);
 
 					// Define size of image if we need it
-					$imglinesize = array();
+					$imglinesize = [];
 					if (!empty($realpatharray[$i])) {
 						$imglinesize = pdf_getSizeForImage($realpatharray[$i]);
 					}

@@ -166,12 +166,12 @@ $tmpe = dol_getdate($date_end);
 $year_end = $tmpe['year'];
 $nbofyear = ($year_end - $year_start) + 1;
 
-$commonparams = array();
+$commonparams = [];
 $commonparams['modecompta'] = $modecompta;
 $commonparams['sortorder'] = $sortorder;
 $commonparams['sortfield'] = $sortfield;
 
-$headerparams = array();
+$headerparams = [];
 if (!empty($date_startyear)) {
 	$headerparams['date_startyear'] = $date_startyear;
 }
@@ -194,7 +194,7 @@ if (!empty($q)) {
 	$headerparams['q'] = $q;
 }
 
-$tableparams = array();
+$tableparams = [];
 $tableparams['search_categ'] = $selected_cat;
 $tableparams['search_societe'] = $search_societe;
 $tableparams['search_zip'] = $search_zip;
@@ -277,7 +277,7 @@ if (isModEnabled('accounting') && $modecompta != 'BOOKKEEPING') {
 }
 
 
-$name = array();
+$name = [];
 
 // Show Array
 $catotal = 0;
@@ -366,11 +366,11 @@ $sql .= " GROUP BY s.rowid, s.nom, s.name_alias, s.zip, s.town, s.fk_pays";
 $sql .= " ORDER BY s.rowid";
 //echo $sql;
 
-$amount = array();
-$amount_ht = array();
-$address_zip = array();
-$address_town = array();
-$address_pays = array();
+$amount = [];
+$amount_ht = [];
+$address_zip = [];
+$address_town = [];
+$address_pays = [];
 
 dol_syslog("casoc", LOG_DEBUG);
 $result = $db->query($sql);

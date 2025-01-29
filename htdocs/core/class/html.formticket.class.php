@@ -183,11 +183,11 @@ class FormTicket
 	 *
 	 * @var array<string,string> $substit Substitutions
 	 */
-	public $substit = array();
+	public $substit = [];
 	/**
 	 * @var array<string,mixed|array>
 	 */
-	public $param = array();
+	public $param = [];
 
 	/**
 	 * @var string Error code (or message)
@@ -196,7 +196,7 @@ class FormTicket
 	/**
 	 * @var string[]
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -437,7 +437,7 @@ class FormTicket
 		if (isset($this->param['origin']) && $this->param['originid'] > 0) {
 			// Parse element/subelement (ex: project_task)
 			$element = $subelement = $this->param['origin'];
-			$regs = array();
+			$regs = [];
 			if (preg_match('/^([^_]+)_([^_]+)/i', $this->param['origin'], $regs)) {
 				$element = $regs[1];
 				$subelement = $regs[2];
@@ -585,9 +585,9 @@ class FormTicket
 		// Attached files
 		if (!empty($this->withfile)) {
 			// Define list of attached files
-			$listofpaths = array();
-			$listofnames = array();
-			$listofmimes = array();
+			$listofpaths = [];
+			$listofnames = [];
+			$listofmimes = [];
 			if (!empty($_SESSION["listofpaths"])) {
 				$listofpaths = explode(';', $_SESSION["listofpaths"]);
 			}
@@ -658,7 +658,7 @@ class FormTicket
 			if (empty($user->socid)) {
 				// Company
 				print '<tr><td class="titlefield">'.$langs->trans("ThirdParty").'</td><td>';
-				$events = array();
+				$events = [];
 				$events[] = array('method' => 'getContacts', 'url' => dol_buildpath('/core/ajax/contacts.php', 1), 'htmlname' => 'contactid', 'params' => array('add-customer-contact' => 'disabled'));
 				print img_picture('', 'company', 'class="paddingright"');
 				print $form->select_company($this->withfromsocid, 'socid', '', 1, 1, 0, $events, 0, 'minwidth200');
@@ -776,7 +776,7 @@ class FormTicket
 		}
 
 		// Other attributes
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $ticketstat, $action); // Note that $action and $object may have been modified by hook
 		if (empty($resHook)) {
 			if ($mode == 'create') {
@@ -795,7 +795,7 @@ class FormTicket
 			$captcha = getDolGlobalString('MAIN_SECURITY_ENABLECAPTCHA_HANDLER', 'standard');
 
 			// List of directories where we can find captcha handlers
-			$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), is_array($config->modules_parts['captcha']) ? $config->modules_parts['captcha'] : array());
+			$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), is_array($config->modules_parts['captcha']) ? $config->modules_parts['captcha'] : []);
 
 			$fullpathclassfile = '';
 			foreach ($dirModCaptcha as $dir) {
@@ -881,12 +881,12 @@ class FormTicket
 	{
 		global $langs, $user;
 
-		$selected = is_array($selected) ? $selected : (!empty($selected) ? explode(',', $selected) : array());
+		$selected = is_array($selected) ? $selected : (!empty($selected) ? explode(',', $selected) : []);
 		$ticketstat = new Ticket($this->db);
 
 		dol_syslog(get_class($this) . "::select_types_tickets " . implode(';', $selected) . ", " . $htmlname . ", " . $filtertype . ", " . $format . ", " . $multiselect, LOG_DEBUG);
 
-		$filterarray = array();
+		$filterarray = [];
 
 		if ($filtertype != '' && $filtertype != '-1') {
 			$filterarray = explode(',', $filtertype);
@@ -1078,7 +1078,7 @@ class FormTicket
 
 			print ajax_combobox('select'.$htmlname);
 		} elseif ($htmlname != '') {	// complexe mode using selection of group using a combo for each level (when using a hierarchy of groups).
-			$selectedgroups = array();
+			$selectedgroups = [];
 			$groupvalue = "";
 			$groupticket = GETPOST($htmlname, 'aZ09');
 			$child_id = GETPOST($htmlname.'_child_id', 'aZ09') ? GETPOST($htmlname.'_child_id', 'aZ09') : 0;
@@ -1101,9 +1101,9 @@ class FormTicket
 				}
 			}
 
-			$arrayidused = array();
-			$arrayidusedconcat = array();
-			$arraycodenotparent = array();
+			$arrayidused = [];
+			$arrayidusedconcat = [];
+			$arraycodenotparent = [];
 			$arraycodenotparent[] = "";
 
 			$stringtoprint = '<span class="supportemailfield bold">'.$langs->trans("GroupOfTicket").'</span> ';
@@ -1167,7 +1167,7 @@ class FormTicket
 
 			$levelid = 1;	// The first combobox
 			while ($levelid <= $use_multilevel) {	// Loop to take the child of the combo
-				$tabscript = array();
+				$tabscript = [];
 				$stringtoprint .= '<select id="'.$htmlname.'_child_'.$levelid.'" class="maxwidth500 minwidth400 groupticketchild" child_id="'.$levelid.'">';
 				$stringtoprint .= '<option value="">&nbsp;</option>';
 
@@ -1196,7 +1196,7 @@ class FormTicket
 				if ($resql) {
 					$num_rows = $this->db->num_rows($resql);
 					$i = 0;
-					$arrayidused = array();
+					$arrayidused = [];
 					while ($i < $num_rows) {
 						$obj = $this->db->fetch_object($resql);
 						if ($obj) {
@@ -1340,7 +1340,7 @@ class FormTicket
 
 		dol_syslog(get_class($this)."::selectSeveritiesTickets ".$selected.", ".$htmlname.", ".$filtertype.", ".$format, LOG_DEBUG);
 
-		$filterarray = array();
+		$filterarray = [];
 
 		if ($filtertype != '' && $filtertype != '-1') {
 			$filterarray = explode(',', $filtertype);
@@ -1506,9 +1506,9 @@ class FormTicket
 		}
 
 		// Define list of attached files
-		$listofpaths = array();
-		$listofnames = array();
-		$listofmimes = array();
+		$listofpaths = [];
+		$listofnames = [];
+		$listofmimes = [];
 
 		if (!empty($this->trackid)) {
 			$keytoavoidconflict = '-'.$this->trackid;
@@ -1623,7 +1623,7 @@ class FormTicket
 		if ($result < 0) {
 			setEventMessages($this->error, $this->errors, 'errors');
 		}
-		$modelmail_array = array();
+		$modelmail_array = [];
 		foreach ($formmail->lines_model as $line) {
 			$modelmail_array[$line->id] = $line->label;
 		}
@@ -1701,7 +1701,7 @@ class FormTicket
 				$contacts = $ticketstat->getInfosTicketInternalContact(1);
 				$contacts = array_merge($contacts, $ticketstat->getInfosTicketExternalContact(1));
 
-				$sendto = array();
+				$sendto = [];
 
 				// Build array to display recipient list
 				if (is_array($contacts) && count($contacts) > 0) {

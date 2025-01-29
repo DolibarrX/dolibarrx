@@ -78,9 +78,9 @@ class box_graph_nb_tickets_type extends ModeleBoxes
 			'limit' => dol_strlen($text)
 		);
 
-		$listofopplabel = array();
-		$listofoppcode = array();
-		$colorseriesstat = array();
+		$listofopplabel = [];
+		$listofoppcode = [];
+		$colorseriesstat = [];
 		if ($user->hasRight('ticket', 'read')) {
 			$sql = "SELECT ctt.rowid, ctt.label, ctt.code";
 			$sql .= " FROM " . MAIN_DB_PREFIX . "c_ticket_type as ctt";
@@ -92,7 +92,7 @@ class box_graph_nb_tickets_type extends ModeleBoxes
 				$num = $this->db->num_rows($resql);
 				$i = 0;
 				$newcolorkey = 0;
-				$colorused = array();
+				$colorused = [];
 				while ($i < $num) {
 					$objp = $this->db->fetch_object($resql);
 					$listofoppcode[$objp->rowid] = $objp->code;
@@ -112,8 +112,8 @@ class box_graph_nb_tickets_type extends ModeleBoxes
 			} else {
 				dol_print_error($this->db);
 			}
-			$dataseries = array();
-			$data = array();
+			$dataseries = [];
+			$data = [];
 			$sql = "SELECT t.type_code, COUNT(t.type_code) as nb";
 			$sql .= " FROM " . MAIN_DB_PREFIX . "ticket as t";
 			$sql .= " WHERE t.fk_statut <> 8";
@@ -146,8 +146,8 @@ class box_graph_nb_tickets_type extends ModeleBoxes
 				$totalnb = 0;
 				if (!$mesg) {
 					$px1->SetDataColor(array_values($colorseriesstat));
-					$data = array();
-					$legend = array();
+					$data = [];
+					$legend = [];
 					foreach ($dataseries as $value) {
 						$data[] = array($value['label'], $value['data']);
 						$totalnb += $value['data'];

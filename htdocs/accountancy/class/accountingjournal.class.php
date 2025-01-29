@@ -77,7 +77,7 @@ class AccountingJournal extends CommonObject
 	/**
 	 * @var array<string,array{found:bool,label:string,code_formatted_1:string,label_formatted_1:string,label_formatted_2:string}> 	Accounting account cached
 	 */
-	public static $accounting_account_cached = array();
+	public static $accounting_account_cached = [];
 
 	/**
 	 * @var array<int,string>	Nature mapping
@@ -363,7 +363,7 @@ class AccountingJournal extends CommonObject
 			$in_bookkeeping = 'notyet';
 		}
 
-		$data = array();
+		$data = [];
 
 		$hookManager->initHooks(array('accountingjournaldao'));
 		$parameters = array('data' => &$data, 'user' => $user, 'type' => $type, 'date_start' => $date_start, 'date_end' => $date_end, 'in_bookkeeping' => $in_bookkeeping);
@@ -404,7 +404,7 @@ class AccountingJournal extends CommonObject
 		global $config, $langs;
 
 		if (!isModEnabled('asset')) {
-			return array();
+			return [];
 		}
 
 		require_once DOL_DOCUMENT_ROOT . '/core/lib/accounting.lib.php';
@@ -452,7 +452,7 @@ class AccountingJournal extends CommonObject
 		}
 
 		$pre_data = array(
-			'elements' => array(),
+			'elements' => [],
 		);
 		while ($obj = $this->db->fetch_object($resql)) {
 			if (!isset($pre_data['elements'][$obj->rowid])) {
@@ -460,7 +460,7 @@ class AccountingJournal extends CommonObject
 					'ref' => $obj->asset_ref,
 					'label' => $obj->asset_label,
 					'acquisition_value_ht' => $obj->asset_acquisition_value_ht,
-					'depreciation' => array(),
+					'depreciation' => [],
 				);
 
 				// Disposal infos
@@ -494,7 +494,7 @@ class AccountingJournal extends CommonObject
 
 		$element_static = new Asset($this->db);
 
-		$journal_data = array();
+		$journal_data = [];
 		foreach ($pre_data['elements'] as $pre_data_id => $pre_data_info) {
 			$element_static->id = $pre_data_id;
 			$element_static->ref = (string) $pre_data_info["ref"];
@@ -508,7 +508,7 @@ class AccountingJournal extends CommonObject
 			$element = array(
 				'ref' => dol_trunc($element_static->ref, 16, 'right', 'UTF-8', 1),
 				'error' => array_key_exists('error', $pre_data_info) ? $pre_data_info['error'] : '',
-				'blocks' => array(),
+				'blocks' => [],
 			);
 
 			// Depreciation lines
@@ -519,7 +519,7 @@ class AccountingJournal extends CommonObject
 				$depreciation_date_formatted = dol_print_date($depreciation_date, 'day');
 
 				// lines
-				$blocks = array();
+				$blocks = [];
 				foreach ($line['lines'] as $account => $mt) {
 					$account_infos = $this->getAccountingAccountInfos($account);
 
@@ -626,7 +626,7 @@ class AccountingJournal extends CommonObject
 								}
 							}
 
-							$lines = array();
+							$lines = [];
 							$lines[0][$accountancy_code_value_asset_sold] = - ((float) $element_static->acquisition_value_ht - $last_cumulative_amount_ht);
 							$lines[0][$accountancy_code_depreciation_asset] = -(float) $last_cumulative_amount_ht;
 							$lines[0][$accountancy_code_asset] = $element_static->acquisition_value_ht;
@@ -639,7 +639,7 @@ class AccountingJournal extends CommonObject
 							$lines[1][$accountancy_code_proceeds_from_sales] = $disposal_amount;
 
 							foreach ($lines as $lines_block) {
-								$blocks = array();
+								$blocks = [];
 								foreach ($lines_block as $account => $mt) {
 									$account_infos = $this->getAccountingAccountInfos($account);
 
@@ -754,7 +754,7 @@ class AccountingJournal extends CommonObject
 	 * @param	int		$max_nb_errors			Nb errors authorized before stopping the process
 	 * @return 	int								Return integer <0 if KO, >0 if OK
 	 */
-	public function writeIntoBookkeeping(User $user, &$journal_data = array(), $max_nb_errors = 10)
+	public function writeIntoBookkeeping(User $user, &$journal_data = [], $max_nb_errors = 10)
 	{
 		global $config, $langs, $hookManager;
 		require_once DOL_DOCUMENT_ROOT . '/accountancy/class/bookkeeping.class.php';
@@ -771,7 +771,7 @@ class AccountingJournal extends CommonObject
 		} elseif (empty($resHook)) {
 			// Clean parameters
 			if (!is_array($journal_data)) {
-				$journal_data = array();
+				$journal_data = [];
 			}
 
 			foreach ($journal_data as $element_id => $element) {
@@ -897,7 +897,7 @@ class AccountingJournal extends CommonObject
 	 * @param	string			$sep					CSV separator
 	 * @return 	int|string								Return integer <0 if KO, >0 if OK
 	 */
-	public function exportCsv(&$journal_data = array(), $search_date_end = 0, $sep = '')
+	public function exportCsv(&$journal_data = [], $search_date_end = 0, $sep = '')
 	{
 		global $config, $langs, $hookManager;
 
@@ -916,10 +916,10 @@ class AccountingJournal extends CommonObject
 			return -1;
 		} elseif (empty($resHook)) {
 			// Clean parameters
-			$journal_data = is_array($journal_data) ? $journal_data : array();
+			$journal_data = is_array($journal_data) ? $journal_data : [];
 
 			// CSV header line
-			$header = array();
+			$header = [];
 			if ($this->nature == 4) {
 				$header = array(
 					$langs->transnoentitiesnoconv("BankId"),

@@ -123,7 +123,7 @@ if (!$sortorder) {
 
 // Initialize array of search criteria
 $search_all = trim(GETPOST("search_all", 'alphanohtml'));
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha') !== '') {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -137,7 +137,7 @@ foreach ($object->fields as $key => $val) {
 }
 
 // List of fields to search into when doing a "search in all"
-$fieldstosearchall = array();
+$fieldstosearchall = [];
 foreach ($object->fields as $key => $val) {
 	if (!empty($val['searchall'])) {
 		$fieldstosearchall['t.'.$key] = $val['label'];
@@ -148,7 +148,7 @@ $fieldstosearchall['s.zip'] = "Zip";
 $fieldstosearchall['s.town'] = "Town";
 
 // Definition of array of fields for columns
-$arrayfields = array();
+$arrayfields = [];
 foreach ($object->fields as $key => $val) {
 	// If $val['visible']==0, then we never show the field
 	if (!empty($val['visible'])) {
@@ -232,8 +232,8 @@ if (empty($resHook)) {
 				$search[$key.'_dtend'] = '';
 			}
 		}
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 		$search_date_start = '';
 		$search_date_end = '';
 		$search_dateread_start = '';
@@ -354,8 +354,8 @@ if ($socid > 0) {
 }
 
 $title = $moretitle . $langs->trans('Tickets');
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 
 // Build and execute select
@@ -369,7 +369,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -381,7 +381,7 @@ if (isset($extrafields->attributes[$object->table_element]['label']) && is_array
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX.$object->table_element."_extrafields as ef on (t.rowid = ef.fk_object)";
 }
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON (t.fk_soc = s.rowid)";
@@ -393,7 +393,7 @@ if ($socid > 0) {
 foreach ($search as $key => $val) {
 	$tmpkey = 't.' . $key;
 	if ($key == 'fk_statut' && !empty($search['fk_statut'])) {
-		$newarrayofstatus = array();
+		$newarrayofstatus = [];
 		foreach ($search['fk_statut'] as $key2 => $val2) {
 			if (in_array($val2, array('openall', 'closeall'))) {
 				continue;
@@ -422,7 +422,7 @@ foreach ($search as $key => $val) {
 		}
 		continue;
 	} elseif ($key == 'type_code') {
-		$newarrayoftypecodes = is_array($search[$key]) ? $search[$key] : (!empty($search[$key]) ? explode(',', $search[$key]) : array());
+		$newarrayoftypecodes = is_array($search[$key]) ? $search[$key] : (!empty($search[$key]) ? explode(',', $search[$key]) : []);
 		if (count($newarrayoftypecodes)) {
 			$sql .= natural_search($tmpkey, implode(',', $newarrayoftypecodes), 3);
 		}
@@ -477,7 +477,7 @@ if (!$user->socid && ($mode == "mine" || (!$user->admin && getDolGlobalString('T
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -654,7 +654,7 @@ if ($projectid > 0 || $project_ref) {
 	}
 }
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -751,7 +751,7 @@ if ($permissiontodelete) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -827,7 +827,7 @@ $moreforfilter = '';
 $moreforfilter.= $langs->trans('MyFilter') . ': <input type="text" name="search_myfield" value="'.dol_escape_htmltag($search_myfield).'">';
 $moreforfilter.= '</div>';*/
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -894,7 +894,7 @@ foreach ($object->fields as $key => $val) {
 			print $form->select_dolusers((empty($search[$key]) ? '' : $search[$key]), 'search_'.$key, 1, null, 0, '', '', '0', 0, 0, '', 0, '', (!empty($val['css']) ? $val['css'] : 'maxwidth100'));
 			print '</td>';
 		} elseif ($key == 'fk_statut') {
-			$arrayofstatus = array();
+			$arrayofstatus = [];
 			$arrayofstatus['openall'] = '-- '.$langs->trans('OpenAll').' --';
 			foreach ($object->labelStatusShort as $key2 => $val2) {
 				if ($key2 == Ticket::STATUS_CLOSED) {
@@ -970,7 +970,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1025,10 +1025,10 @@ if (isset($extrafields->attributes[$object->table_element]['computed']) && is_ar
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
-$cacheofoutputfield = array();
+$cacheofoutputfield = [];
 while ($i < $imaxinloop) {
 	$obj = $db->fetch_object($resql);
 	if (empty($obj)) {
@@ -1048,7 +1048,7 @@ while ($i < $imaxinloop) {
 
 		// get infos needed from object
 		// TODO Create a cache on users
-		$arraydata = array();
+		$arraydata = [];
 		if ($obj->fk_user_assign > 0) {
 			$user_temp->fetch($obj->fk_user_assign);
 			$arraydata['user_assignment'] = $user_temp->getNomUrl(-3);
@@ -1198,7 +1198,7 @@ while ($i < $imaxinloop) {
 						$totalarray['pos'][$totalarray['nbfield']] = 't.'.$key;
 					}
 					if (!isset($totalarray['val'])) {
-						$totalarray['val'] = array();
+						$totalarray['val'] = [];
 					}
 					if (!isset($totalarray['val']['t.'.$key])) {
 						$totalarray['val']['t.'.$key] = 0;

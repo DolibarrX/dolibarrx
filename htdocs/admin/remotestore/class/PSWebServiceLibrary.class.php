@@ -171,14 +171,14 @@ class PrestaShopWebservice
 	 *
 	 * @throws PrestaShopWebserviceException
 	 */
-	public function executeRequest($url, $curl_params = array())
+	public function executeRequest($url, $curl_params = [])
 	{
 		$defaultParams = $this->getCurlDefaultParams();
 
 		dol_syslog("curl_init url=".$url);
 		$session = curl_init($url);
 
-		$curl_options = array();
+		$curl_options = [];
 		foreach ($defaultParams as $defkey => $defval) {
 			if (isset($curl_params[$defkey])) {
 				$curl_options[$defkey] = $curl_params[$defkey];
@@ -206,7 +206,7 @@ class PrestaShopWebservice
 
 		$headerArrayTmp = explode("\n", $header);
 
-		$headerArray = array();
+		$headerArray = [];
 		foreach ($headerArrayTmp as &$headerItem) {
 			$tmp = explode(':', $headerItem);
 			$tmp = array_map('trim', $tmp);
@@ -380,7 +380,7 @@ class PrestaShopWebservice
 			$url = $options['url'];
 		} elseif (isset($options['resource'])) {
 			$url = $this->url . '/api/' . $options['resource'];
-			$url_params = array();
+			$url_params = [];
 			if (isset($options['id'])) {
 				$url .= '/' . $options['id'];
 			}
@@ -421,7 +421,7 @@ class PrestaShopWebservice
 			$url = $options['url'];
 		} elseif (isset($options['resource'])) {
 			$url = $this->url . '/api/' . $options['resource'];
-			$url_params = array();
+			$url_params = [];
 			if (isset($options['id'])) {
 				$url .= '/' . $options['id'];
 			}

@@ -276,7 +276,7 @@ if (empty($resHook)) {
 		$search_accountancy_aux_code_end = '';
 		$search_mvt_label = '';
 		$search_direction = '';
-		$search_ledger_code = array();
+		$search_ledger_code = [];
 		$search_date_startyear = '';
 		$search_date_startmonth = '';
 		$search_date_startday = '';
@@ -322,11 +322,11 @@ if (empty($resHook)) {
 		$search_lettering_code = '';
 		$search_not_reconciled = '';
 		$search_import_key = '';
-		$toselect = array();
+		$toselect = [];
 	}
 
 	// Must be after the remove filter action, before the export.
-	$filter = array();
+	$filter = [];
 	if (!empty($search_date_start)) {
 		$filter['t.doc_date>='] = $search_date_start;
 		$tmp = dol_getdate($search_date_start);
@@ -355,7 +355,7 @@ if (empty($resHook)) {
 		$accountingcategory = new AccountancyCategory($db);
 
 		$listofaccountsforgroup = $accountingcategory->getCptsCat(0, 'fk_accounting_category = '.((int) $search_account_category));
-		$listofaccountsforgroup2 = array();
+		$listofaccountsforgroup2 = [];
 		if (is_array($listofaccountsforgroup)) {
 			foreach ($listofaccountsforgroup as $tmpval) {
 				$listofaccountsforgroup2[] = "'".$db->escape($tmpval['id'])."'";
@@ -533,7 +533,7 @@ $sqlfields = $sql; // $sql fields to remove for count total
 
 $sql .= ' FROM '.MAIN_DB_PREFIX.$object->table_element.' as t';
 // Manage filter
-$sqlwhere = array();
+$sqlwhere = [];
 if (count($filter) > 0) {
 	foreach ($filter as $key => $value) {
 		if ($key == 't.doc_date') {
@@ -783,7 +783,7 @@ if (!$resql) {
 
 $num = $db->num_rows($resql);
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 // Output page
 // --------------------------------------------------------------------
@@ -794,7 +794,7 @@ llxHeader('', $title_page, $help_url, '', 0, 0, '', '', '', 'mod-accountancy acc
 $formconfirm = '';
 
 if ($action == 'export_file') {
-	$form_question = array();
+	$form_question = [];
 
 	$form_question['formatexport'] = array(
 		'name' => 'formatexport',
@@ -872,7 +872,7 @@ if ($limit > 0 && $limit != $config->liste_limit) {
 }
 
 // List of mass actions available
-$arrayofmassactions = array();
+$arrayofmassactions = [];
 $massactionbutton = $form->selectMassAction($massaction, $arrayofmassactions);
 
 print '<form method="POST" id="searchFormList" action="'.$_SERVER["PHP_SELF"].'">';
@@ -946,7 +946,7 @@ if (!empty($search_account_category)) {
 	$moreforfilter .= '</div>';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -1001,10 +1001,10 @@ if (!empty($arrayfields['t.doc_ref']['checked'])) {
 if (!empty($arrayfields['t.number_compte']['checked'])) {
 	print '<td class="liste_titre">';
 	print '<div class="nowrap">';
-	print $formaccounting->select_account($search_accountancy_code_start, 'search_accountancy_code_start', $langs->trans('From'), array(), 1, 1, 'maxwidth150', 'account');
+	print $formaccounting->select_account($search_accountancy_code_start, 'search_accountancy_code_start', $langs->trans('From'), [], 1, 1, 'maxwidth150', 'account');
 	print '</div>';
 	print '<div class="nowrap">';
-	print $formaccounting->select_account($search_accountancy_code_end, 'search_accountancy_code_end', $langs->trans('to'), array(), 1, 1, 'maxwidth150', 'account');
+	print $formaccounting->select_account($search_accountancy_code_end, 'search_accountancy_code_end', $langs->trans('to'), [], 1, 1, 'maxwidth150', 'account');
 	print '</div>';
 	print '</td>';
 }
@@ -1179,9 +1179,9 @@ $line = new BookKeepingLine($db);
 // Loop on record
 // --------------------------------------------------------------------
 $i = 0;
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
-$totalarray['val'] = array();
+$totalarray['val'] = [];
 $totalarray['val']['totaldebit'] = 0;
 $totalarray['val']['totalcredit'] = 0;
 

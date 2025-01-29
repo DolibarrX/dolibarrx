@@ -141,7 +141,7 @@ if ($mode == 'virtual') {
 	$usevirtualstock = 1;
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -174,7 +174,7 @@ if ($action == 'order' && GETPOST('valid') && $user->hasRight('fournisseur', 'or
 	if ($linecount > 0) {
 		$db->begin();
 
-		$suppliers = array();
+		$suppliers = [];
 		require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.product.class.php';
 		$productsupplier = new ProductFournisseur($db);
 		for ($i = 0; $i < $linecount; $i++) {
@@ -249,7 +249,7 @@ if ($action == 'order' && GETPOST('valid') && $user->hasRight('fournisseur', 'or
 		//we now know how many orders we need and what lines they have
 		$i = 0;
 		$fail = 0;
-		$orders = array();
+		$orders = [];
 		$suppliersid = array_keys($suppliers);	// array of ids of suppliers
 		foreach ($suppliers as $supplier) {
 			$order = new OrderFournisseur($db);
@@ -384,7 +384,7 @@ if (getDolGlobalString('STOCK_ALLOW_ADD_LIMIT_STOCK_BY_WAREHOUSE') && $fk_entrep
 }
 
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -403,7 +403,7 @@ if (getDolGlobalString('STOCK_ALLOW_ADD_LIMIT_STOCK_BY_WAREHOUSE') && $fk_entrep
 	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_warehouse_properties AS pse ON (p.rowid = pse.fk_product AND pse.fk_entrepot = '.((int) $fk_entrepot).')';
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListJoin', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -433,7 +433,7 @@ if ($fk_supplier > 0) {
 	$sql .= ' AND EXISTS (SELECT pfp.rowid FROM ' . MAIN_DB_PREFIX . 'product_fournisseur_price as pfp WHERE pfp.fk_product = p.rowid AND pfp.fk_soc = ' . ((int) $fk_supplier) . ' AND pfp.entity IN (' . getEntity('product_fournisseur_price') . '))';
 }
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -602,7 +602,7 @@ $helpurl .= 'ES:M&oacute;dulo_Stocks';
 
 llxHeader('', $title, $helpurl, '', 0, 0, '', '', '', 'mod-product page-stock_replenish');
 
-$head = array();
+$head = [];
 
 $head[0][0] = DOL_URL_ROOT . '/product/stock/replenish.php';
 $head[0][1] = $title;
@@ -661,7 +661,7 @@ $filter = '(fournisseur:=:1)';
 print $langs->trans('Supplier') . ' ' . $form->select_company($fk_supplier, 'fk_supplier', $filter, 1);
 print '</div>';
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	print $hookManager->resPrint;
@@ -961,7 +961,7 @@ while ($i < ($limit ? min($num, $limit) : $num)) {
 		print '</td>';
 
 		if (isModEnabled("service") && $type == 1) {
-			$regs = array();
+			$regs = [];
 			if (preg_match('/([0-9]+)y/i', $objp->duration, $regs)) {
 				$duration = $regs[1] . ' ' . $langs->trans('DurationYear');
 			} elseif (preg_match('/([0-9]+)m/i', $objp->duration, $regs)) {

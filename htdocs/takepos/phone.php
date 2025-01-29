@@ -219,8 +219,8 @@ if ($action == "productinfo" && $user->hasRight('takepos', 'run')) {
 	}
 	$levelofmaincategories = $levelofrootcategory + 1;
 
-	$maincategories = array();
-	$subcategories = array();
+	$maincategories = [];
+	$subcategories = [];
 	foreach ($categories as $key => $categorycursor) {
 		if ($categorycursor['level'] == $levelofmaincategories) {
 			$maincategories[$key] = $categorycursor;

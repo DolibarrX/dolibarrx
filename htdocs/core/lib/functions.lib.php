@@ -616,7 +616,7 @@ function getBrowserInfo($user_agent)
 	}
 
 	// Name
-	$reg = array();
+	$reg = [];
 	if (preg_match('/firefox(\/|\s)([\d\.]*)/i', $user_agent, $reg)) {
 		$name = 'firefox';
 		$version = empty($reg[2]) ? '' : $reg[2];
@@ -1005,7 +1005,7 @@ function GETPOST($paramname, $check = 'alphanohtml', $method = 0, $filter = null
 	// We do this only if var is a GET. If it is a POST, may be we want to post the text with vars as the setup text.
 	'@phan-var-force string $paramname';
 	if (!is_array($out) && empty($_POST[$paramname]) && empty($noreplace)) {
-		$reg = array();
+		$reg = [];
 		$maxloop = 20;
 		$loopnb = 0; // Protection against infinite loop
 
@@ -1065,7 +1065,7 @@ function GETPOST($paramname, $check = 'alphanohtml', $method = 0, $filter = null
 	// Check type of variable and make sanitization according to this
 	if (preg_match('/^array/', $check)) {	// If 'array' or 'array:restricthtml' or 'array:aZ09' or 'array:intcomma'
 		if (!is_array($out) || empty($out)) {
-			$out = array();
+			$out = [];
 		} else {
 			$tmparray = explode(':', $check);
 			if (!empty($tmparray[1])) {
@@ -1167,7 +1167,7 @@ function GETPOSTFLOAT($paramname, $rounding = '')
  */
 function GETPOSTDATE($prefix, $hourTime = '', $gm = 'auto')
 {
-	$m = array();
+	$m = [];
 	if ($hourTime === 'getpost') {
 		$hour   = GETPOSTINT($prefix . 'hour');
 		$minute = GETPOSTINT($prefix . 'minute');
@@ -1494,7 +1494,7 @@ function dol_buildpath($path, $type = 0, $returnemptyifnotfound = 0)
 				}
 				continue;
 			}
-			$regs = array();
+			$regs = [];
 			preg_match('/^([^\?]+(\.css\.php|\.css|\.js\.php|\.js|\.png|\.jpg|\.php)?)/i', $path, $regs); // Take part before '?'
 			if (!empty($regs[1])) {
 				//print $key.'-'.$dirroot.'/'.$path.'-'.$config->file->dol_url_root[$type].'<br>'."\n";
@@ -1838,7 +1838,7 @@ function dol_string_nospecial($str, $newstr = '_', $badcharstoreplace = '', $bad
 	if (empty($keepspaces)) {
 		$forbidden_chars_to_replace[] = " ";
 	}
-	$forbidden_chars_to_remove = array();
+	$forbidden_chars_to_remove = [];
 	//$forbidden_chars_to_remove=array("(",")");
 
 	if (is_array($badcharstoreplace)) {
@@ -2052,7 +2052,7 @@ function dolPrintHTMLForAttributeUrl($s)
 	// The dol_htmlentitiesbr has been removed compared to dolPrintHTMLForAttribute because we know content is a HTML URL string (even if we have no way to detect it automatically)
 	// The dol_escape_htmltag will escape html chars.
 	$escapeonlyhtmltags = 1;
-	return dol_escape_htmltag(dol_string_onlythesehtmltags($s, 1, 1, 1, 0, array()), 0, 0, '', $escapeonlyhtmltags, 1);
+	return dol_escape_htmltag(dol_string_onlythesehtmltags($s, 1, 1, 1, 0, []), 0, 0, '', $escapeonlyhtmltags, 1);
 }
 
 /**
@@ -2105,7 +2105,7 @@ function dol_escape_htmltag($stringtoescape, $keepb = 0, $keepn = 0, $noescapeta
 		$noescapetags .= ',header,footer,nav,section,menu,menuitem';
 	}
 	if ($cleanalsojavascript) {
-		$stringtoescape = dol_string_onlythesehtmltags($stringtoescape, 0, 0, $cleanalsojavascript, 0, array(), 0);
+		$stringtoescape = dol_string_onlythesehtmltags($stringtoescape, 0, 0, $cleanalsojavascript, 0, [], 0);
 	}
 
 	// escape quotes and backslashes, newlines, etc.
@@ -2153,13 +2153,13 @@ function dol_escape_htmltag($stringtoescape, $keepb = 0, $keepn = 0, $noescapeta
 		return $tmp;
 	} else {
 		// Now we protect all the tags we want to keep
-		$tmparrayoftags = array();
+		$tmparrayoftags = [];
 		if ($noescapetags) {
 			$tmparrayoftags = explode(',', $noescapetags);
 		}
 
 		if (count($tmparrayoftags)) {
-			$reg = array();
+			$reg = [];
 			$tmp = str_ireplace('__DOUBLEQUOTE', '', $tmp);	// The keyword DOUBLEQUOTE is forbidden. Reserved, so we removed it if we find it.
 
 			foreach ($tmparrayoftags as $tagtoreplace) {
@@ -2663,7 +2663,7 @@ function dolButtonToOpenUrlInDialogPopup($name, $label, $buttonstring, $url, $di
  * 	@return	void
  *  @deprecated Use print dol_get_fiche_head() instead
  */
-function dol_fiche_head($links = array(), $active = '0', $title = '', $notab = 0, $picture = '', $pictureIsFullPath = 0, $morehtmlright = '', $morecss = '', $limittoshow = 0, $moretabssuffix = '')
+function dol_fiche_head($links = [], $active = '0', $title = '', $notab = 0, $picture = '', $pictureIsFullPath = 0, $morehtmlright = '', $morecss = '', $limittoshow = 0, $moretabssuffix = '')
 {
 	print dol_get_fiche_head($links, $active, $title, $notab, $picture, $pictureIsFullPath, $morehtmlright, $morecss, $limittoshow, $moretabssuffix);
 }
@@ -2684,7 +2684,7 @@ function dol_fiche_head($links = array(), $active = '0', $title = '', $notab = 0
  *  @param	int     $dragdropfile       0 (default) or 1. 1 enable a drop zone for file to be upload, 0 disable it
  * 	@return	string
  */
-function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab = 0, $picture = '', $pictureIsFullPath = 0, $morehtmlright = '', $morecss = '', $limittoshow = 0, $moretabssuffix = '', $dragdropfile = 0)
+function dol_get_fiche_head($links = [], $active = '', $title = '', $notab = 0, $picture = '', $pictureIsFullPath = 0, $morehtmlright = '', $morecss = '', $limittoshow = 0, $moretabssuffix = '', $dragdropfile = 0)
 {
 	global $config, $langs, $hookManager;
 
@@ -3565,7 +3565,7 @@ function dol_print_date($time, $format = '', $tzoutput = 'auto', $outputlangs = 
 	}
 
 	// Analyze date
-	$reg = array();
+	$reg = [];
 	if (preg_match('/^([0-9][0-9][0-9][0-9])([0-9][0-9])([0-9][0-9])([0-9][0-9])([0-9][0-9])([0-9][0-9])$/i', (string) $time, $reg)) {	// Deprecated. Ex: 1970-01-01, 1970-01-01 01:00:00, 19700101010000
 		dol_print_error(null, "Functions.lib::dol_print_date function called with a bad value from page ".(empty($_SERVER["PHP_SELF"]) ? 'unknown' : $_SERVER["PHP_SELF"]));
 		return '';
@@ -3704,7 +3704,7 @@ function dol_print_date($time, $format = '', $tzoutput = 'auto', $outputlangs = 
 function dol_getdate($timestamp, $fast = false, $forcetimezone = '')
 {
 	if ($timestamp === '') {
-		return array();
+		return [];
 	}
 
 	$datetimeobj = new DateTime();
@@ -4055,7 +4055,7 @@ function getArrayOfSocialNetworks()
 {
 	global $config, $db;
 
-	$socialnetworks = array();
+	$socialnetworks = [];
 	// Enable caching of array
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/memory.lib.php';
 	$cachekey = 'socialnetworks_' . $config->entity;
@@ -4092,7 +4092,7 @@ function getArrayOfSocialNetworks()
  * @param	array<string,array{rowid:int,label:string,url:string,icon:string,active:int}>	$dictsocialnetworks		List of socialnetworks available
  * @return	string							HTML Link
  */
-function dol_print_socialnetworks($value, $cid, $socid, $type, $dictsocialnetworks = array())
+function dol_print_socialnetworks($value, $cid, $socid, $type, $dictsocialnetworks = [])
 {
 	global $hookManager, $langs, $user;
 
@@ -4823,8 +4823,8 @@ function isValidMXRecord($domain)
 			return 0;
 		}
 		if (function_exists('getmxrr')) {
-			$mxhosts = array();
-			$weight = array();
+			$mxhosts = [];
+			$weight = [];
 			getmxrr(idn_to_ascii($domain), $mxhosts, $weight);
 			if (count($mxhosts) > 1) {
 				return 1;
@@ -5089,7 +5089,7 @@ function img_picture($titlealt, $picture, $moreatt = '', $pictureIsFullPath = 0,
 			$picture .= '.png';
 		}
 		$fullpathpicture = $picture;
-		$reg = array();
+		$reg = [];
 		if (preg_match('/class="([^"]+)"/', $moreatt, $reg)) {
 			$morecss .= ($morecss ? ' ' : '').$reg[1];
 			$moreatt = str_replace('class="'.$reg[1].'"', '', $moreatt);
@@ -5136,7 +5136,7 @@ function img_picture($titlealt, $picture, $moreatt = '', $pictureIsFullPath = 0,
 			// This snippet only needed since function img_edit accepts only one additional parameter: no separate one for css only.
 			// class/style need to be extracted to avoid duplicate class/style validation errors when $moreatt is added to the end of the attributes.
 			$morestyle = '';
-			$reg = array();
+			$reg = [];
 			if (preg_match('/class="([^"]+)"/', $moreatt, $reg)) {
 				$morecss .= ($morecss ? ' ' : '').$reg[1];
 				$moreatt = str_replace('class="'.$reg[1].'"', '', $moreatt);
@@ -5361,7 +5361,7 @@ function img_picture($titlealt, $picture, $moreatt = '', $pictureIsFullPath = 0,
 			// This snippet only needed since function img_edit accepts only one additional parameter: no separate one for css only.
 			// class/style need to be extracted to avoid duplicate class/style validation errors when $moreatt is added to the end of the attributes.
 			$morestyle = '';
-			$reg = array();
+			$reg = [];
 			if (preg_match('/class="([^"]+)"/', $moreatt, $reg)) {
 				$morecss .= ($morecss ? ' ' : '').$reg[1];
 				$moreatt = str_replace('class="'.$reg[1].'"', '', $moreatt);
@@ -5388,7 +5388,7 @@ function img_picture($titlealt, $picture, $moreatt = '', $pictureIsFullPath = 0,
 		}
 
 		// If we ask an image into $url/$mymodule/img (instead of default path)
-		$regs = array();
+		$regs = [];
 		if (preg_match('/^([^@]+)@([^@]+)$/i', $picture, $regs)) {
 			$picture = $regs[1];
 			$path = $regs[2]; // $path is $mymodule
@@ -6229,7 +6229,7 @@ function dol_print_error($db = null, $error = '', $errors = null)
  * @param	string		$email			Email
  * @return	void
  */
-function dol_print_error_email($prefixcode, $errormessage = '', $errormessages = array(), $morecss = 'error', $email = '')
+function dol_print_error_email($prefixcode, $errormessage = '', $errormessages = [], $morecss = 'error', $email = '')
 {
 	global $langs;
 
@@ -6737,7 +6737,7 @@ function print_fleche_navigation($page, $file, $options = '', $nextpage = 0, $be
 				print '</datalist>';
 			} else {
 				print '</select>';
-				print ajax_combobox("limit".(is_numeric($selectlimitsuffix) ? '' : $selectlimitsuffix), array(), 0, 0, 'resolve', '-1', 'limit');
+				print ajax_combobox("limit".(is_numeric($selectlimitsuffix) ? '' : $selectlimitsuffix), [], 0, 0, 'resolve', '-1', 'limit');
 				//print ajax_combobox("limit");
 			}
 
@@ -6795,7 +6795,7 @@ function vatrate($rate, $addpercent = false, $info_bits = 0, $usestarfornpr = 0,
 		$rate = str_replace('%', '', $rate);
 		$addpercent = true;
 	}
-	$reg = array();
+	$reg = [];
 	if (preg_match('/\((.*)\)/', $rate, $reg)) {
 		$morelabel = ' ('.$reg[1].')';
 		$rate = preg_replace('/\s*'.preg_quote($morelabel, '/').'/', '', $rate);
@@ -7157,7 +7157,7 @@ function get_localtax($vatrate, $local, $thirdparty_buyer = null, $thirdparty_se
 	dol_syslog("get_localtax tva=".$vatrate." local=".$local." thirdparty_buyer id=".(is_object($thirdparty_buyer) ? $thirdparty_buyer->id : '')."/country_code=".(is_object($thirdparty_buyer) ? $thirdparty_buyer->country_code : '')." thirdparty_seller id=".$thirdparty_seller->id."/country_code=".$thirdparty_seller->country_code." thirdparty_seller localtax1_assuj=".$thirdparty_seller->localtax1_assuj."  thirdparty_seller localtax2_assuj=".$thirdparty_seller->localtax2_assuj);
 
 	$vatratecleaned = $vatrate;
-	$reg = array();
+	$reg = [];
 	if (preg_match('/^(.*)\s*\((.*)\)$/', (string) $vatrate, $reg)) {     // If vat is "xx (yy)"
 		$vatratecleaned = trim($reg[1]);
 		$vatratecode = $reg[2];
@@ -7351,7 +7351,7 @@ function getTaxesFromId($vatrate, $buyer = null, $seller = null, $firstparamisid
 	} else {
 		$vatratecleaned = $vatrate;
 		$vatratecode = '';
-		$reg = array();
+		$reg = [];
 		if (preg_match('/^(.*)\s*\((.*)\)$/', $vatrate, $reg)) {      // If vat is "xx (yy)"
 			$vatratecleaned = $reg[1];
 			$vatratecode = $reg[2];
@@ -7390,13 +7390,13 @@ function getTaxesFromId($vatrate, $buyer = null, $seller = null, $firstparamisid
 				'accountancy_code_buy' => $obj->accountancy_code_buy
 			);
 		} else {
-			return array();
+			return [];
 		}
 	} else {
 		dol_print_error($db);
 	}
 
-	return array();
+	return [];
 }
 
 /**
@@ -7429,7 +7429,7 @@ function getLocalTaxesFromRate($vatrate, $local, $buyer, $seller, $firstparamisi
 	} else {
 		$vatratecleaned = $vatrate;
 		$vatratecode = '';
-		$reg = array();
+		$reg = [];
 		if (preg_match('/^(.*)\s*\((.*)\)$/', $vatrate, $reg)) {     // If vat is "x.x (yy)"
 			$vatratecleaned = $reg[1];
 			$vatratecode = $reg[2];
@@ -7466,7 +7466,7 @@ function getLocalTaxesFromRate($vatrate, $local, $buyer, $seller, $firstparamisi
 		}
 	}
 
-	return array();
+	return [];
 }
 
 /**
@@ -7718,7 +7718,7 @@ function get_default_tva(Societe $thirdparty_seller, Societe $thirdparty_buyer, 
 		if ($seller_country_code == 'IN' && getDolGlobalString('MAIN_SALETAX_AUTOSWITCH_I_CS_FOR_INDIA')) {
 			// Special case for india.
 			//print 'VATRULE 3b';
-			$reg = array();
+			$reg = [];
 			if (preg_match('/C+S-(\d+)/', $tmpvat, $reg) && $thirdparty_seller->state_id != $thirdparty_buyer->state_id) {
 				// we must revert the C+S into I
 				$tmpvat = str_replace("C+S", "I", $tmpvat);
@@ -8028,7 +8028,7 @@ function dol_mkdir($dir, $dataroot = '', $newmask = '')
 		} else {
 			$ccdir .= $cdir[$i];
 		}
-		$regs = array();
+		$regs = [];
 		if (preg_match("/^.:$/", $ccdir, $regs)) {
 			continue; // If the Windows path is incomplete, continue with next directory
 		}
@@ -8187,7 +8187,7 @@ function dol_string_nohtmltag($stringtoclean, $removelinefeed = 1, $pagecodeto =
  *
  * 	@see	dol_htmlwithnojs() dol_escape_htmltag() strip_tags() dol_string_nohtmltag() dol_string_neverthesehtmltags()
  */
-function dol_string_onlythesehtmltags($stringtoclean, $cleanalsosomestyles = 1, $removeclassattribute = 1, $cleanalsojavascript = 0, $allowiframe = 0, $allowed_tags = array(), $allowlink = 0, $allowscript = 0, $allowstyle = 0, $allowphp = 0)
+function dol_string_onlythesehtmltags($stringtoclean, $cleanalsosomestyles = 1, $removeclassattribute = 1, $cleanalsojavascript = 0, $allowiframe = 0, $allowed_tags = [], $allowlink = 0, $allowscript = 0, $allowstyle = 0, $allowphp = 0)
 {
 	if (empty($allowed_tags)) {
 		$allowed_tags = array(
@@ -8606,7 +8606,7 @@ function dol_htmlwithnojs($stringtoencode, $nouseofiframesandbox = 0, $check = '
 
 			// Keep only some html tags and remove also some 'javascript:' strings
 			if ($check == 'restricthtmlallowlinkscript') {
-				$out = dol_string_onlythesehtmltags($out, 0, 1, 0, 0, array(), 1, 1, 1, getDolGlobalInt("UNSECURED_restricthtmlallowlinkscript_ALLOW_PHP"));
+				$out = dol_string_onlythesehtmltags($out, 0, 1, 0, 0, [], 1, 1, 1, getDolGlobalInt("UNSECURED_restricthtmlallowlinkscript_ALLOW_PHP"));
 			} elseif ($check == 'restricthtmlallowclass' || $check == 'restricthtmlallowunvalid') {
 				$out = dol_string_onlythesehtmltags($out, 0, 0, 1);
 			} elseif ($check == 'restricthtmlallowiframe') {
@@ -8639,7 +8639,7 @@ function dol_htmlwithnojs($stringtoencode, $nouseofiframesandbox = 0, $check = '
 		// '<img' to avoid <img src="http...">,  we can only accept "<img src="data:..."
 		// 'url(' to avoid inline style like background: url(http...
 		// '<link' to avoid <link href="http...">
-		$reg = array();
+		$reg = [];
 		$tmpout = preg_replace('/<img src="data:/mi', '<__IMG_SRC_DATA__ src="data:', $out);
 		preg_match_all('/(<img|url\(|<link)/i', $tmpout, $reg);
 		$nblinks = count($reg[0]);
@@ -8656,7 +8656,7 @@ function dol_htmlwithnojs($stringtoencode, $nouseofiframesandbox = 0, $check = '
 			// Loop on each url in src= and url(
 			$pattern = '/src=["\']?(http[^"\']+)|url\(["\']?(http[^\)]+)/';
 
-			$matches = array();
+			$matches = [];
 			if (preg_match_all($pattern, $out, $matches)) {
 				// URLs are into $matches[1]
 				$urls = $matches[1];
@@ -8997,7 +8997,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 {
 	global $db, $config, $mysoc, $user, $extrafields;
 
-	$substitutionArray = array();
+	$substitutionArray = [];
 
 	if ((empty($exclude) || !in_array('user', $exclude)) && (empty($include) || in_array('user', $include)) && $user instanceof User) {
 		// Add SIGNATURE into substitutionarray first, so, when we will make the substitution,
@@ -9707,7 +9707,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
  *  @param	int<0,1>	$converttextinhtmlifnecessary	0=Convert only value into HTML if text is already in HTML
  *  													1=Will also convert initial $text into HTML if we try to insert one value that is HTML
  * 	@return string  		    						Output string after substitutions
- *  @see	complete_substitutions_array(), getCommonSubstitutionArray()
+ *  @see	complete_substitutions_[], getCommonSubstitutionArray()
  */
 function make_substitutions($text, $substitutionArray, $outputlangs = null, $converttextinhtmlifnecessary = 0)
 {
@@ -9729,7 +9729,7 @@ function make_substitutions($text, $substitutionArray, $outputlangs = null, $con
 
 	// Make substitution for language keys: __(AnyTranslationKey)__ or __(AnyTranslationKey|langfile)__
 	if (is_object($outputlangs)) {
-		$reg = array();
+		$reg = [];
 		while (preg_match('/__\(([^\)]+)\)__/', $text, $reg)) {
 			// If key is __(TranslationKey|langfile)__, then force load of langfile.lang
 			$tmp = explode('|', $reg[1]);
@@ -9762,7 +9762,7 @@ function make_substitutions($text, $substitutionArray, $outputlangs = null, $con
 
 	// Make substitution for constant keys.
 	// Must be after the substitution of translation, so if the text of translation contains a string __[xxx]__, it is also converted.
-	$reg = array();
+	$reg = [];
 	while (preg_match('/__\[([^\]]+)\]__/', $text, $reg)) {
 		$keyfound = $reg[1];
 		if (isASecretKey($keyfound)) {
@@ -9829,9 +9829,9 @@ function make_substitutions($text, $substitutionArray, $outputlangs = null, $con
 	$valuetouseforsubstitution = $tmpobj->$method($id, '__XXX__');
 	And make the replacement of "__XXX__@lazyload" with $valuetouseforsubstitution
 	*/
-	$memory_object_list = array();
+	$memory_object_list = [];
 	foreach ($substitutionArray as $key => $value) {
-		$lazy_load_arr = array();
+		$lazy_load_arr = [];
 		if (preg_match('/(__[A-Z\_]+__)@lazyload$/', $key, $lazy_load_arr)) {
 			if (isset($lazy_load_arr[1]) && !empty($lazy_load_arr[1])) {
 				$key_to_substitute = $lazy_load_arr[1];
@@ -9850,7 +9850,7 @@ function make_substitutions($text, $substitutionArray, $outputlangs = null, $con
 								require_once DOL_DOCUMENT_ROOT . $path;
 								if (class_exists($class)) {
 									$memory_object_list[$class] = array(
-										'list' => array(),
+										'list' => [],
 									);
 								}
 							}
@@ -9904,7 +9904,7 @@ function complete_substitutions_array(&$substitutionArray, $outputlangs, $object
 	// Note: substitution key for each extrafields, using key __EXTRA_XXX__ is already available into the getCommonSubstitutionArray used to build the substitution array.
 
 	// Check if there is external substitution to do, requested by plugins
-	$dirsubstitutions = array_merge(array(), (array) $config->modules_parts['substitutions']);
+	$dirsubstitutions = array_merge([], (array) $config->modules_parts['substitutions']);
 
 	foreach ($dirsubstitutions as $reldir) {
 		$dir = dol_buildpath($reldir, 0);
@@ -9916,7 +9916,7 @@ function complete_substitutions_array(&$substitutionArray, $outputlangs, $object
 
 		$substitfiles = dol_dir_list($dir, 'files', 0, 'functions_');
 		foreach ($substitfiles as $substitfile) {
-			$reg = array();
+			$reg = [];
 			if (preg_match('/functions_(.*)\.lib\.php/i', $substitfile['name'], $reg)) {
 				$module = $reg[1];
 
@@ -10235,7 +10235,7 @@ function get_htmloutput_mesg($mesgstring = '', $mesgarray = [], $style = 'ok', $
  *  @see    dol_print_error()
  *  @see    dol_htmloutput_mesg()
  */
-function get_htmloutput_errors($mesgstring = '', $mesgarray = array(), $keepembedded = 0)
+function get_htmloutput_errors($mesgstring = '', $mesgarray = [], $keepembedded = 0)
 {
 	return get_htmloutput_mesg($mesgstring, $mesgarray, 'error', $keepembedded);
 }
@@ -10253,7 +10253,7 @@ function get_htmloutput_errors($mesgstring = '', $mesgarray = array(), $keepembe
  *	@see    dol_htmloutput_errors()
  *	@see    setEventMessages()
  */
-function dol_htmloutput_mesg($mesgstring = '', $mesgarray = array(), $style = 'ok', $keepembedded = 0)
+function dol_htmloutput_mesg($mesgstring = '', $mesgarray = [], $style = 'ok', $keepembedded = 0)
 {
 	if (empty($mesgstring) && (!is_array($mesgarray) || count($mesgarray) == 0)) {
 		return;
@@ -10291,7 +10291,7 @@ function dol_htmloutput_mesg($mesgstring = '', $mesgarray = array(), $style = 'o
 		$mesgstring = preg_replace('/<\/div>/', '', $mesgstring);
 		// Remove div from texts array
 		if (is_array($mesgarray)) {
-			$newmesgarray = array();
+			$newmesgarray = [];
 			foreach ($mesgarray as $val) {
 				if (is_string($val)) {
 					$tmpmesgstring = preg_replace('/<\/div><div class="(error|warning)">/', '<br>', $val);
@@ -10321,7 +10321,7 @@ function dol_htmloutput_mesg($mesgstring = '', $mesgarray = array(), $style = 'o
  *  @see    dol_print_error()
  *  @see    dol_htmloutput_mesg()
  */
-function dol_htmloutput_errors($mesgstring = '', $mesgarray = array(), $keepembedded = 0)
+function dol_htmloutput_errors($mesgstring = '', $mesgarray = [], $keepembedded = 0)
 {
 	dol_htmloutput_mesg($mesgstring, $mesgarray, 'error', $keepembedded);
 }
@@ -10354,7 +10354,7 @@ function dol_sort_array(&$array, $index, $order = 'asc', $natsort = 0, $case_sen
 	if (is_array($array)) {
 		$sizearray = count($array);
 		if ($sizearray > 0) {
-			$temp = array();
+			$temp = [];
 			foreach (array_keys($array) as $key) {
 				if (is_object($array[$key])) {
 					$temp[$key] = empty($array[$key]->$index) ? 0 : $array[$key]->$index;
@@ -10384,7 +10384,7 @@ function dol_sort_array(&$array, $index, $order = 'asc', $natsort = 0, $case_sen
 				}
 			}
 
-			$sorted = array();
+			$sorted = [];
 
 			foreach (array_keys($temp) as $key) {
 				(is_numeric($key) && empty($keepindex)) ? $sorted[] = $array[$key] : $sorted[$key] = $array[$key];
@@ -10762,7 +10762,7 @@ function dol_eval($s, $returnvalue = 1, $hideerrors = 1, $onlysimplestring = '1'
 		$forbiddenphpstrings = array_merge($forbiddenphpstrings, array('_ENV', '_SESSION', '_COOKIE', '_GET', '_POST', '_REQUEST', 'ReflectionFunction'));
 
 		// We list all forbidden function as keywords we don't want to see (we don't mind it if is "kewyord(" or just "keyword", we don't want "keyword" at all)
-		$forbiddenphpfunctions = array();
+		$forbiddenphpfunctions = [];
 		// @phpcs:ignore
 		$forbiddenphpfunctions = array_merge($forbiddenphpfunctions, array("base64"."_"."decode", "rawurl"."decode", "url"."decode", "str"."_rot13", "hex"."2bin")); // name of forbidden functions are split to avoid false positive
 		$forbiddenphpfunctions = array_merge($forbiddenphpfunctions, array("override_function", "session_id", "session_create_id", "session_regenerate_id"));
@@ -10894,7 +10894,7 @@ function picture_from_langcode($codelang, $moreatt = '', $notitlealt = 0)
 	}
 
 	$morecss = '';
-	$reg = array();
+	$reg = [];
 	if (preg_match('/class="([^"]+)"/', $moreatt, $reg)) {
 		$morecss = $reg[1];
 		$moreatt = "";
@@ -11173,9 +11173,9 @@ function complete_head_from_modules($config, $langs, $object, &$head, &$h, $type
 		foreach ($config->modules_parts['tabs'][$type] as $value) {
 			$values = explode(':', $value);
 
-			$reg = array();
+			$reg = [];
 			if ($mode == 'add' && !preg_match('/^\-/', $values[1])) {
-				$newtab = array();
+				$newtab = [];
 				$postab = $h;
 				// detect if position set in $values[1] ie : +(2)mytab@mymodule (first tab is 0, second is one, ...)
 				$str = $values[1];
@@ -11215,7 +11215,7 @@ function complete_head_from_modules($config, $langs, $object, &$head, &$h, $type
 						}
 						if (preg_match('/SUBSTITUTION_([^_]+)/i', $values[2], $reg)) {
 							// If label is "SUBSTITUION_..."
-							$substitutionArray = array();
+							$substitutionArray = [];
 							complete_substitutions_array($substitutionArray, $langs, $object, array('needforkey' => $values[2]));
 							$label = make_substitutions($reg[1], $substitutionArray);
 						} else {
@@ -11268,7 +11268,7 @@ function complete_head_from_modules($config, $langs, $object, &$head, &$h, $type
 						$langs->load($values[3]);
 					}
 					if (preg_match('/SUBSTITUTION_([^_]+)/i', $values[2], $reg)) {
-						$substitutionArray = array();
+						$substitutionArray = [];
 						complete_substitutions_array($substitutionArray, $langs, $object, array('needforkey' => $values[2]));
 						$label = make_substitutions($reg[1], $substitutionArray);
 					} else {
@@ -11340,7 +11340,7 @@ function printCommonFooter($zone = 'private')
 	print "\n<!-- A div to store page_y POST parameter -->\n";
 	print '<div id="page_y" style="display: none;">'.(GETPOST('page_y') ? GETPOST('page_y') : '').'</div>'."\n";
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printCommonFooter', $parameters); // Note that $action and $object may have been modified by some hooks
 	if (empty($resHook)) {
 		if (getDolGlobalString('MAIN_HTML_FOOTER')) {
@@ -11595,7 +11595,7 @@ function printCommonFooter($zone = 'private')
 function dolExplodeIntoArray($string, $delimiter = ';', $kv = '=')
 {
 	if (is_null($string)) {
-		return array();
+		return [];
 	}
 
 	if (preg_match('/^\[.*\]$/sm', $delimiter) || preg_match('/^\(.*\)$/sm', $delimiter)) {
@@ -11608,7 +11608,7 @@ function dolExplodeIntoArray($string, $delimiter = ';', $kv = '=')
 	}
 
 	if ($a = preg_split('/'.$newdelimiter.'/', $string)) {
-		$ka = array();
+		$ka = [];
 		foreach ($a as $s) { // each part
 			if ($s) {
 				if ($pos = strpos($s, $kv)) { // key/value delimiter
@@ -11621,7 +11621,7 @@ function dolExplodeIntoArray($string, $delimiter = ';', $kv = '=')
 		return $ka;
 	}
 
-	return array();
+	return [];
 }
 
 
@@ -11717,7 +11717,7 @@ function natural_search($fields, $value, $mode = 0, $nofirstand = 0)
 					$operator = '=';
 					$newcrit = preg_replace('/([!<>=]+)/', '', $tmpcrit);
 
-					$reg = array();
+					$reg = [];
 					preg_match('/([!<>=]+)/', $tmpcrit, $reg);
 					if (!empty($reg[1])) {
 						$operator = $reg[1];
@@ -11945,7 +11945,7 @@ function getAdvancedPreviewUrl($modulepart, $relativepath, $alldata = 0, $param 
 		if ($isAllowedForPreview) {
 			return array('target' => '_blank', 'css' => 'documentpreview', 'url' => DOL_URL_ROOT.'/document.php?modulepart='.urlencode($modulepart).'&attachment=0&file='.urlencode($relativepath).($param ? '&'.$param : ''), 'mime' => dol_mimetype($relativepath));
 		} else {
-			return array();
+			return [];
 		}
 	}
 
@@ -12377,7 +12377,7 @@ function getDictionaryValue($tablename, $field, $id, $checkentity = false, $rowi
 	$dictvalues = (isset($config->cache['dictvalues_'.$tablename]) ? $config->cache['dictvalues_'.$tablename] : null);
 
 	if (is_null($dictvalues)) {
-		$dictvalues = array();
+		$dictvalues = [];
 
 		$sql = "SELECT * FROM ".MAIN_DB_PREFIX.$tablename." WHERE 1 = 1"; // Here select * is allowed as it is generic code and we don't have list of fields
 		if ($checkentity) {
@@ -12505,7 +12505,7 @@ function roundUpToNextMultiple($n, $x = 5)
  * @param   array<string,mixed>	$params		Various params for future : recommended rather than adding more function arguments. array('attr'=>array('title'=>'abc'))
  * @return  string              			Html badge
  */
-function dolGetBadge($label, $html = '', $type = 'primary', $mode = '', $url = '', $params = array())
+function dolGetBadge($label, $html = '', $type = 'primary', $mode = '', $url = '', $params = [])
 {
 	$csstouse = 'badge';
 	$csstouse .= (!empty($mode) ? ' badge-'.$mode : '');
@@ -12549,7 +12549,7 @@ function dolGetBadge($label, $html = '', $type = 'primary', $mode = '', $url = '
 	// escape all attribute
 	$attr = array_map('dol_escape_htmltag', $attr);
 
-	$TCompiledAttr = array();
+	$TCompiledAttr = [];
 	foreach ($attr as $key => $value) {
 		$TCompiledAttr[] = $key.'="'.$value.'"';
 	}
@@ -12574,12 +12574,12 @@ function dolGetBadge($label, $html = '', $type = 'primary', $mode = '', $url = '
  * @param   array<string,mixed>	$params				Various params. Example: array('tooltip'=>'no|...', 'badgeParams'=>...)
  * @return  string									Html status string
  */
-function dolGetStatus($statusLabel = '', $statusLabelShort = '', $html = '', $statusType = 'status0', $displayMode = 0, $url = '', $params = array())
+function dolGetStatus($statusLabel = '', $statusLabelShort = '', $html = '', $statusType = 'status0', $displayMode = 0, $url = '', $params = [])
 {
 	global $config;
 
 	$return = '';
-	$dolGetBadgeParams = array();
+	$dolGetBadgeParams = [];
 
 	if (!empty($params['badgeParams'])) {
 		$dolGetBadgeParams = $params['badgeParams'];
@@ -12702,7 +12702,7 @@ function dolGetStatus($statusLabel = '', $statusLabelShort = '', $html = '', $st
  *                                                                                                                                                                                                                                                                                                                                      Example: array('attr' => array('class' => 'reposition'))
  * @return string               		html button
  */
-function dolGetButtonAction($label, $text = '', $actionType = 'default', $url = '', $id = '', $userRight = 1, $params = array())
+function dolGetButtonAction($label, $text = '', $actionType = 'default', $url = '', $id = '', $userRight = 1, $params = [])
 {
 	global $hookManager, $action, $object, $langs;
 
@@ -12751,7 +12751,7 @@ function dolGetButtonAction($label, $text = '', $actionType = 'default', $url = 
 					$tmpurl = dolCompletUrlForDropdownButton($tmpurl, $params, empty($subbutton['urlroot']));
 				}
 
-				$subbuttonparam = array();
+				$subbuttonparam = [];
 				if (!empty($subbutton['attr'])) {
 					$subbuttonparam['attr'] = $subbutton['attr'];
 				}
@@ -12840,7 +12840,7 @@ function dolGetButtonAction($label, $text = '', $actionType = 'default', $url = 
 	// Js Confirm button
 	if ($userRight && !empty($params['confirm'])) {
 		if (!is_array($params['confirm'])) {
-			$params['confirm'] = array();
+			$params['confirm'] = [];
 		}
 
 		if (empty($params['confirm']['url'])) {
@@ -12864,7 +12864,7 @@ function dolGetButtonAction($label, $text = '', $actionType = 'default', $url = 
 	}
 
 	// escape all attributes
-	$TCompiledAttr = array();
+	$TCompiledAttr = [];
 	foreach ($attr as $key => $value) {
 		if ($key == 'href') {
 			$value = dolPrintHTMLForAttributeUrl($value);
@@ -12987,7 +12987,7 @@ function getFieldErrorIcon($fieldValidationErrorMsg)
  * @param array<string,mixed>	$params		various parameters for future : recommended rather than adding more function arguments
  * @return string               html button
  */
-function dolGetButtonTitle($label, $helpText = '', $iconClass = 'fa fa-file', $url = '', $id = '', $status = 1, $params = array())
+function dolGetButtonTitle($label, $helpText = '', $iconClass = 'fa fa-file', $url = '', $id = '', $status = 1, $params = [])
 {
 	global $langs, $config, $user;
 
@@ -13059,7 +13059,7 @@ function dolGetButtonTitle($label, $helpText = '', $iconClass = 'fa fa-file', $u
 
 	// TODO : add a hook
 
-	$TCompiledAttr = array();
+	$TCompiledAttr = [];
 	foreach ($attr as $key => $value) {
 		$TCompiledAttr[] = $key.'="'.dol_escape_htmltag($value).'"';	// Do not use dolPrintHTMLForAttribute() here, we must accept "javascript:string"
 	}
@@ -13091,7 +13091,7 @@ function getElementProperties($elementType)
 {
 	global $config, $db, $hookManager;
 
-	$regs = array();
+	$regs = [];
 
 	//$element_type='facture';
 
@@ -13958,14 +13958,14 @@ function forgeSQLFromUniversalSearchCriteria($filter, &$errorstr = '', $noand = 
  */
 function dolForgeExplodeAnd($sqlfilters)
 {
-	$arrayofandtags = array();
+	$arrayofandtags = [];
 	$nbofchars = dol_strlen($sqlfilters);
 
 	$error = '';
 	$parenthesislevel = 0;
 	$result = dolCheckFilters($sqlfilters, $error, $parenthesislevel);
 	if (!$result) {
-		return array();
+		return [];
 	}
 	if ($parenthesislevel >= 1) {
 		$sqlfilters = preg_replace('/^\(/', '', preg_replace('/\)$/', '', $sqlfilters));
@@ -14137,7 +14137,7 @@ function dolForgeSQLCriteriaCallback($matches)
 
 	//print "Case: ".$operator." ".$operand." ".$tmpescaped."\n";
 
-	$regbis = array();
+	$regbis = [];
 
 	if ($operator == 'IN' || $operator == 'NOT IN') {	// IN is allowed for list of ID or code only
 		//if (!preg_match('/^\(.*\)$/', $tmpescaped)) {
@@ -14145,7 +14145,7 @@ function dolForgeSQLCriteriaCallback($matches)
 		// Explode and sanitize each element in list
 		$tmpelemarray = explode(',', $tmpescaped);
 		foreach ($tmpelemarray as $tmpkey => $tmpelem) {
-			$reg = array();
+			$reg = [];
 			if (preg_match('/^\'(.*)\'$/', $tmpelem, $reg)) {
 				$tmpelemarray[$tmpkey] = "'".$db->escape($db->sanitize($reg[1], 1, 1, 1))."'";
 			} else {
@@ -14257,7 +14257,7 @@ function getActionCommEcmList($object)
 {
 	global $config, $db;
 
-	$documents = array();
+	$documents = [];
 
 	$sql = 'SELECT ecm.rowid as id, ecm.src_object_type, ecm.src_object_id, ecm.filepath, ecm.filename';
 	$sql .= ' FROM '.MAIN_DB_PREFIX.'ecm_files ecm';
@@ -14295,7 +14295,7 @@ function getActionCommEcmList($object)
  *	@param  string				$sortorder	Sort order
  *	@return	?string							Return html part or void if noprint is 1
  */
-function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null, $noprint = 0, $actioncode = '', $donetodo = 'done', $filters = array(), $sortfield = 'a.datep,a.id', $sortorder = 'DESC')
+function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null, $noprint = 0, $actioncode = '', $donetodo = 'done', $filters = [], $sortfield = 'a.datep,a.id', $sortorder = 'DESC')
 {
 	global $user, $config;
 	global $form;
@@ -14309,7 +14309,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 		dol_print_error(null, 'BadParameter');
 	}
 
-	$histo = array();
+	$histo = [];
 	'@phan-var-force array<int,array{type:string,tododone:string,id:string,datestart:int|string,dateend:int|string,note:string,message:string,percent:string,userid:string,login:string,userfirstname:string,userlastname:string,userphoto:string,msg_from?:string,contact_id?:string,socpeopleassigned?:int[],lastname?:string,firstname?:string,fk_element?:int,elementtype?:string,acode:string,alabel?:string,libelle?:string,apicture?:string}> $histo';
 
 	$numaction = 0;
@@ -14317,7 +14317,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 
 	$sortfield_list = explode(',', $sortfield);
 	$sortfield_label_list = array('a.id' => 'id', 'a.datep' => 'dp', 'a.percent' => 'percent');
-	$sortfield_new_list = array();
+	$sortfield_new_list = [];
 	foreach ($sortfield_list as $sortfield_value) {
 		$sortfield_new_list[] = $sortfield_label_list[trim($sortfield_value)];
 	}
@@ -14629,8 +14629,8 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 		$actionstatic = new ActionComm($db);
 		$userstatic = new User($db);
 		$contactstatic = new Contact($db);
-		$userGetNomUrlCache = array();
-		$contactGetNomUrlCache = array();
+		$userGetNomUrlCache = [];
+		$contactGetNomUrlCache = [];
 
 		$out .= '<div class="filters-container" >';
 		$out .= '<form name="listactionsfilter" class="listactionsfilter" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
@@ -14883,7 +14883,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 					$link = $config->cache['elementlinkcache'][$histo[$key]['elementtype']][$histo[$key]['fk_element']];
 				} else {
 					if (!isset($config->cache['elementlinkcache'][$histo[$key]['elementtype']])) {
-						$config->cache['elementlinkcache'][$histo[$key]['elementtype']] = array();
+						$config->cache['elementlinkcache'][$histo[$key]['elementtype']] = [];
 					}
 					$link = dolGetElementUrl($histo[$key]['fk_element'], $histo[$key]['elementtype'], 1);
 					$config->cache['elementlinkcache'][$histo[$key]['elementtype']][$histo[$key]['fk_element']] = $link;

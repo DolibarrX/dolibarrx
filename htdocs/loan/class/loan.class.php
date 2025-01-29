@@ -556,7 +556,7 @@ class Loan extends CommonObject
 		// Always true because of 'unset':
 		// if (empty($this->labelStatus) || empty($this->labelStatusShort)) {
 		global $langs;
-		$this->labelStatus = array();
+		$this->labelStatus = [];
 		$this->labelStatus[self::STATUS_UNPAID] = $langs->transnoentitiesnoconv('Unpaid');
 		$this->labelStatus[self::STATUS_PAID] = $langs->transnoentitiesnoconv('Paid');
 		$this->labelStatus[self::STATUS_STARTED] = $langs->transnoentitiesnoconv("BillStatusStarted");

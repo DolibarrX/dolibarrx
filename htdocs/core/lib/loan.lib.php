@@ -36,7 +36,7 @@ function loan_prepare_head($object)
 	global $db, $langs, $config;
 
 	$tab = 0;
-	$head = array();
+	$head = [];
 
 	$head[$tab][0] = DOL_URL_ROOT . '/loan/card.php?id=' . $object->id;
 	$head[$tab][1] = $langs->trans('Card');
@@ -105,7 +105,7 @@ function loanCalcMonthlyPayment($mens, $capital, $rate, $numactualloadterm, $nbt
 	global $config, $db;
 	require_once DOL_DOCUMENT_ROOT . '/loan/class/loanschedule.class.php';
 	$object = new LoanSchedule($db);
-	$output = array();
+	$output = [];
 
 	// Sanitize data in case of
 	$mens = price2num($mens);

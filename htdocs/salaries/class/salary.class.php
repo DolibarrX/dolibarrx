@@ -681,7 +681,7 @@ class Salary extends CommonObject
 					//$this->sumpayed = $obj->amount;
 					//$this->sumpayed_multicurrency = $obj->multicurrency_amount;
 					//return array('alreadypaid'=>(float) $obj->amount, 'alreadypaid_multicurrency'=>(float) $obj->multicurrency_amount);
-					return array();	// Not yet supported
+					return [];	// Not yet supported
 				} elseif ($multicurrency) {
 					//$this->sumpayed_multicurrency = $obj->multicurrency_amount;
 					//return (float) $obj->multicurrency_amount;
@@ -824,8 +824,8 @@ class Salary extends CommonObject
 		$langs->loadLangs(array("customers", "bills"));
 
 		// We reinit status array to force to redefine them because label may change according to properties values.
-		$this->labelStatus = array();
-		$this->labelStatusShort = array();
+		$this->labelStatus = [];
+		$this->labelStatusShort = [];
 
 		if (empty($this->labelStatus) || empty($this->labelStatusShort)) {
 			global $langs;

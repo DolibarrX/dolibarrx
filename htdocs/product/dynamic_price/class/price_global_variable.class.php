@@ -44,7 +44,7 @@ class PriceGlobalVariable
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var int ID
@@ -339,7 +339,7 @@ class PriceGlobalVariable
 		dol_syslog(__METHOD__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$retarray = array();
+			$retarray = [];
 
 			while ($record = $this->db->fetch_array($resql)) {
 				$variable_obj = new PriceGlobalVariable($this->db);

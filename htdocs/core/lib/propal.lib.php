@@ -36,7 +36,7 @@ function propal_prepare_head($object)
 	$langs->loadLangs(array('propal', 'compta', 'companies'));
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/comm/propal/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('Proposal');
@@ -165,7 +165,7 @@ function propal_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('propaldet');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/propal.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
@@ -245,9 +245,9 @@ function getCustomerProposalPieChart($socid = 0)
 		$i = 0;
 		$total = 0;
 		$totalinprocess = 0;
-		$dataseries = array();
-		$colorseries = array();
-		$vals = array();
+		$dataseries = [];
+		$colorseries = [];
+		$vals = [];
 
 		while ($i < $num) {
 			$obj = $db->fetch_object($resql);

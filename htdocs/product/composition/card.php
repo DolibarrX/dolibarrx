@@ -178,7 +178,7 @@ if ($action == 'search') {
 		$sql .= ', pl.label as labelm, pl.description as descriptionm';
 	}
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 
@@ -189,7 +189,7 @@ if ($action == 'search') {
 	}
 	$sql .= ' WHERE p.entity IN ('.getEntity('product').')';
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 
@@ -400,7 +400,7 @@ if ($id > 0 || !empty($ref)) {
 			print '<th class="right">'.$langs->trans('Stock').'</th>';
 		}
 		// Hook fields
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		// Qty in kit
@@ -482,7 +482,7 @@ if ($id > 0 || !empty($ref)) {
 					}
 
 					// Hook fields
-					$parameters = array();
+					$parameters = [];
 					$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $productstatic); // Note that $action and $object may have been modified by hook
 					print $hookManager->resPrint;
 
@@ -537,7 +537,7 @@ if ($id > 0 || !empty($ref)) {
 					}
 
 					// Hook fields
-					$parameters = array();
+					$parameters = [];
 					$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $productstatic); // Note that $action and $object may have been modified by hook
 					print $hookManager->resPrint;
 

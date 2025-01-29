@@ -46,7 +46,7 @@
  * @param string	$moreparams			More params provided to ajax call
  * @return string   					Script
  */
-function ajax_autocompleter($selected, $htmlname, $url, $urloption = '', $minLength = 2, $autoselect = 0, $ajaxoptions = array(), $moreparams = '')
+function ajax_autocompleter($selected, $htmlname, $url, $urloption = '', $minLength = 2, $autoselect = 0, $ajaxoptions = [], $moreparams = '')
 {
 	if (empty($minLength)) {
 		$minLength = 1;
@@ -456,7 +456,7 @@ function ajax_dialog($title, $message, $w = 350, $h = 150)
  * @return	string								Return html string to convert a select field into a combo, or '' if feature has been disabled for some reason.
  * @see selectArrayAjax() of html.form.class
  */
-function ajax_combobox($htmlname, $events = array(), $minLengthToAutocomplete = 0, $forcefocus = 0, $widthTypeOfAutocomplete = 'resolve', $idforemptyvalue = '-1', $morecss = '')
+function ajax_combobox($htmlname, $events = [], $minLengthToAutocomplete = 0, $forcefocus = 0, $widthTypeOfAutocomplete = 'resolve', $idforemptyvalue = '-1', $morecss = '')
 {
 	global $config;
 
@@ -644,13 +644,13 @@ function ajax_event($htmlname, $events)
  * 	@return string
  *  @see ajax_object_onoff() to update the status of an object
  */
-function ajax_constantonoff($code, $input = array(), $entity = null, $revertonoff = 0, $strict = 0, $forcereload = 0, $marginleftonlyshort = 2, $forcenoajax = 0, $setzeroinsteadofdel = 0, $suffix = '', $mode = '', $morecss = 'inline-block', $userconst = 0, $showwarning = '')
+function ajax_constantonoff($code, $input = [], $entity = null, $revertonoff = 0, $strict = 0, $forcereload = 0, $marginleftonlyshort = 2, $forcenoajax = 0, $setzeroinsteadofdel = 0, $suffix = '', $mode = '', $morecss = 'inline-block', $userconst = 0, $showwarning = '')
 {
 	global $config, $langs, $user, $db;
 
 	$entity = ((isset($entity) && is_numeric($entity) && $entity >= 0) ? $entity : $config->entity);
 	if (!isset($input)) {
-		$input = array();
+		$input = [];
 	}
 
 	if (empty($config->use_javascript_ajax) || $forcenoajax) {
@@ -747,7 +747,7 @@ function ajax_constantonoff($code, $input = array(), $entity = null, $revertonof
  *  @return string              html for button on/off
  *  @see ajax_constantonoff() to update that value of a constant
  */
-function ajax_object_onoff($object, $code, $field, $text_on, $text_off, $input = array(), $morecss = '', $htmlname = '', $forcenojs = 0, $moreparam = '')
+function ajax_object_onoff($object, $code, $field, $text_on, $text_off, $input = [], $morecss = '', $htmlname = '', $forcenojs = 0, $moreparam = '')
 {
 	global $config, $langs;
 

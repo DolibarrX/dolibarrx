@@ -190,7 +190,7 @@ if (getDolGlobalString('PARTNERSHIP_ENABLE_PUBLIC')) {
 	print '<tr class="oddeven" id="trpayment"><td>';
 	print $langs->trans("PARTNERSHIP_NEWFORM_PAYONLINE");
 	print '</td><td class="right">';
-	$listofval = array();
+	$listofval = [];
 	$listofval['-1'] = $langs->trans('No');
 	$listofval['all'] = $langs->trans('Yes').' ('.$langs->trans("VisitorCanChooseItsPaymentMode").')';
 	if (isModEnabled('paybox')) {

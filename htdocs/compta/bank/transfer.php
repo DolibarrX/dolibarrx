@@ -76,14 +76,14 @@ if ($action == 'add' && $user->hasRight('bank', 'transfer')) {
 	$langs->load('errors');
 	$i = 1;
 
-	$dateo = array();
-	$label = array();
-	$amount = array();
-	$amountto = array();
-	$accountfrom = array();
-	$accountto = array();
-	$type = array();
-	$tabnum = array();
+	$dateo = [];
+	$label = [];
+	$amount = [];
+	$amountto = [];
+	$accountfrom = [];
+	$accountto = [];
+	$type = [];
+	$tabnum = [];
 	$maxtab = 1;
 
 	while ($i < $MAXLINESFORTRANSFERT) {

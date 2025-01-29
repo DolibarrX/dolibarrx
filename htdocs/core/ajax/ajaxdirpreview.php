@@ -313,7 +313,7 @@ if ($type == 'directory') {
 		// To allow external users,we must restrict $filearray to entries the user is a thirdparty.
 		// This can be done by filtering on entries found into llx_ecm
 		if ($user->socid > 0) {
-			$filearrayallowedtoexternal = array();	// 'fullpath' => array(...)
+			$filearrayallowedtoexternal = [];	// 'fullpath' => array(...)
 
 			// Search files in ECM with select filepath.filename where src_object_type = $module and src_object_type EXISTS in (select rowid from $objecttablename WERE fk_soc = '.$user->socid.' and entity in getEntity($objecttbalename)
 			// TODO
@@ -365,7 +365,7 @@ if ($type == 'directory') {
 
 		// If $section defined with value 0
 		if (($section === '0' || empty($section)) && ($module != 'medias')) {
-			$filearray = array();
+			$filearray = [];
 		} else {
 			$filearray = dol_dir_list($upload_dir, "files", 0, '', array('^\.', '(\.meta|_preview.*\.png)$', '^temp$', '^CVS$'), $sortfield, $sorting, 1);
 		}
@@ -456,7 +456,7 @@ if ($useajax || $action == 'deletefile') {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 
 	$form = new Form($db);
-	$formquestion = array();
+	$formquestion = [];
 	$formquestion['urlfile'] = array('type' => 'hidden', 'value' => $urlfile, 'name' => 'urlfile'); // We must always put field, even if empty because it is filled by javascript later
 	$formquestion['section'] = array('type' => 'hidden', 'value' => $section, 'name' => 'section'); // We must always put field, even if empty because it is filled by javascript later
 	$formquestion['section_id'] = array('type' => 'hidden', 'value' => $section_id, 'name' => 'section_id'); // We must always put field, even if empty because it is filled by javascript later

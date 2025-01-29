@@ -112,8 +112,8 @@ $title = $langs->trans("Search");
 
 // URL http://mydolibarr/core/search_page?dol_use_jmobile=1 can be used for tests
 $head = '<!-- Quick access -->'."\n";	// This is used by DoliDroid to know page is a search page
-$arrayofjs = array();
-$arrayofcss = array();
+$arrayofjs = [];
+$arrayofcss = [];
 top_htmlhead($head, $title, 0, 0, $arrayofjs, $arrayofcss);
 
 
@@ -137,11 +137,11 @@ if ($config->use_javascript_ajax && 1 == 2) {   // select2 is not best with smar
 } else {
 	$usedbyinclude = 1; // Used into next include
 	$showtitlebefore = GETPOSTINT('showtitlebefore');
-	$arrayresult = array();
+	$arrayresult = [];
 	include DOL_DOCUMENT_ROOT.'/core/ajax/selectsearchbox.php';
 
 	$i = 0;
-	$accesskeyalreadyassigned = array();
+	$accesskeyalreadyassigned = [];
 	foreach ($arrayresult as $key => $val) {
 		$tmp = explode('?', $val['url']);
 		$urlaction = $tmp[0];

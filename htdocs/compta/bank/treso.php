@@ -114,7 +114,7 @@ if (GETPOST("account") || GETPOST("ref")) {
 
 
 	// Remainder to pay in future
-	$sqls = array();
+	$sqls = [];
 
 	// Customer invoices
 	$sql = "SELECT 'invoice' as family, f.rowid as objid, f.ref as ref, f.total_ttc, f.type, f.date_lim_reglement as dlr,";
@@ -171,15 +171,15 @@ if (GETPOST("account") || GETPOST("ref")) {
 	$sqls[] = $sql;
 
 	// others sql
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('addMoreSQL', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($resHook) and isset($hookManager->resArray['sql'])) {
 		$sqls[] = $hookManager->resArray['sql'];
 	}
 
 	$error = 0;
-	$tab_sqlobjOrder = array();
-	$tab_sqlobj = array();
+	$tab_sqlobjOrder = [];
+	$tab_sqlobj = [];
 	$nbtotalofrecords = 0;
 
 	foreach ($sqls as $sql) {

@@ -124,7 +124,7 @@ $membertypeid = GETPOSTINT("membertypeid");
 
 // Detect $paymentmethod
 $paymentmethod = '';
-$reg = array();
+$reg = [];
 if (preg_match('/PM=([^\.]+)/', $FULLTAG, $reg)) {
 	$paymentmethod = $reg[1];
 }
@@ -137,7 +137,7 @@ if (empty($paymentmethod)) {
 dol_syslog("***** paymentok.php is called paymentmethod=".$paymentmethod." FULLTAG=".$FULLTAG." REQUEST_URI=".$_SERVER["REQUEST_URI"], LOG_DEBUG, 0, '_payment');
 
 // Detect $ws
-$reg_ws = array();
+$reg_ws = [];
 $ws = preg_match('/WS=([^\.]+)/', $FULLTAG, $reg_ws) ? $reg_ws[1] : 0;
 if ($ws) {
 	dol_syslog("Paymentok.php page is invoked from a website with ref ".$ws.". It performs actions and then redirects back to this website. A page with ref paymentok must be created for this website.", LOG_DEBUG, 0, '_payment');
@@ -424,7 +424,7 @@ $appli = $mysoc->name;
 
 // Make complementary actions (post payment actions if payment is ok)
 $ispostactionok = 0;
-$postactionmessages = array();
+$postactionmessages = [];
 if ($ispaymentok) {
 	// Set permission for the anonymous user
 	if (empty($user->rights->societe)) {
@@ -855,9 +855,9 @@ if ($ispaymentok) {
 
 						// Attach a file ?
 						$file = '';
-						$listofpaths = array();
-						$listofnames = array();
-						$listofmimes = array();
+						$listofpaths = [];
+						$listofnames = [];
+						$listofmimes = [];
 						if (is_object($object->invoice)) {
 							$invoicediroutput = $config->facture->dir_output;
 							$fileparams = dol_most_recent_file($invoicediroutput.'/'.$object->invoice->ref, preg_quote($object->invoice->ref, '/').'[^\-]+');
@@ -1488,9 +1488,9 @@ if ($ispaymentok) {
 
 							// Attach a file ?
 							$file = '';
-							$listofpaths = array();
-							$listofnames = array();
-							$listofmimes = array();
+							$listofpaths = [];
+							$listofnames = [];
+							$listofmimes = [];
 							if (is_object($object)) {
 								$invoicediroutput = $config->facture->dir_output;
 								$fileparams = dol_most_recent_file($invoicediroutput.'/'.$object->ref, preg_quote($object->ref, '/').'[^\-]+');
@@ -1707,7 +1707,7 @@ if ($ispaymentok) {
 										$ishtml = dol_textishtml($texttosend); // May contain urls
 										$trackid = 'inv'.$invoice->id;
 
-										$mailfile = new CMailFile($subjecttosend, $sendto, $from, $texttosend, array(), array(), array(), '', '', 0, $ishtml ? 1 : 0, '', '', $trackid, '', 'standard');
+										$mailfile = new CMailFile($subjecttosend, $sendto, $from, $texttosend, [], [], [], '', '', 0, $ishtml ? 1 : 0, '', '', $trackid, '', 'standard');
 
 										$result = $mailfile->sendfile();
 										if ($result) {
@@ -2041,7 +2041,7 @@ if ($ispaymentok) {
 		$trackid = '';
 
 		require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-		$mailfile = new CMailFile($topic, $sendto, $from, $content, array(), array(), array(), '', '', 0, $ishtml ? 1 : 0, '', '', $trackid, '', 'standard');
+		$mailfile = new CMailFile($topic, $sendto, $from, $content, [], [], [], '', '', 0, $ishtml ? 1 : 0, '', '', $trackid, '', 'standard');
 
 		$result = $mailfile->sendfile();
 		if ($result) {
@@ -2102,7 +2102,7 @@ if ($ispaymentok) {
 		$trackid = '';
 
 		require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-		$mailfile = new CMailFile($topic, $sendto, $from, $content, array(), array(), array(), '', '', 0, $ishtml ? 1 : 0, '', '', $trackid, '', 'standard');
+		$mailfile = new CMailFile($topic, $sendto, $from, $content, [], [], [], '', '', 0, $ishtml ? 1 : 0, '', '', $trackid, '', 'standard');
 
 		$result = $mailfile->sendfile();
 		if ($result) {

@@ -83,7 +83,7 @@ top_httphead('application/json');
 //print '<!-- Ajax page called with url '.dol_escape_htmltag($_SERVER["PHP_SELF"]).'?'.dol_escape_htmltag($_SERVER["QUERY_STRING"]).' -->'."\n";
 
 
-$return_arr = array();
+$return_arr = [];
 
 // Define filter on text typed
 $socid = GETPOST('newcompany');
@@ -160,7 +160,7 @@ if ($resql) {
 		if ($socid) {
 			$label = preg_replace('/('.preg_quote($socid, '/').')/i', '<strong>$1</strong>', $label, 1);
 		}
-		$row_array = array();
+		$row_array = [];
 		$row_array['label'] = $label;
 
 		$row_array['value'] = $row['nom'];

@@ -65,7 +65,7 @@ class ActionsTicket extends CommonHookActions
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var int Error number
@@ -341,7 +341,7 @@ class ActionsTicket extends CommonHookActions
 
 					//attachment
 
-					$documents = array();
+					$documents = [];
 
 					$sql = 'SELECT ecm.rowid as id, ecm.src_object_type, ecm.src_object_id';
 					$sql .= ', ecm.filepath, ecm.filename, ecm.share';

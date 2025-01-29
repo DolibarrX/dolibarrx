@@ -67,9 +67,9 @@ class modProjet extends DolibarrModules
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
 		$this->requiredby = array('modEventOrganization'); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->langfiles = array('projects');
 
@@ -149,7 +149,7 @@ class modProjet extends DolibarrModules
 			'test' => '$config->projet->enabled',
 		);
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'projet';
 		$r = 0;
 
@@ -260,7 +260,7 @@ class modProjet extends DolibarrModules
 		}
 
 		// Add fields for project
-		$this->export_fields_array[$r] = array_merge($this->export_fields_array[$r], array());
+		$this->export_fields_array[$r] = array_merge($this->export_fields_array[$r], []);
 		// Add extra fields for project
 		$keyforselect = 'projet';
 		$keyforelement = 'project';
@@ -299,7 +299,7 @@ class modProjet extends DolibarrModules
 		$this->import_code[$r] = 'projects';
 		$this->import_label[$r] = 'ImportDatasetProjects';
 		$this->import_icon[$r] = 'project';
-		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('t'=>MAIN_DB_PREFIX.'projet', 'extra'=>MAIN_DB_PREFIX.'projet_extrafields'); // List of tables to insert into (insert done in same order)
 		$this->import_fields_array[$r] = array('t.ref'=>'ProjectRef*', 't.title'=>'Label*', 't.description'=>"Description", 't.fk_soc' => 'ThirdPartyName', 't.public'=>"Public", 't.fk_statut'=>"Status");
 		$this->import_fields_array[$r] = array_merge($this->import_fields_array[$r], array('t.fk_opp_status'=>"OpportunityStatus", 't.opp_percent'=>"OpportunityProbability", 't.opp_amount'=>"OpportunityAmount", 't.note_public'=>"NotePublic", 't.note_private'=>"NotePrivate", 't.budget_amount'=>"Budget", 't.dateo'=>"DateStart", 't.datee'=>"DateEnd"));
@@ -408,7 +408,7 @@ class modProjet extends DolibarrModules
 			}
 		}
 
-		$sql = array();
+		$sql = [];
 		$sql[] = "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[3][2])."' AND type = 'task' AND entity = ".((int) $config->entity);
 		$sql[] = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[3][2])."','task',".((int) $config->entity).")";
 		$sql[] = "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'beluga' AND type = 'project' AND entity = ".((int) $config->entity);

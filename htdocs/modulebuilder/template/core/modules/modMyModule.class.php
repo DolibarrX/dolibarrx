@@ -146,11 +146,11 @@ class modMyModule extends DolibarrModules
 		// A condition to hide module
 		$this->hidden = getDolGlobalInt('MODULE_MYMODULE_DISABLED'); // A condition to disable module;
 		// List of module class names that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR')...)
-		$this->depends = array();
+		$this->depends = [];
 		// List of module class names to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
-		$this->requiredby = array();
+		$this->requiredby = [];
 		// List of module class names this module is in conflict with. Example: array('modModuleToDisable1', ...)
-		$this->conflictwith = array();
+		$this->conflictwith = [];
 
 		// The language file dedicated to your module
 		$this->langfiles = array("mymodule@mymodule");
@@ -161,8 +161,8 @@ class modMyModule extends DolibarrModules
 		$this->need_javascript_ajax = 0;
 
 		// Messages at activation
-		$this->warnings_activation = array(); // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
-		$this->warnings_activation_ext = array(); // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
+		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
+		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
 		//$this->automatic_activation = array('FR'=>'MyModuleWasAutomaticallyActivatedBecauseOfYourCountryChoice');
 		//$this->always_enabled = true;								// If true, can't be disabled
 
@@ -171,7 +171,7 @@ class modMyModule extends DolibarrModules
 		// Example: $this->const=array(1 => array('MYMODULE_MYNEWCONST1', 'chaine', 'myvalue', 'This is a constant to add', 1),
 		//                             2 => array('MYMODULE_MYNEWCONST2', 'chaine', 'myvalue', 'This is another constant to add', 0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = [];
 
 		// Some keys to add into the overwriting translation tables
 		/*$this->overwrite_translation = array(
@@ -186,7 +186,7 @@ class modMyModule extends DolibarrModules
 
 		// Array to add new pages in new tabs
 		/* BEGIN MODULEBUILDER TABS */
-		$this->tabs = array();
+		$this->tabs = [];
 		/* END MODULEBUILDER TABS */
 		// Example:
 		// To add a new tab identified by code tabname1
@@ -246,7 +246,7 @@ class modMyModule extends DolibarrModules
 		 );
 		 */
 		/* BEGIN MODULEBUILDER DICTIONARIES */
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 		/* END MODULEBUILDER DICTIONARIES */
 
 		// Boxes/Widgets
@@ -288,7 +288,7 @@ class modMyModule extends DolibarrModules
 		// );
 
 		// Permissions provided by this module
-		$this->rights = array();
+		$this->rights = [];
 		$r = 0;
 		// Add here entries to declare new permissions
 		/* BEGIN MODULEBUILDER PERMISSIONS */
@@ -314,7 +314,7 @@ class modMyModule extends DolibarrModules
 
 
 		// Main menu entries to add
-		$this->menu = array();
+		$this->menu = [];
 		$r = 0;
 		// Add here entries to declare new menus
 		/* BEGIN MODULEBUILDER TOPMENU */
@@ -428,14 +428,14 @@ class modMyModule extends DolibarrModules
 		$this->import_icon[$r] = $this->picture;
 		$this->import_tables_array[$r] = array('t' => $this->db->prefix().'mymodule_myobject', 'extra' => $this->db->prefix().'mymodule_myobject_extrafields');
 		$this->import_tables_creator_array[$r] = array('t' => 'fk_user_author'); // Fields to store import user id
-		$import_sample = array();
+		$import_sample = [];
 		$keyforclass = 'MyObject'; $keyforclassfile='/mymodule/class/myobject.class.php'; $keyforelement='myobject@mymodule';
 		include DOL_DOCUMENT_ROOT.'/core/commonfieldsinimport.inc.php';
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$keyforselect='myobject'; $keyforaliasextra='extra'; $keyforelement='myobject@mymodule';
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinimport.inc.php';
 		$this->import_fieldshidden_array[$r] = array('extra.fk_object' => 'lastrowid-'.$this->db->prefix().'mymodule_myobject');
-		$this->import_regex_array[$r] = array();
+		$this->import_regex_array[$r] = [];
 		$this->import_examplevalues_array[$r] = array_merge($import_sample, $import_extrafield_sample);
 		$this->import_updatekeys_array[$r] = array('t.ref' => 'Ref');
 		$this->import_convertvalue_array[$r] = array(
@@ -450,7 +450,7 @@ class modMyModule extends DolibarrModules
 			't.fk_user_valid' => array('rule' => 'fetchidfromref', 'file' => '/user/class/user.class.php', 'class' => 'User', 'method' => 'fetch', 'element' => 'user'),
 			't.fk_mode_reglement' => array('rule' => 'fetchidfromcodeorlabel', 'file' => '/compta/paiement/class/cpaiement.class.php', 'class' => 'Cpaiement', 'method' => 'fetch', 'element' => 'cpayment'),
 		);
-		$this->import_run_sql_after_array[$r] = array();
+		$this->import_run_sql_after_array[$r] = [];
 		$r++; */
 		/* END MODULEBUILDER IMPORT MYOBJECT */
 	}
@@ -487,11 +487,11 @@ class modMyModule extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		// Document templates
 		$moduledir = dol_sanitizeFileName('mymodule');
-		$myTmpObjects = array();
+		$myTmpObjects = [];
 		$myTmpObjects['MyObject'] = array('includerefgeneration' => 0, 'includedocgeneration' => 0);
 
 		foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
@@ -533,7 +533,7 @@ class modMyModule extends DolibarrModules
 	 */
 	public function remove($options = '')
 	{
-		$sql = array();
+		$sql = [];
 		return $this->_remove($sql, $options);
 	}
 }

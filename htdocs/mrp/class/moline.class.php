@@ -282,7 +282,7 @@ class MoLine extends CommonObjectLine
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList();
@@ -295,7 +295,7 @@ class MoLine extends CommonObjectLine
 
 		// Deprecated.
 		if (is_array($filter)) {
-			$sqlwhere = array();
+			$sqlwhere = [];
 			if (count($filter) > 0) {
 				foreach ($filter as $key => $value) {
 					if ($key == 't.rowid') {

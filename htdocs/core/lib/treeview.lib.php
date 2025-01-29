@@ -122,7 +122,7 @@ function tree_recur($tab, $pere, $rang, $iddivjstree = 'iddivjstree', $donoreset
 	global $tree_recur_alreadyadded, $menu_handler_to_search;
 
 	if ($rang == 0 && empty($donoresetalreadyloaded)) {
-		$tree_recur_alreadyadded = array();
+		$tree_recur_alreadyadded = [];
 	}
 
 	if ($rang == 0) {

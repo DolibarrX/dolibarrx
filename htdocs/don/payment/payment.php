@@ -41,7 +41,7 @@ $langs->load("bills");
 
 $chid = GETPOSTINT("rowid");
 $action = GETPOST('action', 'aZ09');
-$amounts = array();
+$amounts = [];
 $cancel = GETPOST('cancel');
 
 // Security check

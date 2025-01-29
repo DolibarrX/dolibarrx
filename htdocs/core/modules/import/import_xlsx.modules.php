@@ -81,9 +81,9 @@ class ImportXlsx extends ModeleImports
 	 */
 	public $handle; // Handle fichier
 
-	public $cacheconvert = array(); // Array to cache list of value found after a conversion
+	public $cacheconvert = []; // Array to cache list of value found after a conversion
 
-	public $cachefieldtable = array(); // Array to cache list of value found into fields@tables
+	public $cachefieldtable = []; // Array to cache list of value found into fields@tables
 
 	public $nbinsert = 0; // # of insert done during the import
 
@@ -128,7 +128,7 @@ class ImportXlsx extends ModeleImports
 		$this->phpmin = array(7, 1); // Minimum version of PHP required by module
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-		if (versioncompare($this->phpmin, versionphparray()) > 0) {
+		if (versioncompare($this->phpmin, versionphp[]) > 0) {
 			dol_syslog("Module need a higher PHP version");
 			$this->error = "Module need a higher PHP version";
 			return;
@@ -313,7 +313,7 @@ class ImportXlsx extends ModeleImports
 	{
 		// phpcs:enable
 		// This is not called by the import code !!!
-		$this->headers = array();
+		$this->headers = [];
 		$xlsx = new Xlsx();
 		$info = $xlsx->listWorksheetinfo($this->file);
 		$countcolumns = $info[0]['totalColumns'];
@@ -337,7 +337,7 @@ class ImportXlsx extends ModeleImports
 		if ($this->record > $rowcount) {
 			return false;
 		}
-		$array = array();
+		$array = [];
 
 		$xlsx = new Xlsx();
 		$info = $xlsx->listWorksheetinfo($this->file);
@@ -401,8 +401,8 @@ class ImportXlsx extends ModeleImports
 
 		$error = 0;
 		$warning = 0;
-		$this->errors = array();
-		$this->warnings = array();
+		$this->errors = [];
+		$this->warnings = [];
 
 		//dol_syslog("import_csv.modules maxfields=".$maxfields." importid=".$importid);
 
@@ -421,15 +421,15 @@ class ImportXlsx extends ModeleImports
 			$this->warnings[$warning]['type'] = 'EMPTY';
 			$warning++;
 		} else {
-			$last_insert_id_array = array(); // store the last inserted auto_increment id for each table, so that dependent tables can be inserted with the appropriate id (eg: extrafields fk_object will be set with the last inserted object's id)
+			$last_insert_id_array = []; // store the last inserted auto_increment id for each table, so that dependent tables can be inserted with the appropriate id (eg: extrafields fk_object will be set with the last inserted object's id)
 			$updatedone = false;
 			$insertdone = false;
 			// For each table to insert, me make a separate insert
 			foreach ($objimport->array_import_tables[0] as $alias => $tablename) {
 				// Build sql request
 				$sql = '';
-				$listfields = array();
-				$listvalues = array();
+				$listfields = [];
+				$listvalues = [];
 				$i = 0;
 				$errorforthistable = 0;
 
@@ -452,7 +452,7 @@ class ImportXlsx extends ModeleImports
 				}
 
 				// Define an array to convert fields ('c.ref', ...) into column index (1, ...)
-				$arrayfield = array();
+				$arrayfield = [];
 				foreach ($sort_array_match_file_to_database as $key => $val) {
 					$arrayfield[$val] = ($key);
 				}
@@ -764,7 +764,7 @@ class ImportXlsx extends ModeleImports
 							// Test regexp
 							if (!empty($objimport->array_import_regex[0][$val]) && ($newval != '')) {
 								// If test is "Must exist in a field@table or field@table:..."
-								$reg = array();
+								$reg = [];
 								if (preg_match('/^(.+)@([^:]+)(:.+)?$/', $objimport->array_import_regex[0][$val], $reg)) {
 									$field = $reg[1];
 									$table = $reg[2];
@@ -976,10 +976,10 @@ class ImportXlsx extends ModeleImports
 
 								$data = array_combine($listfields, $listvalues);
 
-								$where = array();	// filters to forge SQL request
+								$where = [];	// filters to forge SQL request
 								// @phpstan-ignore-next-line
 								'@phan-var string[] $where';
-								$filters = array();	// filters to forge output error message
+								$filters = [];	// filters to forge output error message
 								foreach ($updatekeys as $key) {
 									$col = $objimport->array_import_updatekeys[0][$key];
 									$key = preg_replace('/^.*\./i', '', $key);
@@ -1077,7 +1077,7 @@ class ImportXlsx extends ModeleImports
 								$sqlstart = "UPDATE " . $tablename;
 
 								$data = array_combine($listfields, $listvalues);
-								$set = array();
+								$set = [];
 								foreach ($data as $key => $val) {
 									$set[] = $key." = ".$val;	// $val was escaped/sanitized previously
 								}

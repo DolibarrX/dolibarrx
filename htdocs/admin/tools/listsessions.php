@@ -119,7 +119,7 @@ print_barre_liste($langs->trans("Sessions"), $page, $_SERVER["PHP_SELF"], "", $s
 $savehandler = ini_get("session.save_handler");
 $savepath = ini_get("session.save_path");
 $openbasedir = ini_get("open_basedir");
-$phparray = phpinfo_array();
+$phparray = phpinfo_[];
 $suhosin = empty($phparray['suhosin']["suhosin.session.encrypt"]["local"]) ? '' : $phparray['suhosin']["suhosin.session.encrypt"]["local"];
 
 print '<b>'.$langs->trans("SessionSaveHandler").'</b>: '.$savehandler.'<br>';
@@ -133,10 +133,10 @@ if ($suhosin) {
 print '<br>';
 
 if ($action == 'purge') {
-	$formquestion = array();
+	$formquestion = [];
 	print $form->formconfirm($_SERVER["PHP_SELF"].'?noparam=noparam', $langs->trans('PurgeSessions'), $langs->trans('ConfirmPurgeSessions'), 'confirm_purge', $formquestion, 'no', 2);
 } elseif ($action == 'lock') {
-	$formquestion = array();
+	$formquestion = [];
 	print $form->formconfirm($_SERVER["PHP_SELF"].'?noparam=noparam', $langs->trans('LockNewSessions'), $langs->trans('ConfirmLockNewSessions', $user->login), 'confirm_lock', $formquestion, 'no', 1);
 }
 

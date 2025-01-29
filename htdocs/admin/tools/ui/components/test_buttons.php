@@ -83,7 +83,7 @@ llxHeader('', 'Documentation and examples for theme');
 	$id = 'mybuttonid'.$n;
 	$url = '#'.$id;
 	$userRight = 1;
-	$params = array();
+	$params = [];
 
 	print dolGetButtonAction($label, $html, $actionType, $url, $id, $userRight);
 

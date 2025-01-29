@@ -125,17 +125,17 @@ class BonPrelevement extends CommonObject
 	 * @var int
 	 */
 	public $fetched;
-	public $labelStatus = array();
+	public $labelStatus = [];
 
-	public $factures = array();
+	public $factures = [];
 
 	/**
 	 * @var array<int,string>
 	 */
-	public $methodes_trans = array();
+	public $methodes_trans = [];
 
-	public $invoice_in_error = array();
-	public $thirdparty_in_error = array();
+	public $invoice_in_error = [];
+	public $thirdparty_in_error = [];
 
 	/**
 	 * @var resource	Handler of the file for direct debit or credit transfer order
@@ -304,7 +304,7 @@ class BonPrelevement extends CommonObject
 		$this->emetteur_bic = "";
 		$this->emetteur_ics = "";
 
-		$this->factures = array();
+		$this->factures = [];
 
 		$this->methodes_trans = array(0 => 'Internet', 2 => 'Email', 3 => 'Api');
 
@@ -464,7 +464,7 @@ class BonPrelevement extends CommonObject
 	{
 		global $langs;
 
-		$errors = array();
+		$errors = [];
 
 		$errors[1027] = $langs->trans("DateInvalid");
 
@@ -596,8 +596,8 @@ class BonPrelevement extends CommonObject
 					$fk_bank_account = ($this->type == 'bank-transfer' ? getDolGlobalInt('PAYMENTBYBANKTRANSFER_ID_BANKACCOUNT') : getDolGlobalInt('PRELEVEMENT_ID_BANKACCOUNT'));
 				}
 
-				$amounts = array();
-				$amountsperthirdparty = array();
+				$amounts = [];
+				$amountsperthirdparty = [];
 
 				$facs = $this->getListInvoices(1, $type);
 				if ($this->error) {
@@ -839,7 +839,7 @@ class BonPrelevement extends CommonObject
 	{
 		global $config;
 
-		$arr = array();
+		$arr = [];
 
 		dol_syslog(get_class($this) . "::getListInvoices");
 
@@ -1135,15 +1135,15 @@ class BonPrelevement extends CommonObject
 		$month = dol_print_date($datetimeprev, "%m", 'gmt');
 		$year = dol_print_date($datetimeprev, "%Y", 'gmt');
 
-		$this->invoice_in_error = array();
-		$this->thirdparty_in_error = array();
+		$this->invoice_in_error = [];
+		$this->thirdparty_in_error = [];
 
 		// Read invoices
-		$factures = array();
-		$factures_prev = array();
-		$factures_result = array();
-		$factures_prev_id = array();
-		$factures_errors = array();
+		$factures = [];
+		$factures_prev = [];
+		$factures_result = [];
+		$factures_prev_id = [];
+		$factures_errors = [];
 
 		if (!$error) {
 			dol_syslog(__METHOD__ . " Read invoices for did=" . ((int) $did), LOG_DEBUG);
@@ -1881,7 +1881,7 @@ class BonPrelevement extends CommonObject
 				$resql = $this->db->query($sql);
 				$nbtotalDrctDbtTxInf = -1;
 				if ($resql) {
-					$cachearraytotestduplicate = array();
+					$cachearraytotestduplicate = [];
 
 					$num = $this->db->num_rows($resql);
 					while ($i < $num) {
@@ -2026,7 +2026,7 @@ class BonPrelevement extends CommonObject
 
 				$resql = $this->db->query($sql);
 				if ($resql) {
-					$cachearraytotestduplicate = array();
+					$cachearraytotestduplicate = [];
 
 					$num = $this->db->num_rows($resql);
 					while ($i < $num) {

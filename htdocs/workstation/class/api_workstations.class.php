@@ -113,7 +113,7 @@ class Workstations extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		$socid = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : '';
 
@@ -165,7 +165,7 @@ class Workstations extends DolibarrApi
 			$total = $this->db->fetch_object($totalsResult)->total;
 
 			$tmp = $obj_ret;
-			$obj_ret = array();
+			$obj_ret = [];
 
 			$obj_ret['data'] = $tmp;
 			$obj_ret['pagination'] = array(

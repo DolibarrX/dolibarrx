@@ -113,7 +113,7 @@ print "</td></tr>\n";
 print '<tr class="oddeven"><td>';
 print $langs->trans('HideCategories');
 print '</td><td>';
-print ajax_constantonoff("TAKEPOS_HIDE_CATEGORIES", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_HIDE_CATEGORIES", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Hide category images to speed up
@@ -121,7 +121,7 @@ if (!getDolGlobalString('TAKEPOS_HIDE_CATEGORIES')) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans('HideCategoryImages');
 	print '</td><td>';
-	print ajax_constantonoff("TAKEPOS_HIDE_CATEGORY_IMAGES", array(), $config->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("TAKEPOS_HIDE_CATEGORY_IMAGES", [], $config->entity, 0, 0, 1, 0);
 	print "</td></tr>\n";
 }
 
@@ -129,7 +129,7 @@ if (!getDolGlobalString('TAKEPOS_HIDE_CATEGORIES')) {
 print '<tr class="oddeven"><td>';
 print $langs->trans('HideProductImages');
 print '</td><td>';
-print ajax_constantonoff("TAKEPOS_HIDE_PRODUCT_IMAGES", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_HIDE_PRODUCT_IMAGES", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // View reference or label of products
@@ -138,7 +138,7 @@ print $langs->trans('ShowProductReference');
 print '</td><td>';
 $array = array("0"=>$langs->trans("Label"), 1=>$langs->trans("Ref").'+'.$langs->trans("Label"), 2=>$langs->trans("Ref"));
 print $form->selectarray('TAKEPOS_SHOW_PRODUCT_REFERENCE', $array, getDolGlobalInt('TAKEPOS_SHOW_PRODUCT_REFERENCE', 2), 0);
-//print ajax_constantonoff("TAKEPOS_SHOW_PRODUCT_REFERENCE", array(), $config->entity, 0, 0, 1, 0);
+//print ajax_constantonoff("TAKEPOS_SHOW_PRODUCT_REFERENCE", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Lines to show
@@ -153,21 +153,21 @@ print "</td></tr>\n";
 print '<tr class="oddeven"><td>';
 print $langs->trans('HideStockOnLine');
 print '</td><td>';
-print ajax_constantonoff("TAKEPOS_HIDE_STOCK_ON_LINE", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_HIDE_STOCK_ON_LINE", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Only the products in stock
 print '<tr class="oddeven"><td>';
 print $langs->trans('ShowOnlyProductInStock');
 print '</td><td>';
-print ajax_constantonoff("TAKEPOS_PRODUCT_IN_STOCK", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_PRODUCT_IN_STOCK", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // View description of the categories
 print '<tr class="oddeven"><td>';
 print $langs->trans('ShowCategoryDescription');
 print '</td><td>';
-print ajax_constantonoff("TAKEPOS_SHOW_CATEGORY_DESCRIPTION", array(), $config->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_SHOW_CATEGORY_DESCRIPTION", [], $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 print '</table>';

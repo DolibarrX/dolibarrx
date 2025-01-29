@@ -120,8 +120,8 @@ if (!getDolGlobalString('OPENSURVEY_ENABLE_PUBLIC_INTERFACE')) {
 	exit();
 }
 
-$arrayofjs = array();
-$arrayofcss = array();
+$arrayofjs = [];
+$arrayofcss = [];
 
 $replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';
 llxHeader($head, $langs->trans("Surveys"), '', '', 0, 0, '', '', '', 'onlinepaymentbody', $replacemainarea, 1, 1);

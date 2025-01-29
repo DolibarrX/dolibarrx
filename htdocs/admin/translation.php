@@ -95,7 +95,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && !empty($massaction) && $massaction
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -107,8 +107,8 @@ include DOL_DOCUMENT_ROOT.'/core/actions_changeselectedfields.inc.php';
 if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')) { // All tests are required to be compatible with all browsers
 	$transkey = '';
 	$transvalue = '';
-	$toselect = array();
-	$search_array_options = array();
+	$toselect = [];
+	$search_array_options = [];
 }
 
 if ($action == 'setMAIN_ENABLE_OVERWRITE_TRANSLATION') {
@@ -283,13 +283,13 @@ $langsenfileonly->setDefaultLang('en_US');
 $newlangfileonly = new Translate('', $config);
 $newlangfileonly->setDefaultLang($langcode);
 
-$recordtoshow = array();
+$recordtoshow = [];
 
 // Search modules dirs
 $modulesdir = dolGetModulesDirs();
 
-$listoffiles = array();
-$listoffilesexternalmodules = array();
+$listoffiles = [];
+$listoffilesexternalmodules = [];
 
 // Search into dir of modules (the $modulesdir is already a list that loop on $config->file->dol_document_root)
 $i = 0;
@@ -377,7 +377,7 @@ if ($mode == 'overwrite') {
 	print "\n";
 
 	print '<tr class="oddeven"><td>';
-	print $formadmin->select_language(GETPOST('langcode'), 'langcode', 0, array(), 1, 0, $disablededit ? 1 : 0, 'maxwidth250', 1);
+	print $formadmin->select_language(GETPOST('langcode'), 'langcode', 0, [], 1, 0, $disablededit ? 1 : 0, 'maxwidth250', 1);
 	print '</td>'."\n";
 	print '<td>';
 	print '<input type="text" class="flat maxwidthonsmartphone"'.$disablededit.' name="transkey" id="transkey" value="'.(!empty($transkey) ? $transkey : "").'">';
@@ -523,7 +523,7 @@ if ($mode == 'searchkey') {
 
 	print '<tr class="liste_titre liste_titre_filter"><td>';
 	//print $formadmin->select_language($langcode,'langcode',0,null,$langs->trans("All"),0,0,'',1);
-	print $formadmin->select_language($langcode, 'langcode', 0, array(), 0, 0, 0, 'maxwidth250', 1);
+	print $formadmin->select_language($langcode, 'langcode', 0, [], 0, 0, 0, 'maxwidth250', 1);
 	print '</td>'."\n";
 	print '<td>';
 	print '<input type="text" class="flat maxwidthonsmartphone" name="transkey" value="'.dol_escape_htmltag($transkey).'">';

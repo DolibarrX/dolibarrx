@@ -41,7 +41,7 @@ class FormLdap
 	/**
 	 * @var string[]	Array of error strings
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -114,7 +114,7 @@ class FormLdap
 	 * 	@param	int			$showempty		Add an empty field
 	 *  @return	string						HTML select string
 	 */
-	public function selectLdapDnSynchroActive($selected = 0, $htmlname = 'activesynchro', $exclude = array(), $scriptonly = 0, $showempty = 0)
+	public function selectLdapDnSynchroActive($selected = 0, $htmlname = 'activesynchro', $exclude = [], $scriptonly = 0, $showempty = 0)
 	{
 		global $langs, $form;
 

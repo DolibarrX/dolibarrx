@@ -77,7 +77,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 
 // Initialize array of search criteria
 $search_all = GETPOST("search_all", 'alpha');
-$search = array();
+$search = [];
 foreach ($object->fields as $key => $val) {
 	if (GETPOST('search_'.$key, 'alpha')) {
 		$search[$key] = GETPOST('search_'.$key, 'alpha');
@@ -146,7 +146,7 @@ if (!$permissiontoread) {
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -428,7 +428,7 @@ if ($action == 'create') {
 		print '<input type="hidden" name="backtopageforcancel" value="'.$backtopageforcancel.'">';
 	}
 
-	print dol_get_fiche_head(array(), '');
+	print dol_get_fiche_head([], '');
 
 	print '<table class="border centpercent tableforfieldcreate">'."\n";
 
@@ -506,7 +506,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		print '<tr><td>';
 		print $form->editfieldkey($langs->trans('SellByDate'), 'sellby', $object->sellby, $object, $user->hasRight('stock', 'creer'), 'datepicker', '', $object->fields['sellby']['notnull']);
 		print '</td><td>';
-		print $form->editfieldval($langs->trans('SellByDate'), 'sellby', $object->sellby, $object, $user->hasRight('stock', 'creer'), 'datepicker', '', null, null, '', 1, '', 'id', 'auto', array(), $action);
+		print $form->editfieldval($langs->trans('SellByDate'), 'sellby', $object->sellby, $object, $user->hasRight('stock', 'creer'), 'datepicker', '', null, null, '', 1, '', 'id', 'auto', [], $action);
 		print '</td>';
 		print '</tr>';
 	}
@@ -516,7 +516,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		print '<tr><td>';
 		print $form->editfieldkey($langs->trans('EatByDate'), 'eatby', $object->eatby, $object, $user->hasRight('stock', 'creer'), 'datepicker', '', $object->fields['eatby']['notnull']);
 		print '</td><td>';
-		print $form->editfieldval($langs->trans('EatByDate'), 'eatby', $object->eatby, $object, $user->hasRight('stock', 'creer'), 'datepicker', '', null, null, '', 1, '', 'id', 'auto', array(), $action);
+		print $form->editfieldval($langs->trans('EatByDate'), 'eatby', $object->eatby, $object, $user->hasRight('stock', 'creer'), 'datepicker', '', null, null, '', 1, '', 'id', 'auto', [], $action);
 		print '</td>';
 		print '</tr>';
 	}
@@ -568,7 +568,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Buttons for actions
 	if ($action != 'presend' && $action != 'editline') {
 		print '<div class="tabsAction">'."\n";
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');

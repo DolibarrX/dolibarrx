@@ -127,7 +127,7 @@ if ($config->use_javascript_ajax) {
 		}
 	}
 
-	$dataseries = array();
+	$dataseries = [];
 	$dataseries[] = array($langs->transnoentitiesnoconv("MembersStatusToValid"), $sumMembers['total']['members_draft']);			// Draft, not yet validated
 	$dataseries[] = array($langs->transnoentitiesnoconv("WaitingSubscription"), $sumMembers['total']['members_pending']);
 	$dataseries[] = array($langs->transnoentitiesnoconv("UpToDate"), $sumMembers['total']['members_uptodate']);

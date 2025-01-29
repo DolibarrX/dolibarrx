@@ -187,7 +187,7 @@ class Evaluation extends CommonObject
 	// /**
 	//  * @var array	List of child tables. To test if we can delete object.
 	//  */
-	// protected $childtables = array();
+	// protected $childtables = [];
 
 	/**
 	 * @var string[] List of child tables. To know object to delete on cascade.
@@ -199,7 +199,7 @@ class Evaluation extends CommonObject
 	/**
 	 * @var EvaluationLine[]     Array of subtable lines
 	 */
-	public $lines = array();
+	public $lines = [];
 
 
 
@@ -266,7 +266,7 @@ class Evaluation extends CommonObject
 			$TRequiredRanks = $skillRank->fetchAll('ASC', 't.rowid', 0, 0, '(fk_object:=:'.((int) $this->fk_job).") AND (objecttype:=:'job')");
 
 			if (is_array($TRequiredRanks) && !empty($TRequiredRanks)) {
-				$this->lines = array();
+				$this->lines = [];
 				foreach ($TRequiredRanks as $required) {
 					$line = new EvaluationLine($this->db);
 					$line->fk_evaluation = $resultcreate;
@@ -408,7 +408,7 @@ class Evaluation extends CommonObject
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -431,7 +431,7 @@ class Evaluation extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList('t');
@@ -945,7 +945,7 @@ class Evaluation extends CommonObject
 	 */
 	public function getLinesArray()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectline = new EvaluationLine($this->db);
 		$result = $objectline->fetchAll('ASC', '', 0, 0, '(fk_evaluation:=:'.((int) $this->id).')');

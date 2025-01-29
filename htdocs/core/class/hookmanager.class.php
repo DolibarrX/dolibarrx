@@ -43,22 +43,22 @@ class HookManager
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string[] Context hookmanager was created for ('thirdpartycard', 'thirdpartydao', ...)
 	 */
-	public $contextarray = array();
+	public $contextarray = [];
 
 	/**
 	 * array<string,array<string,null|string|CommonHookActions>> 	Array with instantiated classes
 	 */
-	public $hooks = array();
+	public $hooks = [];
 
 	/**
 	 * array<string,array<string,null|string|CommonHookActions>> 	Array with instantiated classes sorted by hook priority
 	 */
-	public $hooksSorted = array();
+	public $hooksSorted = [];
 
 	/**
 	 * @var array<string,array{name:string,contexts:string[],file:string,line:string,count:int}> 	List of hooks called during this request (key = hash)
@@ -68,7 +68,7 @@ class HookManager
 	/**
 	 * @var mixed[] Result
 	 */
-	public $resArray = array();
+	public $resArray = [];
 
 	/**
 	 * @var string Printable result
@@ -195,7 +195,7 @@ class HookManager
 	 *                                      All types can also return some values into an array ->results that will be merged into this->resArray for caller.
 	 *                                      $this->error or this->errors are also defined by class called by this function if error.
 	 */
-	public function executeHooks($method, $parameters = array(), &$object = null, &$action = '')
+	public function executeHooks($method, $parameters = [], &$object = null, &$action = '')
 	{
 		//global $debugbar;
 		//if (is_object($debugbar) && get_class($debugbar) === 'DolibarrDebugBar') {
@@ -224,7 +224,7 @@ class HookManager
 		}
 		if (!is_array($parameters)) {
 			dol_syslog('executeHooks was called with a non array $parameters. Surely a bug.', LOG_WARNING);
-			$parameters = array();
+			$parameters = [];
 		}
 
 		$parameters['context'] = implode(':', $this->contextarray);
@@ -272,13 +272,13 @@ class HookManager
 
 		// Init return properties
 		$localResPrint = '';
-		$localResArray = array();
+		$localResArray = [];
 
 		$this->resNbOfHooks = 0;
 
 		// Here, the value for $method and $hooktype are given.
 		// Loop on each hook to qualify modules that have declared context
-		$modulealreadyexecuted = array();
+		$modulealreadyexecuted = [];
 		$resaction = 0;
 		$error = 0;
 		foreach ($this->hooksSorted as $context => $modules) {    // $this->hooks is an array with the context as key and the value is an array of modules that handle this context
@@ -305,7 +305,7 @@ class HookManager
 
 					// Clean class (an error may have been set from a previous call of another method for same module/hook)
 					$actionclassinstance->error = '';
-					$actionclassinstance->errors = array();
+					$actionclassinstance->errors = [];
 
 					if (getDolGlobalInt('MAIN_HOOK_DEBUG')) {
 						// This his too much verbose, enabled if const enabled only
@@ -383,7 +383,7 @@ class HookManager
 
 					//print "After hook context=".$context." ".get_class($actionclassinstance)." method=".$method." hooktype=".$hooktype." results=".count($actionclassinstance->results)." resprints=".count($actionclassinstance->resprints)." resaction=".$resaction."<br>\n";
 
-					$actionclassinstance->results = array();
+					$actionclassinstance->results = [];
 					$actionclassinstance->resprints = null;
 				}
 			}

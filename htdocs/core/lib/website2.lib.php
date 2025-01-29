@@ -728,7 +728,7 @@ function checkPHPCode(&$phpfullcodestringold, &$phpfullcodestring)
 		//$forbiddenphpstrings = array_merge($forbiddenphpstrings, array('_ENV', '_FILES', '_SESSION', '_COOKIE', '_GET', '_POST', '_REQUEST', 'ReflectionFunction'));
 		$forbiddenphpstrings = array_merge($forbiddenphpstrings, array('_ENV', 'ReflectionFunction'));
 
-		$forbiddenphpfunctions = array();
+		$forbiddenphpfunctions = [];
 		//$forbiddenphpfunctions = array_merge($forbiddenphpfunctions, array("base64"."_"."decode", "rawurl"."decode", "url"."decode", "str"."_rot13", "hex"."2bin")); // name of forbidden functions are split to avoid false positive
 		$forbiddenphpfunctions = array_merge($forbiddenphpfunctions, array("override_function", "session_id", "session_create_id", "session_regenerate_id"));
 		$forbiddenphpfunctions = array_merge($forbiddenphpfunctions, array("get_defined_functions", "get_defined_vars", "get_defined_constants", "get_declared_classes"));
@@ -781,7 +781,7 @@ function checkPHPCode(&$phpfullcodestringold, &$phpfullcodestring)
 
 	// This char can be used to execute RCE for example by using  echo `ls`
 	if (!$error) {
-		$forbiddenphpchars = array();
+		$forbiddenphpchars = [];
 		if (!getDolGlobalString('WEBSITE_PHP_ALLOW_DANGEROUS_CHARS')) {    // If option is not on, we disallow functions to execute commands
 			$forbiddenphpchars = array("`");
 		}

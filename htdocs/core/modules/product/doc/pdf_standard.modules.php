@@ -244,7 +244,7 @@ class pdf_standard extends ModelePDFProduct
 				$nexY = $pdf->GetY();
 
 				// Show photo
-				$pdir = array();
+				$pdir = [];
 				if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {
 					$pdir[0] = get_exdir($object->id, 2, 0, 0, $object, 'product').$object->id."/photos/";
 					$pdir[1] = get_exdir(0, 0, 0, 0, $object, 'product').dol_sanitizeFileName($object->ref).'/';
@@ -277,7 +277,7 @@ class pdf_standard extends ModelePDFProduct
 					}
 				}
 				// Define size of image if we need it
-				$imglinesize = array();
+				$imglinesize = [];
 				if (!empty($realpath) && $arephoto) {
 					$imgsize = pdf_getSizeForImage($realpath);
 					$imgsizewidth = $imgsize['width'] + 20;
@@ -645,7 +645,7 @@ class pdf_standard extends ModelePDFProduct
 
 			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
-				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, 5, $this->corner_radius, '1001', 'F', array(), explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
+				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, 5, $this->corner_radius, '1001', 'F', [], explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
 		}
 

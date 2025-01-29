@@ -455,7 +455,7 @@ foreach ($dirmodels as $reldir) {
 
 							if (getDolGlobalString('FACTURE_ADDON') . '.php' == $file) {  // If module is the one used, we show existing errors
 								if (!empty($module->error)) {
-									dol_htmloutput_mesg($module->error, array(), 'error', 1);
+									dol_htmloutput_mesg($module->error, [], 'error', 1);
 								}
 							}
 
@@ -484,7 +484,7 @@ print load_fiche_titre($langs->trans("BillsPDFModules"), '', '');
 
 // Load array def with activated templates
 $type = 'invoice';
-$def = array();
+$def = [];
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
@@ -517,7 +517,7 @@ print "</tr>\n";
 
 clearstatcache();
 
-$activatedModels = array();
+$activatedModels = [];
 
 foreach ($dirmodels as $reldir) {
 	foreach (array('', '/doc') as $valdir) {
@@ -527,7 +527,7 @@ foreach ($dirmodels as $reldir) {
 		if (is_dir($dir)) {
 			$handle = opendir($dir);
 			if (is_resource($handle)) {
-				$filelist = array();
+				$filelist = [];
 				while (($file = readdir($handle)) !== false) {
 					$filelist[] = $file;
 				}
@@ -765,7 +765,7 @@ if ($resql) {
 	}
 }
 print "</select>";
-print ajax_combobox("chq", array(), 0, 0, 'resolve', '-2');
+print ajax_combobox("chq", [], 0, 0, 'resolve', '-2');
 
 print "</td></tr>";
 
@@ -863,7 +863,7 @@ print '</td></tr>';
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("AllowExternalDownload").'</td>';
 print '<td class="left" colspan="2">';
-print ajax_constantonoff('INVOICE_ALLOW_EXTERNAL_DOWNLOAD', array(), null, 0, 0, 0, 2, 0, 1);
+print ajax_constantonoff('INVOICE_ALLOW_EXTERNAL_DOWNLOAD', [], null, 0, 0, 0, 2, 0, 1);
 print '</td></tr>';
 
 print '</table>';

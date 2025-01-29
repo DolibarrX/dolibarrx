@@ -68,12 +68,12 @@ class modReception extends DolibarrModules
 
 		// Dependencies
 		$this->depends = array("modFournisseur");
-		$this->requiredby = array();
-		$this->conflictwith = array();
+		$this->requiredby = [];
+		$this->conflictwith = [];
 		$this->langfiles = array('receptions');
 
 		// Constants
-		$this->const = array();
+		$this->const = [];
 		$r = 0;
 
 		$this->const[$r][0] = "RECEPTION_ADDON_PDF";
@@ -105,10 +105,10 @@ class modReception extends DolibarrModules
 		$r++;
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'reception';
 		$r = 0;
 
@@ -281,7 +281,7 @@ class modReception extends DolibarrModules
 			}
 		}
 
-		$sql = array();
+		$sql = [];
 
 		$sql = array(
 			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[0][2])."' AND type = 'reception' AND entity = ".((int) $config->entity),

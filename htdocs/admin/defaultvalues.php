@@ -100,7 +100,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && !empty($massaction) && $massaction
 	$massaction = '';
 }
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -113,8 +113,8 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$defaulturl = '';
 	$defaultkey = '';
 	$defaultvalue = '';
-	$toselect = array();
-	$search_array_options = array();
+	$toselect = [];
+	$search_array_options = [];
 }
 
 if ($action == 'setMAIN_ENABLE_DEFAULT_VALUES') {

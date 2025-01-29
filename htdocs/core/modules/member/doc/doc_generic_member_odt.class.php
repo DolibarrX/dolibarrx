@@ -121,7 +121,7 @@ class doc_generic_member_odt extends ModelePDFMember
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
 		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim(getDolGlobalString('MEMBER_ADDON_PDF_ODT_PATH'))));
-		$listoffiles = array();
+		$listoffiles = [];
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
 			$tmpdir = preg_replace('/DOL_DATA_ROOT/', DOL_DATA_ROOT, $tmpdir);
@@ -336,7 +336,7 @@ class doc_generic_member_odt extends ModelePDFMember
 				$array_thirdparty = $this->get_substitutionarray_thirdparty($socobject, $outputlangs);
 				$array_other = $this->get_substitutionarray_other($outputlangs);
 				// retrieve contact information for use in object as contact_xxx tags
-				$array_thirdparty_contact = array();
+				$array_thirdparty_contact = [];
 				if ($usecontact && is_object($contactobject)) {
 					$array_thirdparty_contact = $this->get_substitutionarray_contact($contactobject, $outputlangs, 'contact');
 				}
@@ -434,10 +434,10 @@ class doc_generic_member_odt extends ModelePDFMember
 		// phpcs:enable
 		if (!$object instanceof Member) {
 			dol_syslog("Expected Member object, got ".gettype($object), LOG_ERR);
-			return array();
+			return [];
 		}
 
-		$array_other = array();
+		$array_other = [];
 		foreach ($object as $key => $value) {
 			if (!is_array($value) && !is_object($value)) {
 				$array_other[$array_key.'_'.$key] = $value;

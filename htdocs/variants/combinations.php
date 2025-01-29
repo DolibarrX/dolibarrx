@@ -83,7 +83,7 @@ if ($id > 0 || $ref) {
 	$object->fetch($id, $ref);
 }
 
-$selectedvariant = isset($_SESSION['addvariant_'.$object->id]) ? $_SESSION['addvariant_'.$object->id] : array();
+$selectedvariant = isset($_SESSION['addvariant_'.$object->id]) ? $_SESSION['addvariant_'.$object->id] : [];
 $selected = '';
 // Security check
 if (!isModEnabled('variants')) {
@@ -149,11 +149,11 @@ if ($action == 'create' && $subaction == 'delete' && $usercancreate) {	// We cli
 $prodcomb = new ProductCombination($db);
 $prodcomb2val = new ProductCombination2ValuePair($db);
 
-$productCombination2ValuePairs1 = array();
+$productCombination2ValuePairs1 = [];
 
 if (($action == 'add' || $action == 'create') && $usercancreate && empty($massaction) && !GETPOST('selectvariant', 'alpha') && empty($subaction)) {	// We click on Create all defined combinations
 	//$features = GETPOST('features', 'array');
-	$features = !empty($_SESSION['addvariant_'.$object->id]) ? $_SESSION['addvariant_'.$object->id] : array();
+	$features = !empty($_SESSION['addvariant_'.$object->id]) ? $_SESSION['addvariant_'.$object->id] : [];
 
 	if (!$features) {
 		if ($action == 'create') {	// Test on permission already done
@@ -172,7 +172,7 @@ if (($action == 'add' || $action == 'create') && $usercancreate && empty($massac
 			$level_price_impact_percent = array(1 => $price_impact_percent);
 		}
 
-		$sanit_features = array();
+		$sanit_features = [];
 
 		//First, sanitize
 		foreach ($features as $feature) {
@@ -196,7 +196,7 @@ if (($action == 'add' || $action == 'create') && $usercancreate && empty($massac
 		// sanit_feature is an array with 1 (and only 1) value per attribute.
 		// For example:  Color->blue, Size->Small, Option->2
 		if (!$prodcomb->fetchByProductCombination2ValuePairs($id, $sanit_features)) {
-			$result = $prodcomb->createProductCombination($user, $object, $sanit_features, array(), $level_price_impact_percent, $level_price_impact, $weight_impact, $reference);
+			$result = $prodcomb->createProductCombination($user, $object, $sanit_features, [], $level_price_impact_percent, $level_price_impact, $weight_impact, $reference);
 			if ($result > 0) {
 				setEventMessages($langs->trans('RecordSaved'), null, 'mesgs');
 				unset($_SESSION['addvariant_'.$object->id]);
@@ -301,7 +301,7 @@ if (($action == 'add' || $action == 'create') && $usercancreate && empty($massac
 	}
 
 	if (getDolGlobalString('PRODUIT_MULTIPRICES')) {
-		$prodcomb->combination_price_levels = array();
+		$prodcomb->combination_price_levels = [];
 		$maxi = getDolGlobalInt('PRODUIT_MULTIPRICES_LIMIT');
 		for ($i = 1; $i <= $maxi; $i++) {
 			$productCombinationLevel = new ProductCombinationLevel($db);
@@ -510,11 +510,11 @@ if (!empty($id) || !empty($ref)) {
 		if ($action == 'add') {
 			$title = $langs->trans('NewProductCombination');
 			// print dol_get_fiche_head();
-			$features = !empty($_SESSION['addvariant_'.$object->id]) ? $_SESSION['addvariant_'.$object->id] : array();
+			$features = !empty($_SESSION['addvariant_'.$object->id]) ? $_SESSION['addvariant_'.$object->id] : [];
 			//First, sanitize
 			$listofvariantselected = '<div id="parttoaddvariant">';
 			if (!empty($features)) {
-				$toprint = array();
+				$toprint = [];
 				foreach ($features as $feature) {
 					$explode = explode('-', $feature);
 					if ($prodattr->fetch($explode[0]) <= 0 || $prodattr_val->fetch($explode[1]) <= 0) {
@@ -538,7 +538,7 @@ if (!empty($id) || !empty($ref)) {
 				$selected = $prodattr_all[key($prodattr_all)]->id;
 			}
 
-			$prodattr_alljson = array();
+			$prodattr_alljson = [];
 
 			foreach ($prodattr_all as $each) {
 				$prodattr_alljson[$each->id] = $each;
@@ -860,7 +860,7 @@ if (!empty($id) || !empty($ref)) {
 
 
 
-		$arrayofselected = is_array($toselect) ? $toselect : array();
+		$arrayofselected = is_array($toselect) ? $toselect : [];
 
 
 		// List of variants

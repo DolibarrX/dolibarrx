@@ -804,7 +804,7 @@ class Project extends CommonObject
 				$this->date_end_event = $this->db->jdate($obj->date_end_event);
 				$this->location = $obj->location;
 				$this->email_msgid = $obj->email_msgid;
-				$this->extraparams = !empty($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : array();
+				$this->extraparams = !empty($obj->extraparams) ? (array) json_decode($obj->extraparams, true) : [];
 
 				$this->db->free($resql);
 
@@ -875,7 +875,7 @@ class Project extends CommonObject
 
 		global $hookManager;
 
-		$elements = array();
+		$elements = [];
 
 		if ($this->id <= 0) {
 			return $elements;
@@ -1648,8 +1648,8 @@ class Project extends CommonObject
 	 */
 	public function getProjectsAuthorizedForUser($user, $mode = 0, $list = 0, $socid = 0, $filter = '')
 	{
-		$projects = array();
-		$temp = array();
+		$projects = [];
+		$temp = [];
 
 		$sql = "SELECT ".(($mode == 0 || $mode == 1) ? "DISTINCT " : "")."p.rowid, p.ref";
 		$sql .= " FROM ".MAIN_DB_PREFIX."projet as p";
@@ -1668,7 +1668,7 @@ class Project extends CommonObject
 		}
 
 		// Get id of types of contacts for projects (This list never contains a lot of elements)
-		$listofprojectcontacttype = array();
+		$listofprojectcontacttype = [];
 		$sql2 = "SELECT ctc.rowid, ctc.code FROM ".MAIN_DB_PREFIX."c_type_contact as ctc";
 		$sql2 .= " WHERE ctc.element = '".$this->db->escape($this->element)."'";
 		$sql2 .= " AND ctc.source = 'internal'";
@@ -1924,7 +1924,7 @@ class Project extends CommonObject
 
 				$tasksarray = $taskstatic->getTasksArray(null, null, $fromid, $socid, 0);
 
-				$tab_conv_child_parent = array();
+				$tab_conv_child_parent = [];
 				$result_clone = 0;
 
 				// Loop on each task, to clone it
@@ -2149,8 +2149,8 @@ class Project extends CommonObject
 	 */
 	public function loadTimeSpent($datestart, $taskid = 0, $userId = 0)
 	{
-		$this->weekWorkLoad = array();
-		$this->weekWorkLoadPerTask = array();
+		$this->weekWorkLoad = [];
+		$this->weekWorkLoadPerTask = [];
 
 		if (empty($datestart)) {
 			dol_print_error(null, 'Error datestart parameter is empty');
@@ -2173,7 +2173,7 @@ class Project extends CommonObject
 		//print $sql;
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$dayallreadyfound = array();
+			$dayallreadyfound = [];
 
 			$num = $this->db->num_rows($resql);
 			$i = 0;
@@ -2211,8 +2211,8 @@ class Project extends CommonObject
 	 */
 	public function loadTimeSpentMonth($datestart, $taskid = 0, $userId = 0)
 	{
-		$this->monthWorkLoad = array();
-		$this->monthWorkLoadPerTask = array();
+		$this->monthWorkLoad = [];
+		$this->monthWorkLoadPerTask = [];
 
 		if (empty($datestart)) {
 			dol_print_error(null, 'Error datestart parameter is empty');
@@ -2235,7 +2235,7 @@ class Project extends CommonObject
 		//print $sql;
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$weekalreadyfound = array();
+			$weekalreadyfound = [];
 
 			$num = $this->db->num_rows($resql);
 			$i = 0;
@@ -2371,7 +2371,7 @@ class Project extends CommonObject
 	{
 		global $user;
 
-		$this->nb = array();
+		$this->nb = [];
 
 		$sql = "SELECT count(p.rowid) as nb";
 		$sql .= " FROM ".MAIN_DB_PREFIX."projet as p";
@@ -2482,7 +2482,7 @@ class Project extends CommonObject
 		require_once DOL_DOCUMENT_ROOT.'/projet/class/task.class.php';
 		$taskstatic = new Task($this->db);
 
-		$this->lines = $taskstatic->getTasksArray(null, $user, $this->id, 0, 0, '', '-1', '', 0, 0, null, 0, array(), 0, $loadRoleMode);
+		$this->lines = $taskstatic->getTasksArray(null, $user, $this->id, 0, 0, '', '-1', '', 0, 0, null, 0, [], 0, $loadRoleMode);
 		return 1;
 	}
 
@@ -2504,7 +2504,7 @@ class Project extends CommonObject
 	 *  @since V18
 	 *  @return	int							Return integer <0 if KO, >0 if OK
 	 */
-	public function sendEmail($text, $subject, $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array(), $addr_cc = "", $addr_bcc = "", $deliveryreceipt = 0, $msgishtml = -1, $errors_to = '', $moreinheader = '')
+	public function sendEmail($text, $subject, $filename_list = [], $mimetype_list = [], $mimefilename_list = [], $addr_cc = "", $addr_bcc = "", $deliveryreceipt = 0, $msgishtml = -1, $errors_to = '', $moreinheader = '')
 	{
 		// TODO EMAIL
 
@@ -2649,7 +2649,7 @@ class Project extends CommonObject
 		$nowDate = dol_getdate($now, true);
 
 		$errormesg = '';
-		$errorsMsg = array();
+		$errorsMsg = [];
 
 		$firstDayOfWeekTS = dol_get_first_day_week($nowDate['mday'], $nowDate['mon'], $nowDate['year']);
 
@@ -2723,7 +2723,7 @@ class Project extends CommonObject
 					$error++;
 				}
 
-				$mail = new CMailFile($subject, $to, $from, $reportContent, array(), array(), array(), '', '', 0, -1, '', '', '', 'text/html');
+				$mail = new CMailFile($subject, $to, $from, $reportContent, [], [], [], '', '', 0, -1, '', '', '', 'text/html');
 
 				if ($mail->sendfile()) {
 					$nbMailSend++;

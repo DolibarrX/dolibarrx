@@ -97,7 +97,7 @@ if (isModEnabled('mailing')) {
 	$search_no_email = -1;
 }
 
-$search_ = array();
+$search_ = [];
 
 if (isModEnabled('socialnetworks')) {
 	foreach ($socialnetworks as $key => $value) {
@@ -201,7 +201,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 $search_array_options = $extrafields->getOptionalsFromPost($object->table_element, '', 'search_');
 
 // List of fields to search into when doing a "search in all"
-$fieldstosearchall = array();
+$fieldstosearchall = [];
 foreach ($object->fields as $key => $val) {
 	// don't allow search in private notes for external users when doing "search in all"
 	if (!empty($user->socid) && $key == "note_private") {
@@ -224,13 +224,13 @@ if (!getDolGlobalString('SOCIETE_DISABLE_CONTACTS')) {
 $parameters = array('fieldstosearchall' => $fieldstosearchall);
 $resHook = $hookManager->executeHooks('completeFieldsToSearchAll', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook > 0) {
-	$fieldstosearchall = empty($hookManager->resArray['fieldstosearchall']) ? array() : $hookManager->resArray['fieldstosearchall'];
+	$fieldstosearchall = empty($hookManager->resArray['fieldstosearchall']) ? [] : $hookManager->resArray['fieldstosearchall'];
 } elseif ($resHook == 0) {
-	$fieldstosearchall = array_merge($fieldstosearchall, empty($hookManager->resArray['fieldstosearchall']) ? array() : $hookManager->resArray['fieldstosearchall']);
+	$fieldstosearchall = array_merge($fieldstosearchall, empty($hookManager->resArray['fieldstosearchall']) ? [] : $hookManager->resArray['fieldstosearchall']);
 }
 
 // Definition of array of fields for columns
-$arrayfields = array();
+$arrayfields = [];
 foreach ($object->fields as $key => $val) {
 	// If $val['visible']==0, then we never show the field
 	if (!empty($val['visible'])) {
@@ -402,9 +402,9 @@ if (empty($resHook)) {
 		$search_categ_thirdparty = '';
 		$search_categ_supplier = '';
 		$search_import_key = '';
-		$toselect = array();
-		$search_array_options = array();
-		$search_roles = array();
+		$toselect = [];
+		$search_array_options = [];
+		$search_roles = [];
 		$search_birthday_start = '';
 		$search_birthday_end = '';
 	}
@@ -451,8 +451,8 @@ $now = dol_now();
 
 $title = $langs->trans("Contacts")." - ".$langs->trans("List");
 $help_url = 'EN:Module_Third_Parties|FR:Module_Tiers|ES:M&oacute;dulo_Empresas';
-$morejs = array();
-$morecss = array();
+$morejs = [];
+$morecss = [];
 
 if (getDolGlobalString('THIRDPARTY_ENABLE_PROSPECTION_ON_ALTERNATIVE_ADRESSES')) {
 	$contactstatic->loadCacheOfProspStatus();
@@ -462,7 +462,7 @@ $varpage = empty($contextpage) ? $_SERVER["PHP_SELF"] : $contextpage;
 $selectedfields = $form->multiSelectArrayWithCheckbox('selectedfields', $arrayfields, $varpage); // This also change content of $arrayfields
 
 // Select every potentials, and note each potentials which fit in search parameters
-$tab_level = array();
+$tab_level = [];
 $sql = "SELECT code, label, sortorder";
 $sql .= " FROM ".MAIN_DB_PREFIX."c_prospectcontactlevel";
 $sql .= " WHERE active > 0";
@@ -501,7 +501,7 @@ if (isModEnabled('mailing')) {
 }
 
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
@@ -517,7 +517,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = p.fk_soc";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_stcommcontact as st ON st.id = p.fk_stcommcontact";
 
 // Add fields from hooks - ListFrom
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action);    // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= ' WHERE p.entity IN ('.getEntity('contact').')';
@@ -552,11 +552,11 @@ if (!empty($search_sale) && $search_sale != '-1') {
 }
 
 // Search Contact Categories
-$searchCategoryContactList = $search_categ ? array($search_categ) : array();
+$searchCategoryContactList = $search_categ ? array($search_categ) : [];
 $searchCategoryContactOperator = 0;
 // Search for tag/category ($searchCategoryContactList is an array of ID)
 if (!empty($searchCategoryContactList)) {
-	$searchCategoryContactSqlList = array();
+	$searchCategoryContactSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryContactList as $searchCategoryContact) {
 		if (intval($searchCategoryContact) == -2) {
@@ -584,11 +584,11 @@ if (!empty($searchCategoryContactList)) {
 }
 
 // Search Customer Categories
-$searchCategoryCustomerList = $search_categ_thirdparty ? array($search_categ_thirdparty) : array();
+$searchCategoryCustomerList = $search_categ_thirdparty ? array($search_categ_thirdparty) : [];
 $searchCategoryCustomerOperator = 0;
 // Search for tag/category ($searchCategoryCustomerList is an array of ID)
 if (!empty($searchCategoryCustomerList)) {
-	$searchCategoryCustomerSqlList = array();
+	$searchCategoryCustomerSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryCustomerList as $searchCategoryCustomer) {
 		if (intval($searchCategoryCustomer) == -2) {
@@ -616,11 +616,11 @@ if (!empty($searchCategoryCustomerList)) {
 }
 
 // Search Supplier Categories
-$searchCategorySupplierList = $search_categ_supplier ? array($search_categ_supplier) : array();
+$searchCategorySupplierList = $search_categ_supplier ? array($search_categ_supplier) : [];
 $searchCategorySupplierOperator = 0;
 // Search for tag/category ($searchCategorySupplierList is an array of ID)
 if (!empty($searchCategorySupplierList)) {
-	$searchCategorySupplierSqlList = array();
+	$searchCategorySupplierSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategorySupplierList as $searchCategorySupplier) {
 		if (intval($searchCategorySupplier) == -2) {
@@ -767,7 +767,7 @@ if ($search_birthday_end) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 //print $sql;
@@ -831,7 +831,7 @@ if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && ($
 
 llxHeader('', $title, $help_url, '', 0, 0, $morejs, $morecss, '', 'mod-societe page-contact-list bodyforlist');
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 $param = '';
 if (!empty($mode)) {
@@ -956,7 +956,7 @@ if (isModEnabled('category') && $user->hasRight('societe', 'creer')) {
 	$arrayofmassactions['preaffecttag'] = img_picture('', 'category', 'class="picturefixedwidth"').$langs->trans("AffectTag");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete','preaffecttag'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 
 $massactionbutton = '';
@@ -1215,7 +1215,7 @@ if (!empty($arrayfields['p.fk_prospectlevel']['checked'])) {
 // Prospect status
 if (!empty($arrayfields['p.fk_stcommcontact']['checked'])) {
 	print '<td class="liste_titre maxwidthonsmartphone center">';
-	$arraystcomm = array();
+	$arraystcomm = [];
 	foreach ($contactstatic->cacheprospectstatus as $key => $val) {
 		$arraystcomm[$val['id']] = ($langs->trans("StatusProspect".$val['id']) != "StatusProspect".$val['id'] ? $langs->trans("StatusProspect".$val['id']) : $val['label']);
 	}
@@ -1275,7 +1275,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1423,7 +1423,7 @@ print "</tr>\n";
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {

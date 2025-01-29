@@ -87,12 +87,12 @@ if (is_array($remains)) {
 } elseif ($remains) {
 	$remains = array(price2num($remains));
 } else {
-	$remains = array();
+	$remains = [];
 }
 
 // Treatment
 $result = ($amountPayment != '') ? ((float) $amountPayment - array_sum($amounts)) : array_sum($amounts); // Remaining amountPayment
-$toJsonArray = array();
+$toJsonArray = [];
 $totalRemaining = price2num(array_sum($remains));
 $toJsonArray['label'] = $amountPayment == '' ? '' : $langs->transnoentities('RemainingAmountPayment');
 if ($currentInvId) {																	// Here to breakdown

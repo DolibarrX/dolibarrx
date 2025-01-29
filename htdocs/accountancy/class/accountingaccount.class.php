@@ -147,7 +147,7 @@ class AccountingAccount extends CommonObject
 	/**
 	 * @var array<string,int> cache array
 	 */
-	private $accountingaccount_codetotid_cache = array();
+	private $accountingaccount_codetotid_cache = [];
 
 
 	const STATUS_ENABLED = 1;
@@ -735,7 +735,7 @@ class AccountingAccount extends CommonObject
 	 * 																	'suggestedaccountingaccountbydefaultfor'=>Will be used for the label to show on tooltip for account by default on any product
 	 * 																	'suggestedaccountingaccountfor'=>Is the account suggested for this product
 	 */
-	public function getAccountingCodeToBind(Societe $buyer, Societe $seller, Product $product, $facture, $factureDet, $accountingAccount = array(), $type = '')
+	public function getAccountingCodeToBind(Societe $buyer, Societe $seller, Product $product, $facture, $factureDet, $accountingAccount = [], $type = '')
 	{
 		global $hookManager;
 		// Instantiate hooks for external modules

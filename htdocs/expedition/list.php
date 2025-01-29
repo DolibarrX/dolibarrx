@@ -224,8 +224,8 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$search_datereceipt_end = '';
 	$search_status = '';
 	$search_signed_status = '';
-	$toselect = array();
-	$search_array_options = array();
+	$toselect = [];
+	$search_array_options = [];
 	$search_categ_cus = 0;
 	$search_all = '';
 }
@@ -244,11 +244,11 @@ if (empty($resHook)) {
 		$createbills_onebythird = GETPOST('createbills_onebythird', 'int');
 		$validate_invoices = GETPOST('validate_invoices', 'int');
 
-		$errors = array();
+		$errors = [];
 
-		$TFact = array();
-		$TFactThird = array();
-		$TFactThirdNbLines = array();
+		$TFact = [];
+		$TFactThird = [];
+		$TFactThirdNbLines = [];
 
 		$nb_bills_created = 0;
 		$lastid = 0;
@@ -487,7 +487,7 @@ if (empty($resHook)) {
 
 		// Build doc with all invoices
 		$TAllFact = empty($createbills_onebythird) ? $TFact : $TFactThird;
-		$toselect = array();
+		$toselect = [];
 
 		if (!$error && $validate_invoices) {
 			$massaction = $action = 'builddoc';
@@ -695,7 +695,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -727,7 +727,7 @@ if ($search_user > 0) {
 }
 
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -820,7 +820,7 @@ if ($search_sale && $search_sale != '-1') {
 $searchCategoryCustomerOperator = -1;
 $searchCategoryCustomerList = array($search_categ_cus);
 if (!empty($searchCategoryCustomerList)) {
-	$searchCategoryCustomerSqlList = array();
+	$searchCategoryCustomerSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryCustomerList as $searchCategoryCustomer) {
 		if (intval($searchCategoryCustomer) == -2) {
@@ -850,7 +850,7 @@ if (!empty($searchCategoryCustomerList)) {
 $searchCategoryProductOperator = -1;
 $searchCategoryProductList = array($search_product_category);
 if (!empty($searchCategoryProductList)) {
-	$searchCategoryProductSqlList = array();
+	$searchCategoryProductSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
@@ -880,12 +880,12 @@ if (!empty($searchCategoryProductList)) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 // Add HAVING from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= empty($hookManager->resPrint) ? "" : " HAVING 1=1 ".$hookManager->resPrint;
 
@@ -924,7 +924,7 @@ if (!$resql) {
 
 $num = $db->num_rows($resql);
 
-$arrayofselected = is_array($toselect) ? $toselect : array();
+$arrayofselected = is_array($toselect) ? $toselect : [];
 
 // Redirect to expedition card if there is only one result for global search
 if ($num == 1 && !empty($config->global->MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE) && $search_all) {
@@ -1044,7 +1044,7 @@ if ($user->hasRight('facture', 'creer')) {
 	$arrayofmassactions['createbills'] = img_picture('', 'bill', 'class="picturefixedwidth"').$langs->trans("CreateInvoiceForThisCustomerFromSendings");
 }
 if (in_array($massaction, array('presend', 'createbills'))) {
-	$arrayofmassactions = array();
+	$arrayofmassactions = [];
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -1175,7 +1175,7 @@ if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 	$moreforfilter .= $formother->select_categories('customer', $search_categ_cus, 'search_categ_cus', 1, $tmptitle);
 	$moreforfilter .= '</div>';
 }
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
@@ -1365,7 +1365,7 @@ if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 }
 print '</tr>'."\n";
 
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 
 // Fields title label
@@ -1483,7 +1483,7 @@ $typenArray = $formcompany->typent_array(1);
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
-$totalarray = array();
+$totalarray = [];
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
 while ($i < $imaxinloop) {

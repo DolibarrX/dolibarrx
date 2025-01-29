@@ -121,12 +121,12 @@ class modMrp extends DolibarrModules
 		// List of module class names as string that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR'...))
 		$this->depends = array('modBom');
 		$this->requiredby = array('modWorkstation'); // List of module class names as string to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
 		$this->langfiles = array("mrp");
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(8, 0); // Minimum version of Dolibarr required by module
-		$this->warnings_activation = array(); // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
-		$this->warnings_activation_ext = array(); // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		//$this->automatic_activation = array('FR'=>'MrpWasAutomaticallyActivatedBecauseOfYourCountryChoice');
 		//$this->always_enabled = true;								// If true, can't be disabled
 
@@ -153,7 +153,7 @@ class modMrp extends DolibarrModules
 		}
 
 		// Array to add new pages in new tabs
-		$this->tabs = array();
+		$this->tabs = [];
 		// Example:
 		// $this->tabs[] = array('data'=>'objecttype:+tabname1:Title1:mylangfile@mrp:$user->rights->mrp->read:/mrp/mynewtab1.php?id=__ID__');  					// To add a new tab identified by code tabname1
 		// $this->tabs[] = array('data'=>'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@mrp:$user->rights->othermodule->read:/mrp/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
@@ -181,7 +181,7 @@ class modMrp extends DolibarrModules
 		// 'user'             to add a tab in user view
 
 		// Dictionaries
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 
 		// Boxes/Widgets
 		// Add here list of php file(s) stored in mrp/core/boxes that contains a class to show a widget.
@@ -213,7 +213,7 @@ class modMrp extends DolibarrModules
 		// );
 
 		// Permissions provided by this module
-		$this->rights = array();
+		$this->rights = [];
 		$r = 1;
 		// Add here entries to declare new permissions
 		/* BEGIN MODULEBUILDER PERMISSIONS */
@@ -235,7 +235,7 @@ class modMrp extends DolibarrModules
 		/* END MODULEBUILDER PERMISSIONS */
 
 		// Main menu entries to add
-		$this->menu = array();
+		$this->menu = [];
 		$r = 0;
 		// Add here entries to declare new menus
 		/* BEGIN MODULEBUILDER TOPMENU */
@@ -431,7 +431,7 @@ class modMrp extends DolibarrModules
 		$this->import_code[$r]=$this->rightsClass.'_'.$r;
 		$this->import_label[$r]='MOs';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->import_icon[$r]='mrp';
-		$this->import_entities_array[$r] = array(); // We define here only fields that use a different icon from the one defined in import_icon
+		$this->import_entities_array[$r] = []; // We define here only fields that use a different icon from the one defined in import_icon
 		$this->import_tables_array[$r] = array('m'=>MAIN_DB_PREFIX.'mrp_mo', 'extra'=>MAIN_DB_PREFIX.'mrp_mo_extrafields');
 		$this->import_tables_creator_array[$r] = array('m'=>'fk_user_creat'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(
@@ -456,10 +456,10 @@ class modMrp extends DolibarrModules
 			'm.date_creation'=>'DateCreation',
 			'm.tms'=>'DateModification',
 		);
-		$import_sample = array();
+		$import_sample = [];
 
 		// Add extra fields
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'mrp_mo' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 
@@ -530,7 +530,7 @@ class modMrp extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		// ODT template
 		$src = DOL_DOCUMENT_ROOT.'/install/doctemplates/mrps/template_mo.odt';
@@ -566,7 +566,7 @@ class modMrp extends DolibarrModules
 	 */
 	public function remove($options = '')
 	{
-		$sql = array();
+		$sql = [];
 		return $this->_remove($sql, $options);
 	}
 }

@@ -62,7 +62,7 @@ if ($action == 'settemplates' && $user->admin) {
 	$db->begin();
 
 	if (!$error && is_array($_POST)) {
-		$reg = array();
+		$reg = [];
 		foreach ($_POST as $key => $val) {
 			if (!preg_match('/^constvalue_(.*)_TEMPLATE/', $key, $reg)) {
 				continue;
@@ -129,7 +129,7 @@ if ($action == 'setfixednotif' && $user->admin) {
 	$db->begin();
 
 	if (!$error && is_array($_POST)) {
-		$reg = array();
+		$reg = [];
 		foreach ($_POST as $key => $val) {
 			if (!preg_match('/^NOTIF_(.*)_key$/', $key, $reg)) {
 				continue;
@@ -283,7 +283,7 @@ $notificationtrigger = new InterfaceNotification($db);
 $listofnotifiedevents = $notificationtrigger->getListOfManagedEvents();
 
 // Editing global variables not related to a specific theme
-$constantes = array();
+$constantes = [];
 foreach ($listofnotifiedevents as $notifiedevent) {
 	$label = $langs->trans("Notify_".$notifiedevent['code']); //!=$langs->trans("Notify_".$notifiedevent['code'])?$langs->trans("Notify_".$notifiedevent['code']):$notifiedevent['label'];
 	$elementLabel = $langs->trans(ucfirst($notifiedevent['elementtype']));

@@ -84,7 +84,7 @@ $hash = $auth->getBlockchainHash();
 // Call external authority
 $url = getDolGlobalString('BLOCKEDLOG_AUTHORITY_URL') . '/blockedlog/ajax/authority.php?s='.urlencode($auth->signature).'&h='.urlencode($hash);
 
-$resarray = getURLContent($url, 'GET', '', 1, array(), array(), 2);
+$resarray = getURLContent($url, 'GET', '', 1, [], [], 2);
 $res = $resarray['content'];
 
 //echo $url;

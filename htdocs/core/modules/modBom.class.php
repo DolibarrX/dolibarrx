@@ -111,12 +111,12 @@ class modBom extends DolibarrModules
 		// List of module class names as string that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR'...))
 		$this->depends = array('modProduct');
 		$this->requiredby = array('modMrp');
-		$this->conflictwith = array();
+		$this->conflictwith = [];
 		$this->langfiles = array("mrp");
 		//$this->phpmin = array(7, 0));					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(9, 0); // Minimum version of Dolibarr required by module
-		$this->warnings_activation = array(); // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
-		$this->warnings_activation_ext = array(); // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		//$this->automatic_activation = array('FR'=>'BomWasAutomaticallyActivatedBecauseOfYourCountryChoice');
 		//$this->always_enabled = true;								// If true, can't be disabled
 
@@ -144,7 +144,7 @@ class modBom extends DolibarrModules
 
 
 		// Array to add new pages in new tabs
-		$this->tabs = array();
+		$this->tabs = [];
 		// Example:
 		// $this->tabs[] = array('data'=>'objecttype:+tabname1:Title1:mylangfile@bom:$user->rights->bom->read:/bom/mynewtab1.php?id=__ID__');  					// To add a new tab identified by code tabname1
 		// $this->tabs[] = array('data'=>'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@bom:$user->rights->othermodule->read:/bom/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
@@ -173,7 +173,7 @@ class modBom extends DolibarrModules
 
 
 		// Dictionaries
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 
 
 		// Boxes/Widgets
@@ -194,7 +194,7 @@ class modBom extends DolibarrModules
 
 
 		// Permissions provided by this module
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 
 		$r = 1;
 		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
@@ -219,7 +219,7 @@ class modBom extends DolibarrModules
 
 
 		// Main menu entries to add
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 
 		// Add here entries to declare new menus
@@ -316,7 +316,7 @@ class modBom extends DolibarrModules
 		$this->import_code[$r] = 'bom_'.$r;
 		$this->import_label[$r] = 'BillOfMaterials';
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array();
+		$this->import_entities_array[$r] = [];
 		$this->import_tables_array[$r] = array('b' => MAIN_DB_PREFIX.'bom_bom', 'extra' => MAIN_DB_PREFIX.'bom_bom_extrafields');
 		$this->import_tables_creator_array[$r] = array('b' => 'fk_user_creat'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(
@@ -338,10 +338,10 @@ class modBom extends DolibarrModules
 			'b.status'         	  => 'Status*',
 			'b.bomtype'       	  => 'Type*'
 		);
-		$import_sample = array();
+		$import_sample = [];
 
 		// Add extra fields
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'bom_bom' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 
@@ -398,7 +398,7 @@ class modBom extends DolibarrModules
 		$this->import_code[$r] = 'bom_lines_'.$r;
 		$this->import_label[$r] = 'BillOfMaterialsLines';
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array();
+		$this->import_entities_array[$r] = [];
 		$this->import_tables_array[$r] = array('bd' => MAIN_DB_PREFIX.'bom_bomline', 'extra' => MAIN_DB_PREFIX.'bom_bomline_extrafields');
 		$this->import_fields_array[$r] = array(
 			'bd.fk_bom'         => 'BOM*',
@@ -425,7 +425,7 @@ class modBom extends DolibarrModules
 		// End add extra fields
 
 		$this->import_fieldshidden_array[$r] = array('extra.fk_object' => 'lastrowid-'.MAIN_DB_PREFIX.'bom_bomline');
-		$this->import_regex_array[$r] = array();
+		$this->import_regex_array[$r] = [];
 		$this->import_updatekeys_array[$r] = array('bd.fk_bom' => 'BOM Id', 'bd.fk_product' => 'ProductRef');
 		$this->import_convertvalue_array[$r] = array(
 			'bd.fk_bom' => array(
@@ -476,7 +476,7 @@ class modBom extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		// ODT template
 		$src = DOL_DOCUMENT_ROOT.'/install/doctemplates/boms/template_bom.odt';
@@ -513,7 +513,7 @@ class modBom extends DolibarrModules
 	 */
 	public function remove($options = '')
 	{
-		$sql = array();
+		$sql = [];
 
 		return $this->_remove($sql, $options);
 	}

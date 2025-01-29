@@ -491,7 +491,7 @@ class FormOther
 
 		$out = '';
 
-		$resHook = $hookManager->executeHooks('addSQLWhereFilterOnSelectSalesRep', array(), $this, $action);
+		$resHook = $hookManager->executeHooks('addSQLWhereFilterOnSelectSalesRep', [], $this, $action);
 
 		// Select each sales and print them in a select input
 		$out .= '<select class="flat'.($morecss ? ' '.$morecss : '').'" id="'.$htmlname.'" name="'.$htmlname.'">';
@@ -817,7 +817,7 @@ class FormOther
 			$textcolor = '000';
 		}
 
-		$color = colorArrayToHex(colorStringToArray($color, array()), '');
+		$color = colorArrayToHex(colorStringToArray($color, []), '');
 
 		if ($color) {
 			return '<input type="text" class="colorthumb" disabled style="padding: 1px; margin-top: 0; margin-bottom: 0; color: #'.$textcolor.'; background-color: #'.$color.'" value="'.$color.'">';
@@ -1240,9 +1240,9 @@ class FormOther
 		// $boxidactivatedforuser will be array of boxes chose by user
 
 		$selectboxlist = '';
-		$boxactivated = InfoBox::listBoxes($db, 'activated', $areacode, (empty($user->conf->$confuserzone) ? null : $user), array(), 0); // Search boxes of common+user (or common only if user has no specific setup)
+		$boxactivated = InfoBox::listBoxes($db, 'activated', $areacode, (empty($user->conf->$confuserzone) ? null : $user), [], 0); // Search boxes of common+user (or common only if user has no specific setup)
 
-		$boxidactivatedforuser = array();
+		$boxidactivatedforuser = [];
 		foreach ($boxactivated as $box) {
 			if (empty($user->conf->$confuserzone) || $box->fk_user == $user->id) {
 				$boxidactivatedforuser[$box->id] = $box->id; // We keep only boxes to show for user
@@ -1256,7 +1256,7 @@ class FormOther
 
 
 		// Define selectboxlist
-		$arrayboxtoactivatelabel = array();
+		$arrayboxtoactivatelabel = [];
 		if (!empty($user->conf->$confuserzone)) {
 			$boxOrder = '';
 			$langs->load("boxes"); // Load label of boxes
@@ -1412,9 +1412,9 @@ class FormOther
 
 			if ($config->browser->layout != 'phone') {
 				$emptybox->box_id = 'A';
-				$emptybox->info_box_head = array();
-				$emptybox->info_box_contents = array();
-				$boxLista .= $emptybox->showBox(array(), array(), 1);
+				$emptybox->info_box_head = [];
+				$emptybox->info_box_contents = [];
+				$boxLista .= $emptybox->showBox([], [], 1);
 			}
 			$boxLista .= "<!-- End box left container -->\n";
 
@@ -1440,9 +1440,9 @@ class FormOther
 
 			if ($config->browser->layout != 'phone') {
 				$emptybox->box_id = 'B';
-				$emptybox->info_box_head = array();
-				$emptybox->info_box_contents = array();
-				$boxListb .= $emptybox->showBox(array(), array(), 1);
+				$emptybox->info_box_head = [];
+				$emptybox->info_box_contents = [];
+				$boxListb .= $emptybox->showBox([], [], 1);
 			}
 
 			$boxListb .= "<!-- End box right container -->\n";
@@ -1562,7 +1562,7 @@ class FormOther
 	{
 		global $langs, $extrafields, $form;
 
-		$arrayofgroupbylabel = array();
+		$arrayofgroupbylabel = [];
 		foreach ($arrayofgroupby as $key => $val) {
 			$arrayofgroupbylabel[$key] = $val['label'];
 		}
@@ -1585,7 +1585,7 @@ class FormOther
 	{
 		global $form;
 
-		$arrayofxaxislabel = array();
+		$arrayofxaxislabel = [];
 		foreach ($arrayofxaxis as $key => $val) {
 			$arrayofxaxislabel[$key] = $val['label'];
 		}

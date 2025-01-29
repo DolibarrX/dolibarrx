@@ -115,7 +115,7 @@ class MyModuleApi extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $sqlfilters = '', $properties = '')
 	{
-		$obj_ret = array();
+		$obj_ret = [];
 		$tmpobject = new MyObject($this->db);
 
 		if (!DolibarrApiAccess::$user->hasRight('mymodule', 'myobject', 'read')) {
@@ -366,7 +366,7 @@ class MyModuleApi extends DolibarrApi
 	 */
 	private function _validateMyObject($data)
 	{
-		$myobject = array();
+		$myobject = [];
 		foreach ($this->myobject->fields as $field => $propfield) {
 			if (in_array($field, array('rowid', 'entity', 'date_creation', 'tms', 'fk_user_creat')) || $propfield['notnull'] != 1) {
 				continue; // Not a mandatory field

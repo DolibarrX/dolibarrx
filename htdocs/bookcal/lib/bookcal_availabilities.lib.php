@@ -41,7 +41,7 @@ function availabilitiesPrepareHead($object)
 	$showtabofpageagenda = 0;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/bookcal/availabilities_card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Card");

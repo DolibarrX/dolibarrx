@@ -209,7 +209,7 @@ $total_ttc_by_line = 0;
 $total_ht_by_line = 0;
 $expensereport = null;
 $othermessage = '';
-$tmpprojtime = array();
+$tmpprojtime = [];
 $nbAttendees = 0;
 
 /*
@@ -936,7 +936,7 @@ foreach ($listofreferent as $key => $value) {
 					$total_ttc_by_line = $element->price * abs($element->qty);
 				} elseif ($tablename == 'projet_task') {
 					$defaultvat = get_default_tva($mysoc, $mysoc);
-					$reg = array();
+					$reg = [];
 					if (preg_replace('/^(\d+\.)\s\(.*\)/', $defaultvat, $reg)) {
 						// @phan-suppress-next-line PhanTypeInvalidDimOffset
 						$defaultvat = $reg[1];
@@ -1753,7 +1753,7 @@ function sortElementsByClientName($elementarray)
 	$element = new $classname($db);
 	'@phan-var-force CommonObject $element';
 
-	$clientname = array();
+	$clientname = [];
 	foreach ($elementarray as $key => $id) {	// id = id of object
 		if (empty($clientname[$id])) {
 			$element->fetch($id);
@@ -1766,7 +1766,7 @@ function sortElementsByClientName($elementarray)
 	//var_dump($clientname);
 	asort($clientname); // sort on name
 
-	$elementarray = array();
+	$elementarray = [];
 	foreach ($clientname as $id => $name) {
 		$elementarray[] = $id;
 	}

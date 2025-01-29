@@ -33,7 +33,7 @@ function webhookAdminPrepareHead()
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 	$head[$h][0] = DOL_URL_ROOT . '/admin/webhook.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
 	$head[$h][2] = 'settings';

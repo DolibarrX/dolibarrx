@@ -87,10 +87,10 @@ class box_funnel_of_prospection extends ModeleBoxes
 		if (file_exists(DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php')) {
 			include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 		}
-		$listofoppstatus = array();
-		$listofopplabel = array();
-		$listofoppcode = array();
-		$colorseriesstat = array();
+		$listofoppstatus = [];
+		$listofopplabel = [];
+		$listofoppcode = [];
+		$colorseriesstat = [];
 		$sql = "SELECT cls.rowid, cls.code, cls.percent, cls.label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_lead_status as cls";
 		$sql .= " WHERE active = 1";
@@ -157,9 +157,9 @@ class box_funnel_of_prospection extends ModeleBoxes
 				$totaloppnb = 0;
 				$totalamount = 0;
 				$ponderated_opp_amount = 0;
-				$valsnb = array();
-				$valsamount = array();
-				$dataseries = array();
+				$valsnb = [];
+				$valsamount = [];
+				$dataseries = [];
 
 				while ($i < $num) {
 					$obj = $this->db->fetch_object($resql);
@@ -183,9 +183,9 @@ class box_funnel_of_prospection extends ModeleBoxes
 				$stringtoprint = '';
 				$stringtoprint .= '<div class="div-table-responsive-no-min ">';
 				$listofstatus = array_keys($listofoppstatus);
-				$liststatus = array();
+				$liststatus = [];
 				$data = array('');
-				$customlabels = array();
+				$customlabels = [];
 				$total = 0;
 				$maxamount = 0;
 				foreach ($listofstatus as $status) {

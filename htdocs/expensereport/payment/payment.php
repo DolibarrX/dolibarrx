@@ -44,7 +44,7 @@ $langs->loadLangs(array('bills', 'banks', 'trips'));
 $id = GETPOSTINT('id');
 $ref = GETPOST('ref', 'alpha');
 $action = GETPOST('action', 'aZ09');
-$amounts = array();
+$amounts = [];
 $accountid = GETPOSTINT('accountid');
 $cancel = GETPOST('cancel');
 

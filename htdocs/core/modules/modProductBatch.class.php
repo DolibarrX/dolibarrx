@@ -61,10 +61,10 @@ class modProductBatch extends DolibarrModules
 
 		$this->picture = 'lot';
 
-		$this->module_parts = array();
+		$this->module_parts = [];
 
 		// Data directories to create when module is enabled.
-		$this->dirs = array();
+		$this->dirs = [];
 
 		// Config pages. Put here list of php page, stored into productdluo/admin directory, to use to setup module.
 		$this->config_page_url = array("product_lot.php@product");
@@ -72,8 +72,8 @@ class modProductBatch extends DolibarrModules
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
 		$this->depends = array("modProduct", "modStock", "modExpedition", "modFournisseur"); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->langfiles = array("productbatch");
 
@@ -95,20 +95,20 @@ class modProductBatch extends DolibarrModules
 			],
 		];
 
-		$this->tabs = array();
+		$this->tabs = [];
 
 		// Dictionaries
 		if (!isset($config->productbatch->enabled)) {
 			$config->productbatch = new stdClass();
 			$config->productbatch->enabled = 0;
 		}
-		$this->dictionaries = array();
+		$this->dictionaries = [];
 
 		// Boxes
-		$this->boxes = array(); // List of boxes
+		$this->boxes = []; // List of boxes
 
 		// Permissions
-		$this->rights = array(); // Permission array used by this module
+		$this->rights = []; // Permission array used by this module
 		$r = 0;
 
 
@@ -133,7 +133,7 @@ class modProductBatch extends DolibarrModules
 	{
 		global $db, $config;
 
-		$sql = array();
+		$sql = [];
 
 		if (isModEnabled('cashdesk')) {
 			if (!getDolGlobalString('CASHDESK_NO_DECREASE_STOCK')) {

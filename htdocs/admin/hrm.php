@@ -355,7 +355,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 		print load_fiche_titre($langs->trans("DocumentModules", $myTmpObjectKey), '', '');
 
 		// Load array def with activated templates
-		$def = array();
+		$def = [];
 		$sql = "SELECT nom";
 		$sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 		$sql .= " WHERE type = '".$db->escape($type)."'";
@@ -396,7 +396,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 				if (is_dir($dir)) {
 					$handle = opendir($dir);
 					if (is_resource($handle)) {
-						$filelist = array();
+						$filelist = [];
 						while (($file = readdir($handle)) !== false) {
 							$filelist[] = $file;
 						}
@@ -539,7 +539,7 @@ if ($action == 'edit') {
 				$tmp = explode(':', $val['type']);
 				$nboftemplates = $formmail->fetchAllEMailTemplate($tmp[1], $user, null, 1); // We set lang=null to get in priority record with no lang
 				//$arraydefaultmessage = $formmail->getEMailTemplate($db, $tmp[1], $user, null, 0, 1, '');
-				$arrayofmessagename = array();
+				$arrayofmessagename = [];
 				if (is_array($formmail->lines_model)) {
 					foreach ($formmail->lines_model as $modelmail) {
 						//var_dump($modelmail);
@@ -629,7 +629,7 @@ if ($action == 'edit') {
 						setEventMessages(null, $c->errors, 'errors');
 					}
 					$ways = $c->print_all_ways(' &gt;&gt; ', 'none', 0, 1); // $ways[0] = "ccc2 >> ccc2a >> ccc2a1" with html formatted text
-					$toprint = array();
+					$toprint = [];
 					foreach ($ways as $way) {
 						$toprint[] = '<li class="select2-search-choice-dolibarr noborderoncategories"' . ($c->color ? ' style="background: #' . $c->color . ';"' : ' style="background: #bbb"') . '>' . $way . '</li>';
 					}

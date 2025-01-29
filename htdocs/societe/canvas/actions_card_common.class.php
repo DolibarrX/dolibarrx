@@ -53,7 +53,7 @@ abstract class ActionsCardCommon
 	/**
 	 * @var array<string,mixed>	Template container
 	 */
-	public $tpl = array();
+	public $tpl = [];
 
 	//! Object container
 	/**
@@ -69,7 +69,7 @@ abstract class ActionsCardCommon
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 
 	/**
@@ -274,7 +274,7 @@ abstract class ActionsCardCommon
 
 			// Language
 			if (getDolGlobalInt('MAIN_MULTILANGS')) {
-				$this->tpl['select_lang'] = $formadmin->select_language((empty($this->object->default_lang) ? getDolGlobalString('MAIN_LANG_DEFAULT') : $this->object->default_lang), 'default_lang', 0, array(), 1);
+				$this->tpl['select_lang'] = $formadmin->select_language((empty($this->object->default_lang) ? getDolGlobalString('MAIN_LANG_DEFAULT') : $this->object->default_lang), 'default_lang', 0, [], 1);
 			}
 
 			// VAT

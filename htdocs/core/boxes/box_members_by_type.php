@@ -139,7 +139,7 @@ class box_members_by_type extends ModeleBoxes
 					'text' => $langs->trans("Total")
 				);
 				$line++;
-				$memberType = array();
+				$memberType = [];
 				foreach ($sumMembers as $key => $data) {
 					if ($key == 'total') {
 						break;

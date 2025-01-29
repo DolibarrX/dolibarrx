@@ -739,7 +739,7 @@ if (empty($resHook)) {
 			} else {
 				try {
 					$stripesup = \Stripe\Account::retrieve($newsup);
-					$tokenstring = array();
+					$tokenstring = [];
 					$tokenstring['stripe_user_id'] = $stripesup->id;
 					$tokenstring['type'] = $stripesup->type;
 					$sql = "UPDATE ".MAIN_DB_PREFIX."oauth_token";
@@ -995,8 +995,8 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 
 		$obj = $db->fetch_object($resql);
 		$nbFactsClient = $obj->nb;
-		$thirdTypeArray = array();
-		$elementTypeArray = array();
+		$thirdTypeArray = [];
+		$elementTypeArray = [];
 		$thirdTypeArray['customer'] = $langs->trans("customer");
 		if (isModEnabled("propal") && $user->hasRight('propal', 'lire')) {
 			$elementTypeArray['propal'] = $langs->transnoentitiesnoconv('Proposals');
@@ -1152,7 +1152,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 	}
 
 	// Get list of remote payment modes
-	$listofsources = array();
+	$listofsources = [];
 
 	$customerstripe = null;
 	if (isset($stripe) && is_object($stripe)) {
@@ -1224,7 +1224,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		print '<td>'.$langs->trans('Note').'</td>';
 		print '<td>'.$langs->trans('DateModification').'</td>';
 		// Hook fields
-		$parameters = array('arrayfields' => array(), 'param' => '', 'sortfield' => '', 'sortorder' => '', 'linetype' => 'stripetitle');
+		$parameters = array('arrayfields' => [], 'param' => '', 'sortfield' => '', 'sortorder' => '', 'linetype' => 'stripetitle');
 		$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		// Action column
@@ -1233,7 +1233,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 
 		$nbremote = 0;
 		$nblocal = 0;
-		$arrayofremotecard = array();
+		$arrayofremotecard = [];
 
 		// Show local sources
 		if (getDolGlobalString('STRIPE_ALLOW_LOCAL_CARD')) {
@@ -1331,7 +1331,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 							print dol_print_date($companypaymentmodetemp->date_modification, 'dayhour', 'tzuserrel');
 							print '</td>';
 							// Fields from hook
-							$parameters = array('arrayfields' => array(), 'obj' => $obj, 'linetype' => 'stripecard');
+							$parameters = array('arrayfields' => [], 'obj' => $obj, 'linetype' => 'stripecard');
 							$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
 							print $hookManager->resPrint;
 							// Action column
@@ -1482,7 +1482,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 				print '</td>';
 
 				// Fields from hook
-				$parameters = array('arrayfields' => array(), 'stripesource' => $src, 'linetype' => 'stripecardremoteonly');
+				$parameters = array('arrayfields' => [], 'stripesource' => $src, 'linetype' => 'stripecardremoteonly');
 				$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
 				print $hookManager->resPrint;
 
@@ -1520,7 +1520,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		print '<td>'.$langs->trans('Total').'</td>';
 		print '</tr>';
 
-		$currencybalance = array();
+		$currencybalance = [];
 		if (is_array($balance->available) && count($balance->available)) {
 			foreach ($balance->available as $cpt) {
 				$arrayzerounitcurrency = array('BIF', 'CLP', 'DJF', 'GNF', 'JPY', 'KMF', 'KRW', 'MGA', 'PYG', 'RWF', 'VND', 'VUV', 'XAF', 'XOF', 'XPF');
@@ -1564,7 +1564,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 
 	$nblocal = 0;
 	$nbremote = 0;
-	$arrayofremoteban = array();
+	$arrayofremoteban = [];
 
 	$rib_list = $object->get_all_rib();
 
@@ -1590,7 +1590,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		}
 		print_liste_field_titre('', '', '', '', '', '', '', '', 'center ');
 		// Fields from hook
-		$parameters = array('arrayfields' => array(), 'linetype' => 'stripebantitle');
+		$parameters = array('arrayfields' => [], 'linetype' => 'stripebantitle');
 		$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		print_liste_field_titre('', $_SERVER["PHP_SELF"], "", '', '', '', '', '', 'maxwidthsearch ');
@@ -1734,7 +1734,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 					if ($config->browser->layout == 'phone') {
 						$morecss = 'maxwidth100';
 					}
-					$out .= $formadmin->select_language($defaultlang, 'lang_idrib'.$rib->id, 0, array(), 0, 0, 0, $morecss);
+					$out .= $formadmin->select_language($defaultlang, 'lang_idrib'.$rib->id, 0, [], 0, 0, 0, $morecss);
 				}
 				// Button
 				$out .= '<input class="button buttongen reposition nomargintop nomarginbottom" id="'.$forname.'_generatebutton" name="'.$forname.'_generatebutton"';
@@ -1746,7 +1746,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 			print '</td>';
 
 			// Fields from hook
-			$parameters = array('arrayfields' => array(), 'stripe_card_ref' => $rib->stripe_card_ref, 'stripe_account' => $rib->stripe_account, 'linetype' => 'stripeban');
+			$parameters = array('arrayfields' => [], 'stripe_card_ref' => $rib->stripe_card_ref, 'stripe_account' => $rib->stripe_account, 'linetype' => 'stripeban');
 			$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
 
@@ -1881,7 +1881,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 			}
 
 			// Fields from hook
-			$parameters = array('arrayfields' => array(), 'stripe_card_ref' => $rib->stripe_card_ref, 'stripe_account' => $rib->stripe_account, 'linetype' => 'stripebanremoteonly');
+			$parameters = array('arrayfields' => [], 'stripe_card_ref' => $rib->stripe_card_ref, 'stripe_account' => $rib->stripe_account, 'linetype' => 'stripebanremoteonly');
 			$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
 
@@ -1915,7 +1915,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 	}
 
 	//Hook to display your print listing (list of CB card from Stancer Plugin for example)
-	$parameters = array('arrayfields' => array(), 'param' => '', 'sortfield' => '', 'sortorder' => '', 'linetype' => '');
+	$parameters = array('arrayfields' => [], 'param' => '', 'sortfield' => '', 'sortorder' => '', 'linetype' => '');
 	$resHook = $hookManager->executeHooks('printNewTable', $parameters, $object);
 	print $hookManager->resPrint;
 

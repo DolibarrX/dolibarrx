@@ -164,7 +164,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($elementtype, true);
 $extrafield_array = null;
 if (is_array($extrafields->attributes) && $extrafields->attributes[$elementtype]['count'] > 0) {
-	$extrafield_array = array();
+	$extrafield_array = [];
 }
 if (isset($extrafields->attributes[$elementtype]['label']) && is_array($extrafields->attributes[$elementtype]['label']) && count($extrafields->attributes[$elementtype]['label'])) {
 	foreach ($extrafields->attributes[$elementtype]['label'] as $key => $label) {
@@ -380,7 +380,7 @@ function getProductOrService($authentication, $id = 0, $ref = '', $ref_ext = '',
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -519,7 +519,7 @@ function createProductOrService($authentication, $product)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -685,7 +685,7 @@ function updateProductOrService($authentication, $product)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -850,7 +850,7 @@ function deleteProductOrService($authentication, $listofidstring)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -861,7 +861,7 @@ function deleteProductOrService($authentication, $listofidstring)
 	$user = $fuser;
 
 	$listofid = explode(',', trim($listofidstring));
-	$listofiddeleted = array();
+	$listofiddeleted = [];
 
 	// Check parameters
 	if (count($listofid) == 0 || empty($listofid[0])) {
@@ -937,8 +937,8 @@ function getListOfProductsOrServices($authentication, $filterproduct)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
-	$arrayproducts = array();
+	$objectresp = [];
+	$arrayproducts = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -1014,7 +1014,7 @@ function getProductsForCategory($authentication, $id, $lang = '')
 		$config->entity = $authentication['entity'];
 	}
 
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -1052,7 +1052,7 @@ function getProductsForCategory($authentication, $id, $lang = '')
 				if ($res) {
 					$iProduct = 0;
 					$tmpproduct = new Product($db);
-					$products = array();
+					$products = [];
 					while ($rec = $db->fetch_array($res)) {
 						$tmpproduct->fetch($rec['fk_'.$field]);
 						if ($tmpproduct->status > 0) {

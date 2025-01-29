@@ -58,7 +58,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 	$substitarray = getCommonSubstitutionArray($langs, 0, null, null);
 
 	if (empty($noout)) {
-		print_start_menu_array();
+		print_start_menu_[];
 	}
 
 	global $usemenuhider;
@@ -73,7 +73,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		$menu->add('#', (getDolGlobalInt('THEME_TOPMENU_DISABLE_IMAGE') == 1 ? '<span class="fas fa-bars size12x"></span>' : ''), 0, $showmode, $atarget, "xxx", '', 0, $id, $idsel, $classname, '<span class="fas fa-bars size12x"></span>');
 	}
 
-	$menu_arr = array();
+	$menu_arr = [];
 
 	// Home
 	$menu_arr[] = array(
@@ -91,8 +91,8 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'classname' =>  $classname = (empty($_SESSION["mainmenu"]) || $_SESSION["mainmenu"] == "home") ? 'class="tmenusel"' : 'class="tmenu"',
 		'prefix' => '<span class="fas fa-home fa-fw"></span>',
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "home") ? 0 : 1),
-		'loadLangs' => array(),
-		'submenus' => array(),
+		'loadLangs' => [],
+		'submenus' => [],
 	);
 
 	// Members
@@ -117,7 +117,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'prefix' => img_picture('', 'member', 'class="fa-fw picturefixedwidth"'),
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "members") ? 0 : 1),
 		'loadLangs' => array("members"),
-		'submenus' => array(),
+		'submenus' => [],
 	);
 
 	// Third parties
@@ -149,7 +149,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'prefix' => img_picture('', 'company', 'class="fa-fw picturefixedwidth"'),
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "companies") ? 0 : 1),
 		'loadLangs' => array("companies", "suppliers"),
-		'submenus' => array(),
+		'submenus' => [],
 	);
 
 	// Products-Services
@@ -176,7 +176,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'prefix' => img_picture('', 'product', 'class="fa-fw picturefixedwidth"'),
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "products") ? 0 : 1),
 		'loadLangs' => array("products", "stocks"),
-		'submenus' => array(),
+		'submenus' => [],
 	);
 
 	// MRP - GPAO
@@ -201,7 +201,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'prefix' => img_picture('', 'mrp', 'class="fa-fw picturefixedwidth"'),
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "mrp") ? 0 : 1),
 		'loadLangs' => array("mrp"),
-		'submenus' => array(),
+		'submenus' => [],
 	);
 
 	// Projects
@@ -239,7 +239,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'prefix' => img_picture('', 'project', 'class="fa-fw picturefixedwidth"'),
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "project") ? 0 : 1),
 		'loadLangs' => array("projects"),
-		'submenus' => array(),
+		'submenus' => [],
 	);
 
 	// Commercial (propal, order, supplier_proposal, supplier_order, contrat, ficheinter)
@@ -290,7 +290,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'prefix' => img_picture('', 'contract', 'class="fa-fw picturefixedwidth"'),
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "commercial") ? 0 : 1),
 		'loadLangs' => array("commercial"),
-		'submenus' => array(),
+		'submenus' => [],
 	);
 
 	// Billing - Financial
@@ -325,7 +325,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'prefix' => img_picture('', 'bill', 'class="fa-fw picturefixedwidth"'),
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "billing") ? 0 : 1),
 		'loadLangs' => array("compta"),
-		'submenus' => array(),
+		'submenus' => [],
 	);
 
 	// Bank
@@ -350,7 +350,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'prefix' => img_picture('', 'bank_account', 'class="fa-fw picturefixedwidth"'),
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "bank") ? 0 : 1),
 		'loadLangs' => array("compta", "banks"),
-		'submenus' => array(),
+		'submenus' => [],
 	);
 
 	// Accounting
@@ -375,7 +375,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'prefix' => img_picture('', 'accountancy', 'class="fa-fw picturefixedwidth"'),
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "accountancy") ? 0 : 1),
 		'loadLangs' => array("compta", "accountancy", "assets", "intracommreport"),
-		'submenus' => array(),
+		'submenus' => [],
 	);
 
 	// HRM
@@ -401,7 +401,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'prefix' => img_picture('', 'hrm', 'class="fa-fw picturefixedwidth"'),
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "hrm") ? 0 : 1),
 		'loadLangs' => array("hrm", "holiday"),
-		'submenus' => array(),
+		'submenus' => [],
 	);
 
 	// Tickets and Knowledge base
@@ -432,7 +432,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'prefix' => img_picture('', 'ticket', 'class="fa-fw picturefixedwidth"'),
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "ticket") ? 0 : 1),
 		'loadLangs' => array("ticket", "knowledgemanagement"),
-		'submenus' => array(),
+		'submenus' => [],
 	);
 
 	// Tools
@@ -457,7 +457,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'prefix' => img_picture('', 'tools', 'class="fa-fw picturefixedwidth"'),
 		'session' => ((!empty($_SESSION["mainmenu"]) && $_SESSION["mainmenu"] == "tools") ? 0 : 1),
 		'loadLangs' => array("other"),
-		'submenus' => array(),
+		'submenus' => [],
 	);
 
 	// Add menus
@@ -598,7 +598,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 	if (empty($noout) && !getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 		print_start_menu_entry('', 'class="tmenuend"', $showmode);
 		print_end_menu_entry($showmode);
-		print_end_menu_array();
+		print_end_menu_[];
 	}
 
 	return 0;
@@ -610,7 +610,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
  *
  * @return	void
  */
-function print_start_menu_array()
+function print_start_menu_[]
 {
 	print '<div class="tmenudiv">';
 	print '<ul role="navigation" class="tmenu"'.(getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') ? ' title="Top menu"' : '').'>';
@@ -646,7 +646,7 @@ function print_start_menu_entry($idsel, $classname, $showmode)
  * @param	array{}|array{rowid:string,fk_menu:string,langs:string,enabled:int<0,2>,type:string,fk_mainmenu:string,fk_leftmenu:string,url:string,titre:string,perms:string,target:string,mainmenu:string,leftmenu:string,position:int,level?:int,prefix:string} 	$menuval		All the $menuval array
  * @return	void
  */
-function print_text_menu_entry($text, $showmode, $url, $id, $idsel, $classname, $atarget, $menuval = array())
+function print_text_menu_entry($text, $showmode, $url, $id, $idsel, $classname, $atarget, $menuval = [])
 {
 	global $langs;
 
@@ -712,7 +712,7 @@ function print_end_menu_entry($showmode)
  *
  * @return	void
  */
-function print_end_menu_array()
+function print_end_menu_[]
 {
 	print '</ul>';
 	print '</div>';
@@ -917,7 +917,7 @@ function print_left_eldy_menu($db, $menu_array_before, $menu_array_after, &$tabM
 		}
 
 		// @todo Sort menu items by 'position' value
-		//      $position = array();
+		//      $position = [];
 		//      foreach ($menu_array as $key => $row) {
 		//          $position[$key] = $row['position'];
 		//      }
@@ -927,7 +927,7 @@ function print_left_eldy_menu($db, $menu_array_before, $menu_array_after, &$tabM
 
 	// TODO Use the position property in menu_array to reorder the $menu_array
 	//var_dump($menu_array);
-	/*$new_menu_array = array();
+	/*$new_menu_array = [];
 	 $level=0; $cusor=0; $position=0;
 	 $nbentry = count($menu_array);
 	 while (findNextEntryForLevel($menu_array, $cursor, $position, $level))

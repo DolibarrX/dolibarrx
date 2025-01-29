@@ -114,7 +114,7 @@ class box_graph_propales_permonth extends ModeleBoxes
 				$shownb = GETPOST($param_shownb, 'alpha');
 				$showtot = GETPOST($param_showtot, 'alpha');
 			} else {
-				$tmparray = (!empty($_COOKIE['DOLUSER_box_'.$this->boxcode]) ? json_decode($_COOKIE['DOLUSER_box_'.$this->boxcode], true) : array());
+				$tmparray = (!empty($_COOKIE['DOLUSER_box_'.$this->boxcode]) ? json_decode($_COOKIE['DOLUSER_box_'.$this->boxcode], true) : []);
 				$endyear = (!empty($tmparray['year']) ? $tmparray['year'] : '');
 				$shownb = (!empty($tmparray['shownb']) ? $tmparray['shownb'] : '');
 				$showtot = (!empty($tmparray['showtot']) ? $tmparray['showtot'] : '');
@@ -137,7 +137,7 @@ class box_graph_propales_permonth extends ModeleBoxes
 			// Build graphic number of object. $data = array(array('Lib',val1,val2,val3),...)
 			if ($shownb) {
 				$data1 = $stats->getNbByMonthWithPrevYear($endyear, $startyear, (GETPOST('action', 'aZ09') == $refreshaction ? -1 : (3600 * 24)), ($WIDTH < 300 ? 2 : 0), $startmonth);
-				$datatype1 = array_pad(array(), ($endyear - $startyear + 1), 'bars');
+				$datatype1 = array_pad([], ($endyear - $startyear + 1), 'bars');
 
 				$filenamenb = $dir."/".$prefix."propalsnbinyear-".$endyear.".png";
 				$fileurlnb = DOL_URL_ROOT.'/viewimage.php?modulepart=propalstats&amp;file=propalsnbinyear-'.$endyear.'.png';
@@ -149,7 +149,7 @@ class box_graph_propales_permonth extends ModeleBoxes
 					$px1->SetData($data1);
 					unset($data1);
 					$i = $startyear;
-					$legend = array();
+					$legend = [];
 					while ($i <= $endyear) {
 						if ($startmonth != 1) {
 							$legend[] = sprintf("%d/%d", $i - 2001, $i - 2000);
@@ -176,7 +176,7 @@ class box_graph_propales_permonth extends ModeleBoxes
 			// Build graphic number of object. $data = array(array('Lib',val1,val2,val3),...)
 			if ($showtot) {
 				$data2 = $stats->getAmountByMonthWithPrevYear($endyear, $startyear, (GETPOST('action', 'aZ09') == $refreshaction ? -1 : (3600 * 24)), ($WIDTH < 300 ? 2 : 0), $startmonth);
-				$datatype2 = array_pad(array(), ($endyear - $startyear + 1), 'bars');
+				$datatype2 = array_pad([], ($endyear - $startyear + 1), 'bars');
 				//$datatype2 = array('lines','bars');
 
 				$filenamenb = $dir."/".$prefix."propalsamountinyear-".$endyear.".png";
@@ -189,7 +189,7 @@ class box_graph_propales_permonth extends ModeleBoxes
 					$px2->SetData($data2);
 					unset($data2);
 					$i = $startyear;
-					$legend = array();
+					$legend = [];
 					while ($i <= $endyear) {
 						if ($startmonth != 1) {
 							$legend[] = sprintf("%d/%d", $i - 2001, $i - 2000);

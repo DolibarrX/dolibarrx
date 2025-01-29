@@ -114,7 +114,7 @@ if (!$permissiontoread) {
  * Actions
  */
 
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -366,7 +366,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Clone confirmation
 	/*if ($action == 'clone' && $permissiontoadd) {
 		// Create an array for form
-		$formquestion = array();
+		$formquestion = [];
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('ToClone'), $langs->trans('ConfirmCloneAsk', $object->ref), 'confirm_clone', $formquestion, 'yes', 1);
 	}*/
 
@@ -411,7 +411,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$TAllSkills = $static_skill->fetchAll();
 
 	// Array format for multiselectarray function
-	$TAllSkillsFormatted = array();
+	$TAllSkillsFormatted = [];
 	if (!empty($TAllSkills)) {
 		foreach ($TAllSkills as $k => $v) {
 			$TAllSkillsFormatted[$k] = $v->label;
@@ -426,13 +426,13 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$sql_skill .= " AND sr.fk_object = ".((int) $id);
 	$result = $db->query($sql_skill);
 	$numSkills = $db->num_rows($result);
-	$TSkillsJob = array();
+	$TSkillsJob = [];
 	for ($i = 0; $i < $numSkills; $i++) {
 		$objSkillRank = $db->fetch_object($result);
 		$TSkillsJob[] = $objSkillRank;
 	}
 
-	$TAlreadyUsedSkill = array();
+	$TAlreadyUsedSkill = [];
 	if (is_array($TSkillsJob) && !empty($TSkillsJob)) {
 		foreach ($TSkillsJob as $skillElement) {
 			$TAlreadyUsedSkill[$skillElement->fk_skill] = $skillElement->fk_skill;
@@ -531,7 +531,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		print '<tr>';
 		print '<td>';
 		print img_picture('', 'shapes', 'class="picturefixedwidth"');
-		print $form->multiselectarray('fk_skill', array_diff_key($TAllSkillsFormatted, $TAlreadyUsedSkill), array(), 0, 0, 'widthcentpercentminusx') . '</td>';
+		print $form->multiselectarray('fk_skill', array_diff_key($TAllSkillsFormatted, $TAlreadyUsedSkill), [], 0, 0, 'widthcentpercentminusx') . '</td>';
 		print '<td><input class="button reposition" type="submit" value="' . $langs->trans('Add') . '"></td>';
 		print '</tr>';
 		print '</table>';
@@ -643,9 +643,9 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			print '<tr><td><span class="opacitymedium">' . $langs->trans("NoRecordFound") . '</span></td></tr>';
 		} else {
 			$i = 0;
-			$sameRef = array();
+			$sameRef = [];
 			/** @var array<Object|array> $objects */
-			$objects = array();
+			$objects = [];
 			while ($i < $num) {
 				$obj = $db->fetch_object($resql);
 				$obj->result = getRankOrderResults($obj);

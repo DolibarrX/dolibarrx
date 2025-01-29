@@ -39,7 +39,7 @@ function ticketAdminPrepareHead()
 	$langs->load("ticket");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/ticket.php';
 	$head[$h][1] = $langs->trans("TicketSettings");
@@ -86,7 +86,7 @@ function ticket_prepare_head($object)
 	global $langs, $config, $user, $db;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 	$head[$h][0] = DOL_URL_ROOT . '/ticket/card.php?track_id=' . $object->track_id;
 	$head[$h][1] = $langs->trans("Ticket");
 	$head[$h][2] = 'tabTicket';

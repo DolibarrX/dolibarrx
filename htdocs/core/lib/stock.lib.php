@@ -33,7 +33,7 @@ function stock_prepare_head($object)
 	global $langs, $config, $user;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/product/stock/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Warehouse");
@@ -98,7 +98,7 @@ function stock_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('inventory');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/stock.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");

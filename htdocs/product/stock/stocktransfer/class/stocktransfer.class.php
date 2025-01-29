@@ -410,7 +410,7 @@ class StockTransfer extends CommonObject
 	public function fetchLines()
 	{
 		require_once DOL_DOCUMENT_ROOT . '/product/stock/stocktransfer/class/stocktransferline.class.php';
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		usort($this->lines, array('StockTransfer', 'stocktransferCmpRank'));
@@ -469,7 +469,7 @@ class StockTransfer extends CommonObject
 	{
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList();
@@ -982,7 +982,7 @@ class StockTransfer extends CommonObject
 	 */
 	public function getLinesArray()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectline = new StockTransferLine($this->db);
 		$result = $objectline->fetchAll('ASC', 'rang', 0, 0, "(fk_stocktransfer:=:".((int) $this->id).")");

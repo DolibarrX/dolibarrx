@@ -49,8 +49,8 @@ if (!$user->admin) {
 	accessforbidden();
 }
 
-$dirstandard = array();
-$dirsmartphone = array();
+$dirstandard = [];
+$dirsmartphone = [];
 $dirmenus = array_merge(array("/core/menus/"), (array) $config->modules_parts['menus']);
 foreach ($dirmenus as $dirmenu) {
 	$dirstandard[] = $dirmenu.'standard';
@@ -82,7 +82,7 @@ if ($action == 'update' && !$cancel) {
 	dolibarr_set_const($db, "MAIN_MENUFRONT_SMARTPHONE", GETPOST('MAIN_MENUFRONT_SMARTPHONE', 'alpha'), 'chaine', 0, '', $config->entity);
 
 	// Define list of menu handlers to initialize
-	$listofmenuhandler = array();
+	$listofmenuhandler = [];
 	$listofmenuhandler[preg_replace('/(_backoffice|_frontoffice|_menu)?\.php/i', '', GETPOST('MAIN_MENU_STANDARD', 'alpha'))] = 1;
 	$listofmenuhandler[preg_replace('/(_backoffice|_frontoffice|_menu)?\.php/i', '', GETPOST('MAIN_MENUFRONT_STANDARD', 'alpha'))] = 1;
 	if (GETPOST('MAIN_MENU_SMARTPHONE', 'alpha')) {
@@ -141,7 +141,7 @@ print load_fiche_titre($langs->trans("Menus"), '', 'title_setup');
 
 $h = 0;
 
-$head = array();
+$head = [];
 $head[$h][0] = DOL_URL_ROOT."/admin/menus.php";
 $head[$h][1] = $langs->trans("MenuHandlers");
 $head[$h][2] = 'handler';

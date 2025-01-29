@@ -110,7 +110,7 @@ class Notify
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string
@@ -460,7 +460,7 @@ class Notify
 		global $config, $user;
 
 		$error = 0;
-		$resarray = array();
+		$resarray = [];
 
 		$valueforthreshold = 0;
 		if (is_object($object)) {
@@ -623,7 +623,7 @@ class Notify
 	 *	@param 	string[]		$mimefilename_list	List of attached file name in message
 	 *	@return	int									Return integer <0 if KO, or number of changes if OK
 	 */
-	public function send($notifcode, $object, $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array())
+	public function send($notifcode, $object, $filename_list = [], $mimetype_list = [], $mimefilename_list = [])
 	{
 		global $user, $config, $langs, $mysoc;
 		global $hookManager;
@@ -1070,7 +1070,7 @@ class Notify
 		// TODO Move vars NOTIFICATION_FIXEDEMAIL into table llx_notify_def and inclulde the case into previous loop of sql result
 		if (!$error) {
 			foreach ($config->global as $key => $val) {
-				$reg = array();
+				$reg = [];
 				if ($val == '' || !preg_match('/^NOTIFICATION_FIXEDEMAIL_'.$notifcode.'_THRESHOLD_HIGHER_(.*)$/', $key, $reg)) {
 					continue;
 				}

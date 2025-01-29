@@ -159,7 +159,7 @@ if (preg_match('/api\/index\.php\/explorer/', $url) && getDolGlobalString('API_E
 // index.php/xxx                                called by any REST client to run API
 
 
-$reg = array();
+$reg = [];
 preg_match('/index\.php\/([^\/]+)(.*)$/', $url, $reg);
 // .../index.php/categories?sortfield=t.rowid&sortorder=ASC
 
@@ -232,7 +232,7 @@ if (getDolGlobalString('API_RESTRICT_ON_IP')) {
 if (!empty($reg[1]) && $reg[1] == 'explorer' && ($reg[2] == '/swagger.json' || $reg[2] == '/swagger.json/root' || $reg[2] == '/resources.json' || $reg[2] == '/resources.json/root')) {
 	// Scan all API files to load them
 
-	$listofapis = array();
+	$listofapis = [];
 
 	$modulesdir = dolGetModulesDirs();
 	foreach ($modulesdir as $dir) {
@@ -242,7 +242,7 @@ if (!empty($reg[1]) && $reg[1] == 'explorer' && ($reg[2] == '/swagger.json' || $
 		$handle = @opendir(dol_osencode($dir));
 		if (is_resource($handle)) {
 			while (($file = readdir($handle)) !== false) {
-				$regmod = array();
+				$regmod = [];
 				if (is_readable($dir.$file) && preg_match("/^mod(.*)\.class\.php$/i", $file, $regmod)) {
 					$module = strtolower($regmod[1]);
 					$moduledirforclass = getModuleDirForApiClass($module);
@@ -283,7 +283,7 @@ if (!empty($reg[1]) && $reg[1] == 'explorer' && ($reg[2] == '/swagger.json' || $
 
 								//dol_syslog("We scan to search api file with into ".$dir_part.$file_searched);
 
-								$regapi = array();
+								$regapi = [];
 								if (is_readable($dir_part.$file_searched) && preg_match("/^api_(.*)\.class\.php$/i", $file_searched, $regapi)) {
 									$classname = ucwords($regapi[1]);
 									$classname = str_replace('_', '', $classname);
@@ -316,7 +316,7 @@ if (!empty($reg[1]) && $reg[1] == 'explorer' && ($reg[2] == '/swagger.json' || $
 }
 
 // Call one APIs or one definition of an API
-$regbis = array();
+$regbis = [];
 if (!empty($reg[1]) && ($reg[1] != 'explorer' || ($reg[2] != '/swagger.json' && $reg[2] != '/resources.json' && preg_match('/^\/(swagger|resources)\.json\/(.+)$/', $reg[2], $regbis) && $regbis[2] != 'root'))) {
 	$moduleobject = $reg[1];
 	if ($moduleobject == 'explorer') {  // If we call page to explore details of a service

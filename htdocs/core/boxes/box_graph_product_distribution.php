@@ -86,7 +86,7 @@ class box_graph_product_distribution extends ModeleBoxes
 			$showpropalnb = GETPOST($param_showpropalnb, 'alpha');
 			$showordernb = GETPOST($param_showordernb, 'alpha');
 		} else {
-			$tmparray = (!empty($_COOKIE['DOLUSER_box_'.$this->boxcode]) ? json_decode($_COOKIE['DOLUSER_box_'.$this->boxcode], true) : array());
+			$tmparray = (!empty($_COOKIE['DOLUSER_box_'.$this->boxcode]) ? json_decode($_COOKIE['DOLUSER_box_'.$this->boxcode], true) : []);
 			$year = (!empty($tmparray['year']) ? $tmparray['year'] : '');
 			$showinvoicenb = (!empty($tmparray['showinvoicenb']) ? $tmparray['showinvoicenb'] : '');
 			$showpropalnb = (!empty($tmparray['showpropalnb']) ? $tmparray['showpropalnb'] : '');
@@ -169,7 +169,7 @@ class box_graph_product_distribution extends ModeleBoxes
 				$mesg = $px2->isGraphKo();
 				if (!$mesg) {
 					$i = 0;
-					$legend = array();
+					$legend = [];
 
 					// Truncate length of legend
 					foreach ($data2 as $key => $val) {
@@ -233,7 +233,7 @@ class box_graph_product_distribution extends ModeleBoxes
 				$mesg = $px3->isGraphKo();
 				if (!$mesg) {
 					$i = 0;
-					$legend = array();
+					$legend = [];
 
 					// Truncate length of legend
 					foreach ($data3 as $key => $val) {
@@ -297,7 +297,7 @@ class box_graph_product_distribution extends ModeleBoxes
 				$mesg = $px1->isGraphKo();
 				if (!$mesg) {
 					$i = 0;
-					$legend = array();
+					$legend = [];
 
 					// Truncate length of legend
 					foreach ($data1 as $key => $val) {

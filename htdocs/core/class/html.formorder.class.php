@@ -44,7 +44,7 @@ class FormOrder extends Form
 	 */
 	public function selectSupplierOrderStatus($selected = '', $short = 0, $htmlname = 'order_status', $morecss = '', $multi = 1)
 	{
-		$options = array();
+		$options = [];
 
 		// 7 is same label than 6. 8 does not exists (billed is another field)
 		$statustohow = array(
@@ -95,7 +95,7 @@ class FormOrder extends Form
 	 */
 	public function selectOrderStatus($selected = '', $short = 0, $htmlname = 'order_status')
 	{
-		$options = array();
+		$options = [];
 
 		$statustohow = array(
 			Order::STATUS_DRAFT,
@@ -134,7 +134,7 @@ class FormOrder extends Form
 	{
 		global $langs;
 
-		$listofmethods = array();
+		$listofmethods = [];
 
 		$sql = "SELECT rowid, code, libelle as label";
 		$sql .= " FROM ".$this->db->prefix()."c_input_method";

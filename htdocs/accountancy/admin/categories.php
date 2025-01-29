@@ -89,7 +89,7 @@ $accountingcategory = new AccountancyCategory($db);
 
 // If we add account
 if (!empty($selectcpt)) {
-	$cpts = array();
+	$cpts = [];
 	foreach ($selectcpt as $selectedoption) {
 		if (!array_key_exists($selectedoption, $cpts)) {
 			$cpts[$selectedoption] = "'".$selectedoption."'";
@@ -166,7 +166,7 @@ if (!empty($cat_id)) {
 	}
 	print '<br>';
 
-	$arraykeyvalue = array();
+	$arraykeyvalue = [];
 	foreach ($accountingcategory->lines_cptbk as $key => $val) {
 		$doc_ref = !empty($val->doc_ref) ? $val->doc_ref : '';
 		$arraykeyvalue[length_accountg($val->number_compte)] = length_accountg($val->number_compte) . ' - ' . $val->label_compte . ($doc_ref ? ' '.$doc_ref : '');

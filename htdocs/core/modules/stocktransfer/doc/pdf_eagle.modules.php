@@ -213,7 +213,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 		$nblines = is_array($object->lines) ? count($object->lines) : 0;
 
 		// Loop on each lines to detect if there is at least one image to show
-		$realpatharray = array();
+		$realpatharray = [];
 		$this->atleastonephoto = false;
 		if (getDolGlobalString('MAIN_GENERATE_STOCKTRANSFER_WITH_PICTURE')) {
 			$objphoto = new Product($this->db);
@@ -478,7 +478,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 				$curY = $tab_top + 7;
 				$nexY = $tab_top + 7;
 
-				$TCacheEntrepots = array();
+				$TCacheEntrepots = [];
 				// Loop on each lines
 				for ($i = 0; $i < $nblines; $i++) {
 					$curY = $nexY;
@@ -486,7 +486,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 					$pdf->SetTextColor(0, 0, 0);
 
 					// Define size of image if we need it
-					$imglinesize = array();
+					$imglinesize = [];
 					if (!empty($realpatharray[$i])) {
 						$imglinesize = pdf_getSizeForImage($realpatharray[$i]);
 					}
@@ -1148,7 +1148,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 			// Sender properties
 			$carac_emetteur = '';
 			// Add internal contact of origin element if defined
-			$arrayidcontact = array();
+			$arrayidcontact = [];
 			$arrayidcontact = $object->getIdContact('external', 'STFROM');
 
 			$usecontact = false;

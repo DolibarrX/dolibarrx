@@ -34,7 +34,7 @@ function payment_prepare_head(Paiement $object)
 	global $langs, $config, $db;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/compta/paiement/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Payment");
@@ -82,7 +82,7 @@ function bankline_prepare_head($id)
 	global $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/compta/bank/line.php?rowid=' . $id;
 	$head[$h][1] = $langs->trans('BankTransaction');
@@ -117,7 +117,7 @@ function payment_supplier_prepare_head(Paiement $object)
 	global $db, $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/fourn/paiement/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Payment");
@@ -163,7 +163,7 @@ function getValidOnlinePaymentMethods($paymentmethod = '')
 {
 	global $langs, $hookManager, $action;
 
-	$validpaymentmethod = array();
+	$validpaymentmethod = [];
 
 	if ((empty($paymentmethod) || $paymentmethod == 'paypal') && isModEnabled('paypal')) {
 		$langs->load("paypal");

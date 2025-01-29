@@ -102,7 +102,7 @@ $suffix = GETPOST("suffix", 'aZ09');
 
 // Detect $paymentmethod
 $paymentmethod = '';
-$reg = array();
+$reg = [];
 if (preg_match('/PM=([^\.]+)/', $FULLTAG, $reg)) {
 	$paymentmethod = $reg[1];
 }
@@ -114,7 +114,7 @@ if (empty($paymentmethod)) {
 }
 
 // Detect $ws
-$reg_ws = array();
+$reg_ws = [];
 $ws = preg_match('/WS=([^\.]+)/', $FULLTAG, $reg_ws) ? $reg_ws[1] : 0;
 if ($ws) {
 	dol_syslog("Paymentko.php page is invoked from a website with ref ".$ws.". It performs actions and then redirects back to this website. A page with ref paymentko must be created for this website.", LOG_DEBUG, 0, '_payment');
@@ -225,7 +225,7 @@ if (!empty($_SESSION['ipaddress'])) {      // To avoid to make action twice
 		$ishtml = dol_textishtml($content); // May contain urls
 
 		require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-		$mailfile = new CMailFile($topic, $sendto, $from, $content, array(), array(), array(), '', '', 0, $ishtml ? 1 : 0);
+		$mailfile = new CMailFile($topic, $sendto, $from, $content, [], [], [], '', '', 0, $ishtml ? 1 : 0);
 
 		$result = $mailfile->sendfile();
 		if ($result) {

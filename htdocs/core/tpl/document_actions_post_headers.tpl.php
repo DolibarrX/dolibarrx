@@ -66,7 +66,7 @@ $disablemove = 1;
 if (in_array($modulepart, array('product', 'produit', 'societe', 'user', 'ticket', 'holiday', 'expensereport'))) {
 	$disablemove = 0;
 }
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('isLinkedDocumentObjectNotMovable', $parameters, $object);
 if ($resHook) {
 	$disablemove = $hookManager->resArray['disablemove'];

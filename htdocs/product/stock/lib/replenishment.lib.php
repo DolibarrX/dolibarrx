@@ -34,8 +34,8 @@ function dolDispatchToDo($order_id)
 {
 	global $db, $config;
 
-	$dispatched = array();
-	$ordered = array();
+	$dispatched = [];
+	$ordered = [];
 
 	// Count nb of quantity dispatched per product
 	$sql = 'SELECT fk_product, SUM(qty) as qtydispatched FROM '.MAIN_DB_PREFIX.'receptiondet_batch';
@@ -87,7 +87,7 @@ function dispatchedOrders()
 
 	$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'order_fournisseur';
 	$resql = $db->query($sql);
-	$resarray = array();
+	$resarray = [];
 	if ($resql && $db->num_rows($resql) > 0) {
 		while ($obj = $db->fetch_object($resql)) {
 			if (!dolDispatchToDo($obj->rowid)) {
@@ -156,7 +156,7 @@ function getProducts($order_id)
 
 	$order = new OrderFournisseur($db);
 	$f = $order->fetch($order_id);
-	$products = array();
+	$products = [];
 	if ($f) {
 		foreach ($order->lines as $line) {
 			if (!in_array($line->fk_product, $products)) {

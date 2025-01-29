@@ -83,7 +83,7 @@ print '<!-- Ajax page called with url '.dol_escape_htmltag($_SERVER["PHP_SELF"])
 
 if (!empty($id) && !empty($element) && !empty($htmlelement) && !empty($type)) {
 	$value = GETPOST('value', 'alpha');
-	$params = array();
+	$params = [];
 
 	dol_syslog("AjaxSetExtraParameters id=".$id." element=".$element." htmlelement=".$htmlelement." type=".$type." value=".$value, LOG_DEBUG);
 

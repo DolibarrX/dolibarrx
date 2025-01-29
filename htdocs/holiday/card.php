@@ -560,7 +560,7 @@ if (empty($resHook)) {
 
 				$sendtobcc = getDolGlobalString('MAIN_MAIL_AUTOCOPY_HOLIDAY_TO');
 
-				$mail = new CMailFile($subject, $emailTo, $emailFrom, $message, array(), array(), array(), '', $sendtobcc, 0, 1, '', '', $trackid);
+				$mail = new CMailFile($subject, $emailTo, $emailFrom, $message, [], [], [], '', $sendtobcc, 0, 1, '', '', $trackid);
 
 				// Sending the email
 				$result = $mail->sendfile();
@@ -687,7 +687,7 @@ if (empty($resHook)) {
 
 					$sendtobcc = getDolGlobalString('MAIN_MAIL_AUTOCOPY_HOLIDAY_TO');
 
-					$mail = new CMailFile($subject, $emailTo, $emailFrom, $message, array(), array(), array(), '', $sendtobcc, 0, 1, '', '', $trackid);
+					$mail = new CMailFile($subject, $emailTo, $emailFrom, $message, [], [], [], '', $sendtobcc, 0, 1, '', '', $trackid);
 
 					// Sending email
 					$result = $mail->sendfile();
@@ -772,7 +772,7 @@ if (empty($resHook)) {
 
 						$sendtobcc = getDolGlobalString('MAIN_MAIL_AUTOCOPY_HOLIDAY_TO');
 
-						$mail = new CMailFile($subject, $emailTo, $emailFrom, $message, array(), array(), array(), '', $sendtobcc, 0, 1, '', '', $trackid);
+						$mail = new CMailFile($subject, $emailTo, $emailFrom, $message, [], [], [], '', $sendtobcc, 0, 1, '', '', $trackid);
 
 						// sending email
 						$result = $mail->sendfile();
@@ -937,7 +937,7 @@ if (empty($resHook)) {
 
 				$sendtobcc = getDolGlobalString('MAIN_MAIL_AUTOCOPY_HOLIDAY_TO');
 
-				$mail = new CMailFile($subject, $emailTo, $emailFrom, $message, array(), array(), array(), '', $sendtobcc, 0, 1, '', '', $trackid);
+				$mail = new CMailFile($subject, $emailTo, $emailFrom, $message, [], [], [], '', $sendtobcc, 0, 1, '', '', $trackid);
 
 				// sending email
 				$result = $mail->sendfile();
@@ -1135,7 +1135,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 		print '<td class="fieldrequired">'.$langs->trans("Type").'</td>';
 		print '<td>';
 		$typeleaves = $object->getTypes(1, -1);
-		$arraytypeleaves = array();
+		$arraytypeleaves = [];
 		foreach ($typeleaves as $key => $val) {
 			$labeltoshow = ($langs->trans($val['code']) != $val['code'] ? $langs->trans($val['code']) : $val['label']);
 			$labeltoshow .= ($val['delay'] > 0 ? ' ('.$langs->trans("NoticePeriod").': '.$val['delay'].' '.$langs->trans("days").')' : '');

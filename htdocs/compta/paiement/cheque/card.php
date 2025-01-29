@@ -328,7 +328,7 @@ $formfile = new FormFile($db);
 
 
 if ($action == 'new') {
-	$head = array();
+	$head = [];
 	$h = 0;
 	$head[$h][0] = $_SERVER["PHP_SELF"].'?action=new';
 	$head[$h][1] = $langs->trans("MenuChequeDeposits");
@@ -344,7 +344,7 @@ if ($action == 'new') {
 	}
 
 	$h = 0;
-	$head = array();
+	$head = [];
 	$head[$h][0] = $_SERVER["PHP_SELF"].'?id='.$object->id;
 	$head[$h][1] = $langs->trans("CheckReceipt");
 	$hselected = (string) $h;
@@ -381,13 +381,13 @@ if ($action == 'new') {
 	}
 }
 
-$accounts = array();
+$accounts = [];
 
 if ($action == 'new') {
 	$paymentstatic = new Paiement($db);
 	$accountlinestatic = new AccountLine($db);
 
-	$lines = array();
+	$lines = [];
 
 	$now = dol_now();
 
@@ -407,7 +407,7 @@ if ($action == 'new') {
 	print '<table class="border centpercent">';
 
 	if (count($arrayofpaymentmodetomanage) > 1) {
-		$arrayoflabels = array();
+		$arrayoflabels = [];
 		foreach ($arrayofpaymentmodetomanage as $key => $val) {
 			$labelval = ($langs->trans("PaymentType".$val) != "PaymentType".$val ? $langs->trans("PaymentType".$val) : $val);
 			$arrayoflabels[$key] = $labelval;

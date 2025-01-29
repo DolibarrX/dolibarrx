@@ -70,15 +70,15 @@ class modAgenda extends DolibarrModules
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
-		$this->depends = array(); // List of module class names as string that must be enabled if this module is enabled
-		$this->requiredby = array(); // List of module ids to disable if this one is disabled
-		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
+		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
+		$this->requiredby = []; // List of module ids to disable if this one is disabled
+		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->langfiles = array("companies","project");
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->enabled_bydefault = true; // Will be enabled during install
 
 		// Module parts
-		$this->module_parts = array();
+		$this->module_parts = [];
 
 		// Constants
 		//-----------
@@ -86,7 +86,7 @@ class modAgenda extends DolibarrModules
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = [];
 		$r = 0;
 
 		// $this->const[$r] = ["ACTION_EVENT_ADDON_PDF", "chaine", "standard", 'Name of PDF model of actioncomm', 0];
@@ -109,7 +109,7 @@ class modAgenda extends DolibarrModules
 
 		// New pages on tabs
 		// -----------------
-		$this->tabs = array();
+		$this->tabs = [];
 
 		// Boxes
 		//------
@@ -127,7 +127,7 @@ class modAgenda extends DolibarrModules
 
 		// Permissions
 		//------------
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'agenda';
 		$r = 0;
 
@@ -194,7 +194,7 @@ class modAgenda extends DolibarrModules
 		$this->rights[$r][4] = 'export';
 
 		// Main menu entries
-		$this->menu = array(); // List of menus to add
+		$this->menu = []; // List of menus to add
 		$r = 0;
 
 		// Add here entries to declare new menus
@@ -513,7 +513,7 @@ class modAgenda extends DolibarrModules
 		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "ExportDataset_event1";
 		$this->import_icon[$r] = $this->picture;
-		$this->import_entities_array[$r] = array();
+		$this->import_entities_array[$r] = [];
 		$this->import_tables_array[$r] = array('ac' => MAIN_DB_PREFIX.'actioncomm', 'extra' => MAIN_DB_PREFIX.'actioncomm_extrafields');
 		$this->import_tables_creator_array[$r] = array('ac' => 'fk_user_author'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(
@@ -536,10 +536,10 @@ class modAgenda extends DolibarrModules
 			'ac.fk_element' => 'ElementID',
 			'ac.elementtype' => 'ElementType',
 		);
-		$import_sample = array();
+		$import_sample = [];
 
 		// Add extra fields
-		$import_extrafield_sample = array();
+		$import_extrafield_sample = [];
 		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'actioncomm' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 

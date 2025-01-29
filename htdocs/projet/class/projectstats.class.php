@@ -101,7 +101,7 @@ class ProjectStats extends Stats
 	{
 		global $config, $user, $langs;
 
-		$datay = array();
+		$datay = [];
 
 		$sql = "SELECT";
 		$sql .= " SUM(t.opp_amount), t.fk_opp_status, cls.code, cls.label";
@@ -119,7 +119,7 @@ class ProjectStats extends Stats
 		$sql .= " AND t.fk_statut <> 0"; // We want historic also, so all projects not draft
 		$sql .= " GROUP BY t.fk_opp_status, cls.code, cls.label";
 
-		$result = array();
+		$result = [];
 
 		dol_syslog(get_class($this).'::'.__METHOD__, LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -165,7 +165,7 @@ class ProjectStats extends Stats
 	{
 		global $config, $user, $langs;
 
-		$datay = array();
+		$datay = [];
 
 		$wonlostfilter = 0; // No filter on status WON/LOST
 
@@ -197,7 +197,7 @@ class ProjectStats extends Stats
 		global $user;
 
 		$sqlwhere_str = '';
-		$sqlwhere = array();
+		$sqlwhere = [];
 
 		// Get list of project id allowed to user (in a string list separated by coma)
 		$object = new Project($this->db);
@@ -324,7 +324,7 @@ class ProjectStats extends Stats
 			return -1;
 		}
 
-		$datay = array();
+		$datay = [];
 
 		// Search into cache
 		if (!empty($cachedelay)) {
@@ -361,7 +361,7 @@ class ProjectStats extends Stats
 				$year++;
 			}
 
-			$data = array();
+			$data = [];
 			// $data = array('xval'=>array(0=>xlabel,1=>yval1,2=>yval2...),...)
 			for ($i = 0; $i < 12; $i++) {
 				$data[$i][] = $datay[$endyear][$i][0]; // set label
@@ -435,7 +435,7 @@ class ProjectStats extends Stats
 			return -1;
 		}
 
-		$datay = array();
+		$datay = [];
 
 		// Search into cache
 		if (!empty($cachedelay)) {
@@ -472,7 +472,7 @@ class ProjectStats extends Stats
 				$year++;
 			}
 
-			$data = array();
+			$data = [];
 			// $data = array('xval'=>array(0=>xlabel,1=>yval1,2=>yval2...),...)
 			for ($i = 0; $i < 12; $i++) {
 				$data[$i][] = $datay[$endyear][$i][0]; // set label
@@ -540,7 +540,7 @@ class ProjectStats extends Stats
 
 		$res_only_wined = $this->_getNbByMonth($year, $sql, $format);
 
-		$res = array();
+		$res = [];
 
 		foreach ($res_total as $key => $total_row) {
 			//var_dump($total_row);

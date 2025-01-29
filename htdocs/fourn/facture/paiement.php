@@ -93,12 +93,12 @@ if (!$sortfield) {
 	$sortfield = "p.rowid";
 }
 
-$amounts = array();
-$amountsresttopay = array();
+$amounts = [];
+$amountsresttopay = [];
 $addwarning = 0;
 
-$multicurrency_amounts = array();
-$multicurrency_amountsresttopay = array();
+$multicurrency_amounts = [];
+$multicurrency_amountsresttopay = [];
 
 // Security check
 if ($user->socid > 0) {
@@ -116,7 +116,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 
 $search_array_options = $extrafields->getOptionalsFromPost($object->table_element, '', 'search_');
 
-$arrayfields = array();
+$arrayfields = [];
 
 $permissiontoadd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
 
@@ -148,7 +148,7 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 	$day = '';
 	$year = '';
 	$month = '';
-	$search_array_options = array();
+	$search_array_options = [];
 }
 
 $parameters = array('socid' => $socid);
@@ -157,7 +157,7 @@ if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-$formquestion = array();
+$formquestion = [];
 if (empty($resHook)) {
 	if (($action == 'add_paiement' || ($action == 'confirm_paiement' && $confirm == 'yes')) && $permissiontoadd) {
 		$datepaye = GETPOSTDATE('re', '12:00:00');
@@ -279,8 +279,8 @@ if (empty($resHook)) {
 	if ($action == 'confirm_paiement' && $confirm == 'yes') {
 		$datepaye = dol_mktime(12, 0, 0, GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'));
 
-		$multicurrency_code = array();
-		$multicurrency_tx = array();
+		$multicurrency_code = [];
+		$multicurrency_tx = [];
 
 		// Clean parameters amount if payment is for a credit note
 		foreach ($amounts as $key => $value) {	// How payment is dispatched

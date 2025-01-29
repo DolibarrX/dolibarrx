@@ -545,7 +545,7 @@ class FormCardWebPortal
 		$object->fields = dol_sort_array($object->fields, 'position');
 
 		// separate fields to show on the left and on the right
-		$fieldShowList = array();
+		$fieldShowList = [];
 		foreach ($object->fields as $key => $val) {
 			// discard if it's a hidden field on form
 			if (abs($val['visible']) != 1 && abs($val['visible']) != 3 && abs($val['visible']) != 4 && abs($val['visible']) != 5) {
@@ -836,7 +836,7 @@ class FormCardWebPortal
 			// Buttons for actions
 			if ($action != 'presend' && $action != 'editline') {
 				$html .= '<div>' . "\n";
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($resHook < 0) {
 					$context->setEventMessages($hookManager->error, $hookManager->errors, 'errors');

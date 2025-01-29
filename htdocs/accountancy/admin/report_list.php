@@ -54,10 +54,10 @@ if (!$user->hasRight('accounting', 'chartofaccount')) {
 	accessforbidden();
 }
 
-$acts = array();
+$acts = [];
 $acts[0] = "activate";
 $acts[1] = "disable";
-$actl = array();
+$actl = [];
 $actl[0] = img_picture($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
 $actl[1] = img_picture($langs->trans("Activated"), 'switch_on', 'class="size15x"');
 
@@ -87,50 +87,50 @@ $hookManager->initHooks(array('admin'));
 $taborder = array(45);
 
 // Name of SQL tables of dictionaries
-$tabname = array();
+$tabname = [];
 $tabname[45] = MAIN_DB_PREFIX."c_accounting_report";
 
 // Dictionary labels
-$tablib = array();
+$tablib = [];
 $tablib[45] = "DictionaryAccountancyReport";
 
 // Requests to extract data
-$tabsql = array();
+$tabsql = [];
 $tabsql[45] = "SELECT r.rowid as rowid, r.code as code, r.label, r.fk_country as country_id, c.code as country_code, c.label as country, r.active FROM ".MAIN_DB_PREFIX."c_accounting_report as r, ".MAIN_DB_PREFIX."c_country as c WHERE r.fk_country = c.rowid and c.active=1";
 
 // Criteria to sort dictionaries
-$tabsqlsort = array();
+$tabsqlsort = [];
 $tabsqlsort[45] = "code ASC";
 
 // Name of the fields in the result of select to display the dictionary
-$tabfield = array();
+$tabfield = [];
 $tabfield[45] = "code,label,country";
 
 // Name of editing fields for record modification
-$tabfieldvalue = array();
+$tabfieldvalue = [];
 $tabfieldvalue[45] = "code,label,country_id";
 
 // Name of the fields in the table for inserting a record
-$tabfieldinsert = array();
+$tabfieldinsert = [];
 $tabfieldinsert[45] = "code,label,fk_country";
 
 // Name of the rowid if the field is not of type autoincrement
 // Example: "" if id field is "rowid" and has autoincrement on
 //          "nameoffield" if id field is not "rowid" or has not autoincrement on
-$tabrowid = array();
+$tabrowid = [];
 $tabrowid[45] = "";
 
 // Condition to show dictionary in setup page
-$tabcond = array();
+$tabcond = [];
 $tabcond[45] = isModEnabled('accounting');
 
 // List of help for fields
-$tabhelp = array();
+$tabhelp = [];
 $tabhelp[45] = array('code' => $langs->trans("EnterAnyCode"));
 
 // List of check for fields (NOT USED YET)
-$tabfieldcheck = array();
-$tabfieldcheck[45] = array();
+$tabfieldcheck = [];
+$tabfieldcheck[45] = [];
 
 // Complete all arrays with entries found into modules
 complete_dictionary_with_modules($taborder, $tabname, $tablib, $tabsql, $tabsqlsort, $tabfield, $tabfieldvalue, $tabfieldinsert, $tabrowid, $tabcond, $tabhelp, $tabfieldcheck);

@@ -50,12 +50,12 @@ class ModeleImports
 	/**
 	 * @var string[] Error codes (or messages)
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var string[] warnings codes (or messages)
 	 */
-	public $warnings = array();
+	public $warnings = [];
 
 	/**
 	 * @var string Code of driver
@@ -100,32 +100,32 @@ class ModeleImports
 	/**
 	 * @var array<string,string>
 	 */
-	public $driverlabel = array();
+	public $driverlabel = [];
 
 	/**
 	 * @var array<string,string>
 	 */
-	public $driverdesc = array();
+	public $driverdesc = [];
 
 	/**
 	 * @var array<string,string>
 	 */
-	public $driverversion = array();
+	public $driverversion = [];
 
 	/**
 	 * @var array<string,string>
 	 */
-	public $drivererror = array();
+	public $drivererror = [];
 
 	/**
 	 * @var array<string,string>
 	 */
-	public $liblabel = array();
+	public $liblabel = [];
 
 	/**
 	 * @var array<string,string>
 	 */
-	public $libversion = array();
+	public $libversion = [];
 
 	/**
 	 * @var string charset
@@ -171,7 +171,7 @@ class ModeleImports
 
 		if (is_object($hookManager)) {
 			$hookManager->initHooks(array('import'));
-			$parameters = array();
+			$parameters = [];
 			$resHook = $hookManager->executeHooks('constructModeleImports', $parameters, $this);
 			if ($resHook >= 0 && !empty($hookManager->resArray)) {
 				foreach ($hookManager->resArray as $mapList) {
@@ -269,7 +269,7 @@ class ModeleImports
 		// Search list ov drivers available and qualified
 		if (is_resource($handle)) {
 			while (($file = readdir($handle)) !== false) {
-				$reg = array();
+				$reg = [];
 				if (preg_match("/^import_(.*)\.modules\.php/i", $file, $reg)) {
 					$moduleid = $reg[1];
 
@@ -448,7 +448,7 @@ class ModeleImports
 		dol_syslog($msg, LOG_ERR);
 		$this->errors[] = $msg;
 		$this->error = $msg;
-		return array();
+		return [];
 	}
 
 

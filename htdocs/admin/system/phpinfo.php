@@ -113,12 +113,12 @@ print '<tr><td>'.$langs->trans("Version").'</td><td>';
 $arrayphpminversionerror = array(5, 5, 0);
 $arrayphpminversionwarning = array(5, 6, 0);
 
-if (versioncompare(versionphparray(), $arrayphpminversionerror) < 0) {
+if (versioncompare(versionphp[], $arrayphpminversionerror) < 0) {
 	print img_picture('Error', 'error').' '.$langs->trans("ErrorPHPVersionTooLow", versiontostring($arrayphpminversionerror));
-} elseif (versioncompare(versionphparray(), $arrayphpminversionwarning) < 0) {
+} elseif (versioncompare(versionphp[], $arrayphpminversionwarning) < 0) {
 	print img_picture('Warning', 'warning').' '.$langs->trans("ErrorPHPVersionTooLow", versiontostring($arrayphpminversionwarning));
 } else {
-	print img_picture('Ok', 'tick').' '.versiontostring(versionphparray());
+	print img_picture('Ok', 'tick').' '.versiontostring(versionphp[]);
 }
 
 print '</td></tr>';
@@ -152,7 +152,7 @@ print '</table>';
 
 print '<br>';
 
-$activatedExtensions = array();
+$activatedExtensions = [];
 $loadedExtensions    = array_map('strtolower', get_loaded_extensions(false));
 
 print '<table class="noborder centpercent">';
@@ -227,7 +227,7 @@ print "<td>".$name."</td>";
 print getResultColumn($name, $activatedExtensions, $loadedExtensions, $functions);
 print "</tr>";
 
-$functions = array();
+$functions = [];
 $name      = "zip";
 
 print "<tr>";
@@ -235,7 +235,7 @@ print "<td>".$name."</td>";
 print getResultColumn($name, $activatedExtensions, $loadedExtensions, $functions);
 print "</tr>";
 
-$functions = array();
+$functions = [];
 $name      = "xDebug";
 
 print "<tr>";
@@ -248,7 +248,7 @@ print '</table>';
 print '<br>';
 
 // Get php_info array
-$phparray = phpinfo_array();
+$phparray = phpinfo_[];
 foreach ($phparray as $key => $value) {
 	print '<div class="div-table-responsive-no-min">';
 	print '<table class="noborder">';

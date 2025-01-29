@@ -215,7 +215,7 @@ if ($id > 0 || !empty($ref)) {
 		$object->getListIdAvoirFromInvoice();
 
 		if (!empty($object->creditnote_ids)) {
-			$invoicecredits = array();
+			$invoicecredits = [];
 			foreach ($object->creditnote_ids as $invoiceid) {
 				$creditnote = new FactureFournisseur($db);
 				$creditnote->fetch($invoiceid);

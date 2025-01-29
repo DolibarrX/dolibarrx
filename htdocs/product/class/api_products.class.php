@@ -186,7 +186,7 @@ class Products extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		$socid = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : '';
 
@@ -286,7 +286,7 @@ class Products extends DolibarrApi
 			$total = $this->db->fetch_object($totalsResult)->total;
 
 			$tmp = $obj_ret;
-			$obj_ret = array();
+			$obj_ret = [];
 
 			$obj_ret['data'] = $tmp;
 			$obj_ret['pagination'] = array(
@@ -344,7 +344,7 @@ class Products extends DolibarrApi
 					$newpricemin = $this->product->multiprices_min_ttc[$key];
 				}
 				if ($newprice > 0) {
-					$result = $this->product->updatePrice($newprice, $newbasetype, DolibarrApiAccess::$user, $newvat, $newpricemin, $key, $newnpr, 0, 0, array(), $newvatsrccode);
+					$result = $this->product->updatePrice($newprice, $newbasetype, DolibarrApiAccess::$user, $newvat, $newpricemin, $key, $newnpr, 0, 0, [], $newvatsrccode);
 				}
 			}
 		}
@@ -457,7 +457,7 @@ class Products extends DolibarrApi
 					$newpricemin = $this->product->price_min_ttc;
 				}
 
-				$result = $this->product->updatePrice($newprice, $this->product->price_base_type, DolibarrApiAccess::$user, $newvat, $newpricemin, 0, $newnpr, 0, 0, array(), $newvatsrccode);
+				$result = $this->product->updatePrice($newprice, $this->product->price_base_type, DolibarrApiAccess::$user, $newvat, $newpricemin, 0, $newnpr, 0, 0, [], $newvatsrccode);
 			}
 		}
 
@@ -502,7 +502,7 @@ class Products extends DolibarrApi
 						$newpricemin = $this->product->multiprices_min_ttc[$key];
 					}
 
-					$result = $this->product->updatePrice($newprice, $newbasetype, DolibarrApiAccess::$user, $newvat, $newpricemin, $key, $newnpr, 0, 0, array(), $newvatsrccode);
+					$result = $this->product->updatePrice($newprice, $newbasetype, DolibarrApiAccess::$user, $newvat, $newpricemin, $key, $newnpr, 0, 0, [], $newvatsrccode);
 				}
 			}
 		}
@@ -578,7 +578,7 @@ class Products extends DolibarrApi
 		$childrenArbo = $this->product->getChildsArbo($id, 1);
 
 		$keys = array('rowid', 'qty', 'fk_product_type', 'label', 'incdec', 'ref', 'fk_association', 'rang');
-		$children = array();
+		$children = [];
 		foreach ($childrenArbo as $values) {
 			$children[] = array_combine($keys, $values);
 		}
@@ -757,7 +757,7 @@ class Products extends DolibarrApi
 		if ($result > 0) {
 			require_once DOL_DOCUMENT_ROOT.'/product/class/productcustomerprice.class.php';
 			$prodcustprice = new ProductCustomerPrice($this->db);
-			$filter = array();
+			$filter = [];
 			$filter['t.fk_product'] = $id;
 			if ($thirdparty_id) {
 				$filter['t.fk_soc'] = $thirdparty_id;
@@ -841,7 +841,7 @@ class Products extends DolibarrApi
 	 *
 	 * @url POST {id}/purchase_prices
 	 */
-	public function addPurchasePrice($id, $qty, $buyprice, $price_base_type, $fourn_id, $availability, $ref_fourn, $tva_tx, $charges = 0, $remise_percent = 0, $remise = 0, $newnpr = 0, $delivery_time_days = 0, $supplier_reputation = '', $localtaxes_array = array(), $newdefaultvatcode = '', $multicurrency_buyprice = 0, $multicurrency_price_base_type = 'HT', $multicurrency_tx = 1, $multicurrency_code = '', $desc_fourn = '', $barcode = '', $fk_barcode_type = null)
+	public function addPurchasePrice($id, $qty, $buyprice, $price_base_type, $fourn_id, $availability, $ref_fourn, $tva_tx, $charges = 0, $remise_percent = 0, $remise = 0, $newnpr = 0, $delivery_time_days = 0, $supplier_reputation = '', $localtaxes_array = [], $newdefaultvatcode = '', $multicurrency_buyprice = 0, $multicurrency_price_base_type = 'HT', $multicurrency_tx = 1, $multicurrency_code = '', $desc_fourn = '', $barcode = '', $fk_barcode_type = null)
 	{
 		if (!DolibarrApiAccess::$user->hasRight('produit', 'creer')) {
 			throw new RestException(403);
@@ -944,7 +944,7 @@ class Products extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// Force id of company for external users
 		$socid = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : '';
@@ -1068,7 +1068,7 @@ class Products extends DolibarrApi
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 
-		$product_fourn_list = array();
+		$product_fourn_list = [];
 
 		if ($result) {
 			$product_fourn = new ProductFournisseur($this->db);
@@ -1134,7 +1134,7 @@ class Products extends DolibarrApi
 			throw new RestException(503, 'Error when retrieving product attribute list : '.$this->db->lasterror());
 		}
 
-		$return = array();
+		$return = [];
 		while ($obj = $this->db->fetch_object($resql)) {
 			$tmp = new ProductAttribute($this->db);
 			$tmp->id = $obj->rowid;
@@ -1222,7 +1222,7 @@ class Products extends DolibarrApi
 
 		$result = $this->db->fetch_object($query);
 
-		$attr = array();
+		$attr = [];
 		$attr['id'] = $result->rowid;
 		$attr['ref'] = $result->ref;
 		$attr['ref_ext'] = $result->ref_ext;
@@ -1272,7 +1272,7 @@ class Products extends DolibarrApi
 
 		$result = $this->db->fetch_object($query);
 
-		$attr = array();
+		$attr = [];
 		$attr['id'] = $result->rowid;
 		$attr['ref'] = $result->ref;
 		$attr['ref_ext'] = $result->ref_ext;
@@ -1438,7 +1438,7 @@ class Products extends DolibarrApi
 
 		$result = $this->db->fetch_object($query);
 
-		$attrval = array();
+		$attrval = [];
 		$attrval['id'] = $result->rowid;
 		$attrval['fk_product_attribute'] = $result->fk_product_attribute;
 		$attrval['ref'] = $result->ref;
@@ -1482,7 +1482,7 @@ class Products extends DolibarrApi
 
 		$result = $this->db->fetch_object($query);
 
-		$attrval = array();
+		$attrval = [];
 		$attrval['id'] = $result->rowid;
 		$attrval['fk_product_attribute'] = $result->fk_product_attribute;
 		$attrval['ref'] = $result->ref;
@@ -1584,7 +1584,7 @@ class Products extends DolibarrApi
 
 		$ref = trim($ref);
 
-		$return = array();
+		$return = [];
 
 		$sql = "SELECT ";
 		$sql .= "v.fk_product_attribute, v.rowid, v.ref, v.value FROM ".$this->db->prefix()."product_attribute_value as v";
@@ -1844,7 +1844,7 @@ class Products extends DolibarrApi
 
 		$prodcomb = new ProductCombination($this->db);
 
-		$result = $prodcomb->createProductCombination(DolibarrApiAccess::$user, $this->product, $features, array(), $price_impact_is_percent, $price_impact, $weight_impact, $reference, $ref_ext);
+		$result = $prodcomb->createProductCombination(DolibarrApiAccess::$user, $this->product, $features, [], $price_impact_is_percent, $price_impact, $weight_impact, $reference, $ref_ext);
 		if ($result > 0) {
 			return $result;
 		} else {
@@ -1901,7 +1901,7 @@ class Products extends DolibarrApi
 
 		$prodcomb = new ProductCombination($this->db);
 		if (!$prodcomb->fetchByProductCombination2ValuePairs($this->product->id, $features)) {
-			$result = $prodcomb->createProductCombination(DolibarrApiAccess::$user, $this->product, $features, array(), $price_impact_is_percent, $price_impact, $weight_impact);
+			$result = $prodcomb->createProductCombination(DolibarrApiAccess::$user, $this->product, $features, [], $price_impact_is_percent, $price_impact, $weight_impact);
 			if ($result > 0) {
 				return $result;
 			} else {
@@ -2098,7 +2098,7 @@ class Products extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$product = array();
+		$product = [];
 		foreach (Products::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");
@@ -2166,7 +2166,7 @@ class Products extends DolibarrApi
 			$childrenArbo = $this->product->getChildsArbo($id, 1);
 
 			$keys = array('rowid', 'qty', 'fk_product_type', 'label', 'incdec', 'ref', 'fk_association', 'rang');
-			$children = array();
+			$children = [];
 			foreach ($childrenArbo as $values) {
 				$children[] = array_combine($keys, $values);
 			}

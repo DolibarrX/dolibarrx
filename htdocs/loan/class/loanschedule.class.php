@@ -68,7 +68,7 @@ class LoanSchedule extends CommonObject
 	/**
 	 * @var float[]
 	 */
-	public $amounts = array(); // Array of amounts
+	public $amounts = []; // Array of amounts
 	/**
 	 * @var null|float|string  Total amount of payment
 	 */
@@ -117,7 +117,7 @@ class LoanSchedule extends CommonObject
 	 * @var LoanSchedule[]
 	 * @see LoanSchedule::fetchAll()
 	 */
-	public $lines = array();
+	public $lines = [];
 
 	/**
 	 * @deprecated	Use $amount, $amounts
@@ -532,7 +532,7 @@ class LoanSchedule extends CommonObject
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/loan.lib.php';
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
-		$toinsert = array();
+		$toinsert = [];
 
 		$sql = "SELECT l.rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."loan as l";
@@ -596,7 +596,7 @@ class LoanSchedule extends CommonObject
 	 */
 	public function paimenttorecord($loanid, $datemax)
 	{
-		$result = array();
+		$result = [];
 
 		$sql = "SELECT p.rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX.$this->table_element." as p ";

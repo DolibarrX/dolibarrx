@@ -61,20 +61,20 @@ class modDocumentGeneration extends DolibarrModules
 		//$this->config_page_url = array("document.php");
 
 		// Dependencies
-		$this->depends = array();
-		$this->requiredby = array();
-		$this->conflictwith = array();
+		$this->depends = [];
+		$this->requiredby = [];
+		$this->conflictwith = [];
 		$this->langfiles = array("orders", "bills", "companies", "mails");
 
 		// Constants
 
-		$this->const = array();
+		$this->const = [];
 
 		// Boxes
-		$this->boxes = array();
+		$this->boxes = [];
 
 		// Permissions
-		$this->rights = array();
+		$this->rights = [];
 		$this->rightsClass = 'document';
 
 		$r = 0;
@@ -109,7 +109,7 @@ class modDocumentGeneration extends DolibarrModules
 		// Permissions
 		$this->remove($options);
 
-		$sql = array();
+		$sql = [];
 
 		return $this->_init($sql, $options);
 	}

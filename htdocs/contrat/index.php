@@ -97,11 +97,11 @@ print '<div class="fichecenter"><div class="fichethirdleft">';
  * Statistics
  */
 
-$nb = array();
+$nb = [];
 $total = 0;
 $totalinprocess = 0;
-$dataseries = array();
-$vals = array();
+$dataseries = [];
+$vals = [];
 
 // Search by status (except expired)
 $sql = "SELECT count(cd.rowid) as nb, cd.statut as status";
@@ -180,7 +180,7 @@ if ($resql) {
 	dol_print_error($db);
 }
 
-$colorseries = array();
+$colorseries = [];
 
 include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 

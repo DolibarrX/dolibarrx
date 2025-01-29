@@ -38,7 +38,7 @@ function mrpAdminPrepareHead()
 	$langs->load("mrp");
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/mrp.php';
 	$head[$h][1] = $langs->trans("Settings");

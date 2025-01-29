@@ -109,7 +109,7 @@ class AgendaEvents extends DolibarrApi
 	{
 		global $db, $config;
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		if (!DolibarrApiAccess::$user->hasRight('agenda', 'myactions', 'read')) {
 			throw new RestException(403, "Insufficient rights to read events");
@@ -233,7 +233,7 @@ class AgendaEvents extends DolibarrApi
 			$this->actioncomm->$field = $this->_checkValForAPI($field, $value, $this->actioncomm);
 		}
 		/*if (isset($request_data["lines"])) {
-		  $lines = array();
+		  $lines = [];
 		  foreach ($request_data["lines"] as $line) {
 			array_push($lines, (object) $line);
 		  }
@@ -356,7 +356,7 @@ class AgendaEvents extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$event = array();
+		$event = [];
 		foreach (AgendaEvents::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

@@ -114,7 +114,7 @@ class Tasks extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$obj_ret = array();
+		$obj_ret = [];
 
 		// case of external user, $thirdparty_ids param is ignored and replaced by user's socid
 		$socids = DolibarrApiAccess::$user->socid ? DolibarrApiAccess::$user->socid : 0;
@@ -206,7 +206,7 @@ class Tasks extends DolibarrApi
 			$this->task->$field = $this->_checkValForAPI($field, $value, $this->task);
 		}
 		/*if (isset($request_data["lines"])) {
-		  $lines = array();
+		  $lines = [];
 		  foreach ($request_data["lines"] as $line) {
 			array_push($lines, (object) $line);
 		  }
@@ -243,7 +243,7 @@ class Tasks extends DolibarrApi
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 		$this->project->getLinesArray(DolibarrApiAccess::$user);
-		$result = array();
+		$result = [];
 		foreach ($this->project->lines as $line)      // $line is a task
 		{
 			if ($includetimespent == 1)
@@ -294,7 +294,7 @@ class Tasks extends DolibarrApi
 			$usert->fetch($userId);
 		}
 		$this->task->roles = $this->task->getUserRolesForProjectsOrTasks(null, $usert, 0, $id);
-		$result = array();
+		$result = [];
 		foreach ($this->task->roles as $line) {
 			array_push($result, $this->_cleanObjectDatas($line));
 		}
@@ -737,7 +737,7 @@ class Tasks extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$object = array();
+		$object = [];
 		foreach (self::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, "$field field missing");

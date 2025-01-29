@@ -170,7 +170,7 @@ class EvaluationLine extends CommonObjectLine
 	// /**
 	//  * @var array	List of child tables. To test if we can delete object.
 	//  */
-	// protected $childtables = array();
+	// protected $childtables = [];
 
 	// /**
 	//  * @var array    List of child tables. To know object to delete on cascade.
@@ -182,7 +182,7 @@ class EvaluationLine extends CommonObjectLine
 	// /**
 	//  * @var EvaluationLine[]     Array of subtable lines
 	//  */
-	// public $lines = array();
+	// public $lines = [];
 
 
 	/**
@@ -366,7 +366,7 @@ class EvaluationLine extends CommonObjectLine
 	 */
 	public function fetchLines()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$result = $this->fetchLinesCommon();
 		return $result;
@@ -391,7 +391,7 @@ class EvaluationLine extends CommonObjectLine
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
-		$records = array();
+		$records = [];
 
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList('t');
@@ -907,7 +907,7 @@ class EvaluationLine extends CommonObjectLine
 	 */
 	public function getLinesArray()
 	{
-		$this->lines = array();
+		$this->lines = [];
 
 		$objectline = new EvaluationLine($this->db);
 		$result = $objectline->fetchAll('ASC', 'position', 0, 0, '(fk_evaluationdet:=:'.((int) $this->id).')');

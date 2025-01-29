@@ -72,7 +72,7 @@ $result = restrictedArea($user, 'contrat', $object->id);
  * Actions
  */
 
-$resHook = $hookManager->executeHooks('doActions', array(), $object, $action); // Note that $action and $object may have been modified by some hooks
+$resHook = $hookManager->executeHooks('doActions', [], $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }

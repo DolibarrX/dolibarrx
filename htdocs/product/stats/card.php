@@ -61,7 +61,7 @@ $type = GETPOST('type', 'alpha');
 
 $error = 0;
 $mesg = '';
-$graphfiles = array();
+$graphfiles = [];
 
 $socid = GETPOSTINT('socid');
 if (!empty($user->socid)) {
@@ -166,7 +166,7 @@ if ($result && ($id > 0 || !empty($ref)) && empty($notab)) {
 }
 if ((!($id > 0) && empty($ref)) || $notab) {
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT.'/product/stats/card.php'.($type != '' ? '?type='.((int) $type) : '');
 	$head[$h][1] = $langs->trans("Chart");
@@ -217,7 +217,7 @@ if ($result || !($id > 0)) {
 		// Product
 		print '<tr class="nooddeven"><td class="titlefield">'.$langs->trans("ProductOrService").'</td><td>';
 		print img_picture('', 'product', 'class="picturefixedwidth"');
-		print $form->select_produits($id, 'id', '', 0, 0, 1, 2, '', 0, array(), 0, $langs->trans("RefOrLabel"), 0, 'widthcentpercentminusx maxwidth400');
+		print $form->select_produits($id, 'id', '', 0, 0, 1, 2, '', 0, [], 0, $langs->trans("RefOrLabel"), 0, 'widthcentpercentminusx maxwidth400');
 		print '</td></tr>';
 
 		// Tag
@@ -234,7 +234,7 @@ if ($result || !($id > 0)) {
 
 	// Year
 	print '<tr class="nooddeven"><td class="titlefield">'.$langs->trans("Year").'</td><td>';
-	$arrayyears = array();
+	$arrayyears = [];
 	for ($year = $currentyear - 25; $year < $currentyear; $year++) {
 		$arrayyears[$year] = $year;
 	}
@@ -251,7 +251,7 @@ if ($result || !($id > 0)) {
 	// thirdparty
 	print '<tr class="nooddeven"><td class="titlefield">'.$langs->trans("ThirdParty").'</td><td>';
 	print img_picture('', 'company', 'class="picturefixedwidth"');
-	print $form->select_company($socid, 'socid', '', 1, 0, 0, array(), 0, 'widthcentpercentminusx maxwidth400');
+	print $form->select_company($socid, 'socid', '', 1, 0, 0, [], 0, 'widthcentpercentminusx maxwidth400');
 	print '</td></tr>';
 
 	print '</table>';
@@ -411,7 +411,7 @@ if ($result || !($id > 0)) {
 					continue;
 				}
 
-				$graph_data = array();
+				$graph_data = [];
 
 				if (dol_is_file($dir.'/'.$graphfiles[$key]['file'])) {
 					// TODO Load cachefile $graphfiles[$key]['file']

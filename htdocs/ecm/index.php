@@ -330,7 +330,7 @@ $maxheightwin = (isset($_SESSION["dol_screenheight"]) && $_SESSION["dol_screenhe
 $moreheadcss = '';
 $moreheadjs = '';
 
-//$morejs=array();
+//$morejs=[];
 $morejs = array('includes/jquery/plugins/blockUI/jquery.blockUI.js', 'core/js/blockUI.js'); // Used by ecm/tpl/enabledfiletreeajax.tpl.pgp
 if (!getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
 	$morejs[] = "includes/jquery/plugins/jqueryFileTree/jqueryFileTree.js";

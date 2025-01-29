@@ -45,15 +45,15 @@ class FormProduct
 	/**
 	 * @var array<int,array{id:int,label:string,parent_id:int,description:string,stock:string,full_label:string}>
 	 */
-	public $cache_warehouses = array();
+	public $cache_warehouses = [];
 	/**
 	 * @var array<int,array<int,array{id:int,batch:string,entrepot_id:int,entrepot_label:string,qty:float}>>
 	 */
-	public $cache_lot = array();
+	public $cache_lot = [];
 	/**
 	 * @var array<int,array{id:int,ref:string,label:string,type:string,nb_operators_required:int,thm_operator_estimated:float,thm_machine_estimated:float}>
 	 */
-	public $cache_workstations = array();
+	public $cache_workstations = [];
 
 
 	/**
@@ -84,7 +84,7 @@ class FormProduct
 	 * @return  int                             Nb of loaded lines, 0 if already loaded, <0 if KO
 	 * @throws  Exception
 	 */
-	public function loadWarehouses($fk_product = 0, $batch = '', $status = '', $sumStock = true, $exclude = array(), $stockMin = false, $orderBy = 'e.ref')
+	public function loadWarehouses($fk_product = 0, $batch = '', $status = '', $sumStock = true, $exclude = [], $stockMin = false, $orderBy = 'e.ref')
 	{
 		global $config, $langs;
 
@@ -92,7 +92,7 @@ class FormProduct
 			return 0; // Cache already loaded and we do not want a list with information specific to a product
 		}
 
-		$warehouseStatus = array();
+		$warehouseStatus = [];
 
 		if (preg_match('/warehouseclosed/', $status)) {
 			$warehouseStatus[] = Entrepot::STATUS_CLOSED;
@@ -194,7 +194,7 @@ class FormProduct
 	 * @return  int                             Nb of loaded lines, 0 if already loaded, <0 if KO
 	 * @throws  Exception
 	 */
-	public function loadWorkstations($fk_product = 0, $exclude = array(), $orderBy = 'w.ref')
+	public function loadWorkstations($fk_product = 0, $exclude = [], $orderBy = 'w.ref')
 	{
 		global $config, $langs;
 
@@ -300,7 +300,7 @@ class FormProduct
 	 *
 	 *  @throws Exception
 	 */
-	public function selectWarehouses($selected = '', $htmlname = 'idwarehouse', $filterstatus = '', $empty = 0, $disabled = 0, $fk_product = 0, $empty_label = '', $showstock = 0, $forcecombo = 0, $events = array(), $morecss = 'minwidth200', $exclude = array(), $showfullpath = 1, $stockMin = false, $orderBy = 'e.ref', $multiselect = 0)
+	public function selectWarehouses($selected = '', $htmlname = 'idwarehouse', $filterstatus = '', $empty = 0, $disabled = 0, $fk_product = 0, $empty_label = '', $showstock = 0, $forcecombo = 0, $events = [], $morecss = 'minwidth200', $exclude = [], $showfullpath = 1, $stockMin = false, $orderBy = 'e.ref', $multiselect = 0)
 	{
 		global $config, $langs, $user, $hookManager;
 
@@ -311,7 +311,7 @@ class FormProduct
 			$filterstatus = '';
 		}
 		if (!empty($fk_product) && $fk_product > 0) {
-			$this->cache_warehouses = array();
+			$this->cache_warehouses = [];
 		}
 
 		$this->loadWarehouses($fk_product, '', $filterstatus, true, $exclude, $stockMin, $orderBy);
@@ -425,7 +425,7 @@ class FormProduct
 	 *
 	 *  @throws Exception
 	 */
-	public function selectWorkstations($selected = '', $htmlname = 'idworkstations', $empty = 0, $disabled = 0, $fk_product = 0, $empty_label = '', $forcecombo = 0, $events = array(), $morecss = 'minwidth200', $exclude = array(), $showfullpath = 1, $orderBy = 'e.ref')
+	public function selectWorkstations($selected = '', $htmlname = 'idworkstations', $empty = 0, $disabled = 0, $fk_product = 0, $empty_label = '', $forcecombo = 0, $events = [], $morecss = 'minwidth200', $exclude = [], $showfullpath = 1, $orderBy = 'e.ref')
 	{
 		global $config, $langs, $user, $hookManager;
 
@@ -434,7 +434,7 @@ class FormProduct
 		$filterstatus = '';
 		$out = '';
 		if (!empty($fk_product) && $fk_product > 0) {
-			$this->cache_workstations = array();
+			$this->cache_workstations = [];
 		}
 
 		$this->loadWorkstations($fk_product);
@@ -583,7 +583,7 @@ class FormProduct
 		require_once DOL_DOCUMENT_ROOT.'/core/class/cunits.class.php';
 		$measuringUnits = new CUnits($db);
 
-		$filter = array();
+		$filter = [];
 		$filter['t.active'] = 1;
 		if ($measuring_style) {
 			$filter['t.unit_type'] = $measuring_style;
@@ -633,7 +633,7 @@ class FormProduct
 			$return .= '</select>';
 		}
 
-		$return .= ajax_combobox($name, array(), 0, 0, 'resolve', $placeholderID);	// avoid to have hidden value if scale = -1 (eg DM size)
+		$return .= ajax_combobox($name, [], 0, 0, 'resolve', $placeholderID);	// avoid to have hidden value if scale = -1 (eg DM size)
 
 		return $return;
 	}
@@ -660,7 +660,7 @@ class FormProduct
 		require_once DOL_DOCUMENT_ROOT.'/core/class/cproductnature.class.php';
 		$productNature = new CProductNature($db);
 
-		$filter = array();
+		$filter = [];
 		$filter['t.active'] = 1;
 
 		$result = $productNature->fetchAll('', '', 0, 0, $filter);
@@ -725,14 +725,14 @@ class FormProduct
 	 *
 	 * 	@return	string					HTML select
 	 */
-	public function selectLotStock($selected = '', $htmlname = 'batch_id', $filterstatus = '', $empty = 0, $disabled = 0, $fk_product = 0, $fk_entrepot = 0, $objectLines = array(), $empty_label = '', $forcecombo = 0, $events = array(), $morecss = 'minwidth200')
+	public function selectLotStock($selected = '', $htmlname = 'batch_id', $filterstatus = '', $empty = 0, $disabled = 0, $fk_product = 0, $fk_entrepot = 0, $objectLines = [], $empty_label = '', $forcecombo = 0, $events = [], $morecss = 'minwidth200')
 	{
 		global $config, $langs;
 
 		dol_syslog(get_class($this)."::selectLotStock $selected, $htmlname, $filterstatus, $empty, $disabled, $fk_product, $fk_entrepot, $empty_label, $forcecombo, $morecss", LOG_DEBUG);
 
 		$out = '';
-		$productIdArray = array();
+		$productIdArray = [];
 		if (!is_array($objectLines) || !count($objectLines)) {
 			if (!empty($fk_product) && $fk_product > 0) {
 				$productIdArray[] = (int) $fk_product;
@@ -808,14 +808,14 @@ class FormProduct
 	 *  @param	CommonObjectLine[]	$objectLines	Only cache lot numbers for products in lines of object. If no lines only for fk_product. If no fk_product, all.
 	 *  @return	string					HTML datalist
 	 */
-	public function selectLotDataList($htmlname = 'batch_id', $empty = 0, $fk_product = 0, $fk_entrepot = 0, $objectLines = array())
+	public function selectLotDataList($htmlname = 'batch_id', $empty = 0, $fk_product = 0, $fk_entrepot = 0, $objectLines = [])
 	{
 		global $config, $langs, $hookManager;
 
 		dol_syslog(get_class($this)."::selectLotDataList $htmlname, $empty, $fk_product, $fk_entrepot", LOG_DEBUG);
 
 		$out = '';
-		$productIdArray = array();
+		$productIdArray = [];
 		if (!is_array($objectLines) || !count($objectLines)) {
 			if (!empty($fk_product) && $fk_product > 0) {
 				$productIdArray[] = (int) $fk_product;
@@ -879,14 +879,14 @@ class FormProduct
 	 *
 	 * @return	int							Nb of loaded lines, 0 if nothing loaded, <0 if KO
 	 */
-	private function loadLotStock($productIdArray = array())
+	private function loadLotStock($productIdArray = [])
 	{
 		global $config, $langs;
 
 		$cacheLoaded = false;
 		if (empty($productIdArray)) {
 			// only Load lot stock for given products
-			$this->cache_lot = array();
+			$this->cache_lot = [];
 			return 0;
 		}
 		if (count($productIdArray) && count($this->cache_lot)) {
@@ -899,7 +899,7 @@ class FormProduct
 			return count($this->cache_lot);
 		} else {
 			// clear cache
-			$this->cache_lot = array();
+			$this->cache_lot = [];
 			$productIdList = implode(',', $productIdArray);
 
 			$batch_count = 0;

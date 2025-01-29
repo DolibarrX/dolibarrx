@@ -250,7 +250,7 @@ if (($id > 0 && is_numeric($id)) || !empty($ref)) {
 }
 
 // Link to create task
-$linktocreatetaskParam = array();
+$linktocreatetaskParam = [];
 $linktocreatetaskUserRight = false;
 if ($user->hasRight('projet', 'all', 'creer') || $user->hasRight('projet', 'creer')) {
 	if ($object->public || $userWrite > 0) {
@@ -284,9 +284,9 @@ if (count($tasksarray) > 0) {
 
 	$dateformat = $langs->trans("FormatDateShortJQuery"); // Used by include ganttchart.inc.php later
 	$datehourformat = $langs->trans("FormatDateShortJQuery").' '.$langs->trans("FormatHourShortJQuery"); // Used by include ganttchart.inc.php later
-	$array_contacts = array();
-	$tasks = array();
-	$task_dependencies = array();
+	$array_contacts = [];
+	$tasks = [];
+	$task_dependencies = [];
 	$taskcursor = 0;
 	foreach ($tasksarray as $key => $val) {	// Task array are sorted by "project, position, date"
 		$task->fetch($val->id, '');
@@ -344,7 +344,7 @@ if (count($tasksarray) > 0) {
 			}
 			$s .= $langs->trans("Externals").': ';
 			$i = 0;
-			$contactidfound = array();
+			$contactidfound = [];
 			foreach ($idofcontacts as $valid) {
 				if (empty($contactidfound[$valid])) {
 					$res = $contactstatic->fetch($valid);

@@ -112,7 +112,7 @@ class box_graph_invoices_supplier_permonth extends ModeleBoxes
 				$shownb = GETPOST($param_shownb, 'alpha');
 				$showtot = GETPOST($param_showtot, 'alpha');
 			} else {
-				$tmparray = (!empty($_COOKIE['DOLUSER_box_'.$this->boxcode]) ? json_decode($_COOKIE['DOLUSER_box_'.$this->boxcode], true) : array());
+				$tmparray = (!empty($_COOKIE['DOLUSER_box_'.$this->boxcode]) ? json_decode($_COOKIE['DOLUSER_box_'.$this->boxcode], true) : []);
 				$endyear = (!empty($tmparray['year']) ? $tmparray['year'] : '');
 				$shownb = (!empty($tmparray['shownb']) ? $tmparray['shownb'] : '');
 				$showtot = (!empty($tmparray['showtot']) ? $tmparray['showtot'] : '');
@@ -150,7 +150,7 @@ class box_graph_invoices_supplier_permonth extends ModeleBoxes
 					$px1->SetData($data1);
 					unset($data1);
 					$i = $startyear;
-					$legend = array();
+					$legend = [];
 					while ($i <= $endyear) {
 						if ($startmonth != 1) {
 							$legend[] = sprintf("%d/%d", $i - 2001, $i - 2000);
@@ -190,7 +190,7 @@ class box_graph_invoices_supplier_permonth extends ModeleBoxes
 					$px2->SetData($data2);
 					unset($data2);
 					$i = $startyear;
-					$legend = array();
+					$legend = [];
 					while ($i <= $endyear) {
 						if ($startmonth != 1) {
 							$legend[] = sprintf("%d/%d", $i - 2001, $i - 2000);

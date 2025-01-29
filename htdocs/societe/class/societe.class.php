@@ -139,7 +139,7 @@ class Societe extends CommonObject
 	 * array of supplier categories
 	 * @var string[]
 	 */
-	public $SupplierCategories = array();
+	public $SupplierCategories = [];
 
 	/**
 	 * prefixCustomerIsRequired
@@ -877,7 +877,7 @@ class Societe extends CommonObject
 	/**
 	 * @var array<array<mixed>>
 	 */
-	public $partnerships = array();
+	public $partnerships = [];
 
 
 	/**
@@ -1181,7 +1181,7 @@ class Societe extends CommonObject
 	 * @param   int<0,1>    $notrigger	    1=Does not execute triggers, 0= execute triggers
 	 * @return 	int<-1,1>				    Return integer <0 if KO, >0 if OK
 	 */
-	public function create_individual(User $user, $no_email = 0, $tags = array(), $notrigger = 0)
+	public function create_individual(User $user, $no_email = 0, $tags = [], $notrigger = 0)
 	{
 		global $config;
 
@@ -1259,7 +1259,7 @@ class Societe extends CommonObject
 		global $config, $langs, $mysoc;
 
 		$error = 0;
-		$this->errors = array();
+		$this->errors = [];
 
 		$result = 0;
 		$this->name = trim($this->name);
@@ -2063,7 +2063,7 @@ class Societe extends CommonObject
 				$this->stcomm_picture = $obj->stcomm_picture; // picture statut commercial
 
 				$this->email = $obj->email;
-				$this->socialnetworks = ($obj->socialnetworks ? (array) json_decode($obj->socialnetworks, true) : array());
+				$this->socialnetworks = ($obj->socialnetworks ? (array) json_decode($obj->socialnetworks, true) : []);
 
 				$this->url = $obj->url;
 				$this->phone = $obj->phone;
@@ -2282,7 +2282,7 @@ class Societe extends CommonObject
 			if (!$error) {
 				require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 				$static_cat = new Category($this->db);
-				$toute_categs = array();
+				$toute_categs = [];
 
 				// Fill $toute_categs array with an array of (type => array of ("Category" instance))
 				$toute_categs['customer'] = $static_cat->containing($this->id, Category::TYPE_CUSTOMER);
@@ -2589,7 +2589,7 @@ class Societe extends CommonObject
 
 		if ($this->id > 0) {
 			// Clean vat code
-			$reg = array();
+			$reg = [];
 			$vat_src_code = '';
 			if (preg_match('/\((.*)\)/', $vatrate, $reg)) {
 				$vat_src_code = $reg[1];
@@ -2667,7 +2667,7 @@ class Societe extends CommonObject
 	{
 		global $config;
 
-		$reparray = array();
+		$reparray = [];
 
 		$sql = "SELECT u.rowid, u.login, u.lastname, u.firstname, u.office_phone, u.job, u.email, u.statut as status, u.entity, u.photo, u.gender";
 		$sql .= ", u.office_fax, u.user_mobile, u.personal_mobile";
@@ -2865,7 +2865,7 @@ class Societe extends CommonObject
 
 		$langs->loadLangs(['companies', 'commercial']);
 
-		$datas = array();
+		$datas = [];
 
 		$option = $params['option'] ?? '';
 		$nofetch = !empty($params['nofetch']);
@@ -2928,7 +2928,7 @@ class Societe extends CommonObject
 			$datas['url'] = '<br>'.img_picture('', 'globe', 'class="picturefixedwidth"').$this->url;
 		}
 		if (!empty($this->phone) || !empty($this->phone_mobile) || !empty($this->fax)) {
-			$phonelist = array();
+			$phonelist = [];
 			if ($this->phone) {
 				$phonelist[] = dol_print_phone($this->phone, $this->country_code, $this->id, 0, '', '&nbsp', 'phone');
 			}
@@ -3281,7 +3281,7 @@ class Societe extends CommonObject
 	 *
 	 *	@return	array<'thirdparty'|int,string>	Array of contacts mobile phone
 	 */
-	public function thirdparty_and_contact_phone_array()
+	public function thirdparty_and_contact_phone_[]
 	{
 		// phpcs:enable
 		global $langs;
@@ -3311,7 +3311,7 @@ class Societe extends CommonObject
 		// phpcs:enable
 		global $langs;
 
-		$contact_property = array();
+		$contact_property = [];
 
 
 		$sql = "SELECT rowid, email, statut as status, phone_mobile, lastname, poste, firstname";
@@ -3374,10 +3374,10 @@ class Societe extends CommonObject
 	 *
 	 *	@return	string[]	$contacts	array of contacts
 	 */
-	public function contact_array()
+	public function contact_[]
 	{
 		// phpcs:enable
-		$contacts = array();
+		$contacts = [];
 
 		$sql = "SELECT rowid, lastname, firstname FROM ".MAIN_DB_PREFIX."socpeople WHERE fk_soc = ".((int) $this->id);
 		$resql = $this->db->query($sql);
@@ -3407,7 +3407,7 @@ class Societe extends CommonObject
 	{
 		// phpcs:enable
 		require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
-		$contacts = array();
+		$contacts = [];
 
 		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."socpeople WHERE fk_soc = ".((int) $this->id);
 		$resql = $this->db->query($sql);
@@ -3527,7 +3527,7 @@ class Societe extends CommonObject
 			return 0;
 		} else {
 			$num_rows = $this->db->num_rows($result);
-			$rib_array = array();
+			$rib_array = [];
 			if ($num_rows) {
 				while ($obj = $this->db->fetch_object($result)) {
 					$rib = new CompanyBankAccount($this->db);
@@ -3554,7 +3554,7 @@ class Societe extends CommonObject
 			return -1;
 		} else {
 			$num_rows = $this->db->num_rows($resql);
-			$rib_array = array();
+			$rib_array = [];
 			if ($num_rows) {
 				while ($obj = $this->db->fetch_object($resql)) {
 					return $obj->rowid;
@@ -3931,7 +3931,7 @@ class Societe extends CommonObject
 	 * @param   int[]       $parents        List of companies ID found
 	 * @return	int[]
 	 */
-	public function getParentsForCompany($company_id, $parents = array())
+	public function getParentsForCompany($company_id, $parents = [])
 	{
 		global $langs;
 
@@ -3954,7 +3954,7 @@ class Societe extends CommonObject
 			}
 		}
 		// Return a default value when $company_id is not greater than 0
-		return array();
+		return [];
 	}
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
@@ -4276,7 +4276,7 @@ class Societe extends CommonObject
 	public function LoadSupplierCateg()
 	{
 		// phpcs:enable
-		$this->SupplierCategories = array();
+		$this->SupplierCategories = [];
 		$sql = "SELECT rowid, label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."category";
 		$sql .= " WHERE type = ".Category::TYPE_SUPPLIER;
@@ -4608,7 +4608,7 @@ class Societe extends CommonObject
 		$instagram_url = getDolGlobalString('MAIN_INFO_SOCIETE_INSTAGRAM_URL');
 		$youtube_url = getDolGlobalString('MAIN_INFO_SOCIETE_YOUTUBE_URL');
 		$github_url = getDolGlobalString('MAIN_INFO_SOCIETE_GITHUB_URL');
-		$this->socialnetworks = array();
+		$this->socialnetworks = [];
 		if (!empty($facebook_url)) {
 			$this->socialnetworks['facebook'] = $facebook_url;
 		}
@@ -4934,7 +4934,7 @@ class Societe extends CommonObject
 			$outstandingOpened = 0;
 			$outstandingTotal = 0;
 			$outstandingTotalIncTax = 0;
-			$arrayofref = array();
+			$arrayofref = [];
 			while ($obj = $this->db->fetch_object($resql)) {
 				$arrayofref[$obj->rowid] = $obj->ref;
 				$outstandingTotal += $obj->total_ht;
@@ -4946,7 +4946,7 @@ class Societe extends CommonObject
 			}
 			return array('opened' => $outstandingOpened, 'total_ht' => $outstandingTotal, 'total_ttc' => $outstandingTotalIncTax, 'refs' => $arrayofref); // 'opened' is 'incl taxes'
 		} else {
-			return array();
+			return [];
 		}
 	}
 
@@ -4977,7 +4977,7 @@ class Societe extends CommonObject
 			$outstandingOpened = 0;
 			$outstandingTotal = 0;
 			$outstandingTotalIncTax = 0;
-			$arrayofref = array();
+			$arrayofref = [];
 			while ($obj = $this->db->fetch_object($resql)) {
 				$arrayofref[$obj->rowid] = $obj->ref;
 				$outstandingTotal += $obj->total_ht;
@@ -4989,7 +4989,7 @@ class Societe extends CommonObject
 			}
 			return array('opened' => $outstandingOpened, 'total_ht' => $outstandingTotal, 'total_ttc' => $outstandingTotalIncTax, 'refs' => $arrayofref); // 'opened' is 'incl taxes'
 		} else {
-			return array();
+			return [];
 		}
 	}
 
@@ -5031,8 +5031,8 @@ class Societe extends CommonObject
 			$outstandingOpened = 0;
 			$outstandingTotal = 0;
 			$outstandingTotalIncTax = 0;
-			$arrayofref = array();
-			$arrayofrefopened = array();
+			$arrayofref = [];
+			$arrayofrefopened = [];
 			if ($mode == 'supplier') {
 				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 				$tmpobject = new FactureFournisseur($this->db);
@@ -5081,7 +5081,7 @@ class Societe extends CommonObject
 			return array('opened' => $outstandingOpened, 'total_ht' => $outstandingTotal, 'total_ttc' => $outstandingTotalIncTax, 'refs' => $arrayofref, 'refsopened' => $arrayofrefopened); // 'opened' is 'incl taxes'
 		} else {
 			dol_syslog("Sql error ".$this->db->lasterror, LOG_ERR);
-			return array();
+			return [];
 		}
 	}
 
@@ -5221,7 +5221,7 @@ class Societe extends CommonObject
 			$salesrep = array($salesrep);
 		}
 
-		$to_del = array(); // Nothing to delete
+		$to_del = []; // Nothing to delete
 		$to_add = $salesrep;
 		if ($onlyAdd === false) {
 			// Get current users
@@ -5385,7 +5385,7 @@ class Societe extends CommonObject
 	{
 		require_once DOL_DOCUMENT_ROOT.'/partnership/class/partnership.class.php';
 
-		$this->partnerships[] = array();
+		$this->partnerships[] = [];
 
 		return 1;
 	}
@@ -5397,7 +5397,7 @@ class Societe extends CommonObject
 	 *  @param	array<string,mixed>	$arraydata		Array of data
 	 *  @return	string								HTML Code for Kanban thumb.
 	 */
-	public function getKanbanView($option = '', $arraydata = array())
+	public function getKanbanView($option = '', $arraydata = [])
 	{
 		$selected = (empty($arraydata['selected']) ? 0 : $arraydata['selected']);
 
@@ -5450,7 +5450,7 @@ class Societe extends CommonObject
 		// phpcs:enable
 		global $langs;
 
-		$tab = array();
+		$tab = [];
 
 		$sql = "SELECT sc.rowid, sc.fk_socpeople as id, sc.fk_c_type_contact"; // This field contains id of llx_socpeople or id of llx_user
 		$sql .= ", t.fk_soc as socid, t.statut as statuscontact";

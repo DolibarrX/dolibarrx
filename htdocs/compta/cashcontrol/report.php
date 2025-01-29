@@ -107,7 +107,7 @@ $param = '';
 $config->dol_hide_topmenu = 1;
 $config->dol_hide_leftmenu = 1;
 
-llxHeader('', $title, '', '', 0, 0, array(), array(), $param);
+llxHeader('', $title, '', '', 0, 0, [], [], $param);
 
 print '<!-- Begin div id-container --><div id="id-container" class="id-container center">';
 
@@ -225,15 +225,15 @@ if ($resql) {
 
 	$totalqty = 0;
 	$totalvat = 0;
-	$totalvatperrate = array();
+	$totalvatperrate = [];
 	$totallocaltax1 = 0;
 	$totallocaltax2 = 0;
-	$cachebankaccount = array();
-	$cacheinvoiceid = array();
-	$transactionspertype = array();
-	$amountpertype = array();
+	$cachebankaccount = [];
+	$cacheinvoiceid = [];
+	$transactionspertype = [];
+	$amountpertype = [];
 
-	$totalarray = array('nbfield' => 0, 'pos' => array());
+	$totalarray = array('nbfield' => 0, 'pos' => []);
 	while ($i < $num) {
 		$objp = $db->fetch_object($resql);
 

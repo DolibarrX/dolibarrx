@@ -53,7 +53,7 @@ $nbterm = GETPOSTINT('nbterm');
 
 top_httphead();
 
-$output = array();
+$output = [];
 
 $output = loanCalcMonthlyPayment($mens, $capital, $rate, $echance, $nbterm);
 

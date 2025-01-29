@@ -157,7 +157,7 @@ if (!$sortfield) {
 // Products
 $TRes = $form->select_produits_list('', '', '', '', 0, '', 1, 2, 1, 0, '', 1);
 
-$TProducts = array();
+$TProducts = [];
 foreach ($TRes as $prod) {
 	$TProducts[$prod['key']] = $prod['label'];
 }
@@ -168,7 +168,7 @@ print img_picture('', 'product').$form->multiselectarray('products', $TProducts,
 print '</td></tr>';
 
 // Categories
-$TCats = $form->select_all_categories('product', array(), '', 64, 0, 3);
+$TCats = $form->select_all_categories('product', [], '', 64, 0, 3);
 
 print '<tr>';
 print '<td class="titlefield">'.$langs->trans('Category').'</td>';

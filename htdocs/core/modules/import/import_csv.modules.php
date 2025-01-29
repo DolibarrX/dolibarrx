@@ -76,9 +76,9 @@ class ImportCsv extends ModeleImports
 	 */
 	public $handle; // File handle
 
-	public $cacheconvert = array(); // Array to cache list of value found after a conversion
+	public $cacheconvert = []; // Array to cache list of value found after a conversion
 
-	public $cachefieldtable = array(); // Array to cache list of value found into fields@tables
+	public $cachefieldtable = []; // Array to cache list of value found into fields@tables
 
 	public $nbinsert = 0; // # of insert done during the import
 
@@ -118,7 +118,7 @@ class ImportCsv extends ModeleImports
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-		if (versioncompare($this->phpmin, versionphparray()) > 0) {
+		if (versioncompare($this->phpmin, versionphp[]) > 0) {
 			dol_syslog("Module need a higher PHP version");
 			$this->error = "Module need a higher PHP version";
 			return;
@@ -270,7 +270,7 @@ class ImportCsv extends ModeleImports
 
 		//var_dump($this->handle);
 		//var_dump($arrayres);exit;
-		$newarrayres = array();
+		$newarrayres = [];
 		$key = 1; // Default value to ensure $key is declared
 
 		if ($arrayres && is_array($arrayres)) {
@@ -335,8 +335,8 @@ class ImportCsv extends ModeleImports
 
 		$error = 0;
 		$warning = 0;
-		$this->errors = array();
-		$this->warnings = array();
+		$this->errors = [];
+		$this->warnings = [];
 
 		//dol_syslog("import_csv.modules maxfields=".$maxfields." importid=".$importid);
 
@@ -355,15 +355,15 @@ class ImportCsv extends ModeleImports
 			$this->warnings[$warning]['type'] = 'EMPTY';
 			$warning++;
 		} else {
-			$last_insert_id_array = array(); // store the last inserted auto_increment id for each table, so that dependent tables can be inserted with the appropriate id (eg: extrafields fk_object will be set with the last inserted object's id)
+			$last_insert_id_array = []; // store the last inserted auto_increment id for each table, so that dependent tables can be inserted with the appropriate id (eg: extrafields fk_object will be set with the last inserted object's id)
 			$updatedone = false;
 			$insertdone = false;
 			// For each table to insert, me make a separate insert
 			foreach ($objimport->array_import_tables[0] as $alias => $tablename) {
 				// Build sql request
 				$sql = '';
-				$listfields = array();
-				$listvalues = array();
+				$listfields = [];
+				$listvalues = [];
 				$i = 0;
 				$errorforthistable = 0;
 
@@ -386,7 +386,7 @@ class ImportCsv extends ModeleImports
 				}
 
 				// Define an array to convert fields ('c.ref', ...) into column index (1, ...)
-				$arrayfield = array();
+				$arrayfield = [];
 				foreach ($sort_array_match_file_to_database as $key => $val) {
 					$arrayfield[$val] = ($key - 1);
 				}
@@ -698,7 +698,7 @@ class ImportCsv extends ModeleImports
 							// Test regexp
 							if (!empty($objimport->array_import_regex[0][$val]) && ($newval != '')) {
 								// If test regex string is "field@table" or "field@table:..." (means must exists into table ...)
-								$reg = array();
+								$reg = [];
 								if (preg_match('/^(.+)@([^:]+)(:.+)?$/', $objimport->array_import_regex[0][$val], $reg)) {
 									$field = $reg[1];
 									$table = $reg[2];
@@ -901,8 +901,8 @@ class ImportCsv extends ModeleImports
 							if (empty($lastinsertid)) {	// No insert done yet for a parent table
 								$sqlSelect = "SELECT ".$fname." FROM ".$tablename;
 								$data = array_combine($listfields, $listvalues);
-								$where = array();	// filters to forge SQL request
-								$filters = array();	// filters to forge output error message
+								$where = [];	// filters to forge SQL request
+								$filters = [];	// filters to forge output error message
 								foreach ($updatekeys as $key) {
 									$col = $objimport->array_import_updatekeys[0][$key];
 									$key = preg_replace('/^.*\./i', '', $key);
@@ -999,7 +999,7 @@ class ImportCsv extends ModeleImports
 								$sqlstart = "UPDATE ".$tablename;
 
 								$data = array_combine($listfields, $listvalues);
-								$set = array();
+								$set = [];
 								foreach ($data as $key => $val) {
 									$set[] = $key." = ".$val;	// $val was escaped/sanitized previously
 								}

@@ -125,7 +125,7 @@ class MemberType extends CommonObject
 	public $mail_exclude = '';
 
 	/** @var Member[] Array of members */
-	public $members = array();
+	public $members = [];
 
 	/**
 	 * @var string description
@@ -140,7 +140,7 @@ class MemberType extends CommonObject
 	/**
 	 * @var array<string,array{label:string,description:string,email:string}>	multilangs
 	 */
-	public $multilangs = array();
+	public $multilangs = [];
 
 
 	// BEGIN MODULEBUILDER PROPERTIES
@@ -568,7 +568,7 @@ class MemberType extends CommonObject
 		// phpcs:enable
 		global $langs;
 
-		$membertypes = array();
+		$membertypes = [];
 
 		$sql = "SELECT rowid, libelle as label";
 		$sql .= " FROM " . MAIN_DB_PREFIX . "member_type";
@@ -604,7 +604,7 @@ class MemberType extends CommonObject
 	 */
 	public function amountByType($status = null)
 	{
-		$amountbytype = array();
+		$amountbytype = [];
 
 		$sql = "SELECT rowid, amount";
 		$sql .= " FROM " . MAIN_DB_PREFIX . "member_type";
@@ -644,7 +644,7 @@ class MemberType extends CommonObject
 	 */
 	public function listMembersForMemberType($excludefilter = '', $mode = 0)
 	{
-		$ret = array();
+		$ret = [];
 
 		$sql = "SELECT a.rowid";
 		$sql .= " FROM " . MAIN_DB_PREFIX . "member as a";
@@ -875,7 +875,7 @@ class MemberType extends CommonObject
 	public function _load_ldap_info()
 	{
 		// phpcs:enable
-		$info = array();
+		$info = [];
 
 		// Object classes
 		$info["objectclass"] = explode(',', getDolGlobalString('LDAP_MEMBER_TYPE_OBJECT_CLASS'));
@@ -892,7 +892,7 @@ class MemberType extends CommonObject
 			$info[getDolGlobalString('LDAP_MEMBER_TYPE_FIELD_DESCRIPTION')] = dol_string_nohtmltag($this->note_public, 0, 'UTF-8', 1);
 		}
 		if (getDolGlobalString('LDAP_MEMBER_TYPE_FIELD_GROUPMEMBERS')) {
-			$valueofldapfield = array();
+			$valueofldapfield = [];
 			foreach ($this->members as $key => $val) {    // This is array of users for group into dolibarr database.
 				$member = new Member($this->db);
 				$member->fetch($val->id, '', 0, '', false, false);

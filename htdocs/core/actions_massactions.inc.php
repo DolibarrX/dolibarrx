@@ -129,12 +129,12 @@ if (!$error && $massaction == 'confirm_presend') {
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/signature.lib.php';
 
-	$listofobjectid = array();
-	$listofobjectthirdparties = array();
-	$listofobjectcontacts = array();
-	$listofobjectref = array();
-	$contactidtosend = array();
-	$attachedfilesThirdpartyObj = array();
+	$listofobjectid = [];
+	$listofobjectthirdparties = [];
+	$listofobjectcontacts = [];
+	$listofobjectref = [];
+	$contactidtosend = [];
+	$attachedfilesThirdpartyObj = [];
 	$oneemailperrecipient = (GETPOSTINT('oneemailperrecipient') ? 1 : 0);
 	$thirdparty = null;
 
@@ -197,7 +197,7 @@ if (!$error && $massaction == 'confirm_presend') {
 				if ($objectclass == 'Facture') {
 					'@phan-var-force Facture $objecttmp';
 					/** @var Facture $objecttmp */
-					$tmparraycontact = array();
+					$tmparraycontact = [];
 					$tmparraycontact = $objecttmp->liste_contact(-1, 'external', 0, 'BILLING');
 					if (is_array($tmparraycontact) && count($tmparraycontact) > 0) {
 						foreach ($tmparraycontact as $data_email) {
@@ -207,7 +207,7 @@ if (!$error && $massaction == 'confirm_presend') {
 				} elseif ($objectclass == 'OrderFournisseur') {
 					'@phan-var-force OrderFournisseur $objecttmp';
 					/** @var OrderFournisseur $objecttmp */
-					$tmparraycontact = array();
+					$tmparraycontact = [];
 					$tmparraycontact = $objecttmp->liste_contact(-1, 'external', 0, 'CUSTOMER');
 					if (is_array($tmparraycontact) && count($tmparraycontact) > 0) {
 						foreach ($tmparraycontact as $data_email) {
@@ -232,7 +232,7 @@ if (!$error && $massaction == 'confirm_presend') {
 	$receiver = GETPOST('receiver', 'alphawithlgt');
 	if (!is_array($receiver)) {
 		if (empty($receiver) || $receiver == '-1') {
-			$receiver = array();
+			$receiver = [];
 		} else {
 			$receiver = array($receiver);
 		}
@@ -261,10 +261,10 @@ if (!$error && $massaction == 'confirm_presend') {
 			$sendto = '';
 			$sendtocc = '';
 			$sendtobcc = '';
-			//$sendtoid = array();
+			//$sendtoid = [];
 
 			// Define $sendto
-			$tmparray = array();
+			$tmparray = [];
 			if (trim(GETPOST('sendto', 'alphawithlgt'))) {
 				// Recipients are provided into free text
 				$tmparray[] = trim(GETPOST('sendto', 'alphawithlgt'));
@@ -286,12 +286,12 @@ if (!$error && $massaction == 'confirm_presend') {
 			$receivercc = GETPOST('receivercc', 'alphawithlgt');
 			if (!is_array($receivercc)) {
 				if ($receivercc == '-1') {
-					$receivercc = array();
+					$receivercc = [];
 				} else {
 					$receivercc = array($receivercc);
 				}
 			}
-			$tmparray = array();
+			$tmparray = [];
 			if (trim(GETPOST('sendtocc', 'alphawithlgt'))) {
 				$tmparray[] = trim(GETPOST('sendtocc', 'alphawithlgt'));
 			}
@@ -309,9 +309,9 @@ if (!$error && $massaction == 'confirm_presend') {
 			$sendtocc = implode(',', $tmparray);
 
 			//var_dump($listofobjectref);exit;
-			$listofqualifiedobj = array();
-			$listofqualifiedref = array();
-			$thirdpartywithoutemail = array();
+			$listofqualifiedobj = [];
+			$listofqualifiedref = [];
+			$thirdpartywithoutemail = [];
 
 			foreach ($listofobjectref[$thirdpartyid] as $objectid => $objectobj) {
 				//var_dump($thirdpartyid.' - '.$objectid.' - '.$objectobj->statut);
@@ -355,9 +355,9 @@ if (!$error && $massaction == 'confirm_presend') {
 						$fuser->fetch($objectobj->fk_user);
 						$sendto = $fuser->email;
 					} elseif ($objectobj->element == 'facture' && !empty($listofobjectcontacts[$objectid])) {
-						$emails_to_sends = array();
+						$emails_to_sends = [];
 						$objectobj->fetch_thirdparty();
-						$contactidtosend = array();
+						$contactidtosend = [];
 						foreach ($listofobjectcontacts[$objectid] as $contactemailid => $contactemailemail) {
 							$emails_to_sends[] = $objectobj->thirdparty->contact_get_property($contactemailid, 'email');
 							if (!in_array($contactemailid, $contactidtosend)) {
@@ -368,9 +368,9 @@ if (!$error && $massaction == 'confirm_presend') {
 							$sendto = implode(',', $emails_to_sends);
 						}
 					} elseif ($objectobj->element == 'order_supplier' && !empty($listofobjectcontacts[$objectid])) {
-						$emails_to_sends = array();
+						$emails_to_sends = [];
 						$objectobj->fetch_thirdparty();
-						$contactidtosend = array();
+						$contactidtosend = [];
 						foreach ($listofobjectcontacts[$objectid] as $contactemailid => $contactemailemail) {
 							$emails_to_sends[] = $objectobj->thirdparty->contact_get_property($contactemailid, 'email');
 							if (!in_array($contactemailid, $contactidtosend)) {
@@ -423,7 +423,7 @@ if (!$error && $massaction == 'confirm_presend') {
 					// try to find other files generated for this object (last_main_doc)
 					$filename_found = '';
 					$filepath_found = '';
-					$file_check_list = array();
+					$file_check_list = [];
 					$file_check_list[] = array(
 						'name' => $filename,
 						'path' => $filepath,
@@ -472,7 +472,7 @@ if (!$error && $massaction == 'confirm_presend') {
 			if (count($listofqualifiedobj) > 0) {
 				$langs->load("commercial");
 
-				$reg = array();
+				$reg = [];
 				$fromtype = GETPOST('fromtype');
 				if ($fromtype === 'user') {
 					$from = dol_string_nospecial($user->getFullName($langs), ' ', array(",")).' <'.$user->email.'>';
@@ -524,7 +524,7 @@ if (!$error && $massaction == 'confirm_presend') {
 
 				// $listofqualifiedobj is array with key = object id and value is instance of qualified objects, for the current thirdparty (but thirdparty property is not loaded yet)
 				// $looparray will be an array with number of email to send for the current thirdparty (so 1 or n if n object for same thirdparty)
-				$looparray = array();
+				$looparray = [];
 				if (!$oneemailperrecipient) {
 					$looparray = $listofqualifiedobj;
 					foreach ($looparray as $key => $objecttmp) {
@@ -568,7 +568,7 @@ if (!$error && $massaction == 'confirm_presend') {
 					$subjectreplaced = make_substitutions($subject, $substitutionArray);
 					$messagereplaced = make_substitutions($message, $substitutionArray);
 
-					$attachedfiles = array('paths' => array(), 'names' => array(), 'mimes' => array());
+					$attachedfiles = array('paths' => [], 'names' => [], 'mimes' => []);
 					if ($oneemailperrecipient) {
 						// if "one email per recipient" is check we must collate $attachedfiles by thirdparty
 						if (is_array($attachedfilesThirdpartyObj[$thirdparty->id]) && count($attachedfilesThirdpartyObj[$thirdparty->id])) {
@@ -816,9 +816,9 @@ if (!$error && $massaction == "builddoc" && $permissiontoread && !GETPOST('butto
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 	$objecttmp = new $objectclass($db);
-	$listofobjectid = array();
-	$listofobjectthirdparties = array();
-	$listofobjectref = array();
+	$listofobjectid = [];
+	$listofobjectthirdparties = [];
+	$listofobjectref = [];
 	foreach ($toselect as $toselectid) {
 		$objecttmp = new $objectclass($db); // must create new instance because instance is saved into $listofobjectref array for future use
 		$result = $objecttmp->fetch($toselectid);
@@ -830,7 +830,7 @@ if (!$error && $massaction == "builddoc" && $permissiontoread && !GETPOST('butto
 		}
 	}
 
-	$arrayofinclusion = array();
+	$arrayofinclusion = [];
 	foreach ($listofobjectref as $tmppdf) {
 		$arrayofinclusion[] = '^'.preg_quote(dol_sanitizeFileName($tmppdf), '/').'\.pdf$';
 	}
@@ -840,7 +840,7 @@ if (!$error && $massaction == "builddoc" && $permissiontoread && !GETPOST('butto
 	$listoffiles = dol_dir_list($uploaddir, 'all', 1, implode('|', $arrayofinclusion), '\.meta$|\.png', 'date', SORT_DESC, 0, 1);
 
 	// build list of files with full path
-	$files = array();
+	$files = [];
 
 	foreach ($listofobjectref as $basename) {
 		$basename = dol_sanitizeFileName($basename);
@@ -1120,7 +1120,7 @@ if (!$error && ($massaction == 'delete' || ($action == 'delete' && $confirm == '
 	$objecttmp = new $objectclass($db);
 	$nbok = 0;
 	$nbignored = 0;
-	$TMsg = array();
+	$TMsg = [];
 
 	//$toselect could contain duplicate entries, cf https://github.com/Dolibarr/dolibarr/issues/26244
 	$unique_arr = array_unique($toselect);
@@ -1301,7 +1301,7 @@ if (!$error && ($action == 'affecttag' && $confirm == 'yes') && $permissiontoadd
 		//check if tag type submitted exists into Tag Map category class
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		$categ = new Category($db);
-		$to_affecttag_type_array = array();
+		$to_affecttag_type_array = [];
 		$categ_type_array = $categ->getMapList();
 		foreach ($categ_type_array as $categdef) {
 			if (in_array($categdef['code'], $affecttag_type_array)) {
@@ -1337,7 +1337,7 @@ if (!$error && ($action == 'affecttag' && $confirm == 'yes') && $permissiontoadd
 	if (!$error) {
 		setEventMessages($langs->trans("RecordsModified", $nbok), null);
 		$db->commit();
-		$toselect = array();
+		$toselect = [];
 	} else {
 		$db->rollback();
 	}
@@ -1364,7 +1364,7 @@ if (!$error && ($action == 'updateprice' && $confirm == 'yes') && $permissiontoa
 						$newprice = $object->price * (100 + $pricepercentage) / 100;
 						$minprice = $object->price_min;
 					}
-					$res = $object->updatePrice($newprice, $obj->price_base_type, $user, $object->tva_tx, $minprice, 0, $object->tva_npr, 0, 0, array(), $object->default_vat_code);
+					$res = $object->updatePrice($newprice, $obj->price_base_type, $user, $object->tva_tx, $minprice, 0, $object->tva_npr, 0, 0, [], $object->default_vat_code);
 					if ($res > 0) {
 						$nbok++;
 					} else {
@@ -1384,7 +1384,7 @@ if (!$error && ($action == 'updateprice' && $confirm == 'yes') && $permissiontoa
 			setEventMessages($langs->trans("RecordsModified", $nbok), null);
 		}
 		$db->commit();
-		$toselect = array();
+		$toselect = [];
 	} else {
 		$db->rollback();
 	}
@@ -1421,7 +1421,7 @@ if (!$error && ($action == 'setsupervisor' && $confirm == 'yes') && $permissiont
 	if (!$error) {
 		setEventMessages($langs->trans("RecordsModified", $nbok), null);
 		$db->commit();
-		$toselect = array();
+		$toselect = [];
 	} else {
 		$db->rollback();
 	}
@@ -1472,7 +1472,7 @@ if (!$error && ($action == 'affectuser' && $confirm == 'yes') && $permissiontoad
 	if (!$error) {
 		setEventMessages($langs->trans("RecordsModified", $nbok), null);
 		$db->commit();
-		$toselect = array();
+		$toselect = [];
 	} else {
 		$db->rollback();
 	}
@@ -1763,7 +1763,7 @@ if (!$error && ($massaction == 'approveleave' || ($action == 'approveleave' && $
 						$trackid = 'leav'.$objecttmp->id;
 
 						require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-						$mail = new CMailFile($subject, $emailTo, $emailFrom, $message, array(), array(), array(), '', '', 0, 0, '', '', $trackid);
+						$mail = new CMailFile($subject, $emailTo, $emailFrom, $message, [], [], [], '', '', 0, 0, '', '', $trackid);
 
 						// Sending email
 						$result = $mail->sendfile();
@@ -1843,7 +1843,7 @@ if (!$error && ($massaction == 'increaseholiday' || ($action == 'increaseholiday
 			setEventMessages($langs->trans("HolidayRecordIncreased"), null, 'mesgs');
 		}
 		$db->commit();
-		$toselect = array();
+		$toselect = [];
 	} else {
 		$db->rollback();
 	}

@@ -96,12 +96,12 @@ if (GETPOST('mode') == 'virtualcard') {
 		$object->address = '';
 	}
 	if (getDolUserInt('USER_PUBLIC_HIDE_SOCIALNETWORKS', 0, $object)) {
-		$object->socialnetworks = array();
+		$object->socialnetworks = [];
 	}
 
 	// Business section
 	if (getDolUserInt('USER_PUBLIC_HIDE_COMPANY', 0, $object) || getDolUserInt('USER_PUBLIC_HIDE_SOCIALNETWORKS_BUSINESS', 0, $object)) {
-		$company->socialnetworks = array();
+		$company->socialnetworks = [];
 	}
 }
 

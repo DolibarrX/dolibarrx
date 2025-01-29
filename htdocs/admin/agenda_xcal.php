@@ -49,7 +49,7 @@ if (!$user->admin) {
 // Load translation files required by the page
 $langs->loadLangs(array("admin", "other", "agenda"));
 
-$def = array();
+$def = [];
 $actionsave = GETPOST('save', 'alpha');
 $MAIN_AGENDA_XCAL_EXPORTKEY = getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY');
 $MAIN_AGENDA_EXPORT_PAST_DELAY = getDolGlobalString('MAIN_AGENDA_EXPORT_PAST_DELAY', 100);

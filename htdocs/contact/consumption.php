@@ -166,8 +166,8 @@ print '<tr><td class="titlefield">'.$langs->trans("UserTitle").'</td><td>';
 print $object->getCivilityLabel();
 print '</td></tr>';
 
-$thirdTypeArray = array();
-$elementTypeArray = array();
+$thirdTypeArray = [];
+$elementTypeArray = [];
 
 if (!empty($object->thirdparty->client)) {
 	$thirdTypeArray['customer'] = $langs->trans("customer");
@@ -324,7 +324,7 @@ if ($type_element == 'fichinter') { 	// Customer : show products from invoices
 	$thirdTypeSelect = 'customer';
 }
 
-$parameters = array();
+$parameters = [];
 $totalnboflines = 0;
 $sql = '';
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook

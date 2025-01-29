@@ -56,7 +56,7 @@ abstract class CommonDocGenerator
 	/**
 	 * @var string[]    Array of error strings
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * @var DoliDB Database handler.
@@ -487,7 +487,7 @@ abstract class CommonDocGenerator
 		global $extrafields;
 
 		if (!is_object($object)) {
-			return array();
+			return [];
 		}
 
 		if (empty($object->country) && !empty($object->country_code)) {
@@ -1133,7 +1133,7 @@ abstract class CommonDocGenerator
 	public function get_substitutionarray_each_var_object(&$object, $outputlangs, $recursive = 1)
 	{
 		// phpcs:enable
-		$array_other = array();
+		$array_other = [];
 		if (is_array($object) && count($object)) {
 			foreach ($object as $key => $value) {
 				if (in_array($key, array('db', 'fields', 'lines', 'modelpdf', 'model_pdf'))) {		// discard some properties
@@ -1200,7 +1200,7 @@ abstract class CommonDocGenerator
 					}
 				} elseif ($extrafields->attributes[$object->table_element]['type'][$key] == 'checkbox') {
 					$valArray = explode(',', $formatedarrayoption['options_'.$key]);
-					$output = array();
+					$output = [];
 					foreach ($extrafields->attributes[$object->table_element]['param'][$key]['options'] as $keyopt => $valopt) {
 						if (in_array($keyopt, $valArray)) {
 							$output[] = $valopt;
@@ -1717,7 +1717,7 @@ abstract class CommonDocGenerator
 	 *  @param 	array<string,mixed> 			$params    		array of additional parameters
 	 *  @return	string  										Html string
 	 */
-	public function getExtrafieldsInHtml($object, $outputlangs, $params = array())
+	public function getExtrafieldsInHtml($object, $outputlangs, $params = [])
 	{
 		global $hookManager;
 
@@ -1766,7 +1766,7 @@ abstract class CommonDocGenerator
 		 */
 
 		$html = '';
-		$fields = array();
+		$fields = [];
 
 		if (!empty($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label'])) {
 			foreach ($extrafields->attributes[$object->table_element]['label'] as $key => $label) {

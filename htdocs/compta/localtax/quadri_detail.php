@@ -235,7 +235,7 @@ if ($mysoc->tva_assuj) {
 $periodlink = '';
 $exportlink = '';
 
-report_header($name, '', $period, $periodlink, $description, $builddate, $exportlink, array(), $calcmode);
+report_header($name, '', $period, $periodlink, $description, $builddate, $exportlink, [], $calcmode);
 
 if ($local == 1) {
 	$vatcust = $langs->transcountry("LT1", $mysoc->country_code);
@@ -270,7 +270,7 @@ if (!is_array($x_coll) || !is_array($x_paye)) {
 		print '<tr><td colspan="'.$columns.'">'.$langs->trans("Error").'</td></tr>';
 	}
 } else {
-	$x_both = array();
+	$x_both = [];
 
 	//now, from these two arrays, get another array with one rate per line
 	foreach (array_keys($x_coll) as $my_coll_rate) {
@@ -279,7 +279,7 @@ if (!is_array($x_coll) || !is_array($x_paye)) {
 		$x_both[$my_coll_rate]['paye']['totalht'] = 0;
 		$x_both[$my_coll_rate]['paye']['localtax'.$local] = 0;
 		$x_both[$my_coll_rate]['coll']['links'] = '';
-		$x_both[$my_coll_rate]['coll']['detail'] = array();
+		$x_both[$my_coll_rate]['coll']['detail'] = [];
 		foreach ($x_coll[$my_coll_rate]['facid'] as $id => $dummy) {
 			$invoice_customer->id = $x_coll[$my_coll_rate]['facid'][$id];
 			$invoice_customer->ref = $x_coll[$my_coll_rate]['facnum'][$id];
@@ -318,7 +318,7 @@ if (!is_array($x_coll) || !is_array($x_paye)) {
 			$x_both[$my_paye_rate]['coll']['vat'] = 0;
 		}
 		$x_both[$my_paye_rate]['paye']['links'] = '';
-		$x_both[$my_paye_rate]['paye']['detail'] = array();
+		$x_both[$my_paye_rate]['paye']['detail'] = [];
 
 		foreach ($x_paye[$my_paye_rate]['facid'] as $id => $dummy) {
 			$invoice_supplier->id = $x_paye[$my_paye_rate]['facid'][$id];

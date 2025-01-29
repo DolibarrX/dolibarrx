@@ -58,7 +58,7 @@ $sql .= " WHERE entity IN (".getEntity('c_paiement').")";
 $sql .= " AND active = 1";
 $sql .= " ORDER BY libelle";
 $resql = $db->query($sql);
-$paiements = array();
+$paiements = [];
 if ($resql) {
 	while ($obj = $db->fetch_object($resql)) {
 		array_push($paiements, $obj);

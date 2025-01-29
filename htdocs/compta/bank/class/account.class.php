@@ -234,7 +234,7 @@ class Account extends CommonObject
 	 * Defined in __construct
 	 * @var array<int,string>
 	 */
-	public $type_lib = array();
+	public $type_lib = [];
 
 	/**
 	 * Accountancy code
@@ -540,7 +540,7 @@ class Account extends CommonObject
 	public function get_url($fk_bank = 0, $url_id = 0, $type = '')
 	{
 		// phpcs:enable
-		$lines = array();
+		$lines = [];
 
 		// Check parameters
 		if (!empty($fk_bank) && (!empty($url_id) || !empty($type))) {
@@ -1517,7 +1517,7 @@ class Account extends CommonObject
 		$langs->loadLangs(['banks', 'compta']);
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/bank.lib.php';
 
-		$datas = array();
+		$datas = [];
 
 		$nofetch = !empty($params['nofetch']);
 		$pictures = img_picture('', $this->picture).' <u class="paddingrightnow">'.$langs->trans("BankAccount").'</u>';
@@ -1691,7 +1691,7 @@ class Account extends CommonObject
 		// For backward compatibility, we try to guess country from other information
 		if (!empty($this->iban)) {
 			// If IBAN defined, we can know country of account from it
-			$reg = array();
+			$reg = [];
 			if (preg_match("/^([a-zA-Z][a-zA-Z])/i", $this->iban, $reg)) {
 				return $reg[1];
 			}

@@ -44,7 +44,7 @@ abstract class ModeleBankAccountDoc extends CommonDocGenerator
 	{
 		// phpcs:enable
 		$type = 'bankaccount';
-		$list = array();
+		$list = [];
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 		$list = getListOfModels($db, $type, $maxfilenamelength);

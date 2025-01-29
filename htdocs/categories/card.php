@@ -290,7 +290,7 @@ if ($user->hasRight('category', 'creer')) {
 		print ajax_combobox('parent');
 		print '</td></tr>';
 
-		$parameters = array();
+		$parameters = [];
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		if (empty($resHook)) {

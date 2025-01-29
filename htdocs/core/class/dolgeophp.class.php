@@ -65,7 +65,7 @@ class DolGeoPHP
 
 			return array('geojson' => $geojson, 'centroid' => $centroid, 'centroidjson' => $centroidjson);
 		} else {
-			return array();
+			return [];
 		}
 	}
 

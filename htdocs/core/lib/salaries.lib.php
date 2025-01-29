@@ -34,7 +34,7 @@ function salaries_prepare_head($object)
 	global $db, $langs, $config;
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/salaries/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Salary");
@@ -110,7 +110,7 @@ function salaries_admin_prepare_head()
 	$extrafields->fetch_name_optionals_label('salary');
 
 	$h = 0;
-	$head = array();
+	$head = [];
 
 	$head[$h][0] = DOL_URL_ROOT . '/salaries/admin/salaries.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");

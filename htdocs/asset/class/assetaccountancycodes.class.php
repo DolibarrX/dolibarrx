@@ -67,7 +67,7 @@ class AssetAccountancyCodes extends CommonObject
 	/**
 	 * @var array<string,array<string,string>>  Array with all accountancy codes by mode.
 	 */
-	public $accountancy_codes = array();
+	public $accountancy_codes = [];
 
 	/**
 	 * Constructor
@@ -86,9 +86,9 @@ class AssetAccountancyCodes extends CommonObject
 	 */
 	public function setAccountancyCodesFromPost()
 	{
-		$this->accountancy_codes = array();
+		$this->accountancy_codes = [];
 		foreach ($this->accountancy_codes_fields as $mode_key => $mode_info) {
-			$this->accountancy_codes[$mode_key] = array();
+			$this->accountancy_codes[$mode_key] = [];
 			foreach ($mode_info['fields'] as $field_key => $field_info) {
 				$accountancy_code = GETPOST($mode_key . '_' . $field_key, 'aZ09');
 				if (empty($accountancy_code) || $accountancy_code == '-1') {
@@ -113,8 +113,8 @@ class AssetAccountancyCodes extends CommonObject
 		dol_syslog(__METHOD__ . " asset_id=$asset_id, asset_model_id=$asset_model_id");
 
 		$error = 0;
-		$this->errors = array();
-		$this->accountancy_codes = array();
+		$this->errors = [];
+		$this->accountancy_codes = [];
 
 		// Clean parameters
 		$asset_id = $asset_id > 0 ? $asset_id : 0;
@@ -137,7 +137,7 @@ class AssetAccountancyCodes extends CommonObject
 			return -1;
 		}
 
-		$accountancy_codes = array();
+		$accountancy_codes = [];
 		foreach ($this->accountancy_codes_fields as $mode_key => $mode_info) {
 			$sql = "SELECT " . implode(',', array_keys($mode_info['fields']));
 			$sql .= " FROM " . MAIN_DB_PREFIX . $mode_info['table'];
@@ -146,7 +146,7 @@ class AssetAccountancyCodes extends CommonObject
 			$resql = $this->db->query($sql);
 			if ($resql) {
 				if ($obj = $this->db->fetch_object($resql)) {
-					$accountancy_codes[$mode_key] = array();
+					$accountancy_codes[$mode_key] = [];
 					foreach ($mode_info['fields'] as $field_key => $field_info) {
 						$accountancy_codes[$mode_key][$field_key] = $obj->$field_key;
 					}
@@ -181,7 +181,7 @@ class AssetAccountancyCodes extends CommonObject
 		dol_syslog(__METHOD__ . " user_id=".$user->id.", asset_id=".$asset_id.", asset_model_id=".$asset_model_id.", notrigger=".$notrigger);
 
 		$error = 0;
-		$this->errors = array();
+		$this->errors = [];
 
 		// Clean parameters
 		$asset_id = $asset_id > 0 ? $asset_id : 0;

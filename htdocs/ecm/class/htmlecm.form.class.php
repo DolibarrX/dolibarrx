@@ -59,7 +59,7 @@ class FormEcm
 	 *  @param	int[]	$ids_to_ignore		Array of id to ignore
 	 *  @return	string						String with HTML select
 	 */
-	public function selectAllSections($selected = 0, $select_name = '', $module = 'ecm', $ids_to_ignore = array())
+	public function selectAllSections($selected = 0, $select_name = '', $module = 'ecm', $ids_to_ignore = [])
 	{
 		global $config, $langs;
 		$langs->load("ecm");

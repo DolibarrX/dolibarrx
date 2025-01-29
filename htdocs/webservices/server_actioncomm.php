@@ -143,7 +143,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($elementtype, true);
 $extrafield_array = null;
 if (is_array($extrafields->attributes) && $extrafields->attributes[$elementtype]['count'] > 0) {
-	$extrafield_array = array();
+	$extrafield_array = [];
 }
 if (isset($extrafields->attributes[$elementtype]['label']) && is_array($extrafields->attributes[$elementtype]['label']) && count($extrafields->attributes[$elementtype]['label'])) {
 	foreach ($extrafields->attributes[$elementtype]['label'] as $key => $label) {
@@ -286,7 +286,7 @@ function getActionComm($authentication, $id)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -388,7 +388,7 @@ function getListActionCommType($authentication)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -401,7 +401,7 @@ function getListActionCommType($authentication)
 			$cactioncomm = new CActionComm($db);
 			$result = $cactioncomm->liste_array('', 'code');
 			if ($result > 0) {
-				$resultarray = array();
+				$resultarray = [];
 				foreach ($cactioncomm->liste_array as $code => $libeller) {
 					$resultarray[] = array('code' => $code, 'libelle' => $libeller);
 				}
@@ -449,7 +449,7 @@ function createActionComm($authentication, $actioncomm)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;
@@ -533,7 +533,7 @@ function updateActionComm($authentication, $actioncomm)
 	}
 
 	// Init and check authentication
-	$objectresp = array();
+	$objectresp = [];
 	$errorcode = '';
 	$errorlabel = '';
 	$error = 0;

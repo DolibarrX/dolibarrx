@@ -61,7 +61,7 @@ if (!isModEnabled('socialnetworks')) {
 }
 
 // List of oauth services
-$oauthservices = array();
+$oauthservices = [];
 
 foreach ($config->global as $key => $val) {
 	if (!empty($val) && preg_match('/^OAUTH_.*_ID$/', $key)) {
@@ -205,7 +205,7 @@ if ($action == 'updatesocialnetwork') {
 	}
 
 	// new keys and new values in array
-	$mergedParams = array();
+	$mergedParams = [];
 	foreach ($paramsKey as $index => $key) {
 		if (isset($paramsVal[$index])) {
 			$mergedParams[$key] = $paramsVal[$index];

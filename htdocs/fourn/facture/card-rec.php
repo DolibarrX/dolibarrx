@@ -500,7 +500,7 @@ if (empty($resHook)) {
 			if (GETPOST('idprodfournprice', 'alpha') == -1 || GETPOST('idprodfournprice', 'alpha') == '') {
 				$idprod = -99; // Same behaviour than with combolist. When not select idprodfournprice is now -99 (to avoid conflict with next action that may return -1, -2, ...)
 			}
-			$reg = array();
+			$reg = [];
 			if (preg_match('/^idprod_([0-9]+)$/', GETPOST('idprodfournprice', 'alpha'), $reg)) {
 				$idprod = (int) $reg[1];
 				$res = $productsupplier->fetch($idprod); // Load product from its id
@@ -1330,7 +1330,7 @@ if ($action == 'create') {
 		print '</td><td>';
 		if ($action == 'editmodelpdf') {
 			include_once DOL_DOCUMENT_ROOT . '/core/modules/supplier_invoice/modules_facturefournisseur.php';
-			$list = array();
+			$list = [];
 			$models = ModelePDFSuppliersInvoices::liste_modeles($db);
 			foreach ($models as $k => $model) {
 				$list[] = str_replace(':', '|', $k) . ':' . $model;
@@ -1542,7 +1542,7 @@ if ($action == 'create') {
 			if ($action != 'editline') {
 				// Add free products/services
 
-				$parameters = array();
+				$parameters = [];
 				$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -1600,7 +1600,7 @@ if ($action == 'create') {
 		print '<a name="builddoc"></a>'; // ancre
 
 		// Show links to link elements
-		$tmparray = $form->showLinkToObjectBlock($object, array(), array('invoice'), 1);
+		$tmparray = $form->showLinkToObjectBlock($object, [], array('invoice'), 1);
 		$linktoelem = $tmparray['linktoelem'];
 		$htmltoenteralink = $tmparray['htmltoenteralink'];
 		print $htmltoenteralink;

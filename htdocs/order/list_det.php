@@ -91,7 +91,7 @@ $search_dateorder_end = dol_mktime(23, 59, 59, GETPOSTINT('search_dateorder_end_
 $search_datedelivery_start = dol_mktime(0, 0, 0, GETPOSTINT('search_datedelivery_start_month'), GETPOSTINT('search_datedelivery_start_day'), GETPOSTINT('search_datedelivery_start_year'));
 $search_datedelivery_end = dol_mktime(23, 59, 59, GETPOSTINT('search_datedelivery_end_month'), GETPOSTINT('search_datedelivery_end_day'), GETPOSTINT('search_datedelivery_end_year'));
 
-$search_product_category_array = array();
+$search_product_category_array = [];
 if (isModEnabled('category')) {
 	$search_product_category_array = GETPOST("search_category_".Category::TYPE_PRODUCT."_list", "array");
 	$searchCategoryProductOperator = 0;
@@ -288,7 +288,7 @@ if (empty($resHook)) {
 		$search_categ = '';
 		$search_user = '';
 		$search_sale = '';
-		$search_product_category_array = array();
+		$search_product_category_array = [];
 		$searchCategoryProductOperator = 0;
 		$search_id = '';
 		$search_refProduct = '';
@@ -321,8 +321,8 @@ if (empty($resHook)) {
 		$search_project = '';
 		$search_status = '';
 		$search_billed = '';
-		$toselect = array();
-		$search_array_options = array();
+		$toselect = [];
+		$search_array_options = [];
 		$search_categ_cus = 0;
 		$search_datecloture_start = '';
 		$search_datecloture_end = '';
@@ -416,7 +416,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 	}
 }
 // Add fields from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= ' FROM '.MAIN_DB_PREFIX.'societe as s';
@@ -442,7 +442,7 @@ if ($search_user > 0) {
 	$sql .= ", ".MAIN_DB_PREFIX."c_type_contact as tc";
 }
 // Add table from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
@@ -612,7 +612,7 @@ if ($search_sale && $search_sale != '-1') {
 // Search for tag/category ($searchCategoryProductList is an array of ID)
 $searchCategoryProductList = $search_product_category_array;
 if (!empty($searchCategoryProductList)) {
-	$searchCategoryProjectSqlList = array();
+	$searchCategoryProjectSqlList = [];
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProject) {
 		if (intval($searchCategoryProject) == -2) {
@@ -643,12 +643,12 @@ if (!empty($searchCategoryProductList)) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 
 // Add where from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 // Add HAVING from hooks
-$parameters = array();
+$parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= empty($hookManager->resPrint) ? "" : " HAVING 1=1 ".$hookManager->resPrint;
 
@@ -708,7 +708,7 @@ if ($resql) {
 
 	$num = $db->num_rows($resql);
 
-	$arrayofselected = is_array($toselect) ? $toselect : array();
+	$arrayofselected = is_array($toselect) ? $toselect : [];
 
 	if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $search_all) {
 		$obj = $db->fetch_object($resql);
@@ -966,12 +966,12 @@ if ($resql) {
 		$formproduct = new FormProduct($db);
 		$moreforfilter .= '<div class="divsearchfield">';
 		$tmptitle = $langs->trans('Warehouse');
-		$moreforfilter .= img_picture($tmptitle, 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses($search_warehouse, 'search_warehouse', '', 1, 0, 0, $tmptitle, 0, 0, array(), 'maxwidth250 widthcentpercentminusx');
+		$moreforfilter .= img_picture($tmptitle, 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses($search_warehouse, 'search_warehouse', '', 1, 0, 0, $tmptitle, 0, 0, [], 'maxwidth250 widthcentpercentminusx');
 		$moreforfilter .= '</div>';
 	}
 
 
-	$parameters = array();
+	$parameters = [];
 	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($resHook)) {
 		$moreforfilter .= $hookManager->resPrint;
@@ -1426,7 +1426,7 @@ if ($resql) {
 			'cdet.total_tva' => 0,
 			'cdet.total_ttc' => 0,
 		),
-		'pos' => array(),
+		'pos' => [],
 	);
 	// Extra fields
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_title.tpl.php';
@@ -1474,10 +1474,10 @@ if ($resql) {
 
 	$total = 0;
 	$subtotal = 0;
-	$productstat_cache = array();
+	$productstat_cache = [];
 	'@phan-var-force array<int,array{stats_order_customer?:float|int,stats_order_supplier?:float|int}> $product_sdtat_cache';
-	$productstat_cachevirtual = array();
-	$getNomUrl_cache = array();
+	$productstat_cachevirtual = [];
+	$getNomUrl_cache = [];
 
 	$generic_order = new Order($db);
 	$generic_product = new Product($db);
@@ -1502,9 +1502,9 @@ if ($resql) {
 	$totalqty = 0;
 	$oldref = null;
 
-	$totalarray = array();
+	$totalarray = [];
 	$totalarray['nbfield'] = 0;
-	$subtotalarray = array();
+	$subtotalarray = [];
 	$subtotalarray['nbfield'] = 0;
 	$totalarray['val']['cdet.total_tva'] = 0;
 	$totalarray['val']['cdet.total_ttc'] = 0;
@@ -1559,7 +1559,7 @@ if ($resql) {
 		$projectstatic->ref = $obj->project_ref;
 		$projectstatic->title = $obj->project_label;
 
-		$marginInfo = array();
+		$marginInfo = [];
 		if ($with_margin_info) {
 			$generic_order->fetch_lines();
 			$marginInfo = $formmargin->getMarginInfosArray($generic_order);
