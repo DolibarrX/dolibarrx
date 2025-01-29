@@ -77,7 +77,7 @@ class modVariants extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages. Put here list of php page, stored into variants/admin directory, to use to setup module.
-		$this->config_page_url = array('admin.php@variants');
+		$this->configPageUrl = array('admin.php@variants');
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

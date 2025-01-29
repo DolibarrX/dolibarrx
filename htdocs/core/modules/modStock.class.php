@@ -64,7 +64,7 @@ class modStock extends DolibarrModules
 		// Data directories to create when module is enabled
 		$this->dirs = array("/stock/temp");
 
-		$this->config_page_url = array("stock.php");
+		$this->configPageUrl = array("stock.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

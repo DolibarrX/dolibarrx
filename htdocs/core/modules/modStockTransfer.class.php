@@ -116,7 +116,7 @@ class modStockTransfer extends DolibarrModules
 		// Example: this->dirs = array("/stocktransfer/temp","/stocktransfer/subdir");
 		$this->dirs = array("/stocktransfer/temp");
 		// Config pages. Put here list of php page, stored into stocktransfer/admin directory, to use to setup module.
-		$this->config_page_url = array("stocktransfer.php");
+		$this->configPageUrl = array("stocktransfer.php");
 		// Dependencies
 		// A condition to hide module
 		$this->hidden = false;

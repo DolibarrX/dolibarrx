@@ -75,7 +75,7 @@ class modProduct extends DolibarrModules
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 
 		// Config pages
-		$this->config_page_url = array("product.php@product");
+		$this->configPageUrl = array("product.php@product");
 		$this->langfiles = array("products", "companies", "stocks", "bills");
 
 		// Constants

@@ -82,7 +82,7 @@ class modAsset extends DolibarrModules
 		$this->dirs = array("/asset/temp");
 
 		// Config pages. Put here list of php page, stored into asset/admin directory, to use to setup module.
-		$this->config_page_url = array("setup.php@asset");
+		$this->configPageUrl = array("setup.php@asset");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

@@ -61,7 +61,7 @@ class modExpenseReport extends DolibarrModules
 		$r = 0;
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
-		$this->config_page_url = array('expensereport.php');
+		$this->configPageUrl = array('expensereport.php');
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

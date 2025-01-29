@@ -63,7 +63,7 @@ class modTax extends DolibarrModules
 		$this->dirs = array("/tax/temp");
 
 		// Config pages
-		$this->config_page_url = array("taxes.php");
+		$this->configPageUrl = array("taxes.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

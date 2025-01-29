@@ -55,7 +55,7 @@ class modWebServices extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages
-		$this->config_page_url = array("index.php@webservices");
+		$this->configPageUrl = array("index.php@webservices");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

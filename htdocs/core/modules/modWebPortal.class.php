@@ -127,7 +127,7 @@ class modWebPortal extends DolibarrModules
 		$this->dirs = array("/webportal/temp");
 
 		// Config pages. Put here list of php page, stored into webportal/admin directory, to use to setup module.
-		$this->config_page_url = array("setup.php@webportal");
+		$this->configPageUrl = array("setup.php@webportal");
 
 		// Dependencies
 		// A condition to hide module

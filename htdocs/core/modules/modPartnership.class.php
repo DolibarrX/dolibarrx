@@ -134,7 +134,7 @@ class modPartnership extends DolibarrModules
 		$this->dirs = array("/partnership/temp");
 
 		// Config pages. Put here list of php page, stored into partnership/admin directory, to use to setup module.
-		$this->config_page_url = array("setup.php@partnership");
+		$this->configPageUrl = array("setup.php@partnership");
 
 		// Dependencies
 		// A condition to hide module

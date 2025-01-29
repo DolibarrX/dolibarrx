@@ -3339,9 +3339,9 @@ if (is_array($listofmodules) && count($listofmodules) > 0) {
 		$backtourl = $_SERVER["PHP_SELF"].$backtourlparam;
 
 		$regs = [];
-		if (is_array($objMod->config_page_url)) {
+		if (is_array($objMod->configPageUrl)) {
 			$i = 0;
-			foreach ($objMod->config_page_url as $page) {
+			foreach ($objMod->configPageUrl as $page) {
 				$urlpage = $page;
 				if ($i++) {
 					$linktoenabledisable .= ' <a href="'.$urlpage.'" title="'.$langs->trans($page).'">'.img_picture(ucfirst($page), "setup").'</a>';
@@ -3358,7 +3358,7 @@ if (is_array($listofmodules) && count($listofmodules) > 0) {
 					}
 				}
 			}
-		} elseif (preg_match('/^([^@]+)@([^@]+)$/i', $objMod->config_page_url, $regs)) {
+		} elseif (preg_match('/^([^@]+)@([^@]+)$/i', $objMod->configPageUrl, $regs)) {
 			$linktoenabledisable .= ' &nbsp; <a href="'.dol_buildpath('/'.$regs[2].'/admin/'.$regs[1], 1).'?save_lastsearch_values=1&backtopage='.urlencode($backtourl).'" title="'.$langs->trans("Setup").'">'.img_picture($langs->trans("Setup"), "setup", 'style="padding-right: 8px"').'</a>';
 		}
 	} else {

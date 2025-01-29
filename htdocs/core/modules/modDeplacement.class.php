@@ -59,7 +59,7 @@ class modDeplacement extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages
-		$this->config_page_url = [];
+		$this->configPageUrl = [];
 		$this->langfiles = array("companies", "trips");
 
 		// Dependencies

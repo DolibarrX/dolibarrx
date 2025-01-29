@@ -57,7 +57,7 @@ class modDynamicPrices extends DolibarrModules
 
 		// Config pages
 		//-------------
-		$this->config_page_url = array("dynamic_prices.php@product");
+		$this->configPageUrl = array("dynamic_prices.php@product");
 
 		// Dependencies
 		//-------------

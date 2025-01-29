@@ -67,7 +67,7 @@ class modProductBatch extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages. Put here list of php page, stored into productdluo/admin directory, to use to setup module.
-		$this->config_page_url = array("product_lot.php@product");
+		$this->configPageUrl = array("product_lot.php@product");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

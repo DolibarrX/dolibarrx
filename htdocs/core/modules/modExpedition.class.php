@@ -73,7 +73,7 @@ class modExpedition extends DolibarrModules
 		);
 
 		// Config pages
-		$this->config_page_url = array("expedition.php");
+		$this->configPageUrl = array("expedition.php");
 
 		// Dependencies
 		$this->depends = array("modOrder");

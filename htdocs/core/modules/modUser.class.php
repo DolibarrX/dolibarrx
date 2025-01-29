@@ -61,7 +61,7 @@ class modUser extends DolibarrModules
 		$this->dirs = array("/users/temp");
 
 		// Config pages
-		$this->config_page_url = array("user.php");
+		$this->configPageUrl = array("user.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

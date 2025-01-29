@@ -114,7 +114,7 @@ class modMrp extends DolibarrModules
 		// Example: this->dirs = array("/mrp/temp","/mrp/subdir");
 		$this->dirs = array("/mrp/temp");
 		// Config pages. Put here list of php page, stored into mrp/admin directory, to use to setup module.
-		$this->config_page_url = array("mrp.php");
+		$this->configPageUrl = array("mrp.php");
 		// Dependencies
 		// A condition to hide module
 		$this->hidden = false;

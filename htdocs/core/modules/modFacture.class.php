@@ -73,7 +73,7 @@ class modFacture extends DolibarrModules
 		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='text')
 
 		// Config pages
-		$this->config_page_url = array("invoice.php");
+		$this->configPageUrl = array("invoice.php");
 
 		// Constants
 		$this->const = [];

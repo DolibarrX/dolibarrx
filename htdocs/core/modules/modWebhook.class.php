@@ -126,7 +126,7 @@ class modWebhook extends DolibarrModules
 		$this->dirs = array("/webhook/temp");
 
 		// Config pages. Put here list of php page, stored into webhook/admin directory, to use to setup module.
-		$this->config_page_url = array("webhook.php");
+		$this->configPageUrl = array("webhook.php");
 
 		// Dependencies
 		// A condition to hide module

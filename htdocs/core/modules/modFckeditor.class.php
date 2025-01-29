@@ -60,7 +60,7 @@ class modFckeditor extends DolibarrModules
 		$this->dirs = array("/medias/temp", "/medias/image");
 
 		// Config pages
-		$this->config_page_url = array("fckeditor.php");
+		$this->configPageUrl = array("fckeditor.php");
 
 		// Dependencies
 		$this->disabled = (defined('JS_CKEDITOR') && in_array(constant('JS_CKEDITOR'), array('disabled', 'disabled/')));

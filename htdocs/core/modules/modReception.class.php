@@ -64,7 +64,7 @@ class modReception extends DolibarrModules
 							);
 
 		// Config pages
-		$this->config_page_url = array("reception_setup.php");
+		$this->configPageUrl = array("reception_setup.php");
 
 		// Dependencies
 		$this->depends = array("modFournisseur");

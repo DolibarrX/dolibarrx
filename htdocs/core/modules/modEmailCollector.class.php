@@ -83,7 +83,7 @@ class modEmailCollector extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages. Put here list of php page, stored into dav/admin directory, to use to setup module.
-		$this->config_page_url = array("emailcollector_list.php");
+		$this->configPageUrl = array("emailcollector_list.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

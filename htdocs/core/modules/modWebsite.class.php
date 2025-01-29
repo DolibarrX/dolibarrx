@@ -59,7 +59,7 @@ class modWebsite extends DolibarrModules
 		$this->dirs = array("/website/temp");
 
 		// Config pages
-		$this->config_page_url = array('website.php');
+		$this->configPageUrl = array('website.php');
 
 		// Dependencies
 		$this->hidden = getDolGlobalInt('MODULE_WEBSITE_DISABLED'); // A condition to disable module

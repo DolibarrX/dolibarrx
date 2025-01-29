@@ -59,7 +59,7 @@ class modLoan extends DolibarrModules
 		$this->dirs = array("/loan/temp");
 
 		// Config pages
-		$this->config_page_url = array('loan.php');
+		$this->configPageUrl = array('loan.php');
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

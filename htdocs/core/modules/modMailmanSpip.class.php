@@ -68,7 +68,7 @@ class modMailmanSpip extends DolibarrModules
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 
 		// Config pages
-		$this->config_page_url = array('mailman.php');
+		$this->configPageUrl = array('mailman.php');
 
 		// Constants
 		$this->const = [];

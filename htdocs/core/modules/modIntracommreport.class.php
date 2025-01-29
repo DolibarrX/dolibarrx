@@ -59,7 +59,7 @@ class modIntracommreport extends DolibarrModules
 		$this->dirs = array('/intracommreport/temp');
 
 		// Config pages
-		$this->config_page_url = array("intracommreport.php@intracommreport");
+		$this->configPageUrl = array("intracommreport.php@intracommreport");
 
 		// Dependencies
 		$this->depends = array("modFacture", "modTax", "modCategory"); // List of modules id that must be enabled if this module is enabled

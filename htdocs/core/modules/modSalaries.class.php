@@ -65,7 +65,7 @@ class modSalaries extends DolibarrModules
 		$this->dirs = array("/salaries/temp");
 
 		// Config pages
-		$this->config_page_url = array('salaries.php@salaries');
+		$this->configPageUrl = array('salaries.php@salaries');
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

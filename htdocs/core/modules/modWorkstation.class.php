@@ -117,7 +117,7 @@ class modWorkstation extends DolibarrModules
 		// Example: this->dirs = array("/workstation/temp","/workstation/subdir");
 		$this->dirs = array("/workstation/temp");
 		// Config pages. Put here list of php page, stored into workstation/admin directory, to use to setup module.
-		$this->config_page_url = array("workstation.php");
+		$this->configPageUrl = array("workstation.php");
 		// Dependencies
 		// A condition to hide module
 		$this->hidden = false;

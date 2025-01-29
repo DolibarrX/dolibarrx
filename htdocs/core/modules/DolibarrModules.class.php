@@ -419,7 +419,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 * Name of php pages stored into module/admin directory, used to setup module.
 	 * e.g.: array("setup.php@mymodule")
 	 */
-	public $config_page_url;
+	public $configPageUrl;
 
 
 	/**

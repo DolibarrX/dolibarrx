@@ -64,7 +64,7 @@ class modOpenIDConnect extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages
-		$this->config_page_url = array("openid_connect.php");
+		$this->configPageUrl = array("openid_connect.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

@@ -67,7 +67,7 @@ class modOrder extends DolibarrModules
 		$this->dirs = array("/order/temp");
 
 		// Config pages
-		$this->config_page_url = array("order.php");
+		$this->configPageUrl = array("order.php");
 
 		// Dependencies
 		$this->depends = array("modSociete");

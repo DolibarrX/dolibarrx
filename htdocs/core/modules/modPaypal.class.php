@@ -68,7 +68,7 @@ class modPaypal extends DolibarrModules
 		$this->dirs = array('/paypal/temp');
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
-		$this->config_page_url = array("paypal.php@paypal");
+		$this->configPageUrl = array("paypal.php@paypal");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

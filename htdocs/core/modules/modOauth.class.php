@@ -64,7 +64,7 @@ class modOauth extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages
-		$this->config_page_url = array("oauth.php");
+		$this->configPageUrl = array("oauth.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

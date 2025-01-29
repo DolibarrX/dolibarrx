@@ -61,7 +61,7 @@ class modGeoIPMaxmind extends DolibarrModules
 		$this->dirs = array("/geoipmaxmind");
 
 		// Config pages
-		$this->config_page_url = array("geoipmaxmind.php");
+		$this->configPageUrl = array("geoipmaxmind.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

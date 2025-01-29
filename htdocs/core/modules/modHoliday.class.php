@@ -78,7 +78,7 @@ class modHoliday extends DolibarrModules
 		$r = 0;
 
 		// Config pages
-		$this->config_page_url = array("holiday.php");
+		$this->configPageUrl = array("holiday.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

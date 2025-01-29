@@ -67,7 +67,7 @@ class modNotification extends DolibarrModules
 		$this->langfiles = array("mails");
 
 		// Config pages
-		$this->config_page_url = array("notification.php");
+		$this->configPageUrl = array("notification.php");
 
 		// Constants
 		$this->const = [];

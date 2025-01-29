@@ -112,7 +112,7 @@ class modEventOrganization extends DolibarrModules
 		$this->dirs = array("/eventorganization/temp");
 
 		// Config pages. Put here list of php page, stored into eventorganization/admin directory, to use to setup module.
-		$this->config_page_url = array("eventorganization.php");
+		$this->configPageUrl = array("eventorganization.php");
 
 		// Dependencies
 		// A condition to hide module

@@ -70,7 +70,7 @@ class modPropale extends DolibarrModules
 		$this->requiredby = []; // List of module ids to disable if this one is disabled
 		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->config_page_url = array("propal.php");
+		$this->configPageUrl = array("propal.php");
 		$this->langfiles = array("propal", "bills", "companies", "deliveries", "products");
 
 		// Constants

@@ -66,7 +66,7 @@ class modMember extends DolibarrModules
 		);
 
 		// Config pages
-		$this->config_page_url = array("member.php@members");
+		$this->configPageUrl = array("member.php@members");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

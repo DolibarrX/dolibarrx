@@ -63,7 +63,7 @@ class modSupplierProposal extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages. Put here list of php page names stored in admin directory used to setup module.
-		$this->config_page_url = array("supplier_proposal.php");
+		$this->configPageUrl = array("supplier_proposal.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

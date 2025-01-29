@@ -60,7 +60,7 @@ class modSimpleAccounting extends DolibarrModules
 		$this->picture = 'accountancy';
 
 		// Config pages
-		$this->config_page_url = array("compta.php");
+		$this->configPageUrl = array("compta.php");
 
 		// Dependencies
 		$this->depends = array("modFacture", "modBank");

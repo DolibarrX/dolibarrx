@@ -66,7 +66,7 @@ class modAgenda extends DolibarrModules
 		$this->dirs = array("/agenda/temp");
 
 		// Config pages
-		$this->config_page_url = array("agenda_other.php");
+		$this->configPageUrl = array("agenda_other.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

@@ -111,7 +111,7 @@ class modZapier extends DolibarrModules
 		// Example: this->dirs = array("/zapier/temp","/zapier/subdir");
 		$this->dirs = array("/zapier/temp");
 		// Config pages. Put here list of php page, stored into zapier/admin directory, to use to setup module.
-		$this->config_page_url = array(
+		$this->configPageUrl = array(
 			"setup.php@zapier"
 		);
 		// Dependencies

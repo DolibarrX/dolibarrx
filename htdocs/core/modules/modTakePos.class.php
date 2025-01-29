@@ -96,7 +96,7 @@ class modTakePos extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages. Put here list of php page, stored into takepos/admin directory, to use to setup module.
-		$this->config_page_url = array("setup.php@takepos");
+		$this->configPageUrl = array("setup.php@takepos");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

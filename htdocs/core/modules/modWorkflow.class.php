@@ -65,7 +65,7 @@ class modWorkflow extends DolibarrModules
 		$this->dirs = array("/workflow/temp");
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
-		$this->config_page_url = array('workflow.php');
+		$this->configPageUrl = array('workflow.php');
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

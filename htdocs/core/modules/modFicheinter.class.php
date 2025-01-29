@@ -70,7 +70,7 @@ class modFicheinter extends DolibarrModules
 		$this->langfiles = array("bills", "companies", "interventions");
 
 		// Config pages
-		$this->config_page_url = array("fichinter.php");
+		$this->configPageUrl = array("fichinter.php");
 
 		// Constants
 		$this->const = [];

@@ -70,7 +70,7 @@ class modPrelevement extends DolibarrModules
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 
 		// Config pages
-		$this->config_page_url = array("prelevement.php");
+		$this->configPageUrl = array("prelevement.php");
 
 		// Constants
 		$this->const = [];

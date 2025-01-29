@@ -88,7 +88,7 @@ class modDataPolicy extends DolibarrModules
 		$this->dirs = array("/datapolicy/temp");
 
 		// Config pages. Put here list of php page, stored into datapolicy/admin directory, to use to setup module.
-		$this->config_page_url = array("setup.php@datapolicy");
+		$this->configPageUrl = array("setup.php@datapolicy");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

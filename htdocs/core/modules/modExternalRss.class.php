@@ -57,7 +57,7 @@ class modExternalRss extends DolibarrModules
 		$this->dirs = array("/externalrss/temp");
 
 		// Config pages
-		$this->config_page_url = array("external_rss.php");
+		$this->configPageUrl = array("external_rss.php");
 
 		// Dependencies
 		$this->depends = [];

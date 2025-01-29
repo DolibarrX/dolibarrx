@@ -62,7 +62,7 @@ class modBookmark extends DolibarrModules
 		$this->langfiles = array("bookmarks");
 
 		// Config pages
-		$this->config_page_url = array('bookmark.php@bookmarks');
+		$this->configPageUrl = array('bookmark.php@bookmarks');
 
 		// Constants
 		$this->const = [];

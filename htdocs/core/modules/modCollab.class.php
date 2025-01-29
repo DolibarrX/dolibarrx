@@ -62,7 +62,7 @@ class modCollab extends DolibarrModules
 
 		// Config pages
 		//-------------
-		$this->config_page_url = array(/*'collab.php'*/);
+		$this->configPageUrl = array(/*'collab.php'*/);
 
 		// Dependencies
 		//-------------

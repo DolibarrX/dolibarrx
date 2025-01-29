@@ -83,7 +83,7 @@ class modDav extends DolibarrModules
 		$this->dirs = array("/dav/temp", "/dav/public", "/dav/private");
 
 		// Config pages. Put here list of php page, stored into dav/admin directory, to use to setup module.
-		$this->config_page_url = array("dav.php");
+		$this->configPageUrl = array("dav.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

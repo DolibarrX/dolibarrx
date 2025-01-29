@@ -81,7 +81,7 @@ class modMultiCurrency extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages. Put here list of php page, stored into multicurrency/admin directory, to use to setup module.
-		$this->config_page_url = array("multicurrency.php");
+		$this->configPageUrl = array("multicurrency.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

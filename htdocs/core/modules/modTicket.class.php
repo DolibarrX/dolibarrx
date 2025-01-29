@@ -92,7 +92,7 @@ class modTicket extends DolibarrModules
 
 		// Config pages. Put here list of php pages
 		// stored into ticket/admin directory, used to setup module.
-		$this->config_page_url = array("ticket.php");
+		$this->configPageUrl = array("ticket.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

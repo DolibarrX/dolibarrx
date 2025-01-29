@@ -62,7 +62,7 @@ class modPrinting extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages
-		$this->config_page_url = array("printing.php@printing");
+		$this->configPageUrl = array("printing.php@printing");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

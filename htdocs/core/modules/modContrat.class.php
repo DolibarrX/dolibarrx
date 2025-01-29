@@ -66,7 +66,7 @@ class modContrat extends DolibarrModules
 		$this->requiredby = [];
 
 		// Config pages
-		$this->config_page_url = array("contract.php");
+		$this->configPageUrl = array("contract.php");
 
 		// Constants
 		$this->const = [

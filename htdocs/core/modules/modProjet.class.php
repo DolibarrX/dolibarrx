@@ -59,7 +59,7 @@ class modProjet extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->config_page_url = array("project.php@projet");
+		$this->configPageUrl = array("project.php@projet");
 		$this->picture = 'project';
 
 		// Data directories to create when module is enabled

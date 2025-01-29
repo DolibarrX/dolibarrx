@@ -127,7 +127,7 @@ class modKnowledgeManagement extends DolibarrModules
 		$this->dirs = array("/knowledgemanagement/temp");
 
 		// Config pages. Put here list of php page, stored into knowledgemanagement/admin directory, to use to setup module.
-		$this->config_page_url = array("knowledgemanagement.php");
+		$this->configPageUrl = array("knowledgemanagement.php");
 
 		// Dependencies
 		// A condition to hide module

@@ -114,7 +114,7 @@ class modRecruitment extends DolibarrModules
 		// Example: this->dirs = array("/recruitment/temp","/recruitment/subdir");
 		$this->dirs = array("/recruitment/temp");
 		// Config pages. Put here list of php page, stored into recruitment/admin directory, to use to setup module.
-		$this->config_page_url = array("setup.php@recruitment");
+		$this->configPageUrl = array("setup.php@recruitment");
 		// Dependencies
 		// A condition to hide module
 		$this->hidden = false;

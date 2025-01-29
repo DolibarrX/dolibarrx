@@ -62,7 +62,7 @@ class modModuleBuilder extends DolibarrModules
 
 		// Config pages
 		//-------------
-		$this->config_page_url = array('setup.php@modulebuilder');
+		$this->configPageUrl = array('setup.php@modulebuilder');
 
 		// Dependencies
 		//-------------

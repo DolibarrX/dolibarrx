@@ -64,7 +64,7 @@ class modSyslog extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages
-		$this->config_page_url = array("syslog.php");
+		$this->configPageUrl = array("syslog.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

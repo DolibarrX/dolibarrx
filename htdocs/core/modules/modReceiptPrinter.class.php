@@ -63,7 +63,7 @@ class modReceiptPrinter extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages
-		$this->config_page_url = array("receiptprinter.php");
+		$this->configPageUrl = array("receiptprinter.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

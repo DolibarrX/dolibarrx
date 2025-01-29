@@ -62,7 +62,7 @@ class modCron extends DolibarrModules
 
 		// Config pages
 		//-------------
-		$this->config_page_url = array("cron.php@cron");
+		$this->configPageUrl = array("cron.php@cron");
 
 		// Dependencies
 		//-------------

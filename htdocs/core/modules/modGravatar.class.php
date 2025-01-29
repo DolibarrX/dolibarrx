@@ -71,7 +71,7 @@ class modGravatar extends DolibarrModules
 		$r = 0;
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
-		$this->config_page_url = [];
+		$this->configPageUrl = [];
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

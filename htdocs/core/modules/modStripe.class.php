@@ -67,7 +67,7 @@ class modStripe extends DolibarrModules
 		$this->dirs = [];
 
 		// Config pages. Put here list of php page names stored in admin directory used to setup module.
-		$this->config_page_url = array("stripe.php@stripe");
+		$this->configPageUrl = array("stripe.php@stripe");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

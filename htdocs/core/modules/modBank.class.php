@@ -64,7 +64,7 @@ class modBank extends DolibarrModules
 
 		// Config pages
 		//-------------
-		$this->config_page_url = array("bank.php");
+		$this->configPageUrl = array("bank.php");
 
 		// Dependencies
 		$this->depends = [];

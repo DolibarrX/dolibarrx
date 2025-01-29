@@ -62,7 +62,7 @@ class modIncoterm extends DolibarrModules
 		$this->moduleParts = [];
 		$this->dirs = [];
 
-		$this->config_page_url = [];
+		$this->configPageUrl = [];
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

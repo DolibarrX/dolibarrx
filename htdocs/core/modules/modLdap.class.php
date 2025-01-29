@@ -60,7 +60,7 @@ class modLdap extends DolibarrModules
 		$this->dirs = array("/ldap/temp");
 
 		// Config pages
-		$this->config_page_url = array("ldap.php");
+		$this->configPageUrl = array("ldap.php");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module

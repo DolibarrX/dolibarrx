@@ -125,7 +125,7 @@ class modAi extends DolibarrModules
 		$this->dirs = array("/ai/temp");
 
 		// Config pages. Put here list of php page, stored into ai/admin directory, to use to setup module.
-		$this->config_page_url = array("setup.php@ai");
+		$this->configPageUrl = array("setup.php@ai");
 
 		// Dependencies
 		// A condition to hide module
