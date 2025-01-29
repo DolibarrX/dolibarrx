@@ -52,7 +52,7 @@ class modEventOrganization extends DolibarrModules
 
 		$this->family = "projects";
 
-		$this->module_position = '15';
+		$this->modulePosition = '15';
 
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 

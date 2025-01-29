@@ -48,7 +48,7 @@ class modSimpleAccounting extends DolibarrModules
 		$this->number = 10;
 
 		$this->family = "financial";
-		$this->module_position = '60';
+		$this->modulePosition = '60';
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Gestion sommaire de comptabilite";

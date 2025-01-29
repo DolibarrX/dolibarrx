@@ -50,7 +50,7 @@ class modPropale extends DolibarrModules
 		$this->number = 20;
 
 		$this->family = "crm";
-		$this->module_position = '10';
+		$this->modulePosition = '10';
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Gestion des propositions commerciales";

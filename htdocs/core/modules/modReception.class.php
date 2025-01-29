@@ -46,7 +46,7 @@ class modReception extends DolibarrModules
 		$this->number = 94160;
 
 		$this->family = "srm";
-		$this->module_position = '40';
+		$this->modulePosition = '40';
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "ReceptionDescription";

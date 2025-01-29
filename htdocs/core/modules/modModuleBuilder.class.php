@@ -46,7 +46,7 @@ class modModuleBuilder extends DolibarrModules
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
 		$this->family = "technic";
-		$this->module_position = '90';
+		$this->modulePosition = '90';
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "A RAD (Rapid Application Development - low-code and no-code) tool to help developers or advanced users to build their own module/application.";

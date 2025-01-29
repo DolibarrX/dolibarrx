@@ -53,8 +53,8 @@ class modRecruitment extends DolibarrModules
 		// It is used to group modules by family in module setup page
 		$this->family = "hr";
 		// Module position in the family on 2 digits ('01', '10', '20', ...)
-		$this->module_position = '44';
-		// Gives the possibility for the module, to provide his own family info and position of this family (Overwrite $this->family and $this->module_position. Avoid this)
+		$this->modulePosition = '44';
+		// Gives the possibility for the module, to provide his own family info and position of this family (Overwrite $this->family and $this->modulePosition. Avoid this)
 		//$this->familyinfo = array('myownfamily' => array('position' => '01', 'label' => $langs->trans("MyOwnFamily")));
 		// Module label (no space allowed), used if translation string 'ModuleRecruitmentName' not found (Recruitment is name of module).
 		$this->name = preg_replace('/^mod/i', '', get_class($this));

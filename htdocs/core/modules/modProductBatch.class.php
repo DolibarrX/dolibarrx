@@ -48,7 +48,7 @@ class modProductBatch extends DolibarrModules
 		$this->number = 39000;
 
 		$this->family = "products";
-		$this->module_position = '45';
+		$this->modulePosition = '45';
 
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Batch number, eat-by and sell-by date management module";

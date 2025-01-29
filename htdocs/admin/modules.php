@@ -586,7 +586,7 @@ foreach ($modulesdir as $dir) {
 								}
 								'@phan-var-force string $familykey';  // if not, phan considers $familykey may be null
 
-								$moduleposition = ($objMod->module_position ? $objMod->module_position : '50');
+								$moduleposition = ($objMod->modulePosition ? $objMod->modulePosition : '50');
 								if ($objMod->isCoreOrExternalModule() == 'external' && $moduleposition < 100000) {
 									// an external module should never return a value lower than '80'.
 									$moduleposition = '80'; // External modules at end by default
@@ -822,7 +822,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 		$linenum++;
 		$tab = explode('_', $value);
 		$familykey = $tab[1];
-		$module_position = $tab[2];
+		$modulePosition = $tab[2];
 
 		$modName = $filename[$key];
 
@@ -1023,22 +1023,22 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 			} else {
 				// @phan-suppress-next-line PhanUndeclaredMethod
 				if (is_object($objMod) && !empty($objMod->warnings_unactivation[$mysoc->country_code]) && method_exists($objMod, 'alreadyUsed') && $objMod->alreadyUsed()) {
-					$codeenabledisable .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$module_position.'&amp;action=reset_confirm&amp;confirm_message_code='.urlencode($objMod->warnings_unactivation[$mysoc->country_code]).'&amp;value='.$modName.'&amp;mode='.$mode.$param.'">';
+					$codeenabledisable .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$modulePosition.'&amp;action=reset_confirm&amp;confirm_message_code='.urlencode($objMod->warnings_unactivation[$mysoc->country_code]).'&amp;value='.$modName.'&amp;mode='.$mode.$param.'">';
 					$codeenabledisable .= img_picture($langs->trans("Activated").($warningstring ? ' '.$warningstring : ''), 'switch_on');
 					$codeenabledisable .= '</a>';
 					if (getDolGlobalInt("MAIN_FEATURES_LEVEL") > 1) {
 						$codeenabledisable .= '&nbsp;';
-						$codeenabledisable .= '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$module_position.'&amp;action=reload_confirm&amp;value='.$modName.'&amp;mode='.$mode.'&amp;confirm=yes'.$param.'">';
+						$codeenabledisable .= '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$modulePosition.'&amp;action=reload_confirm&amp;value='.$modName.'&amp;mode='.$mode.'&amp;confirm=yes'.$param.'">';
 						$codeenabledisable .= img_picture($langs->trans("Reload"), 'refresh', 'class="opacitymedium"');
 						$codeenabledisable .= '</a>';
 					}
 				} else {
-					$codeenabledisable .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$module_position.'&amp;action=reset&amp;value='.$modName.'&amp;mode='.$mode.'&amp;confirm=yes'.$param.'">';
+					$codeenabledisable .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$modulePosition.'&amp;action=reset&amp;value='.$modName.'&amp;mode='.$mode.'&amp;confirm=yes'.$param.'">';
 					$codeenabledisable .= img_picture($langs->trans("Activated").($warningstring ? ' '.$warningstring : ''), 'switch_on');
 					$codeenabledisable .= '</a>';
 					if (getDolGlobalInt("MAIN_FEATURES_LEVEL") > 1) {
 						$codeenabledisable .= '&nbsp;';
-						$codeenabledisable .= '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$module_position.'&amp;action=reload&amp;value='.$modName.'&amp;mode='.$mode.'&amp;confirm=yes'.$param.'">';
+						$codeenabledisable .= '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$modulePosition.'&amp;action=reload&amp;value='.$modName.'&amp;mode='.$mode.'&amp;confirm=yes'.$param.'">';
 						$codeenabledisable .= img_picture($langs->trans("Reload"), 'refresh', 'class="opacitymedium"');
 						$codeenabledisable .= '</a>';
 					}
@@ -1093,7 +1093,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 			if (!empty($objMod->always_enabled)) {
 				// A 'always_enabled' module should not never be disabled. If this happen, we keep a link to re-enable it.
 				$codeenabledisable .= '<!-- Message to show: an always_enabled module has been disabled -->'."\n";
-				$codeenabledisable .= '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&token='.newToken().'&module_position='.$module_position.'&action=set&token='.newToken().'&value='.$modName.'&mode='.$mode.$param.'"';
+				$codeenabledisable .= '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&token='.newToken().'&module_position='.$modulePosition.'&action=set&token='.newToken().'&value='.$modName.'&mode='.$mode.$param.'"';
 				$codeenabledisable .= '>';
 				$codeenabledisable .= img_picture($langs->trans("Disabled"), 'switch_off');
 				$codeenabledisable .= "</a>\n";
@@ -1131,7 +1131,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 					}
 				}
 				$codeenabledisable .= '<!-- Message to show: '.$warningmessage.' -->'."\n";
-				$codeenabledisable .= '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&token='.newToken().'&module_position='.$module_position.'&action=set&token='.newToken().'&value='.$modName.'&mode='.$mode.$param.'"';
+				$codeenabledisable .= '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&token='.newToken().'&module_position='.$modulePosition.'&action=set&token='.newToken().'&value='.$modName.'&mode='.$mode.$param.'"';
 				if ($warningmessage) {
 					$codeenabledisable .= ' onclick="return confirm(\''.dol_escape_js($warningmessage).'\');"';
 				}

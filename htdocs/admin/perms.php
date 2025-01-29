@@ -173,13 +173,13 @@ if ($result) {
 		$objMod = $modules[$obj->module];
 
 		// Save field module_position in database if value is wrong
-		if (empty($obj->module_position) || (is_object($objMod) && $objMod->isCoreOrExternalModule() == 'external' && $obj->module_position < 100000)) {
-			if (is_object($modules[$obj->module]) && ($modules[$obj->module]->module_position > 0)) {
+		if (empty($obj->modulePosition) || (is_object($objMod) && $objMod->isCoreOrExternalModule() == 'external' && $obj->modulePosition < 100000)) {
+			if (is_object($modules[$obj->module]) && ($modules[$obj->module]->modulePosition > 0)) {
 				// TODO Define familyposition
 				//$familyposition = $modules[$obj->module]->family_position;
 				$familyposition = 0;
 
-				$newmoduleposition = $modules[$obj->module]->module_position;
+				$newmoduleposition = $modules[$obj->module]->modulePosition;
 
 				// Correct $newmoduleposition position for external modules
 				$objMod = $modules[$obj->module];
@@ -189,7 +189,7 @@ if ($result) {
 
 				$sqlupdate = 'UPDATE '.MAIN_DB_PREFIX."rights_def SET module_position = ".((int) $newmoduleposition).",";
 				$sqlupdate .= " family_position = ".((int) $familyposition);
-				$sqlupdate .= " WHERE module_position = ".((int) $obj->module_position)." AND module = '".$db->escape($obj->module)."'";
+				$sqlupdate .= " WHERE module_position = ".((int) $obj->modulePosition)." AND module = '".$db->escape($obj->module)."'";
 				$db->query($sqlupdate);
 			}
 		}

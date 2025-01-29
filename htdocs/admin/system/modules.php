@@ -151,7 +151,7 @@ foreach ($modules as $key => $module) {
 	$newModule->name = $module->getName();
 	$newModule->version = $module->getVersion();
 	$newModule->id = $key;
-	$newModule->module_position = $module->getModulePosition();
+	$newModule->modulePosition = $module->getModulePosition();
 
 	$alt = $module->name.' - '.$modules_files[$key];
 
@@ -409,7 +409,7 @@ foreach ($moduleList as $module) {
 	}
 
 	if ($arrayfields['module_position']['checked']) {
-		print '<td class="right">'.dolPrintHTML($module->module_position).'</td>';
+		print '<td class="right">'.dolPrintHTML($module->modulePosition).'</td>';
 	}
 
 	// Action column

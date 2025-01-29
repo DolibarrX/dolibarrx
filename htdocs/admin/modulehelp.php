@@ -182,7 +182,7 @@ foreach ($modulesdir as $dir) {
 										$familykey = 'other';
 									}
 
-									$moduleposition = ($objMod->module_position ? $objMod->module_position : '50');
+									$moduleposition = ($objMod->modulePosition ? $objMod->modulePosition : '50');
 									if ($moduleposition == '50' && ($objMod->isCoreOrExternalModule() == 'external')) {
 										$moduleposition = '80'; // External modules at end by default
 									}
@@ -259,7 +259,7 @@ $value = $orders[$key];
 $tab = explode('_', $value);
 $familyposition = $tab[0];
 $familykey = $tab[1];
-$module_position = $tab[2];
+$modulePosition = $tab[2];
 $number = $tab[3];
 
 

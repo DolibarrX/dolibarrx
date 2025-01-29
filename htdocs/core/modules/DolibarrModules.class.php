@@ -89,7 +89,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var string	Module position on 2 digits
 	 */
-	public $module_position = '50';
+	public $modulePosition = '50';
 
 	/**
 	 * @var string 	Module name
@@ -998,12 +998,12 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function getModulePosition()
 	{
 		if (in_array($this->version, array('dolibarr', 'dolibarr_deprecated', 'experimental', 'development'))) {	// core module
-			return $this->module_position;
+			return $this->modulePosition;
 		} else {																			// external module
-			if ($this->module_position >= 100000) {
-				return $this->module_position;
+			if ($this->modulePosition >= 100000) {
+				return $this->modulePosition;
 			} else {
-				$position = intval($this->module_position) + 100000;
+				$position = intval($this->modulePosition) + 100000;
 				return strval($position);
 			}
 		}

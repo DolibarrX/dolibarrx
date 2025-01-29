@@ -53,7 +53,7 @@ class modOrder extends DolibarrModules
 		$this->number = 25;
 
 		$this->family = "crm";
-		$this->module_position = '11';
+		$this->modulePosition = '11';
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Gestion des orders clients";
