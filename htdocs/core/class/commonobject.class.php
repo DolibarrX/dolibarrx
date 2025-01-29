@@ -82,7 +82,7 @@ abstract class CommonObject
 	/**
 	 * @var string 		Error string that is hidden but can be used to store additional technical code
 	 */
-	public $errorhidden;
+	public $errorHidden;
 
 	/**
 	 * @var string[]	Array of error strings

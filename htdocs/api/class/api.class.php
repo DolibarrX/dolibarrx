@@ -205,7 +205,7 @@ class DolibarrApi
 
 		unset($object->error);
 		unset($object->errors);
-		unset($object->errorhidden);
+		unset($object->errorHidden);
 
 		unset($object->ref_previous);
 		unset($object->ref_next);
