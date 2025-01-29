@@ -447,7 +447,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var string[] Module language files
 	 */
-	public $langfiles;
+	public $langFiles;
 
 	/**
 	 * @var array<string,string> Array of warnings to show when we activate the module
@@ -749,8 +749,8 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 			return $langs->transnoentitiesnoconv("Module".$this->number."Name");
 		} else {
 			// If module name translation using it's unique id does not exist, we try to use its name to find translation
-			if (is_array($this->langfiles)) {
-				foreach ($this->langfiles as $val) {
+			if (is_array($this->langFiles)) {
+				foreach ($this->langFiles as $val) {
 					if ($val) {
 						$langs->load($val);
 					}
@@ -783,8 +783,8 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 			return $langs->transnoentitiesnoconv("Module".$this->number."Desc");
 		} else {
 			// If module description translation does not exist using its unique id, we can use its name to find translation
-			if (is_array($this->langfiles)) {
-				foreach ($this->langfiles as $val) {
+			if (is_array($this->langFiles)) {
+				foreach ($this->langFiles as $val) {
 					if ($val) {
 						$langs->load($val);
 					}
@@ -841,8 +841,8 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		} else {
 			// Mostly for internal modules
 			if (!empty($this->descriptionLong)) {
-				if (is_array($this->langfiles)) {
-					foreach ($this->langfiles as $val) {
+				if (is_array($this->langFiles)) {
+					foreach ($this->langFiles as $val) {
 						if ($val) {
 							$langs->load($val);
 						}
@@ -1040,7 +1040,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 */
 	public function getLangFilesArray()
 	{
-		return $this->langfiles;
+		return $this->langFiles;
 	}
 
 	/**

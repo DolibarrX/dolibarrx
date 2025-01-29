@@ -66,7 +66,7 @@ class modAccounting extends DolibarrModules
 		$this->conflictWith = array("modSimpleAccounting"); // List of modules are in conflict with this module
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3, 9); // Minimum version of Dolibarr required by module
-		$this->langfiles = array("accountancy", "compta");
+		$this->langFiles = array("accountancy", "compta");
 
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)

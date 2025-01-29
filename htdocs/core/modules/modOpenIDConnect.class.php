@@ -74,7 +74,7 @@ class modOpenIDConnect extends DolibarrModules
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module                    // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3, 7, -2); // Minimum version of Dolibarr required by module
 		$this->conflictWith = [];
-		$this->langfiles = array("openid_connect");
+		$this->langFiles = array("openid_connect");
 
 		// Constants
 		$this->const = [];

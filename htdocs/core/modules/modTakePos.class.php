@@ -104,7 +104,7 @@ class modTakePos extends DolibarrModules
 		$this->depends = array('always'=>array("modBank", "modFacture", "modProduct", "modCategory"), 'FR'=>array('modBlockedLog'));
 		$this->requiredBy = []; // List of module ids to disable if this one is disabled
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with
-		$this->langfiles = array("cashdesk");
+		$this->langFiles = array("cashdesk");
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(4, 0); // Minimum version of Dolibarr required by module
 		$this->warnings_activation = array('FR'=>'WarningNoteModulePOSForFrenchLaw'); // Warning to show when we activate module. array('always'='text') or array('FR'='text')

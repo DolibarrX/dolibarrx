@@ -95,7 +95,7 @@ class modDataPolicy extends DolibarrModules
 		$this->depends = array('always'=>'modCron'); // List of module class names as string that must be enabled if this module is enabled
 		$this->requiredBy = []; // List of module ids to disable if this one is disabled
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with
-		$this->langfiles = array("datapolicy");
+		$this->langFiles = array("datapolicy");
 		$this->phpmin = array(5, 3); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(7, 0); // Minimum version of Dolibarr required by module
 		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)

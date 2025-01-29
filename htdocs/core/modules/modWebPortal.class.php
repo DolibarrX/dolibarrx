@@ -140,7 +140,7 @@ class modWebPortal extends DolibarrModules
 		$this->conflictWith = [];
 
 		// The language file dedicated to your module
-		$this->langfiles = array("website");
+		$this->langFiles = array("website");
 
 		// Prerequisites
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module

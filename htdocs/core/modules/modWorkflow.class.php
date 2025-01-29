@@ -74,7 +74,7 @@ class modWorkflow extends DolibarrModules
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(2, 8); // Minimum version of Dolibarr required by module
-		$this->langfiles = array("@workflow");
+		$this->langFiles = array("@workflow");
 
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)

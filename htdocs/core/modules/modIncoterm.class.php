@@ -71,7 +71,7 @@ class modIncoterm extends DolibarrModules
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3, 0); // Minimum version of Dolibarr required by module
-		$this->langfiles = array("incoterm");
+		$this->langFiles = array("incoterm");
 
 		$this->const = array(
 			array('INCOTERM_ACTIVATE', 'chaine', 0, 'Description de INCOTERM_ACTIVATE')

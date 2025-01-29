@@ -68,7 +68,7 @@ class modCategory extends DolibarrModules
 
 		// Config pages
 		$this->configPageUrl = array('category.php@categories');
-		$this->langfiles = array("products", "companies", "categories", "members", "stocks", "website");
+		$this->langFiles = array("products", "companies", "categories", "members", "stocks", "website");
 
 		// Constants
 		$this->const = [

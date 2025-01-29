@@ -72,7 +72,7 @@ class modService extends DolibarrModules
 
 		// Config pages
 		$this->configPageUrl = array("product.php@product");
-		$this->langfiles = array("products", "companies", "stocks", "bills");
+		$this->langFiles = array("products", "companies", "stocks", "bills");
 
 		// Constants
 		$this->const = [];

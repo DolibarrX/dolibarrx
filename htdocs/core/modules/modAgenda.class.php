@@ -73,7 +73,7 @@ class modAgenda extends DolibarrModules
 		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
 		$this->requiredBy = []; // List of module ids to disable if this one is disabled
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with
-		$this->langfiles = array("companies","project");
+		$this->langFiles = array("companies","project");
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->enabled_bydefault = true; // Will be enabled during install
 

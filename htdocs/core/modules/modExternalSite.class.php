@@ -61,7 +61,7 @@ class modExternalSite extends DolibarrModules
 		// Name of png file (without png) used for this module
 		$this->picture = 'website';
 		// Call to inside lang's file
-		$this->langfiles = array("externalsite");
+		$this->langFiles = array("externalsite");
 
 		// Data directories to create when module is enabled
 		$this->dirs = [];

@@ -90,7 +90,7 @@ class modMultiCurrency extends DolibarrModules
 		$this->conflictWith = []; // List of modules id this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3, 0); // Minimum version of Dolibarr required by module
-		$this->langfiles = array("multicurrency");
+		$this->langFiles = array("multicurrency");
 
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)

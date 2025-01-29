@@ -67,7 +67,7 @@ class modFicheinter extends DolibarrModules
 		$this->depends = array("modSociete");
 		$this->requiredBy = [];
 		$this->conflictWith = [];
-		$this->langfiles = array("bills", "companies", "interventions");
+		$this->langFiles = array("bills", "companies", "interventions");
 
 		// Config pages
 		$this->configPageUrl = array("fichinter.php");

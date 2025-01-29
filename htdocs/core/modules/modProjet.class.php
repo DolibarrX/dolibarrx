@@ -71,7 +71,7 @@ class modProjet extends DolibarrModules
 		$this->requiredBy = array('modEventOrganization'); // List of module ids to disable if this one is disabled
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->langfiles = array('projects');
+		$this->langFiles = array('projects');
 
 		// Constants
 		$this->const = [

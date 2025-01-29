@@ -70,7 +70,7 @@ class modCron extends DolibarrModules
 		$this->depends = []; // List of modules id that must be enabled if this module is enabled
 		$this->requiredBy = []; // List of modules id to disable if this one is disabled
 		$this->conflictWith = []; // List of modules id this module is in conflict with
-		$this->langfiles = array("cron");
+		$this->langFiles = array("cron");
 
 		// Constants
 		//-----------

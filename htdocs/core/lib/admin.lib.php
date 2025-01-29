@@ -1437,8 +1437,8 @@ function complete_dictionary_with_modules(&$taborder, &$tabname, &$tablib, &$tab
 
 						if ($modulequalified) {
 							// Load languages files of module
-							if (isset($objMod->langfiles) && is_array($objMod->langfiles)) {
-								foreach ($objMod->langfiles as $langfile) {
+							if (isset($objMod->langFiles) && is_array($objMod->langFiles)) {
+								foreach ($objMod->langFiles as $langfile) {
 									$langs->load($langfile);
 								}
 							}
@@ -1680,8 +1680,8 @@ function complete_elementList_with_modules(&$elementList)
 
 						if ($modulequalified) {
 							// Load languages files of module
-							if (isset($objMod->langfiles) && is_array($objMod->langfiles)) {
-								foreach ($objMod->langfiles as $langfile) {
+							if (isset($objMod->langFiles) && is_array($objMod->langFiles)) {
+								foreach ($objMod->langFiles as $langfile) {
 									$langs->load($langfile);
 								}
 							}

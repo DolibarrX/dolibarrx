@@ -73,7 +73,7 @@ class modOrder extends DolibarrModules
 		$this->depends = array("modSociete");
 		$this->requiredBy = array("modExpedition");
 		$this->conflictWith = [];
-		$this->langfiles = array('orders', 'bills', 'companies', 'products', 'deliveries', 'sendings');
+		$this->langFiles = array('orders', 'bills', 'companies', 'products', 'deliveries', 'sendings');
 
 		// Constants
 		$this->const = [

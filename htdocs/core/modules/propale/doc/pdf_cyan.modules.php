@@ -175,8 +175,8 @@ class pdf_cyan extends ModelePDFPropales
 		}
 
 		// Load translation files required by page
-		$langfiles = array("main", "dict", "companies", "bills", "products", "propal", "compta");
-		$outputlangs->loadLangs($langfiles);
+		$langFiles = array("main", "dict", "companies", "bills", "products", "propal", "compta");
+		$outputlangs->loadLangs($langFiles);
 
 		//  Show Draft Watermark
 		if ($object->status == $object::STATUS_DRAFT && getDolGlobalString('PROPALE_DRAFT_WATERMARK')) {
@@ -188,7 +188,7 @@ class pdf_cyan extends ModelePDFPropales
 		if (getDolGlobalString('PDF_USE_ALSO_LANGUAGE_CODE') && $outputlangs->defaultlang != getDolGlobalString('PDF_USE_ALSO_LANGUAGE_CODE')) {
 			$outputlangsbis = new Translate('', $config);
 			$outputlangsbis->setDefaultLang(getDolGlobalString('PDF_USE_ALSO_LANGUAGE_CODE'));
-			$outputlangsbis->loadLangs($langfiles);
+			$outputlangsbis->loadLangs($langFiles);
 		}
 
 		$nblines = count($object->lines);

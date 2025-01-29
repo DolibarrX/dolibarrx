@@ -183,8 +183,8 @@ class pdf_standard_myobject extends ModelePDFMyObject
 		}
 
 		// Load translation files required by the page
-		$langfiles = array("main", "bills", "products", "dict", "companies", "compta");
-		$outputlangs->loadLangs($langfiles);
+		$langFiles = array("main", "bills", "products", "dict", "companies", "compta");
+		$outputlangs->loadLangs($langFiles);
 
 		// Show Draft Watermark
 		if (getDolGlobalString('MYOBJECT_DRAFT_WATERMARK') && $object->status == $object::STATUS_DRAFT) {
@@ -196,7 +196,7 @@ class pdf_standard_myobject extends ModelePDFMyObject
 		if (getDolGlobalString('PDF_USE_ALSO_LANGUAGE_CODE') && $outputlangs->defaultlang != getDolGlobalString('PDF_USE_ALSO_LANGUAGE_CODE')) {
 			$outputlangsbis = new Translate('', $config);
 			$outputlangsbis->setDefaultLang(getDolGlobalString('PDF_USE_ALSO_LANGUAGE_CODE'));
-			$outputlangsbis->loadLangs($langfiles);
+			$outputlangsbis->loadLangs($langFiles);
 		}
 
 		$nblines = (is_array($object->lines) ? count($object->lines) : 0);

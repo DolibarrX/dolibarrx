@@ -153,7 +153,7 @@ class modMyModule extends DolibarrModules
 		$this->conflictWith = [];
 
 		// The language file dedicated to your module
-		$this->langfiles = array("mymodule@mymodule");
+		$this->langFiles = array("mymodule@mymodule");
 
 		// Prerequisites
 		$this->phpmin = array(7, 1); // Minimum version of PHP required by module

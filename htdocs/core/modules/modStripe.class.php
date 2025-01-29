@@ -75,7 +75,7 @@ class modStripe extends DolibarrModules
 		$this->requiredBy = []; // List of modules id to disable if this one is disabled
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(5, 0); // Minimum version of Dolibarr required by module
-		$this->langfiles = array("stripe");
+		$this->langFiles = array("stripe");
 
 		// Constants
 		$this->const = []; // List of particular constants to add when module is enabled

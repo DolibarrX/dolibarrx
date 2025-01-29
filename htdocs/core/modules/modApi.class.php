@@ -85,7 +85,7 @@ class modApi extends DolibarrModules
 		$this->requiredBy = array('modZapier'); // List of modules id to disable if this one is disabled
 		$this->conflictWith = []; // List of modules id this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->langfiles = array("other");
+		$this->langFiles = array("other");
 
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)

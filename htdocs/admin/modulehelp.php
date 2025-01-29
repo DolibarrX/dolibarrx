@@ -317,8 +317,8 @@ if (!$modulename) {
 }
 
 // Load all lang files of module
-if (isset($objMod->langfiles) && is_array($objMod->langfiles)) {
-	foreach ($objMod->langfiles as $domain) {
+if (isset($objMod->langFiles) && is_array($objMod->langFiles)) {
+	foreach ($objMod->langFiles as $domain) {
 		$langs->load($domain);
 	}
 }

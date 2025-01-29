@@ -3905,17 +3905,17 @@ if ($module == 'initmodule') {
 				// Dir for module
 				$diroflang = dol_buildpath($modulelowercase, 0);
 				$diroflang .= '/langs';
-				$langfiles = dol_dir_list($diroflang, 'files', 1, '\.lang$');
+				$langFiles = dol_dir_list($diroflang, 'files', 1, '\.lang$');
 
 				if (!preg_match('/custom/', $dirread)) {
 					// If this is not a module into custom
 					$diroflang = $dirread;
 					$diroflang .= '/langs';
-					$langfiles = dol_dir_list($diroflang, 'files', 1, $modulelowercase.'\.lang$');
+					$langFiles = dol_dir_list($diroflang, 'files', 1, $modulelowercase.'\.lang$');
 				}
 
 				print '<table class="none">';
-				foreach ($langfiles as $langfile) {
+				foreach ($langFiles as $langfile) {
 					$pathtofile = $modulelowercase.'/langs/'.$langfile['relativename'];
 					if (!preg_match('/custom/', $dirread)) {	// If this is not a module into custom
 						$pathtofile = 'langs/'.$langfile['relativename'];

@@ -98,7 +98,7 @@ class modResource extends DolibarrModules
 		// Minimum version of PHP required by module
 		$this->phpmin = array(7, 0);
 
-		$this->langfiles = array("resource"); // langfiles@resource
+		$this->langFiles = array("resource"); // langfiles@resource
 		// Constants
 		// List of particular constants to add when module is enabled
 		// (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)

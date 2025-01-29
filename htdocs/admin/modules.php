@@ -647,8 +647,8 @@ if ($action == 'reset_confirm' && $user->admin) {
 	if (!empty($modules[$value])) {
 		$objMod = $modules[$value];
 
-		if (!empty($objMod->langfiles)) {
-			$langs->loadLangs($objMod->langfiles);
+		if (!empty($objMod->langFiles)) {
+			$langs->loadLangs($objMod->langFiles);
 		}
 
 		$form = new Form($db);
@@ -660,8 +660,8 @@ if ($action == 'reload_confirm' && $user->admin) {
 	if (!empty($modules[$value])) {
 		$objMod = $modules[$value];
 
-		if (!empty($objMod->langfiles)) {
-			$langs->loadLangs($objMod->langfiles);
+		if (!empty($objMod->langFiles)) {
+			$langs->loadLangs($objMod->langFiles);
 		}
 
 		$form = new Form($db);
@@ -913,8 +913,8 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 		$atleastonequalified++;
 
 		// Load all language files of the qualified module
-		if (isset($objMod->langfiles) && is_array($objMod->langfiles)) {
-			foreach ($objMod->langfiles as $domain) {
+		if (isset($objMod->langFiles) && is_array($objMod->langFiles)) {
+			foreach ($objMod->langFiles as $domain) {
 				$langs->load($domain);
 			}
 		}

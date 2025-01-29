@@ -71,7 +71,7 @@ class modBlockedLog extends DolibarrModules
 		$this->depends = array('always'=>'modFacture'); // List of modules id that must be enabled if this module is enabled
 		$this->requiredBy = []; // List of modules id to disable if this one is disabled
 		$this->conflictWith = []; // List of modules id this module is in conflict with
-		$this->langfiles = array('blockedlog');
+		$this->langFiles = array('blockedlog');
 
 		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)

@@ -136,7 +136,7 @@ class modAi extends DolibarrModules
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
 
 		// The language file dedicated to your module
-		$this->langfiles = array("ai");
+		$this->langFiles = array("ai");
 
 		// Prerequisites
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module

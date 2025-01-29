@@ -136,7 +136,7 @@ class modBookCal extends DolibarrModules
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
 
 		// The language file dedicated to your module
-		$this->langfiles = array("agenda");
+		$this->langFiles = array("agenda");
 
 		// Messages at activation
 		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
