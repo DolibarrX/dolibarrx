@@ -127,7 +127,7 @@ class modWorkstation extends DolibarrModules
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
 		$this->langFiles = array("mrp");
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(11, -3); // Minimum version of Dolibarr required by module
+		$this->needDolibarrVersion = array(11, -3); // Minimum version of Dolibarr required by module
 		$this->warningsActivation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		$this->warningsActivationExt = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		//$this->automatic_activation = array('FR'=>'WorkstationWasAutomaticallyActivatedBecauseOfYourCountryChoice');

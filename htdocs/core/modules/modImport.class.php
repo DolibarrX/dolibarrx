@@ -65,7 +65,7 @@ class modImport extends DolibarrModules
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module - Need auto_detect_line_endings php option to solve MAC pbs.
 		$this->phpmax = [];
-		$this->need_dolibarr_version = array(2, 7, -1); // Minimum version of Dolibarr required by module
+		$this->needDolibarrVersion = array(2, 7, -1); // Minimum version of Dolibarr required by module
 		$this->enabled_bydefault = true; // Will be enabled during install
 
 		// Constants

@@ -69,7 +69,7 @@ class modExpenseReport extends DolibarrModules
 		// $this->conflictWith = array("modDeplacement"); // Deactivate for access on old information
 		$this->requiredBy = []; // List of modules id to disable if this one is disabled
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3, 7); // Minimum version of Dolibarr required by module
+		$this->needDolibarrVersion = array(3, 7); // Minimum version of Dolibarr required by module
 		$this->langFiles = array("companies", "trips");
 
 		// Constants

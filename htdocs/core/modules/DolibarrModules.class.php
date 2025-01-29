@@ -485,12 +485,12 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 * @var int[] Minimum version of Dolibarr required by module.
 	 * e.g.: Dolibarr ≥ 3.6 = array(3, 6)
 	 */
-	public $need_dolibarr_version;
+	public $needDolibarrVersion;
 
 	/**
 	 * @var int<0,1>
 	 */
-	public $need_javascript_ajax;
+	public $needJavascriptAjax;
 
 	/**
 	 * @var bool
@@ -2644,7 +2644,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	    <div class="info-box-icon'.(!getDolGlobalString($constName) ? '' : ' info-box-icon-module-enabled'.($versiontrans ? ' info-box-icon-module-warning' : '')).'">';
 
 		$alttext = '';
-		//if (is_array($objMod->need_dolibarr_version)) $alttext.=($alttext?' - ':'').'Dolibarr >= '.join('.',$objMod->need_dolibarr_version);
+		//if (is_array($objMod->needDolibarrVersion)) $alttext.=($alttext?' - ':'').'Dolibarr >= '.join('.',$objMod->needDolibarrVersion);
 		//if (is_array($objMod->phpmin)) $alttext.=($alttext?' - ':'').'PHP >= '.join('.',$objMod->phpmin);
 		if (!empty($this->picture)) {
 			if (preg_match('/^\//i', $this->picture)) {

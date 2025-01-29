@@ -71,7 +71,7 @@ class modReceiptPrinter extends DolibarrModules
 		$this->requiredBy = []; // List of module ids to disable if this one is disabled
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3, 9, -2); // Minimum version of Dolibarr required by module
+		$this->needDolibarrVersion = array(3, 9, -2); // Minimum version of Dolibarr required by module
 		$this->conflictWith = [];
 		$this->langFiles = array("receiptprinter");
 

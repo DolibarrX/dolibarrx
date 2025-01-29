@@ -1156,7 +1156,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 			// Picto + Name of module
 			print '  <td class="tdoverflowmax200 minwidth200imp" title="'.dol_escape_htmltag($objMod->getName()).'">';
 			$alttext = '';
-			//if (is_array($objMod->need_dolibarr_version)) $alttext.=($alttext?' - ':'').'Dolibarr >= '.join('.',$objMod->need_dolibarr_version);
+			//if (is_array($objMod->needDolibarrVersion)) $alttext.=($alttext?' - ':'').'Dolibarr >= '.join('.',$objMod->needDolibarrVersion);
 			//if (is_array($objMod->phpmin)) $alttext.=($alttext?' - ':'').'PHP >= '.join('.',$objMod->phpmin);
 			if (!empty($objMod->picture)) {
 				if (preg_match('/^\//i', $objMod->picture)) {

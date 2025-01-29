@@ -127,7 +127,7 @@ class modEventOrganization extends DolibarrModules
 
 		// Prerequisites
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(13, -3); // Minimum version of Dolibarr required by module
+		$this->needDolibarrVersion = array(13, -3); // Minimum version of Dolibarr required by module
 
 		// Messages at activation
 		$this->warningsActivation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)

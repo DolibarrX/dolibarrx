@@ -70,8 +70,8 @@ class modGeoIPMaxmind extends DolibarrModules
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0);
 		$this->phpmax = [];
-		$this->need_dolibarr_version = array(2, 7, -1); // Minimum version of Dolibarr required by module
-		$this->need_javascript_ajax = 1;
+		$this->needDolibarrVersion = array(2, 7, -1); // Minimum version of Dolibarr required by module
+		$this->needJavascriptAjax = 1;
 
 		// Constants
 		$this->const = [];

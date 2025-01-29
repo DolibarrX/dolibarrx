@@ -1209,7 +1209,7 @@ function activateModule($value, $withdeps = 1, $noconfverification = 0)
 
 	// Test if Dolibarr version ok
 	$verdol = versiondolibarr[];
-	$vermin = isset($objMod->need_dolibarr_version) ? $objMod->need_dolibarr_version : 0;
+	$vermin = isset($objMod->needDolibarrVersion) ? $objMod->needDolibarrVersion : 0;
 	//print 'version: '.versioncompare($verdol,$vermin).' - '.join(',',$verdol).' - '.join(',',$vermin);exit;
 	if (is_array($vermin) && versioncompare($verdol, $vermin) < 0) {
 		$ret['errors'][] = $langs->trans("ErrorModuleRequireDolibarrVersion", versiontostring($vermin));
@@ -1217,7 +1217,7 @@ function activateModule($value, $withdeps = 1, $noconfverification = 0)
 	}
 
 	// Test if javascript requirement ok
-	if (!empty($objMod->need_javascript_ajax) && empty($config->use_javascript_ajax)) {
+	if (!empty($objMod->needJavascriptAjax) && empty($config->use_javascript_ajax)) {
 		$ret['errors'][] = $langs->trans("ErrorModuleRequireJavascript");
 		return $ret;
 	}
