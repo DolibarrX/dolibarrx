@@ -61,7 +61,7 @@ $result = restrictedArea($user, 'fournisseur', $id, 'order_fournisseur', 'order'
 $object = new OrderFournisseur($db);
 
 $usercancreate	= ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
-$permissiontoadd	= $usercancreate; // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd	= $usercancreate; // Used by the include of actions_addupdatedelete.inc.php
 
 /*
  * Actions

@@ -123,7 +123,7 @@ if ($id > 0 || !empty($ref)) {
 }
 
 // Define variables to determine what the current user can do on the members
-$permissiontoaddmember = $user->hasRight('member', 'creer');
+$permissionToAddmember = $user->hasRight('member', 'creer');
 
 // Security check
 $result = restrictedArea($user, 'member', $object->id, '', '', 'socid', 'rowid', 0);
@@ -177,7 +177,7 @@ if (empty($resHook) && $action == 'setuserid' && ($user->hasRight('user', 'self'
 	}
 }
 
-if (empty($resHook) && $action == 'setsocid' && $permissiontoaddmember) {
+if (empty($resHook) && $action == 'setsocid' && $permissionToAddmember) {
 	$error = 0;
 	if (GETPOSTINT('socid') != $object->socid) {    // If link differs from currently in database
 		$sql = "SELECT rowid FROM " . MAIN_DB_PREFIX . "member";

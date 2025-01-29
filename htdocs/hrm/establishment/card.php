@@ -63,7 +63,7 @@ $object = new Establishment($db);
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'
 
 $permissiontoread = $user->admin;
-$permissiontoadd = $user->admin; // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd = $user->admin; // Used by the include of actions_addupdatedelete.inc.php
 $permissiontodelete = $user->admin;
 
 $upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1];
@@ -93,7 +93,7 @@ if ($action == 'confirm_delete' && $confirm == "yes" && $permissiontodelete) {
 	} else {
 		setEventMessages($object->error, $object->errors, 'errors');
 	}
-} elseif ($action == 'add' && $permissiontoadd) {
+} elseif ($action == 'add' && $permissionToAdd) {
 	if (!$cancel) {
 		$error = 0;
 
@@ -128,7 +128,7 @@ if ($action == 'confirm_delete' && $confirm == "yes" && $permissiontodelete) {
 		header("Location: ../admin/admin_establishment.php");
 		exit;
 	}
-} elseif ($action == 'update' && $permissiontoadd) {
+} elseif ($action == 'update' && $permissionToAdd) {
 	// Update record
 	$error = 0;
 

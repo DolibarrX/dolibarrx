@@ -81,9 +81,9 @@ if ($id > 0) {
 }
 
 $upload_dir = $config->loan->dir_output.'/'.dol_sanitizeFileName($object->ref);
-$modulepart = 'loan';
+$modulePart = 'loan';
 
-$permissiontoadd = $user->hasRight('loan', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
+$permissionToAdd = $user->hasRight('loan', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
 $morehtmlright = '';
 
 /*
@@ -178,8 +178,8 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'loan';
-	$permissiontoadd = $user->hasRight('loan', 'write');
+	$modulePart = 'loan';
+	$permissionToAdd = $user->hasRight('loan', 'write');
 	$permtoedit = $user->hasRight('loan', 'write');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

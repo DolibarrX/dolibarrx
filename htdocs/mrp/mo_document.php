@@ -93,7 +93,7 @@ if ($id > 0 || !empty($ref)) {
 $isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
 $result = restrictedArea($user, 'mrp', $object->id, 'mrp_mo', '', 'fk_soc', 'rowid', $isdraft);
 
-$permissiontoadd = $user->hasRight('mrp', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
+$permissionToAdd = $user->hasRight('mrp', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
 
 
 /*
@@ -189,8 +189,8 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'mrp';
-	$permissiontoadd = $user->hasRight('mrp', 'write');
+	$modulePart = 'mrp';
+	$permissionToAdd = $user->hasRight('mrp', 'write');
 	$permtoedit = $user->hasRight('mrp', 'write');
 	$param = '&id='.$object->id;
 

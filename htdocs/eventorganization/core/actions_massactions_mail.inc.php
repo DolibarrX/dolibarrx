@@ -31,7 +31,7 @@
 // $objectclass and $objectlabel must be defined
 // $parameters, $object, $action must be defined for the hook.
 
-// $permissiontoread, $permissiontoadd, $permissiontodelete, $permissiontoclose may be defined
+// $permissiontoread, $permissionToAdd, $permissiontodelete, $permissiontoclose may be defined
 // $uploaddir may be defined (example to $config->project->dir_output."/";)
 // $toselect may be defined
 // $diroutputmassaction may be defined

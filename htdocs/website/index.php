@@ -364,7 +364,7 @@ if ($action == 'replacesite' || $mode == 'replacesite') {	// Test on permission 
 }
 
 $usercanedit = $user->hasRight('website', 'write');
-$permissiontoadd = $user->hasRight('website', 'write');	// Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
+$permissionToAdd = $user->hasRight('website', 'write');	// Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
 $permissiontodelete = $user->hasRight('website', 'delete');
 
 

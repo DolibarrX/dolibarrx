@@ -730,7 +730,7 @@ if (GETPOSTISSET('disablemodules')) {
 	$_SESSION["disablemodules"] = GETPOST('disablemodules', 'alpha');
 }
 if (!empty($_SESSION["disablemodules"])) {
-	$modulepartkeys = array('css', 'js', 'tabs', 'triggers', 'login', 'substitutions', 'menus', 'theme', 'sms', 'tpl', 'barcode', 'models', 'societe', 'hooks', 'dir', 'syslog', 'tpllinkable', 'contactelement', 'moduleforexternal', 'websitetemplates');
+	$modulePartkeys = array('css', 'js', 'tabs', 'triggers', 'login', 'substitutions', 'menus', 'theme', 'sms', 'tpl', 'barcode', 'models', 'societe', 'hooks', 'dir', 'syslog', 'tpllinkable', 'contactelement', 'moduleforexternal', 'websitetemplates');
 
 	$disabled_modules = explode(',', $_SESSION["disablemodules"]);
 	foreach ($disabled_modules as $module) {
@@ -739,8 +739,8 @@ if (!empty($_SESSION["disablemodules"])) {
 				$config->$module = new stdClass(); // To avoid warnings
 			}
 			$config->$module->enabled = false;
-			foreach ($modulepartkeys as $modulepartkey) {
-				unset($config->modules_parts[$modulepartkey][$module]);
+			foreach ($modulePartkeys as $modulePartkey) {
+				unset($config->modules_parts[$modulePartkey][$module]);
 			}
 			if ($module == 'fournisseur') {		// Special case
 				$config->supplier_order->enabled = 0;
@@ -751,17 +751,17 @@ if (!empty($_SESSION["disablemodules"])) {
 }
 
 // Set current modulepart
-$modulepart = explode("/", $_SERVER["PHP_SELF"]);
-if (is_array($modulepart) && count($modulepart) > 0) {
+$modulePart = explode("/", $_SERVER["PHP_SELF"]);
+if (is_array($modulePart) && count($modulePart) > 0) {
 	foreach ($config->modules as $module) {
-		if (in_array($module, $modulepart)) {
-			$modulepart = $module;
+		if (in_array($module, $modulePart)) {
+			$modulePart = $module;
 			break;
 		}
 	}
 }
-if (is_array($modulepart)) {
-	$modulepart = '';
+if (is_array($modulePart)) {
+	$modulePart = '';
 }
 
 

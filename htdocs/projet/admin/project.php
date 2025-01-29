@@ -53,7 +53,7 @@ if (!$user->admin) {
 }
 
 $action = GETPOST('action', 'aZ09');
-$modulepart = GETPOST('modulepart', 'aZ09');
+$modulePart = GETPOST('modulepart', 'aZ09');
 
 $value = GETPOST('value', 'alpha');
 $label = GETPOST('label', 'alpha');

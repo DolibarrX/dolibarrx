@@ -65,7 +65,7 @@ $result = restrictedArea($user, 'tax', '', '', 'charges');
 
 $object = new Localtax($db);
 
-$permissiontoadd = $user->hasRight('tax', 'charges', 'creer');
+$permissionToAdd = $user->hasRight('tax', 'charges', 'creer');
 $permissiontodelete = $user->hasRight('tax', 'charges', 'supprimer');
 
 
@@ -78,7 +78,7 @@ if ($cancel && !$id) {
 	exit;
 }
 
-if ($action == 'add' && !$cancel && $permissiontoadd) {
+if ($action == 'add' && !$cancel && $permissionToAdd) {
 	$db->begin();
 
 	$datev = dol_mktime(12, 0, 0, GETPOSTINT("datevmonth"), GETPOSTINT("datevday"), GETPOSTINT("datevyear"));

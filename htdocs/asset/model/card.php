@@ -83,10 +83,10 @@ if (empty($action) && empty($id) && empty($ref)) {
 include DOL_DOCUMENT_ROOT . '/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'.
 
 $permissiontoread = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'read')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'model_advance', 'read')));
-$permissiontoadd = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'write')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'model_advance', 'write'))); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'delete')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'model_advance', 'delete'))) || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
-$permissionnote = $permissiontoadd; // Used by the include of actions_setnotes.inc.php
-$permissiondellink = $permissiontoadd; // Used by the include of actions_dellink.inc.php
+$permissionToAdd = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'write')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'model_advance', 'write'))); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'delete')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'model_advance', 'delete'))) || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
+$permissionnote = $permissionToAdd; // Used by the include of actions_setnotes.inc.php
+$permissiondellink = $permissionToAdd; // Used by the include of actions_dellink.inc.php
 $upload_dir = $config->asset->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check (enable the most restrictive one)
@@ -147,10 +147,10 @@ if (empty($resHook)) {
 
 	$triggermodname = 'ASSETMODEL_MODIFY'; // Name of trigger action code to execute when we modify record
 
-	if (($action == 'edit' && !($permissiontoadd && $object->status == $object::STATUS_DRAFT)) ||
-		($action == 'confirm_setdraft' && !($permissiontoadd && $object->status != $object::STATUS_DRAFT)) ||
-		($action == 'confirm_validate' && !($permissiontoadd && $object->status != $object::STATUS_VALIDATED)) ||
-		($action == 'confirm_close' && !($permissiontoadd && $object->status != $object::STATUS_CANCELED))
+	if (($action == 'edit' && !($permissionToAdd && $object->status == $object::STATUS_DRAFT)) ||
+		($action == 'confirm_setdraft' && !($permissionToAdd && $object->status != $object::STATUS_DRAFT)) ||
+		($action == 'confirm_validate' && !($permissionToAdd && $object->status != $object::STATUS_VALIDATED)) ||
+		($action == 'confirm_close' && !($permissionToAdd && $object->status != $object::STATUS_CANCELED))
 	) {
 		$action = "";
 	}
@@ -424,27 +424,27 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 		if (empty($resHook)) {
 			if ($object->status == $object::STATUS_DRAFT) {
-				print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissiontoadd);
+				print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissionToAdd);
 			}
 
 			// Back to draft
 			if ($object->status != $object::STATUS_DRAFT) {
-				print dolGetButtonAction($langs->trans('SetToDraft'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=confirm_setdraft&confirm=yes&token=' . newToken(), '', $permissiontoadd);
+				print dolGetButtonAction($langs->trans('SetToDraft'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=confirm_setdraft&confirm=yes&token=' . newToken(), '', $permissionToAdd);
 			}
 
 			if ($object->status != $object::STATUS_VALIDATED) {
-				print dolGetButtonAction($langs->trans('Enable'), '', 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=confirm_validate&confirm=yes&token=' . newToken(), '', $permissiontoadd);
+				print dolGetButtonAction($langs->trans('Enable'), '', 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=confirm_validate&confirm=yes&token=' . newToken(), '', $permissionToAdd);
 			}
 
 			if ($object->status != $object::STATUS_CANCELED) {
-				print dolGetButtonAction($langs->trans('Disable'), '', 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_close&confirm=yes&token='.newToken(), '', $permissiontoadd);
+				print dolGetButtonAction($langs->trans('Disable'), '', 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_close&confirm=yes&token='.newToken(), '', $permissionToAdd);
 			}
 
 			// Clone
-			print dolGetButtonAction($langs->trans('ToClone'), '', 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . (!empty($socid) ? '&socid=' . $socid : '') . '&action=clone&token=' . newToken(), '', $permissiontoadd);
+			print dolGetButtonAction($langs->trans('ToClone'), '', 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . (!empty($socid) ? '&socid=' . $socid : '') . '&action=clone&token=' . newToken(), '', $permissionToAdd);
 
 			// Delete (need delete permission, or if draft, just need create/modify permission)
-			print dolGetButtonAction($langs->trans('Delete'), '', 'delete', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=delete&token=' . newToken(), '', $permissiontodelete || ($object->status == $object::STATUS_DRAFT && $permissiontoadd));
+			print dolGetButtonAction($langs->trans('Delete'), '', 'delete', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=delete&token=' . newToken(), '', $permissiontodelete || ($object->status == $object::STATUS_DRAFT && $permissionToAdd));
 		}
 		print '</div>' . "\n";
 	}

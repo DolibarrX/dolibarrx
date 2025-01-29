@@ -104,7 +104,7 @@ if (!$user->hasRight('accounting', 'mouvements', 'lire')) {
 	accessforbidden();
 }
 
-$permissiontoadd = $user->hasRight('accounting', 'mouvements', 'creer');
+$permissionToAdd = $user->hasRight('accounting', 'mouvements', 'creer');
 $permissiontodelete = $user->hasRight('accounting', 'mouvements', 'supprimer');
 
 
@@ -125,7 +125,7 @@ if (empty($resHook)) {
 		exit;
 	}
 
-	if ($action == "confirm_update" && $permissiontoadd) {
+	if ($action == "confirm_update" && $permissionToAdd) {
 		if (((float) $debit != 0.0) && ((float) $credit != 0.0)) {
 			$error++;
 			setEventMessages($langs->trans('ErrorDebitCredit'), null, 'errors');
@@ -179,7 +179,7 @@ if (empty($resHook)) {
 				}
 			}
 		}
-	} elseif ($action == "add" && $permissiontoadd) {
+	} elseif ($action == "add" && $permissionToAdd) {
 		if (((float) $debit != 0.0) && ((float) $credit != 0.0)) {
 			$error++;
 			setEventMessages($langs->trans('ErrorDebitCredit'), null, 'errors');
@@ -243,7 +243,7 @@ if (empty($resHook)) {
 				$action = '';
 			}
 		}
-	} elseif ($action == "confirm_delete" && $permissiontoadd) {	// Delete line
+	} elseif ($action == "confirm_delete" && $permissionToAdd) {	// Delete line
 		$object = new BookKeeping($db);
 
 		$result = $object->fetch($id, null, $mode);
@@ -259,7 +259,7 @@ if (empty($resHook)) {
 			}
 		}
 		$action = '';
-	} elseif ($action == "confirm_create" && $permissiontoadd) {
+	} elseif ($action == "confirm_create" && $permissionToAdd) {
 		$object = new BookKeeping($db);
 
 		if (!$journal_code || $journal_code == '-1') {
@@ -309,7 +309,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setdate' && $permissiontoadd) {
+	if ($action == 'setdate' && $permissionToAdd) {
 		$datedoc = dol_mktime(0, 0, 0, GETPOSTINT('doc_datemonth'), GETPOSTINT('doc_dateday'), GETPOSTINT('doc_dateyear'));
 		$result = $object->updateByMvt($piece_num, 'doc_date', $db->idate($datedoc), $mode);
 		if ($result < 0) {
@@ -322,7 +322,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setjournal' && $permissiontoadd) {
+	if ($action == 'setjournal' && $permissionToAdd) {
 		$result = $object->updateByMvt($piece_num, 'code_journal', $journal_code, $mode);
 		$result = $object->updateByMvt($piece_num, 'journal_label', $journal_label, $mode);
 		if ($result < 0) {
@@ -335,7 +335,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setdocref' && $permissiontoadd) {
+	if ($action == 'setdocref' && $permissionToAdd) {
 		$refdoc = GETPOST('doc_ref', 'alpha');
 		$result = $object->updateByMvt($piece_num, 'doc_ref', $refdoc, $mode);
 		if ($result < 0) {
@@ -349,7 +349,7 @@ if (empty($resHook)) {
 	}
 
 	// Validate transaction
-	if ($action == 'valid' && $permissiontoadd) {
+	if ($action == 'valid' && $permissionToAdd) {
 		$result = $object->transformTransaction(0, $piece_num);
 		if ($result < 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
@@ -556,7 +556,7 @@ if ($action == 'create') {
 		print '</td>';
 		if ($action != 'editdocref') {
 			print '<td class="right">';
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				print '<a class="editfielda reposition" href="'.$_SERVER["PHP_SELF"].'?action=editdocref&token='.newToken().'&piece_num='.((int) $object->piece_num).'&mode='.urlencode((string) $mode).'">'.img_edit($langs->transnoentitiesnoconv('Edit'), 1).'</a>';
 			}
 			print '</td>';
@@ -587,7 +587,7 @@ if ($action == 'create') {
 		print '</td>';
 		if ($action != 'editdate') {
 			print '<td class="right">';
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				print '<a class="editfielda reposition" href="'.$_SERVER["PHP_SELF"].'?action=editdate&token='.newToken().'&piece_num='.((int) $object->piece_num).'&mode='.urlencode((string) $mode).'">'.img_edit($langs->transnoentitiesnoconv('SetDate'), 1).'</a>';
 			}
 			print '</td>';
@@ -618,7 +618,7 @@ if ($action == 'create') {
 		print '</td>';
 		if ($action != 'editjournal') {
 			print '<td class="right">';
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				print '<a class="editfielda reposition" href="'.$_SERVER["PHP_SELF"].'?action=editjournal&token='.newToken().'&piece_num='.((int) $object->piece_num).'&mode='.urlencode((string) $mode).'">'.img_edit($langs->transnoentitiesnoconv('Edit'), 1).'</a>';
 			}
 			print '</td>';
@@ -872,7 +872,7 @@ if ($action == 'create') {
 						print '</td>';
 						print "</tr>\n";
 					} elseif (empty($line->number_compte) || (empty($line->debit) && empty($line->credit))) {
-						if (($action == "" || $action == 'add') && $permissiontoadd) {
+						if (($action == "" || $action == 'add') && $permissionToAdd) {
 							print '<tr class="oddeven" data-lineid="'.((int) $line->id).'">';
 							print '<!-- td columns in add mode -->';
 							print '<td>';
@@ -917,7 +917,7 @@ if ($action == 'create') {
 						print '<td class="right nowraponall amount">'.($line->credit != 0 ? price($line->credit) : '').'</td>';
 
 						print '<td class="center nowraponall">';
-						if ($permissiontoadd) {
+						if ($permissionToAdd) {
 							if (empty($line->date_export) && empty($line->date_validation)) {
 								print '<a class="editfielda reposition" href="' . $_SERVER["PHP_SELF"] . '?action=update&id=' . $line->id . '&piece_num=' . ((int) $line->piece_num) . '&mode=' . urlencode((string) $mode) . '&token=' . urlencode(newToken()) . '">';
 								print img_edit('', 0, 'class="marginrightonly"');
@@ -958,7 +958,7 @@ if ($action == 'create') {
 				print '</table>';
 				print '</div>';
 
-				if ($mode == '_tmp' && $action == '' && $permissiontoadd) {
+				if ($mode == '_tmp' && $action == '' && $permissionToAdd) {
 					print '<br>';
 					print '<div class="center">';
 					if (empty($total_debit) && empty($total_credit)) {

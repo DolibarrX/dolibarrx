@@ -79,9 +79,9 @@ if ($type == 'bank-transfer') {
 }
 
 if ($type == 'bank-transfer') {
-	$permissiontoadd = $user->hasRight('paymentbybanktransfer', 'create');
+	$permissionToAdd = $user->hasRight('paymentbybanktransfer', 'create');
 } else {
-	$permissiontoadd = $user->hasRight('prelevement', 'bons', 'creer');
+	$permissionToAdd = $user->hasRight('prelevement', 'bons', 'creer');
 }
 
 $error = 0;
@@ -91,7 +91,7 @@ $error = 0;
  * Actions
  */
 
-if ($action == 'confirm_rejet' && $permissiontoadd) {
+if ($action == 'confirm_rejet' && $permissionToAdd) {
 	if (GETPOST("confirm") == 'yes') {
 		$daterej = null;
 		if (GETPOSTINT('remonth')) {

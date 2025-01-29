@@ -158,7 +158,7 @@ include DOL_DOCUMENT_ROOT . '/core/actions_fetchobject.inc.php'; // Must be 'inc
 
 // Permissions
 $permissiontoread = $user->hasRight('hrm', 'all', 'read');
-$permissiontoadd = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('hrm', 'all', 'delete');
 $upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1] . '/position';
 
@@ -170,7 +170,7 @@ $upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->en
 if (!isModEnabled('hrm')) {
 	accessforbidden();
 }
-if (!$permissiontoread || ($action === 'create' && !$permissiontoadd)) {
+if (!$permissiontoread || ($action === 'create' && !$permissionToAdd)) {
 	accessforbidden();
 }
 
@@ -512,7 +512,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	print '<input type="hidden" name="contextpage" value="' . $contextpage . '">';
 
 	$newcardbutton = '';
-	$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', dol_buildpath('/hrm/position.php', 1).'?action=create&backtopage='.urlencode($_SERVER['PHP_SELF']).'&fk_job='.((int) $fk_job), '', $permissiontoadd);
+	$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', dol_buildpath('/hrm/position.php', 1).'?action=create&backtopage='.urlencode($_SERVER['PHP_SELF']).'&fk_job='.((int) $fk_job), '', $permissionToAdd);
 
 	print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'object_' . $object->picture, 0, $newcardbutton, '', $limit, 0, 0, 1);
 
@@ -771,7 +771,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 
 		$filedir = $diroutputmassaction;
 		$genallowed = $permissiontoread;
-		$delallowed = $permissiontoadd;
+		$delallowed = $permissionToAdd;
 
 		print $formfile->showdocuments('massfilesarea_hrm', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 	}

@@ -93,7 +93,7 @@ if ($id > 0 || !empty($ref)) {
 }
 
 $permissiontoread = $user->hasRight('bookcal', 'availabilities', 'read');
-$permissiontoadd = $user->hasRight('bookcal', 'availabilities', 'write');
+$permissionToAdd = $user->hasRight('bookcal', 'availabilities', 'write');
 
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
@@ -168,7 +168,7 @@ if ($object->id > 0) {
 	if (isModEnabled('project')) {
 		$langs->load("projects");
 		$morehtmlref.='<br>'.$langs->trans('Project') . ' ';
-		if ($permissiontoadd) {
+		if ($permissionToAdd) {
 			if ($action != 'classify') {
 				//$morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&token='.newToken().'&id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
 			}

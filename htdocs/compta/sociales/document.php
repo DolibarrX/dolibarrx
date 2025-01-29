@@ -81,7 +81,7 @@ if ($id > 0) {
 }
 
 $upload_dir = $config->tax->dir_output.'/'.dol_sanitizeFileName($object->ref);
-$modulepart = 'tax';
+$modulePart = 'tax';
 
 // Security check
 if ($user->socid) {
@@ -89,7 +89,7 @@ if ($user->socid) {
 }
 $result = restrictedArea($user, 'tax', $object->id, 'chargesociales', 'charges');
 
-$permissiontoadd = $user->hasRight('tax', 'charges', 'creer');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('tax', 'charges', 'creer');	// Used by the include of actions_dellink.inc.php
 
 
 /*
@@ -179,8 +179,8 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'tax';
-	$permissiontoadd = $user->hasRight('tax', 'charges', 'creer');
+	$modulePart = 'tax';
+	$permissionToAdd = $user->hasRight('tax', 'charges', 'creer');
 	$permtoedit = $user->hasRight('tax', 'charges', 'creer');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

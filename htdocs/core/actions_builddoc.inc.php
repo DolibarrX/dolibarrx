@@ -26,7 +26,7 @@
 // $action must be defined
 // $id must be defined
 // $object must be defined and must have a method generateDocument().
-// $permissiontoadd must be defined
+// $permissionToAdd must be defined
 // $upload_dir must be defined (example $config->project->dir_output . "/";)
 // $hidedetails, $hidedesc, $hideref and $moreparams may have been set or not.
 /**
@@ -37,18 +37,18 @@
  * @var int $id
  * @var CommonObject $object
  * @var ?int $permissiontocreate
- * @var int $permissiontoadd
+ * @var int $permissionToAdd
  * @var string $upload_dir
  * @var ?int $hidedetails
  * @var ?int $hidedesc
  * @var ?int $hideref
  */
-if (!empty($permissioncreate) && empty($permissiontoadd)) {
-	$permissiontoadd = $permissioncreate; // For backward compatibility
+if (!empty($permissioncreate) && empty($permissionToAdd)) {
+	$permissionToAdd = $permissioncreate; // For backward compatibility
 }
 
 // Build doc
-if ($action == 'builddoc' && ($permissiontoadd || !empty($usercangeneretedoc))) {
+if ($action == 'builddoc' && ($permissionToAdd || !empty($usercangeneretedoc))) {
 	if (is_numeric(GETPOST('model', 'alpha'))) {
 		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentities("Model")), null, 'errors');
 	} else {
@@ -126,7 +126,7 @@ if ($action == 'builddoc' && ($permissiontoadd || !empty($usercangeneretedoc))) 
 }
 
 // Delete file in doc form
-if ($action == 'remove_file' && $permissiontoadd) {
+if ($action == 'remove_file' && $permissionToAdd) {
 	if (!empty($upload_dir)) {
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 

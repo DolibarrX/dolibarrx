@@ -100,7 +100,7 @@ if ($object->id > 0) {
 }
 $permissionnote    = $permissiontocreate;   //  Used by the include of actions_setnotes.inc.php
 $permissiondellink = $permissiontocreate;   //  Used by the include of actions_dellink.inc.php
-$permissiontoadd   = $permissiontocreate;   //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd   = $permissiontocreate;   //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 
 // check access from type of site on create, edit, delete (other than view)
 $site_type_js = '';
@@ -210,7 +210,7 @@ if ($action == 'create' || $action == 'edit') {
 
 // Part to create
 if ($action == 'create') {
-	if (empty($permissiontoadd)) {
+	if (empty($permissionToAdd)) {
 		accessforbidden('NotEnoughPermissions', 0, 1);
 	}
 
@@ -416,8 +416,8 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			}
 
 			// Clone
-			if ($permissiontoadd) {
-				print dolGetButtonAction('', $langs->trans('ToClone'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.(!empty($object->socid) ? '&socid='.$object->socid : '').'&action=clone&token='.newToken(), '', $permissiontoadd);
+			if ($permissionToAdd) {
+				print dolGetButtonAction('', $langs->trans('ToClone'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.(!empty($object->socid) ? '&socid='.$object->socid : '').'&action=clone&token='.newToken(), '', $permissionToAdd);
 			}
 
 			// Delete

@@ -118,7 +118,7 @@ if ($id == '' && $ref == '' && ($action != "create" && $action != "add" && $acti
 	accessforbidden();
 }
 
-$permissiontoadd = $user->hasRight('projet', 'creer');
+$permissionToAdd = $user->hasRight('projet', 'creer');
 $permissiontodelete = $user->hasRight('projet', 'supprimer');
 $permissiondellink = $user->hasRight('projet', 'creer');	// Used by the include of actions_dellink.inc.php
 
@@ -174,7 +174,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_dellink.inc.php';		// Must be 'include', not 'include_once'
 
 	// Action setdraft object
-	if ($action == 'confirm_setdraft' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_setdraft' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->setStatut($object::STATUS_DRAFT, null, '', 'PROJECT_MODIFY');
 		if ($result >= 0) {
 			// Nothing else done
@@ -189,7 +189,7 @@ if (empty($resHook)) {
 	}
 
 	// Action add
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		$error = 0;
 		if (!GETPOST('ref')) {
 			setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentities("Ref")), null, 'errors');
@@ -302,7 +302,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'update' && empty(GETPOST('cancel')) && $permissiontoadd) {
+	if ($action == 'update' && empty(GETPOST('cancel')) && $permissionToAdd) {
 		if (empty($ref)) {
 			$error++;
 			setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentities("Ref")), null, 'errors');
@@ -452,7 +452,7 @@ if (empty($resHook)) {
 	}
 
 	// Build doc
-	if ($action == 'builddoc' && $permissiontoadd) {
+	if ($action == 'builddoc' && $permissionToAdd) {
 		// Save last template used to generate document
 		if (GETPOST('model')) {
 			$object->setDocModel($user, GETPOST('model', 'alpha'));
@@ -471,7 +471,7 @@ if (empty($resHook)) {
 	}
 
 	// Delete file in doc form
-	if ($action == 'remove_file' && $permissiontoadd) {
+	if ($action == 'remove_file' && $permissionToAdd) {
 		if ($object->id > 0) {
 			require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -489,21 +489,21 @@ if (empty($resHook)) {
 	}
 
 
-	if ($action == 'confirm_validate' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_validate' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->setValid($user);
 		if ($result <= 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
 	}
 
-	if ($action == 'confirm_close' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_close' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->setClose($user);
 		if ($result <= 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
 	}
 
-	if ($action == 'confirm_reopen' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_reopen' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->setValid($user);
 		if ($result <= 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
@@ -532,7 +532,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'confirm_clone' && $permissiontoadd && $confirm == 'yes') {
+	if ($action == 'confirm_clone' && $permissionToAdd && $confirm == 'yes') {
 		$clone_contacts = GETPOST('clone_contacts') ? 1 : 0;
 		$clone_tasks = GETPOST('clone_tasks') ? 1 : 0;
 		$clone_project_files = GETPOST('clone_project_files') ? 1 : 0;

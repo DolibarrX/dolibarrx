@@ -92,7 +92,7 @@ if ($id > 0 || !empty($ref)) {
 }
 
 $permissiontoread = $user->hasRight("propal", "lire");
-$permissiontoadd = $user->hasRight("propal", "creer");
+$permissionToAdd = $user->hasRight("propal", "creer");
 
 // Security check
 if (!empty($user->socid)) {

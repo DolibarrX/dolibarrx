@@ -305,7 +305,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_array_fields.tpl.php';
 
 // Permissions
 $permissiontoread = $user->hasRight('propal', 'lire');
-$permissiontoadd = $user->hasRight('propal', 'creer');
+$permissionToAdd = $user->hasRight('propal', 'creer');
 $permissiontodelete = $user->hasRight('propal', 'supprimer');
 if (getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) {
 	$permissiontovalidate = $user->hasRight('propal', 'propal_advance', 'validate');
@@ -2477,7 +2477,7 @@ if (in_array('builddoc', array_keys($arrayofmassactions)) && ($nbtotalofrecords 
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_proposals', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }

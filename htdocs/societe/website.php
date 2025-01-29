@@ -145,7 +145,7 @@ if ($user->socid) {
 $result = restrictedArea($user, 'societe', $object->id, '&societe');
 
 $permissiontoread = $user->hasRight('societe', 'lire');
-$permissiontoadd = $user->hasRight('societe', 'create');
+$permissionToAdd = $user->hasRight('societe', 'create');
 $permissiontodelete = $user->hasRight('societe', 'supprimer');
 
 
@@ -782,7 +782,7 @@ if (in_array('builddoc', array_keys($arrayofmassactions)) && ($nbtotalofrecords 
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_mymodule', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }

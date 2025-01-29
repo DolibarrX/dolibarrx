@@ -155,7 +155,7 @@ $arrayfields = dol_sort_array($arrayfields, 'position');
 
 // Permissions
 $permissiontoread = $user->hasRight('eventorganization', 'read');
-$permissiontoadd = $user->hasRight('eventorganization', 'write');
+$permissionToAdd = $user->hasRight('eventorganization', 'write');
 $permissiontodelete = $user->hasRight('eventorganization', 'delete');
 
 // Security check
@@ -588,9 +588,9 @@ if ($projectstatic->id > 0 || $confOrBooth > 0) {
 		print "</td></tr>";
 
 		print '<tr><td class="titlefield">';
-		print $form->editfieldkey($form->textWithPicture($langs->trans('MaxNbOfAttendees'), ''), 'max_attendees', '', $projectstatic, $permissiontoadd, 'integer:3', '&withproject=1', 0, 0, 'projectid');
+		print $form->editfieldkey($form->textWithPicture($langs->trans('MaxNbOfAttendees'), ''), 'max_attendees', '', $projectstatic, $permissionToAdd, 'integer:3', '&withproject=1', 0, 0, 'projectid');
 		print '</td><td class="valuefield">';
-		print $form->editfieldval($form->textWithPicture($langs->trans('MaxNbOfAttendees'), ''), 'max_attendees', $projectstatic->max_attendees, $projectstatic, $permissiontoadd, 'integer:3', '', null, 0, '&withproject=1', 0, '', 'projectid');
+		print $form->editfieldval($form->textWithPicture($langs->trans('MaxNbOfAttendees'), ''), 'max_attendees', $projectstatic->max_attendees, $projectstatic, $permissionToAdd, 'integer:3', '', null, 0, '&withproject=1', 0, '', 'projectid');
 		print "</td></tr>";
 
 			// Link to ICS for the event
@@ -779,7 +779,7 @@ $params = array('morecss' => 'reposition');
 $urlnew = DOL_URL_ROOT.'/eventorganization/conferenceorboothattendee_card.php?action=create'.(!empty($confOrBooth->id) ? '&conforboothid='.$confOrBooth->id : '').(!empty($projectstatic->id) ? '&fk_project='.$projectstatic->id : '').$withProjectUrl.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?projectid='.$projectstatic->id.(empty($confOrBooth->id) ? '' : '&conforboothid='.$confOrBooth->id).$withProjectUrl);
 
 $newcardbutton = '';
-$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', $urlnew, '', $permissiontoadd, $params);
+$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', $urlnew, '', $permissionToAdd, $params);
 
 print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, $object->picture, 0, $newcardbutton, '', $limit, 0, 0, 1);
 
@@ -1122,7 +1122,7 @@ if (in_array('builddoc', array_keys($arrayofmassactions)) && ($nbtotalofrecords 
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_eventorganization', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }

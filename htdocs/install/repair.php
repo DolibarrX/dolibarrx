@@ -827,25 +827,25 @@ if ($ok && GETPOST('clean_menus', 'alpha')) {
 // clean_orphelin_dir: Run purge of directory
 if ($ok && GETPOST('clean_orphelin_dir', 'alpha')) {
 	$listmodulepart = array('company', 'invoice', 'invoice_supplier', 'propal', 'order', 'order_supplier', 'contract', 'tax');
-	foreach ($listmodulepart as $modulepart) {
+	foreach ($listmodulepart as $modulePart) {
 		$filearray = [];
-		$upload_dir = isset($config->$modulepart->dir_output) ? $config->$modulepart->dir_output : '';
-		if ($modulepart == 'company') {
+		$upload_dir = isset($config->$modulePart->dir_output) ? $config->$modulePart->dir_output : '';
+		if ($modulePart == 'company') {
 			$upload_dir = $config->societe->dir_output; // TODO change for multicompany sharing
 		}
-		if ($modulepart == 'invoice') {
+		if ($modulePart == 'invoice') {
 			$upload_dir = $config->facture->dir_output;
 		}
-		if ($modulepart == 'invoice_supplier') {
+		if ($modulePart == 'invoice_supplier') {
 			$upload_dir = $config->fournisseur->facture->dir_output;
 		}
-		if ($modulepart == 'order') {
+		if ($modulePart == 'order') {
 			$upload_dir = $config->order->dir_output;
 		}
-		if ($modulepart == 'order_supplier') {
+		if ($modulePart == 'order_supplier') {
 			$upload_dir = $config->fournisseur->order->dir_output;
 		}
-		if ($modulepart == 'contract') {
+		if ($modulePart == 'contract') {
 			$upload_dir = $config->contrat->dir_output;
 		}
 
@@ -858,29 +858,29 @@ if ($ok && GETPOST('clean_orphelin_dir', 'alpha')) {
 		$filearray = dol_dir_list($upload_dir, "files", 1, '', array('^SPECIMEN\.pdf$', '^\.', '(\.meta|_preview.*\.png)$', '^temp$', '^payments$', '^CVS$', '^thumbs$'), '', SORT_DESC, 1, 1);
 
 		// To show ref or specific information according to view to show (defined by $module)
-		if ($modulepart == 'company') {
+		if ($modulePart == 'company') {
 			include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 			$object_instance = new Societe($db);
 		}
-		if ($modulepart == 'invoice') {
+		if ($modulePart == 'invoice') {
 			include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 			$object_instance = new Facture($db);
-		} elseif ($modulepart == 'invoice_supplier') {
+		} elseif ($modulePart == 'invoice_supplier') {
 			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 			$object_instance = new FactureFournisseur($db);
-		} elseif ($modulepart == 'propal') {
+		} elseif ($modulePart == 'propal') {
 			include_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 			$object_instance = new Propal($db);
-		} elseif ($modulepart == 'order') {
+		} elseif ($modulePart == 'order') {
 			include_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 			$object_instance = new Order($db);
-		} elseif ($modulepart == 'order_supplier') {
+		} elseif ($modulePart == 'order_supplier') {
 			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 			$object_instance = new OrderFournisseur($db);
-		} elseif ($modulepart == 'contract') {
+		} elseif ($modulePart == 'contract') {
 			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 			$object_instance = new Contrat($db);
-		} elseif ($modulepart == 'tax') {
+		} elseif ($modulePart == 'tax') {
 			include_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
 			$object_instance = new ChargeSociales($db);
 		}
@@ -902,31 +902,31 @@ if ($ok && GETPOST('clean_orphelin_dir', 'alpha')) {
 				$label = '';
 
 				// To show ref or specific information according to view to show (defined by $module)
-				if ($modulepart == 'invoice') {
+				if ($modulePart == 'invoice') {
 					preg_match('/(.*)\/[^\/]+$/', $relativefile, $reg);
 					$ref = $reg[1];
 				}
-				if ($modulepart == 'invoice_supplier') {
+				if ($modulePart == 'invoice_supplier') {
 					preg_match('/(\d+)\/[^\/]+$/', $relativefile, $reg);
 					$id = empty($reg[1]) ? '' : $reg[1];
 				}
-				if ($modulepart == 'propal') {
+				if ($modulePart == 'propal') {
 					preg_match('/(.*)\/[^\/]+$/', $relativefile, $reg);
 					$ref = $reg[1];
 				}
-				if ($modulepart == 'order') {
+				if ($modulePart == 'order') {
 					preg_match('/(.*)\/[^\/]+$/', $relativefile, $reg);
 					$ref = $reg[1];
 				}
-				if ($modulepart == 'order_supplier') {
+				if ($modulePart == 'order_supplier') {
 					preg_match('/(.*)\/[^\/]+$/', $relativefile, $reg);
 					$ref = $reg[1];
 				}
-				if ($modulepart == 'contract') {
+				if ($modulePart == 'contract') {
 					preg_match('/(.*)\/[^\/]+$/', $relativefile, $reg);
 					$ref = $reg[1];
 				}
-				if ($modulepart == 'tax') {
+				if ($modulePart == 'tax') {
 					preg_match('/(\d+)\/[^\/]+$/', $relativefile, $reg);
 					$id = $reg[1];
 				}

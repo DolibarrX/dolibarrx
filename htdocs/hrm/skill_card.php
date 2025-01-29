@@ -89,7 +89,7 @@ include DOL_DOCUMENT_ROOT . '/core/actions_fetchobject.inc.php'; // Must be 'inc
 
 // Permissions
 $permissiontoread   = $user->hasRight('hrm', 'all', 'read');
-$permissiontoadd    = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd    = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('hrm', 'all', 'delete');
 
 $upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1] . '/skill';
@@ -102,7 +102,7 @@ $upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->en
 if (empty($config->hrm->enabled)) {
 	accessforbidden();
 }
-if (!$permissiontoread || ($action === 'create' && !$permissiontoadd)) {
+if (!$permissiontoread || ($action === 'create' && !$permissionToAdd)) {
 	accessforbidden();
 }
 
@@ -140,7 +140,7 @@ if (empty($resHook)) {
 	$skilldetArray = GETPOST("descriptionline", "array:alphanohtml");
 	if (!$error) {
 		if (is_array($skilldetArray) && count($skilldetArray) > 0) {
-			if ($action == 'update' && $permissiontoadd) {
+			if ($action == 'update' && $permissionToAdd) {
 				foreach ($skilldetArray as $key => $SkValueToUpdate) {
 					$skilldetObj = new Skilldet($object->db);
 					$res = $skilldetObj->fetch($key);
@@ -167,7 +167,7 @@ if (empty($resHook)) {
 
 	if (!$error) {
 		if (is_array($skilldetArray) && count($skilldetArray) > 0) {
-			if ($action == 'add' && $permissiontoadd) {
+			if ($action == 'add' && $permissionToAdd) {
 				$arraySkill = $object->fetchLines();
 				'@phan-var-force Skilldet[] $arraySkill';
 				$index = 0;
@@ -205,10 +205,10 @@ if (empty($resHook)) {
 	// Action to build doc
 	include DOL_DOCUMENT_ROOT . '/core/actions_builddoc.inc.php';
 
-	if ($action == 'set_thirdparty' && $permissiontoadd) {
+	if ($action == 'set_thirdparty' && $permissionToAdd) {
 		$object->setValueFrom('fk_soc', GETPOSTINT('fk_soc'), '', null, 'date', '', $user, $triggermodname);
 	}
-	if ($action == 'classin' && $permissiontoadd) {
+	if ($action == 'classin' && $permissionToAdd) {
 		$object->setProject(GETPOSTINT('projectid'));
 	}
 
@@ -222,7 +222,7 @@ if (empty($resHook)) {
 		$action = '';
 	}
 
-	if ($action == 'confirm_clone' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_clone' && $confirm == 'yes' && $permissionToAdd) {
 		$id = $result->id;
 		header("Location: ".$_SERVER["PHP_SELF"]."?id=".$id);
 		exit;
@@ -521,13 +521,13 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if (empty($resHook)) {
 			// Back to draft
 			if ($object->status == $object::STATUS_VALIDATED) {
-				print dolGetButtonAction($langs->trans('SetToDraft'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=confirm_setdraft&confirm=yes&token=' . newToken(), '', $permissiontoadd);
+				print dolGetButtonAction($langs->trans('SetToDraft'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=confirm_setdraft&confirm=yes&token=' . newToken(), '', $permissionToAdd);
 			}
 
-			print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissiontoadd);
+			print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissionToAdd);
 
 			// Clone
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				print dolGetButtonAction('', $langs->trans('ToClone'), 'default', $_SERVER["PHP_SELF"].'?action=clone&token='.newToken().'&id='.$object->id, '');
 			}
 			// Delete (need delete permission, or if draft, just need create/modify permission)
@@ -679,7 +679,7 @@ if ($action != "create" && $action != "edit") {
 	$backtopage = dol_buildpath('/hrm/skill_card.php', 1) . '?id=' . $id;
 	$param = "";
 	$massactionbutton = "";
-	//$newcardbutton = dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', dol_buildpath('/hrm/skilldet_card.php', 1) . '?action=create&backtopage=' . urlencode($_SERVER['PHP_SELF']) . $param_fk . '&backtopage=' . $backtopage, '', $permissiontoadd);
+	//$newcardbutton = dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', dol_buildpath('/hrm/skilldet_card.php', 1) . '?action=create&backtopage=' . urlencode($_SERVER['PHP_SELF']) . $param_fk . '&backtopage=' . $backtopage, '', $permissionToAdd);
 
 	print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'object_' . $object->picture, 0, '', '', 0, 0, 0, 1);
 
@@ -893,7 +893,7 @@ if ($action != "create" && $action != "edit") {
 	//
 	//      $filedir = $diroutputmassaction;
 	//      $genallowed = $permissiontoread;
-	//      $delallowed = $permissiontoadd;
+	//      $delallowed = $permissionToAdd;
 	//
 	//      print $formfile->showdocuments('massfilesarea_hrm', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 	//  }

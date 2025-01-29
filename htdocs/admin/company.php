@@ -542,24 +542,24 @@ $tooltiplogo .= ($maxmin > 0) ? '<br>'.$langs->trans('MaxSize').' : '.$maxmin.' 
 // Logo
 print '<tr class="oddeven"><td><label for="logo">'.$form->textWithPicture($langs->trans("Logo"), $tooltiplogo).'</label></td><td>';
 
-$modulepart = 'mycompany';
+$modulePart = 'mycompany';
 $dirformainimage = $config->mycompany->dir_output;
 $subdirformainimage = 'logos/';
 $fileformainimage = $mysoc->logo;
 
-print $formfile->showImageToEdit('logo', $modulepart, $dirformainimage, $subdirformainimage, $fileformainimage);
+print $formfile->showImageToEdit('logo', $modulePart, $dirformainimage, $subdirformainimage, $fileformainimage);
 
 print '</td></tr>';
 
 // Logo (squarred)
 print '<tr class="oddeven"><td><label for="logo_squarred">'.$form->textWithPicture($langs->trans("LogoSquarred"), $tooltiplogo).'</label></td><td>';
 
-$modulepart = 'mycompany';
+$modulePart = 'mycompany';
 $dirformainimage = $config->mycompany->dir_output;
 $subdirformainimage = 'logos/';
 $fileformainimage = $mysoc->logo_squarred;
 
-print $formfile->showImageToEdit('logo_squarred', $modulepart, $dirformainimage, $subdirformainimage, $fileformainimage);
+print $formfile->showImageToEdit('logo_squarred', $modulePart, $dirformainimage, $subdirformainimage, $fileformainimage);
 
 print '</td></tr>';
 

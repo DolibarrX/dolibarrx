@@ -95,8 +95,8 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 
 // Permissions
 $permissiontoread = $user->hasRight('workstation', 'workstation', 'read');
-$permissiontoadd = $user->hasRight('workstation', 'workstation', 'write');      // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->hasRight('workstation', 'workstation', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DISABLED);
+$permissionToAdd = $user->hasRight('workstation', 'workstation', 'write');      // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->hasRight('workstation', 'workstation', 'delete') || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_DISABLED);
 $permissionnote = $user->hasRight('workstation', 'workstation', 'write');      // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('workstation', 'workstation', 'write');      // Used by the include of actions_dellink.inc.php
 
@@ -149,11 +149,11 @@ if (empty($resHook)) {
 	// Action to build doc
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
-	if ($action == 'confirm_enable' && $confirm == "yes" && $permissiontoadd) {
+	if ($action == 'confirm_enable' && $confirm == "yes" && $permissionToAdd) {
 		if (!empty($object->id)) {
 			$object->setStatus(1);
 		}
-	} elseif ($action == 'confirm_disable' && $confirm == "yes" && $permissiontoadd) {
+	} elseif ($action == 'confirm_disable' && $confirm == "yes" && $permissionToAdd) {
 		if (!empty($object->id)) {
 			$object->setStatus(0);
 		}
@@ -207,7 +207,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-workstation page-wor
 
 // Part to create
 if ($action == 'create') {
-	if (empty($permissiontoadd)) {
+	if (empty($permissionToAdd)) {
 		accessforbidden('NotEnoughPermissions', 0, 1);
 	}
 
@@ -372,7 +372,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if (isModEnabled('project')) {
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
@@ -468,19 +468,19 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 		if (empty($resHook)) {
 			// Modify
-			print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=edit&token='.newToken(), '', $permissiontoadd);
+			print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=edit&token='.newToken(), '', $permissionToAdd);
 
 			// Clone
-			if ($permissiontoadd) {
-				print dolGetButtonAction('', $langs->trans('ToClone'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.(!empty($object->socid) ? '&socid='.$object->socid : '').'&action=clone&token='.newToken(), '', $permissiontoadd);
+			if ($permissionToAdd) {
+				print dolGetButtonAction('', $langs->trans('ToClone'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.(!empty($object->socid) ? '&socid='.$object->socid : '').'&action=clone&token='.newToken(), '', $permissionToAdd);
 			}
 
 			// Disable / Enable
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				if ($object->status == $object::STATUS_ENABLED) {
-					print dolGetButtonAction('', $langs->trans('Disable'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=disable&token='.newToken(), '', $permissiontoadd);
+					print dolGetButtonAction('', $langs->trans('Disable'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=disable&token='.newToken(), '', $permissionToAdd);
 				} else {
-					print dolGetButtonAction('', $langs->trans('Enable'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=enable&token='.newToken(), '', $permissiontoadd);
+					print dolGetButtonAction('', $langs->trans('Enable'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=enable&token='.newToken(), '', $permissionToAdd);
 				}
 			}
 

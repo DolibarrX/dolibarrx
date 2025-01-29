@@ -85,7 +85,7 @@ if ($id > 0 || !empty($ref)) {
 	$upload_dir = $config->don->multidir_output[$object->entity ? $object->entity : $config->entity]."/".get_exdir(0, 0, 0, 1, $object);
 }
 
-$modulepart = 'don';
+$modulePart = 'don';
 
 // Security check
 if ($user->socid) {
@@ -93,7 +93,7 @@ if ($user->socid) {
 }
 $result = restrictedArea($user, 'don', $object->id);
 
-$permissiontoadd = $user->hasRight('don', 'creer');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('don', 'creer');	// Used by the include of actions_dellink.inc.php
 
 
 /*
@@ -203,8 +203,8 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'don';
-	$permissiontoadd = $user->hasRight('don', 'creer');
+	$modulePart = 'don';
+	$permissionToAdd = $user->hasRight('don', 'creer');
 	$permtoedit = $user->hasRight('don', 'creer');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

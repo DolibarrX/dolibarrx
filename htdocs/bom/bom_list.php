@@ -134,7 +134,7 @@ $object->fields = dol_sort_array($object->fields, 'position');
 $arrayfields = dol_sort_array($arrayfields, 'position');
 
 $permissiontoread = $user->hasRight('bom', 'read');
-$permissiontoadd = $user->hasRight('bom', 'write');
+$permissionToAdd = $user->hasRight('bom', 'write');
 $permissiontodelete = $user->hasRight('bom', 'delete');
 
 // Security check
@@ -195,7 +195,7 @@ if (empty($resHook)) {
 
 
 	// Validate records
-	if ($massaction == 'disable' && $permissiontoadd) {
+	if ($massaction == 'disable' && $permissionToAdd) {
 		$objecttmp = new $objectclass($db);
 
 		if (!$error) {
@@ -239,7 +239,7 @@ if (empty($resHook)) {
 	}
 
 	// Validate records
-	if (!$error && $massaction == 'enable' && $permissiontoadd) {
+	if (!$error && $massaction == 'enable' && $permissionToAdd) {
 		$objecttmp = new $objectclass($db);
 
 		if (!$error) {
@@ -860,7 +860,7 @@ if (in_array('builddoc', array_keys($arrayofmassactions)) && ($nbtotalofrecords 
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_bom', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }

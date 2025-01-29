@@ -64,17 +64,17 @@ $confirm = GETPOST('confirm', 'alpha');
 
 $chartofaccounts = GETPOSTINT('chartofaccounts');
 
-$permissiontoadd = $user->hasRight('accounting', 'chartofaccount');
+$permissionToAdd = $user->hasRight('accounting', 'chartofaccount');
 $permissiontodelete = $user->hasRight('accounting', 'chartofaccount');
 
 // Security check
 if ($user->socid > 0) {
 	accessforbidden();
 }
-if (!$permissiontoadd) {
+if (!$permissionToAdd) {
 	accessforbidden();
 }
-// now $permissiontoadd or $user->hasRight('accounting', 'chartofaccount') are always equal to 1
+// now $permissionToAdd or $user->hasRight('accounting', 'chartofaccount') are always equal to 1
 
 // Load variable for pagination
 $limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
@@ -130,7 +130,7 @@ if (!GETPOST('confirmmassaction', 'alpha')) {
 	$massaction = '';
 }
 
-$parameters = array('chartofaccounts' => $chartofaccounts, 'permissiontoadd' => $permissiontoadd, 'permissiontodelete' => $permissiontodelete);
+$parameters = array('chartofaccounts' => $chartofaccounts, 'permissiontoadd' => $permissionToAdd, 'permissiontodelete' => $permissiontodelete);
 $resHook = $hookManager->executeHooks('doActions', $parameters, $accounting, $action); // Note that $action and $object may have been monowraponalldified by some hooks
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -163,7 +163,7 @@ if (empty($resHook)) {
 		|| (GETPOSTINT('chartofaccounts') > 0 && GETPOSTINT('chartofaccounts') != getDolGlobalInt('CHARTOFACCOUNTS'))) {	// a submit of form is done and chartofaccounts combo has been modified
 		$error = 0;
 
-		if ($chartofaccounts > 0 /* && $permissiontoadd */) {
+		if ($chartofaccounts > 0 /* && $permissionToAdd */) {
 			$country_code = '';
 			// Get language code for this $chartofaccounts
 			$sql = 'SELECT code FROM '.MAIN_DB_PREFIX.'c_country as c, '.MAIN_DB_PREFIX.'accounting_system as a';
@@ -210,7 +210,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'disable' /* && $permissiontoadd */) {
+	if ($action == 'disable' /* && $permissionToAdd */) {
 		if ($accounting->fetch($id)) {
 			$mode = GETPOSTINT('mode');
 			$result = $accounting->accountDeactivate($id, $mode);
@@ -220,7 +220,7 @@ if (empty($resHook)) {
 		}
 
 		$action = 'update';
-	} elseif ($action == 'enable' /* && $permissiontoadd */) {
+	} elseif ($action == 'enable' /* && $permissionToAdd */) {
 		if ($accounting->fetch($id)) {
 			$mode = GETPOSTINT('mode');
 			$result = $accounting->accountActivate($id, $mode);
@@ -400,7 +400,7 @@ if ($resql) {
 
 	// List of mass actions available
 	$arrayofmassactions = [];
-	// if ($permissiontoadd) { // test is always true
+	// if ($permissionToAdd) { // test is always true
 	$arrayofmassactions['predelete'] = '<span class="fa fa-trash paddingrightonly"></span>'.$langs->trans("Delete");
 	// }
 	if (in_array($massaction, array('presend', 'predelete', 'closed'))) {
@@ -410,7 +410,7 @@ if ($resql) {
 	$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
 	$newcardbutton = '';
-	$newcardbutton = dolGetButtonTitle($langs->trans('Addanaccount'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/accountancy/admin/card.php?action=create', '', $permissiontoadd);
+	$newcardbutton = dolGetButtonTitle($langs->trans('Addanaccount'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/accountancy/admin/card.php?action=create', '', $permissionToAdd);
 
 
 	print '<form method="POST" id="searchFormList" action="'.$_SERVER["PHP_SELF"].'">';
@@ -462,7 +462,7 @@ if ($resql) {
 
 	print '<br>';
 
-	$parameters = array('chartofaccounts' => $chartofaccounts, 'permissiontoadd' => $permissiontoadd, 'permissiontodelete' => $permissiontodelete);
+	$parameters = array('chartofaccounts' => $chartofaccounts, 'permissiontoadd' => $permissionToAdd, 'permissiontodelete' => $permissiontodelete);
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $accounting, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
@@ -630,7 +630,7 @@ if ($resql) {
 		// Action column
 		if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 			print '<td class="center nowraponall">';
-			// if ($permissiontoadd) { // test is always true
+			// if ($permissionToAdd) { // test is always true
 				print '<a class="editfielda" href="./card.php?action=update&token='.newToken().'&id='.$obj->rowid.'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?'.$param).'">';
 				print img_edit();
 				print '</a>';
@@ -786,7 +786,7 @@ if ($resql) {
 		// Action column
 		if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 			print '<td class="center nowraponall">';
-			// if ($permissiontoadd) { // test is always true
+			// if ($permissionToAdd) { // test is always true
 				print '<a class="editfielda" href="./card.php?action=update&token='.newToken().'&id='.$obj->rowid.'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?'.$param).'">';
 				print img_edit();
 				print '</a>';

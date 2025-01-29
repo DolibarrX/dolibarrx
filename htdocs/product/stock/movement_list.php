@@ -185,7 +185,7 @@ if (!$user->hasRight('stock', 'mouvement', 'lire')) {
 $uploaddir = $config->stock->dir_output.'/movements';
 
 $permissiontoread = $user->hasRight('stock', 'mouvement', 'lire');
-$permissiontoadd = $user->hasRight('stock', 'mouvement', 'creer');
+$permissionToAdd = $user->hasRight('stock', 'mouvement', 'creer');
 $permissiontodelete = $user->hasRight('stock', 'mouvement', 'creer'); // There is no deletion permission for stock movement as we should never delete
 
 $usercanread = $user->hasRight('stock', 'mouvement', 'lire');
@@ -332,7 +332,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
-if ($action == 'update_extras' && $permissiontoadd) {
+if ($action == 'update_extras' && $permissionToAdd) {
 	$tmpwarehouse->oldcopy = dol_clone($tmpwarehouse, 2);  // @phan-suppress-current-line PhanTypeMismatchProperty
 
 	// Fill array 'array_options' with data from update form
@@ -360,7 +360,7 @@ $price = '0';
 $entrepot = 0;
 
 // Correct stock
-if ($action == "correct_stock" && $permissiontoadd) {
+if ($action == "correct_stock" && $permissionToAdd) {
 	$product = new Product($db);
 	if (!empty($product_id)) {
 		$result = $product->fetch($product_id);
@@ -444,7 +444,7 @@ if ($action == "correct_stock" && $permissiontoadd) {
 }
 
 // Transfer stock from a warehouse to another warehouse
-if ($action == "transfert_stock" && $permissiontoadd && !$cancel) {
+if ($action == "transfert_stock" && $permissionToAdd && !$cancel) {
 	$error = 0;
 	$product = new Product($db);
 	if (!empty($product_id)) {
@@ -612,7 +612,7 @@ if ($action == "transfert_stock" && $permissiontoadd && !$cancel) {
 }
 
 // reverse movement of stock
-if ($action == 'confirm_reverse' && $confirm == "yes" && $permissiontoadd) {
+if ($action == 'confirm_reverse' && $confirm == "yes" && $permissionToAdd) {
 	$toselect = array_map('intval', $toselect);
 
 	$sql = "SELECT rowid, label, inventorycode, datem";
@@ -1099,7 +1099,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 if (getDolGlobalString('STOCK_ALLOW_DELETE_OF_MOVEMENT') && $permissiontodelete) {
 	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
-if (!empty($permissiontoadd)) {
+if (!empty($permissionToAdd)) {
 	$arrayofmassactions['prereverse'] = img_picture('', 'add', 'class="picturefixedwidth"').$langs->trans("Reverse");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete', 'prereverse'))) {
@@ -1724,7 +1724,7 @@ if (in_array('builddoc', array_keys($arrayofmassactions)) && ($nbtotalofrecords 
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_stock', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }

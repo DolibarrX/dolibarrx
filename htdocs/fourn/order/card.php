@@ -174,7 +174,7 @@ if (!isModEnabled('reception')) {
 $permissionnote		= $usercancreate; // Used by the include of actions_setnotes.inc.php
 $permissiondellink	= $usercancreate; // Used by the include of actions_dellink.inc.php
 $permissiontoedit	= $usercancreate; // Used by the include of actions_lineupdown.inc.php
-$permissiontoadd	= $usercancreate; // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd	= $usercancreate; // Used by the include of actions_addupdatedelete.inc.php
 
 // Project permission
 $caneditproject = false;
@@ -354,7 +354,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'reopen' && $permissiontoadd) {	// no test on permission here, permission to use will depends on status
+	if ($action == 'reopen' && $permissionToAdd) {	// no test on permission here, permission to use will depends on status
 		if (in_array($object->statut, array(1, 2, 3, 4, 5, 6, 7, 9))) {
 			if ($object->statut == 1) {
 				$newstatus = 0; // Validated->Draft
@@ -1288,7 +1288,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 
-	if ($action == 'update_extras' && $permissiontoadd) {
+	if ($action == 'update_extras' && $permissionToAdd) {
 		$object->oldcopy = dol_clone($object, 2);
 
 		// Fill array 'array_options' with data from add form
@@ -1316,7 +1316,7 @@ if (empty($resHook)) {
 	/*
 	 * Create an order
 	 */
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		$error = 0;
 		$selectedLines = GETPOST('toselect', 'array');
 		if ($socid < 1) {
@@ -1550,7 +1550,7 @@ if (empty($resHook)) {
 	}
 
 	if (getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
-		if ($action == 'addcontact' && $permissiontoadd) {
+		if ($action == 'addcontact' && $permissionToAdd) {
 			if ($object->id > 0) {
 				$contactid = (GETPOST('userid') ? GETPOST('userid') : GETPOST('contactid'));
 				$typeid = (GETPOST('typecontact') ? GETPOST('typecontact') : GETPOST('type'));
@@ -1568,10 +1568,10 @@ if (empty($resHook)) {
 					setEventMessages($object->error, $object->errors, 'errors');
 				}
 			}
-		} elseif ($action == 'swapstatut' && $object->id > 0 && $permissiontoadd) {
+		} elseif ($action == 'swapstatut' && $object->id > 0 && $permissionToAdd) {
 			// bascule du statut d'un contact
 			$result = $object->swapContactStatus(GETPOSTINT('ligne'));
-		} elseif ($action == 'deletecontact' && $object->id > 0 && $permissiontoadd) {
+		} elseif ($action == 'deletecontact' && $object->id > 0 && $permissionToAdd) {
 			// Efface un contact
 			$result = $object->delete_contact(GETPOSTINT("lineid"));
 
@@ -2177,7 +2177,7 @@ if ($action == 'create') {
 	if (isModEnabled('project')) {
 		$langs->load("projects");
 		$morehtmlref .= '<br>';
-		if ($permissiontoadd) {
+		if ($permissionToAdd) {
 			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify' && $caneditproject) {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
@@ -2262,7 +2262,7 @@ if ($action == 'create') {
 		print '<table class="nobordernopadding centpercent"><tr><td class="nowrap">';
 		print $langs->trans('PaymentConditions');
 		print '<td>';
-		if ($action != 'editconditions' && $permissiontoadd) {
+		if ($action != 'editconditions' && $permissionToAdd) {
 			print '<td class="right"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=editconditions&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->trans('SetConditions'), 1).'</a></td>';
 		}
 		print '</tr></table>';
@@ -2281,7 +2281,7 @@ if ($action == 'create') {
 		print '<table class="nobordernopadding centpercent"><tr><td class="nowrap">';
 		print $langs->trans('PaymentMode');
 		print '</td>';
-		if ($action != 'editmode' && $permissiontoadd) {
+		if ($action != 'editmode' && $permissionToAdd) {
 			print '<td class="right"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=editmode&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->trans('SetMode'), 1).'</a></td>';
 		}
 		print '</tr></table>';
@@ -2299,7 +2299,7 @@ if ($action == 'create') {
 			print '<table class="nobordernopadding centpercent"><tr><td class="nowrap">';
 			print $langs->trans('BankAccount');
 			print '<td>';
-			if ($action != 'editbankaccount' && $permissiontoadd) {
+			if ($action != 'editbankaccount' && $permissionToAdd) {
 				print '<td class="right"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=editbankaccount&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->trans('SetBankAccount'), 1).'</a></td>';
 			}
 			print '</tr></table>';

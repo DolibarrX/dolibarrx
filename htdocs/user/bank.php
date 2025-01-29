@@ -106,7 +106,7 @@ if (empty($account->userid)) {
 $selfpermission = ($user->id == $id && $user->hasRight('user', 'self', 'creer'));
 $usercanadd = (!empty($user->admin) || $user->hasRight('user', 'user', 'creer') || $user->hasRight('hrm', 'write_personal_information', 'write') );
 $usercanread = (!empty($user->admin) || $user->hasRight('user', 'user', 'lire') || $user->hasRight('hrm', 'read_personal_information', 'read') );
-$permissiontoaddbankaccount = ($user->hasRight('salaries', 'write') || $user->hasRight('hrm', 'employee', 'write') || $user->hasRight('user', 'user', 'creer') || $selfpermission);
+$permissionToAddbankaccount = ($user->hasRight('salaries', 'write') || $user->hasRight('hrm', 'employee', 'write') || $user->hasRight('user', 'user', 'creer') || $selfpermission);
 $permissiontoreadhr = $user->hasRight('hrm', 'read_personal_information', 'read') || $user->hasRight('hrm', 'write_personal_information', 'write');
 $permissiontowritehr = $user->hasRight('hrm', 'write_personal_information', 'write');
 $permissiontosimpleedit = ($selfpermission || $usercanadd);
@@ -140,7 +140,7 @@ if (!$ok) {
  *	Actions
  */
 
-if ($action == 'add' && !$cancel && $permissiontoaddbankaccount) {
+if ($action == 'add' && !$cancel && $permissionToAddbankaccount) {
 	$account->userid          = $object->id;
 
 	$account->bank            = GETPOST('bank', 'alpha');
@@ -173,7 +173,7 @@ if ($action == 'add' && !$cancel && $permissiontoaddbankaccount) {
 	}
 }
 
-if ($action == 'update' && !$cancel && $permissiontoaddbankaccount) {
+if ($action == 'update' && !$cancel && $permissionToAddbankaccount) {
 	$account->userid = $object->id;
 
 	$account->bank            = GETPOST('bank', 'alpha');
@@ -205,7 +205,7 @@ if ($action == 'update' && !$cancel && $permissiontoaddbankaccount) {
 	}
 }
 
-if ($action == 'delete_confirmed' && !$cancel && $permissiontoaddbankaccount) {
+if ($action == 'delete_confirmed' && !$cancel && $permissionToAddbankaccount) {
 	$result = $account->delete($user);
 	if ($result < 0) {
 		setEventMessages($account->error, $account->errors, 'errors');
@@ -316,7 +316,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-user page-bank');
 
 $head = user_prepare_head($object);
 
-if ($id && $bankid && $action == 'edit' && !$cancel && $permissiontoaddbankaccount) {
+if ($id && $bankid && $action == 'edit' && !$cancel && $permissionToAddbankaccount) {
 	if ($config->use_javascript_ajax) {
 		print "\n<script>";
 		print 'jQuery(document).ready(function () {
@@ -337,7 +337,7 @@ if ($id && $bankid && $action == 'edit' && !$cancel && $permissiontoaddbankaccou
 	print '<input type="hidden" name="id" value="'.GETPOSTINT("id").'">';
 	print '<input type="hidden" name="bankid" value="'.$bankid.'">';
 }
-if ($id && $action == 'create' && !$cancel && $permissiontoaddbankaccount) {
+if ($id && $action == 'create' && !$cancel && $permissionToAddbankaccount) {
 	if ($config->use_javascript_ajax) {
 		print "\n<script>";
 		print 'jQuery(document).ready(function () {
@@ -848,7 +848,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 
 	$morehtmlright = '';
 	if ($account->id == 0) {
-		if ($permissiontoaddbankaccount) {
+		if ($permissionToAddbankaccount) {
 			$morehtmlright = dolGetButtonTitle($langs->trans('Add'), '', 'fa fa-plus-circle', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=create');
 		} else {
 			$morehtmlright = dolGetButtonTitle($langs->trans('Add'), $langs->trans('NotEnoughPermissions'), 'fa fa-plus-circle', '', '', -2);
@@ -926,7 +926,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 
 		// Edit/Delete
 		print '<td class="right nowraponall">';
-		if ($permissiontoaddbankaccount) {
+		if ($permissionToAddbankaccount) {
 			print '<a class="editfielda marginleftonly marginrightonly" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&bankid='.$account->id.'&action=edit&token='.newToken().'">';
 			print img_picture($langs->trans("Modify"), 'edit');
 			print '</a>';
@@ -957,7 +957,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 }
 
 // Edit
-if ($id && ($action == 'edit' || $action == 'create') && $permissiontoaddbankaccount) {
+if ($id && ($action == 'edit' || $action == 'create') && $permissionToAddbankaccount) {
 	$title = $langs->trans("User");
 	print dol_get_fiche_head($head, 'bank', $title, 0, 'user');
 
@@ -1093,11 +1093,11 @@ if ($id && ($action == 'edit' || $action == 'create') && $permissiontoaddbankacc
 	print $form->buttonsSaveCancel($action == 'create' ? "Create" : "Modify");
 }
 
-if ($id && $action == 'edit' && $permissiontoaddbankaccount) {
+if ($id && $action == 'edit' && $permissionToAddbankaccount) {
 	print '</form>';
 }
 
-if ($id && $action == 'create' && $permissiontoaddbankaccount) {
+if ($id && $action == 'create' && $permissionToAddbankaccount) {
 	print '</form>';
 }
 

@@ -86,8 +86,8 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 
 
 $permissiontoread 		= $user->hasRight('partnership', 'read');
-$permissiontoadd 		= $user->hasRight('partnership', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete 	= $user->hasRight('partnership', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
+$permissionToAdd 		= $user->hasRight('partnership', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete 	= $user->hasRight('partnership', 'delete') || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissionnote 		= $user->hasRight('partnership', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink 		= $user->hasRight('partnership', 'write'); // Used by the include of actions_dellink.inc.php
 $upload_dir 			= $config->partnership->multidir_output[isset($object->entity) ? $object->entity : 1];
@@ -146,7 +146,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_addupdatedelete.inc.php';
 
 	// Action accept object
-	if ($action == 'confirm_validate' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_validate' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->validate($user);
 		if ($result >= 0) {
 			// Define output language
@@ -178,7 +178,7 @@ if (empty($resHook)) {
 		} else {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
-	} elseif ($action == 'confirm_accept' && $confirm == 'yes' && $permissiontoadd) {
+	} elseif ($action == 'confirm_accept' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->approve($user);
 		if ($result >= 0) {
 			// Define output language
@@ -210,7 +210,7 @@ if (empty($resHook)) {
 		} else {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
-	} elseif ($action == 'confirm_refuse' && $permissiontoadd && !GETPOST('cancel', 'alpha')) {
+	} elseif ($action == 'confirm_refuse' && $permissionToAdd && !GETPOST('cancel', 'alpha')) {
 		// Close proposal
 		if (!(GETPOST('reason_decline_or_cancel', 'alpha'))) {
 			setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Refuse")), null, 'errors');
@@ -248,10 +248,10 @@ if (empty($resHook)) {
 	// Action to build doc
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
-	if ($action == 'set_thirdparty' && $permissiontoadd) {
+	if ($action == 'set_thirdparty' && $permissionToAdd) {
 		$object->setValueFrom('fk_soc', GETPOSTINT('fk_soc'), '', null, 'date', '', $user, $triggermodname);
 	}
-	if ($action == 'classin' && $permissiontoadd) {
+	if ($action == 'classin' && $permissionToAdd) {
 		$object->setProject(GETPOSTINT('projectid'));
 	}
 
@@ -287,7 +287,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-partnership page-car
 
 // Part to create
 if ($action == 'create') {
-	if (empty($permissiontoadd)) {
+	if (empty($permissionToAdd)) {
 		accessforbidden('NotEnoughPermissions', 0, 1);
 	}
 
@@ -442,7 +442,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if (isModEnabled('project')) {
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
@@ -541,7 +541,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		}
 
 		print '<div class="div-table-responsive-no-min">';
-		if (!empty($object->lines) || ($object->status == $object::STATUS_DRAFT && $permissiontoadd && $action != 'selectlines' && $action != 'editline')) {
+		if (!empty($object->lines) || ($object->status == $object::STATUS_DRAFT && $permissionToAdd && $action != 'selectlines' && $action != 'editline')) {
 			print '<table id="tablelines" class="noborder noshadow" width="100%">';
 		}
 
@@ -550,7 +550,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		}
 
 		// Form to add new line
-		if ($object->status == 0 && $permissiontoadd && $action != 'selectlines') {
+		if ($object->status == 0 && $permissionToAdd && $action != 'selectlines') {
 			if ($action != 'editline') {
 				// Add products/services form
 
@@ -565,7 +565,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			}
 		}
 
-		if (!empty($object->lines) || ($object->status == $object::STATUS_DRAFT && $permissiontoadd && $action != 'selectlines' && $action != 'editline')) {
+		if (!empty($object->lines) || ($object->status == $object::STATUS_DRAFT && $permissionToAdd && $action != 'selectlines' && $action != 'editline')) {
 			print '</table>';
 		}
 		print '</div>';
@@ -590,17 +590,17 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 				print dolGetButtonAction('', $langs->trans('SendMail'), 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=presend&token='.newToken().'&mode=init#formmailbeforetitle');
 			}
 
-			print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=edit&token='.newToken(), '', $permissiontoadd);
+			print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=edit&token='.newToken(), '', $permissionToAdd);
 
 			// Back to draft
 			if ($object->status != $object::STATUS_DRAFT) {
-				print dolGetButtonAction('', $langs->trans('SetToDraft'), 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=confirm_setdraft&confirm=yes&token='.newToken(), '', $permissiontoadd);
+				print dolGetButtonAction('', $langs->trans('SetToDraft'), 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=confirm_setdraft&confirm=yes&token='.newToken(), '', $permissionToAdd);
 			}
 
 			// Validate
 			if ($object->status == $object::STATUS_DRAFT) {
 				if (empty($object->table_element_line) || (is_array($object->lines) && count($object->lines) > 0)) {
-					print dolGetButtonAction('', $langs->trans('Validate'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_validate&confirm=yes&token='.newToken(), '', $permissiontoadd);
+					print dolGetButtonAction('', $langs->trans('Validate'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_validate&confirm=yes&token='.newToken(), '', $permissionToAdd);
 				} else {
 					$langs->load("errors");
 					print dolGetButtonAction($langs->trans("ErrorAddAtLeastOneLineFirst"), $langs->trans("Validate"), 'default', '#', '', 0);
@@ -610,7 +610,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			// Approve
 			if ($object->status == $object::STATUS_VALIDATED) {
 				if (empty($object->table_element_line) || (is_array($object->lines) && count($object->lines) > 0)) {
-					print dolGetButtonAction($langs->trans('Approve'), '', 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_accept&confirm=yes&token='.newToken(), '', $permissiontoadd);
+					print dolGetButtonAction($langs->trans('Approve'), '', 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_accept&confirm=yes&token='.newToken(), '', $permissionToAdd);
 				} else {
 					$langs->load("errors");
 					print dolGetButtonAction($langs->trans("ErrorAddAtLeastOneLineFirst"), $langs->trans("Approved"), 'default', '#', '', 0);
@@ -618,24 +618,24 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			}
 
 			// Cancel
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				if ($object->status == $object::STATUS_APPROVED) {
-					print dolGetButtonAction($langs->trans('Resiliate'), '', 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=close&token='.newToken(), '', $permissiontoadd);
+					print dolGetButtonAction($langs->trans('Resiliate'), '', 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=close&token='.newToken(), '', $permissionToAdd);
 				} elseif ($object->status > $object::STATUS_APPROVED) {
 					// print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=reopen&token='.newToken().'">'.$langs->trans("Re-Open").'</a>'."\n";
-					print dolGetButtonAction($langs->trans('Re-Open'), '', 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=confirm_reopen&confirm=yes&token='.newToken(), '', $permissiontoadd);
+					print dolGetButtonAction($langs->trans('Re-Open'), '', 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=confirm_reopen&confirm=yes&token='.newToken(), '', $permissionToAdd);
 				}
 			}
 
 			// Refuse
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				if ($object->status != $object::STATUS_DRAFT && $object->status != $object::STATUS_APPROVED && $object->status != $object::STATUS_CANCELED && $object->status != $object::STATUS_REFUSED) {
-					print dolGetButtonAction($langs->trans('Refuse'), '', 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=refuse&token='.newToken(), '', $permissiontoadd);
+					print dolGetButtonAction($langs->trans('Refuse'), '', 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=refuse&token='.newToken(), '', $permissionToAdd);
 				}
 			}
 
 			// Delete (need delete permission, or if draft, just need create/modify permission)
-			print dolGetButtonAction($langs->trans('Delete'), '', 'delete', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=delete&token='.newToken(), '', $permissiontodelete || ($object->status == $object::STATUS_DRAFT && $permissiontoadd));
+			print dolGetButtonAction($langs->trans('Delete'), '', 'delete', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=delete&token='.newToken(), '', $permissiontodelete || ($object->status == $object::STATUS_DRAFT && $permissionToAdd));
 		}
 		print '</div>'."\n";
 	}
@@ -659,7 +659,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			$filedir = $config->partnership->dir_output.'/'.$object->element.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $permissiontoread; // If you can read, you can build the PDF to read content
-			$delallowed = $permissiontoadd; // If you can create/edit, you can remove a file on card
+			$delallowed = $permissionToAdd; // If you can create/edit, you can remove a file on card
 			print $formfile->showdocuments('partnership:Partnership', $object->element.'/'.$objref, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', '', '', $langs->defaultlang);
 		}
 

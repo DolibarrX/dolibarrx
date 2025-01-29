@@ -78,9 +78,9 @@ $object = new PaymentVarious($db);
 $object->fetch($id, $ref);
 
 $upload_dir = $config->bank->dir_output.'/'.dol_sanitizeFileName((string) $object->id);
-$modulepart = 'bank';
+$modulePart = 'bank';
 
-$permissiontoadd = $user->hasRight('bank', 'modifier');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('bank', 'modifier');	// Used by the include of actions_dellink.inc.php
 
 
 
@@ -163,8 +163,8 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'bank';
-	$permissiontoadd = $user->hasRight('bank', 'modifier');
+	$modulePart = 'bank';
+	$permissionToAdd = $user->hasRight('bank', 'modifier');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 } else {

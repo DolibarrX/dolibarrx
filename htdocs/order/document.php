@@ -84,7 +84,7 @@ if (!$sortfield) {
 $object = new Order($db);
 
 $usercancreate  =  $user->hasRight("order", "creer");
-$permissiontoadd = $usercancreate;
+$permissionToAdd = $usercancreate;
 
 // Security check
 if ($user->socid) {
@@ -188,8 +188,8 @@ if ($id > 0 || !empty($ref)) {
 
 		print dol_get_fiche_end();
 
-		$modulepart = 'order';
-		$permissiontoadd = $user->hasRight('order', 'creer');
+		$modulePart = 'order';
+		$permissionToAdd = $user->hasRight('order', 'creer');
 		$permtoedit = $user->hasRight('order', 'creer');
 		$param = '&id='.$object->id.'&entity='.(empty($object->entity) ? $config->entity : $object->entity);
 		include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

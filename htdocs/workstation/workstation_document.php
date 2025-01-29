@@ -89,7 +89,7 @@ if ($id > 0 || !empty($ref)) {
 $isdraft = 0;
 restrictedArea($user, $object->element, $object->id, $object->table_element, 'workstation', 'fk_soc', 'rowid', $isdraft);
 
-$permissiontoadd = $user->hasRight('workstation', 'workstation', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
+$permissionToAdd = $user->hasRight('workstation', 'workstation', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
 
 
 /*
@@ -143,7 +143,7 @@ if ($object->id) {
 	 {
 	 $langs->load("projects");
 	 $morehtmlref.='<br>'.$langs->trans('Project') . ' ';
-	 if ($permissiontoadd)
+	 if ($permissionToAdd)
 	 {
 	 if ($action != 'classify')
 	 //$morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&token='.newToken().'&id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
@@ -190,7 +190,7 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'workstation';
+	$modulePart = 'workstation';
 	$param = '&id='.$object->id;
 	//$relativepathwithnofile='workstation/' . dol_sanitizeFileName($object->id).'/';
 	//$relativepathwithnofile = 'workstation/'.dol_sanitizeFileName($object->ref).'/';

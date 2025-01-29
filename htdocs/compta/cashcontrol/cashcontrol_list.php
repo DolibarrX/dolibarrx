@@ -131,7 +131,7 @@ $object->fields = dol_sort_array($object->fields, 'position');
 $arrayfields = dol_sort_array($arrayfields, 'position');
 
 $permissiontoread = ($user->hasRight('cashdesk', 'run') || $user->hasRight('takepos', 'run'));
-$permissiontoadd = ($user->hasRight('cashdesk', 'run') || $user->hasRight('takepos', 'run'));
+$permissionToAdd = ($user->hasRight('cashdesk', 'run') || $user->hasRight('takepos', 'run'));
 $permissiontodelete = ($user->hasRight('cashdesk', 'run') || $user->hasRight('takepos', 'run'));
 
 // Security check
@@ -750,7 +750,7 @@ if (in_array('builddoc', array_keys($arrayofmassactions)) && ($nbtotalofrecords 
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_monmodule', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }

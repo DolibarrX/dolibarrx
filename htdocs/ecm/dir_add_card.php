@@ -103,21 +103,21 @@ if (!empty($section)) {
 }
 
 // Permissions
-$permissiontoadd = 0;
+$permissionToAdd = 0;
 $permissiontodelete = 0;
 $permissiontoupload = 0;
 if ($module == 'ecm') {
-	$permissiontoadd = $user->hasRight('ecm', 'setup');
+	$permissionToAdd = $user->hasRight('ecm', 'setup');
 	$permissiontodelete = $user->hasRight('ecm', 'setup');
 	$permissiontoupload = $user->hasRight('ecm', 'upload');
 }
 if ($module == 'medias') {
-	$permissiontoadd = ($user->hasRight('mailing', 'creer') || $user->hasRight('website', 'write'));
+	$permissionToAdd = ($user->hasRight('mailing', 'creer') || $user->hasRight('website', 'write'));
 	$permissiontodelete = ($user->hasRight('mailing', 'creer') || $user->hasRight('website', 'write'));
 	$permissiontoupload = ($user->hasRight('mailing', 'creer') || $user->hasRight('website', 'write'));
 }
 
-if (!$permissiontoadd) {
+if (!$permissionToAdd) {
 	accessforbidden();
 }
 
@@ -128,7 +128,7 @@ if (!$permissiontoadd) {
  */
 
 // Action ajout d'un produit ou service
-if ($action == 'add' && $permissiontoadd) {
+if ($action == 'add' && $permissionToAdd) {
 	if ($cancel) {
 		if (!empty($backtopage)) {
 			header("Location: ".$backtopage);

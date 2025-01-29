@@ -118,7 +118,7 @@ $hookManager->initHooks(array('donationlist'));
 $result = restrictedArea($user, 'don');
 
 $permissiontoread = $user->hasRight('don', 'read');
-$permissiontoadd = $user->hasRight('don', 'write');
+$permissionToAdd = $user->hasRight('don', 'write');
 $permissiontodelete = $user->hasRight('don', 'delete');
 
 /*

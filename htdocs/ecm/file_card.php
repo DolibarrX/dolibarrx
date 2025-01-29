@@ -115,7 +115,7 @@ if ($result < 0) {
 
 // Permissions
 $permissiontoread = $user->hasRight('ecm', 'read');
-$permissiontoadd = $user->hasRight('ecm', 'setup');
+$permissionToAdd = $user->hasRight('ecm', 'setup');
 $permissiontoupload = $user->hasRight('ecm', 'upload');
 
 if (!$permissiontoread) {
@@ -139,7 +139,7 @@ if ($cancel) {
 }
 
 // Rename file
-if ($action == 'update' && $permissiontoadd) {
+if ($action == 'update' && $permissionToAdd) {
 	$error = 0;
 
 	$oldlabel = GETPOST('urlfile', 'alpha');
@@ -340,9 +340,9 @@ $urlwithroot = $urlwithouturlroot.DOL_URL_ROOT; // This is to use external domai
 print '<tr><td>';
 print $form->textWithPicture($langs->trans("DirectDownloadInternalLink"), $langs->trans("PrivateDownloadLinkDesc"));
 print '</td><td>';
-$modulepart = 'ecm';
+$modulePart = 'ecm';
 $forcedownload = 1;
-$rellink = '/document.php?modulepart='.$modulepart;
+$rellink = '/document.php?modulepart='.$modulePart;
 if ($forcedownload) {
 	$rellink .= '&attachment=1';
 }

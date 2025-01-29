@@ -96,7 +96,7 @@ if (method_exists($object, 'loadPersonalConf')) {
 
 // Permissions
 $permissiontoread = $user->hasRight('hrm', 'all', 'read');
-$permissiontoadd  = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd  = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 
 // Security check (enable the most restrictive one)
 if ($user->socid > 0) {
@@ -136,7 +136,7 @@ if (empty($resHook)) {
 	}
 
 	// update national_registration_number
-	if ($action == 'setnational_registration_number' && $permissiontoadd) {
+	if ($action == 'setnational_registration_number' && $permissionToAdd) {
 		$object->national_registration_number = (string) GETPOST('national_registration_number', 'alphanohtml');
 		$result = $object->update($user);
 		if ($result < 0) {
@@ -144,7 +144,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'addSkill' && $permissiontoadd) {
+	if ($action == 'addSkill' && $permissionToAdd) {
 		$db->begin();
 		$error = 0;
 
@@ -198,7 +198,7 @@ if (empty($resHook)) {
 				$db->rollback();
 			}
 		}
-	} elseif ($action == 'saveSkill' && $permissiontoadd) {
+	} elseif ($action == 'saveSkill' && $permissionToAdd) {
 		if (!empty($TNote)) {
 			$db->begin();
 			$error = 0;
@@ -265,7 +265,7 @@ if (empty($resHook)) {
 			header("Location: " . DOL_URL_ROOT.'/hrm/skill_tab.php?id=' . $id. '&objecttype=job');
 			exit;
 		}
-	} elseif ($action == 'confirm_deleteskill' && $confirm == 'yes' && $permissiontoadd) {
+	} elseif ($action == 'confirm_deleteskill' && $confirm == 'yes' && $permissionToAdd) {
 		$db->begin();
 		$error = 0;
 		$skillToDelete = new SkillRank($db);
@@ -364,7 +364,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id . '&objecttype=' . $objecttype . '&lineid=' . $lineid, $langs->trans('DeleteLine'), $langs->trans('ConfirmDeleteLine'), 'confirm_deleteskill', '', 0, 1);
 	}
 	// Clone confirmation
-	/*if ($action == 'clone' && $permissiontoadd) {
+	/*if ($action == 'clone' && $permissionToAdd) {
 		// Create an array for form
 		$formquestion = [];
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('ToClone'), $langs->trans('ConfirmCloneAsk', $object->ref), 'confirm_clone', $formquestion, 'yes', 1);
@@ -517,7 +517,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	print '<div class="clearboth"></div><br>';
 
-	if ($objecttype != 'user' && $permissiontoadd) {
+	if ($objecttype != 'user' && $permissionToAdd) {
 		// form to add new skills
 		print '<br>';
 		print '<form name="addSkill" method="post" action="' . $_SERVER['PHP_SELF'] . '">';
@@ -542,7 +542,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	print '<div class="clearboth"></div>';
 
-	if ($objecttype != 'user' && $permissiontoadd) {
+	if ($objecttype != 'user' && $permissionToAdd) {
 		print '<form name="saveSkill" method="post" action="' . $_SERVER['PHP_SELF'] . '">';
 		print '<input type="hidden" name="objecttype" value="' . $objecttype . '">';
 		print '<input type="hidden" name="id" value="' . $id . '">';
@@ -577,9 +577,9 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 				print '<td>';
 				print $sk->description;
 				print '</td><td class="linecolrank">';
-				print displayRankInfos($skillElement->rankorder, $skillElement->fk_skill, 'TNote', $objecttype == 'job' && $permissiontoadd ? 'edit' : 'view');
+				print displayRankInfos($skillElement->rankorder, $skillElement->fk_skill, 'TNote', $objecttype == 'job' && $permissionToAdd ? 'edit' : 'view');
 				print '</td>';
-				if ($objecttype != 'user' && $permissiontoadd) {
+				if ($objecttype != 'user' && $permissionToAdd) {
 					print '<td class="linecoledit"></td>';
 					print '<td class="linecoldelete">';
 					print '<a class="reposition" href="' . $_SERVER["PHP_SELF"] . '?id=' . $skillElement->fk_object . '&amp;objecttype=' . $objecttype . '&amp;action=ask_deleteskill&amp;lineid=' . $skillElement->rowid . '&amp;token='.newToken().'">';
@@ -592,18 +592,18 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		}
 
 		print '</table>';
-		if ($objecttype != 'user' && $permissiontoadd) {
+		if ($objecttype != 'user' && $permissionToAdd) {
 			print '<td><input class="button pull-right" type="submit" value="' . $langs->trans('SaveRank') . '"></td>';
 		}
 		print '</div>';
-		if ($objecttype != 'user' && $permissiontoadd) {
+		if ($objecttype != 'user' && $permissionToAdd) {
 			print '</form>';
 		}
 	}
 
 
 	// liste des evaluation liées
-	if ($objecttype == 'user' && $permissiontoadd) {
+	if ($objecttype == 'user' && $permissionToAdd) {
 		$evaltmp = new Evaluation($db);
 		$job = new Job($db);
 		$sql = "select e.rowid,e.ref,e.fk_user,e.fk_job,e.date_eval,ed.rankorder,ed.required_rank,ed.fk_skill,s.label";

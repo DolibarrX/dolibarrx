@@ -31,7 +31,7 @@
 // $objectclass and $objectlabel must be defined
 // $parameters, $object, $action must be defined for the hook.
 
-// $permissiontoread, $permissiontoadd, $permissiontodelete, $permissiontoclose may be defined
+// $permissiontoread, $permissionToAdd, $permissiontodelete, $permissiontoclose may be defined
 // $uploaddir may be defined (example to $config->project->dir_output."/";)
 // $toselect may be defined
 // $diroutputmassaction may be defined
@@ -99,8 +99,8 @@ $error = 0;
 if (!empty($permtoread) && empty($permissiontoread)) {
 	$permissiontoread = $permtoread;
 }
-if (!empty($permtocreate) && empty($permissiontoadd)) {
-	$permissiontoadd = $permtocreate;
+if (!empty($permtocreate) && empty($permissionToAdd)) {
+	$permissionToAdd = $permtocreate;
 }
 if (!empty($permtodelete) && empty($permissiontodelete)) {
 	$permissiontodelete = $permtodelete;
@@ -999,7 +999,7 @@ if ($action == 'remove_file') {
 
 
 // Validate records
-if (!$error && $massaction == 'validate' && $permissiontoadd) {
+if (!$error && $massaction == 'validate' && $permissionToAdd) {
 	$objecttmp = new $objectclass($db);
 
 	if (($objecttmp->element == 'facture' || $objecttmp->element == 'invoice') && isModEnabled('stock') && getDolGlobalString('STOCK_CALCULATE_ON_BILL')) {
@@ -1287,7 +1287,7 @@ EOPHAN;
 	}
 }
 
-if (!$error && ($action == 'affecttag' && $confirm == 'yes') && $permissiontoadd) {
+if (!$error && ($action == 'affecttag' && $confirm == 'yes') && $permissionToAdd) {
 	$nbok = 0;
 	$db->begin();
 
@@ -1343,7 +1343,7 @@ if (!$error && ($action == 'affecttag' && $confirm == 'yes') && $permissiontoadd
 	}
 }
 
-if (!$error && ($action == 'updateprice' && $confirm == 'yes') && $permissiontoadd) {
+if (!$error && ($action == 'updateprice' && $confirm == 'yes') && $permissionToAdd) {
 	'@phan-var-force Product|ProductCustomerPrice $obj';
 	'@phan-var-force Product|ProductCustomerPrice $object';
 	$nbok = 0;
@@ -1390,7 +1390,7 @@ if (!$error && ($action == 'updateprice' && $confirm == 'yes') && $permissiontoa
 	}
 }
 
-if (!$error && ($action == 'setsupervisor' && $confirm == 'yes') && $permissiontoadd) {
+if (!$error && ($action == 'setsupervisor' && $confirm == 'yes') && $permissionToAdd) {
 	'@phan-var-force User $object';
 	$nbok = 0;
 	$db->begin();
@@ -1427,7 +1427,7 @@ if (!$error && ($action == 'setsupervisor' && $confirm == 'yes') && $permissiont
 	}
 }
 
-if (!$error && ($action == 'affectuser' && $confirm == 'yes') && $permissiontoadd) {
+if (!$error && ($action == 'affectuser' && $confirm == 'yes') && $permissionToAdd) {
 	$nbok = 0;
 	$db->begin();
 
@@ -1478,7 +1478,7 @@ if (!$error && ($action == 'affectuser' && $confirm == 'yes') && $permissiontoad
 	}
 }
 
-if (!$error && ($massaction == 'enable' || ($action == 'enable' && $confirm == 'yes')) && $permissiontoadd) {
+if (!$error && ($massaction == 'enable' || ($action == 'enable' && $confirm == 'yes')) && $permissionToAdd) {
 	$db->begin();
 
 	$objecttmp = new $objectclass($db);
@@ -1515,7 +1515,7 @@ if (!$error && ($massaction == 'enable' || ($action == 'enable' && $confirm == '
 	}
 }
 
-if (!$error && ($massaction == 'disable' || ($action == 'disable' && $confirm == 'yes')) && $permissiontoadd) {
+if (!$error && ($massaction == 'disable' || ($action == 'disable' && $confirm == 'yes')) && $permissionToAdd) {
 	$db->begin();
 
 	$objecttmp = new $objectclass($db);
@@ -1552,7 +1552,7 @@ if (!$error && ($massaction == 'disable' || ($action == 'disable' && $confirm ==
 	}
 }
 
-if (!$error && $action == 'confirm_edit_value_extrafields' && $confirm == 'yes' && $permissiontoadd) {
+if (!$error && $action == 'confirm_edit_value_extrafields' && $confirm == 'yes' && $permissionToAdd) {
 	$db->begin();
 
 	$objecttmp = new $objectclass($db);
@@ -1595,7 +1595,7 @@ if (!$error && $action == 'confirm_edit_value_extrafields' && $confirm == 'yes' 
 	}
 }
 
-if (!$error && ($massaction == 'affectcommercial' || ($action == 'affectcommercial' && $confirm == 'yes')) && $permissiontoadd) {
+if (!$error && ($massaction == 'affectcommercial' || ($action == 'affectcommercial' && $confirm == 'yes')) && $permissionToAdd) {
 	$db->begin();
 
 	$objecttmp = new $objectclass($db);
@@ -1633,7 +1633,7 @@ if (!$error && ($massaction == 'affectcommercial' || ($action == 'affectcommerci
 	}
 }
 
-if (!$error && ($massaction == 'unassigncommercial' || ($action == 'unassigncommercial' && $confirm == 'yes')) && $permissiontoadd) {
+if (!$error && ($massaction == 'unassigncommercial' || ($action == 'unassigncommercial' && $confirm == 'yes')) && $permissionToAdd) {
 	$db->begin();
 
 	$objecttmp = new $objectclass($db);

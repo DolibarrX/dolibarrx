@@ -101,7 +101,7 @@ if (!$user->hasRight('cron', 'read')) {
 }
 
 $permissiontoread = $user->hasRight('cron', 'read');
-$permissiontoadd = $user->hasRight('cron', 'create') ? $user->hasRight('cron', 'create') : $user->hasRight('cron', 'write');
+$permissionToAdd = $user->hasRight('cron', 'create') ? $user->hasRight('cron', 'create') : $user->hasRight('cron', 'write');
 $permissiontodelete = $user->hasRight('cron', 'delete');
 $permissiontoexecute = $user->hasRight('cron', 'execute');
 
@@ -217,7 +217,7 @@ if (empty($resHook)) {
 	$objectlabel = 'CronJob';
 	$uploaddir = $config->cron->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
-	if ($massaction && $permissiontoadd) {
+	if ($massaction && $permissionToAdd) {
 		$tmpcron = new Cronjob($db);
 		foreach ($toselect as $id) {
 			$result = $tmpcron->fetch($id);

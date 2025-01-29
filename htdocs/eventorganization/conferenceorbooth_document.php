@@ -104,8 +104,8 @@ if ($id > 0 || !empty($ref)) {
 
 // Permissions
 $permissiontoread = $user->hasRight('eventorganization', 'read');
-$permissiontoadd = $user->hasRight('eventorganization', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->hasRight('eventorganization', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
+$permissionToAdd = $user->hasRight('eventorganization', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->hasRight('eventorganization', 'delete') || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissionnote = $user->hasRight('eventorganization', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('eventorganization', 'write'); // Used by the include of actions_dellink.inc.php
 $upload_dir = $config->eventorganization->multidir_output[isset($object->entity) ? $object->entity : 1];
@@ -407,7 +407,7 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'eventorganization';
+	$modulePart = 'eventorganization';
 	$param = '&id='.$object->id;
 	//$param = '';
 	if ($withproject) {

@@ -90,7 +90,7 @@ if ($id > 0 || !empty($ref)) {
 }
 
 // Permissions
-$permissiontoadd  = $user->hasRight('hrm', 'evaluation', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
+$permissionToAdd  = $user->hasRight('hrm', 'evaluation', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
 $permissiontoread = $user->hasRight('hrm', 'evaluation', 'read');
 
 // Security check (enable the most restrictive one)
@@ -173,8 +173,8 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'hrm';
-	$permtoedit = $permissiontoadd;
+	$modulePart = 'hrm';
+	$permtoedit = $permissionToAdd;
 	$param = '&id='.$object->id;
 
 	//$relativepathwithnofile='evaluation/' . dol_sanitizeFileName($object->id).'/';

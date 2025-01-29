@@ -107,7 +107,7 @@ if (!($object->id > 0) && $action == 'view') {
 }
 
 $triggermodname = 'CONTACT_MODIFY';
-$permissiontoadd = $user->hasRight('societe', 'contact', 'creer');
+$permissionToAdd = $user->hasRight('societe', 'contact', 'creer');
 
 // Security check
 if ($user->socid) {
@@ -187,7 +187,7 @@ if (empty($resHook)) {
 
 
 	// Confirmation deactivation
-	if ($action == 'disable' && $permissiontoadd) {
+	if ($action == 'disable' && $permissionToAdd) {
 		$object->fetch($id);
 		if ($object->setstatus(0) < 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
@@ -198,7 +198,7 @@ if (empty($resHook)) {
 	}
 
 	// Confirmation activation
-	if ($action == 'enable' && $permissiontoadd) {
+	if ($action == 'enable' && $permissionToAdd) {
 		$object->fetch($id);
 		if ($object->setstatus(1) < 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
@@ -209,7 +209,7 @@ if (empty($resHook)) {
 	}
 
 	// Add contact
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		$db->begin();
 
 		if ($canvas) {
@@ -346,7 +346,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'update' && empty($cancel) && $permissiontoadd) {
+	if ($action == 'update' && empty($cancel) && $permissionToAdd) {
 		if (!GETPOST("lastname", 'alpha')) {
 			$error++;
 			$errors = array($langs->trans("ErrorFieldRequired", $langs->transnoentities("Name").' / '.$langs->transnoentities("Label")));
@@ -491,7 +491,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setprospectcontactlevel' && $permissiontoadd) {
+	if ($action == 'setprospectcontactlevel' && $permissionToAdd) {
 		$object->fetch($id);
 		$object->fk_prospectlevel = GETPOST('prospect_contact_level_id', 'alpha');
 		$result = $object->update($object->id, $user);
@@ -501,7 +501,7 @@ if (empty($resHook)) {
 	}
 
 	// set communication status
-	if ($action == 'setstcomm' && $permissiontoadd) {
+	if ($action == 'setstcomm' && $permissionToAdd) {
 		$object->fetch($id);
 		$object->stcomm_id = dol_getIdFromCode($db, GETPOST('stcomm', 'alpha'), 'c_stcommcontact');
 		$result = $object->update($object->id, $user);
@@ -511,7 +511,7 @@ if (empty($resHook)) {
 	}
 
 	// Update extrafields
-	if ($action == "update_extras" && $permissiontoadd) {
+	if ($action == "update_extras" && $permissionToAdd) {
 		$object->fetch(GETPOSTINT('id'));
 
 		$attributekey = GETPOST('attribute', 'alpha');

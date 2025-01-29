@@ -118,7 +118,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 
 $arrayfields = [];
 
-$permissiontoadd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
+$permissionToAdd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
 
 
 /*
@@ -159,7 +159,7 @@ if ($resHook < 0) {
 
 $formquestion = [];
 if (empty($resHook)) {
-	if (($action == 'add_paiement' || ($action == 'confirm_paiement' && $confirm == 'yes')) && $permissiontoadd) {
+	if (($action == 'add_paiement' || ($action == 'confirm_paiement' && $confirm == 'yes')) && $permissionToAdd) {
 		$datepaye = GETPOSTDATE('re', '12:00:00');
 		$paiement_id = 0;
 		$totalpayment = 0;

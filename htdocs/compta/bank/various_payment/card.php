@@ -84,7 +84,7 @@ $result = restrictedArea($user, 'bank', '', '', '');
 
 $object = new PaymentVarious($db);
 
-$permissiontoadd = $user->hasRight('bank', 'modifier');
+$permissionToAdd = $user->hasRight('bank', 'modifier');
 $permissiontodelete = $user->hasRight('bank', 'modifier');
 
 
@@ -112,12 +112,12 @@ if (empty($resHook)) {
 	}
 
 	// Link to a project
-	if ($action == 'classin' && $permissiontoadd) {
+	if ($action == 'classin' && $permissionToAdd) {
 		$object->fetch($id);
 		$object->setProject(GETPOSTINT('projectid'));
 	}
 
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		$error = 0;
 
 		$datep = dol_mktime(12, 0, 0, GETPOSTINT("datepmonth"), GETPOSTINT("datepday"), GETPOSTINT("datepyear"));
@@ -287,7 +287,7 @@ if ($action == 'confirm_clone' && $confirm != 'yes') {	// Test on permission not
 	$action = '';
 }
 
-if ($action == 'confirm_clone' && $confirm == 'yes' && $permissiontoadd) {
+if ($action == 'confirm_clone' && $confirm == 'yes' && $permissionToAdd) {
 	$db->begin();
 
 	$originalId = $id;
@@ -616,7 +616,7 @@ if ($id) {
 	if (isModEnabled('project') && $formproject !== null) {
 		$langs->load("projects");
 		//$morehtmlref .= '<br>';
-		if ($permissiontoadd) {
+		if ($permissionToAdd) {
 			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
@@ -685,9 +685,9 @@ if ($id) {
 	if (isModEnabled('accounting')) {
 		/** @var FormAccounting $formaccounting */
 		print '<tr><td class="nowrap">';
-		print $form->editfieldkey('AccountAccounting', 'accountancy_code', $object->accountancy_code, $object, (!$alreadyaccounted && $permissiontoadd), 'string', '', 0);
+		print $form->editfieldkey('AccountAccounting', 'accountancy_code', $object->accountancy_code, $object, (!$alreadyaccounted && $permissionToAdd), 'string', '', 0);
 		print '</td><td>';
-		if ($action == 'editaccountancy_code' && (!$alreadyaccounted && $permissiontoadd)) {
+		if ($action == 'editaccountancy_code' && (!$alreadyaccounted && $permissionToAdd)) {
 			//print $form->editfieldval('AccountAccounting', 'accountancy_code', $object->accountancy_code, $object, (!$alreadyaccounted && $user->hasRight('bank', 'modifier')), 'string', '', 0);
 			print $formaccounting->formAccountingAccount($_SERVER['PHP_SELF'].'?id='.$object->id, $object->accountancy_code, 'accountancy_code', 0, 1, '', 1);
 		} else {
@@ -707,14 +707,14 @@ if ($id) {
 
 	// Subledger account
 	print '<tr><td class="nowrap">';
-	print $form->editfieldkey('SubledgerAccount', 'subledger_account', $object->subledger_account, $object, (!$alreadyaccounted && $permissiontoadd), 'string', '', 0);
+	print $form->editfieldkey('SubledgerAccount', 'subledger_account', $object->subledger_account, $object, (!$alreadyaccounted && $permissionToAdd), 'string', '', 0);
 	print '</td><td>';
-	if ($action == 'editsubledger_account' && (!$alreadyaccounted && $permissiontoadd)) {
+	if ($action == 'editsubledger_account' && (!$alreadyaccounted && $permissionToAdd)) {
 		if (getDolGlobalString('ACCOUNTANCY_COMBO_FOR_AUX')) {
 			/** @var FormAccounting $formaccounting */
 			print $formaccounting->formAccountingAccount($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->subledger_account, 'subledger_account', 1, 1, '', 1);
 		} else {
-			print $form->editfieldval('SubledgerAccount', 'subledger_account', $object->subledger_account, $object, (!$alreadyaccounted && $permissiontoadd), 'string', '', null, null, '', 1, 'lengthAccounta');
+			print $form->editfieldval('SubledgerAccount', 'subledger_account', $object->subledger_account, $object, (!$alreadyaccounted && $permissionToAdd), 'string', '', null, null, '', 1, 'lengthAccounta');
 		}
 	} else {
 		print length_accounta($object->subledger_account);
@@ -767,13 +767,13 @@ if ($id) {
 	// Add button modify
 
 	// Clone
-	if ($permissiontoadd) {
+	if ($permissionToAdd) {
 		print '<div class="inline-block divButAction"><a class="butAction" href="'.dol_buildpath("/compta/bank/various_payment/card.php", 1).'?id='.$object->id.'&amp;action=clone">'.$langs->trans("ToClone")."</a></div>";
 	}
 
 	// Delete
 	if (empty($object->rappro) || $bankaccountnotfound) {
-		if ($permissiontoadd) {
+		if ($permissionToAdd) {
 			if ($alreadyaccounted) {
 				print '<div class="inline-block divButAction"><a class="butActionRefused classfortooltip" href="#" title="'.$langs->trans("Accounted").'">'.$langs->trans("Delete").'</a></div>';
 			} else {

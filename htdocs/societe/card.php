@@ -169,8 +169,8 @@ if (!empty($canvas)) {
 
 // Permissions
 $permissiontoread 	= $user->hasRight('societe', 'lire');
-$permissiontoadd 	= $user->hasRight('societe', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->hasRight('societe', 'supprimer') || ($permissiontoadd && isset($object->status) && $object->status == 0);
+$permissionToAdd 	= $user->hasRight('societe', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->hasRight('societe', 'supprimer') || ($permissionToAdd && isset($object->status) && $object->status == 0);
 $permissionnote 	= $user->hasRight('societe', 'creer'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink 	= $user->hasRight('societe', 'creer'); // Used by the include of actions_dellink.inc.php
 $upload_dir 		= $config->societe->multidir_output[isset($object->entity) ? $object->entity : 1];
@@ -215,7 +215,7 @@ if (empty($resHook)) {
 		$action = '';
 	}
 
-	if ($action == 'confirm_merge' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_merge' && $confirm == 'yes' && $permissionToAdd) {
 		$soc_origin_id = GETPOSTINT('soc_origin');
 		$soc_origin = new Societe($db);		// The thirdparty that we will delete
 
@@ -249,20 +249,20 @@ if (empty($resHook)) {
 		$_POST["supplier_code"] = "Acompleter";
 	}
 
-	if ($action == 'set_localtax1' && $permissiontoadd) {
+	if ($action == 'set_localtax1' && $permissionToAdd) {
 		//get selected from combobox
 		$value = GETPOST('lt1');
 		$object->fetch($socid);
 		$res = $object->setValueFrom('localtax1_value', $value, '', null, 'text', '', $user, 'COMPANY_MODIFY');
 	}
-	if ($action == 'set_localtax2' && $permissiontoadd) {
+	if ($action == 'set_localtax2' && $permissionToAdd) {
 		//get selected from combobox
 		$value = GETPOST('lt2');
 		$object->fetch($socid);
 		$res = $object->setValueFrom('localtax2_value', $value, '', null, 'text', '', $user, 'COMPANY_MODIFY');
 	}
 
-	if ($action == 'update_extras' && $permissiontoadd) {
+	if ($action == 'update_extras' && $permissionToAdd) {
 		$object->fetch($socid);
 
 		$object->oldcopy = dol_clone($object, 2);
@@ -289,7 +289,7 @@ if (empty($resHook)) {
 	}
 
 	// Add new or update third party
-	if ((!GETPOST('getcustomercode') && !GETPOST('getsuppliercode')) && ($action == 'add' || $action == 'update') && $permissiontoadd) {
+	if ((!GETPOST('getcustomercode') && !GETPOST('getsuppliercode')) && ($action == 'add' || $action == 'update') && $permissionToAdd) {
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
 		if (!GETPOST('name')) {
@@ -522,7 +522,7 @@ if (empty($resHook)) {
 		}
 
 		if (!$error) {
-			if ($action == 'add' && $permissiontoadd) {
+			if ($action == 'add' && $permissionToAdd) {
 				$error = 0;
 
 				$db->begin();
@@ -676,7 +676,7 @@ if (empty($resHook)) {
 				}
 			}
 
-			if ($action == 'update' && $permissiontoadd) {
+			if ($action == 'update' && $permissionToAdd) {
 				$error = 0;
 
 				if (GETPOST('cancel', 'alpha')) {
@@ -853,31 +853,31 @@ if (empty($resHook)) {
 	}
 
 	// Set third-party type
-	if ($action == 'set_thirdpartytype' && $permissiontoadd) {
+	if ($action == 'set_thirdpartytype' && $permissionToAdd) {
 		$object->fetch($socid);
 		$result = $object->setThirdpartyType(GETPOSTINT('typent_id'));
 	}
 
 	// Set incoterm
-	if ($action == 'set_incoterms' && $permissiontoadd && isModEnabled('incoterm')) {
+	if ($action == 'set_incoterms' && $permissionToAdd && isModEnabled('incoterm')) {
 		$object->fetch($socid);
 		$result = $object->setIncoterms(GETPOSTINT('incoterm_id'), GETPOST('location_incoterms'));
 	}
 
 	// Set parent company
-	if ($action == 'set_thirdparty' && $permissiontoadd) {
+	if ($action == 'set_thirdparty' && $permissionToAdd) {
 		$object->fetch($socid);
 		$result = $object->setParent(GETPOSTINT('parent_id'));
 	}
 
 	// Set sales representatives
-	if ($action == 'set_salesrepresentatives' && $permissiontoadd) {
+	if ($action == 'set_salesrepresentatives' && $permissionToAdd) {
 		$object->fetch($socid);
 		$result = $object->setSalesRep(GETPOST('commercial', 'array'));
 	}
 
 	// warehouse
-	if ($action == 'setwarehouse' && $permissiontoadd) {
+	if ($action == 'setwarehouse' && $permissionToAdd) {
 		$result = $object->setWarehouse(GETPOSTINT('fk_warehouse'));
 	}
 
@@ -946,7 +946,7 @@ if (empty($resHook)) {
 	// Actions to build doc
 	$id = $socid;
 	$upload_dir = !empty($config->societe->multidir_output[$object->entity]) ? $config->societe->multidir_output[$object->entity] : $config->societe->dir_output;
-	$permissiontoadd = $user->hasRight('societe', 'creer');
+	$permissionToAdd = $user->hasRight('societe', 'creer');
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 }
 
@@ -1347,7 +1347,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			print '</td><td'.(getDolGlobalString('SOCIETE_USEPREFIX') ? '' : ' colspan="3"').'>';
 
 			print '<input type="text" class="minwidth300" maxlength="128" name="name" id="name" value="'.dol_escape_htmltag($object->name).'" autofocus="autofocus">';
-			print $form->widgetForTranslation("name", $object, $permissiontoadd, 'string', 'alphanohtml', 'minwidth300');	// For some countries that need the company name in 2 languages
+			print $form->widgetForTranslation("name", $object, $permissionToAdd, 'string', 'alphanohtml', 'minwidth300');	// For some countries that need the company name in 2 languages
 			// This implementation of the feature to search already existing company has been disabled. It must be implemented by keeping the "input text" and we must call the search ajax societe/ajax/ajaxcompanies.php
 			// on a keydown of the input. We should show data about a duplicate found if we found less than 5 answers into a div under the input.
 			/*
@@ -1612,7 +1612,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			print '<textarea name="address" id="address" class="quatrevingtpercent" rows="'.ROWS_2.'" wrap="soft">';
 			print dol_escape_htmltag($object->address, 0, 1);
 			print '</textarea>';
-			print $form->widgetForTranslation("address", $object, $permissiontoadd, 'textarea', 'alphanohtml', 'quatrevingtpercent');
+			print $form->widgetForTranslation("address", $object, $permissionToAdd, 'textarea', 'alphanohtml', 'quatrevingtpercent');
 			print '</td></tr>';
 
 			// Zip / Town
@@ -1624,7 +1624,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			}
 			print '<td class="tdtop">'.$form->editfieldkey('Town', 'town', '', $object, 0).'</td><td>';
 			print $formcompany->select_ziptown($object->town, 'town', array('zipcode', 'selectcountry_id', 'state_id'), 0, 0, '', 'maxwidth150 quatrevingtpercent');
-			print $form->widgetForTranslation("town", $object, $permissiontoadd, 'string', 'alphanohtml', 'maxwidth100 quatrevingtpercent');
+			print $form->widgetForTranslation("town", $object, $permissionToAdd, 'string', 'alphanohtml', 'maxwidth100 quatrevingtpercent');
 			print '</td></tr>';
 
 			// Country
@@ -2290,7 +2290,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				// Name
 				print '<tr><td class="titlefieldcreate">'.$form->editfieldkey('ThirdPartyName', 'name', '', $object, 0, 'string', '', 1).'</td>';
 				print '<td colspan="3"><input type="text" class="minwidth300" maxlength="128" name="name" id="name" value="'.dol_escape_htmltag($object->name).'" autofocus="autofocus">';
-				print $form->widgetForTranslation("name", $object, $permissiontoadd, 'string', 'alphanohtml', 'minwidth300');
+				print $form->widgetForTranslation("name", $object, $permissionToAdd, 'string', 'alphanohtml', 'minwidth300');
 				print '</td></tr>';
 
 				// Alias names (commercial, trademark or alias names)
@@ -2449,7 +2449,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				print '<td colspan="3"><textarea name="address" id="address" class="quatrevingtpercent" rows="3" wrap="soft">';
 				print dol_escape_htmltag($object->address, 0, 1);
 				print '</textarea>';
-				print $form->widgetForTranslation("address", $object, $permissiontoadd, 'textarea', 'alphanohtml', 'quatrevingtpercent');
+				print $form->widgetForTranslation("address", $object, $permissionToAdd, 'textarea', 'alphanohtml', 'quatrevingtpercent');
 				print '</td></tr>';
 
 				// Zip / Town
@@ -2461,7 +2461,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				}
 				print '<td>'.$form->editfieldkey('Town', 'town', '', $object, 0).'</td><td'.($config->browser->layout == 'phone' ? ' colspan="3"' : '').'>';
 				print $formcompany->select_ziptown($object->town, 'town', array('zipcode', 'selectcountry_id', 'state_id'));
-				print $form->widgetForTranslation("town", $object, $permissiontoadd, 'string', 'alphanohtml', 'maxwidth100 quatrevingtpercent');
+				print $form->widgetForTranslation("town", $object, $permissionToAdd, 'string', 'alphanohtml', 'maxwidth100 quatrevingtpercent');
 				print '</td></tr>';
 
 				// Country
@@ -3422,7 +3422,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					print dolGetButtonAction($title, $langs->trans('SendMail'), 'default', $_SERVER['PHP_SELF'].'?socid='.$object->id.'&action=presend&mode=init#formmailbeforetitle', 'btn-send-mail', !empty($object->email) || $at_least_one_email_contact);
 				}
 
-				print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?socid='.$object->id.'&action=edit&token='.newToken(), '', $permissiontoadd);
+				print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?socid='.$object->id.'&action=edit&token='.newToken(), '', $permissionToAdd);
 
 				if (!empty($config->use_javascript_ajax) && empty($config->dol_use_jmobile)) {
 					$cloneSocietetUrl = '';

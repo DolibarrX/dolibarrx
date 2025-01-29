@@ -168,7 +168,7 @@ $arrayfields = dol_sort_array($arrayfields, 'position');
 $all_fields_list = dol_sort_array($all_fields_list, 'position');
 
 $permissiontoread = $user->hasRight('partnership', 'read');
-$permissiontoadd = $user->hasRight('partnership', 'write');
+$permissionToAdd = $user->hasRight('partnership', 'write');
 $permissiontodelete = $user->hasRight('partnership', 'delete');
 
 // Security check - Protection if external user
@@ -235,7 +235,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	// Validate and approve
-	if (!$error && $massaction == 'approve' && $permissiontoadd) {
+	if (!$error && $massaction == 'approve' && $permissionToAdd) {
 		$objecttmp = new Partnership($db);
 
 		$db->begin();
@@ -272,7 +272,7 @@ if (empty($resHook)) {
 	}
 
 	// Cancel partnership
-	if ($massaction == 'cancel' && $permissiontoadd) {
+	if ($massaction == 'cancel' && $permissionToAdd) {
 		$db->begin();
 
 		$objecttmp = new $objectclass($db);
@@ -704,7 +704,7 @@ $newcardbutton = '';
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewList'), '', 'fa fa-bars imgforviewmode', $_SERVER["PHP_SELF"].'?mode=common'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ((empty($mode) || $mode == 'common') ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewKanban'), '', 'fa fa-th-list imgforviewmode', $_SERVER["PHP_SELF"].'?mode=kanban'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ($mode == 'kanban' ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitleSeparator();
-$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', dol_buildpath('/partnership/partnership_card.php', 1).'?action=create&backtopage='.urlencode($_SERVER['PHP_SELF'].($socid > 0 ? '?socid='.$socid : '')), '', $permissiontoadd);
+$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', dol_buildpath('/partnership/partnership_card.php', 1).'?action=create&backtopage='.urlencode($_SERVER['PHP_SELF'].($socid > 0 ? '?socid='.$socid : '')), '', $permissionToAdd);
 
 
 print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'object_'.$object->picture, 0, $newcardbutton, '', $limit, 0, 0, 1);
@@ -1125,7 +1125,7 @@ if (in_array('builddoc', array_keys($arrayofmassactions)) && ($nbtotalofrecords 
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_partnership', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }

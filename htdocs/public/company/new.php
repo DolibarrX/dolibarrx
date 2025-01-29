@@ -94,7 +94,7 @@ if (!getDolGlobalString('SOCIETE_ENABLE_PUBLIC')) {
 
 // permissions
 
-$permissiontoadd 	= $user->hasRight('societe', 'creer');
+$permissionToAdd 	= $user->hasRight('societe', 'creer');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('publicnewmembercard', 'globalcard'));
@@ -405,7 +405,7 @@ print '<td>';
 print '<textarea name="address" id="address" class="quatrevingtpercent" rows="' . ROWS_2 . '" wrap="soft">';
 print dol_escape_htmltag($objectsoc->address, 0, 1);
 print '</textarea>';
-print $form->widgetForTranslation("address", $objectsoc, $permissiontoadd, 'textarea', 'alphanohtml', 'quatrevingtpercent');
+print $form->widgetForTranslation("address", $objectsoc, $permissionToAdd, 'textarea', 'alphanohtml', 'quatrevingtpercent');
 print '</td></tr>';
 
 // Country

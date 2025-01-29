@@ -63,7 +63,7 @@ if ($id > 0) {
 }
 
 $permissiontoread = $user->hasRight('don', 'lire');
-$permissiontoadd = $user->hasRight('don', 'creer');
+$permissionToAdd = $user->hasRight('don', 'creer');
 $permissiontodelete = $user->hasRight('don', 'supprimer');
 
 

@@ -92,7 +92,7 @@ if ($id > 0) {
 }
 
 $upload_dir = $config->societe->multidir_output[$object->entity].'/contact/'.dol_sanitizeFileName($object->ref);
-$modulepart = 'contact';
+$modulePart = 'contact';
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('contactdocument'));
@@ -103,7 +103,7 @@ if ($user->socid) {
 }
 $result = restrictedArea($user, 'contact', $id, 'socpeople&societe', '', '', 'rowid', 0); // If we create a contact with no company (shared contacts), no check on write permission
 
-$permissiontoadd = $user->hasRight('societe', 'contact', 'creer');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('societe', 'contact', 'creer');	// Used by the include of actions_dellink.inc.php
 
 
 /*
@@ -200,8 +200,8 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'contact';
-	$permissiontoadd = $user->hasRight('societe', 'contact', 'creer');
+	$modulePart = 'contact';
+	$permissionToAdd = $user->hasRight('societe', 'contact', 'creer');
 	$permtoedit = $user->hasRight('societe', 'contact', 'creer');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

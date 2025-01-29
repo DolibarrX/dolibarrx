@@ -87,8 +87,8 @@ foreach ($object->fields as $key => $val) {
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'.
 
 $permissiontoread = $user->hasRight('partnership', 'read');
-$permissiontoadd = $user->hasRight('partnership', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->hasRight('partnership', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
+$permissionToAdd = $user->hasRight('partnership', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->hasRight('partnership', 'delete') || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissionnote = $user->hasRight('partnership', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('partnership', 'write'); // Used by the include of actions_dellink.inc.php
 $usercanclose = $user->hasRight('partnership', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
@@ -104,7 +104,7 @@ if (!isModEnabled('partnership')) {
 if (empty($permissiontoread)) {
 	accessforbidden();
 }
-if ($action == 'edit' && empty($permissiontoadd)) {
+if ($action == 'edit' && empty($permissionToAdd)) {
 	accessforbidden();
 }
 if (($action == 'update' || $action == 'edit') && $object->status != $object::STATUS_DRAFT) {
@@ -227,8 +227,8 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 		if (empty($resHook)) {
 			// Show
-			if ($permissiontoadd) {
-				print dolGetButtonAction($langs->trans('AddPartnership'), '', 'default', DOL_URL_ROOT.'/partnership/partnership_card.php?action=create&fk_member='.$object->id.'&backtopage='.urlencode(DOL_URL_ROOT.'/members/partnership.php?id='.$object->id), '', $permissiontoadd);
+			if ($permissionToAdd) {
+				print dolGetButtonAction($langs->trans('AddPartnership'), '', 'default', DOL_URL_ROOT.'/partnership/partnership_card.php?action=create&fk_member='.$object->id.'&backtopage='.urlencode(DOL_URL_ROOT.'/members/partnership.php?id='.$object->id), '', $permissionToAdd);
 			}
 		}
 		print '</div>'."\n";

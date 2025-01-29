@@ -88,7 +88,7 @@ if ($object->fetch($id, $ref)) {
 	$upload_dir = $config->fournisseur->facture->dir_output.'/'.get_exdir($object->id, 2, 0, 0, $object, 'invoice_supplier').$ref;
 }
 
-$permissiontoadd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")); // Used by the include of actions_setnotes.inc.php
+$permissionToAdd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")); // Used by the include of actions_setnotes.inc.php
 
 
 /*
@@ -250,7 +250,7 @@ if ($object->id > 0) {
 	print dol_get_fiche_end();
 
 
-	$modulepart = 'facture_fournisseur';
+	$modulePart = 'facture_fournisseur';
 	$permission = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
 	$permtoedit = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
 	$param = '&facid='.$object->id;

@@ -123,7 +123,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 $permissionnote = $user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"); // Used by the include of actions_dellink.inc.php
 $permissiontoedit = $user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"); // Used by the include of actions_lineupdonw.inc.php
-$permissiontoadd = $user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer");
+$permissionToAdd = $user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer");
 $permissiontodelete = ($user->hasRight("fournisseur", "facture", "supprimer") || $user->hasRight("supplier_invoice", "supprimer"));
 
 $usercanread = $user->hasRight("fournisseur", "facture", "lire") || $user->hasRight("supplier_invoice", "lire");
@@ -178,7 +178,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT . '/core/actions_lineupdown.inc.php'; // Must be 'include', not 'include_once'
 
 	// Create predefined invoice
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		if (! GETPOST('title', 'alphanohtml')) {
 			setEventMessages($langs->transnoentities("ErrorFieldRequired", $langs->trans("Title")), null, 'errors');
 			$action = "create";
@@ -297,7 +297,7 @@ if (empty($resHook)) {
 				setEventMessages($object->error, $object->errors, 'errors');
 			}
 		}
-	} elseif ($action == 'settitle' && $permissiontoadd) {
+	} elseif ($action == 'settitle' && $permissionToAdd) {
 		$result = $object->setValueFrom('titre', $title, '', null, 'text', '', $user);
 
 		if ($result > 0) {
@@ -313,31 +313,31 @@ if (empty($resHook)) {
 				setEventMessages($object->error, $object->errors, 'errors');
 			}
 		}
-	} elseif ($action == 'setbankaccount' && $permissiontoadd) {
+	} elseif ($action == 'setbankaccount' && $permissionToAdd) {
 		// Set bank account
 		$result = $object->setBankAccount(GETPOSTINT('fk_account'));
-	} elseif ($action == 'setfrequency' && $permissiontoadd) {
+	} elseif ($action == 'setfrequency' && $permissionToAdd) {
 		// Set frequency and unit frequency
 		$object->setFrequencyAndUnit(GETPOST('frequency', 'int'), GETPOST('unit_frequency', 'alpha'));
-	} elseif ($action == 'setdate_when' && $permissiontoadd) {
+	} elseif ($action == 'setdate_when' && $permissionToAdd) {
 		// Set next date of execution
 		$date = dol_mktime(GETPOST('date_whenhour'), GETPOST('date_whenmin'), 0, GETPOST('date_whenmonth'), GETPOST('date_whenday'), GETPOST('date_whenyear'));
 		if (!empty($date)) {
 			$object->setNextDate($date);
 		}
-	} elseif ($action == 'setnb_gen_max' && $permissiontoadd) {
+	} elseif ($action == 'setnb_gen_max' && $permissionToAdd) {
 		// Set max period
 		$object->setMaxPeriod(GETPOSTINT('nb_gen_max'));
-	} elseif ($action == 'setauto_validate' && $permissiontoadd) {
+	} elseif ($action == 'setauto_validate' && $permissionToAdd) {
 		// Set auto validate
 		$object->setAutoValidate(GETPOSTINT('auto_validate'));
-	} elseif ($action == 'setgenerate_pdf' && $permissiontoadd) {
+	} elseif ($action == 'setgenerate_pdf' && $permissionToAdd) {
 		// Set generate pdf
 		$object->setGeneratepdf(GETPOSTINT('generate_pdf'));
-	} elseif ($action == 'setmodelpdf' && $permissiontoadd) {
+	} elseif ($action == 'setmodelpdf' && $permissionToAdd) {
 		// Set model pdf
 		$object->setModelpdf(GETPOST('modelpdf', 'alpha'));
-	} elseif ($action == 'disable' && $permissiontoadd) {
+	} elseif ($action == 'disable' && $permissionToAdd) {
 		// Set status disabled
 		$db->begin();
 
@@ -354,7 +354,7 @@ if (empty($resHook)) {
 			$db->rollback();
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
-	} elseif ($action == 'enable' && $permissiontoadd) {
+	} elseif ($action == 'enable' && $permissionToAdd) {
 		// Set status enabled
 		$db->begin();
 
@@ -371,13 +371,13 @@ if (empty($resHook)) {
 			$db->rollback();
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
-	} elseif ($action == 'setmulticurrencycode' && $permissiontoadd) {
+	} elseif ($action == 'setmulticurrencycode' && $permissionToAdd) {
 		// Multicurrency Code
 		$result = $object->setMulticurrencyCode(GETPOST('multicurrency_code', 'alpha'));
-	} elseif ($action == 'setmulticurrencyrate' && $permissiontoadd) {
+	} elseif ($action == 'setmulticurrencyrate' && $permissionToAdd) {
 		// Multicurrency rate
 		$result = $object->setMulticurrencyRate(price2num(GETPOST('multicurrency_tx')), GETPOSTINT('calculation_mode'));
-	} elseif ($action == 'setlibelle' && $permissiontoadd) {
+	} elseif ($action == 'setlibelle' && $permissionToAdd) {
 		// Set label
 		$object->fetch($id);
 		$object->libelle = GETPOST('libelle');
@@ -390,7 +390,7 @@ if (empty($resHook)) {
 	}
 
 	// Delete line
-	if ($action == 'confirm_deleteline' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_deleteline' && $confirm == 'yes' && $permissionToAdd) {
 		$object->fetch($id);
 		$object->fetch_thirdparty();
 
@@ -415,7 +415,7 @@ if (empty($resHook)) {
 			$db->rollback();
 			setEventMessages($line->error, $line->errors, 'errors');
 		}
-	} elseif ($action == 'update_extras' && $permissiontoadd) {
+	} elseif ($action == 'update_extras' && $permissionToAdd) {
 		$object->oldcopy = dol_clone($object, 2);
 
 		// Fill array 'array_options' with data from update form
@@ -434,7 +434,7 @@ if (empty($resHook)) {
 	}
 
 	// Add a new line
-	if ($action == 'addline' && $permissiontoadd) {
+	if ($action == 'addline' && $permissionToAdd) {
 		$langs->load('errors');
 		$error = 0;
 
@@ -740,7 +740,7 @@ if (empty($resHook)) {
 				$action = '';
 			}
 		}
-	} elseif ($action == 'updateline' && $permissiontoadd && ! GETPOST('cancel', 'alpha')) {
+	} elseif ($action == 'updateline' && $permissionToAdd && ! GETPOST('cancel', 'alpha')) {
 		if (! $object->fetch($id) > 0) {
 			dol_print_error($db);
 		}

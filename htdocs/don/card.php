@@ -97,7 +97,7 @@ $upload_dir = $config->don->dir_output;
 $result = restrictedArea($user, 'don', $object->id);
 
 $permissiontoread = $user->hasRight('don', 'lire');
-$permissiontoadd = $user->hasRight('don', 'creer');
+$permissionToAdd = $user->hasRight('don', 'creer');
 $permissiontodelete = $user->hasRight('don', 'supprimer');
 
 
@@ -139,7 +139,7 @@ if (empty($resHook)) {
 	}
 
 	// Action reopen object
-	if ($action == 'confirm_reopen' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_reopen' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->reopen($user);
 		if ($result >= 0) {
 			// Define output language
@@ -176,7 +176,7 @@ if (empty($resHook)) {
 
 
 	// Action update object
-	if ($action == 'update' && $permissiontoadd) {
+	if ($action == 'update' && $permissionToAdd) {
 		if (!empty($cancel)) {
 			header("Location: ".$_SERVER['PHP_SELF']."?id=".urlencode((string) ($id)));
 			exit;
@@ -229,7 +229,7 @@ if (empty($resHook)) {
 
 
 	// Action add/create object
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		if (!empty($cancel)) {
 			header("Location: index.php");
 			exit;
@@ -300,7 +300,7 @@ if (empty($resHook)) {
 	}
 
 	// Action validation
-	if ($action == 'valid_promesse' && $permissiontoadd) {
+	if ($action == 'valid_promesse' && $permissionToAdd) {
 		// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
 		if ($object->valid_promesse($id, $user->id) >= 0) {
 			setEventMessages($langs->trans("DonationValidated", $object->ref), null);
@@ -311,7 +311,7 @@ if (empty($resHook)) {
 	}
 
 	// Action cancel
-	if ($action == 'set_cancel' && $permissiontoadd) {
+	if ($action == 'set_cancel' && $permissionToAdd) {
 		if ($object->set_cancel($id) >= 0) {
 			$action = '';
 		} else {
@@ -320,7 +320,7 @@ if (empty($resHook)) {
 	}
 
 	// Action set paid
-	if ($action == 'set_paid' && $permissiontoadd) {
+	if ($action == 'set_paid' && $permissionToAdd) {
 		$modepayment = GETPOSTINT('modepayment');
 		if ($object->setPaid($id, $modepayment) >= 0) {
 			$action = '';
@@ -331,7 +331,7 @@ if (empty($resHook)) {
 		$object->setProject($projectid);
 	}
 
-	if ($action == 'update_extras' && $permissiontoadd) {
+	if ($action == 'update_extras' && $permissionToAdd) {
 		$object->oldcopy = dol_clone($object, 2);
 
 		// Fill array 'array_options' with data from update form
@@ -886,7 +886,7 @@ if (!empty($id) && $action != 'edit') {
 	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
 	if (empty($resHook)) {
 		// Re-open
-		if ($permissiontoadd && $object->status == $object::STATUS_CANCELED) {
+		if ($permissionToAdd && $object->status == $object::STATUS_CANCELED) {
 			print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_reopen&confirm=yes&token='.newToken().'">'.$langs->trans("ReOpen").'</a>';
 		}
 

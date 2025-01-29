@@ -89,7 +89,7 @@ if ($id > 0 || !empty($ref)) {
 $isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
 $result = restrictedArea($user, 'recruitment', $object->id, 'recruitment_recruitmentjobposition', 'recruitmentjobposition', '', 'rowid', $isdraft);
 
-$permissiontoadd = $user->hasRight('recruitment', 'recruitmentjobposition', 'write'); // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd = $user->hasRight('recruitment', 'recruitmentjobposition', 'write'); // Used by the include of actions_addupdatedelete.inc.php
 
 
 
@@ -143,7 +143,7 @@ if ($object->id) {
 	if (isModEnabled('project')) {
 		$langs->load("projects");
 		$morehtmlref .= $langs->trans('Project').' ';
-		if ($permissiontoadd) {
+		if ($permissionToAdd) {
 			if ($action != 'classify') {
 				//$morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&token='.newToken().'&id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
 				$morehtmlref .= ' : ';
@@ -190,8 +190,8 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'recruitment';
-	$permissiontoadd = $user->hasRight('recruitment', 'recruitmentjobposition', 'write');
+	$modulePart = 'recruitment';
+	$permissionToAdd = $user->hasRight('recruitment', 'recruitmentjobposition', 'write');
 	$permtoedit = $user->hasRight('recruitment', 'recruitmentjobposition', 'write');
 	$param = '&id='.$object->id;
 

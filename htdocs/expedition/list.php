@@ -234,7 +234,7 @@ if (empty($resHook)) {
 	$objectclass  = 'Expedition';
 	$objectlabel  = 'Sendings';
 	$permissiontoread   = $user->hasRight('expedition', 'lire');
-	$permissiontoadd = $user->hasRight('expedition', 'creer');
+	$permissionToAdd = $user->hasRight('expedition', 'creer');
 	$permissiontodelete = $user->hasRight('expedition', 'supprimer');
 	$uploaddir = $config->expedition->dir_output.'/sending';
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
@@ -505,7 +505,7 @@ if (empty($resHook)) {
 				// Builddoc
 				$donotredirect = 1;
 				$upload_dir = $config->facture->dir_output;
-				$permissiontoadd = $user->hasRight('facture', 'creer');
+				$permissionToAdd = $user->hasRight('facture', 'creer');
 
 				// Call action to build doc
 				$savobject = $object;

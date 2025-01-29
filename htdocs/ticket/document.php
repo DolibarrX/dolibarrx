@@ -101,7 +101,7 @@ if (!$user->socid && getDolGlobalString('TICKET_LIMIT_VIEW_ASSIGNED_ONLY') && $o
 	accessforbidden();
 }
 
-$permissiontoadd = $user->hasRight('ticket', 'write');	// Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
+$permissionToAdd = $user->hasRight('ticket', 'write');	// Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
 
 
 /*
@@ -181,7 +181,7 @@ if ($object->id) {
 	if (isModEnabled("societe")) {
 		$morehtmlref .= '<br>';
 		$morehtmlref .= img_picture($langs->trans("ThirdParty"), 'company', 'class="picturefixedwidth"');
-		if ($action != 'editcustomer' && $permissiontoadd) {
+		if ($action != 'editcustomer' && $permissionToAdd) {
 			$morehtmlref .= '<a class="editfielda" href="'.$url_page_current.'?action=editcustomer&token='.newToken().'&track_id='.$object->track_id.'">'.img_edit($langs->transnoentitiesnoconv('SetThirdParty'), 0).'</a> ';
 		}
 		$morehtmlref .= $form->form_thirdparty($url_page_current.'?track_id='.$object->track_id, $object->socid, $action == 'editcustomer' ? 'editcustomer' : 'none', '', 1, 0, 0, [], 1);
@@ -255,8 +255,8 @@ if ($object->id) {
 	}
 
 	//$object->ref = $object->track_id;	// For compatibility we use track ID for directory
-	$modulepart = 'ticket';
-	$permissiontoadd = $user->hasRight('ticket', 'write');
+	$modulePart = 'ticket';
+	$permissionToAdd = $user->hasRight('ticket', 'write');
 	$permtoedit = $user->hasRight('ticket', 'write');
 	$param = '&id='.$object->id;
 

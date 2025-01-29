@@ -118,7 +118,7 @@ $object->fields = dol_sort_array($object->fields, 'position');
 $arrayfields = dol_sort_array($arrayfields, 'position');
 
 $permissiontoread = $user->hasRight('opensurvey', 'read');
-$permissiontoadd = $user->hasRight('opensurvey', 'write');
+$permissionToAdd = $user->hasRight('opensurvey', 'write');
 // permission delete doesn't exists
 $permissiontodelete = $user->hasRight('opensurvey', 'write');
 
@@ -585,7 +585,7 @@ if (in_array('builddoc', array_keys($arrayofmassactions)) && ($nbtotalofrecords 
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_mymodule', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }

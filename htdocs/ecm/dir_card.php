@@ -100,16 +100,16 @@ if ($module == 'ecm') {
 
 // Permissions
 $permissiontoread = 0;
-$permissiontoadd = 0;
+$permissionToAdd = 0;
 $permissiontoupload = 0;
 if ($module == 'ecm') {
 	$permissiontoread = $user->hasRight("ecm", "read");
-	$permissiontoadd = $user->hasRight("ecm", "setup");
+	$permissionToAdd = $user->hasRight("ecm", "setup");
 	$permissiontoupload = $user->hasRight("ecm", "upload");
 }
 if ($module == 'medias') {
 	$permissiontoread = ($user->hasRight("mailing", "lire") || $user->hasRight("website", "read"));
-	$permissiontoadd = ($user->hasRight("mailing", "creer") || $user->hasRight("website", "write"));
+	$permissionToAdd = ($user->hasRight("mailing", "creer") || $user->hasRight("website", "write"));
 	$permissiontoupload = ($user->hasRight("mailing", "creer") || $user->hasRight("website", "write"));
 }
 
@@ -197,7 +197,7 @@ if ($action == 'confirm_deletedir' && $confirm == 'yes' && $permissiontoupload) 
 }
 
 // Update dirname or description
-if ($action == 'update' && !GETPOST('cancel', 'alpha') && $permissiontoadd) {
+if ($action == 'update' && !GETPOST('cancel', 'alpha') && $permissionToAdd) {
 	$error = 0;
 
 	if ($module == 'ecm') {
@@ -462,17 +462,17 @@ print dol_get_fiche_end();
 if ($action != 'edit' && $action != 'delete' && $action != 'deletefile') {
 	print '<div class="tabsAction">';
 
-	if ($permissiontoadd) {
+	if ($permissionToAdd) {
 		print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=edit&token='.newToken().($module ? '&module='.$module : '').'&section='.$section.'">'.$langs->trans('Edit').'</a>';
 	}
 
-	if ($permissiontoadd) {
+	if ($permissionToAdd) {
 		print '<a class="butAction" href="'.DOL_URL_ROOT.'/ecm/dir_add_card.php?action=create&token='.newToken().($module ? '&module='.$module : '').'&catParent='.$section.'">'.$langs->trans('ECMAddSection').'</a>';
 	} else {
 		print '<a class="butActionRefused classfortooltip" href="#" title="'.$langs->trans("NotAllowed").'">'.$langs->trans('ECMAddSection').'</a>';
 	}
 
-	print dolGetButtonAction($langs->trans('Delete'), '', 'delete', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken().($module ? '&module='.urlencode($module) : '').'&section='.urlencode($section).($backtopage ? '&backtopage='.urlencode($backtopage) : ''), '', $permissiontoadd);
+	print dolGetButtonAction($langs->trans('Delete'), '', 'delete', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken().($module ? '&module='.urlencode($module) : '').'&section='.urlencode($section).($backtopage ? '&backtopage='.urlencode($backtopage) : ''), '', $permissionToAdd);
 
 	print '</div>';
 }

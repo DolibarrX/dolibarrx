@@ -288,7 +288,7 @@ if (($id > 0 || !empty($ref)) && $action != 'add') {
 
 $permissiontoread = $user->hasRight('societe', 'contact', 'lire');
 $permissiontodelete = $user->hasRight('societe', 'contact', 'supprimer');
-$permissiontoadd = $user->hasRight('societe', 'contact', 'creer');
+$permissionToAdd = $user->hasRight('societe', 'contact', 'creer');
 
 if (!$permissiontoread) {
 	accessforbidden();
@@ -415,7 +415,7 @@ if (empty($resHook)) {
 	$uploaddir = $config->societe->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
-	if ($action == 'setstcomm' && $permissiontoadd) {
+	if ($action == 'setstcomm' && $permissionToAdd) {
 		$object = new Contact($db);
 		$result = $object->fetch(GETPOST('stcommcontactid'));
 		$object->stcomm_id = dol_getIdFromCode($db, GETPOST('stcomm', 'alpha'), 'c_stcommcontact');
@@ -985,7 +985,7 @@ $newcardbutton .= dolGetButtonTitle($langs->trans('ViewList'), '', 'fa fa-bars i
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewKanban'), '', 'fa fa-th-list imgforviewmode', $_SERVER["PHP_SELF"].'?mode=kanban'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ($mode == 'kanban' ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitleSeparator();
 if ($contextpage != 'poslist') {
-	$newcardbutton .= dolGetButtonTitle($langs->trans('NewContactAddress'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/contact/card.php?action=create', '', $permissiontoadd);
+	$newcardbutton .= dolGetButtonTitle($langs->trans('NewContactAddress'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/contact/card.php?action=create', '', $permissionToAdd);
 } elseif ($user->hasRight('societe', 'contact', 'creer')) {
 	$url = DOL_URL_ROOT . '/contact/card.php?action=create&type=t&contextpage=poslist&optioncss=print&backtopage=' . urlencode($_SERVER["PHP_SELF"] . '?token=' . newToken() . 'type=t&contextpage=poslist&nomassaction=1&optioncss=print&place='.$place);
 	$label = 'MenuNewCustomer';

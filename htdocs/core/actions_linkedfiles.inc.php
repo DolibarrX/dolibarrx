@@ -23,7 +23,7 @@
 // Variable $upload_dir must be defined when entering here.
 // Variable $upload_dirold may also exists.
 // Variable $confirm must be defined.
-// If variable $permissiontoadd is defined, we check it is true. Note: A test on permission should already have been done into the restrictedArea() method called by parent page.
+// If variable $permissionToAdd is defined, we check it is true. Note: A test on permission should already have been done into the restrictedArea() method called by parent page.
 
 /**
  * @var CommonObject $object
@@ -56,16 +56,16 @@ if ((GETPOST('sendit', 'alpha')
 	|| GETPOST('linkit', 'restricthtml')
 	|| ($action == 'confirm_deletefile' && $confirm == 'yes')
 	|| ($action == 'confirm_updateline' && GETPOST('save', 'alpha') && GETPOST('link', 'alpha'))
-	|| ($action == 'renamefile' && GETPOST('renamefilesave', 'alpha'))) && empty($permissiontoadd)) {
-	dol_syslog('The file actions_linkedfiles.inc.php was included but parameter $permissiontoadd was not set before.');
-	print 'The file actions_linkedfiles.inc.php was included but parameter $permissiontoadd was not set before.';
+	|| ($action == 'renamefile' && GETPOST('renamefilesave', 'alpha'))) && empty($permissionToAdd)) {
+	dol_syslog('The file actions_linkedfiles.inc.php was included but parameter $permissionToAdd was not set before.');
+	print 'The file actions_linkedfiles.inc.php was included but parameter $permissionToAdd was not set before.';
 	die;
 }
 
 $error = 0;
 
 // Submit file/link
-if (GETPOST('sendit', 'alpha') && getDolGlobalString('MAIN_UPLOAD_DOC') && !empty($permissiontoadd)) {
+if (GETPOST('sendit', 'alpha') && getDolGlobalString('MAIN_UPLOAD_DOC') && !empty($permissionToAdd)) {
 	if (!empty($_FILES) && is_array($_FILES['userfile'])) {
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -105,7 +105,7 @@ if (GETPOST('sendit', 'alpha') && getDolGlobalString('MAIN_UPLOAD_DOC') && !empt
 			}
 		}
 	}
-} elseif (GETPOST('linkit', 'restricthtml') && getDolGlobalString('MAIN_UPLOAD_DOC') && !empty($permissiontoadd)) {
+} elseif (GETPOST('linkit', 'restricthtml') && getDolGlobalString('MAIN_UPLOAD_DOC') && !empty($permissionToAdd)) {
 	$link = GETPOST('link', 'alpha');
 	if ($link) {
 		if (substr($link, 0, 7) != 'http://' && substr($link, 0, 8) != 'https://' && substr($link, 0, 7) != 'file://' && substr($link, 0, 7) != 'davs://') {
@@ -136,7 +136,7 @@ if (GETPOST('sendit', 'alpha') && getDolGlobalString('MAIN_UPLOAD_DOC') && !empt
 }
 
 // Delete file/link
-if ($action == 'confirm_deletefile' && $confirm == 'yes' && !empty($permissiontoadd)) {
+if ($action == 'confirm_deletefile' && $confirm == 'yes' && !empty($permissionToAdd)) {
 	$urlfile = GETPOST('urlfile', 'alpha', 0, null, null, 1);
 	if (GETPOST('section', 'alpha')) {
 		// For a delete from the ECM module, upload_dir is ECM root dir and urlfile contains relative path from upload_dir
@@ -206,7 +206,7 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes' && !empty($permissionto
 			exit;
 		}
 	}
-} elseif ($action == 'confirm_updateline' && GETPOST('save', 'alpha') && GETPOST('link', 'alpha') && !empty($permissiontoadd)) {
+} elseif ($action == 'confirm_updateline' && GETPOST('save', 'alpha') && GETPOST('link', 'alpha') && !empty($permissionToAdd)) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
 
 	$link = new Link($db);
@@ -224,7 +224,7 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes' && !empty($permissionto
 	} else {
 		//error fetching
 	}
-} elseif ($action == 'renamefile' && GETPOST('renamefilesave', 'alpha') && !empty($permissiontoadd)) {
+} elseif ($action == 'renamefile' && GETPOST('renamefilesave', 'alpha') && !empty($permissionToAdd)) {
 	// For documents pages, upload_dir contains already the path to the file from module dir
 	if (!empty($upload_dir)) {
 		$filenamefrom = dol_sanitizeFileName(GETPOST('renamefilefrom', 'alpha'), '_', 0); // Do not remove accents
@@ -272,7 +272,7 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes' && !empty($permissionto
 				$srcpath = $upload_dir.'/'.$filenamefrom;
 				$destpath = $upload_dir.'/'.$filenameto;
 				/* disabled. Too many bugs. All files of an object must remain into directory of object. link with event should be done in llx_ecm_files with column agenda_id.
-				if ($modulepart == "ticket" && !dol_is_file($srcpath)) {
+				if ($modulePart == "ticket" && !dol_is_file($srcpath)) {
 					$srcbis = $config->agenda->dir_output.'/'.GETPOST('section_dir').$filenamefrom;
 					if (dol_is_file($srcbis)) {
 						$srcpath = $srcbis;

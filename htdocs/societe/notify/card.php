@@ -81,7 +81,7 @@ $now = dol_now();
 // Security check
 $object = new Societe($db);
 
-$permissiontoadd = $user->hasRight('societe', 'lire');
+$permissionToAdd = $user->hasRight('societe', 'lire');
 
 
 /*
@@ -102,7 +102,7 @@ if (empty($resHook)) {
 	$error = 0;
 
 	// Add a notification
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		if (empty($contactid)) {
 			setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Contact")), null, 'errors');
 			$error++;
@@ -140,7 +140,7 @@ if (empty($resHook)) {
 	}
 
 	// Remove a notification
-	if ($action == 'delete' && $permissiontoadd) {
+	if ($action == 'delete' && $permissionToAdd) {
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."notify_def where rowid = ".GETPOSTINT('actid');
 		$db->query($sql);
 	}

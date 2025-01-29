@@ -188,7 +188,7 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 }
 
 $permissiontoread = $user->hasRight('resource', 'read');
-$permissiontoadd = $user->hasRight('resource', 'write');
+$permissionToAdd = $user->hasRight('resource', 'write');
 $permissiontodelete = $user->hasRight('resource', 'delete');
 if (!$permissiontoread) {
 	accessforbidden();
@@ -442,7 +442,7 @@ print '<input type="hidden" name="contextpage" value="'.$contextpage.'">';
 $newcardbutton = '';
 $url = DOL_URL_ROOT.'/resource/card.php?action=create';
 
-$newcardbutton = dolGetButtonTitle($langs->trans('NewResource'), '', 'fa fa-plus-circle', $url, '', $permissiontoadd);
+$newcardbutton = dolGetButtonTitle($langs->trans('NewResource'), '', 'fa fa-plus-circle', $url, '', $permissionToAdd);
 
 print_barre_liste($title, $page, $_SERVER['PHP_SELF'], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'object_'.$object->picture, 0, $newcardbutton, '', $limit, 0, 0, 1);
 

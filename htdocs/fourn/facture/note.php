@@ -63,7 +63,7 @@ $object = new FactureFournisseur($db);
 $object->fetch($id, $ref);
 
 $usercancreate = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
-$permissiontoadd = $usercancreate;
+$permissionToAdd = $usercancreate;
 $permissionnote = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")); // Used by the include of actions_setnotes.inc.php
 
 

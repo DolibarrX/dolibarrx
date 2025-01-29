@@ -54,14 +54,14 @@ if ($user->socid > 0) {
 	$socid = $user->socid;
 }
 
-$permissiontoadd = $user->hasRight('tax', 'charges', 'creer');
+$permissionToAdd = $user->hasRight('tax', 'charges', 'creer');
 
 
 /*
  * Actions
  */
 
-if (($action == 'add_payment' || ($action == 'confirm_paiement' && $confirm == 'yes')) && $permissiontoadd) {
+if (($action == 'add_payment' || ($action == 'confirm_paiement' && $confirm == 'yes')) && $permissionToAdd) {
 	$error = 0;
 
 	if ($cancel) {

@@ -166,13 +166,13 @@ if (isModEnabled("reception") || $origin == 'reception' || empty($origin)) {
 
 if (isModEnabled("reception")) {
 	$permissiontoread = $user->hasRight('reception', 'lire');
-	$permissiontoadd = $user->hasRight('reception', 'creer');
+	$permissionToAdd = $user->hasRight('reception', 'creer');
 	$permissiondellink = $user->hasRight('reception', 'creer'); // Used by the include of actions_dellink.inc.php
 	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('reception', 'creer')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('reception', 'reception_advance', 'validate')));
 	$permissiontodelete = $user->hasRight('reception', 'supprimer');
 } else {
 	$permissiontoread = $user->hasRight('fournisseur', 'order', 'receptionner');
-	$permissiontoadd = $user->hasRight('fournisseur', 'order', 'receptionner');
+	$permissionToAdd = $user->hasRight('fournisseur', 'order', 'receptionner');
 	$permissiondellink = $user->hasRight('fournisseur', 'order', 'receptionner'); // Used by the include of actions_dellink.inc.php
 	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'order', 'receptionner')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'order_advance', 'check')));
 	$permissiontodelete = $user->hasRight('fournisseur', 'order', 'receptionner');
@@ -221,12 +221,12 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_dellink.inc.php'; // Must be 'include', not 'include_once'
 
 	// Reopen
-	if ($action == 'reopen' && $permissiontoadd) {	// Test on permissions not required here
+	if ($action == 'reopen' && $permissionToAdd) {	// Test on permissions not required here
 		$result = $object->reOpen();
 	}
 
 	// Confirm back to draft status
-	if ($action == 'modif' && $permissiontoadd) {
+	if ($action == 'modif' && $permissionToAdd) {
 		$result = $object->setDraft($user);
 		if ($result >= 0) {
 			// Define output language
@@ -253,11 +253,11 @@ if (empty($resHook)) {
 	}
 
 	// Set incoterm
-	if ($action == 'set_incoterms' && isModEnabled('incoterm') && $permissiontoadd) {
+	if ($action == 'set_incoterms' && isModEnabled('incoterm') && $permissionToAdd) {
 		$result = $object->setIncoterms(GETPOSTINT('incoterm_id'), GETPOST('location_incoterms'));
 	}
 
-	if ($action == 'setref_supplier' && $permissiontoadd) {
+	if ($action == 'setref_supplier' && $permissionToAdd) {
 		if ($result < 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
@@ -272,7 +272,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'update_extras' && $permissiontoadd) {
+	if ($action == 'update_extras' && $permissionToAdd) {
 		$object->oldcopy = dol_clone($object, 2);
 
 		// Fill array 'array_options' with data from update form
@@ -296,7 +296,7 @@ if (empty($resHook)) {
 	}
 
 	// Create reception
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		$error = 0;
 
 		$db->begin();
@@ -535,7 +535,7 @@ if (empty($resHook)) {
 			if ($result < 0) {
 				setEventMessages($object->error, $object->errors, 'errors');
 		}*/
-	} elseif ($action == 'setdate_livraison' && $permissiontoadd) {
+	} elseif ($action == 'setdate_livraison' && $permissionToAdd) {
 		$datedelivery = dol_mktime(GETPOSTINT('liv_hour'), GETPOSTINT('liv_min'), 0, GETPOSTINT('liv_month'), GETPOSTINT('liv_day'), GETPOSTINT('liv_year'));
 
 		$object->fetch($id);
@@ -548,7 +548,7 @@ if (empty($resHook)) {
 	|| $action == 'settrueWidth'
 	|| $action == 'settrueHeight'
 	|| $action == 'settrueDepth'
-		|| $action == 'setshipping_method_id') && $permissiontoadd) {
+		|| $action == 'setshipping_method_id') && $permissionToAdd) {
 		// Action update
 		$error = 0;
 
@@ -611,7 +611,7 @@ if (empty($resHook)) {
 			setEventMessages($object->error, $object->errors, 'errors');
 			$action = '';
 		}
-	} elseif ($action == 'remove_file' && $permissiontoadd) {
+	} elseif ($action == 'remove_file' && $permissionToAdd) {
 		// Delete file in doc form
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -623,7 +623,7 @@ if (empty($resHook)) {
 		} else {
 			setEventMessages($langs->trans("ErrorFailToDeleteFile", GETPOST('urlfile')), null, 'errors');
 		}
-	} elseif ($action == 'classifybilled' && $permissiontoadd) {
+	} elseif ($action == 'classifybilled' && $permissionToAdd) {
 		$result = $object->setBilled();
 		if ($result >= 0) {
 			header('Location: '.$_SERVER["PHP_SELF"].'?id='.$object->id);
@@ -664,7 +664,7 @@ if (empty($resHook)) {
 		} else {
 			setEventMessages($line->error, $line->errors, 'errors');
 		}
-	} elseif ($action == 'updateline' && GETPOST('save') && $permissiontoadd) {
+	} elseif ($action == 'updateline' && GETPOST('save') && $permissionToAdd) {
 		// Update a line
 		// Clean parameters
 		$qty = 0;
@@ -755,7 +755,7 @@ if (empty($resHook)) {
 			header('Location: '.$_SERVER['PHP_SELF'].'?id='.$object->id); // To reshow the record we edit
 			exit();
 		}
-	} elseif ($action == 'updateline' && $permissiontoadd && GETPOST('cancel', 'alpha') == $langs->trans("Cancel")) {
+	} elseif ($action == 'updateline' && $permissionToAdd && GETPOST('cancel', 'alpha') == $langs->trans("Cancel")) {
 		header('Location: '.$_SERVER['PHP_SELF'].'?id='.$object->id); // To reshow the record we edit
 		exit();
 	}
@@ -1488,7 +1488,7 @@ if ($action == 'create') {
 		$morehtmlref .= '<br>';
 		if (0) {    // Do not change on reception
 			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
-			if ($action != 'classify' && $permissiontoadd) {
+			if ($action != 'classify' && $permissionToAdd) {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}
 			$morehtmlref .= $form->form_project($_SERVER['PHP_SELF'].'?id='.$object->id, (!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') ? $object->socid : -1), $object->fk_project, ($action == 'classify' ? 'projectid' : 'none'), 0, 0, 0, 1, '', 'maxwidth300');
@@ -1551,7 +1551,7 @@ if ($action == 'create') {
 	print $langs->trans('DateDeliveryPlanned');
 	print '</td>';
 
-	if ($action != 'editdate_livraison' && $permissiontoadd) {
+	if ($action != 'editdate_livraison' && $permissionToAdd) {
 		print '<td class="right"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=editdate_livraison&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->trans('SetDeliveryDate'), 1).'</a></td>';
 	}
 	print '</tr></table>';
@@ -1683,7 +1683,7 @@ if ($action == 'create') {
 	print $langs->trans('ReceptionMethod');
 	print '</td>';
 
-	if ($action != 'editshipping_method_id' && $permissiontoadd) {
+	if ($action != 'editshipping_method_id' && $permissionToAdd) {
 		print '<td class="right"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=editshipping_method_id&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->trans('SetReceptionMethod'), 1).'</a></td>';
 	}
 	print '</tr></table>';

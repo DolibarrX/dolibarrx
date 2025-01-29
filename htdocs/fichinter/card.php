@@ -119,7 +119,7 @@ $result = restrictedArea($user, 'ficheinter', $id, 'fichinter');
 $permissionnote = $user->hasRight('ficheinter', 'creer'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('ficheinter', 'creer'); // Used by the include of actions_dellink.inc.php
 $permissiontodelete = (($object->statut == Fichinter::STATUS_DRAFT && $user->hasRight('ficheinter', 'creer')) || $user->hasRight('ficheinter', 'supprimer'));
-$permissiontoadd = $user->hasRight('ficheinter', 'creer');
+$permissionToAdd = $user->hasRight('ficheinter', 'creer');
 
 $usercancreate = $user->hasRight('ficheinter', 'creer');
 
@@ -163,7 +163,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_dellink.inc.php'; // Must be 'include', not 'include_once'
 
 	// Action clone object
-	if ($action == 'confirm_clone' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_clone' && $confirm == 'yes' && $permissionToAdd) {
 		if (false && !GETPOST('clone_content') && !GETPOST('clone_receivers')) {
 			setEventMessages($langs->trans("NoCloneOptionsSpecified"), null, 'errors');
 		} else {
@@ -184,7 +184,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'confirm_validate' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_validate' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->setValid($user);
 
 		if ($result >= 0) {
@@ -210,7 +210,7 @@ if (empty($resHook)) {
 		} else {
 			$mesg = $object->error;
 		}
-	} elseif ($action == 'confirm_sign' && $confirm == 'yes' && $permissiontoadd) {
+	} elseif ($action == 'confirm_sign' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->setSignedStatus($user, GETPOSTINT('signed_status'), 0, 'FICHINTER_MODIFY');
 		if ($result >= 0) {
 			if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {
@@ -235,7 +235,7 @@ if (empty($resHook)) {
 		} else {
 			$mesg = $object->error;
 		}
-	} elseif ($action == 'confirm_unsign' && $confirm == 'yes' && $permissiontoadd) {
+	} elseif ($action == 'confirm_unsign' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->setSignedStatus($user, Fichinter::$SIGNED_STATUSES['STATUS_NO_SIGNATURE'], 0, 'FICHINTER_MODIFY');
 		if ($result >= 0) {
 			if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {
@@ -260,7 +260,7 @@ if (empty($resHook)) {
 		} else {
 			$mesg = $object->error;
 		}
-	} elseif ($action == 'confirm_modify' && $confirm == 'yes' && $permissiontoadd) {
+	} elseif ($action == 'confirm_modify' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->setDraft($user);
 		if ($result >= 0) {
 			if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {
@@ -285,7 +285,7 @@ if (empty($resHook)) {
 		} else {
 			$mesg = $object->error;
 		}
-	} elseif ($action == 'confirm_done' && $confirm == 'yes' && $permissiontoadd) {
+	} elseif ($action == 'confirm_done' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->setClose($user);
 
 		if ($result >= 0) {
@@ -311,7 +311,7 @@ if (empty($resHook)) {
 		} else {
 			$mesg = $object->error;
 		}
-	} elseif ($action == 'add' && $permissiontoadd) {
+	} elseif ($action == 'add' && $permissionToAdd) {
 		$selectedLines = GETPOST('toselect', 'array');
 		$object->socid = $socid;
 		$object->duration = GETPOSTINT('duration');
@@ -533,7 +533,7 @@ if (empty($resHook)) {
 			$action = 'create';
 			$error++;
 		}
-	} elseif ($action == 'update' && $permissiontoadd) {
+	} elseif ($action == 'update' && $permissionToAdd) {
 		$object->socid = $socid;
 		$object->fk_project = GETPOSTINT('projectid');
 		$object->fk_contrat = GETPOSTINT('contratid');
@@ -546,19 +546,19 @@ if (empty($resHook)) {
 		if ($result < 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
-	} elseif ($action == 'classin' && $permissiontoadd) {
+	} elseif ($action == 'classin' && $permissionToAdd) {
 		// Set into a project
 		$result = $object->setProject(GETPOSTINT('projectid'));
 		if ($result < 0) {
 			dol_print_error($db, $object->error);
 		}
-	} elseif ($action == 'setcontract' && $permissiontoadd) {
+	} elseif ($action == 'setcontract' && $permissionToAdd) {
 		// Set into a contract
 		$result = $object->set_contrat($user, GETPOSTINT('contratid'));
 		if ($result < 0) {
 			dol_print_error($db, $object->error);
 		}
-	} elseif ($action == 'setref_client' && $permissiontoadd) {
+	} elseif ($action == 'setref_client' && $permissionToAdd) {
 		// Positionne ref client
 		$result = $object->setRefClient($user, GETPOST('ref_client', 'alpha'));
 		if ($result < 0) {
@@ -572,12 +572,12 @@ if (empty($resHook)) {
 
 		header('Location: '.DOL_URL_ROOT.'/fichinter/list.php?leftmenu=ficheinter&restore_lastsearch_values=1');
 		exit;
-	} elseif ($action == 'setdescription' && $permissiontoadd) {
+	} elseif ($action == 'setdescription' && $permissionToAdd) {
 		$result = $object->set_description($user, GETPOST('description'));
 		if ($result < 0) {
 			dol_print_error($db, $object->error);
 		}
-	} elseif ($action == "addline" && $permissiontoadd) {
+	} elseif ($action == "addline" && $permissionToAdd) {
 		// Add line
 		if (!GETPOST('np_desc', 'restricthtml') && !getDolGlobalString('FICHINTER_EMPTY_LINE_DESC')) {
 			$mesg = $langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Description"));
@@ -638,7 +638,7 @@ if (empty($resHook)) {
 				$db->rollback();
 			}
 		}
-	} elseif ($action == 'classifybilled' && $permissiontoadd) {
+	} elseif ($action == 'classifybilled' && $permissionToAdd) {
 		// Classify Billed
 		$result = $object->setStatut(Fichinter::STATUS_BILLED);
 		if ($result > 0) {
@@ -647,7 +647,7 @@ if (empty($resHook)) {
 		} else {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
-	} elseif ($action == 'classifyunbilled' && $permissiontoadd) {
+	} elseif ($action == 'classifyunbilled' && $permissionToAdd) {
 		// Classify unbilled
 		$result = $object->setStatut(Fichinter::STATUS_VALIDATED);
 		if ($result > 0) {
@@ -656,7 +656,7 @@ if (empty($resHook)) {
 		} else {
 			$mesg = $object->error;
 		}
-	} elseif ($action == 'confirm_reopen' && $permissiontoadd) {
+	} elseif ($action == 'confirm_reopen' && $permissionToAdd) {
 		// Reopen
 		$result = $object->setStatut(Fichinter::STATUS_VALIDATED);
 		if ($result > 0) {
@@ -665,7 +665,7 @@ if (empty($resHook)) {
 		} else {
 			$mesg = $object->error;
 		}
-	} elseif ($action == 'updateline' && $permissiontoadd && GETPOST('save', 'alpha')) {
+	} elseif ($action == 'updateline' && $permissionToAdd && GETPOST('save', 'alpha')) {
 		// Mise a jour d'une ligne d'intervention
 		$objectline = new FichinterLigne($db);
 		if ($objectline->fetch($lineid) <= 0) {
@@ -719,7 +719,7 @@ if (empty($resHook)) {
 
 		header('Location: '.$_SERVER["PHP_SELF"].'?id='.$object->id);
 		exit;
-	} elseif ($action == 'confirm_deleteline' && $confirm == 'yes' && $permissiontoadd) {
+	} elseif ($action == 'confirm_deleteline' && $confirm == 'yes' && $permissionToAdd) {
 		// Supprime une ligne d'intervention AVEC confirmation
 		$objectline = new FichinterLigne($db);
 		if ($objectline->fetch($lineid) <= 0) {
@@ -749,7 +749,7 @@ if (empty($resHook)) {
 		if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {
 			fichinter_create($db, $object, $object->model_pdf, $outputlangs);
 		}
-	} elseif ($action == 'up' && $permissiontoadd) {
+	} elseif ($action == 'up' && $permissionToAdd) {
 		// Set position of lines
 		$object->line_up($lineid);
 
@@ -772,7 +772,7 @@ if (empty($resHook)) {
 
 		header('Location: '.$_SERVER["PHP_SELF"].'?id='.$object->id.'#'.$lineid);
 		exit;
-	} elseif ($action == 'down' && $permissiontoadd) {
+	} elseif ($action == 'down' && $permissionToAdd) {
 		$object->line_down($lineid);
 
 		// Define output language
@@ -807,10 +807,10 @@ if (empty($resHook)) {
 
 	// Actions to build doc
 	$upload_dir = $config->ficheinter->dir_output;
-	$permissiontoadd = $user->hasRight('ficheinter', 'creer');
+	$permissionToAdd = $user->hasRight('ficheinter', 'creer');
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
-	if ($action == 'update_extras' && $permissiontoadd) {
+	if ($action == 'update_extras' && $permissionToAdd) {
 		$object->oldcopy = dol_clone($object, 2);
 		$attribute_name = GETPOST('attribute', 'restricthtml');
 
@@ -835,7 +835,7 @@ if (empty($resHook)) {
 	}
 
 	if (getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
-		if ($action == 'addcontact' && $permissiontoadd) {
+		if ($action == 'addcontact' && $permissionToAdd) {
 			if ($result > 0 && $id > 0) {
 				$contactid = (GETPOSTINT('userid') ? GETPOSTINT('userid') : GETPOSTINT('contactid'));
 				$typeid = (GETPOST('typecontact') ? GETPOST('typecontact') : GETPOST('type'));
@@ -853,10 +853,10 @@ if (empty($resHook)) {
 					$mesg = $object->error;
 				}
 			}
-		} elseif ($action == 'swapstatut' && $permissiontoadd) {
+		} elseif ($action == 'swapstatut' && $permissionToAdd) {
 			// bascule du statut d'un contact
 			$result = $object->swapContactStatus(GETPOSTINT('ligne'));
-		} elseif ($action == 'deletecontact' && $permissiontoadd) {
+		} elseif ($action == 'deletecontact' && $permissionToAdd) {
 			// Efface un contact
 			$result = $object->delete_contact(GETPOSTINT('lineid'));
 

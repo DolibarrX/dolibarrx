@@ -79,8 +79,8 @@ if (empty($action) && empty($id) && empty($ref)) {
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'.
 
 $permissiontoread = $user->hasRight('asset', 'read');
-$permissiontoadd = $user->hasRight('asset', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->hasRight('asset', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
+$permissionToAdd = $user->hasRight('asset', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->hasRight('asset', 'delete') || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissionnote = $user->hasRight('asset', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('asset', 'write'); // Used by the include of actions_dellink.inc.php
 $upload_dir = $config->asset->multidir_output[isset($object->entity) ? $object->entity : 1];
@@ -131,7 +131,7 @@ if (empty($resHook)) {
 	$triggermodname = 'ASSET_MODIFY'; // Name of trigger action code to execute when we modify record
 
 	// Action dispose object
-	if ($action == 'confirm_disposal' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_disposal' && $confirm == 'yes' && $permissionToAdd) {
 		$object->disposal_date = dol_mktime(0, 0, 0, GETPOSTINT('disposal_datemonth'), GETPOSTINT('disposal_dateday'), GETPOSTINT('disposal_dateyear'), 'gmt'); // for date without hour, we use gmt
 		$object->disposal_amount_ht = GETPOSTINT('disposal_amount');
 		$object->fk_disposal_type = GETPOSTINT('fk_disposal_type');
@@ -144,7 +144,7 @@ if (empty($resHook)) {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
 		$action = '';
-	} elseif ($action == "add" && $permissiontoadd) {
+	} elseif ($action == "add" && $permissionToAdd) {
 		$object->supplier_invoice_id = GETPOSTINT('supplier_invoice_id');
 	}
 
@@ -375,20 +375,20 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			}
 
 			if ($object->status == $object::STATUS_DRAFT) {
-				print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissiontoadd);
+				print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissionToAdd);
 			}
 
 			// Clone
-			//print dolGetButtonAction($langs->trans('ToClone'), '', 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=clone&token=' . newToken(), '', false && $permissiontoadd);
+			//print dolGetButtonAction($langs->trans('ToClone'), '', 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=clone&token=' . newToken(), '', false && $permissionToAdd);
 
 			if ($object->status == $object::STATUS_DRAFT) {
-				print dolGetButtonAction($langs->trans('AssetDisposal'), '', 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=disposal&token=' . newToken(), '', $permissiontoadd);
+				print dolGetButtonAction($langs->trans('AssetDisposal'), '', 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=disposal&token=' . newToken(), '', $permissionToAdd);
 			} else {
-				print dolGetButtonAction($langs->trans('ReOpen'), '', 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=reopen&token=' . newToken(), '', $permissiontoadd);
+				print dolGetButtonAction($langs->trans('ReOpen'), '', 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=reopen&token=' . newToken(), '', $permissionToAdd);
 			}
 
 			// Delete (need delete permission, or if draft, just need create/modify permission)
-			print dolGetButtonAction($langs->trans('Delete'), '', 'delete', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=delete&token=' . newToken(), '', $permissiontodelete || ($object->status == $object::STATUS_DRAFT && $permissiontoadd));
+			print dolGetButtonAction($langs->trans('Delete'), '', 'delete', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=delete&token=' . newToken(), '', $permissiontodelete || ($object->status == $object::STATUS_DRAFT && $permissionToAdd));
 		}
 		print '</div>' . "\n";
 	}

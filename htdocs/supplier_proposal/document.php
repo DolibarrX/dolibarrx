@@ -87,8 +87,8 @@ if ($object->id > 0) {
 	$upload_dir = $config->supplier_proposal->dir_output.'/'.dol_sanitizeFileName($object->ref);
 }
 
-$permissiontoadd = $user->hasRight('supplier_proposal', 'creer');
-$usercancreate = $permissiontoadd;
+$permissionToAdd = $user->hasRight('supplier_proposal', 'creer');
+$usercancreate = $permissionToAdd;
 
 /*
  * Actions
@@ -175,8 +175,8 @@ if ($object->id > 0) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'supplier_proposal';
-	$permissiontoadd = $user->hasRight('supplier_proposal', 'creer');
+	$modulePart = 'supplier_proposal';
+	$permissionToAdd = $user->hasRight('supplier_proposal', 'creer');
 	$permtoedit = $user->hasRight('supplier_proposal', 'creer');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

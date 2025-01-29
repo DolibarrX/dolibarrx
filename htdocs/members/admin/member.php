@@ -64,7 +64,7 @@ $scandir = GETPOST('scandir', 'alpha');
 $type = 'member';
 
 $action = GETPOST('action', 'aZ09');
-$modulepart = GETPOST('modulepart', 'aZ09');
+$modulePart = GETPOST('modulepart', 'aZ09');
 
 $reg = [];
 $error = 0;

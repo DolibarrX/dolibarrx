@@ -349,7 +349,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->ref);
 							$upload_dir = $config->facture->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=facture&file=".str_replace('/', '%2F', $subdir).'%2F';
-							$modulepart = "facture";
+							$modulePart = "facture";
 							break;
 						case "SupplierInvoice":
 							$tmpinvoicesupplier->fetch($objd->id);
@@ -357,21 +357,21 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->ref);
 							$upload_dir = $config->fournisseur->facture->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=facture_fournisseur&file=".str_replace('/', '%2F', $subdir).'%2F';
-							$modulepart = "facture_fournisseur";
+							$modulePart = "facture_fournisseur";
 							break;
 						case "ExpenseReport":
 							$subdir = '';
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->ref);
 							$upload_dir = $config->expensereport->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=expensereport&file=".str_replace('/', '%2F', $subdir).'%2F';
-							$modulepart = "expensereport";
+							$modulePart = "expensereport";
 							break;
 						case "SalaryPayment":
 							$subdir = '';
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->id);
 							$upload_dir = $config->salaries->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=salaries&file=".str_replace('/', '%2F', $subdir).'%2F';
-							$modulepart = "salaries";
+							$modulePart = "salaries";
 							break;
 						case "Donation":
 							$tmpdonation->fetch($objd->id);
@@ -379,28 +379,28 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->id);
 							$upload_dir = $config->don->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=don&file=".str_replace('/', '%2F', $subdir).'%2F';
-							$modulepart = "don";
+							$modulePart = "don";
 							break;
 						case "SocialContributions":
 							$subdir = '';
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->id);
 							$upload_dir = $config->tax->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=tax&file=".str_replace('/', '%2F', $subdir).'%2F';
-							$modulepart = "tax";
+							$modulePart = "tax";
 							break;
 						case "VariousPayment":
 							$subdir = '';
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->id);
 							$upload_dir = $config->bank->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=bank&file=".str_replace('/', '%2F', $subdir).'%2F';
-							$modulepart = "bank";
+							$modulePart = "bank";
 							break;
 						case "LoanPayment":
 							// Loan payment has no linked file
 							$subdir = '';
 							$upload_dir = $config->loan->dir_output.'/'.$subdir;
 							$link = "";
-							$modulepart = "";
+							$modulePart = "";
 							break;
 						default:
 							$subdir = '';
@@ -481,7 +481,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 									'fullname' => $file['fullname'],
 									'relpath' => '/'.$file['name'],
 									'relpathnamelang' => $langs->trans($file['item']).'/'.$file['name'],
-									'modulepart' => $modulepart,
+									'modulepart' => $modulePart,
 									'subdir' => $subdir,
 									'currency' => $file['currency']
 								);

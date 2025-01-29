@@ -95,8 +95,8 @@ if ($user->socid) {
 $result = restrictedArea($user, 'expedition', $id, 'delivery', 'delivery');
 
 $permissiontoread = $user->hasRight('expedition', 'delivery', 'read');
-$permissiontoadd = $user->hasRight('expedition', 'delivery', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->hasRight('expedition', 'delivery', 'supprimer') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
+$permissionToAdd = $user->hasRight('expedition', 'delivery', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->hasRight('expedition', 'delivery', 'supprimer') || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('expedition', 'delivery', 'creer')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('expedition', 'delivery_advance', 'validate')));
 $permissionnote = $user->hasRight('expedition', 'delivery', 'creer'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('expedition', 'delivery', 'creer'); // Used by the include of actions_dellink.inc.php
@@ -112,7 +112,7 @@ $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action
 $permissiondellink = $user->hasRight('expedition', 'delivery', 'supprimer'); // Used by the include of actions_dellink.inc.php
 include DOL_DOCUMENT_ROOT.'/core/actions_dellink.inc.php';     // Must be 'include', not 'include_once'
 
-if ($action == 'add' && $permissiontoadd) {
+if ($action == 'add' && $permissionToAdd) {
 	$db->begin();
 
 	$object->date_delivery = dol_now();
@@ -195,7 +195,7 @@ if ($action == 'confirm_delete' && $confirm == 'yes' && $permissiontodelete) {
 	}
 }
 
-if ($action == 'setdate_delivery' && $permissiontoadd) {
+if ($action == 'setdate_delivery' && $permissionToAdd) {
 	$datedelivery = dol_mktime(GETPOSTINT('liv_hour'), GETPOSTINT('liv_min'), 0, GETPOSTINT('liv_month'), GETPOSTINT('liv_day'), GETPOSTINT('liv_year'));
 	$result = $object->setDeliveryDate($user, $datedelivery);
 	if ($result < 0) {
@@ -207,7 +207,7 @@ if ($action == 'setdate_delivery' && $permissiontoadd) {
 }
 
 // Update extrafields
-if ($action == 'update_extras' && $permissiontoadd) {
+if ($action == 'update_extras' && $permissionToAdd) {
 	$object->oldcopy = dol_clone($object, 2);
 
 	// Fill array 'array_options' with data from update form
@@ -231,7 +231,7 @@ if ($action == 'update_extras' && $permissiontoadd) {
 }
 
 // Extrafields line
-if ($action == 'update_extras_line' && $permissiontoadd) {
+if ($action == 'update_extras_line' && $permissionToAdd) {
 	$array_options = [];
 	$num = count($object->lines);
 

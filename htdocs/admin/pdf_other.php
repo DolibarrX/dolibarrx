@@ -584,7 +584,7 @@ $documenturl = DOL_URL_ROOT.'/document.php';
 if (isset($config->global->DOL_URL_ROOT_DOCUMENT_PHP)) {
 	$documenturl = $config->global->DOL_URL_ROOT_DOCUMENT_PHP;
 }
-$modulepart = 'mycompany';
+$modulePart = 'mycompany';
 
 print '<tr class="oddeven"><td><label for="logo">'.$form->textWithPicture($langs->trans("TERMSOFSALE"), $tooltiptermsofsale).'</label></td><td>';
 print '<div class="centpercent nobordernopadding valignmiddle "><div class="inline-block marginrightonly">';
@@ -592,7 +592,7 @@ print '<input type="file" class="flat minwidth100 maxwidthinputfileonsmartphone"
 
 if (!empty($mysoc->termsofsale)) {
 	if (file_exists($config->mycompany->dir_output.'/'.$mysoc->termsofsale)) {
-		print '<div class="inline-block valignmiddle marginrightonly"><a href="'.$documenturl.'?modulepart='.$modulepart.'&amp;file='.urlencode($mysoc->termsofsale).'">'.$mysoc->termsofsale.'</a>'.$formfile->showPreview($mysoc->termsofsale, $modulepart, $mysoc->termsofsale, 0, '');
+		print '<div class="inline-block valignmiddle marginrightonly"><a href="'.$documenturl.'?modulepart='.$modulePart.'&amp;file='.urlencode($mysoc->termsofsale).'">'.$mysoc->termsofsale.'</a>'.$formfile->showPreview($mysoc->termsofsale, $modulePart, $mysoc->termsofsale, 0, '');
 		print '<div class="inline-block valignmiddle marginrightonly"><a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=removetermsofsale&token='.newToken().'">'.img_delete($langs->trans("Delete"), '', 'marginleftonly').'</a></div>';
 	}
 }

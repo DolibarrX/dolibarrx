@@ -340,7 +340,7 @@ if (empty($resHook)) {
 	$objectclass = 'Order';
 	$objectlabel = 'Orders';
 	$permissiontoread = $user->hasRight("order", "lire");
-	$permissiontoadd = $user->hasRight("order", "creer");
+	$permissionToAdd = $user->hasRight("order", "creer");
 	$permissiontodelete = $user->hasRight("order", "supprimer");
 	$permissiontoexport = $user->hasRight("order", "order", "export");
 	if (getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) {
@@ -891,7 +891,7 @@ if ($resql) {
 	if (!empty($socid)) {
 		$url .= '&socid='.$socid;
 	}
-	$newcardbutton = '';//dolGetButtonTitle($langs->trans('NewOrder'), '', 'fa fa-plus-circle', $url, '', $contextpage == 'orderlistdet' && $permissiontoadd);
+	$newcardbutton = '';//dolGetButtonTitle($langs->trans('NewOrder'), '', 'fa fa-plus-circle', $url, '', $contextpage == 'orderlistdet' && $permissionToAdd);
 
 	// Lines of title fields
 	print '<form method="POST" id="searchFormList" action="'.$_SERVER["PHP_SELF"].'">';
@@ -2290,7 +2290,7 @@ if ($resql) {
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_orders', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 } else {

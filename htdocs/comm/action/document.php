@@ -94,7 +94,7 @@ if (!$sortfield) {
 }
 
 $upload_dir = $config->agenda->dir_output.'/'.dol_sanitizeFileName($object->ref);
-$modulepart = 'actions';
+$modulePart = 'actions';
 
 $result = restrictedArea($user, 'agenda', $id, 'actioncomm&societe', 'myactions|allactions', 'fk_soc', 'id');
 if ($user->socid && $socid) {
@@ -102,7 +102,7 @@ if ($user->socid && $socid) {
 }
 
 $usercancreate = $user->hasRight('agenda', 'allactions', 'create') || (($object->authorid == $user->id || $object->userownerid == $user->id) && $user->hasRight('agenda', 'myactions', 'create'));
-$permissiontoadd = $usercancreate;
+$permissionToAdd = $usercancreate;
 
 
 /*
@@ -331,8 +331,8 @@ if ($object->id > 0) {
 	print dol_get_fiche_end();
 
 
-	$modulepart = 'actions';
-	$permissiontoadd = $user->hasRight('agenda', 'myactions', 'create') || $user->hasRight('agenda', 'allactions', 'create');
+	$modulePart = 'actions';
+	$permissionToAdd = $user->hasRight('agenda', 'myactions', 'create') || $user->hasRight('agenda', 'allactions', 'create');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 } else {

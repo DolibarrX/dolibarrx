@@ -142,7 +142,7 @@ $object->fields = dol_sort_array($object->fields, 'position');
 $arrayfields = dol_sort_array($arrayfields, 'position');
 
 $permissiontoread = $user->admin;
-$permissiontoadd = $user->admin;
+$permissionToAdd = $user->admin;
 $permissiontodelete = $user->admin;
 
 if ($id > 0) {
@@ -447,7 +447,7 @@ print '<input type="hidden" name="mode" value="'.$mode.'">';
 
 $newcardbutton = '';
 if ($action != 'create') {
-	$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', $_SERVER['PHP_SELF'].'?action=create', '', $permissiontoadd);
+	$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', $_SERVER['PHP_SELF'].'?action=create', '', $permissionToAdd);
 
 	if ($action == 'edit') {
 		print '<table class="border centpercent tableforfield">';
@@ -872,7 +872,7 @@ if (in_array('builddoc', array_keys($arrayofmassactions)) && ($nbtotalofrecords 
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_emailsenderprofile', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }

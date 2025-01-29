@@ -124,11 +124,11 @@ if ($limit > 0 && $limit != $config->liste_limit) {
 
 
 if (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) {
-	$permissiontoadd = $user->hasRight('stock', 'creer');
+	$permissionToAdd = $user->hasRight('stock', 'creer');
 	$permissiontodelete = $user->hasRight('stock', 'supprimer');
 	$permissiontoupdatestock = $user->hasRight('stock', 'mouvement', 'creer');
 } else {
-	$permissiontoadd = $user->hasRight('stock', 'inventory_advance', 'write');
+	$permissionToAdd = $user->hasRight('stock', 'inventory_advance', 'write');
 	$permissiontodelete = $user->hasRight('stock', 'inventory_advance', 'write');
 	$permissiontoupdatestock = $user->hasRight('stock', 'inventory_advance', 'write');
 }

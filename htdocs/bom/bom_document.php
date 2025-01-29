@@ -95,7 +95,7 @@ if ($id > 0 || !empty($ref)) {
 $isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
 restrictedArea($user, 'bom', $object->id, $object->table_element, '', '', 'rowid', $isdraft);
 
-$permissiontoadd = $user->hasRight('bom', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
+$permissionToAdd = $user->hasRight('bom', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
 
 
 /*
@@ -157,8 +157,8 @@ if ($object->id && $upload_dir !== null) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'bom';
-	$permissiontoadd = $user->hasRight('bom', 'write');
+	$modulePart = 'bom';
+	$permissionToAdd = $user->hasRight('bom', 'write');
 	$permtoedit = $user->hasRight('bom', 'write');
 	$param = '&id='.$object->id;
 

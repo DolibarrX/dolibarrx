@@ -92,7 +92,7 @@ if ($id > 0 || !empty($ref)) {
 }
 
 $permissiontoread = $user->hasRight("facture", "lire");
-$permissiontoadd = $user->hasRight("facture", "creer");
+$permissionToAdd = $user->hasRight("facture", "creer");
 
 // Security check
 if (!empty($user->socid)) {

@@ -10406,7 +10406,7 @@ class Form
 	/**
 	 * Return HTML code to output a photo
 	 *
-	 * @param string 	$modulepart 				Key to define module concerned ('societe', 'userphoto', 'memberphoto')
+	 * @param string 	$modulePart 				Key to define module concerned ('societe', 'userphoto', 'memberphoto')
 	 * @param Societe|Member|Contact|User|CommonObject	$object	Object containing data to retrieve file name
 	 * @param int 		$width 						Width of photo
 	 * @param int 		$height 					Height of photo (auto if 0)
@@ -10420,7 +10420,7 @@ class Form
 	 * @return string                            	HTML code to output photo
 	 * @see getImagePublicURLOfObject()
 	 */
-	public static function showphoto($modulepart, $object, $width = 100, $height = 0, $caneditfield = 0, $cssclass = 'photowithmargin', $imagesize = '', $addlinktofullsize = 1, $cache = 0, $forcecapture = '', $noexternsourceoverwrite = 0)
+	public static function showphoto($modulePart, $object, $width = 100, $height = 0, $caneditfield = 0, $cssclass = 'photowithmargin', $imagesize = '', $addlinktofullsize = 1, $cache = 0, $forcecapture = '', $noexternsourceoverwrite = 0)
 	{
 		global $config, $langs;
 
@@ -10433,7 +10433,7 @@ class Form
 		$altfile = '';
 		$email = '';
 		$capture = '';
-		if ($modulepart == 'societe') {
+		if ($modulePart == 'societe') {
 			$dir = $config->societe->multidir_output[$entity];
 			if (!empty($object->logo)) {
 				if (dolIsAllowedForPreview($object->logo)) {
@@ -10448,7 +10448,7 @@ class Form
 				}
 			}
 			$email = $object->email;
-		} elseif ($modulepart == 'contact') {
+		} elseif ($modulePart == 'contact') {
 			$dir = $config->societe->multidir_output[$entity] . '/contact';
 			if (!empty($object->photo)) {
 				if (dolIsAllowedForPreview($object->photo)) {
@@ -10464,7 +10464,7 @@ class Form
 			}
 			$email = $object->email;
 			$capture = 'user';
-		} elseif ($modulepart == 'userphoto') {
+		} elseif ($modulePart == 'userphoto') {
 			$dir = $config->user->dir_output;
 			if (!empty($object->photo)) {
 				if (dolIsAllowedForPreview($object->photo)) {
@@ -10483,7 +10483,7 @@ class Form
 			}
 			$email = $object->email;
 			$capture = 'user';
-		} elseif ($modulepart == 'memberphoto') {
+		} elseif ($modulePart == 'memberphoto') {
 			$dir = $config->member->dir_output;
 			if (!empty($object->photo)) {
 				if (dolIsAllowedForPreview($object->photo)) {
@@ -10505,8 +10505,8 @@ class Form
 		} else {
 			// Generic case to show photos
 			// TODO Implement this method in previous objects so we can always use this generic method.
-			if ($modulepart != "unknown" && method_exists($object, 'getDataToShowPhoto')) {
-				$tmpdata = $object->getDataToShowPhoto($modulepart, $imagesize);
+			if ($modulePart != "unknown" && method_exists($object, 'getDataToShowPhoto')) {
+				$tmpdata = $object->getDataToShowPhoto($modulePart, $imagesize);
 
 				$dir = $tmpdata['dir'];
 				$file = $tmpdata['file'];
@@ -10526,35 +10526,35 @@ class Form
 		if ($dir) {
 			if ($file && file_exists($dir . "/" . $file)) {
 				if ($addlinktofullsize) {
-					$urladvanced = getAdvancedPreviewUrl($modulepart, $originalfile, 0, '&entity=' . $entity);
+					$urladvanced = getAdvancedPreviewUrl($modulePart, $originalfile, 0, '&entity=' . $entity);
 					if ($urladvanced) {
 						$ret .= '<a href="' . $urladvanced . '">';
 					} else {
-						$ret .= '<a href="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . $modulepart . '&entity=' . $entity . '&file=' . urlencode($originalfile) . '&cache=' . $cache . '">';
+						$ret .= '<a href="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . $modulePart . '&entity=' . $entity . '&file=' . urlencode($originalfile) . '&cache=' . $cache . '">';
 					}
 				}
-				$ret .= '<img alt="" class="photo' . $modulepart . ($cssclass ? ' ' . $cssclass : '') . ' photologo' . (preg_replace('/[^a-z]/i', '_', $file)) . '" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . ' src="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . $modulepart . '&entity=' . $entity . '&file=' . urlencode($file) . '&cache=' . $cache . '">';
+				$ret .= '<img alt="" class="photo' . $modulePart . ($cssclass ? ' ' . $cssclass : '') . ' photologo' . (preg_replace('/[^a-z]/i', '_', $file)) . '" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . ' src="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . $modulePart . '&entity=' . $entity . '&file=' . urlencode($file) . '&cache=' . $cache . '">';
 				if ($addlinktofullsize) {
 					$ret .= '</a>';
 				}
 			} elseif ($altfile && file_exists($dir . "/" . $altfile)) {
 				if ($addlinktofullsize) {
-					$urladvanced = getAdvancedPreviewUrl($modulepart, $originalfile, 0, '&entity=' . $entity);
+					$urladvanced = getAdvancedPreviewUrl($modulePart, $originalfile, 0, '&entity=' . $entity);
 					if ($urladvanced) {
 						$ret .= '<a href="' . $urladvanced . '">';
 					} else {
-						$ret .= '<a href="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . $modulepart . '&entity=' . $entity . '&file=' . urlencode($originalfile) . '&cache=' . $cache . '">';
+						$ret .= '<a href="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . $modulePart . '&entity=' . $entity . '&file=' . urlencode($originalfile) . '&cache=' . $cache . '">';
 					}
 				}
-				$ret .= '<img class="photo' . $modulepart . ($cssclass ? ' ' . $cssclass : '') . '" alt="Photo alt" id="photologo' . (preg_replace('/[^a-z]/i', '_', $file)) . '" class="' . $cssclass . '" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . ' src="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . $modulepart . '&entity=' . $entity . '&file=' . urlencode($altfile) . '&cache=' . $cache . '">';
+				$ret .= '<img class="photo' . $modulePart . ($cssclass ? ' ' . $cssclass : '') . '" alt="Photo alt" id="photologo' . (preg_replace('/[^a-z]/i', '_', $file)) . '" class="' . $cssclass . '" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . ' src="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . $modulePart . '&entity=' . $entity . '&file=' . urlencode($altfile) . '&cache=' . $cache . '">';
 				if ($addlinktofullsize) {
 					$ret .= '</a>';
 				}
 			} else {
 				$nophoto = '/public/theme/common/nophoto.png';
 				$defaultimg = 'identicon';        // For gravatar
-				if (in_array($modulepart, array('societe', 'userphoto', 'contact', 'memberphoto'))) {    // For modules that need a special image when photo not found
-					if ($modulepart == 'societe' || ($modulepart == 'memberphoto' && !empty($object->morphy) && strpos($object->morphy, 'mor') !== false)) {
+				if (in_array($modulePart, array('societe', 'userphoto', 'contact', 'memberphoto'))) {    // For modules that need a special image when photo not found
+					if ($modulePart == 'societe' || ($modulePart == 'memberphoto' && !empty($object->morphy) && strpos($object->morphy, 'mor') !== false)) {
 						$nophoto = 'company';
 					} else {
 						$nophoto = '/public/theme/common/user_anonymous.png';
@@ -10570,13 +10570,13 @@ class Form
 				if (isModEnabled('gravatar') && $email && empty($noexternsourceoverwrite)) {
 					// see https://gravatar.com/site/implement/images/php/
 					$ret .= '<!-- Put link to gravatar -->';
-					$ret .= '<img class="photo' . $modulepart . ($cssclass ? ' ' . $cssclass : '') . '" alt="" title="' . $email . ' Gravatar avatar" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . ' src="https://www.gravatar.com/avatar/' . dol_hash(strtolower(trim($email)), 'sha256', 1) . '?s=' . $width . '&d=' . $defaultimg . '">'; // gravatar need md5 hash
+					$ret .= '<img class="photo' . $modulePart . ($cssclass ? ' ' . $cssclass : '') . '" alt="" title="' . $email . ' Gravatar avatar" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . ' src="https://www.gravatar.com/avatar/' . dol_hash(strtolower(trim($email)), 'sha256', 1) . '?s=' . $width . '&d=' . $defaultimg . '">'; // gravatar need md5 hash
 				} else {
 					if ($nophoto == 'company') {
-						$ret .= '<div class="divforspanimg valignmiddle center photo' . $modulepart . ($cssclass ? ' ' . $cssclass : '') . '" alt="" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . '>' . img_picture('', 'company') . '</div>';
+						$ret .= '<div class="divforspanimg valignmiddle center photo' . $modulePart . ($cssclass ? ' ' . $cssclass : '') . '" alt="" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . '>' . img_picture('', 'company') . '</div>';
 						//$ret .= '<div class="difforspanimgright"></div>';
 					} else {
-						$ret .= '<img class="photo' . $modulepart . ($cssclass ? ' ' . $cssclass : '') . '" alt="" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . ' src="' . DOL_URL_ROOT . $nophoto . '">';
+						$ret .= '<img class="photo' . $modulePart . ($cssclass ? ' ' . $cssclass : '') . '" alt="" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . ' src="' . DOL_URL_ROOT . $nophoto . '">';
 					}
 				}
 			}

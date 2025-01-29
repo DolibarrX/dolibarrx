@@ -92,7 +92,7 @@ class FormCardWebPortal
 	/**
 	 * @var int Permission to add
 	 */
-	public $permissiontoadd = 0;
+	public $permissionToAdd = 0;
 
 	/**
 	 * @var int Permission to delete
@@ -141,13 +141,13 @@ class FormCardWebPortal
 	 * @param	string	$elementEn				Element (english) : "member" (for member), "partnership"
 	 * @param	int		$id						[=0] ID element
 	 * @param	int		$permissiontoread		[=0] Permission to read (0 : access forbidden by default)
-	 * @param	int		$permissiontoadd		[=0] Permission to add (0 : access forbidden by default), used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+	 * @param	int		$permissionToAdd		[=0] Permission to add (0 : access forbidden by default), used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 	 * @param	int		$permissiontodelete		[=0] Permission to delete (0 : access forbidden by default)
 	 * @param	int		$permissionnote			[=0] Permission to note (0 : access forbidden by default)
 	 * @param	int		$permissiondellink		[=0] Permission to delete links (0 : access forbidden by default)
 	 * @return	void
 	 */
-	public function init($elementEn, $id = 0, $permissiontoread = 0, $permissiontoadd = 0, $permissiontodelete = 0, $permissionnote = 0, $permissiondellink = 0)
+	public function init($elementEn, $id = 0, $permissiontoread = 0, $permissionToAdd = 0, $permissiontodelete = 0, $permissionnote = 0, $permissiondellink = 0)
 	{
 		global $hookManager, $langs;
 
@@ -210,7 +210,7 @@ class FormCardWebPortal
 		$this->id = (int) $id;
 		$this->object = $object;
 		$this->permissiontoread = $permissiontoread;
-		$this->permissiontoadd = $permissiontoadd;
+		$this->permissiontoadd = $permissionToAdd;
 		$this->permissiontodelete = $permissiontodelete;
 		$this->permissionnote = $permissionnote;
 		$this->permissiondellink = $permissiondellink;
@@ -236,7 +236,7 @@ class FormCardWebPortal
 		$id = $this->id;
 		$object = $this->object;
 		//$permissiontoread = $this->permissiontoread;
-		$permissiontoadd = $this->permissiontoadd;
+		$permissionToAdd = $this->permissiontoadd;
 
 		$error = 0;
 
@@ -264,7 +264,7 @@ class FormCardWebPortal
 		}
 
 		// Action to update record
-		if ($action == 'update' && !empty($permissiontoadd)) {
+		if ($action == 'update' && !empty($permissionToAdd)) {
 			foreach ($object->fields as $key => $val) {
 				// Check if field was submitted to be edited
 				if ($object->fields[$key]['type'] == 'duration') {
@@ -757,7 +757,7 @@ class FormCardWebPortal
 		$id = $this->id;
 		$object = $this->object;
 		//$permissiontoread = $this->permissiontoread;
-		$permissiontoadd = $this->permissiontoadd;
+		$permissionToAdd = $this->permissiontoadd;
 		$ref = $this->ref;
 		$titleKey = $this->titleKey;
 		$title = $langs->trans($titleKey);
@@ -843,7 +843,7 @@ class FormCardWebPortal
 				}
 
 				if (empty($resHook)) {
-					if ($permissiontoadd) {
+					if ($permissionToAdd) {
 						$url_file = $context->getControllerUrl($context->controller, '', false);
 						$html .= '<a href="' . $url_file . '&id=' . $object->id . '&action=edit" role="button">' . $langs->trans('Modify') . '</a>';
 					}

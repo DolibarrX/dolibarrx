@@ -95,14 +95,14 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 
 if (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) {
 	$permissiontoread = $user->hasRight('stock', 'lire');
-	$permissiontoadd = $user->hasRight('stock', 'creer');
+	$permissionToAdd = $user->hasRight('stock', 'creer');
 	$permissiontodelete = $user->hasRight('stock', 'supprimer');
 	$permissionnote = $user->hasRight('stock', 'creer'); // Used by the include of actions_setnotes.inc.php
 	$permissiondellink = $user->hasRight('stock', 'creer'); // Used by the include of actions_dellink.inc.php
 	$upload_dir = $config->stock->multidir_output[isset($object->entity) ? $object->entity : 1];
 } else {
 	$permissiontoread = $user->hasRight('stock', 'inventory_advance', 'read');
-	$permissiontoadd = $user->hasRight('stock', 'inventory_advance', 'write');
+	$permissionToAdd = $user->hasRight('stock', 'inventory_advance', 'write');
 	$permissiontodelete = $user->hasRight('stock', 'inventory_advance', 'delete');
 	$permissionnote = $user->hasRight('stock', 'inventory_advance', 'write'); // Used by the include of actions_setnotes.inc.php
 	$permissiondellink = $user->hasRight('stock', 'inventory_advance', 'write'); // Used by the include of actions_dellink.inc.php
@@ -152,11 +152,11 @@ if (empty($resHook)) {
 	// Action to build doc
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
-	/*if ($action == 'set_thirdparty' && $permissiontoadd)
+	/*if ($action == 'set_thirdparty' && $permissionToAdd)
 	{
 		$object->setValueFrom('fk_soc', GETPOST('fk_soc', 'int'), '', '', 'date', '', $user, 'MYOBJECT_MODIFY');
 	}*/
-	if ($action == 'classin' && $permissiontoadd) {
+	if ($action == 'classin' && $permissionToAdd) {
 		$object->setProject(GETPOSTINT('projectid'));
 	}
 
@@ -347,7 +347,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	{
 		$langs->load("projects");
 		$morehtmlref.='<br>'.$langs->trans('Project') . ' ';
-		if ($permissiontoadd)
+		if ($permissionToAdd)
 		{
 			if ($action != 'classify')
 			{
@@ -418,20 +418,20 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 			// Back to draft
 			if ($object->status == $object::STATUS_VALIDATED) {
-				if ($permissiontoadd) {
+				if ($permissionToAdd) {
 					print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'&action=setdraft&confirm=yes&token='.newToken().'">'.$langs->trans("SetToDraft").'</a>';
 				}
 			}
 			// Back to validate
 			if ($object->status == $object::STATUS_RECORDED) {
-				if ($permissiontoadd) {
+				if ($permissionToAdd) {
 					print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_validate&confirm=yes&token='.newToken().'">'.$langs->trans("ReOpen").'</a>';
 				}
 			}
 
 			// Modify
 			if ($object->status == $object::STATUS_DRAFT) {
-				if ($permissiontoadd) {
+				if ($permissionToAdd) {
 					print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=edit&token='.newToken().'">'.$langs->trans("Modify").'</a>'."\n";
 				} else {
 					print '<a class="butActionRefused classfortooltip" href="#" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans('Modify').'</a>'."\n";
@@ -440,7 +440,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 			// Validate
 			if ($object->status == $object::STATUS_DRAFT || $object->status == $object::STATUS_CANCELED) {
-				if ($permissiontoadd) {
+				if ($permissionToAdd) {
 					if (getDolGlobalInt('INVENTORY_INCLUDE_SUB_WAREHOUSE') && !empty($object->fk_warehouse)) {
 						print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'&action=validate&token='.newToken().'">'.$langs->trans("Validate").' ('.$langs->trans("ToStart").')</a>';
 					} else {
@@ -450,8 +450,8 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			}
 
 			// Clone
-			if ($permissiontoadd) {
-				//print dolGetButtonAction($langs->trans("ToClone"), '', 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&socid='.$object->socid.'&action=clone&object=inventory', 'clone', $permissiontoadd);
+			if ($permissionToAdd) {
+				//print dolGetButtonAction($langs->trans("ToClone"), '', 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&socid='.$object->socid.'&action=clone&object=inventory', 'clone', $permissionToAdd);
 			}
 
 			// Delete

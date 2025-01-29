@@ -489,7 +489,7 @@ if (empty($resHook)) {
 	$objectlabel = 'Bookkeeping';
 	$permissiontoread = ($user->hasRight('societe', 'lire') == 1);
 	$permissiontodelete = ($user->hasRight('societe', 'supprimer') == 1);
-	$permissiontoadd = ($user->hasRight('societe', 'creer') == 1);
+	$permissionToAdd = ($user->hasRight('societe', 'creer') == 1);
 	$uploaddir = $config->societe->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
@@ -1268,7 +1268,7 @@ while ($i < min($num, $limit)) {
 	}
 
 	// Document ref
-	$modulepart = '';
+	$modulePart = '';
 	if (!empty($arrayfields['t.doc_ref']['checked'])) {
 		$documentlink = '';
 		$objectstatic = null;
@@ -1293,7 +1293,7 @@ while ($i < min($num, $limit)) {
 			$objectstatic->fetch($line->fk_doc);
 
 			if ($objectstatic->id > 0) {
-				$modulepart = 'invoice_supplier';
+				$modulePart = 'invoice_supplier';
 				$filename = dol_sanitizeFileName($line->doc_ref);
 				$filedir = $config->fournisseur->facture->dir_output.'/'.get_exdir($line->fk_doc, 2, 0, 0, $objectstatic, $objectstatic->element).dol_sanitizeFileName($line->doc_ref);
 				$subdir = get_exdir($objectstatic->id, 2, 0, 0, $objectstatic, $objectstatic->element).dol_sanitizeFileName($line->doc_ref);

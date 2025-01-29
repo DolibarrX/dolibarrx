@@ -422,7 +422,7 @@ if (empty($resHook)) {
 	$objectclass = 'Facture';
 	$objectlabel = 'Invoices';
 	$permissiontoread = $user->hasRight("facture", "lire");
-	$permissiontoadd = $user->hasRight("facture", "creer");
+	$permissionToAdd = $user->hasRight("facture", "creer");
 	$permissiontodelete = $user->hasRight("facture", "supprimer");
 	$uploaddir = $config->facture->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';

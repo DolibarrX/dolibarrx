@@ -43,7 +43,7 @@ $langs->loadLangs(array("admin", "website", "other"));
 $action = GETPOST('action', 'aZ09');
 $backtopage = GETPOST('backtopage', 'alpha');
 $cancel = GETPOST('cancel');
-$modulepart = GETPOST('modulepart', 'aZ09');	// Used by actions_setmoduleoptions.inc.php
+$modulePart = GETPOST('modulepart', 'aZ09');	// Used by actions_setmoduleoptions.inc.php
 
 $functioncode = GETPOST('functioncode', 'alpha');
 $pre_prompt = GETPOST('prePrompt');

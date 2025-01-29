@@ -79,7 +79,7 @@ if (!$object->fetch($id, $ref) > 0) {
 }
 
 $upload_dir = $config->expensereport->dir_output.'/'.dol_sanitizeFileName($object->ref);
-$modulepart = 'trip';
+$modulePart = 'trip';
 
 // Load object
 //include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php';  // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
@@ -104,7 +104,7 @@ if ($object->id > 0) {
 	}
 }
 
-$permissiontoadd = $user->hasRight('expensereport', 'creer');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('expensereport', 'creer');	// Used by the include of actions_dellink.inc.php
 
 
 /*
@@ -164,8 +164,8 @@ if ($object->id) {
 	print dol_get_fiche_end();
 
 
-	$modulepart = 'expensereport';
-	$permissiontoadd = $user->hasRight('expensereport', 'creer');
+	$modulePart = 'expensereport';
+	$permissionToAdd = $user->hasRight('expensereport', 'creer');
 	$permtoedit = $user->hasRight('expensereport', 'creer');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

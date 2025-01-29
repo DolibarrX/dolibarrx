@@ -94,7 +94,7 @@ if ($id > 0 || !empty($ref)) {
 	$upload_dir = $config->recruitment->multidir_output[!empty($object->entity) ? $object->entity : $config->entity]."/".$object->id;
 }
 
-$permissiontoadd = $user->hasRight('recruitment', 'recruitmentjobposition', 'write'); // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd = $user->hasRight('recruitment', 'recruitmentjobposition', 'write'); // Used by the include of actions_addupdatedelete.inc.php
 
 // Security check - Protection if external user
 //if ($user->socid > 0) accessforbidden();
@@ -166,7 +166,7 @@ if ($object->id > 0) {
 	{
 		$langs->load("projects");
 		$morehtmlref .= $langs->trans('Project') . ' ';
-		if ($permissiontoadd)
+		if ($permissionToAdd)
 		{
 			if ($action != 'classify')
 				//$morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&token='.newToken().'&id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';

@@ -74,12 +74,12 @@ class PartnershipCardController extends Controller
 		// set form card
 		$cardAccess = getDolGlobalString('WEBPORTAL_PARTNERSHIP_CARD_ACCESS');
 		$permissiontoread = (int) isModEnabled('partnership') && in_array($cardAccess, array('visible', 'edit'));
-		$permissiontoadd = (int) isModEnabled('partnership') && in_array($cardAccess, array('edit'));
+		$permissionToAdd = (int) isModEnabled('partnership') && in_array($cardAccess, array('edit'));
 		$permissiontodelete = 0;
 		$permissionnote = 0;
 		$permissiondellink = 0;
 		$formCardWebPortal = new FormCardWebPortal($this->db);
-		$formCardWebPortal->init('partnership', $context->logged_partnership->id, $permissiontoread, $permissiontoadd, $permissiontodelete, $permissionnote, $permissiondellink);
+		$formCardWebPortal->init('partnership', $context->logged_partnership->id, $permissiontoread, $permissionToAdd, $permissiontodelete, $permissionnote, $permissiondellink);
 
 		// hook for action
 		$hookRes = $this->hookDoAction();

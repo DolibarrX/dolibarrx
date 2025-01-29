@@ -97,7 +97,7 @@ if ($id > 0 || !empty($ref)) {
 }
 
 $permissiontoread = $user->hasRight("facture_fourn", "lire");
-$permissiontoadd = $user->hasRight("facture_fourn", "creer");
+$permissionToAdd = $user->hasRight("facture_fourn", "creer");
 
 // Load object
 if ($id > 0 || !empty($ref)) {

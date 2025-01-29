@@ -270,7 +270,7 @@ if (!empty($user->socid)) {
 	accessforbidden();
 }
 
-$permissiontoadd = 1;
+$permissionToAdd = 1;
 $permissiontoedit = ($user->admin ? 1 : 0);
 $permissiontodelete = ($user->admin ? 1 : 0);
 if ($rowid > 0) {
@@ -319,7 +319,7 @@ if (empty($resHook)) {
 	}
 
 	// Actions add or modify an email template
-	if ((GETPOST('actionadd', 'alpha') && $permissiontoadd) || (GETPOST('actionmodify', 'alpha') && $permissiontoedit)) {
+	if ((GETPOST('actionadd', 'alpha') && $permissionToAdd) || (GETPOST('actionmodify', 'alpha') && $permissiontoedit)) {
 		$listfield = explode(',', str_replace(' ', '', $tabfield[25]));
 		$listfieldinsert = explode(',', $tabfieldinsert[25]);
 		$listfieldmodify = explode(',', $tabfieldinsert[25]);
@@ -693,7 +693,7 @@ $titlePicture = 'title_setup';
 
 $url = DOL_URL_ROOT.'/admin/mails_templates.php?action=create';
 $newcardbutton = '';
-$newcardbutton .= dolGetButtonTitle($langs->trans('NewEMailTemplate'), '', 'fa fa-plus-circle', $url, '', $permissiontoadd);
+$newcardbutton .= dolGetButtonTitle($langs->trans('NewEMailTemplate'), '', 'fa fa-plus-circle', $url, '', $permissionToAdd);
 
 
 if (!empty($user->admin) && (empty($_SESSION['leftmenu']) || $_SESSION['leftmenu'] != 'email_templates')) {

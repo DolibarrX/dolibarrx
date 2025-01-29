@@ -237,7 +237,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 
 $permissiontoread = $user->hasRight('member', 'lire');
 $permissiontodelete = $user->hasRight('member', 'supprimer');
-$permissiontoadd = $user->hasRight('member', 'creer');
+$permissionToAdd = $user->hasRight('member', 'creer');
 $uploaddir = $config->member->dir_output;
 $error = 0;
 
@@ -1598,7 +1598,7 @@ if (in_array('builddoc', array_keys($arrayofmassactions)) && ($nbtotalofrecords 
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_'.$object->module, '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }

@@ -77,7 +77,7 @@ if ($socid && $socid != $object->thirdparty->id) {
 	accessforbidden();
 }
 
-$permissiontoadd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "write"));
+$permissionToAdd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "write"));
 $permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "write"))) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight("fournisseur", "supplier_invoice_advance", "validate")));
 $permissiontodelete = ($user->hasRight("fournisseur", "facture", "supprimer") || $user->hasRight("supplier_invoice", "delete"));
 
@@ -86,7 +86,7 @@ $permissiontodelete = ($user->hasRight("fournisseur", "facture", "supprimer") ||
  * Actions
  */
 
-if ($action == 'setnote' && $permissiontoadd) {
+if ($action == 'setnote' && $permissionToAdd) {
 	$db->begin();
 
 	$object->fetch($id);
@@ -129,7 +129,7 @@ if ($action == 'confirm_validate' && $confirm == 'yes' && $permissiontovalidate)
 	}
 }
 
-if ($action == 'setnum_paiement' && GETPOST('num_paiement') && $permissiontoadd) {
+if ($action == 'setnum_paiement' && GETPOST('num_paiement') && $permissionToAdd) {
 	$object->fetch($id);
 	$res = $object->update_num(GETPOST('num_paiement'));
 	if ($res === 0) {
@@ -139,7 +139,7 @@ if ($action == 'setnum_paiement' && GETPOST('num_paiement') && $permissiontoadd)
 	}
 }
 
-if ($action == 'setdatep' && GETPOST('datepday') && $permissiontoadd) {
+if ($action == 'setdatep' && GETPOST('datepday') && $permissionToAdd) {
 	$object->fetch($id);
 	$datepaye = dol_mktime(GETPOSTINT('datephour'), GETPOSTINT('datepmin'), GETPOSTINT('datepsec'), GETPOSTINT('datepmonth'), GETPOSTINT('datepday'), GETPOSTINT('datepyear'));
 	$res = $object->update_date($datepaye);

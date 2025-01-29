@@ -61,7 +61,7 @@ $productid = GETPOSTINT('productid');
 $ref = GETPOST('ref', 'alpha'); // ref is productid_batch
 
 
-$modulepart = 'product_batch';
+$modulePart = 'product_batch';
 
 
 // Initialize a technical objects
@@ -108,7 +108,7 @@ if ($id || $ref) {
 		$batch = $tmp[1];
 	}
 	$object->fetch($id, $productid, $batch);
-	$upload_dir = $config->productbatch->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, $modulepart);
+	$upload_dir = $config->productbatch->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, $modulePart);
 	$filearray = dol_dir_list($upload_dir, "files");
 }
 
@@ -122,7 +122,7 @@ $usercancreate = $user->hasRight('produit', 'creer');
 $usercandelete = $user->hasRight('produit', 'supprimer');
 
 $permissiontoread = $usercanread;
-$permissiontoadd = $usercancreate;
+$permissionToAdd = $usercancreate;
 $permissiontodelete = $usercandelete;
 $permissionnote = $user->hasRight('produit', 'creer'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('produit', 'creer'); // Used by the include of actions_setnotes.inc.php
@@ -157,7 +157,7 @@ if (empty($resHook)) {
 
 	$backurlforlist = dol_buildpath('/product/stock/productlot_list.php', 1);
 
-	if ($action == 'seteatby' && $permissiontoadd && ! GETPOST('cancel', 'alpha')) {
+	if ($action == 'seteatby' && $permissionToAdd && ! GETPOST('cancel', 'alpha')) {
 		$newvalue = dol_mktime(12, 0, 0, GETPOSTINT('eatbymonth'), GETPOSTINT('eatbyday'), GETPOSTINT('eatbyyear'));
 
 		// check parameters
@@ -182,7 +182,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setsellby' && $permissiontoadd && ! GETPOST('cancel', 'alpha')) {
+	if ($action == 'setsellby' && $permissionToAdd && ! GETPOST('cancel', 'alpha')) {
 		$newvalue = dol_mktime(12, 0, 0, GETPOSTINT('sellbymonth'), GETPOSTINT('sellbyday'), GETPOSTINT('sellbyyear'));
 
 		// check parameters
@@ -207,7 +207,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'seteol_date' && $permissiontoadd && ! GETPOST('cancel', 'alpha')) {
+	if ($action == 'seteol_date' && $permissionToAdd && ! GETPOST('cancel', 'alpha')) {
 		$newvalue = dol_mktime(12, 0, 0, GETPOSTINT('eol_datemonth'), GETPOSTINT('eol_dateday'), GETPOSTINT('eol_dateyear'));
 		$result = $object->setValueFrom('eol_date', $newvalue, '', null, 'date', '', $user, 'PRODUCTLOT_MODIFY');
 		if ($result < 0) {
@@ -218,7 +218,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setmanufacturing_date' && $permissiontoadd && ! GETPOST('cancel', 'alpha')) {
+	if ($action == 'setmanufacturing_date' && $permissionToAdd && ! GETPOST('cancel', 'alpha')) {
 		$newvalue = dol_mktime(12, 0, 0, GETPOSTINT('manufacturing_datemonth'), GETPOSTINT('manufacturing_dateday'), GETPOSTINT('manufacturing_dateyear'));
 		$result = $object->setValueFrom('manufacturing_date', $newvalue, '', null, 'date', '', $user, 'PRODUCTLOT_MODIFY');
 		if ($result < 0) {
@@ -229,7 +229,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setscrapping_date' && $permissiontoadd && ! GETPOST('cancel', 'alpha')) {
+	if ($action == 'setscrapping_date' && $permissionToAdd && ! GETPOST('cancel', 'alpha')) {
 		$newvalue = dol_mktime(12, 0, 0, GETPOSTINT('scrapping_datemonth'), GETPOSTINT('scrapping_dateday'), GETPOSTINT('scrapping_dateyear'));
 		$result = $object->setValueFrom('scrapping_date', $newvalue, '', null, 'date', '', $user, 'PRODUCTLOT_MODIFY');
 		if ($result < 0) {
@@ -240,7 +240,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	/* if ($action == 'setcommissionning_date' && $permissiontoadd && ! GETPOST('cancel', 'alpha')) {
+	/* if ($action == 'setcommissionning_date' && $permissionToAdd && ! GETPOST('cancel', 'alpha')) {
 		$newvalue = dol_mktime(12, 0, 0, GETPOST('commissionning_datemonth', 'int'), GETPOST('commissionning_dateday', 'int'), GETPOST('commissionning_dateyear', 'int'));
 		$result = $object->setValueFrom('commissionning_date', $newvalue, '', null, 'date', '', $user, 'PRODUCTLOT_MODIFY');
 		if ($result < 0) {
@@ -251,7 +251,7 @@ if (empty($resHook)) {
 		}
 	} */
 
-	if ($action == 'setqc_frequency' && $permissiontoadd && ! GETPOST('cancel', 'alpha')) {
+	if ($action == 'setqc_frequency' && $permissionToAdd && ! GETPOST('cancel', 'alpha')) {
 		$result = $object->setValueFrom('qc_frequency', GETPOST('qc_frequency'), '', null, 'int', '', $user, 'PRODUCT_MODIFY');
 		if ($result < 0) { // Prévoir un test de format de durée
 			setEventMessages($object->error, null, 'errors');
@@ -266,7 +266,7 @@ if (empty($resHook)) {
 	// Actions cancel, add, update, update_extras, confirm_validate, confirm_delete, confirm_deleteline, confirm_clone, confirm_close, confirm_setdraft, confirm_reopen
 	include DOL_DOCUMENT_ROOT.'/core/actions_addupdatedelete.inc.php';
 	/*
-	if ($action == 'update_extras' && $permissiontoadd) {
+	if ($action == 'update_extras' && $permissionToAdd) {
 		$object->oldcopy = dol_clone($object, 2);
 
 		// Fill array 'array_options' with data from update form
@@ -288,7 +288,7 @@ if (empty($resHook)) {
 	}
 
 	// Action to add record
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		if (GETPOST('cancel', 'alpha')) {
 			$urltogo = $backtopage ? $backtopage : dol_buildpath('/stock/list.php', 1);
 			header("Location: ".$urltogo);
@@ -329,12 +329,12 @@ if (empty($resHook)) {
 	}
 
 	// Cancel
-	if ($action == 'update' && GETPOST('cancel', 'alpha') && $permissiontoadd) {
+	if ($action == 'update' && GETPOST('cancel', 'alpha') && $permissionToAdd) {
 		$action = 'view';
 	}
 
 	// Action to update record
-	if ($action == 'update' && !GETPOST('cancel', 'alpha') && $permissiontoadd) {
+	if ($action == 'update' && !GETPOST('cancel', 'alpha') && $permissionToAdd) {
 		$error = 0;
 
 		$object->entity = GETPOST('entity', 'int');

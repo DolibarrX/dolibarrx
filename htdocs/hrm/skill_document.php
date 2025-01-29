@@ -90,7 +90,7 @@ if ($id > 0 || !empty($ref)) {
 
 // Permissions
 $permissiontoread = $user->hasRight('hrm', 'all', 'read');
-$permissiontoadd  = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
+$permissionToAdd  = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
 
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
@@ -166,8 +166,8 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'hrm';
-	$permtoedit = $permissiontoadd;
+	$modulePart = 'hrm';
+	$permtoedit = $permissionToAdd;
 	$param = '&id='.$object->id;
 
 	//$relativepathwithnofile='skill/' . dol_sanitizeFileName($object->id).'/';

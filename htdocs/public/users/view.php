@@ -103,7 +103,7 @@ $v = new vCard();
 
 $company = $mysoc;
 
-$modulepart = 'userphotopublic';
+$modulePart = 'userphotopublic';
 $dir = $config->user->dir_output;
 
 // Show logo (search order: logo defined by ONLINE_SIGN_LOGO_suffix, then ONLINE_SIGN_LOGO_, then small company logo, large company logo, theme logo, common logo)
@@ -122,11 +122,11 @@ if (!empty($object->photo)) {
 $urllogo = '';
 $urllogofull = '';
 if (!empty($logosmall) && is_readable($dir.'/'.$logosmall)) {
-	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).($config->entity > 1 ? '&amp;entity='.$config->entity : '').'&amp;securekey='.urlencode($securekey).'&amp;file='.urlencode($logosmall);
-	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart='.$modulepart.($config->entity > 1 ? '&entity='.$config->entity : '').'&securekey='.urlencode($securekey).'&file='.urlencode($logosmall);
+	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulePart).($config->entity > 1 ? '&amp;entity='.$config->entity : '').'&amp;securekey='.urlencode($securekey).'&amp;file='.urlencode($logosmall);
+	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart='.$modulePart.($config->entity > 1 ? '&entity='.$config->entity : '').'&securekey='.urlencode($securekey).'&file='.urlencode($logosmall);
 } elseif (!empty($logo) && is_readable($dir.'/'.$logo)) {
-	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).($config->entity > 1 ? '&amp;entity='.$config->entity : '').'&amp;securekey='.urlencode($securekey).'&amp;file='.urlencode($logo);
-	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart='.$modulepart.($config->entity > 1 ? '&entity='.$config->entity : '').'&securekey='.urlencode($securekey).'&file='.urlencode($logo);
+	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulePart).($config->entity > 1 ? '&amp;entity='.$config->entity : '').'&amp;securekey='.urlencode($securekey).'&amp;file='.urlencode($logo);
+	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart='.$modulePart.($config->entity > 1 ? '&entity='.$config->entity : '').'&securekey='.urlencode($securekey).'&file='.urlencode($logo);
 }
 
 // Clean data we don't want on public page

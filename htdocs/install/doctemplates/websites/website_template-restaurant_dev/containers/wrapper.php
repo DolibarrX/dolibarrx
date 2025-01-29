@@ -14,7 +14,7 @@ $encoding = '';
 
 // Parameters to download files
 $hashp = GETPOST('hashp', 'aZ09');
-$modulepart = GETPOST('modulepart', 'aZ09');
+$modulePart = GETPOST('modulepart', 'aZ09');
 $entity = GETPOSTINT('entity') ? GETPOSTINT('entity') : $config->entity;
 $original_file = GETPOST("file", "alpha");
 $l = GETPOST('l', 'aZ09');
@@ -37,10 +37,10 @@ if (!empty($hashp)) {
 		if (is_numeric($tmp[0])) { // If first tmp is numeric, it is subdir of company for multicompany, we take next part.
 			$tmp = explode('/', $tmp[1], 2);
 		}
-		$moduleparttocheck = $tmp[0]; // moduleparttocheck is first part of path
+		$moduleParttocheck = $tmp[0]; // moduleparttocheck is first part of path
 
-		if ($modulepart) {	// Not required, so often not defined, for link using public hashp parameter.
-			if ($moduleparttocheck == $modulepart) {
+		if ($modulePart) {	// Not required, so often not defined, for link using public hashp parameter.
+			if ($moduleParttocheck == $modulePart) {
 				// We remove first level of directory
 				$original_file = (($tmp[1] ? $tmp[1].'/' : '').$ecmfile->filename); // this is relative to module dir
 				//var_dump($original_file); exit;
@@ -48,7 +48,7 @@ if (!empty($hashp)) {
 				print 'Bad link. File is from another module part.';
 			}
 		} else {
-			$modulepart = $moduleparttocheck;
+			$modulePart = $moduleParttocheck;
 			$original_file = (($tmp[1] ? $tmp[1].'/' : '').$ecmfile->filename); // this is relative to module dir
 		}
 	} else {
@@ -223,13 +223,13 @@ if ($rss) {
 		// header("Location: ".DOL_URL_ROOT.'/document.php?modulepart=agenda&file='.urlencode($filename));
 		exit;
 	}
-} elseif ($modulepart == "mycompany" && preg_match('/^\/?logos\//', $original_file)) {
+} elseif ($modulePart == "mycompany" && preg_match('/^\/?logos\//', $original_file)) {
 	// Get logos
 	readfile(dol_osencode($config->mycompany->dir_output."/".$original_file));
 } else {
 	// Find the subdirectory name as the reference
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-	$check_access = dol_check_secure_access_document($modulepart, $original_file, $entity, null, $refname);
+	$check_access = dol_check_secure_access_document($modulePart, $original_file, $entity, null, $refname);
 	$accessallowed              = empty($check_access['accessallowed']) ? '' : $check_access['accessallowed'];
 	$sqlprotectagainstexternals = empty($check_access['sqlprotectagainstexternals']) ? '' : $check_access['sqlprotectagainstexternals'];
 	$fullpath_original_file     = empty($check_access['original_file']) ? '' : $check_access['original_file']; // $fullpath_original_file is now a full path name

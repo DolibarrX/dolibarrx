@@ -133,7 +133,7 @@ $usercancreateorder = ($user->hasRight('fournisseur', 'order', 'creer') || $user
 $permissionnote = $usercancreate; // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $usercancreate; // Used by the include of actions_dellink.inc.php
 $permissiontoedit = $usercancreate; // Used by the include of actions_lineupdown.inc.php
-$permissiontoadd = $usercancreate;
+$permissionToAdd = $usercancreate;
 
 // Security check
 if (!empty($user->socid)) {

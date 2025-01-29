@@ -105,7 +105,7 @@ if ($id) {
 	$caneditfieldmember = $user->hasRight('member', 'creer');
 }
 
-$permissiontoadd = $canaddmember;
+$permissionToAdd = $canaddmember;
 
 // Security check
 $result = restrictedArea($user, 'member', $object->id, '', '', 'socid', 'rowid', 0);
@@ -195,8 +195,8 @@ if ($id > 0) {
 
 		print dol_get_fiche_end();
 
-		$modulepart = 'member';
-		$permissiontoadd = $user->hasRight('member', 'creer');
+		$modulePart = 'member';
+		$permissionToAdd = $user->hasRight('member', 'creer');
 		$permtoedit = $user->hasRight('member', 'creer');
 		$param = '&id='.$object->id;
 		include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

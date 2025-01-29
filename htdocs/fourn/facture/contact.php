@@ -62,7 +62,7 @@ $result = restrictedArea($user, 'fournisseur', $id, 'facture_fourn', 'facture');
 $object = new FactureFournisseur($db);
 
 $usercancreate = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
-$permissiontoadd = $usercancreate;
+$permissionToAdd = $usercancreate;
 
 /*
  * Actions

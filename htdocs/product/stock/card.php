@@ -278,7 +278,7 @@ if (empty($resHook)) {
 
 	// Actions to build doc
 	$upload_dir = $config->stock->dir_output;
-	$permissiontoadd = $user->hasRight('stock', 'creer');
+	$permissionToAdd = $user->hasRight('stock', 'creer');
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 }
 
@@ -1012,7 +1012,7 @@ if ($action == 'create') {
  * Documents generated
  */
 
-$modulepart = 'stock';
+$modulePart = 'stock';
 
 if ($action != 'create' && $action != 'edit' && $action != 'delete') {
 	print '<br>';
@@ -1026,9 +1026,9 @@ if ($action != 'create' && $action != 'edit' && $action != 'delete') {
 	$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 	$genallowed = $usercanread;
 	$delallowed = $usercancreate;
-	$modulepart = 'stock';
+	$modulePart = 'stock';
 
-	print $formfile->showdocuments($modulepart, $objectref, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 0, 0, 0, 28, 0, '', 0, '', '', '', $object);
+	print $formfile->showdocuments($modulePart, $objectref, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 0, 0, 0, 28, 0, '', 0, '', '', '', $object);
 	$somethingshown = $formfile->numoffiles;
 
 	print '</div><div class="fichehalfright">';

@@ -123,7 +123,7 @@ $feature2 = 'user';
 $result = restrictedArea($user, 'user', $id, 'user', $feature2);
 
 // Define value to know what current user can do on users. A test on logged user is done later to complete
-$permissiontoadd = (!empty($user->admin) || $user->hasRight("user", "user", "write"));
+$permissionToAdd = (!empty($user->admin) || $user->hasRight("user", "user", "write"));
 $permissiontoread = (!empty($user->admin) || $user->hasRight("user", "user", "read"));
 $permissiontoedit = (!empty($user->admin) || $user->hasRight("user", "user", "write"));
 $permissiontodisable = (!empty($user->admin) || $user->hasRight("user", "user", "delete"));
@@ -134,9 +134,9 @@ if (getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) {
 	$permissiontoeditgroup = (!empty($user->admin) || $user->hasRight("user", "group_advance", "write"));
 }
 
-$permissiontoclonesuperadmin = ($permissiontoadd && empty($user->entity));
-$permissiontocloneadmin = ($permissiontoadd && !empty($user->admin));
-$permissiontocloneuser = $permissiontoadd;
+$permissiontoclonesuperadmin = ($permissionToAdd && empty($user->entity));
+$permissiontocloneadmin = ($permissionToAdd && !empty($user->admin));
+$permissiontocloneuser = $permissionToAdd;
 // Can clone only in master entity if transverse mode is used
 if (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $config->entity > 1) {
 	$permissiontoclonesuperadmin = false;
@@ -260,7 +260,7 @@ if (empty($resHook)) {
 	}
 
 	// Action Add user
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		$error = 0;
 
 		if (!GETPOST("lastname")) {
@@ -721,7 +721,7 @@ if (empty($resHook)) {
 	}
 
 	// Action to initialize data from a LDAP record
-	if ($action == 'adduserldap' && $permissiontoadd) {
+	if ($action == 'adduserldap' && $permissionToAdd) {
 		$selecteduser = GETPOST('users');
 
 		$required_fields = array(

@@ -88,12 +88,12 @@ if ($object->id > 0) {
 }
 
 $upload_dir = $config->contrat->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
-$modulepart = 'contract';
+$modulePart = 'contract';
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('contractcard', 'globalcard'));
 
-$permissiontoadd = $user->hasRight('contrat', 'creer');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('contrat', 'creer');	// Used by the include of actions_dellink.inc.php
 
 $result = restrictedArea($user, 'contrat', $object->id);
 
@@ -196,8 +196,8 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'contract';
-	$permissiontoadd = $user->hasRight('contrat', 'creer');
+	$modulePart = 'contract';
+	$permissionToAdd = $user->hasRight('contrat', 'creer');
 	$permtoedit = $user->hasRight('contrat', 'creer');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

@@ -85,7 +85,7 @@ if (!$sortfield) {
 	$sortfield = "position_name";
 }
 
-$modulepart = 'product_batch';
+$modulePart = 'product_batch';
 $object = new Productlot($db);
 if ($id || $ref) {
 	$productid = 0;
@@ -98,7 +98,7 @@ if ($id || $ref) {
 	$object->fetch($id, $productid, $batch);
 
 	if (isModEnabled('productbatch')) {
-		$upload_dir = $config->productbatch->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, $modulepart);
+		$upload_dir = $config->productbatch->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, $modulePart);
 		$filearray = dol_dir_list($upload_dir, "files");
 	}
 }
@@ -112,7 +112,7 @@ if (empty($upload_dir)) {
 }
 
 $permissiontoread = $usercanread;
-$permissiontoadd = $usercancreate;
+$permissionToAdd = $usercancreate;
 $permtoedit = $user->hasRight('produit', 'creer');
 //$permissiontodelete = $usercandelete;
 

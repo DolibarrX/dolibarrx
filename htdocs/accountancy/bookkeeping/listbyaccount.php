@@ -226,7 +226,7 @@ $error = 0;
 $result = -1; // For static analysis
 $documentlink = ''; // For static analysis
 
-$permissiontoadd = $user->hasRight('accounting', 'mouvements', 'creer');
+$permissionToAdd = $user->hasRight('accounting', 'mouvements', 'creer');
 
 
 /*
@@ -435,7 +435,7 @@ if (empty($resHook)) {
 	$objectlabel = 'Bookkeeping';
 	$permissiontoread = $user->hasRight('societe', 'lire');
 	$permissiontodelete = $user->hasRight('societe', 'supprimer');
-	$permissiontoadd = $user->hasRight('societe', 'creer');
+	$permissionToAdd = $user->hasRight('societe', 'creer');
 	$uploaddir = $config->societe->dir_output;
 
 	global $error;
@@ -499,7 +499,7 @@ if (empty($resHook)) {
 
 	// others mass actions
 	if (!$error && getDolGlobalInt('ACCOUNTING_ENABLE_LETTERING')) {
-		if ($massaction == 'letteringauto' && $permissiontoadd) {
+		if ($massaction == 'letteringauto' && $permissionToAdd) {
 			$lettering = new Lettering($db);
 			$nb_lettering = $lettering->bookkeepingLetteringAll($toselect);
 			if ($nb_lettering < 0) {
@@ -520,7 +520,7 @@ if (empty($resHook)) {
 				header('Location: ' . $_SERVER['PHP_SELF'] . '?noreset=1' . $param);
 				exit();
 			}
-		} elseif ($massaction == 'letteringmanual' && $permissiontoadd) {
+		} elseif ($massaction == 'letteringmanual' && $permissionToAdd) {
 			$lettering = new Lettering($db);
 			$result = $lettering->updateLettering($toselect);
 			if ($result < 0) {
@@ -540,7 +540,7 @@ if (empty($resHook)) {
 				header('Location: ' . $_SERVER['PHP_SELF'] . '?noreset=1' . $param);
 				exit();
 			}
-		} elseif ($action == 'unletteringauto' && $confirm == "yes" && $permissiontoadd) {
+		} elseif ($action == 'unletteringauto' && $confirm == "yes" && $permissionToAdd) {
 			$lettering = new Lettering($db);
 			$nb_lettering = $lettering->bookkeepingLetteringAll($toselect, true);
 			if ($nb_lettering < 0) {
@@ -561,7 +561,7 @@ if (empty($resHook)) {
 				header('Location: ' . $_SERVER['PHP_SELF'] . '?noreset=1' . $param);
 				exit();
 			}
-		} elseif ($action == 'unletteringmanual' && $confirm == "yes" && $permissiontoadd) {
+		} elseif ($action == 'unletteringmanual' && $confirm == "yes" && $permissionToAdd) {
 			$lettering = new Lettering($db);
 			$nb_lettering = $lettering->deleteLettering($toselect);
 			if ($result < 0) {
@@ -1285,7 +1285,7 @@ while ($i < min($num, $limit)) {
 	}
 
 	// Document ref
-	$modulepart = '';
+	$modulePart = '';
 	if (!empty($arrayfields['t.doc_ref']['checked'])) {
 		if ($line->doc_type == 'customer_invoice') {
 			$langs->loadLangs(array('bills'));
@@ -1293,7 +1293,7 @@ while ($i < min($num, $limit)) {
 			require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 			$objectstatic = new Facture($db);
 			$objectstatic->fetch($line->fk_doc);
-			//$modulepart = 'facture';
+			//$modulePart = 'facture';
 
 			$filename = dol_sanitizeFileName($line->doc_ref);
 			$filedir = $config->facture->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
@@ -1306,10 +1306,10 @@ while ($i < min($num, $limit)) {
 			$objectstatic = new FactureFournisseur($db);
 			$objectstatic->fetch($line->fk_doc);
 
-			$modulepart = 'invoice_supplier';
+			$modulePart = 'invoice_supplier';
 			$filename = dol_sanitizeFileName($line->doc_ref);
-			$filedir = $config->fournisseur->facture->dir_output.'/'.get_exdir($line->fk_doc, 2, 0, 0, $objectstatic, $modulepart).dol_sanitizeFileName($line->doc_ref);
-			$subdir = get_exdir($objectstatic->id, 2, 0, 0, $objectstatic, $modulepart).dol_sanitizeFileName($line->doc_ref);
+			$filedir = $config->fournisseur->facture->dir_output.'/'.get_exdir($line->fk_doc, 2, 0, 0, $objectstatic, $modulePart).dol_sanitizeFileName($line->doc_ref);
+			$subdir = get_exdir($objectstatic->id, 2, 0, 0, $objectstatic, $modulePart).dol_sanitizeFileName($line->doc_ref);
 			$documentlink = $formfile->getDocumentsLink($objectstatic->element, $subdir, $filedir);
 		} elseif ($line->doc_type == 'expense_report') {
 			$langs->loadLangs(array('trips'));
@@ -1317,7 +1317,7 @@ while ($i < min($num, $limit)) {
 			require_once DOL_DOCUMENT_ROOT.'/expensereport/class/expensereport.class.php';
 			$objectstatic = new ExpenseReport($db);
 			$objectstatic->fetch($line->fk_doc);
-			//$modulepart = 'expensereport';
+			//$modulePart = 'expensereport';
 
 			$filename = dol_sanitizeFileName($line->doc_ref);
 			$filedir = $config->expensereport->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);

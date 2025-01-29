@@ -638,16 +638,16 @@ function showWebsiteTemplates(Website $website)
 
 							$originalimgfile = basename($file);
 							$entity = $config->entity;
-							$modulepart = 'doctemplateswebsite';
+							$modulePart = 'doctemplateswebsite';
 							$cache = '';
 							$title = $file;
 
 							$ret = '';
-							$urladvanced = getAdvancedPreviewUrl($modulepart, $originalimgfile, 1, '&entity=' . $entity);
+							$urladvanced = getAdvancedPreviewUrl($modulePart, $originalimgfile, 1, '&entity=' . $entity);
 							if (!empty($urladvanced)) {
 								$ret .= '<a class="' . $urladvanced['css'] . '" target="' . $urladvanced['target'] . '" mime="' . $urladvanced['mime'] . '" href="' . $urladvanced['url'] . '">';
 							} else {
-								$ret .= '<a href="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . urlencode($modulepart) . '&entity=' . ((int) $entity) . '&file=' . urlencode($originalimgfile) . '&cache=' . ((int) $cache) . '">';
+								$ret .= '<a href="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . urlencode($modulePart) . '&entity=' . ((int) $entity) . '&file=' . urlencode($originalimgfile) . '&cache=' . ((int) $cache) . '">';
 							}
 							print $ret;
 							print '<img class="img-skinthumb shadow" src="' . $url . '" border="0" alt="' . $title . '" title="' . $title . '" style="margin-bottom: 5px;">';

@@ -118,8 +118,8 @@ if ($user->socid) {
 restrictedArea($user, 'salaries', $object->id, 'salary', '');
 
 $permissiontoread = $user->hasRight('salaries', 'read');
-$permissiontoadd = $user->hasRight('salaries', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->hasRight('salaries', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
+$permissionToAdd = $user->hasRight('salaries', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->hasRight('salaries', 'delete') || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
 
 $upload_dir = $config->salaries->multidir_output[$config->entity];
 
@@ -170,31 +170,31 @@ if (empty($resHook)) {
 	$trackid = 'sal'.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';
 
-	//var_dump($upload_dir);var_dump($permissiontoadd);var_dump($action);exit;
+	//var_dump($upload_dir);var_dump($permissionToAdd);var_dump($action);exit;
 	// Actions to build doc
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 }
 
 // Link to a project
-if ($action == 'classin' && $permissiontoadd) {
+if ($action == 'classin' && $permissionToAdd) {
 	$object->fetch($id);
 	$object->setProject($projectid);
 }
 
 // set label
-if ($action == 'setlabel' && $permissiontoadd) {
+if ($action == 'setlabel' && $permissionToAdd) {
 	$object->fetch($id);
 	$object->label = $label;
 	$object->update($user);
 }
 
 // Classify paid
-if ($action == 'confirm_paid' && $permissiontoadd && $confirm == 'yes') {
+if ($action == 'confirm_paid' && $permissionToAdd && $confirm == 'yes') {
 	$object->fetch($id);
 	$result = $object->setPaid($user);
 }
 
-if ($action == 'setfk_user' && $permissiontoadd) {
+if ($action == 'setfk_user' && $permissionToAdd) {
 	$result = $object->fetch($id);
 	if ($result > 0) {
 		$object->fk_user = $fk_user;
@@ -205,7 +205,7 @@ if ($action == 'setfk_user' && $permissiontoadd) {
 	}
 }
 
-if ($action == 'reopen' && $permissiontoadd) {
+if ($action == 'reopen' && $permissionToAdd) {
 	$result = $object->fetch($id);
 	if ($object->paye) {
 		$result = $object->set_unpaid($user);
@@ -219,7 +219,7 @@ if ($action == 'reopen' && $permissiontoadd) {
 }
 
 // payment mode
-if ($action == 'setmode' && $permissiontoadd) {
+if ($action == 'setmode' && $permissionToAdd) {
 	$object->fetch($id);
 	$result = $object->setPaymentMethods(GETPOSTINT('mode_reglement_id'));
 	if ($result < 0) {
@@ -228,7 +228,7 @@ if ($action == 'setmode' && $permissiontoadd) {
 }
 
 // bank account
-if ($action == 'setbankaccount' && $permissiontoadd) {
+if ($action == 'setbankaccount' && $permissionToAdd) {
 	$object->fetch($id);
 	$result = $object->setBankAccount(GETPOSTINT('fk_account'));
 	if ($result < 0) {
@@ -236,7 +236,7 @@ if ($action == 'setbankaccount' && $permissiontoadd) {
 	}
 }
 
-if ($action == 'add' && empty($cancel) && $permissiontoadd) {
+if ($action == 'add' && empty($cancel) && $permissionToAdd) {
 	$error = 0;
 
 	if (empty($datev)) {
@@ -374,7 +374,7 @@ if ($action == 'confirm_delete' && $permissiontodelete) {
 }
 
 
-if ($action == 'update' && !GETPOST("cancel") && $permissiontoadd) {
+if ($action == 'update' && !GETPOST("cancel") && $permissionToAdd) {
 	$amount = price2num(GETPOST('amount'), 'MT', 2);
 
 	if (empty($amount)) {
@@ -401,7 +401,7 @@ if ($action == 'confirm_clone' && $confirm != 'yes') {	// Test on permission not
 	$action = '';
 }
 
-if ($action == 'confirm_clone' && $confirm == 'yes' && $permissiontoadd) {
+if ($action == 'confirm_clone' && $confirm == 'yes' && $permissionToAdd) {
 	$db->begin();
 
 	$originalId = $id;
@@ -453,7 +453,7 @@ if ($action == 'confirm_clone' && $confirm == 'yes' && $permissiontoadd) {
 }
 
 // Action to update one extrafield
-if ($action == "update_extras" && $permissiontoadd) {
+if ($action == "update_extras" && $permissionToAdd) {
 	$object->fetch(GETPOSTINT('id'));
 
 	$attributekey = GETPOST('attribute', 'alpha');
@@ -507,7 +507,7 @@ if ($id > 0) {
 }
 
 // Create
-if ($action == 'create' && $permissiontoadd) {
+if ($action == 'create' && $permissionToAdd) {
 	$year_current = (int) dol_print_date(dol_now('gmt'), "%Y", 'gmt');
 	$pastmonth = (int) dol_print_date(dol_now(), "%m") - 1;
 	$pastmonthyear = $year_current;
@@ -829,7 +829,7 @@ if ($id > 0) {
 
 	// Label
 	if ($action != 'editlabel') {
-		$morehtmlref .= $form->editfieldkey("Label", 'label', $object->label, $object, $permissiontoadd, 'string', '', 0, 1);
+		$morehtmlref .= $form->editfieldkey("Label", 'label', $object->label, $object, $permissionToAdd, 'string', '', 0, 1);
 		$morehtmlref .= $object->label;
 	} else {
 		$morehtmlref .= $langs->trans('Label').' :&nbsp;';
@@ -850,7 +850,7 @@ if ($id > 0) {
 				$morehtmlref .= '<br>' .$langs->trans('Employee').' : '.$userstatic->getNomUrl(-1);
 			}
 		} else {
-			$morehtmlref .= '<br>' . $form->editfieldkey("Employee", 'fk_user', $object->label, $object, $permissiontoadd, 'string', '', 0, 1);
+			$morehtmlref .= '<br>' . $form->editfieldkey("Employee", 'fk_user', $object->label, $object, $permissionToAdd, 'string', '', 0, 1);
 
 			if (!empty($object->fk_user)) {
 				$userstatic = new User($db);
@@ -873,7 +873,7 @@ if ($id > 0) {
 		$morehtmlref .= '</form>';
 	}
 
-	$usercancreate = $permissiontoadd;
+	$usercancreate = $permissionToAdd;
 
 	// Project
 	if (isModEnabled('project')) {
@@ -972,7 +972,7 @@ if ($id > 0) {
 		print '<table width="100%" class="nobordernopadding"><tr><td class="nowrap">';
 		print $langs->trans('DefaultBankAccount');
 		print '<td>';
-		if ($action != 'editbankaccount' && $permissiontoadd) {
+		if ($action != 'editbankaccount' && $permissionToAdd) {
 			print '<td class="right"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=editbankaccount&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->trans('SetBankAccount'), 1).'</a></td>';
 		}
 		print '</tr></table>';
@@ -1136,33 +1136,33 @@ if ($id > 0) {
 		}
 
 		// Reopen
-		if ($object->status == $object::STATUS_PAID && $permissiontoadd) {
+		if ($object->status == $object::STATUS_PAID && $permissionToAdd) {
 			print dolGetButtonAction('', $langs->trans('ReOpen'), 'default', $_SERVER["PHP_SELF"].'?action=reopen&token='.newToken().'&id='.$object->id, '');
 		}
 
 		// Edit
-		if ($object->status == $object::STATUS_UNPAID && $permissiontoadd) {
+		if ($object->status == $object::STATUS_UNPAID && $permissionToAdd) {
 			print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?action=edit&token='.newToken().'&id='.$object->id, '');
 		}
 
 		// Emit payment
-		if ($object->status == $object::STATUS_UNPAID && ((price2num($object->amount) < 0 && $resteapayer < 0) || (price2num($object->amount) > 0 && $resteapayer > 0)) && $permissiontoadd) {
+		if ($object->status == $object::STATUS_UNPAID && ((price2num($object->amount) < 0 && $resteapayer < 0) || (price2num($object->amount) > 0 && $resteapayer > 0)) && $permissionToAdd) {
 			print dolGetButtonAction('', $langs->trans('DoPayment'), 'default', DOL_URL_ROOT.'/salaries/paiement_salary.php?action=create&token='.newToken().'&id='. $object->id, '');
 		}
 
 		// Classify 'paid'
 		// If payment complete $resteapayer <= 0 on a positive salary, or if amount is negative, we allow to classify as paid.
-		if ($object->status == $object::STATUS_UNPAID && (($resteapayer <= 0 && $object->amount > 0) || ($object->amount <= 0)) && $permissiontoadd) {
+		if ($object->status == $object::STATUS_UNPAID && (($resteapayer <= 0 && $object->amount > 0) || ($object->amount <= 0)) && $permissionToAdd) {
 			print dolGetButtonAction('', $langs->trans('ClassifyPaid'), 'default', $_SERVER["PHP_SELF"].'?action=paid&token='.newToken().'&id='.$object->id, '');
 		}
 
 		// Transfer request
-		if ($object->status == $object::STATUS_UNPAID && ((price2num($object->amount) < 0 && $resteapayer < 0) || (price2num($object->amount) > 0 && $resteapayer > 0)) && $permissiontoadd) {
+		if ($object->status == $object::STATUS_UNPAID && ((price2num($object->amount) < 0 && $resteapayer < 0) || (price2num($object->amount) > 0 && $resteapayer > 0)) && $permissionToAdd) {
 			print dolGetButtonAction('', $langs->trans('MakeTransferRequest'), 'default', DOL_URL_ROOT . '/salaries/virement_request.php?id=' . $object->id, '');
 		}
 
 		// Clone
-		if ($permissiontoadd) {
+		if ($permissionToAdd) {
 			print dolGetButtonAction('', $langs->trans('ToClone'), 'default', $_SERVER["PHP_SELF"].'?action=clone&token='.newToken().'&id='.$object->id, '');
 		}
 
@@ -1195,7 +1195,7 @@ if ($id > 0) {
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			//$genallowed = $permissiontoread; // If you can read, you can build the PDF to read content
 			$genallowed = 0; // If you can read, you can build the PDF to read content
-			$delallowed = $permissiontoadd; // If you can create/edit, you can remove a file on card
+			$delallowed = $permissionToAdd; // If you can create/edit, you can remove a file on card
 			print $formfile->showdocuments('salaries', $objref, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', '', '', $langs->defaultlang);
 		}
 

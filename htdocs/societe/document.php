@@ -92,7 +92,7 @@ if ($id > 0 || !empty($ref)) {
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('thirdpartydocument', 'globalcard'));
 
-$permissiontoadd = $user->hasRight('societe', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd = $user->hasRight('societe', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 
 // Security check
 if ($user->socid > 0) {
@@ -192,8 +192,8 @@ print '</div>';
 
 print dol_get_fiche_end();
 
-$modulepart = 'societe';
-$permissiontoadd = $user->hasRight('societe', 'creer');
+$modulePart = 'societe';
+$permissionToAdd = $user->hasRight('societe', 'creer');
 $permtoedit = $user->hasRight('societe', 'creer');
 $param = '&id='.$object->id;
 include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

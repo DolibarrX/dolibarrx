@@ -12,14 +12,14 @@ if ($action == 'editline') {
 // Upload section
 print '<td colspan="'.($action == 'editline' ? $colspan - 1 : $colspan).'">';
 
-$modulepart = 'expensereport';
+$modulePart = 'expensereport';
 $permission = $user->hasRight('expensereport', 'creer');
 
 // We define var to enable the feature to add prefix of uploaded files
 $savingdocmask = '';
 if (!getDolGlobalString('MAIN_DISABLE_SUGGEST_REF_AS_PREFIX')) {
-	//var_dump($modulepart);
-	if (in_array($modulepart, array('facture_fournisseur', 'order_fournisseur', 'facture', 'order', 'propal', 'supplier_proposal', 'ficheinter', 'contract', 'expedition', 'project', 'project_task', 'expensereport', 'tax', 'produit', 'product_batch'))) {
+	//var_dump($modulePart);
+	if (in_array($modulePart, array('facture_fournisseur', 'order_fournisseur', 'facture', 'order', 'propal', 'supplier_proposal', 'ficheinter', 'contract', 'expedition', 'project', 'project_task', 'expensereport', 'tax', 'produit', 'product_batch'))) {
 		$savingdocmask = dol_sanitizeFileName($object->ref).'-__file__';
 	}
 }

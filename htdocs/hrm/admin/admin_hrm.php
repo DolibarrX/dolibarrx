@@ -48,7 +48,7 @@ $list = array(
 
 // Permissions
 $permissiontoread = $user->admin;
-$permissiontoadd  = $user->admin;
+$permissionToAdd  = $user->admin;
 
 // Security check - Protection if external user
 //if ($user->socid > 0) accessforbidden();

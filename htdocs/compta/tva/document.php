@@ -82,7 +82,7 @@ if ($id > 0) {
 }
 
 $upload_dir = $config->tax->dir_output.'/vat/'.dol_sanitizeFileName($object->ref);
-$modulepart = 'tax-vat';
+$modulePart = 'tax-vat';
 
 // Security check
 if ($user->socid) {
@@ -90,7 +90,7 @@ if ($user->socid) {
 }
 $result = restrictedArea($user, 'tax', '', 'tva', 'charges');
 
-$permissiontoadd = $user->hasRight('tax', 'charges', 'creer');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('tax', 'charges', 'creer');	// Used by the include of actions_dellink.inc.php
 
 
 /*
@@ -99,7 +99,7 @@ $permissiontoadd = $user->hasRight('tax', 'charges', 'creer');	// Used by the in
 
 include DOL_DOCUMENT_ROOT.'/core/actions_linkedfiles.inc.php';
 
-if ($action == 'setlib' && $permissiontoadd) {
+if ($action == 'setlib' && $permissionToAdd) {
 	$object->fetch($id);
 	$result = $object->setValueFrom('label', GETPOST('lib', 'alpha'), '', null, 'text', '', $user, 'TAX_MODIFY');
 	if ($result < 0) {
@@ -162,7 +162,7 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$permissiontoadd = $user->hasRight('tax', 'charges', 'creer');
+	$permissionToAdd = $user->hasRight('tax', 'charges', 'creer');
 	$permtoedit = $user->hasRight('tax', 'charges', 'creer');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

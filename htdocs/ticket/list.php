@@ -189,7 +189,7 @@ if ($project_ref) {
 }
 
 $permissiontoread = $user->hasRight('ticket', 'read');
-$permissiontoadd = $user->hasRight('ticket', 'write');
+$permissionToAdd = $user->hasRight('ticket', 'write');
 $permissiontodelete = $user->hasRight('ticket', 'delete');
 
 $error = 0;
@@ -255,7 +255,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	// Close records
-	if (!$error && $massaction == 'close' && $permissiontoadd) {
+	if (!$error && $massaction == 'close' && $permissionToAdd) {
 		$objecttmp = new Ticket($db);
 		$db->begin();
 
@@ -288,7 +288,7 @@ if (empty($resHook)) {
 	}
 
 	// Reopen records
-	if (!$error && $massaction == 'reopen' && $permissiontoadd) {
+	if (!$error && $massaction == 'reopen' && $permissionToAdd) {
 		$objecttmp = new Ticket($db);
 		$db->begin();
 
@@ -743,7 +743,7 @@ $arrayofmassactions = array(
 	//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
 	//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 );
-if ($permissiontoadd) {
+if ($permissionToAdd) {
 	$arrayofmassactions['presendonclose'] = img_picture('', 'close_title', 'class="picturefixedwidth"').$langs->trans("Close");
 	$arrayofmassactions['reopen'] = img_picture('', 'folder-open', 'class="picturefixedwidth"').$langs->trans("ReOpen");
 }
@@ -1281,7 +1281,7 @@ if (in_array('builddoc', array_keys($arrayofmassactions)) && ($nbtotalofrecords 
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_ticket', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }

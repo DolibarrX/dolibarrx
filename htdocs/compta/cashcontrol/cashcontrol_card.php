@@ -110,8 +110,8 @@ if (!$user->hasRight("cashdesk", "run") && !$user->hasRight("takepos", "run")) {
 	accessforbidden();
 }
 
-$permissiontoadd = ($user->hasRight("cashdesk", "run") || $user->hasRight("takepos", "run"));
-$permissiontodelete = ($user->hasRight("cashdesk", "run") || $user->hasRight("takepos", "run")) || ($permissiontoadd && $object->status == 0);
+$permissionToAdd = ($user->hasRight("cashdesk", "run") || $user->hasRight("takepos", "run"));
+$permissiontodelete = ($user->hasRight("cashdesk", "run") || $user->hasRight("takepos", "run")) || ($permissionToAdd && $object->status == 0);
 
 
 /*
@@ -138,7 +138,7 @@ if (GETPOST('cancel', 'alpha')) {
 	}
 }
 
-if ($action == "reopen" && $permissiontoadd) {
+if ($action == "reopen" && $permissionToAdd) {
 	$result = $object->setStatut($object::STATUS_DRAFT, null, '', 'CASHFENCE_REOPEN');
 	if ($result < 0) {
 		setEventMessages($object->error, $object->errors, 'errors');
@@ -147,7 +147,7 @@ if ($action == "reopen" && $permissiontoadd) {
 	$action = 'view';
 }
 
-if ($action == "start" && $permissiontoadd) {
+if ($action == "start" && $permissionToAdd) {
 	if (!GETPOST('posmodule', 'alpha') || GETPOST('posmodule', 'alpha') == '-1') {
 		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Module")), null, 'errors');
 		$action = 'create';
@@ -163,7 +163,7 @@ if ($action == "start" && $permissiontoadd) {
 		$action = 'create';
 		$error++;
 	}
-} elseif ($action == "add" && $permissiontoadd) {
+} elseif ($action == "add" && $permissionToAdd) {
 	if (GETPOST('opening', 'alpha') == '') {
 		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("InitialBankBalance")), null, 'errors');
 		$action = 'start';
@@ -203,7 +203,7 @@ if ($action == "start" && $permissiontoadd) {
 	}
 }
 
-if ($action == "valid" && $permissiontoadd) {	// validate = close
+if ($action == "valid" && $permissionToAdd) {	// validate = close
 	$object->fetch($id);
 
 	$db->begin();

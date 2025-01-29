@@ -86,7 +86,7 @@ if ($id > 0 || !empty($ref)) {
 
 $result = restrictedArea($user, 'bank', $object->id, 'bank_account', '', '');
 
-$permissiontoadd = $user->hasRight('bank', 'modifier');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('bank', 'modifier');	// Used by the include of actions_dellink.inc.php
 
 
 /*
@@ -148,8 +148,8 @@ if ($id > 0 || !empty($ref)) {
 		print dol_get_fiche_end();
 
 
-		$modulepart = 'bank';
-		$permissiontoadd = $user->hasRight('bank', 'modifier');
+		$modulePart = 'bank';
+		$permissionToAdd = $user->hasRight('bank', 'modifier');
 		$permtoedit = $user->hasRight('bank', 'modifier');
 		$param = '&id='.$object->id;
 		include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

@@ -84,7 +84,7 @@ if ($id > 0 || !empty($ref)) {
 	$upload_dir = $config->asset->multidir_output[$object->entity ? $object->entity : $config->entity]."/".get_exdir(0, 0, 0, 1, $object);
 }
 
-$permissiontoadd = $user->hasRight('asset', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
+$permissionToAdd = $user->hasRight('asset', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
 
 // Security check (enable the most restrictive one)
 if ($user->socid > 0) {
@@ -156,9 +156,9 @@ if ($object->id && $upload_dir !== null) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'asset';
-	$permissiontoadd = $user->hasRight('asset', 'write');
-	//  $permissiontoadd = 1;
+	$modulePart = 'asset';
+	$permissionToAdd = $user->hasRight('asset', 'write');
+	//  $permissionToAdd = 1;
 	$permtoedit = $user->hasRight('asset', 'write');
 	//  $permtoedit = 1;
 	$param = '&id=' . $object->id;

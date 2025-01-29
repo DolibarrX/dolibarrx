@@ -128,7 +128,7 @@ if (GETPOST("rel") == 'prev') {
 	$found = true;
 }
 
-$permissiontoadd = $user->hasRight('bank', 'modifier');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('bank', 'modifier');	// Used by the include of actions_dellink.inc.php
 
 
 /*
@@ -192,8 +192,8 @@ if ($id > 0 || !empty($ref)) {
 		print dol_get_fiche_end();
 
 
-		$modulepart = 'bank';
-		$permissiontoadd = $user->hasRight('bank', 'modifier');
+		$modulePart = 'bank';
+		$permissionToAdd = $user->hasRight('bank', 'modifier');
 		$permtoedit = $user->hasRight('bank', 'modifier');
 		$param = '&id='.$object->id.'&num='.urlencode($numref);
 		$moreparam = '&num='.urlencode($numref);

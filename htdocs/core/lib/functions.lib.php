@@ -2937,27 +2937,27 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 	if (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !$user->hasRight('barcode', 'lire_advance')) {
 		$showbarcode = 0;
 	}
-	$modulepart = 'unknown';
+	$modulePart = 'unknown';
 
 	if (in_array($object->element, ['societe', 'contact', 'product', 'ticket', 'bom'])) {
-		$modulepart = $object->element;
+		$modulePart = $object->element;
 	} elseif ($object->element == 'member') {
-		$modulepart = 'memberphoto';
+		$modulePart = 'memberphoto';
 	} elseif ($object->element == 'user') {
-		$modulepart = 'userphoto';
+		$modulePart = 'userphoto';
 	}
 
 	if (class_exists("Imagick")) {
 		if ($object->element == 'expensereport' || $object->element == 'propal' || $object->element == 'order' || $object->element == 'facture' || $object->element == 'supplier_proposal') {
-			$modulepart = $object->element;
+			$modulePart = $object->element;
 		} elseif ($object->element == 'fichinter' || $object->element == 'intervention') {
-			$modulepart = 'ficheinter';
+			$modulePart = 'ficheinter';
 		} elseif ($object->element == 'contrat' || $object->element == 'contract') {
-			$modulepart = 'contract';
+			$modulePart = 'contract';
 		} elseif ($object->element == 'order_supplier') {
-			$modulepart = 'supplier_order';
+			$modulePart = 'supplier_order';
 		} elseif ($object->element == 'invoice_supplier') {
-			$modulepart = 'supplier_invoice';
+			$modulePart = 'supplier_invoice';
 		}
 	}
 
@@ -2979,7 +2979,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref"></div>';
 			} else {    // Show no photo link
 				$nophoto = '/public/theme/common/nophoto.png';
-				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photo'.$modulepart.($cssclass ? ' '.$cssclass : '').'" title="'.dol_escape_htmltag($langs->trans("UploadAnImageToSeeAPhotoHere", $langs->transnoentitiesnoconv("Documents"))).'" alt="No photo"'.($width ? ' style="width: '.$width.'px"' : '').' src="'.DOL_URL_ROOT.$nophoto.'"></div>';
+				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photo'.$modulePart.($cssclass ? ' '.$cssclass : '').'" title="'.dol_escape_htmltag($langs->trans("UploadAnImageToSeeAPhotoHere", $langs->transnoentitiesnoconv("Documents"))).'" alt="No photo"'.($width ? ' style="width: '.$width.'px"' : '').' src="'.DOL_URL_ROOT.$nophoto.'"></div>';
 			}
 		}
 	} elseif ($object->element == 'category') {
@@ -3000,7 +3000,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref"></div>';
 			} else {    // Show no photo link
 				$nophoto = '/public/theme/common/nophoto.png';
-				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photo'.$modulepart.($cssclass ? ' '.$cssclass : '').'" title="'.dol_escape_htmltag($langs->trans("UploadAnImageToSeeAPhotoHere", $langs->transnoentitiesnoconv("Documents"))).'" alt="No photo"'.($width ? ' style="width: '.$width.'px"' : '').' src="'.DOL_URL_ROOT.$nophoto.'"></div>';
+				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photo'.$modulePart.($cssclass ? ' '.$cssclass : '').'" title="'.dol_escape_htmltag($langs->trans("UploadAnImageToSeeAPhotoHere", $langs->transnoentitiesnoconv("Documents"))).'" alt="No photo"'.($width ? ' style="width: '.$width.'px"' : '').' src="'.DOL_URL_ROOT.$nophoto.'"></div>';
 			}
 		}
 	} elseif ($object->element == 'bom') {
@@ -3021,7 +3021,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref"></div>';
 			} else {    // Show no photo link
 				$nophoto = '/public/theme/common/nophoto.png';
-				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photo'.$modulepart.($cssclass ? ' '.$cssclass : '').'" title="'.dol_escape_htmltag($langs->trans("UploadAnImageToSeeAPhotoHere", $langs->transnoentitiesnoconv("Documents"))).'" alt="No photo"'.($width ? ' style="width: '.$width.'px"' : '').' src="'.DOL_URL_ROOT.$nophoto.'"></div>';
+				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photo'.$modulePart.($cssclass ? ' '.$cssclass : '').'" title="'.dol_escape_htmltag($langs->trans("UploadAnImageToSeeAPhotoHere", $langs->transnoentitiesnoconv("Documents"))).'" alt="No photo"'.($width ? ' style="width: '.$width.'px"' : '').' src="'.DOL_URL_ROOT.$nophoto.'"></div>';
 			}
 		}
 	} elseif ($object->element == 'ticket') {
@@ -3057,17 +3057,17 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 		}
 	} else {
 		if ($showimage) {
-			if ($modulepart != 'unknown' || method_exists($object, 'getDataToShowPhoto')) {
+			if ($modulePart != 'unknown' || method_exists($object, 'getDataToShowPhoto')) {
 				$phototoshow = '';
 				// Check if a preview file is available
-				if (in_array($modulepart, array('propal', 'order', 'facture', 'ficheinter', 'contract', 'supplier_order', 'supplier_proposal', 'supplier_invoice', 'expensereport')) && class_exists("Imagick")) {
+				if (in_array($modulePart, array('propal', 'order', 'facture', 'ficheinter', 'contract', 'supplier_order', 'supplier_proposal', 'supplier_invoice', 'expensereport')) && class_exists("Imagick")) {
 					$objectref = dol_sanitizeFileName($object->ref);
-					$dir_output = (empty($config->$modulepart->multidir_output[$entity]) ? $config->$modulepart->dir_output : $config->$modulepart->multidir_output[$entity])."/";
-					if (in_array($modulepart, array('invoice_supplier', 'supplier_invoice'))) {
-						$subdir = get_exdir($object->id, 2, 0, 1, $object, $modulepart);
+					$dir_output = (empty($config->$modulePart->multidir_output[$entity]) ? $config->$modulePart->dir_output : $config->$modulePart->multidir_output[$entity])."/";
+					if (in_array($modulePart, array('invoice_supplier', 'supplier_invoice'))) {
+						$subdir = get_exdir($object->id, 2, 0, 1, $object, $modulePart);
 						$subdir .= ((!empty($subdir) && !preg_match('/\/$/', $subdir)) ? '/' : '').$objectref; // the objectref dir is not included into get_exdir when used with level=2, so we add it at end
 					} else {
-						$subdir = get_exdir($object->id, 0, 0, 1, $object, $modulepart);
+						$subdir = get_exdir($object->id, 0, 0, 1, $object, $modulePart);
 					}
 					if (empty($subdir)) {
 						$subdir = 'errorgettingsubdirofobject'; // Protection to avoid to return empty path
@@ -3106,12 +3106,12 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 						// If the preview file is found
 						if (file_exists($fileimage)) {
 							$phototoshow = '<div class="photoref">';
-							$phototoshow .= '<img height="'.$heightforphotref.'" class="photo photowithborder" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=apercu'.$modulepart.'&amp;file='.urlencode($relativepathimage).'">';
+							$phototoshow .= '<img height="'.$heightforphotref.'" class="photo photowithborder" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=apercu'.$modulePart.'&amp;file='.urlencode($relativepathimage).'">';
 							$phototoshow .= '</div>';
 						}
 					}
 				} elseif (!$phototoshow) { // example if modulepart = 'societe' or 'photo' or 'memberphoto'
-					$phototoshow .= $form->showphoto($modulepart, $object, 0, 0, 0, 'photowithmargin photoref', 'small', 1, 0, $maxvisiblephotos);
+					$phototoshow .= $form->showphoto($modulePart, $object, 0, 0, 0, 'photowithmargin photoref', 'small', 1, 0, $maxvisiblephotos);
 				}
 
 				if ($phototoshow) {
@@ -7930,17 +7930,17 @@ function yn($yesno, $format = 1, $color = 0)
  * 	@param	int				$alpha		    0=Keep number only to forge path, 1=Use alpha part after the - (By default, use 0). (deprecated, global option will be used in future)
  *  @param  int				$withoutslash   0=With slash at end (except if '/', we return ''), 1=without slash at end
  *  @param	?CommonObject	$object			Object to use to get ref to forge the path.
- *  @param	string			$modulepart		Type of object ('invoice_supplier, 'donation', 'invoice', ...'). Use '' for autodetect from $object.
+ *  @param	string			$modulePart		Type of object ('invoice_supplier, 'donation', 'invoice', ...'). Use '' for autodetect from $object.
  *  @return	string							Dir to use ending. Example '' or '1/' or '1/2/'
  *  @see getMultidirOutput()
  */
-function get_exdir($num, $level, $alpha, $withoutslash, $object, $modulepart = '')
+function get_exdir($num, $level, $alpha, $withoutslash, $object, $modulePart = '')
 {
-	if (empty($modulepart) && is_object($object)) {
+	if (empty($modulePart) && is_object($object)) {
 		if (!empty($object->module)) {
-			$modulepart = $object->module;
+			$modulePart = $object->module;
 		} elseif (!empty($object->element)) {
-			$modulepart = $object->element;
+			$modulePart = $object->element;
 		}
 	}
 
@@ -7952,12 +7952,12 @@ function get_exdir($num, $level, $alpha, $withoutslash, $object, $modulepart = '
 		$arrayforoldpath['product'] = 2;
 	}
 
-	if (empty($level) && array_key_exists($modulepart, $arrayforoldpath)) {
-		$level = $arrayforoldpath[$modulepart];
+	if (empty($level) && array_key_exists($modulePart, $arrayforoldpath)) {
+		$level = $arrayforoldpath[$modulePart];
 	}
 
-	if (!empty($level) && array_key_exists($modulepart, $arrayforoldpath)) {
-		// This part should be removed once all code is using "get_exdir" to forge path, with parameter $object and $modulepart provided.
+	if (!empty($level) && array_key_exists($modulePart, $arrayforoldpath)) {
+		// This part should be removed once all code is using "get_exdir" to forge path, with parameter $object and $modulePart provided.
 		if (empty($num) && is_object($object)) {
 			$num = $object->id;
 		}
@@ -7979,8 +7979,8 @@ function get_exdir($num, $level, $alpha, $withoutslash, $object, $modulepart = '
 	} else {
 		// We will enhance here a common way of forging path for document storage.
 		// In a future, we may distribute directories on several levels depending on setup and object.
-		// Here, $object->id, $object->ref and $modulepart are required.
-		//var_dump($modulepart);
+		// Here, $object->id, $object->ref and $modulePart are required.
+		//var_dump($modulePart);
 		$path = dol_sanitizeFileName(empty($object->ref) ? (string) ((is_object($object) && property_exists($object, 'id')) ? $object->id : '') : $object->ref);
 	}
 
@@ -11925,13 +11925,13 @@ function getImageFileNameForSize($file, $extName, $extImgTarget = '')
 /**
  * Return URL we can use for advanced preview links
  *
- * @param   string    $modulepart     propal, facture, facture_fourn, ...
+ * @param   string    $modulePart     propal, facture, facture_fourn, ...
  * @param   string    $relativepath   Relative path of docs.
  * @param	int<0,1>	  $alldata		  Return array with all components (1 is recommended, then use a simple a href link with the class, target and mime attribute added. 'documentpreview' css class is handled by jquery code into main.inc.php)
  * @param	string	  $param		  More param on http links
  * @return  string|array{}|array{target:string,css:string,url:string,mime:string}	Output string with href link or array with all components of link
  */
-function getAdvancedPreviewUrl($modulepart, $relativepath, $alldata = 0, $param = '')
+function getAdvancedPreviewUrl($modulePart, $relativepath, $alldata = 0, $param = '')
 {
 	global $config, $langs;
 
@@ -11943,7 +11943,7 @@ function getAdvancedPreviewUrl($modulepart, $relativepath, $alldata = 0, $param 
 
 	if ($alldata == 1) {
 		if ($isAllowedForPreview) {
-			return array('target' => '_blank', 'css' => 'documentpreview', 'url' => DOL_URL_ROOT.'/document.php?modulepart='.urlencode($modulepart).'&attachment=0&file='.urlencode($relativepath).($param ? '&'.$param : ''), 'mime' => dol_mimetype($relativepath));
+			return array('target' => '_blank', 'css' => 'documentpreview', 'url' => DOL_URL_ROOT.'/document.php?modulepart='.urlencode($modulePart).'&attachment=0&file='.urlencode($relativepath).($param ? '&'.$param : ''), 'mime' => dol_mimetype($relativepath));
 		} else {
 			return [];
 		}
@@ -11951,7 +11951,7 @@ function getAdvancedPreviewUrl($modulepart, $relativepath, $alldata = 0, $param 
 
 	// old behavior, return a string
 	if ($isAllowedForPreview) {
-		$tmpurl = DOL_URL_ROOT.'/document.php?modulepart='.urlencode($modulepart).'&attachment=0&file='.urlencode($relativepath).($param ? '&'.$param : '');
+		$tmpurl = DOL_URL_ROOT.'/document.php?modulepart='.urlencode($modulePart).'&attachment=0&file='.urlencode($relativepath).($param ? '&'.$param : '');
 		$title = $langs->transnoentities("Preview");
 		//$title = '%27-alert(document.domain)-%27';							// An example of js injection into a corrupted title string, that should be blocked by the dol_escape_uri().
 		//$tmpurl = 'file='.urlencode("'-alert(document.domain)-'_small.jpg");	// An example of tmpurl that should be blocked by the dol_escape_uri()

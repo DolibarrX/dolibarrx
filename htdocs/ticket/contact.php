@@ -92,7 +92,7 @@ if (!$user->socid && (getDolGlobalString('TICKET_LIMIT_VIEW_ASSIGNED_ONLY') && $
 	accessforbidden();
 }
 
-$permissiontoadd = $user->hasRight('ticket', 'write');
+$permissionToAdd = $user->hasRight('ticket', 'write');
 
 
 /*
@@ -247,7 +247,7 @@ if ($id > 0 || !empty($track_id) || !empty($ref)) {
 		if (isModEnabled("societe")) {
 			$morehtmlref .= '<br>';
 			$morehtmlref .= img_picture($langs->trans("ThirdParty"), 'company', 'class="picturefixedwidth"');
-			if ($action != 'editcustomer' && $permissiontoadd) {
+			if ($action != 'editcustomer' && $permissionToAdd) {
 				$morehtmlref .= '<a class="editfielda" href="'.$url_page_current.'?action=editcustomer&token='.newToken().'&track_id='.$object->track_id.'">'.img_edit($langs->transnoentitiesnoconv('SetThirdParty'), 0).'</a> ';
 			}
 			$morehtmlref .= $form->form_thirdparty($url_page_current.'?track_id='.$object->track_id, $object->socid, $action == 'editcustomer' ? 'editcustomer' : 'none', '', 1, 0, 0, [], 1);

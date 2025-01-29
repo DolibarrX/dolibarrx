@@ -143,10 +143,10 @@ if ($id > 0 || !empty($ref)) {
 $enablepermissioncheck = getDolGlobalInt('MYMODULE_ENABLE_PERMISSION_CHECK');
 if ($enablepermissioncheck) {
 	$permissiontoread = $user->hasRight('mymodule', 'myobject', 'read');
-	$permissiontoadd  = $user->hasRight('mymodule', 'myobject', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
+	$permissionToAdd  = $user->hasRight('mymodule', 'myobject', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
 } else {
 	$permissiontoread = 1;
-	$permissiontoadd  = 1;
+	$permissionToAdd  = 1;
 }
 
 // Security check (enable the most restrictive one)
@@ -215,7 +215,7 @@ $morehtmlref = '<div class="refidno">';
  if (isModEnabled('project')) {
  $langs->load("projects");
  $morehtmlref.='<br>'.$langs->trans('Project') . ' ';
- if ($permissiontoadd)
+ if ($permissionToAdd)
  {
  if ($action != 'classify')
  //$morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&token='.newToken().'&id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
@@ -262,7 +262,7 @@ print '</div>';
 
 print dol_get_fiche_end();
 
-$modulepart = 'mymodule';
+$modulePart = 'mymodule';
 $param = '&id='.$object->id;
 //$relativepathwithnofile='myobject/' . dol_sanitizeFileName($object->id).'/';
 $relativepathwithnofile = 'myobject/'.dol_sanitizeFileName($object->ref).'/';

@@ -65,7 +65,7 @@ if ($id > 0 || !empty($ref)) {
 	$upload_dir = $config->asset->multidir_output[isset($object->entity) ? $object->entity : 1] . "/" . $object->id;
 }
 
-$permissiontoadd = $user->hasRight('asset', 'write'); // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd = $user->hasRight('asset', 'write'); // Used by the include of actions_addupdatedelete.inc.php
 
 // Security check (enable the most restrictive one)
 if ($user->socid > 0) {
@@ -125,7 +125,7 @@ if (empty($resHook)) {
 		$action = '';
 	}
 
-	if ($action == "update" && $permissiontoadd) {
+	if ($action == "update" && $permissionToAdd) {
 		$assetaccountancycodes->setAccountancyCodesFromPost();
 
 		$result = $assetaccountancycodes->updateAccountancyCodes($user, $object->id);
@@ -203,7 +203,7 @@ if ($id > 0 || !empty($ref)) {
 
 		if (empty($resHook)) {
 			if ($object->status == $object::STATUS_DRAFT/* && !empty($object->enabled_modes)*/) {
-				print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissiontoadd);
+				print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissionToAdd);
 			}
 		}
 		print '</div>' . "\n";

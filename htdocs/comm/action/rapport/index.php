@@ -177,7 +177,7 @@ if ($resql) {
 			$name = "actions-".$obj->month."-".$obj->year.".pdf";
 			$relativepath = $name;
 			$file = $config->agenda->dir_temp."/".$name;
-			$modulepart = 'actionsreport';
+			$modulePart = 'actionsreport';
 			$documenturl = DOL_URL_ROOT.'/document.php';
 			if (isset($config->global->DOL_URL_ROOT_DOCUMENT_PHP)) {
 				$documenturl = getDolGlobalString('DOL_URL_ROOT_DOCUMENT_PHP'); // To use another wrapper
@@ -191,13 +191,13 @@ if ($resql) {
 				$out = '';
 
 				// Show file name with link to download
-				$out .= '<a href="'.$documenturl.'?modulepart='.$modulepart.'&amp;file='.urlencode($relativepath).($param ? '&'.$param : '').'"';
+				$out .= '<a href="'.$documenturl.'?modulepart='.$modulePart.'&amp;file='.urlencode($relativepath).($param ? '&'.$param : '').'"';
 				$mime = dol_mimetype($relativepath, '', 0);
 				$out .= ' target="_blank" rel="noopener noreferrer">';
 				$out .= img_mime($filearray["name"], $langs->trans("File").': '.$filearray["name"]);
 				$out .= $filearray["name"];
 				$out .= '</a>'."\n";
-				$out .= $formfile->showPreview($filearray, $modulepart, $relativepath, 0, $param);
+				$out .= $formfile->showPreview($filearray, $modulePart, $relativepath, 0, $param);
 				print $out;
 
 				print '</td>';

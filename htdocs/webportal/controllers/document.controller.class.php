@@ -69,7 +69,7 @@ class DocumentController extends Controller
 	/**
 	 * @var string Module of document ('module', 'module_user_temp', 'module_user' or 'module_temp'). Example: 'medias', 'invoice', 'logs', 'tax-vat', ...
 	 */
-	public $modulepart;
+	public $modulePart;
 
 	/**
 	 * @var string Relative path with filename, relative to modulepart.
@@ -111,12 +111,12 @@ class DocumentController extends Controller
 		$encoding = '';
 		$action = GETPOST('action', 'aZ09');
 		$original_file = GETPOST('file', 'alphanohtml'); // Do not use urldecode here ($_GET are already decoded by PHP).
-		$modulepart = GETPOST('modulepart', 'alpha');
+		$modulePart = GETPOST('modulepart', 'alpha');
 		$entity = GETPOSTINT('entity') ? GETPOSTINT('entity') : $config->entity;
 		$socId = GETPOSTINT('soc_id');
 
 		// Security check
-		if (empty($modulepart)) {
+		if (empty($modulePart)) {
 			httponly_accessforbidden('Bad link. Bad value for parameter modulepart', 400);
 		}
 		if (empty($original_file)) {
@@ -146,7 +146,7 @@ class DocumentController extends Controller
 		}
 		// Security: Force to octet-stream if file is a dangerous file. For example when it is a .noexe file
 		// We do not force if file is a javascript to be able to get js from website module with <script src="
-		// Note: Force whatever is $modulepart seems ok.
+		// Note: Force whatever is $modulePart seems ok.
 		if (!in_array($type, array('text/x-javascript')) && !dolIsAllowedForPreview($original_file)) {
 			$type = 'application/octet-stream';
 		}
@@ -158,7 +158,7 @@ class DocumentController extends Controller
 
 		// Check security and set return info with full path of file
 		$accessallowed = 0; // not allowed by default
-		$moduleName = $modulepart;
+		$moduleName = $modulePart;
 		$moduleNameEn = $moduleName;
 		if ($moduleName == 'order') {
 			$moduleNameEn = 'order';
@@ -223,7 +223,7 @@ class DocumentController extends Controller
 
 		// Hooks
 		$hookManager->initHooks(array('document'));
-		$parameters = array('ecmfile' => $ecmfile, 'modulepart' => $modulepart, 'original_file' => $original_file,
+		$parameters = array('ecmfile' => $ecmfile, 'modulepart' => $modulePart, 'original_file' => $original_file,
 			'entity' => $entity, 'refname' => $refname, 'fullpath_original_file' => $fullpath_original_file,
 			'filename' => $filename, 'fullpath_original_file_osencoded' => $fullpath_original_file_osencoded);
 		$object = new stdClass();
@@ -242,7 +242,7 @@ class DocumentController extends Controller
 		$this->filename = $filename;
 		$this->fullpath_original_file = $fullpath_original_file;
 		$this->fullpath_original_file_osencoded = $fullpath_original_file_osencoded;
-		$this->modulepart = $modulepart;
+		$this->modulepart = $modulePart;
 		$this->original_file = $original_file;
 		$this->type = $type;
 	}

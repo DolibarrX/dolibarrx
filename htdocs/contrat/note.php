@@ -62,7 +62,7 @@ $hookManager->initHooks(array('contractnote'));
 $object = new Contrat($db);
 $object->fetch($id, $ref);
 
-$permissiontoadd   = $user->hasRight('contrat', 'creer');     //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd   = $user->hasRight('contrat', 'creer');     //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissionnote = $user->hasRight('contrat', 'creer'); // Used by the include of actions_setnotes.inc.php
 
 $result = restrictedArea($user, 'contrat', $object->id);

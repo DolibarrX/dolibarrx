@@ -61,12 +61,12 @@ $job = new Job($db);
 
 // Permissions
 $permissiontoread = $user->hasRight('hrm', 'evaluation', 'read') || $user->hasRight('hrm', 'compare_advance', 'read');
-$permissiontoadd = 0;
+$permissionToAdd = 0;
 
 if (empty($config->hrm->enabled)) {
 	accessforbidden();
 }
-if (!$permissiontoread || ($action === 'create' && !$permissiontoadd)) {
+if (!$permissiontoread || ($action === 'create' && !$permissionToAdd)) {
 	accessforbidden();
 }
 

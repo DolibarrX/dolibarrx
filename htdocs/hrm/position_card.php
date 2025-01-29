@@ -63,7 +63,7 @@ if ($res < 0) {
 
 // Permissions
 $permissiontoread = $user->hasRight('hrm', 'all', 'read');
-$permissiontoadd = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('hrm', 'all', 'delete');
 $permissiondellink = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_dellink.inc.php
 $upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1] . '/position';
@@ -76,7 +76,7 @@ $upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->en
 if (empty($config->hrm->enabled)) {
 	accessforbidden();
 }
-if (!$permissiontoread || ($action === 'create' && !$permissiontoadd)) {
+if (!$permissiontoread || ($action === 'create' && !$permissionToAdd)) {
 	accessforbidden();
 }
 
@@ -173,10 +173,10 @@ if (empty($resHook)) {
 	// Action to build doc
 	include DOL_DOCUMENT_ROOT . '/core/actions_builddoc.inc.php';
 
-	if ($action == 'set_thirdparty' && $permissiontoadd) {
+	if ($action == 'set_thirdparty' && $permissionToAdd) {
 		$object->setValueFrom('fk_soc', GETPOSTINT('fk_soc'), '', null, 'date', '', $user, $triggermodname);
 	}
-	if ($action == 'classin' && $permissiontoadd) {
+	if ($action == 'classin' && $permissionToAdd) {
 		$object->setProject(GETPOSTINT('projectid'));
 	}
 
@@ -204,7 +204,7 @@ displayPositionCard($object);
  */
 function displayPositionCard(&$object)
 {
-	global $user, $langs, $db, $config, $extrafields, $hookManager, $action, $permissiontoadd, $permissiontodelete;
+	global $user, $langs, $db, $config, $extrafields, $hookManager, $action, $permissionToAdd, $permissiontodelete;
 
 	$id = $object->id;
 	$ref = $object->ref;
@@ -342,7 +342,7 @@ function displayPositionCard(&$object)
 		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 
-		print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissiontoadd);
+		print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissionToAdd);
 
 		// Delete (need delete permission, or if draft, just need create/modify permission)
 		print dolGetButtonAction($langs->trans('Delete'), '', 'delete', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=delete&token=' . newToken(), '', $permissiontodelete);

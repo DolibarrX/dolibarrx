@@ -21,8 +21,8 @@
  */
 
 // Following var can be set
-// $permissiontoadd = permission or not to add a file (can use also $permission) and permission or not to edit file name or crop file (can use also $permtoedit)
-// $modulepart  = for download
+// $permissionToAdd = permission or not to add a file (can use also $permission) and permission or not to edit file name or crop file (can use also $permtoedit)
+// $modulePart  = for download
 // $param       = param to add to download links
 // $moreparam   = param to add to download link for the form_attach_new_file function
 // $upload_dir
@@ -47,12 +47,12 @@ if (empty($relativepathwithnofile)) {
 	$relativepathwithnofile = '';
 }
 
-// Set $permission from the $permissiontoadd var defined on calling page
+// Set $permission from the $permissionToAdd var defined on calling page
 if (!isset($permission)) {
-	$permission = $permissiontoadd;
+	$permission = $permissionToAdd;
 }
 if (!isset($permtoedit)) {
-	$permtoedit = $permissiontoadd;
+	$permtoedit = $permissionToAdd;
 }
 if (!isset($param)) {
 	$param = '';
@@ -63,7 +63,7 @@ if (!isset($param)) {
 // If you enable the move up/down of files here, check that page that include template set its sortorder on 'position_name' instead of 'name'
 // Also the object->fk_element must be defined.
 $disablemove = 1;
-if (in_array($modulepart, array('product', 'produit', 'societe', 'user', 'ticket', 'holiday', 'expensereport'))) {
+if (in_array($modulePart, array('product', 'produit', 'societe', 'user', 'ticket', 'holiday', 'expensereport'))) {
 	$disablemove = 0;
 }
 $parameters = [];
@@ -95,8 +95,8 @@ if ($action == 'deletefile' || $action == 'deletelink') {
 if (!isset($savingdocmask) || getDolGlobalString('MAIN_DISABLE_SUGGEST_REF_AS_PREFIX')) {
 	$savingdocmask = '';
 	if (!getDolGlobalString('MAIN_DISABLE_SUGGEST_REF_AS_PREFIX')) {
-		//var_dump($modulepart);
-		if (in_array($modulepart, array(
+		//var_dump($modulePart);
+		if (in_array($modulePart, array(
 			'facture_fournisseur',
 			'order_fournisseur',
 			'facture',
@@ -119,7 +119,7 @@ if (!isset($savingdocmask) || getDolGlobalString('MAIN_DISABLE_SUGGEST_REF_AS_PR
 		))) {
 			$savingdocmask = dol_sanitizeFileName($object->ref).'-__file__';
 		}
-		/*if (in_array($modulepart,array('member')))
+		/*if (in_array($modulePart,array('member')))
 		{
 			$savingdocmask=$object->login.'___file__';
 		}*/
@@ -160,7 +160,7 @@ $formToAddALink = $tmparray['formToAddALink'];
 $formfile->list_of_documents(
 	$filearray,
 	$object,
-	$modulepart,
+	$modulePart,
 	$param,
 	0,
 	$relativepathwithnofile, // relative path with no file. For example "0/1"

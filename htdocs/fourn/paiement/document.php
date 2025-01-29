@@ -93,7 +93,7 @@ if ($object->fetch($id, $ref)) {
 	$upload_dir = $config->fournisseur->payment->dir_output.'/'.dol_sanitizeFileName($object->ref);
 }
 
-$permissiontoadd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")); // Used by the include of actions_setnotes.inc.php
+$permissionToAdd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")); // Used by the include of actions_setnotes.inc.php
 
 
 /*
@@ -181,9 +181,9 @@ if ($object->id > 0) {
 	print '<br>';
 
 
-	$modulepart = 'supplier_payment';
+	$modulePart = 'supplier_payment';
 	// TODO: get the appropriate permission
-	$permissiontoadd = true;
+	$permissionToAdd = true;
 	$permtoedit = true;
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

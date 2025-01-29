@@ -161,19 +161,19 @@ $action = GETPOST('action', 'aZ09');
 $original_file = GETPOST('file', 'alphanohtml');
 $hashp = GETPOST('hashp', 'aZ09', 1);
 $extname = GETPOST('extname', 'alpha', 1);
-$modulepart = GETPOST('modulepart', 'alpha', 1);
+$modulePart = GETPOST('modulepart', 'alpha', 1);
 $urlsource = GETPOST('urlsource', 'alpha');
 $entity = (GETPOSTINT('entity') ? GETPOSTINT('entity') : $config->entity);
 
 // Security check
-if (empty($modulepart) && empty($hashp)) {
+if (empty($modulePart) && empty($hashp)) {
 	httponly_accessforbidden('Bad link. Bad value for parameter modulepart', 400);
 }
-if (empty($original_file) && empty($hashp) && $modulepart != 'barcode') {
+if (empty($original_file) && empty($hashp) && $modulePart != 'barcode') {
 	httponly_accessforbidden('Bad link. Missing identification to find file (param file or hashp)', 400);
 }
-if ($modulepart == 'fckeditor') {
-	$modulepart = 'medias'; // For backward compatibility
+if ($modulePart == 'fckeditor') {
+	$modulePart = 'medias'; // For backward compatibility
 }
 
 
@@ -222,10 +222,10 @@ if (!empty($hashp)) {
 		if (is_numeric($tmp[0])) { // If first tmp is numeric, it is subdir of company for multicompany, we take next part.
 			$tmp = explode('/', $tmp[1], 2);
 		}
-		$moduleparttocheck = $tmp[0]; // moduleparttocheck is first part of path
+		$moduleParttocheck = $tmp[0]; // moduleparttocheck is first part of path
 
-		if ($modulepart) {	// Not required, so often not defined, for link using public hashp parameter.
-			if ($moduleparttocheck == $modulepart) {
+		if ($modulePart) {	// Not required, so often not defined, for link using public hashp parameter.
+			if ($moduleParttocheck == $modulePart) {
 				// We remove first level of directory
 				$original_file = (($tmp[1] ? $tmp[1].'/' : '').$ecmfile->filename); // this is relative to module dir
 				//var_dump($original_file); exit;
@@ -233,7 +233,7 @@ if (!empty($hashp)) {
 				httponly_accessforbidden('Bad link. File is from another module part.', 403);
 			}
 		} else {
-			$modulepart = $moduleparttocheck;
+			$modulePart = $moduleParttocheck;
 			$original_file = (($tmp[1] ? $tmp[1].'/' : '').$ecmfile->filename); // this is relative to module dir
 		}
 
@@ -280,18 +280,18 @@ if (!empty($original_file) && !dolIsAllowedForPreview($original_file)) {
 }
 
 // Security check
-if (empty($modulepart)) {
+if (empty($modulePart)) {
 	httponly_accessforbidden('Bad value for parameter modulepart', 400);
 }
 
 // When logged in a different entity, medias cannot be accessed because $config->$module->multidir_output
 // is not set on the requested entity, but they are public documents, so reset entity
-if ($modulepart === 'medias' && $entity != $config->entity) {
+if ($modulePart === 'medias' && $entity != $config->entity) {
 	$config->entity = $entity;
 	$config->setValues($db);
 }
 
-$check_access = dol_check_secure_access_document($modulepart, $original_file, $entity, $user, $refname);
+$check_access = dol_check_secure_access_document($modulePart, $original_file, $entity, $user, $refname);
 $accessallowed              = $check_access['accessallowed'];
 $sqlprotectagainstexternals = $check_access['sqlprotectagainstexternals'];
 $fullpath_original_file     = $check_access['original_file']; // $fullpath_original_file is now a full path name
@@ -300,7 +300,7 @@ if (!empty($hashp)) {
 	$accessallowed = 1; // When using hashp, link is public so we force $accessallowed
 	$sqlprotectagainstexternals = '';
 } elseif (GETPOSTINT("publictakepos")) {
-	if (getDolGlobalString('TAKEPOS_AUTO_ORDER') && in_array($modulepart, array('product', 'category'))) {
+	if (getDolGlobalString('TAKEPOS_AUTO_ORDER') && in_array($modulePart, array('product', 'category'))) {
 		$accessallowed = 1; // When TakePOS Public Auto Order is enabled, we accept to see all images of product and categories with no login
 		// TODO Replace this with a call of getPublicImageOfObject like used by website so
 		// only shared images are visible
@@ -342,7 +342,7 @@ if (preg_match('/\.\./', $fullpath_original_file) || preg_match('/[<>|]/', $full
 
 
 
-if ($modulepart == 'barcode') {
+if ($modulePart == 'barcode') {
 	$generator = GETPOST("generator", "aZ09");
 	$encoding = GETPOST("encoding", "aZ09");
 	$readable = GETPOST("readable", 'aZ09') ? GETPOST("readable", "aZ09") : "Y";

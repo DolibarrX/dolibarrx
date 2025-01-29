@@ -406,11 +406,11 @@ if (empty($resHook)) {
 
 	$permissiontoread = $user->hasRight($rightskey, 'lire');
 	$permissiontodelete = $user->hasRight($rightskey, 'supprimer');
-	$permissiontoadd = $user->hasRight($rightskey, 'creer');
+	$permissionToAdd = $user->hasRight($rightskey, 'creer');
 	$uploaddir = $config->product->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
-	if ($massaction == 'switchonsalestatus' && $permissiontoadd) {
+	if ($massaction == 'switchonsalestatus' && $permissionToAdd) {
 		$product = new Product($db);
 		foreach ($toselect as $toselectid) {
 			$result = $product->fetch($toselectid);
@@ -421,7 +421,7 @@ if (empty($resHook)) {
 			}
 		}
 	}
-	if ($massaction == 'switchonpurchasestatus' && $permissiontoadd) {
+	if ($massaction == 'switchonpurchasestatus' && $permissionToAdd) {
 		$product = new Product($db);
 		foreach ($toselect as $toselectid) {
 			$result = $product->fetch($toselectid);

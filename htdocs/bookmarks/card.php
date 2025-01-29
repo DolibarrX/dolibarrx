@@ -63,8 +63,8 @@ if ($id > 0) {
 restrictedArea($user, 'bookmark', $object);
 
 $permissiontoread = $user->hasRight('bookmark', 'lire');
-$permissiontoadd = $user->hasRight('bookmark', 'creer');
-$permissiontodelete = ($user->hasRight('bookmark', 'supprimer') || ($permissiontoadd && $object->fk_user == $user->id));	// Can always delete its own bookmark
+$permissionToAdd = $user->hasRight('bookmark', 'creer');
+$permissiontodelete = ($user->hasRight('bookmark', 'supprimer') || ($permissionToAdd && $object->fk_user == $user->id));	// Can always delete its own bookmark
 
 
 
@@ -72,7 +72,7 @@ $permissiontodelete = ($user->hasRight('bookmark', 'supprimer') || ($permissiont
  * Actions
  */
 
-if (($action == 'add' || $action == 'addproduct' || $action == 'update') && $permissiontoadd) {
+if (($action == 'add' || $action == 'addproduct' || $action == 'update') && $permissionToAdd) {
 	if ($action == 'update') {	// Test on permission already done
 		$invertedaction = 'edit';
 	} else {
@@ -336,7 +336,7 @@ if ($id > 0 && !preg_match('/^add/i', $action)) {
 	print '<div class="tabsAction">'."\n";
 
 	// Edit
-	if ($permissiontoadd && $action != 'edit') {
+	if ($permissionToAdd && $action != 'edit') {
 		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=edit&token='.newToken().'">'.$langs->trans("Edit").'</a>'."\n";
 	}
 

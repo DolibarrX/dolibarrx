@@ -72,7 +72,7 @@ $result = restrictedArea($user, 'loan', $id, '', '');
 
 $object = new Loan($db);
 
-$permissiontoadd = $user->hasRight('loan', 'write');
+$permissionToAdd = $user->hasRight('loan', 'write');
 
 $error = 0;
 $staytopay = 0;
@@ -89,7 +89,7 @@ if ($resHook < 0) {
 }
 if (empty($resHook)) {
 	// Classify paid
-	if ($action == 'confirm_paid' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_paid' && $confirm == 'yes' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->setPaid($user);
 		if ($result > 0) {
@@ -100,7 +100,7 @@ if (empty($resHook)) {
 	}
 
 	// Delete loan
-	if ($action == 'confirm_delete' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_delete' && $confirm == 'yes' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->delete($user);
 		if ($result > 0) {
@@ -113,7 +113,7 @@ if (empty($resHook)) {
 	}
 
 	// Add loan
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		if (!$cancel) {
 			$datestart = dol_mktime(12, 0, 0, GETPOSTINT('startmonth'), GETPOSTINT('startday'), GETPOSTINT('startyear'));
 			$dateend = dol_mktime(12, 0, 0, GETPOSTINT('endmonth'), GETPOSTINT('endday'), GETPOSTINT('endyear'));
@@ -186,7 +186,7 @@ if (empty($resHook)) {
 			header("Location: list.php");
 			exit();
 		}
-	} elseif ($action == 'update' && $permissiontoadd) {
+	} elseif ($action == 'update' && $permissionToAdd) {
 		// Update record
 		if (!$cancel) {
 			$result = $object->fetch($id);
@@ -245,7 +245,7 @@ if (empty($resHook)) {
 	}
 
 	// Link to a project
-	if ($action == 'classin' && $permissiontoadd) {
+	if ($action == 'classin' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->setProject($projectid);
 		if ($result < 0) {
@@ -253,7 +253,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setlabel' && $permissiontoadd) {
+	if ($action == 'setlabel' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->setValueFrom('label', GETPOST('label'), '', null, 'text', '', $user, 'LOAN_MODIFY');
 		if ($result < 0) {

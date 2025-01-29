@@ -91,7 +91,7 @@ if ($id > 0 || !empty($ref)) {
 	$upload_dir = $config->asset->multidir_output[$object->entity]."/".$object->id;
 }
 
-$permissiontoadd = $user->hasRight('asset', 'write'); // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd = $user->hasRight('asset', 'write'); // Used by the include of actions_addupdatedelete.inc.php
 
 // Security check (enable the most restrictive one)
 if ($user->socid > 0) {

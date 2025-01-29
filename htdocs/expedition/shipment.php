@@ -93,8 +93,8 @@ if ($user->socid) {
 $result = restrictedArea($user, 'expedition', 0, '');	// We use 0 for id, because there is no particular shipment on this tab, only id of order is known
 
 $permissiontoread = $user->hasRight('expedition', 'lire');
-$permissiontoadd = $user->hasRight('expedition', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->hasRight('expedition', 'supprimer') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
+$permissionToAdd = $user->hasRight('expedition', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->hasRight('expedition', 'supprimer') || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissionnote = $user->hasRight('expedition', 'creer'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('expedition', 'creer'); // Used by the include of actions_dellink.inc.php
 
@@ -111,15 +111,15 @@ if ($resHook < 0) {
 
 if (empty($resHook)) {
 	// Categorisation dans projet
-	if ($action == 'classin' && $permissiontoadd) {
+	if ($action == 'classin' && $permissionToAdd) {
 		$object->fetch($id);
 		$object->setProject(GETPOSTINT('projectid'));
 	}
 
-	if ($action == 'confirm_cloture' && GETPOST('confirm', 'alpha') == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_cloture' && GETPOST('confirm', 'alpha') == 'yes' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->cloture($user);
-	} elseif ($action == 'setref_client' && $permissiontoadd) {
+	} elseif ($action == 'setref_client' && $permissionToAdd) {
 		// Positionne ref order client
 		$result = $object->set_ref_client($user, GETPOST('ref_client'));
 		if ($result < 0) {
@@ -127,7 +127,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setdatedelivery' && $permissiontoadd) {
+	if ($action == 'setdatedelivery' && $permissionToAdd) {
 		$datedelivery = dol_mktime(GETPOSTINT('liv_hour'), GETPOSTINT('liv_min'), 0, GETPOSTINT('liv_month'), GETPOSTINT('liv_day'), GETPOSTINT('liv_year'));
 
 		$object->fetch($id);
@@ -136,7 +136,7 @@ if (empty($resHook)) {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
 	}
-	if ($action == 'setmode' && $permissiontoadd) {
+	if ($action == 'setmode' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->setPaymentMethods(GETPOSTINT('mode_reglement_id'));
 		if ($result < 0) {
@@ -144,7 +144,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setavailability' && $permissiontoadd) {
+	if ($action == 'setavailability' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->availability(GETPOST('availability_id'));
 		if ($result < 0) {
@@ -152,7 +152,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setdemandreason' && $permissiontoadd) {
+	if ($action == 'setdemandreason' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->demand_reason(GETPOST('demand_reason_id'));
 		if ($result < 0) {
@@ -160,7 +160,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setconditions' && $permissiontoadd) {
+	if ($action == 'setconditions' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->setPaymentTerms(GETPOSTINT('cond_reglement_id'));
 		if ($result < 0) {
@@ -175,7 +175,7 @@ if (empty($resHook)) {
 	}
 
 	// shipping method
-	if ($action == 'setshippingmethod' && $permissiontoadd) {
+	if ($action == 'setshippingmethod' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->setShippingMethod(GETPOSTINT('shipping_method_id'));
 		if ($result < 0) {
@@ -184,7 +184,7 @@ if (empty($resHook)) {
 	}
 
 	// warehouse
-	if ($action == 'setwarehouse' && $permissiontoadd) {
+	if ($action == 'setwarehouse' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->setWarehouse(GETPOSTINT('warehouse_id'));
 		if ($result < 0) {
@@ -192,7 +192,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'update_extras' && $permissiontoadd) {
+	if ($action == 'update_extras' && $permissionToAdd) {
 		$object->oldcopy = dol_clone($object, 2);
 
 		// Fill array 'array_options' with data from update form
@@ -215,7 +215,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'set_thirdparty' && $permissiontoadd) {
+	if ($action == 'set_thirdparty' && $permissionToAdd) {
 		$object->fetch($id);
 		$object->setValueFrom('fk_soc', $socid, '', null, 'date', '', $user, 'ORDER_MODIFY');
 
@@ -288,8 +288,8 @@ if ($id > 0 || !empty($ref)) {
 
 		$morehtmlref = '<div class="refidno">';
 		// Ref customer
-		$morehtmlref .= $form->editfieldkey("RefCustomer", 'ref_customer', $object->ref_client, $object, $permissiontoadd, 'string', '', 0, 1);
-		$morehtmlref .= $form->editfieldval("RefCustomer", 'ref_customer', $object->ref_client, $object, $permissiontoadd, 'string', '', null, null, '', 1);
+		$morehtmlref .= $form->editfieldkey("RefCustomer", 'ref_customer', $object->ref_client, $object, $permissionToAdd, 'string', '', 0, 1);
+		$morehtmlref .= $form->editfieldval("RefCustomer", 'ref_customer', $object->ref_client, $object, $permissionToAdd, 'string', '', null, null, '', 1);
 		// Thirdparty
 		$morehtmlref .= '<br>'.$soc->getNomUrl(1);
 		// Project
@@ -428,7 +428,7 @@ if ($id > 0 || !empty($ref)) {
 			print '<table width="100%" class="nobordernopadding"><tr><td>';
 			print $langs->trans('Warehouse');
 			print '</td>';
-			if ($action != 'editwarehouse' && $permissiontoadd) {
+			if ($action != 'editwarehouse' && $permissionToAdd) {
 				print '<td class="right"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=editwarehouse&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->trans('SetWarehouse'), 1).'</a></td>';
 			}
 			print '</tr></table>';
@@ -518,7 +518,7 @@ if ($id > 0 || !empty($ref)) {
 			print '<table width="100%" class="nobordernopadding"><tr><td>';
 			print $langs->trans('IncotermLabel');
 			print '<td><td class="right">';
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				print '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'/expedition/shipment.php?id='.$object->id.'&action=editincoterm&token='.newToken().'">'.img_edit().'</a>';
 			} else {
 				print '&nbsp;';

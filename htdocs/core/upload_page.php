@@ -62,7 +62,7 @@ if (GETPOST('lang', 'aZ09')) {
 $langs->loadLangs(array("main", "other"));
 
 $action = GETPOST('action', 'aZ09');
-$modulepart = GETPOST('modulepart', 'aZ09');
+$modulePart = GETPOST('modulepart', 'aZ09');
 
 
 /*
@@ -70,26 +70,26 @@ $modulepart = GETPOST('modulepart', 'aZ09');
  */
 
 if (getDolGlobalString('MAIN_USE_TOP_MENU_IMPORT_FILE') && !is_numeric(getDolGlobalString('MAIN_USE_TOP_MENU_IMPORT_FILE'))) {
-	$urlforuploadpage = getDolGlobalString('MAIN_USE_TOP_MENU_IMPORT_FILE');
+	$urlForUploadPage = getDolGlobalString('MAIN_USE_TOP_MENU_IMPORT_FILE');
 
-	header("Location: ".$urlforuploadpage);
+	header("Location: ".$urlForUploadPage);
 	exit(1);
 }
 
 if ($action == 'uploadfile') {	// Test on permission not required here. Done later
-	$arrayobject = getElementProperties($modulepart);
+	$arrayObject = getElementProperties($modulePart);
 
-	$module = $arrayobject['module'];
-	$element = $arrayobject['element'];
-	$dir_output = $arrayobject['dir_output'];
-	$dir_temp = $arrayobject['dir_temp'];
+	$module = $arrayObject['module'];
+	$element = $arrayObject['element'];
+	$dir_output = $arrayObject['dir_output'];
+	$dir_temp = $arrayObject['dir_temp'];
 
 	$permlevel1 = $element;
 	if ($module == 'fournisseur') {
 		$permlevel1 = 'facture';
 	}
 
-	$permissiontoadd = $user->hasRight($module, $permlevel1, 'read');
+	$permissionToAdd = $user->hasRight($module, $permlevel1, 'read');
 	$upload_dir = $dir_temp.'/import';
 	$forceFullTextIndexation = '1';
 

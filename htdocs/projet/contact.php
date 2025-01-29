@@ -75,7 +75,7 @@ $hookManager->initHooks(array('projectcontactcard', 'globalcard'));
 //if ($user->socid > 0) $socid = $user->socid;    // For external user, no check is done on company because readability is managed by public status of project and assignment.
 $result = restrictedArea($user, 'projet', $id, 'projet&project');
 
-$permissiontoadd = $user->hasRight('projet', 'creer');
+$permissionToAdd = $user->hasRight('projet', 'creer');
 
 
 /*
@@ -91,7 +91,7 @@ if ($resHook < 0) {
 if (empty($resHook)) {
 	// Test if we can add contact to the tasks at the same times, if not or not required, make a redirect
 	$formconfirmtoaddtasks = '';
-	if ($action == 'addcontact' && $permissiontoadd) {
+	if ($action == 'addcontact' && $permissionToAdd) {
 		$form = new Form($db);
 
 		$source = GETPOST("source", 'aZ09');
@@ -171,7 +171,7 @@ if (empty($resHook)) {
 	}
 
 	// Add new contact
-	if ($action == 'addcontact_confirm' && $permissiontoadd) {
+	if ($action == 'addcontact_confirm' && $permissionToAdd) {
 		if (GETPOST('confirm', 'alpha') == 'no') {
 			header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
 			exit;
@@ -285,7 +285,7 @@ if (empty($resHook)) {
 	}
 
 	// Change contact's status
-	if ($action == 'swapstatut' && $permissiontoadd) {
+	if ($action == 'swapstatut' && $permissionToAdd) {
 		if ($object->fetch($id)) {
 			$result = $object->swapContactStatus(GETPOSTINT('ligne'));
 		} else {
@@ -294,7 +294,7 @@ if (empty($resHook)) {
 	}
 
 	// Delete a contact
-	if (($action == 'deleteline' || $action == 'deletecontact') && $permissiontoadd) {
+	if (($action == 'deleteline' || $action == 'deletecontact') && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->delete_contact(GETPOSTINT("lineid"));
 

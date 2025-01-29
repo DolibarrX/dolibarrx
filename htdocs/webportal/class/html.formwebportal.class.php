@@ -248,7 +248,7 @@ class FormWebPortal extends Form
 	 * You may want to call this into a div like this:
 	 * print '<div class="inline-block valignmiddle">'.$formfile->getDocumentsLink($element_doc, $filename, $filedir).'</div>';
 	 *
-	 * @param string $modulepart 'propal', 'facture', 'facture_fourn', ...
+	 * @param string $modulePart 'propal', 'facture', 'facture_fourn', ...
 	 * @param string $modulesubdir Sub-directory to scan (Example: '0/1/10', 'FA/DD/MM/YY/9999'). Use '' if file is not into subdir of module.
 	 * @param string $filedir Full path to directory to scan
 	 * @param string $filter Filter filenames on this regex string (Example: '\.pdf$')
@@ -256,7 +256,7 @@ class FormWebPortal extends Form
 	 * @param int<0,1> $allfiles 0=Only generated docs, 1=All files
 	 * @return    string                Output string with HTML link of documents (might be empty string). This also fill the array ->infofiles
 	 */
-	public function getDocumentsLink($modulepart, $modulesubdir, $filedir, $filter = '', $morecss = '', $allfiles = 0)
+	public function getDocumentsLink($modulePart, $modulesubdir, $filedir, $filter = '', $morecss = '', $allfiles = 0)
 	{
 		include_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 
@@ -308,10 +308,10 @@ class FormWebPortal extends Form
 					$relativepath = $modulesubdir . "/" . $file["name"]; // Cas propal, facture...
 				}
 				// Autre cas
-				if ($modulepart == 'donation') {
+				if ($modulePart == 'donation') {
 					$relativepath = get_exdir($modulesubdir, 2, 0, 0, null, 'donation') . $file["name"];
 				}
-				if ($modulepart == 'export') {
+				if ($modulePart == 'export') {
 					$relativepath = $file["name"];
 				}
 
@@ -326,7 +326,7 @@ class FormWebPortal extends Form
 				}
 
 				// Download
-				$url = $context->getControllerUrl('document') . '&modulepart=' . $modulepart . '&entity=' . $entity . '&file=' . urlencode($relativepath) . '&soc_id=' . $context->logged_thirdparty->id;
+				$url = $context->getControllerUrl('document') . '&modulepart=' . $modulePart . '&entity=' . $entity . '&file=' . urlencode($relativepath) . '&soc_id=' . $context->logged_thirdparty->id;
 				$tmpout .= '<a href="' . $url . '"' . ($morecss ? ' class="' . $morecss . '"' : '') . ' role="downloadlink"';
 				$mime = dol_mimetype($relativepath, '', 0);
 				if (preg_match('/text/', $mime)) {
@@ -351,17 +351,17 @@ class FormWebPortal extends Form
 	 * You may want to call this into a div like this:
 	 * print '<div class="inline-block valignmiddle">'.$formfile->getDocumentsLink($element_doc, $filename, $filedir).'</div>';
 	 *
-	 * @param string $modulepart 'proposal', 'facture', 'facture_fourn', ...
+	 * @param string $modulePart 'proposal', 'facture', 'facture_fourn', ...
 	 * @param Object $object Object linked to the document to be signed
 	 * @param string $morecss Add more css to the download picture
 	 * @return    string                Output string with HTML link of signature (might be empty string).
 	 */
-	public function getSignatureLink($modulepart, $object, $morecss = '')
+	public function getSignatureLink($modulePart, $object, $morecss = '')
 	{
 		global $langs;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/signature.lib.php';
 		$out = '<!-- html.formwebportal::getSignatureLink -->' . "\n";
-		$url = getOnlineSignatureUrl(0, $modulepart, $object->ref, 1, $object);
+		$url = getOnlineSignatureUrl(0, $modulePart, $object->ref, 1, $object);
 		if (!empty($url)) {
 			$out .= '<a target="_blank" rel="noopener noreferrer" href="' . $url . '"' . ($morecss ? ' class="' . $morecss . '"' : '') . ' role="signaturelink">';
 			$out .= '<i class="fa fa-file-signature"></i>';

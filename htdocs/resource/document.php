@@ -85,11 +85,11 @@ $object = new Dolresource($db);
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'.
 
 $upload_dir = $config->resource->dir_output.'/'.dol_sanitizeFileName($object->ref);
-$modulepart = 'resource';
+$modulePart = 'resource';
 
 $result = restrictedArea($user, 'resource', $object->id, 'resource');
 
-$permissiontoadd = $user->hasRight('resource', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
+$permissionToAdd = $user->hasRight('resource', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
 
 
 /*
@@ -154,8 +154,8 @@ if ($object->id > 0) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'dolresource';
-	$permissiontoadd = $user->hasRight('resource', 'write');
+	$modulePart = 'dolresource';
+	$permissionToAdd = $user->hasRight('resource', 'write');
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 } else {

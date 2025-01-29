@@ -99,7 +99,7 @@ if ($id > 0 || !empty($ref)) {
 }
 
 // Permissions
-$permissiontoadd = $user->hasRight('hrm', 'evaluation', 'write'); // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd = $user->hasRight('hrm', 'evaluation', 'write'); // Used by the include of actions_addupdatedelete.inc.php
 $permissiontoread = $user->hasRight('hrm', 'evaluation', 'read'); // Used by the include of actions_addupdatedelete.inc.php
 
 // Security check (enable the most restrictive one)

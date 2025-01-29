@@ -246,9 +246,9 @@ if ($user->socid) {
 $result = restrictedArea($user, 'fournisseur', $orderid, '', 'order');
 
 $permissiontoread = ($user->hasRight("fournisseur", "order", "lire") || $user->hasRight("supplier_order", "lire"));
-$permissiontoadd = ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
+$permissionToAdd = ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
 $permissiontodelete = ($user->hasRight("fournisseur", "order", "supprimer") || $user->hasRight("supplier_order", "supprimer"));
-$permissiontovalidate = $permissiontoadd;
+$permissiontovalidate = $permissionToAdd;
 $permissiontoapprove = ($user->hasRight("fournisseur", "order", "approuver") || $user->hasRight("supplier_order", "approuver"));
 
 
@@ -615,7 +615,7 @@ if (empty($resHook)) {
 				// Fac builddoc
 				$donotredirect = 1;
 				$upload_dir = $config->fournisseur->facture->dir_output;
-				$permissiontoadd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
+				$permissionToAdd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
 				//include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 			}
 
@@ -1256,7 +1256,7 @@ if ($resql) {
 	$newcardbutton .= dolGetButtonTitle($langs->trans('ViewList'), '', 'fa fa-bars imgforviewmode', $_SERVER["PHP_SELF"].'?mode=common'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ((empty($mode) || $mode == 'common') ? 2 : 1), array('morecss' => 'reposition'));
 	$newcardbutton .= dolGetButtonTitle($langs->trans('ViewKanban'), '', 'fa fa-th-list imgforviewmode', $_SERVER["PHP_SELF"].'?mode=kanban'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ($mode == 'kanban' ? 2 : 1), array('morecss' => 'reposition'));
 	$newcardbutton .= dolGetButtonTitleSeparator();
-	$newcardbutton .= dolGetButtonTitle($langs->trans('NewSupplierOrderShort'), '', 'fa fa-plus-circle', $url, '', (int) $permissiontoadd);
+	$newcardbutton .= dolGetButtonTitle($langs->trans('NewSupplierOrderShort'), '', 'fa fa-plus-circle', $url, '', (int) $permissionToAdd);
 
 	// Lines of title fields
 	print '<form method="POST" id="searchFormList" action="'.$_SERVER["PHP_SELF"].'">';
@@ -2172,7 +2172,7 @@ if ($resql) {
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_supplier_order', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 } else {

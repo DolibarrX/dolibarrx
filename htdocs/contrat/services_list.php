@@ -164,7 +164,7 @@ $arrayfields = dol_sort_array($arrayfields, 'position');
 '@phan-var-force array<string,array{label:string,checked?:int<0,1>,position?:int,help?:string}> $arrayfields';  // dol_sort_array looses type for Phan
 
 $permissiontoread = $user->hasRight('contrat', 'lire');
-$permissiontoadd = $user->hasRight('contrat', 'creer');
+$permissionToAdd = $user->hasRight('contrat', 'creer');
 $permissiontodelete = $user->hasRight('contrat', 'supprimer');
 
 $result = restrictedArea($user, 'contrat', 0);

@@ -906,7 +906,7 @@ if (empty($resHook)) {
 
 	// Actions to build doc
 	$upload_dir = $config->member->dir_output;
-	$permissiontoadd = $user->hasRight('member', 'creer');
+	$permissionToAdd = $user->hasRight('member', 'creer');
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 	// Actions to send emails

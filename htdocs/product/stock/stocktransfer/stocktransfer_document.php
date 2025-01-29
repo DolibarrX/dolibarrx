@@ -89,7 +89,7 @@ if ($id > 0 || !empty($ref)) {
 //if ($user->socid > 0) $socid = $user->socid;
 //$result = restrictedArea($user, 'stocktransfer', $object->id);
 
-$permissiontoadd = $user->hasRight('stocktransfer', 'stocktransfer', 'write'); // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd = $user->hasRight('stocktransfer', 'stocktransfer', 'write'); // Used by the include of actions_addupdatedelete.inc.php
 
 
 
@@ -143,7 +143,7 @@ if ($object->id) {
 	 {
 	 $langs->load("projects");
 	 $morehtmlref.='<br>'.$langs->trans('Project') . ' ';
-	 if ($permissiontoadd)
+	 if ($permissionToAdd)
 	 {
 	 if ($action != 'classify')
 	 //$morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&amp;id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
@@ -190,7 +190,7 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'stocktransfer';
+	$modulePart = 'stocktransfer';
 	$param = '&id='.$object->id;
 
 	//$relativepathwithnofile='stocktransfer/' . dol_sanitizeFileName($object->id).'/';

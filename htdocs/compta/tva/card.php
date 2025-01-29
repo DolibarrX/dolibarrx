@@ -92,8 +92,8 @@ if (empty($action) && empty($id) && empty($ref)) {
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'.
 
 $permissiontoread = $user->hasRight('tax', 'charges', 'lire');
-$permissiontoadd = $user->hasRight('tax', 'charges', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->rights->tax->charges->supprimer || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
+$permissionToAdd = $user->hasRight('tax', 'charges', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->rights->tax->charges->supprimer || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
 $permissionnote = $user->hasRight('tax', 'charges', 'creer'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('tax', 'charges', 'creer'); // Used by the include of actions_dellink.inc.php
 $upload_dir = $config->tax->multidir_output[isset($object->entity) ? $object->entity : 1].'/vat';
@@ -181,7 +181,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'add' && !$cancel && $permissiontoadd) {
+	if ($action == 'add' && !$cancel && $permissionToAdd) {
 		$error = 0;
 
 		$object->fk_account = GETPOSTINT("accountid");

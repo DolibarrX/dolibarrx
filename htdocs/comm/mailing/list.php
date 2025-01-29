@@ -95,7 +95,7 @@ $fieldstosearchall = array(
 );
 
 $permissiontoread = $user->hasRight('mailing', 'lire');
-$permissiontoadd = $user->hasRight('mailing', 'creer');
+$permissionToAdd = $user->hasRight('mailing', 'creer');
 $permissiontodelete = $user->hasRight('mailing', 'delete');
 
 // Security check

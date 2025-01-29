@@ -348,7 +348,7 @@ if ($user->socid) {
 }
 $result = restrictedArea($user, 'societe', $socid, '');
 
-$permissiontoadd = $user->hasRight('societe', 'lire');
+$permissionToAdd = $user->hasRight('societe', 'lire');
 
 
 /*
@@ -482,13 +482,13 @@ if (empty($resHook)) {
 	$objectlabel = 'ThirdParty';
 	$permissiontoread = $user->hasRight('societe', 'lire');
 	$permissiontodelete = $user->hasRight('societe', 'supprimer');
-	$permissiontoadd = $user->hasRight("societe", "creer");
+	$permissionToAdd = $user->hasRight("societe", "creer");
 	$uploaddir = $config->societe->dir_output;
 
 	global $error;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
-	if (!$error && $action == 'setstcomm' && $permissiontoadd) {
+	if (!$error && $action == 'setstcomm' && $permissionToAdd) {
 		$object = new Client($db);
 		$result = $object->fetch(GETPOST('stcommsocid'));
 		$object->stcomm_id = dol_getIdFromCode($db, GETPOST('stcomm', 'alpha'), 'c_stcomm');

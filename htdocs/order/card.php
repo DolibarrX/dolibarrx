@@ -159,7 +159,7 @@ $usercancreatepurchaseorder = ($user->hasRight('fournisseur', 'order', 'creer') 
 
 $permissionnote    = $usercancreate;     //  Used by the include of actions_setnotes.inc.php
 $permissiondellink = $usercancreate;     //  Used by the include of actions_dellink.inc.php
-$permissiontoadd   = $usercancreate;     //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd   = $usercancreate;     //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 
 
 $error = 0;
@@ -1700,7 +1700,7 @@ if (empty($resHook)) {
 
 	// Actions to build doc
 	$upload_dir = !empty($config->order->multidir_output[$object->entity]) ? $config->order->multidir_output[$object->entity] : $config->order->dir_output;
-	$permissiontoadd = $usercancreate;
+	$permissionToAdd = $usercancreate;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 	// Actions to send emails

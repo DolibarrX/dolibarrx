@@ -92,7 +92,7 @@ if ($user->socid) {
 }
 $result = restrictedArea($user, 'fournisseur', $id, 'order_fournisseur', 'order');
 
-$permissiontoadd = ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer")); // Used by the include of actions_setnotes.inc.php
+$permissionToAdd = ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer")); // Used by the include of actions_setnotes.inc.php
 
 
 /*
@@ -179,8 +179,8 @@ if ($object->id > 0) {
 	print dol_get_fiche_end();
 
 
-	$modulepart = 'order_fournisseur';
-	$permissiontoadd = ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
+	$modulePart = 'order_fournisseur';
+	$permissionToAdd = ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
 	$permtoedit = ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

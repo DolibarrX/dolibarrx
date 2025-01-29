@@ -128,7 +128,7 @@ $hookManager->initHooks(array('expensereportcard', 'globalcard'));
 
 $permissionnote = $user->hasRight('expensereport', 'creer'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('expensereport', 'creer'); // Used by the include of actions_dellink.inc.php
-$permissiontoadd = $user->hasRight('expensereport', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd = $user->hasRight('expensereport', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 
 $upload_dir = $config->expensereport->dir_output.'/'.dol_sanitizeFileName($object->ref);
 
@@ -163,7 +163,7 @@ if ($user->socid) {
 }
 $result = restrictedArea($user, 'expensereport', $object->id, 'expensereport');
 
-$permissiontoadd = $user->hasRight('expensereport', 'creer');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('expensereport', 'creer');	// Used by the include of actions_dellink.inc.php
 
 
 /*
@@ -233,7 +233,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_lineupdown.inc.php'; // Must be 'include', not 'include_once'
 
 	// Action clone object
-	if ($action == 'confirm_clone' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_clone' && $confirm == 'yes' && $permissionToAdd) {
 		if (1 == 0 && !GETPOST('clone_content', 'alpha') && !GETPOST('clone_receivers', 'alpha')) {
 			setEventMessages($langs->trans("NoCloneOptionsSpecified"), null, 'errors');
 		} else {
@@ -266,7 +266,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		$object = new ExpenseReport($db);
 
 		$object->date_debut = $date_start;
@@ -338,7 +338,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if (($action == 'update' || $action == 'updateFromRefuse') && $permissiontoadd) {
+	if (($action == 'update' || $action == 'updateFromRefuse') && $permissionToAdd) {
 		$object = new ExpenseReport($db);
 		$object->fetch($id);
 
@@ -363,7 +363,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'update_extras' && $permissiontoadd) {
+	if ($action == 'update_extras' && $permissionToAdd) {
 		$object->oldcopy = dol_clone($object, 2);
 
 		// Fill array 'array_options' with data from update form
@@ -386,7 +386,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == "confirm_validate" && GETPOST("confirm", 'alpha') == "yes" && $id > 0 && $permissiontoadd) {
+	if ($action == "confirm_validate" && GETPOST("confirm", 'alpha') == "yes" && $id > 0 && $permissionToAdd) {
 		$db->begin();
 
 		$object = new ExpenseReport($db);
@@ -501,7 +501,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == "confirm_save_from_refuse" && GETPOST("confirm", 'alpha') == "yes" && $id > 0 && $permissiontoadd) {
+	if ($action == "confirm_save_from_refuse" && GETPOST("confirm", 'alpha') == "yes" && $id > 0 && $permissionToAdd) {
 		$object = new ExpenseReport($db);
 		$object->fetch($id);
 		$result = $object->set_save_from_refuse($user);
@@ -1292,7 +1292,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == "updateline" && $permissiontoadd) {
+	if ($action == "updateline" && $permissionToAdd) {
 		$object = new ExpenseReport($db);
 		$object->fetch($id);
 
@@ -2235,7 +2235,7 @@ if ($action == 'create') {
 						// Column with preview
 						print '<td class="center linecolpreview">';
 						if ($line->fk_ecm_files > 0) {
-							$modulepart = 'expensereport';
+							$modulePart = 'expensereport';
 							$maxheightmini = 32;
 
 							$result = $ecmfilesstatic->fetch($line->fk_ecm_files);
@@ -2248,14 +2248,14 @@ if ($action == 'create') {
 										$minifile = getImageFileNameForSize($fileinfo['basename'], '_mini', '.png'); // For backward compatibility of old thumbs that were created with filename in lower case and with .png extension
 									}
 									//print $file['path'].'/'.$minifile.'<br>';
-									$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.'/'.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
+									$urlforhref = getAdvancedPreviewUrl($modulePart, $relativepath.'/'.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
 									if (empty($urlforhref)) {
-										$urlforhref = DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']));
+										$urlforhref = DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulePart.'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']));
 										print '<a href="'.$urlforhref.'" class="aphoto" target="_blank" rel="noopener noreferrer">';
 									} else {
 										print '<a href="'.$urlforhref['url'].'" class="'.$urlforhref['css'].'" target="'.$urlforhref['target'].'" mime="'.$urlforhref['mime'].'">';
 									}
-									print '<img class="photo" height="'.$maxheightmini.'" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.'/'.$minifile).'" title="">';
+									print '<img class="photo" height="'.$maxheightmini.'" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulePart.'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.'/'.$minifile).'" title="">';
 									print '</a>';
 								} else {
 									if (preg_match('/\.pdf$/i', $ecmfilesstatic->filename)) {
@@ -2282,11 +2282,11 @@ if ($action == 'create') {
 											if (!empty($config->dol_optimize_smallscreen)) {
 												$heightforphotref = 60;
 											}
-											$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.'/'.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
+											$urlforhref = getAdvancedPreviewUrl($modulePart, $relativepath.'/'.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
 											print '<a href="'.$urlforhref['url'].'" class="'.$urlforhref['css'].'" target="'.$urlforhref['target'].'" mime="'.$urlforhref['mime'].'">';
 											// If the preview file is found we display the thumb
 											if (file_exists($fileimage)) {
-												print '<img height="'.$heightforphotref.'" class="photo photowithmargin photowithborder" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=apercu'.$modulepart.'&amp;file='.urlencode($relativepathimage).'">';
+												print '<img height="'.$heightforphotref.'" class="photo photowithmargin photowithborder" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=apercu'.$modulePart.'&amp;file='.urlencode($relativepathimage).'">';
 											} else {
 												// Else, we display an icon
 												print img_mime($ecmfilesstatic->filename);

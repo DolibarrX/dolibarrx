@@ -125,8 +125,8 @@ $extralabelslines = $extrafields->fetch_name_optionals_label($object->table_elem
 $permissionnote = $user->hasRight('contrat', 'creer'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('contrat', 'creer'); // Used by the include of actions_dellink.inc.php
 $permissiontodelete = ($user->hasRight('contrat', 'creer') && $object->status == $object::STATUS_DRAFT) || $user->hasRight('contrat', 'supprimer');
-$permissiontoadd   = $user->hasRight('contrat', 'creer');     //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontoedit = $permissiontoadd;
+$permissionToAdd   = $user->hasRight('contrat', 'creer');     //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontoedit = $permissionToAdd;
 $permissiontoactivate = $user->hasRight('contrat', 'activer');
 $error = 0;
 
@@ -938,7 +938,7 @@ if (empty($resHook)) {
 		} else {
 			setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentities("RefNewContract")), null, 'errors');
 		}
-	} elseif ($action == 'update_extras' && $permissiontoadd) {
+	} elseif ($action == 'update_extras' && $permissionToAdd) {
 		$object->oldcopy = dol_clone($object, 2);
 
 		$attribute = GETPOST('attribute', 'alphanohtml');
@@ -961,7 +961,7 @@ if (empty($resHook)) {
 		if ($error) {
 			$action = 'edit_extras';
 		}
-	} elseif ($action == 'setref_supplier' && $permissiontoadd) {
+	} elseif ($action == 'setref_supplier' && $permissionToAdd) {
 		if (!$cancel) {
 			$object->oldcopy = dol_clone($object, 2);
 
@@ -977,7 +977,7 @@ if (empty($resHook)) {
 			header("Location: ".$_SERVER['PHP_SELF']."?id=".$id);
 			exit;
 		}
-	} elseif ($action == 'setref_customer' && $permissiontoadd) {
+	} elseif ($action == 'setref_customer' && $permissionToAdd) {
 		if (!$cancel) {
 			$object->oldcopy = dol_clone($object, 2);
 
@@ -993,7 +993,7 @@ if (empty($resHook)) {
 			header("Location: ".$_SERVER['PHP_SELF']."?id=".$id);
 			exit;
 		}
-	} elseif ($action == 'setref' && $permissiontoadd) {
+	} elseif ($action == 'setref' && $permissionToAdd) {
 		if (!$cancel) {
 			$result = $object->fetch($id);
 			if ($result < 0) {
@@ -1021,7 +1021,7 @@ if (empty($resHook)) {
 			header("Location: ".$_SERVER['PHP_SELF']."?id=".$id);
 			exit;
 		}
-	} elseif ($action == 'setdate_contrat' && $permissiontoadd) {
+	} elseif ($action == 'setdate_contrat' && $permissionToAdd) {
 		if (!$cancel) {
 			$result = $object->fetch($id);
 			if ($result < 0) {
@@ -1486,7 +1486,7 @@ if ($action == 'create') {
 		if (isModEnabled('project')) {
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';

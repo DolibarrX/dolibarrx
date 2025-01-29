@@ -113,8 +113,8 @@ if ($id > 0 || !empty($ref)) {
 }
 
 $permissiontoread = $user->hasRight('salaries', 'read');
-$permissiontoadd = $user->hasRight('salaries', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
-$permissiontodelete = $user->hasRight('salaries', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
+$permissionToAdd = $user->hasRight('salaries', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
+$permissiontodelete = $user->hasRight('salaries', 'delete') || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
 
 $moreparam = '';
 if ($type == 'bank-transfer') {
@@ -162,7 +162,7 @@ if ($resHook < 0) {
 }
 
 
-if ($action == "add" && $permissiontoadd) {
+if ($action == "add" && $permissionToAdd) {
 	//var_dump($object);exit;
 	if ($object->id > 0) {
 		$db->begin();
@@ -239,7 +239,7 @@ if ($action != 'editlabel') {
 
 $morehtmlref .= '<br>'.$langs->trans('Employee').' : '.$userstatic->getNomUrl(-1);
 
-$usercancreate = $permissiontoadd;
+$usercancreate = $permissionToAdd;
 
 // Project
 if (isModEnabled('project')) {

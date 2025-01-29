@@ -217,7 +217,7 @@ if (!$user->hasRight('societe', 'client', 'voir')) {
 }
 
 $permissiontoread = $user->hasRight('contrat', 'lire');
-$permissiontoadd = $user->hasRight('contrat', 'creer');
+$permissionToAdd = $user->hasRight('contrat', 'creer');
 $permissiontodelete = $user->hasRight('contrat', 'supprimer');
 
 $result = restrictedArea($user, 'contrat', 0);
@@ -1433,7 +1433,7 @@ $urlsource .= str_replace('&amp;', '&', $param);
 
 $filedir = $diroutputmassaction;
 $genallowed = $permissiontoread;
-$delallowed = $permissiontoadd;
+$delallowed = $permissionToAdd;
 
 print $formfile->showdocuments('massfilesarea_contract', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 

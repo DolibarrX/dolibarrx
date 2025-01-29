@@ -107,7 +107,7 @@ if ($id > 0 || !empty($ref)) {
 	}
 }
 
-$modulepart = 'produit';
+$modulePart = 'produit';
 
 
 if ($object->id > 0) {
@@ -121,7 +121,7 @@ if ($object->id > 0) {
 	restrictedArea($user, 'produit|service', $fieldvalue, 'product&product', '', '', $fieldtype);
 }
 
-$permissiontoadd = (($object->type == Product::TYPE_PRODUCT && $user->hasRight('produit', 'creer')) || ($object->type == Product::TYPE_SERVICE && $user->hasRight('service', 'creer')));
+$permissionToAdd = (($object->type == Product::TYPE_PRODUCT && $user->hasRight('produit', 'creer')) || ($object->type == Product::TYPE_SERVICE && $user->hasRight('service', 'creer')));
 
 
 /*
@@ -137,7 +137,7 @@ if ($resHook < 0) {
 if (empty($resHook)) {
 	// Delete line if product propal merge is linked to a file
 	if (getDolGlobalString('PRODUIT_PDF_MERGE_PROPAL')) {
-		if ($action == 'confirm_deletefile' && $confirm == 'yes' && $permissiontoadd) {
+		if ($action == 'confirm_deletefile' && $confirm == 'yes' && $permissionToAdd) {
 			//extract file name
 			$urlfile = GETPOST('urlfile', 'alpha');
 			$filename = basename($urlfile);
@@ -155,7 +155,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_linkedfiles.inc.php';
 }
 
-if ($action == 'filemerge' && $permissiontoadd) {
+if ($action == 'filemerge' && $permissionToAdd) {
 	$is_refresh = GETPOST('refresh');
 	if (empty($is_refresh)) {
 		$filetomerge_file_array = GETPOST('filetoadd');

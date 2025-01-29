@@ -148,7 +148,7 @@ $triggermodname = 'TICKET_MODIFY';
 
 // Permissions
 $permissiontoread   = $user->hasRight('ticket', 'read');
-$permissiontoadd    = $user->hasRight('ticket', 'write');
+$permissionToAdd    = $user->hasRight('ticket', 'write');
 $permissiontodelete = $user->hasRight('ticket', 'delete');
 
 $upload_dir = $config->ticket->dir_output;
@@ -196,7 +196,7 @@ if (empty($resHook)) {
 		$action = 'view';
 	}
 
-	if (($action == 'add' || ($action == 'update' && $object->status < Ticket::STATUS_CLOSED)) && $permissiontoadd) {
+	if (($action == 'add' || ($action == 'update' && $object->status < Ticket::STATUS_CLOSED)) && $permissionToAdd) {
 		$ifErrorAction = ($action == 'add' ? 'create' : 'edit');	// Test on permission not required here
 		if ($action == 'add') {		// Test on permission already done
 			$object->track_id = null;
@@ -358,7 +358,7 @@ if (empty($resHook)) {
 	}
 
 	// Mark as Read
-	if ($action == "set_read" && $permissiontoadd) {
+	if ($action == "set_read" && $permissionToAdd) {
 		$object->fetch(0, '', GETPOST("track_id", 'alpha'));
 
 		if ($object->markAsRead($user) > 0) {
@@ -373,7 +373,7 @@ if (empty($resHook)) {
 	}
 
 	// Assign to someone
-	if ($action == "assign_user" && GETPOST('btn_assign_user', 'alpha') && $permissiontoadd) {
+	if ($action == "assign_user" && GETPOST('btn_assign_user', 'alpha') && $permissionToAdd) {
 		$object->fetch(0, '', GETPOST("track_id", 'alpha'));
 		$useroriginassign = $object->fk_user_assign;
 		$usertoassign = GETPOSTINT('fk_user_assign');
@@ -448,7 +448,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if (($action == "confirm_close" || $action == "confirm_abandon") && GETPOST('confirm', 'alpha') == 'yes' && $permissiontoadd) {
+	if (($action == "confirm_close" || $action == "confirm_abandon") && GETPOST('confirm', 'alpha') == 'yes' && $permissionToAdd) {
 		$object->fetch(GETPOSTINT('id'), '', GETPOST('track_id', 'alpha'));
 
 		if ($object->close($user, ($action == "confirm_abandon" ? 1 : 0))) {
@@ -463,7 +463,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == "confirm_public_close" && GETPOST('confirm', 'alpha') == 'yes' && $permissiontoadd) {
+	if ($action == "confirm_public_close" && GETPOST('confirm', 'alpha') == 'yes' && $permissionToAdd) {
 		$object->fetch(GETPOSTINT('id'), '', GETPOST('track_id', 'alpha'));
 		if ($_SESSION['email_customer'] == $object->origin_email || $_SESSION['email_customer'] == $object->thirdparty->email) {
 			$object->context['contact_id'] = GETPOSTINT('contact_id');
@@ -570,7 +570,7 @@ if (empty($resHook)) {
 				}
 			}
 		}
-	} elseif ($action == 'classin' && $permissiontoadd) {
+	} elseif ($action == 'classin' && $permissionToAdd) {
 		// Categorisation dans projet
 		if ($object->fetch(GETPOSTINT('id'), '', GETPOST('track_id', 'alpha')) >= 0) {
 			$object->setProject($projectid);
@@ -578,7 +578,7 @@ if (empty($resHook)) {
 			header("Location: " . $url);
 			exit();
 		}
-	} elseif ($action == 'setcontract' && $permissiontoadd) {
+	} elseif ($action == 'setcontract' && $permissionToAdd) {
 		// Categorisation dans contrat
 		if ($object->fetch(GETPOSTINT('id'), '', GETPOST('track_id', 'alpha')) >= 0) {
 			$object->setContract(GETPOSTINT('contractid'));
@@ -607,7 +607,7 @@ if (empty($resHook)) {
 		}
 
 		$action = 'view';
-	} elseif ($action == 'confirm_set_status' && $permissiontoadd && !GETPOST('cancel')) {
+	} elseif ($action == 'confirm_set_status' && $permissionToAdd && !GETPOST('cancel')) {
 		// Reopen ticket
 		if ($object->fetch(GETPOSTINT('id'), GETPOST('track_id', 'alpha')) >= 0) {
 			$new_status = GETPOSTINT('new_status');
@@ -625,7 +625,7 @@ if (empty($resHook)) {
 	}
 
 	// Action to update an extrafield
-	if ($action == "update_extras" && $permissiontoadd) {
+	if ($action == "update_extras" && $permissionToAdd) {
 		$object->fetch(GETPOSTINT('id'), '', GETPOST('track_id', 'alpha'));
 
 		$ret = $extrafields->setOptionalsFromPost(null, $object, GETPOST('attribute', 'restricthtml'));
@@ -649,7 +649,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == "change_property" && GETPOST('btn_update_ticket_prop', 'alpha') && $permissiontoadd) {
+	if ($action == "change_property" && GETPOST('btn_update_ticket_prop', 'alpha') && $permissionToAdd) {
 		$object->fetch(GETPOSTINT('id'), '', GETPOST('track_id', 'alpha'));
 
 		$object->type_code = GETPOST('update_value_type', 'aZ09');
@@ -706,7 +706,7 @@ $title = $actionobject->getTitle($action);
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-ticket page-card');
 
 if ($action == 'create' || $action == 'presend') {
-	if (empty($permissiontoadd)) {
+	if (empty($permissionToAdd)) {
 		accessforbidden('NotEnoughPermissions', 0, 1);
 	}
 
@@ -737,7 +737,7 @@ if ($action == 'create' || $action == 'presend') {
 
 	print dol_get_fiche_end();
 } elseif ($action == 'edit' && $user->rights->ticket->write && $object->status < Ticket::STATUS_CLOSED) {
-	if (empty($permissiontoadd)) {
+	if (empty($permissionToAdd)) {
 		accessforbidden('NotEnoughPermissions', 0, 1);
 	}
 
@@ -1633,7 +1633,7 @@ if ($action == 'create' || $action == 'presend') {
 			$filename = dol_sanitizeFileName($object->ref);
 			$filedir = $upload_dir."/".dol_sanitizeFileName($object->ref);
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
-			$genallowed = $permissiontoadd;
+			$genallowed = $permissionToAdd;
 			$delallowed = $permissiontodelete;
 			$codelang = '';
 			if ($object->fk_soc > 0) {

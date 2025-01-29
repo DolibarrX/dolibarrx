@@ -72,7 +72,7 @@ if (is_numeric($type)) {
 // Security check
 $result = restrictedArea($user, 'category', $id, '&category');
 
-$permissiontoadd = $user->hasRight('category', 'creer');
+$permissionToAdd = $user->hasRight('category', 'creer');
 
 
 /*
@@ -99,7 +99,7 @@ if ($action == 'delete' && $langtodelete && $user->hasRight('category', 'creer')
 }
 
 // validation of addition
-if ($action == 'vadd' && $cancel != $langs->trans("Cancel") && $permissiontoadd) {
+if ($action == 'vadd' && $cancel != $langs->trans("Cancel") && $permissionToAdd) {
 	$object->fetch($id);
 	$current_lang = $langs->getDefaultLang();
 
@@ -146,7 +146,7 @@ if ($action == 'vadd' && $cancel != $langs->trans("Cancel") && $permissiontoadd)
 }
 
 // validation of the edition
-if ($action == 'vedit' && $cancel != $langs->trans("Cancel") && $permissiontoadd) {
+if ($action == 'vedit' && $cancel != $langs->trans("Cancel") && $permissionToAdd) {
 	$object->fetch($id);
 	$current_lang = $langs->getDefaultLang();
 

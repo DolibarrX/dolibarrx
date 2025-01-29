@@ -136,7 +136,7 @@ if ($user->socid) {
 $result = restrictedArea($user, 'expedition', $object->id, '');
 
 $permissiondellink = $user->hasRight('expedition', 'delivery', 'creer'); // Used by the include of actions_dellink.inc.php
-$permissiontoadd = $user->hasRight('expedition', 'creer');
+$permissionToAdd = $user->hasRight('expedition', 'creer');
 
 $upload_dir = $config->expedition->dir_output.'/sending';
 
@@ -175,7 +175,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 	// Back to draft
-	if ($action == 'setdraft' && $permissiontoadd) {
+	if ($action == 'setdraft' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->setDraft($user, 0);
 		if ($result < 0) {
@@ -186,7 +186,7 @@ if (empty($resHook)) {
 		}
 	}
 	// Reopen
-	if ($action == 'reopen' && $permissiontoadd) {
+	if ($action == 'reopen' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->reOpen();
 		if ($result < 0) {
@@ -198,11 +198,11 @@ if (empty($resHook)) {
 	}
 
 	// Set incoterm
-	if ($action == 'set_incoterms' && isModEnabled('incoterm') && $permissiontoadd) {
+	if ($action == 'set_incoterms' && isModEnabled('incoterm') && $permissionToAdd) {
 		$result = $object->setIncoterms(GETPOSTINT('incoterm_id'), GETPOST('location_incoterms'));
 	}
 
-	if ($action == 'setref_customer' && $permissiontoadd) {
+	if ($action == 'setref_customer' && $permissionToAdd) {
 		$result = $object->fetch($id);
 		if ($result < 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
@@ -218,7 +218,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'update_extras' && $permissiontoadd) {
+	if ($action == 'update_extras' && $permissionToAdd) {
 		$object->oldcopy = dol_clone($object, 2);
 		$attribute_name = GETPOST('attribute', 'restricthtml');
 
@@ -243,7 +243,7 @@ if (empty($resHook)) {
 	}
 
 	// Create shipment
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		$db->begin();
 
 		$object->note = GETPOST('note', 'restricthtml');
@@ -605,7 +605,7 @@ if (empty($resHook)) {
 		}
 
 		$action = "";
-	} elseif ($action == 'classifybilled' && $permissiontoadd) {
+	} elseif ($action == 'classifybilled' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->setBilled();
 		if ($result >= 0) {
@@ -613,7 +613,7 @@ if (empty($resHook)) {
 			exit();
 		}
 		setEventMessages($object->error, $object->errors, 'errors');
-	} elseif ($action == 'classifyclosed' && $permissiontoadd) {
+	} elseif ($action == 'classifyclosed' && $permissionToAdd) {
 		$object->fetch($id);
 		$result = $object->setClosed();
 		if ($result >= 0) {
@@ -621,7 +621,7 @@ if (empty($resHook)) {
 			exit();
 		}
 		setEventMessages($object->error, $object->errors, 'errors');
-	} elseif ($action == 'deleteline' && !empty($line_id) && $permissiontoadd) {
+	} elseif ($action == 'deleteline' && !empty($line_id) && $permissionToAdd) {
 		// delete a line
 		$object->fetch($id);
 		$lines = $object->lines;
@@ -656,7 +656,7 @@ if (empty($resHook)) {
 		} else {
 			setEventMessages($line->error, $line->errors, 'errors');
 		}
-	} elseif ($action == 'updateline' && $permissiontoadd && GETPOST('save')) {
+	} elseif ($action == 'updateline' && $permissionToAdd && GETPOST('save')) {
 		// Update a line
 		// Clean parameters
 		$qty = 0;
@@ -892,7 +892,7 @@ if (empty($resHook)) {
 			header('Location: '.$_SERVER['PHP_SELF'].'?id='.$object->id); // To redisplay the form being edited
 			exit();
 		}
-	} elseif ($action == 'updateline' && $permissiontoadd && GETPOST('cancel', 'alpha') == $langs->trans("Cancel")) {
+	} elseif ($action == 'updateline' && $permissionToAdd && GETPOST('cancel', 'alpha') == $langs->trans("Cancel")) {
 		header('Location: '.$_SERVER['PHP_SELF'].'?id='.$object->id); // To redisplay the form being edited
 		exit();
 	}
@@ -2194,7 +2194,7 @@ if ($action == 'create') {
 	print $langs->trans('SendingMethod');
 	print '</td>';
 
-	if ($action != 'editshipping_method_id' && $permissiontoadd) {
+	if ($action != 'editshipping_method_id' && $permissionToAdd) {
 		print '<td class="right"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=editshipping_method_id&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->trans('SetSendingMethod'), 1).'</a></td>';
 	}
 	print '</tr></table>';
@@ -2231,7 +2231,7 @@ if ($action == 'create') {
 		print '<table class="nobordernopadding centpercent"><tr><td>';
 		print $langs->trans('IncotermLabel');
 		print '<td><td class="right">';
-		if ($permissiontoadd) {
+		if ($permissionToAdd) {
 			print '<a class="editfielda" href="'.DOL_URL_ROOT.'/expedition/card.php?id='.$object->id.'&action=editincoterm&token='.newToken().'">'.img_edit().'</a>';
 		} else {
 			print '&nbsp;';

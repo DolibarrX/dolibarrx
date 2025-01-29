@@ -29,7 +29,7 @@
 @phan-var-force ?string $action
 @phan-var-force ?string $cancel
 @phan-var-force CommonObject $object
-@phan-var-force string $permissiontoadd
+@phan-var-force string $permissionToAdd
 @phan-var-force ?string $permissionedit
 @phan-var-force string $permissiontodelete
 @phan-var-force string $backurlforlist
@@ -51,7 +51,7 @@
  *
  * @var ?string $action
  * @var ?string $cancel
- * @var string $permissiontoadd
+ * @var string $permissionToAdd
  * @var ?string $permissionedit
  * @var string $permissiontodelete
  * @var string $backurlforlist
@@ -64,7 +64,7 @@
  */
 // $action or $cancel must be defined
 // $object must be defined
-// $permissiontoadd must be defined
+// $permissionToAdd must be defined
 // $permissiontodelete must be defined
 // $backurlforlist must be defined
 // $backtopage may be defined
@@ -76,8 +76,8 @@ $hidedesc = isset($hidedesc) ? $hidedesc : '';
 $hideref = isset($hideref) ? $hideref : '';
 $error = 0;
 
-if (!empty($permissionedit) && empty($permissiontoadd)) {
-	$permissiontoadd = $permissionedit; // For backward compatibility
+if (!empty($permissionedit) && empty($permissionToAdd)) {
+	$permissionToAdd = $permissionedit; // For backward compatibility
 }
 
 if (!empty($cancel)) {
@@ -94,7 +94,7 @@ if (!empty($cancel)) {
 
 
 // Action to add record
-if ($action == 'add' && !empty($permissiontoadd)) {
+if ($action == 'add' && !empty($permissionToAdd)) {
 	foreach ($object->fields as $key => $val) {
 		// Ignore special cases
 		if ($object->fields[$key]['type'] == 'duration') {
@@ -249,7 +249,7 @@ if ($action == 'add' && !empty($permissiontoadd)) {
 }
 
 // Action to update record
-if ($action == 'update' && !empty($permissiontoadd)) {
+if ($action == 'update' && !empty($permissionToAdd)) {
 	foreach ($object->fields as $key => $val) {
 		// Check if field was submitted to be edited
 		if ($object->fields[$key]['type'] == 'duration') {
@@ -388,7 +388,7 @@ if ($action == 'update' && !empty($permissiontoadd)) {
 
 // Action to update one modulebuilder field
 $reg = [];
-if (preg_match('/^set(\w+)$/', $action, $reg) && GETPOSTINT('id') > 0 && !empty($permissiontoadd)) {
+if (preg_match('/^set(\w+)$/', $action, $reg) && GETPOSTINT('id') > 0 && !empty($permissionToAdd)) {
 	$object->fetch(GETPOSTINT('id'));
 
 	$keyforfield = $reg[1];
@@ -413,7 +413,7 @@ if (preg_match('/^set(\w+)$/', $action, $reg) && GETPOSTINT('id') > 0 && !empty(
 }
 
 // Action to update one extrafield
-if ($action == "update_extras" && GETPOSTINT('id') > 0 && !empty($permissiontoadd)) {
+if ($action == "update_extras" && GETPOSTINT('id') > 0 && !empty($permissionToAdd)) {
 	$object->fetch(GETPOSTINT('id'));
 
 	$object->oldcopy = dol_clone($object, 2);  // @phan-suppress-current-line PhanTypeMismatchProperty
@@ -481,7 +481,7 @@ if ($action == 'confirm_delete' && !empty($permissiontodelete)) {
 }
 
 // Remove a line
-if ($action == 'confirm_deleteline' && $confirm == 'yes' && !empty($permissiontoadd)) {
+if ($action == 'confirm_deleteline' && $confirm == 'yes' && !empty($permissionToAdd)) {
 	if (!empty($object->element) && $object->element == 'mo') {
 		$fk_movement = GETPOSTINT('fk_movement');
 		$result = $object->deleteLine($user, $lineid, 0, $fk_movement);
@@ -524,7 +524,7 @@ if ($action == 'confirm_deleteline' && $confirm == 'yes' && !empty($permissionto
 }
 
 // Action validate object
-if ($action == 'confirm_validate' && $confirm == 'yes' && $permissiontoadd) {
+if ($action == 'confirm_validate' && $confirm == 'yes' && $permissionToAdd) {
 	if ($object->element == 'inventory' && !empty($include_sub_warehouse)) {
 		// Can happen when the conf INVENTORY_INCLUDE_SUB_WAREHOUSE is set
 		$result = $object->validate($user, false, $include_sub_warehouse);
@@ -567,7 +567,7 @@ if ($action == 'confirm_validate' && $confirm == 'yes' && $permissiontoadd) {
 }
 
 // Action close object
-if ($action == 'confirm_close' && $confirm == 'yes' && $permissiontoadd) {
+if ($action == 'confirm_close' && $confirm == 'yes' && $permissionToAdd) {
 	$result = $object->cancel($user);
 	if ($result >= 0) {
 		// Define output language
@@ -599,7 +599,7 @@ if ($action == 'confirm_close' && $confirm == 'yes' && $permissiontoadd) {
 }
 
 // Action setdraft object
-if ($action == 'confirm_setdraft' && $confirm == 'yes' && $permissiontoadd) {
+if ($action == 'confirm_setdraft' && $confirm == 'yes' && $permissionToAdd) {
 	$result = $object->setDraft($user);
 	if ($result >= 0) {
 		// Nothing else done
@@ -611,7 +611,7 @@ if ($action == 'confirm_setdraft' && $confirm == 'yes' && $permissiontoadd) {
 }
 
 // Action reopen object
-if ($action == 'confirm_reopen' && $confirm == 'yes' && $permissiontoadd) {
+if ($action == 'confirm_reopen' && $confirm == 'yes' && $permissionToAdd) {
 	$result = $object->reopen($user);
 	if ($result >= 0) {
 		// Define output language
@@ -643,7 +643,7 @@ if ($action == 'confirm_reopen' && $confirm == 'yes' && $permissiontoadd) {
 }
 
 // Action clone object
-if ($action == 'confirm_clone' && $confirm == 'yes' && !empty($permissiontoadd)) {
+if ($action == 'confirm_clone' && $confirm == 'yes' && !empty($permissionToAdd)) {
 	// @phan-suppress-next-line PhanPluginBothLiteralsBinaryOp
 	if (1 == 0 && !GETPOST('clone_content') && !GETPOST('clone_receivers')) {
 		setEventMessages($langs->trans("NoCloneOptionsSpecified"), null, 'errors');

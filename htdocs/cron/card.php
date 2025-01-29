@@ -59,7 +59,7 @@ if (!$user->hasRight('cron', 'create')) {
 	accessforbidden();
 }
 
-$permissiontoadd = $user->hasRight('cron', 'create');
+$permissionToAdd = $user->hasRight('cron', 'create');
 $permissiontoexecute = $user->hasRight('cron', 'execute');
 $permissiontodelete = $user->hasRight('cron', 'delete');
 
@@ -130,7 +130,7 @@ if ($action == 'confirm_execute' && $confirm == "yes" && $permissiontoexecute) {
 }
 
 
-if ($action == 'add' && $permissiontoadd) {
+if ($action == 'add' && $permissionToAdd) {
 	$object->jobtype = GETPOST('jobtype');
 	$object->label = GETPOST('label');
 	$object->command = GETPOST('command');
@@ -166,7 +166,7 @@ if ($action == 'add' && $permissiontoadd) {
 }
 
 // Save parameters
-if ($action == 'update' && $permissiontoadd) {
+if ($action == 'update' && $permissionToAdd) {
 	$object->id = $id;
 	$object->jobtype = GETPOST('jobtype');
 	$object->label = GETPOST('label');
@@ -200,7 +200,7 @@ if ($action == 'update' && $permissiontoadd) {
 	}
 }
 
-if ($action == 'activate' && $permissiontoadd) {
+if ($action == 'activate' && $permissionToAdd) {
 	$object->status = 1;
 
 	// Add cron task
@@ -216,7 +216,7 @@ if ($action == 'activate' && $permissiontoadd) {
 	}
 }
 
-if ($action == 'inactive' && $permissiontoadd) {
+if ($action == 'inactive' && $permissionToAdd) {
 	$object->status = 0;
 	$object->processing = 0;
 
@@ -234,7 +234,7 @@ if ($action == 'inactive' && $permissiontoadd) {
 }
 
 // Action clone object
-if ($action == 'confirm_clone' && $confirm == 'yes' && $permissiontoadd) {
+if ($action == 'confirm_clone' && $confirm == 'yes' && $permissionToAdd) {
 	if (1 == 0 && !GETPOST('clone_content') && !GETPOST('clone_receivers')) {
 		setEventMessages($langs->trans("NoCloneOptionsSpecified"), null, 'errors');
 	} else {

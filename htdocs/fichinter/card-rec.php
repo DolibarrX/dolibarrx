@@ -119,7 +119,7 @@ $arrayfields = array(
 
 $result = restrictedArea($user, 'ficheinter', $id, $objecttype);
 
-$permissiontoadd = $user->hasRight('ficheinter', 'creer');
+$permissionToAdd = $user->hasRight('ficheinter', 'creer');
 $permissiontodelete = $user->hasRight('ficheinter', 'supprimer');
 
 
@@ -140,7 +140,7 @@ if ($cancel) {
 }
 
 // Create predefined intervention
-if ($action == 'add' && $permissiontoadd) {
+if ($action == 'add' && $permissionToAdd) {
 	if (!GETPOST('title')) {
 		setEventMessages($langs->transnoentities("ErrorFieldRequired", $langs->trans("Title")), null, 'errors');
 		$action = "create";
@@ -199,7 +199,7 @@ if ($action == 'add' && $permissiontoadd) {
 			$action = "create";
 		}
 	}
-} elseif ($action == 'createfrommodel' && $permissiontoadd) {
+} elseif ($action == 'createfrommodel' && $permissionToAdd) {
 	$newinter = new Fichinter($db);
 
 	// Fetch the stored data
@@ -251,18 +251,18 @@ if ($action == 'add' && $permissiontoadd) {
 	$id = 0;
 	header('Location: '.$_SERVER["PHP_SELF"]);
 	exit;
-} elseif ($action == 'setfrequency' && $permissiontoadd) {
+} elseif ($action == 'setfrequency' && $permissionToAdd) {
 	// Set frequency and unit frequency
 	$object->fetch($id);
 	$object->setFrequencyAndUnit(GETPOST('frequency', 'int'), GETPOST('unit_frequency', 'alpha'));
-} elseif ($action == 'setdate_when' && $permissiontoadd) {
+} elseif ($action == 'setdate_when' && $permissionToAdd) {
 	// Set next date of execution
 	$object->fetch($id);
 	$date = dol_mktime(GETPOSTINT('date_whenhour'), GETPOSTINT('date_whenmin'), 0, GETPOSTINT('date_whenmonth'), GETPOSTINT('date_whenday'), GETPOSTINT('date_whenyear'));
 	if (!empty($date)) {
 		$object->setNextDate($date);
 	}
-} elseif ($action == 'setnb_gen_max' && $permissiontoadd) {
+} elseif ($action == 'setnb_gen_max' && $permissionToAdd) {
 	// Set max period
 	$object->fetch($id);
 	$object->setMaxPeriod(GETPOSTINT('nb_gen_max'));

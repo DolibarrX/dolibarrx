@@ -95,8 +95,8 @@ $result = restrictedArea($user, 'bom', $object->id, $object->table_element, '', 
 // Permissions
 $permissionnote = $user->hasRight('bom', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('bom', 'write'); // Used by the include of actions_dellink.inc.php
-$permissiontoadd = $user->hasRight('bom', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->hasRight('bom', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
+$permissionToAdd = $user->hasRight('bom', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->hasRight('bom', 'delete') || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $upload_dir = $config->bom->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 

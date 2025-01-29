@@ -84,7 +84,7 @@ $socid = 0;
 
 restrictedArea($user, 'projet', $object->fk_project, 'projet&project');
 
-$permissiontoadd = $user->hasRight('projet', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
+$permissionToAdd = $user->hasRight('projet', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
 
 
 /*
@@ -338,8 +338,8 @@ if ($object->id > 0) {
 	if ($withproject) {
 		$param .= '&withproject=1';
 	}
-	$modulepart = 'project_task';
-	$permissiontoadd = $user->hasRight('projet', 'creer');
+	$modulePart = 'project_task';
+	$permissionToAdd = $user->hasRight('projet', 'creer');
 	$permtoedit = $user->hasRight('projet', 'creer');
 	$relativepathwithnofile = dol_sanitizeFileName($projectstatic->ref).'/'.dol_sanitizeFileName($object->ref).'/';
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

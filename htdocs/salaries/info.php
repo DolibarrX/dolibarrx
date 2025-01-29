@@ -90,8 +90,8 @@ if ($id > 0 || !empty($ref)) {
 restrictedArea($user, 'salaries', $object->id, 'salary', '');
 
 $permissiontoread = $user->hasRight('salaries', 'read');
-$permissiontoadd = $user->hasRight('salaries', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->hasRight('salaries', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
+$permissionToAdd = $user->hasRight('salaries', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->hasRight('salaries', 'delete') || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
 
 
 /*
@@ -99,13 +99,13 @@ $permissiontodelete = $user->hasRight('salaries', 'delete') || ($permissiontoadd
  */
 
 // Link to a project
-if ($action == 'classin' && $permissiontoadd) {
+if ($action == 'classin' && $permissionToAdd) {
 	$object->fetch($id);
 	$object->setProject($projectid);
 }
 
 // set label
-if ($action == 'setlabel' && $permissiontoadd) {
+if ($action == 'setlabel' && $permissionToAdd) {
 	$object->fetch($id);
 	$object->label = $label;
 	$object->update($user);
@@ -143,7 +143,7 @@ $userstatic->fetch($object->fk_user);
 
 // Label
 if ($action != 'editlabel') {
-	$morehtmlref .= $form->editfieldkey("Label", 'label', $object->label, $object, $permissiontoadd, 'string', '', 0, 1);
+	$morehtmlref .= $form->editfieldkey("Label", 'label', $object->label, $object, $permissionToAdd, 'string', '', 0, 1);
 	$morehtmlref .= $object->label;
 } else {
 	$morehtmlref .= $langs->trans('Label').' :&nbsp;';
@@ -157,7 +157,7 @@ if ($action != 'editlabel') {
 
 $morehtmlref .= '<br>'.$langs->trans('Employee').' : '.$userstatic->getNomUrl(-1);
 
-$usercancreate = $permissiontoadd;
+$usercancreate = $permissionToAdd;
 
 // Project
 if (isModEnabled('project')) {

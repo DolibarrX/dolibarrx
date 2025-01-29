@@ -94,9 +94,9 @@ if ($id > 0 || !empty($ref)) {
 }
 
 $permissiontoread = $user->hasRight('stocktransfer', 'stocktransfer', 'read');
-$permissiontoadd = $user->hasRight('stocktransfer', 'stocktransfer', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd = $user->hasRight('stocktransfer', 'stocktransfer', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissionnote = $user->hasRight('stocktransfer', 'stocktransfer', 'write'); // Used by the include of actions_setnotes.inc.php
-$permissiontodelete = $user->rights->stocktransfer->stocktransfer->delete || ($permissiontoadd && isset($object->status) && $object->status < $object::STATUS_TRANSFERED);
+$permissiontodelete = $user->rights->stocktransfer->stocktransfer->delete || ($permissionToAdd && isset($object->status) && $object->status < $object::STATUS_TRANSFERED);
 $permissiondellink = $user->hasRight('stocktransfer', 'stocktransfer', 'write'); // Used by the include of actions_dellink.inc.php
 $upload_dir = $config->stocktransfer->multidir_output[isset($object->entity) ? $object->entity : 1];
 
@@ -107,7 +107,7 @@ $upload_dir = $config->stocktransfer->multidir_output[isset($object->entity) ? $
 //$result = restrictedArea($user, 'stocktransfer', $object->id, '', '', 'fk_soc', 'rowid', $isdraft);
 //$result = restrictedArea($user, 'stocktransfer', $object->id, '', 'stocktransfer');
 
-if (!$permissiontoread || ($action === 'create' && !$permissiontoadd)) {
+if (!$permissiontoread || ($action === 'create' && !$permissionToAdd)) {
 	accessforbidden();
 }
 
@@ -173,7 +173,7 @@ if ($object->id > 0) {
 	{
 		$langs->load("projects");
 		$morehtmlref.='<br>'.$langs->trans('Project') . ' ';
-		if ($permissiontoadd)
+		if ($permissionToAdd)
 		{
 			if ($action != 'classify')
 				//$morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&amp;id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';

@@ -81,7 +81,7 @@ if ($object->fetch($id, $ref)) {
 	$upload_dir = $config->facture->dir_output."/".dol_sanitizeFileName($object->ref);
 }
 
-$permissiontoadd = $user->hasRight('facture', 'creer');
+$permissionToAdd = $user->hasRight('facture', 'creer');
 
 // Security check
 if ($user->socid) {
@@ -192,8 +192,8 @@ if ($id > 0 || !empty($ref)) {
 
 		print dol_get_fiche_end();
 
-		$modulepart = 'facture';
-		$permissiontoadd = $user->hasRight('facture', 'creer');
+		$modulePart = 'facture';
+		$permissionToAdd = $user->hasRight('facture', 'creer');
 		$permtoedit = $user->hasRight('facture', 'creer');
 		$param = '&id='.$object->id;
 		include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

@@ -57,7 +57,7 @@ if (!isset($mode) || $mode != 'noajax') {    // For ajax call
 	include_once DOL_DOCUMENT_ROOT.'/ecm/class/ecmdirectory.class.php';
 
 	$openeddir = GETPOST('openeddir');
-	$modulepart = GETPOST('modulepart');
+	$modulePart = GETPOST('modulepart');
 	$selecteddir = jsUnEscape(GETPOST('dir')); // relative path. We must decode using same encoding function used by javascript: escape()
 
 	$preopened = GETPOST('preopened');
@@ -69,7 +69,7 @@ if (!isset($mode) || $mode != 'noajax') {    // For ajax call
 	// For no ajax call
 
 	$openeddir = GETPOST('openeddir');
-	$modulepart = GETPOST('modulepart');
+	$modulePart = GETPOST('modulepart');
 	$selecteddir = GETPOST('dir');
 
 	$preopened = GETPOST('preopened');
@@ -91,10 +91,10 @@ $langs->load("ecm");
 // Define fullpathselecteddir.
 $fullpathselecteddir = '<none>';
 $fullpathpreopened  = '';
-if ($modulepart == 'ecm') {
+if ($modulePart == 'ecm') {
 	$fullpathselecteddir = $config->ecm->dir_output.'/'.($selecteddir != '/' ? $selecteddir : '');
 	$fullpathpreopened = $config->ecm->dir_output.'/'.($preopened != '/' ? $preopened : '');
-} elseif ($modulepart == 'medias' || $modulepart == 'website') {
+} elseif ($modulePart == 'medias' || $modulePart == 'website') {
 	$fullpathselecteddir = $dolibarr_main_data_root.'/medias/'.($selecteddir != '/' ? $selecteddir : '');
 	$fullpathpreopened = $dolibarr_main_data_root.'/medias/'.($preopened != '/' ? $preopened : '');
 }
@@ -109,16 +109,16 @@ if (preg_match('/\.\./', $fullpathselecteddir) || preg_match('/[<>|]/', $fullpat
 	exit;
 }
 
-if (empty($modulepart)) {
-	$modulepart = $module;
+if (empty($modulePart)) {
+	$modulePart = $module;
 }
 
 // Security check
-if ($modulepart == 'ecm') {
+if ($modulePart == 'ecm') {
 	if (!$user->hasRight('ecm', 'read')) {
 		accessforbidden();
 	}
-} elseif ($modulepart == 'medias' || $modulepart == 'website') {
+} elseif ($modulePart == 'medias' || $modulePart == 'website') {
 	// Always allowed
 } else {
 	accessforbidden();
@@ -140,7 +140,7 @@ if (!isset($mode) || $mode != 'noajax') {	// if ajax mode
 	top_httphead();
 }
 
-//print '<!-- selecteddir (relative dir we click on) = '.$selecteddir.', openeddir = '.$openeddir.', modulepart='.$modulepart.', preopened='.$preopened.' -->'."\n";
+//print '<!-- selecteddir (relative dir we click on) = '.$selecteddir.', openeddir = '.$openeddir.', modulepart='.$modulePart.', preopened='.$preopened.' -->'."\n";
 $userstatic = new User($db);
 $form = new Form($db);
 $ecmdirstatic = new EcmDirectory($db);
@@ -161,7 +161,7 @@ foreach ($sqltree as $keycursor => $val) {
 
 if (!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
 	//
-	treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, $modulepart, $websitekey, $pageid, $preopened, $fullpathpreopened);
+	treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, $modulePart, $websitekey, $pageid, $preopened, $fullpathpreopened);
 
 	// TODO Find a solution to not output this code for each leaf we open
 	// Enable jquery handlers on new generated HTML objects (same code than into lib_footer.js.php)
@@ -371,7 +371,7 @@ if ((!isset($mode) || $mode != 'noajax') && is_object($db)) {
  * @param	array<int,array{id:int,id_mere:int,fulllabel:string,fullpath:string,fullrelativename:string,label:string,description:string,cachenbofdoc:int,date_c:int,fk_user_c:int,statut_c:int,login_c:string,id_children?:int[],level:int}>	$sqltree				Sqltree
  * @param	string	$selecteddir			Selected dir
  * @param	string	$fullpathselecteddir	Full path of selected dir
- * @param	string	$modulepart				Modulepart
+ * @param	string	$modulePart				Modulepart
  * @param	string	$websitekey				Website key
  * @param	int		$pageid					Page id
  * @param	string	$preopened				Current open dir
@@ -379,7 +379,7 @@ if ((!isset($mode) || $mode != 'noajax') && is_object($db)) {
  * @param	int		$depth					Depth
  * @return	void
  */
-function treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, $modulepart, $websitekey, $pageid, $preopened, $fullpathpreopened, $depth = 0)
+function treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, $modulePart, $websitekey, $pageid, $preopened, $fullpathpreopened, $depth = 0)
 {
 	global $config, $db, $langs, $form, $user;
 	global $dolibarr_main_data_root;
@@ -437,7 +437,7 @@ function treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, 
 						}
 					}
 
-					//print 'modulepart='.$modulepart.' fullpathselecteddir='.$fullpathselecteddir.' - val[fullrelativename] (in database)='.$val['fullrelativename'].' - val[id]='.$val['id'].' - is_dir='.dol_is_dir($fullpathselecteddir . $file).' - file='.$file."\n";
+					//print 'modulepart='.$modulePart.' fullpathselecteddir='.$fullpathselecteddir.' - val[fullrelativename] (in database)='.$val['fullrelativename'].' - val[id]='.$val['id'].' - is_dir='.dol_is_dir($fullpathselecteddir . $file).' - file='.$file."\n";
 					if ((!empty($val['fullrelativename']) && $val['id'] >= 0) || dol_is_dir($fullpathselecteddir.(preg_match('/\/$/', $fullpathselecteddir) ? '' : '/').$file)) {
 						if (empty($val['fullrelativename'])) {	// If we did not find entry into database, but found a directory (dol_is_dir was ok at previous test)
 							$val['fullrelativename'] = (($selecteddir && $selecteddir != '/') ? $selecteddir.'/' : '').$file;
@@ -490,7 +490,7 @@ function treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, 
 						// Edit link
 						print '<!-- edit link -->';
 						print '<td class="right" width="18"><a class="editfielda" href="';
-						print DOL_URL_ROOT.'/ecm/dir_card.php?module='.urlencode($modulepart).'&section='.$val['id'].'&relativedir='.urlencode($val['fullrelativename']);
+						print DOL_URL_ROOT.'/ecm/dir_card.php?module='.urlencode($modulePart).'&section='.$val['id'].'&relativedir='.urlencode($val['fullrelativename']);
 						print '&backtopage='.urlencode($_SERVER["PHP_SELF"].'?file_manager=1&website='.$websitekey.'&pageid='.$pageid);
 						print '">'.img_edit($langs->trans("Edit").' - '.$langs->trans("View"), 0, 'class="valignmiddle opacitymedium"').'</a></td>';
 
@@ -499,7 +499,7 @@ function treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, 
 						//print '<td class="right" width="14">&nbsp;</td>';
 
 						// Info
-						if ($modulepart == 'ecm') {
+						if ($modulePart == 'ecm') {
 							print '<!-- info -->';
 							print '<td class="right" width="18">';
 							$userstatic->id = isset($val['fk_user_c']) ? $val['fk_user_c'] : 0;
@@ -525,17 +525,17 @@ function treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, 
 
 						//print 'selecteddir='.$selecteddir.' preopened='.$preopened.' $val[\'fullrelativename\']='.$val['fullrelativename']."<br>\n";
 						if (preg_match('/^'.preg_quote($val['fullrelativename'].'/', '/').'/', $preopened)) {
-							//print 'modulepart='.$modulepart.' fullpathselecteddir='.$fullpathselecteddir.' - val[fullrelativename] (in database)='.$val['fullrelativename'].' - val[id]='.$val['id'].' - is_dir='.dol_is_dir($fullpathselecteddir . $file).' - file='.$file."\n";
+							//print 'modulepart='.$modulePart.' fullpathselecteddir='.$fullpathselecteddir.' - val[fullrelativename] (in database)='.$val['fullrelativename'].' - val[id]='.$val['id'].' - is_dir='.dol_is_dir($fullpathselecteddir . $file).' - file='.$file."\n";
 							$newselecteddir = $val['fullrelativename'];
 							$newfullpathselecteddir = '';
-							if ($modulepart == 'ecm') {
+							if ($modulePart == 'ecm') {
 								$newfullpathselecteddir = $config->ecm->dir_output.'/'.($val['fullrelativename'] != '/' ? $val['fullrelativename'] : '');
-							} elseif ($modulepart == 'medias') {
+							} elseif ($modulePart == 'medias') {
 								$newfullpathselecteddir = $dolibarr_main_data_root.'/medias/'.($val['fullrelativename'] != '/' ? $val['fullrelativename'] : '');
 							}
 
 							if ($newfullpathselecteddir) {
-								treeOutputForAbsoluteDir($sqltree, $newselecteddir, $newfullpathselecteddir, $modulepart, $websitekey, $pageid, $preopened, $fullpathpreopened, $depth + 1);
+								treeOutputForAbsoluteDir($sqltree, $newselecteddir, $newfullpathselecteddir, $modulePart, $websitekey, $pageid, $preopened, $fullpathpreopened, $depth + 1);
 							}
 						}
 

@@ -180,7 +180,7 @@ $usercancreatewithdrarequest = $user->hasRight('prelevement', 'bons', 'creer');
 $permissionnote = $usercancreate; // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $usercancreate; // Used by the include of actions_dellink.inc.php
 $permissiontoedit = $usercancreate; // Used by the include of actions_lineupdonw.inc.php
-$permissiontoadd = $usercancreate; // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd = $usercancreate; // Used by the include of actions_addupdatedelete.inc.php
 
 // retained warranty invoice available type
 $retainedWarrantyInvoiceAvailableType = [];
@@ -239,7 +239,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_lineupdown.inc.php'; // Must be 'include', not 'include_once'
 
 	// Action clone object
-	if ($action == 'confirm_clone' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_clone' && $confirm == 'yes' && $permissionToAdd) {
 		if (!($socid > 0)) {
 			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentitiesnoconv('IdThirdParty')), null, 'errors');
 		} else {
@@ -3121,7 +3121,7 @@ if (empty($resHook)) {
 
 	// Actions to build doc
 	$upload_dir = $config->invoice->multidir_output[!empty($object->entity) ? $object->entity : $config->entity];
-	$permissiontoadd = $usercancreate;
+	$permissionToAdd = $usercancreate;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 

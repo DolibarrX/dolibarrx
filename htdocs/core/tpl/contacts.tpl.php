@@ -54,10 +54,10 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 $module = $object->element;
 
 // Special cases
-if (isset($permissiontoadd) && !isset($permission)) {
-	$permission = $permissiontoadd;
+if (isset($permissionToAdd) && !isset($permission)) {
+	$permission = $permissionToAdd;
 }
-// TODO Remove this section. We already got $permissiontoadd.
+// TODO Remove this section. We already got $permissionToAdd.
 if ($module == 'propal') {
 	$permission = $user->hasRight('propal', 'creer');
 } elseif ($module == 'fichinter') {

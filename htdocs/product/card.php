@@ -181,7 +181,7 @@ if ($id > 0 || !empty($ref)) {
 	}
 }
 
-$modulepart = 'product';
+$modulePart = 'product';
 
 // Get object canvas (By default, this is not defined, so standard usage of dolibarr)
 $canvas = !empty($object->canvas) ? $object->canvas : GETPOST("canvas");
@@ -434,7 +434,7 @@ if (empty($resHook)) {
 
 	// Actions to build doc
 	$upload_dir = $config->product->dir_output;
-	$permissiontoadd = $usercancreate;
+	$permissionToAdd = $usercancreate;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 	include DOL_DOCUMENT_ROOT.'/core/actions_printing.inc.php';
@@ -1067,7 +1067,7 @@ if (empty($resHook)) {
 	// Add product into object (when PRODUCT_ADD_FORM_ADD_TO is set)
 	if ($object->id > 0 && $action == 'addin') {	// Test on permission not required here. it is done later according to object.
 		$thirdpartyid = 0;
-		$permissiontoaddline = false;
+		$permissionToAddline = false;
 		$propal = null;
 		$facture = null;
 		$order = null;
@@ -1081,7 +1081,7 @@ if (empty($resHook)) {
 				exit;
 			}
 			$thirdpartyid = $propal->socid;
-			$permissiontoaddline = $user->hasRight('propal', 'creer');
+			$permissionToAddline = $user->hasRight('propal', 'creer');
 		} elseif (GETPOST('orderid') > 0) {
 			$order = new Order($db);
 			$result = $order->fetch(GETPOST('orderid'));
@@ -1090,7 +1090,7 @@ if (empty($resHook)) {
 				exit;
 			}
 			$thirdpartyid = $order->socid;
-			$permissiontoaddline = $user->hasRight('order', 'creer');
+			$permissionToAddline = $user->hasRight('order', 'creer');
 		} elseif (GETPOST('factureid') > 0) {
 			$facture = new Facture($db);
 			$result = $facture->fetch(GETPOST('factureid'));
@@ -1099,7 +1099,7 @@ if (empty($resHook)) {
 				exit;
 			}
 			$thirdpartyid = $facture->socid;
-			$permissiontoaddline = $user->hasRight('facture', 'creer');
+			$permissionToAddline = $user->hasRight('facture', 'creer');
 		}
 
 		if ($thirdpartyid > 0) {
@@ -1160,7 +1160,7 @@ if (empty($resHook)) {
 				}
 			}
 
-			if (GETPOST('propalid') > 0 && $permissiontoaddline && is_object($propal)) {
+			if (GETPOST('propalid') > 0 && $permissionToAddline && is_object($propal)) {
 				// Define cost price for margin calculation
 				$buyprice = 0;
 				if (($result = $propal->defineBuyPrice($pu_ht, price2num(GETPOST('remise_percent'), '', 2), $object->id)) < 0) {
@@ -1200,7 +1200,7 @@ if (empty($resHook)) {
 				}
 
 				setEventMessages($langs->trans("ErrorUnknown").": $result", null, 'errors');
-			} elseif (GETPOST('orderid') > 0 && $permissiontoaddline && is_object($order)) {
+			} elseif (GETPOST('orderid') > 0 && $permissionToAddline && is_object($order)) {
 				// Define cost price for margin calculation
 				$buyprice = 0;
 				if (($result = $order->defineBuyPrice($pu_ht, price2num(GETPOST('remise_percent'), '', 2), $object->id)) < 0) {
@@ -1242,7 +1242,7 @@ if (empty($resHook)) {
 				}
 
 				setEventMessages($langs->trans("ErrorUnknown").": $result", null, 'errors');
-			} elseif (GETPOST('factureid') > 0 && $permissiontoaddline && is_object($facture)) {
+			} elseif (GETPOST('factureid') > 0 && $permissionToAddline && is_object($facture)) {
 				// Define cost price for margin calculation
 				$buyprice = 0;
 				if (($result = $facture->defineBuyPrice($pu_ht, price2num(GETPOST('remise_percent'), '', 2), $object->id)) < 0) {
@@ -3181,7 +3181,7 @@ if ($action != 'create' && $action != 'edit' && $action != 'delete') {
 	$genallowed = $usercanread;
 	$delallowed = $usercancreate;
 
-	print $formfile->showdocuments($modulepart, $object->ref, $filedir, $urlsource, $genallowed, $delallowed, '', 0, 0, 0, 28, 0, '', 0, '', $langs->getDefaultLang(), '', $object);
+	print $formfile->showdocuments($modulePart, $object->ref, $filedir, $urlsource, $genallowed, $delallowed, '', 0, 0, 0, 28, 0, '', 0, '', $langs->getDefaultLang(), '', $object);
 	$somethingshown = $formfile->numoffiles;
 
 	print '</div><div class="fichehalfright">';

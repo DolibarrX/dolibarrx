@@ -4416,7 +4416,7 @@ function migrate_productlot_path()
 	$sql = "SELECT rowid , entity, batch, fk_product from ".MAIN_DB_PREFIX."product_lot";
 	$resql = $db->query($sql);
 	if ($resql) {
-		$modulepart="product_batch";
+		$modulePart="product_batch";
 		while ($obj = $db->fetch_object($resql)) {
 			$entity = (empty($obj->entity) ? 1 : $obj->entity);
 			if ($entity > 1) {
@@ -4430,10 +4430,10 @@ function migrate_productlot_path()
 
 			if ($dir && $res > 0) {
 				$lot->ref = $obj->batch;
-				$origin = $dir . '/' . get_exdir(0, 0, 0, 1, $lot, $modulepart);
+				$origin = $dir . '/' . get_exdir(0, 0, 0, 1, $lot, $modulePart);
 
 				$lot->fetch($obj->rowid, $obj->fk_product, $obj->batch);
-				$destin = $dir . '/' . get_exdir(0, 0, 0, 1, $lot, $modulepart);
+				$destin = $dir . '/' . get_exdir(0, 0, 0, 1, $lot, $modulePart);
 
 				if (dol_is_dir($origin) && !dol_is_dir($destin)) {
 					dol_move_dir($origin, $destin, 0);

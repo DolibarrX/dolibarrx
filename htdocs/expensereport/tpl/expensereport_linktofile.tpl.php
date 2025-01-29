@@ -25,7 +25,7 @@ if (!getDolGlobalString('EXPENSEREPORT_DISABLE_ATTACHMENT_ON_LINES')) {
 		// Select image section
 		print '<td colspan="'.($action == 'editline' ? $colspan - 1 : $colspan).'">';
 		//print '<span class="opacitymedium">'.$langs->trans("AttachTheNewLineToTheDocument").'</span><br>';
-		$modulepart = 'expensereport';
+		$modulePart = 'expensereport';
 		$maxheightmini = 48;
 		$relativepath = (!empty($object->ref) ? dol_sanitizeFileName($object->ref) : '').'/';
 		$filei = 0;
@@ -39,15 +39,15 @@ if (!getDolGlobalString('EXPENSEREPORT_DISABLE_ATTACHMENT_ON_LINES')) {
 			if (image_format_supported($file['name']) > 0) {
 				$minifile = getImageFileNameForSize($file['name'], '_mini'); // For new thumbs using same ext (in lower case however) than original
 				//print $file['path'].'/'.$minifile.'<br>';
-				$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
+				$urlforhref = getAdvancedPreviewUrl($modulePart, $relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
 				if (empty($urlforhref)) {
-					$urlforhref = DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($file['relativename'].'.'.strtolower($fileinfo['extension']));
+					$urlforhref = DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulePart.'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($file['relativename'].'.'.strtolower($fileinfo['extension']));
 					print '<a href="'.$urlforhref.'" class="aphoto" target="_blank" rel="noopener noreferrer">';
 				} else {
 					print '<a href="'.$urlforhref['url'].'" class="'.$urlforhref['css'].'" target="'.$urlforhref['target'].'" mime="'.$urlforhref['mime'].'">';
 				}
 				print '<div class="photoref backgroundblank">';
-				print '<img class="photoexpensereport photorefcenter" height="'.$maxheightmini.'" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.$minifile).'" title="">';
+				print '<img class="photoexpensereport photorefcenter" height="'.$maxheightmini.'" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulePart.'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.$minifile).'" title="">';
 				print '</div>';
 				print '</a>';
 			} else {
@@ -55,7 +55,7 @@ if (!getDolGlobalString('EXPENSEREPORT_DISABLE_ATTACHMENT_ON_LINES')) {
 				$thumbshown = '';
 
 				if (preg_match('/\.pdf$/i', $file['name'])) {
-					$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
+					$urlforhref = getAdvancedPreviewUrl($modulePart, $relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
 
 					$filepdf = $config->expensereport->dir_output.'/'.$relativepath.$file['name'];
 					$fileimage = $config->expensereport->dir_output.'/'.$relativepath.$file['name'].'_preview.png';
@@ -83,7 +83,7 @@ if (!getDolGlobalString('EXPENSEREPORT_DISABLE_ATTACHMENT_ON_LINES')) {
 						}
 						// If the preview file is found
 						if (file_exists($fileimage)) {
-							$thumbshown = '<img height="'.$heightforphotref.'" class="photo photowithmargin photowithborder" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=apercu'.urlencode($modulepart).'&file='.urlencode($relativepathimage).'">';
+							$thumbshown = '<img height="'.$heightforphotref.'" class="photo photowithmargin photowithborder" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=apercu'.urlencode($modulePart).'&file='.urlencode($relativepathimage).'">';
 						}
 					}
 				}

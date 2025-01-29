@@ -69,7 +69,7 @@ if ($id > 0 || !empty($ref)) {
 
 // Permissions
 $permissionnote = $user->hasRight('eventorganization', 'conferenceorboothattendee', 'write'); // Used by the include of actions_setnotes.inc.php
-$permissiontoadd = $user->hasRight('eventorganization', 'conferenceorboothattendee', 'write'); // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd = $user->hasRight('eventorganization', 'conferenceorboothattendee', 'write'); // Used by the include of actions_addupdatedelete.inc.php
 
 
 
@@ -119,7 +119,7 @@ if ($id > 0 || !empty($ref)) {
 	 {
 	 $langs->load("projects");
 	 $morehtmlref.='<br>'.$langs->trans('Project') . ' ';
-	 if ($permissiontoadd)
+	 if ($permissionToAdd)
 	 {
 	 if ($action != 'classify')
 	 //$morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&token='.newToken().'&&token='.newToken().'id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';

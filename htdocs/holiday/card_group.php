@@ -107,14 +107,14 @@ if (($id > 0) || $ref) {
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('holidaycard', 'globalcard'));
 
-$permissiontoadd = 0;
-$permissiontoaddall = 0;
+$permissionToAdd = 0;
+$permissionToAddall = 0;
 if ($user->hasRight('holiday', 'write') && in_array($fuserid, $childids)) {
-	$permissiontoadd = 1;
+	$permissionToAdd = 1;
 }
 if ($user->hasRight('holiday', 'writeall')) {
-	$permissiontoadd = 1;
-	$permissiontoaddall = 1;
+	$permissionToAdd = 1;
+	$permissionToAddall = 1;
 }
 
 $candelete = 0;
@@ -167,7 +167,7 @@ if (empty($resHook)) {
 	}
 
 	// Add leave request
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		$users 		=  GETPOST('users', 'array');
 		$groups 	=  GETPOST('groups', 'array');
 
@@ -192,7 +192,7 @@ if (empty($resHook)) {
 		$description = trim(GETPOST('description', 'restricthtml'));
 
 		// Check that leave is for a user inside the hierarchy or advanced permission for all is set
-		if (!$permissiontoaddall) {
+		if (!$permissionToAddall) {
 			if (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) {
 				if (!$user->hasRight('holiday', 'write')) {
 					$error++;
@@ -340,7 +340,7 @@ if (empty($resHook)) {
 
 							if ($AutoSendMail && !$error) {
 								// send a mail to the user
-								$returnSendMail = sendMail($result, $permissiontoadd, $now, $autoValidation);
+								$returnSendMail = sendMail($result, $permissionToAdd, $now, $autoValidation);
 								if (!empty($returnSendMail->msg)) {
 									setEventMessage($returnSendMail->msg, $returnSendMail->style);
 								}

@@ -444,7 +444,7 @@ if (empty($resHook)) {
 	$objectlabel = 'Project';
 	$permissiontoread = $user->hasRight('projet', 'lire');
 	$permissiontodelete = $user->hasRight('projet', 'supprimer');
-	$permissiontoadd = $user->hasRight('projet', 'creer');
+	$permissionToAdd = $user->hasRight('projet', 'creer');
 	$uploaddir = $config->project->dir_output;
 
 	global $error;
@@ -2266,7 +2266,7 @@ if (in_array('builddoc', array_keys($arrayofmassactions)) && ($nbtotalofrecords 
 
 	$filedir = $diroutputmassaction;
 	$genallowed = $permissiontoread;
-	$delallowed = $permissiontoadd;
+	$delallowed = $permissionToAdd;
 
 	print $formfile->showdocuments('massfilesarea_'.$object->module, '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }

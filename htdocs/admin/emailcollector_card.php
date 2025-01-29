@@ -111,7 +111,7 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 
 $permissionnote = $user->admin; // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->admin; // Used by the include of actions_dellink.inc.php
-$permissiontoadd = $user->admin; // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd = $user->admin; // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 
 $debuginfo = '';
 $error = 0;
@@ -129,7 +129,7 @@ if ($resHook < 0) {
 }
 
 if (empty($resHook)) {
-	$permissiontoadd = 1;
+	$permissionToAdd = 1;
 	$permissiontodelete = 1;
 	if (empty($backtopage)) {
 		$backtopage = DOL_URL_ROOT.'/admin/emailcollector_card.php?id='.($id > 0 ? $id : '__ID__');

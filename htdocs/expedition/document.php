@@ -104,7 +104,7 @@ if ($user->socid) {
 }
 $result = restrictedArea($user, 'expedition', $object->id, '');
 
-$permissiontoadd = $user->hasRight('expedition', 'creer');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('expedition', 'creer');	// Used by the include of actions_dellink.inc.php
 
 
 /*
@@ -193,8 +193,8 @@ if ($id > 0 || !empty($ref)) {
 
 		print dol_get_fiche_end();
 
-		$modulepart = 'expedition';
-		$permissiontoadd = $user->hasRight('expedition', 'creer');
+		$modulePart = 'expedition';
+		$permissionToAdd = $user->hasRight('expedition', 'creer');
 		$permtoedit = $user->hasRight('expedition', 'creer');
 		$param = '&id='.$object->id;
 		include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

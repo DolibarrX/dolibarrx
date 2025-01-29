@@ -106,10 +106,10 @@ $result = restrictedArea($user, 'mrp', $object->id, 'mrp_mo', '', 'fk_soc', 'row
 // Permissions
 $permissionnote = $user->hasRight('mrp', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('mrp', 'write'); // Used by the include of actions_dellink.inc.php
-$permissiontoadd = $user->hasRight('mrp', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->hasRight('mrp', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
+$permissionToAdd = $user->hasRight('mrp', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->hasRight('mrp', 'delete') || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 
-$permissiontoproduce = $permissiontoadd;
+$permissiontoproduce = $permissionToAdd;
 $permissiontoupdatecost = $user->hasRight('bom', 'read'); // User who can define cost must have knowledge of pricing
 
 $upload_dir = $config->mrp->multidir_output[isset($object->entity) ? $object->entity : 1];
@@ -140,7 +140,7 @@ if (empty($resHook)) {
 	}
 	$triggermodname = 'MO_MODIFY'; // Name of trigger action code to execute when we modify record
 
-	if ($action == 'confirm_cancel' && $confirm == 'yes' && !empty($permissiontoadd)) {
+	if ($action == 'confirm_cancel' && $confirm == 'yes' && !empty($permissionToAdd)) {
 		$also_cancel_consumed_and_produced_lines = (GETPOST('alsoCancelConsumedAndProducedLines', 'alpha') ? 1 : 0);
 		$result = $object->cancel($user, 0, $also_cancel_consumed_and_produced_lines);
 		if ($result > 0) {
@@ -180,19 +180,19 @@ if (empty($resHook)) {
 	// Action to move up and down lines of object
 	//include DOL_DOCUMENT_ROOT.'/core/actions_lineupdown.inc.php';	// Must be 'include', not 'include_once'
 
-	if ($action == 'set_thirdparty' && $permissiontoadd) {
+	if ($action == 'set_thirdparty' && $permissionToAdd) {
 		$object->setValueFrom('fk_soc', GETPOSTINT('fk_soc'), '', null, 'date', '', $user, $triggermodname);
 	}
-	if ($action == 'classin' && $permissiontoadd) {
+	if ($action == 'classin' && $permissionToAdd) {
 		$object->setProject(GETPOSTINT('projectid'));
 	}
 
-	if ($action == 'confirm_reopen' && $permissiontoadd) {
+	if ($action == 'confirm_reopen' && $permissionToAdd) {
 		$result = $object->setStatut($object::STATUS_INPROGRESS, 0, '', 'MRP_REOPEN');
 	}
 
-	if (($action == 'confirm_addconsumeline' && GETPOST('addconsumelinebutton') && $permissiontoadd)
-	|| ($action == 'confirm_addproduceline' && GETPOST('addproducelinebutton') && $permissiontoadd)) {
+	if (($action == 'confirm_addconsumeline' && GETPOST('addconsumelinebutton') && $permissionToAdd)
+	|| ($action == 'confirm_addproduceline' && GETPOST('addproducelinebutton') && $permissionToAdd)) {
 		$moline = new MoLine($db);
 
 		// Line to produce
@@ -468,7 +468,7 @@ if (empty($resHook)) {
 	}
 
 	// Action close produced
-	if ($action == 'confirm_produced' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_produced' && $confirm == 'yes' && $permissionToAdd) {
 		$result = $object->setStatut($object::STATUS_PRODUCED, 0, '', 'MRP_MO_PRODUCED');
 		if ($result >= 0) {
 			// Define output language
@@ -495,7 +495,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'confirm_editline' && $permissiontoadd) {
+	if ($action == 'confirm_editline' && $permissionToAdd) {
 		$moline = new MoLine($db);
 		$res = $moline->fetch(GETPOSTINT('lineid'));
 		if ($result > 0) {
@@ -675,7 +675,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if (is_object($object->thirdparty)) {
 			$morehtmlref .= '<br>';
 		}
-		if ($permissiontoadd) {
+		if ($permissionToAdd) {
 			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
@@ -730,7 +730,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if (empty($resHook)) {
 			// Validate
 			if ($object->status == $object::STATUS_DRAFT) {
-				if ($permissiontoadd) {
+				if ($permissionToAdd) {
 					if (empty($object->table_element_line) || (is_array($object->lines) && count($object->lines) > 0)) {
 						print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'&action=validate&token='.$newToken.'">'.$langs->trans("Validate").'</a>';
 					} else {
@@ -763,7 +763,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			}
 
 			// Cancel - Reopen
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				if ($object->status == $object::STATUS_VALIDATED || $object->status == $object::STATUS_INPROGRESS) {
 					$arrayproduced = $object->fetchLinesLinked('produced', 0);
 					$nbProduced = 0;
@@ -852,16 +852,16 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		print '<div class="clearboth"></div>';
 
 		$url = $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addconsumeline&token='.newToken();
-		$permissiontoaddaconsumeline = ($object->status != $object::STATUS_PRODUCED && $object->status != $object::STATUS_CANCELED) ? 1 : -2;
+		$permissionToAddaconsumeline = ($object->status != $object::STATUS_PRODUCED && $object->status != $object::STATUS_CANCELED) ? 1 : -2;
 		$parameters = array('morecss' => 'reposition');
 		$helpText = '';
-		if ($permissiontoaddaconsumeline == -2) {
+		if ($permissionToAddaconsumeline == -2) {
 			$helpText = $langs->trans('MOIsClosed');
 		}
 
 		$newcardbutton = '';
 		if ($action != 'consumeorproduce' && $action != 'consumeandproduceall') {
-			$newcardbutton = dolGetButtonTitle($langs->trans('AddNewConsumeLines'), $helpText, 'fa fa-plus-circle size15x', $url, '', $permissiontoaddaconsumeline, $parameters);
+			$newcardbutton = dolGetButtonTitle($langs->trans('AddNewConsumeLines'), $helpText, 'fa fa-plus-circle size15x', $url, '', $permissionToAddaconsumeline, $parameters);
 		}
 
 		print load_fiche_titre($langs->trans('Consumption'), $newcardbutton, '', 0, '', '', '');
@@ -1525,11 +1525,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 		$newcardbutton = '';
 		$url = $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addproduceline&token='.newToken();
-		$permissiontoaddaproductline = $object->status != $object::STATUS_PRODUCED && $object->status != $object::STATUS_CANCELED;
+		$permissionToAddaproductline = $object->status != $object::STATUS_PRODUCED && $object->status != $object::STATUS_CANCELED;
 		$parameters = array('morecss' => 'reposition');
 		if ($action != 'consumeorproduce' && $action != 'consumeandproduceall') {
 			if ($nblinetoproduce == 0 || $object->mrptype == 1) {
-				$newcardbutton = dolGetButtonTitle($langs->trans('AddNewProduceLines'), '', 'fa fa-plus-circle size15x', $url, '', (int) $permissiontoaddaproductline, $parameters);
+				$newcardbutton = dolGetButtonTitle($langs->trans('AddNewProduceLines'), '', 'fa fa-plus-circle size15x', $url, '', (int) $permissionToAddaproductline, $parameters);
 			}
 		}
 

@@ -81,13 +81,13 @@ foreach ($tmpstatus2label as $key => $val) {
 $date_start = dol_mktime(0, 0, 0, GETPOSTINT('fiscalyearmonth'), GETPOSTINT('fiscalyearday'), GETPOSTINT('fiscalyearyear'));
 $date_end = dol_mktime(0, 0, 0, GETPOSTINT('fiscalyearendmonth'), GETPOSTINT('fiscalyearendday'), GETPOSTINT('fiscalyearendyear'));
 
-$permissiontoadd = $user->hasRight('accounting', 'fiscalyear', 'write');
+$permissionToAdd = $user->hasRight('accounting', 'fiscalyear', 'write');
 
 // Security check
 if ($user->socid > 0) {
 	accessforbidden();
 }
-if (!$permissiontoadd) {
+if (!$permissionToAdd) {
 	accessforbidden();
 }
 
@@ -102,7 +102,7 @@ if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if ($action == 'confirm_delete' && $confirm == "yes" && $permissiontoadd) {
+if ($action == 'confirm_delete' && $confirm == "yes" && $permissionToAdd) {
 	$result = $object->delete($user);
 	if ($result >= 0) {
 		header("Location: fiscalyear.php");
@@ -110,7 +110,7 @@ if ($action == 'confirm_delete' && $confirm == "yes" && $permissiontoadd) {
 	} else {
 		setEventMessages($object->error, $object->errors, 'errors');
 	}
-} elseif ($action == 'add' && $permissiontoadd) {
+} elseif ($action == 'add' && $permissionToAdd) {
 	if (!GETPOST('cancel', 'alpha')) {
 		$error = 0;
 
@@ -152,7 +152,7 @@ if ($action == 'confirm_delete' && $confirm == "yes" && $permissiontoadd) {
 		header("Location: ./fiscalyear.php");
 		exit();
 	}
-} elseif ($action == 'update' && $permissiontoadd) {
+} elseif ($action == 'update' && $permissionToAdd) {
 	// Update record
 	if (!GETPOST('cancel', 'alpha')) {
 		$result = $object->fetch($id);
@@ -174,7 +174,7 @@ if ($action == 'confirm_delete' && $confirm == "yes" && $permissiontoadd) {
 		header("Location: ".$_SERVER["PHP_SELF"]."?id=".$id);
 		exit();
 	}
-} elseif ($action == 'reopen' && $permissiontoadd && getDolGlobalString('ACCOUNTING_CAN_REOPEN_CLOSED_PERIOD')) {
+} elseif ($action == 'reopen' && $permissionToAdd && getDolGlobalString('ACCOUNTING_CAN_REOPEN_CLOSED_PERIOD')) {
 	$result = $object->fetch($id);
 
 	$object->status = GETPOSTINT('status');
@@ -384,7 +384,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		print '<div class="tabsAction">';
 
 		if (getDolGlobalString('ACCOUNTING_CAN_REOPEN_CLOSED_PERIOD') && $object->status == $object::STATUS_CLOSED) {
-			print dolGetButtonAction($langs->trans("ReOpen"), '', 'reopen', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=reopen&token='.newToken(), 'reopen', $permissiontoadd);
+			print dolGetButtonAction($langs->trans("ReOpen"), '', 'reopen', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=reopen&token='.newToken(), 'reopen', $permissionToAdd);
 		}
 
 		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=edit&token='.newToken().'&id='.$id.'">'.$langs->trans('Modify').'</a>';

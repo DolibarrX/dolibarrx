@@ -155,7 +155,7 @@ foreach ($object->fields as $key => $val) {
 }
 
 $permissiontoread = $user->hasRight('salaries', 'read');
-$permissiontoadd = $user->hasRight('salaries', 'write');
+$permissionToAdd = $user->hasRight('salaries', 'write');
 $permissiontodelete = $user->hasRight('salaries', 'delete');
 
 // Security check
@@ -219,7 +219,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	// Validate records
-	if (!$error && $massaction == 'buildsepa' && $permissiontoadd) {
+	if (!$error && $massaction == 'buildsepa' && $permissionToAdd) {
 		$objecttmp = new $objectclass($db);
 
 		// TODO

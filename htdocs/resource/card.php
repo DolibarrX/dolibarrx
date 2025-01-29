@@ -81,7 +81,7 @@ $hookManager->initHooks(array('resource', 'resource_card', 'globalcard'));
 
 $result = restrictedArea($user, 'resource', $object->id, 'resource');
 
-$permissiontoadd = $user->hasRight('resource', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd = $user->hasRight('resource', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('resource', 'delete');
 
 
@@ -108,7 +108,7 @@ if (empty($resHook)) {
 		$action = '';
 	}
 
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		if (!$cancel) {
 			$error = '';
 
@@ -153,7 +153,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'update' && !$cancel && $permissiontoadd) {
+	if ($action == 'update' && !$cancel && $permissionToAdd) {
 		$error = 0;
 
 		if (empty($ref)) {
@@ -290,7 +290,7 @@ if ($action == 'create' || $object->fetch($id, $ref) > 0) {
 		print '<td><textarea name="address" id="address" class="quatrevingtpercent" rows="3" wrap="soft">';
 		print dol_escape_htmltag(GETPOSTISSET('address') ? GETPOST('address') : $object->address, 0, 1);
 		print '</textarea>';
-		print $form->widgetForTranslation("address", $object, $permissiontoadd, 'textarea', 'alphanohtml', 'quatrevingtpercent');
+		print $form->widgetForTranslation("address", $object, $permissionToAdd, 'textarea', 'alphanohtml', 'quatrevingtpercent');
 		print '</td></tr>';
 
 		// Zip
@@ -303,7 +303,7 @@ if ($action == 'create' || $object->fetch($id, $ref) > 0) {
 		print '<tr>';
 		print '<td>'.$form->editfieldkey('Town', 'town', '', $object, 0).'</td><td>';
 		print $formresource->select_ziptown(GETPOSTISSET('town') ?  GETPOST('town') : $object->town, 'town', array('zipcode', 'selectcountry_id', 'state_id'));
-		print $form->widgetForTranslation("town", $object, $permissiontoadd, 'string', 'alphanohtml', 'maxwidth100 quatrevingtpercent');
+		print $form->widgetForTranslation("town", $object, $permissionToAdd, 'string', 'alphanohtml', 'maxwidth100 quatrevingtpercent');
 		print '</td></tr>';
 
 		// Origin country

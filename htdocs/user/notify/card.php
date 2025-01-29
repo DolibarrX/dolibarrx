@@ -81,7 +81,7 @@ if ($id > 0 || !empty($ref)) {
 	$object->loadRights();
 }
 
-$permissiontoadd = (($object->id == $user->id) || ($user->hasRight('user', 'user', 'lire')));
+$permissionToAdd = (($object->id == $user->id) || ($user->hasRight('user', 'user', 'lire')));
 
 // Security check
 if ($user->socid) {
@@ -101,7 +101,7 @@ if (GETPOST('cancel', 'alpha')) {
 $error = 0;
 
 // Add a notification
-if ($action == 'add' && $permissiontoadd) {
+if ($action == 'add' && $permissionToAdd) {
 	if ($actionid <= 0) {
 		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Action")), null, 'errors');
 		$error++;
@@ -135,7 +135,7 @@ if ($action == 'add' && $permissiontoadd) {
 }
 
 // Remove a notification (edit a user)
-if ($action == 'delete' && $permissiontoadd) {
+if ($action == 'delete' && $permissionToAdd) {
 	$sql = "DELETE FROM ".MAIN_DB_PREFIX."notify_def where rowid = ".GETPOSTINT("actid");
 	$db->query($sql);
 }
@@ -259,7 +259,7 @@ if ($result > 0) {
 	}
 
 	$newcardbutton = '';
-	$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=create&backtopage='.urlencode($_SERVER['PHP_SELF']), '', (int) $permissiontoadd);
+	$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=create&backtopage='.urlencode($_SERVER['PHP_SELF']), '', (int) $permissionToAdd);
 
 	$titlelist = $form->textWithPicture($langs->trans("ListOfActiveNotifications"), $langs->trans("ListOfActiveNotificationsHelp", $langs->transnoentitiesnoconv("Target"), $langs->transnoentitiesnoconv("Event")));
 

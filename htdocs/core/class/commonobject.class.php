@@ -1136,12 +1136,12 @@ abstract class CommonObject
 	/**
 	 * Return the link of last main doc file for direct public download.
 	 *
-	 * @param	string	$modulepart			Module related to document
+	 * @param	string	$modulePart			Module related to document
 	 * @param	int		$initsharekey		Init the share key if it was not yet defined
 	 * @param	int		$relativelink		0=Return full external link, 1=Return link relative to root of file
 	 * @return	string|-1					Returns the link, or an empty string if no link was found, or -1 if error.
 	 */
-	public function getLastMainDocLink($modulepart, $initsharekey = 0, $relativelink = 0)
+	public function getLastMainDocLink($modulePart, $initsharekey = 0, $relativelink = 0)
 	{
 		global $user, $dolibarr_main_url_root;
 
@@ -1204,7 +1204,7 @@ abstract class CommonObject
 		$forcedownload = 0;
 
 		$paramlink = '';
-		//if (!empty($modulepart)) $paramlink.=($paramlink?'&':'').'modulepart='.$modulepart;		// For sharing with hash (so public files), modulepart is not required.
+		//if (!empty($modulePart)) $paramlink.=($paramlink?'&':'').'modulepart='.$modulePart;		// For sharing with hash (so public files), modulepart is not required.
 		//if (!empty($ecmfile->entity)) $paramlink.='&entity='.$ecmfile->entity; 					// For sharing with hash (so public files), entity is not required.
 		//$paramlink.=($paramlink?'&':'').'file='.urlencode($filepath);								// No need of name of file for public link, we will use the hash
 		if (!empty($ecmfile->share)) {
@@ -9713,11 +9713,11 @@ abstract class CommonObject
 	/**
 	 * Function used to get the logos or photos of an object
 	 *
-	 * @param 	string	$modulepart		Module part
+	 * @param 	string	$modulePart		Module part
 	 * @param 	string	$imagesize		Image size ('', 'mini' or 'small')
 	 * @return	array{dir:string,file:string,originalfile:string,altfile:string,email:string,capture:string}	Array of data to show photo
 	 */
-	public function getDataToShowPhoto($modulepart, $imagesize)
+	public function getDataToShowPhoto($modulePart, $imagesize)
 	{
 		// See getDataToShowPhoto() implemented by Product for example.
 		return array('dir' => '', 'file' => '', 'originalfile' => '', 'altfile' => '', 'email' => '', 'capture' => '');
@@ -9728,7 +9728,7 @@ abstract class CommonObject
 	/**
 	 *  Show photos of an object (nbmax maximum), into several columns
 	 *
-	 *  @param		string					$modulepart		'product', 'ticket', ...
+	 *  @param		string					$modulePart		'product', 'ticket', ...
 	 *  @param      string					$sdir        	Directory to scan (full absolute path)
 	 *  @param      int<0,1>|''|'small'		$size        	0 or ''=original size, 1 or 'small'=use thumbnail if possible
 	 *  @param      int						$nbmax       	Nombre maximum de photos (0=pas de max)
@@ -9744,7 +9744,7 @@ abstract class CommonObject
 	 *  @param		string					$addphotorefcss	Add CSS to img of photos
 	 *  @return     string									Html code to show photo. Number of photos shown is saved in this->nbphoto
 	 */
-	public function show_photos($modulepart, $sdir, $size = 0, $nbmax = 0, $nbbyrow = 5, $showfilename = 0, $showaction = 0, $maxHeight = 120, $maxWidth = 160, $nolink = 0, $overwritetitle = 0, $usesharelink = 0, $cache = '', $addphotorefcss = 'photoref')
+	public function show_photos($modulePart, $sdir, $size = 0, $nbmax = 0, $nbbyrow = 5, $showfilename = 0, $showaction = 0, $maxHeight = 120, $maxWidth = 160, $nolink = 0, $overwritetitle = 0, $usesharelink = 0, $cache = '', $addphotorefcss = 'photoref')
 	{
 		// phpcs:enable
 		global $user, $langs;
@@ -9758,19 +9758,19 @@ abstract class CommonObject
 		$dir = $sdir.'/';
 		$pdir = '/';
 
-		$dir .= get_exdir(0, 0, 0, 0, $this, $modulepart);
-		$pdir .= get_exdir(0, 0, 0, 0, $this, $modulepart);
+		$dir .= get_exdir(0, 0, 0, 0, $this, $modulePart);
+		$pdir .= get_exdir(0, 0, 0, 0, $this, $modulePart);
 
 		// For backward compatibility
-		if ($modulepart == 'product') {
+		if ($modulePart == 'product') {
 			if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {
-				$dir = $sdir.'/'.get_exdir($this->id, 2, 0, 0, $this, $modulepart).$this->id."/photos/";
-				$pdir = '/'.get_exdir($this->id, 2, 0, 0, $this, $modulepart).$this->id."/photos/";
+				$dir = $sdir.'/'.get_exdir($this->id, 2, 0, 0, $this, $modulePart).$this->id."/photos/";
+				$pdir = '/'.get_exdir($this->id, 2, 0, 0, $this, $modulePart).$this->id."/photos/";
 			}
 		}
-		if ($modulepart == 'category') {
-			$dir = $sdir.'/'.get_exdir($this->id, 2, 0, 0, $this, $modulepart).$this->id."/photos/";
-			$pdir = '/'.get_exdir($this->id, 2, 0, 0, $this, $modulepart).$this->id."/photos/";
+		if ($modulePart == 'category') {
+			$dir = $sdir.'/'.get_exdir($this->id, 2, 0, 0, $this, $modulePart).$this->id."/photos/";
+			$pdir = '/'.get_exdir($this->id, 2, 0, 0, $this, $modulePart).$this->id."/photos/";
 		}
 
 		// Defined relative dir to DOL_DATA_ROOT
@@ -9841,11 +9841,11 @@ abstract class CommonObject
 
 						$relativefile = preg_replace('/^\//', '', $pdir.$photo);
 						if (empty($nolink)) {
-							$urladvanced = getAdvancedPreviewUrl($modulepart, $relativefile, 0, 'entity='.$this->entity);
+							$urladvanced = getAdvancedPreviewUrl($modulePart, $relativefile, 0, 'entity='.$this->entity);
 							if ($urladvanced) {
 								$return .= '<a href="'.$urladvanced.'">';
 							} else {
-								$return .= '<a href="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.$this->entity.'&file='.urlencode($pdir.$photo).'" class="aphoto" target="_blank" rel="noopener noreferrer">';
+								$return .= '<a href="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulePart.'&entity='.$this->entity.'&file='.urlencode($pdir.$photo).'" class="aphoto" target="_blank" rel="noopener noreferrer">';
 							}
 						}
 
@@ -9881,10 +9881,10 @@ abstract class CommonObject
 						} else {
 							if (empty($maxHeight) || ($photo_vignette && $imgarray['height'] > $maxHeight)) {
 								$return .= '<!-- Show thumb -->';
-								$return .= '<img class="photo photowithmargin'.($addphotorefcss ? ' '.$addphotorefcss : '').' maxwidth150onsmartphone maxwidth200"'.($maxHeight ? ' height="'.$maxHeight.'"' : '').' src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.$this->entity.($cache ? '&cache='.urlencode($cache) : '').'&file='.urlencode($pdirthumb.$photo_vignette).'" title="'.dol_escape_htmltag($alt).'">';
+								$return .= '<img class="photo photowithmargin'.($addphotorefcss ? ' '.$addphotorefcss : '').' maxwidth150onsmartphone maxwidth200"'.($maxHeight ? ' height="'.$maxHeight.'"' : '').' src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulePart.'&entity='.$this->entity.($cache ? '&cache='.urlencode($cache) : '').'&file='.urlencode($pdirthumb.$photo_vignette).'" title="'.dol_escape_htmltag($alt).'">';
 							} else {
 								$return .= '<!-- Show original file -->';
-								$return .= '<img class="photo photowithmargin'.($addphotorefcss ? ' '.$addphotorefcss : '').'" height="'.$maxHeight.'" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.$this->entity.($cache ? '&cache='.urlencode($cache) : '').'&file='.urlencode($pdir.$photo).'" title="'.dol_escape_htmltag($alt).'">';
+								$return .= '<img class="photo photowithmargin'.($addphotorefcss ? ' '.$addphotorefcss : '').'" height="'.$maxHeight.'" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulePart.'&entity='.$this->entity.($cache ? '&cache='.urlencode($cache) : '').'&file='.urlencode($pdir.$photo).'" title="'.dol_escape_htmltag($alt).'">';
 							}
 						}
 
@@ -9902,7 +9902,7 @@ abstract class CommonObject
 								$return .= '<a href="'.$_SERVER["PHP_SELF"].'?id='.$this->id.'&action=addthumb&token='.newToken().'&file='.urlencode($pdir.$viewfilename).'">'.img_picture($langs->trans('GenerateThumb'), 'refresh').'&nbsp;&nbsp;</a>';
 							}
 							// Special case for product
-							if ($modulepart == 'product' && ($user->hasRight('produit', 'creer') || $user->hasRight('service', 'creer'))) {
+							if ($modulePart == 'product' && ($user->hasRight('produit', 'creer') || $user->hasRight('service', 'creer'))) {
 								// Link to resize
 								$return .= '<a href="'.DOL_URL_ROOT.'/core/photos_resize.php?modulepart='.urlencode('produit|service').'&id='.$this->id.'&file='.urlencode($pdir.$viewfilename).'" title="'.dol_escape_htmltag($langs->trans("Resize")).'">'.img_picture($langs->trans("Resize"), 'resize', '').'</a> &nbsp; ';
 
@@ -9924,14 +9924,14 @@ abstract class CommonObject
 					}
 
 					if (empty($size)) {     // Format origine
-						$return .= '<img class="photo photowithmargin" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.$this->entity.'&file='.urlencode($pdir.$photo).'">';
+						$return .= '<img class="photo photowithmargin" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulePart.'&entity='.$this->entity.'&file='.urlencode($pdir.$photo).'">';
 
 						if ($showfilename) {
 							$return .= '<br>'.$viewfilename;
 						}
 						if ($showaction) {
 							// Special case for product
-							if ($modulepart == 'product' && ($user->hasRight('produit', 'creer') || $user->hasRight('service', 'creer'))) {
+							if ($modulePart == 'product' && ($user->hasRight('produit', 'creer') || $user->hasRight('service', 'creer'))) {
 								// Link to resize
 								$return .= '<a href="'.DOL_URL_ROOT.'/core/photos_resize.php?modulepart='.urlencode('produit|service').'&id='.$this->id.'&file='.urlencode($pdir.$viewfilename).'" title="'.dol_escape_htmltag($langs->trans("Resize")).'">'.img_picture($langs->trans("Resize"), 'resize', '').'</a> &nbsp; ';
 

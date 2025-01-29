@@ -105,7 +105,7 @@ if (($id > 0) || $ref) {
 
 
 $upload_dir = $config->holiday->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, '');
-$modulepart = 'holiday';
+$modulePart = 'holiday';
 
 // Protection if external user
 if ($user->socid) {
@@ -113,7 +113,7 @@ if ($user->socid) {
 }
 $result = restrictedArea($user, 'holiday', $object->id, 'holiday');
 
-$permissiontoadd = $user->hasRight('holiday', 'write'); // Used by the include of actions_setnotes.inc.php
+$permissionToAdd = $user->hasRight('holiday', 'write'); // Used by the include of actions_setnotes.inc.php
 
 
 /*
@@ -300,7 +300,7 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$permissiontoadd = $user->hasRight('holiday', 'write');
+	$permissionToAdd = $user->hasRight('holiday', 'write');
 	$permtoedit = $user->hasRight('holiday', 'write');
 	$param = '&id='.$object->id;
 	$relativepathwithnofile = dol_sanitizeFileName($object->ref).'/';

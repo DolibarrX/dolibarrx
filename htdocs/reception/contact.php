@@ -91,13 +91,13 @@ if ($origin == 'reception') {
 
 if (isModEnabled("reception")) {
 	$permissiontoread = $user->hasRight('reception', 'lire');
-	$permissiontoadd = $user->hasRight('reception', 'creer');
+	$permissionToAdd = $user->hasRight('reception', 'creer');
 	$permissiondellink = $user->hasRight('reception', 'creer'); // Used by the include of actions_dellink.inc.php
 	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('reception', 'creer')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('reception', 'reception_advance', 'validate')));
 	$permissiontodelete = $user->hasRight('reception', 'supprimer');
 } else {
 	$permissiontoread = $user->hasRight('fournisseur', 'order', 'receptionner');
-	$permissiontoadd = $user->hasRight('fournisseur', 'order', 'receptionner');
+	$permissionToAdd = $user->hasRight('fournisseur', 'order', 'receptionner');
 	$permissiondellink = $user->hasRight('fournisseur', 'order', 'receptionner'); // Used by the include of actions_dellink.inc.php
 	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'order', 'receptionner')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'order_advance', 'check')));
 	$permissiontodelete = $user->hasRight('fournisseur', 'order', 'receptionner');
@@ -182,7 +182,7 @@ if ($id > 0 || !empty($ref)) {
 		$morehtmlref .= '<br>';
 		if (0) {    // Do not change on reception
 			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
-			if ($action != 'classify' && $permissiontoadd) {
+			if ($action != 'classify' && $permissionToAdd) {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}
 			$morehtmlref .= $form->form_project($_SERVER['PHP_SELF'].'?id='.$object->id, (!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') ? $object->socid : -1), $object->fk_project, ($action == 'classify' ? 'projectid' : 'none'), 0, 0, 0, 1, '', 'maxwidth300');

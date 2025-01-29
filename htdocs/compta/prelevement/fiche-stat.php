@@ -155,9 +155,9 @@ if ($id > 0 || $ref) {
 		print '</td>';
 		print '</tr>';
 
-		$modulepart = 'prelevement';
+		$modulePart = 'prelevement';
 		if ($object->type == 'bank-transfer') {
-			$modulepart = 'paymentbybanktransfer';
+			$modulePart = 'paymentbybanktransfer';
 		}
 
 		print '<tr><td class="titlefieldcreate">';
@@ -183,7 +183,7 @@ if ($id > 0 || $ref) {
 			$relativepath = 'receipts/'.$object->ref.'.xml';
 		}
 
-		print '<a data-ajax="false" href="'.DOL_URL_ROOT.'/document.php?type=text/plain&amp;modulepart='.$modulepart.'&amp;file='.urlencode($relativepath).'">'.$relativepath;
+		print '<a data-ajax="false" href="'.DOL_URL_ROOT.'/document.php?type=text/plain&amp;modulepart='.$modulePart.'&amp;file='.urlencode($relativepath).'">'.$relativepath;
 		print img_picture('', 'download', 'class="paddingleft"');
 		print '</a>';
 		print '</td></tr></table>';

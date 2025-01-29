@@ -94,14 +94,14 @@ if (!empty($line_id)) {
 	}
 }
 
-$permissiontoadd = $user->hasRight('loan', 'write');
+$permissionToAdd = $user->hasRight('loan', 'write');
 
 
 /*
  * Actions
  */
 
-if ($action == 'add_payment' && $permissiontoadd) {
+if ($action == 'add_payment' && $permissionToAdd) {
 	$error = 0;
 
 	if ($cancel) {

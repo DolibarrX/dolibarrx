@@ -102,10 +102,10 @@ if ($line->fk_skill > 0 && $resSkill > 0) {
 	<td class="linecolrank nowrap right"><?php $coldisplay++; ?>
 
 <?php
-	global $permissiontoadd;
+	global $permissionToAdd;
 
 // Show evaluation boxes
-print displayRankInfos($line->rankorder, $line->fk_skill, 'TNote', ($this->status == 0 && $permissiontoadd) ? 'edit' : 'view');
+print displayRankInfos($line->rankorder, $line->fk_skill, 'TNote', ($this->status == 0 && $permissionToAdd) ? 'edit' : 'view');
 
 ?>
 

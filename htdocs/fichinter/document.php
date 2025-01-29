@@ -86,9 +86,9 @@ $object = new Fichinter($db);
 $object->fetch($id, $ref);
 
 $upload_dir = $config->ficheinter->dir_output.'/'.dol_sanitizeFileName($object->ref);
-$modulepart = 'fichinter';
+$modulePart = 'fichinter';
 
-$permissiontoadd = $user->hasRight('ficheinter', 'creer'); // Used by the include of actions_setnotes.inc.php
+$permissionToAdd = $user->hasRight('ficheinter', 'creer'); // Used by the include of actions_setnotes.inc.php
 
 
 /*
@@ -138,7 +138,7 @@ if ($object->id) {
 	if (isModEnabled('project')) {
 		$langs->load("projects");
 		$morehtmlref .= '<br>';
-		if ($permissiontoadd && 0) {
+		if ($permissionToAdd && 0) {
 			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
@@ -172,7 +172,7 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'ficheinter';
+	$modulePart = 'ficheinter';
 	$permtoedit = $user->hasRight('ficheinter', 'creer');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

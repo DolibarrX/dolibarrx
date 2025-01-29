@@ -55,7 +55,7 @@ if (!isset($id) || empty($id)) {
 }
 
 // Define value to know what current user can do on users
-$permissiontoadd = (!empty($user->admin) || $user->hasRight("user", "user", "write"));
+$permissionToAdd = (!empty($user->admin) || $user->hasRight("user", "user", "write"));
 $permissiontoread = (!empty($user->admin) || $user->hasRight("user", "user", "read"));
 $permissiontoedit = (!empty($user->admin) || $user->hasRight("user", "user", "write"));
 $permissiontodisable = (!empty($user->admin) || $user->hasRight("user", "user", "delete"));
@@ -72,7 +72,7 @@ if ($id) {
 	$permissiontoeditpassword = ((($user->id == $id) && $user->hasRight("user", "self", "password")) || (($user->id != $id) && $user->hasRight("user", "user", "password")));
 }
 
-$permissiontoadd = $permissiontoedit;	// Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
+$permissionToAdd = $permissiontoedit;	// Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
 $permtoedit = $permissiontoedit;
 
 // Security check
@@ -215,7 +215,7 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'user';
+	$modulePart = 'user';
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 } else {

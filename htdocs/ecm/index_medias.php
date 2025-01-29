@@ -108,7 +108,7 @@ $result = restrictedArea($user, 'ecm', 0);
 
 $permissiontoread = ($user->hasRight('ecm', 'read') || $user->hasRight('mailing', 'lire') || $user->hasRight('website', 'read'));
 $permissiontouploadfile = ($user->hasRight('ecm', 'setup') || $user->hasRight('mailing', 'creer') || $user->hasRight('website', 'write'));
-$permissiontoadd = $permissiontouploadfile;	// Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
+$permissionToAdd = $permissiontouploadfile;	// Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
 
 
 $diroutput = $config->medias->multidir_output[$config->entity];
@@ -160,7 +160,7 @@ if ($action == 'add' && $permissiontouploadfile) {
 }
 
 // Remove directory
-if ($action == 'confirm_deletesection' && GETPOST('confirm', 'alpha') == 'yes' && $permissiontoadd) {
+if ($action == 'confirm_deletesection' && GETPOST('confirm', 'alpha') == 'yes' && $permissionToAdd) {
 	$result = $ecmdir->delete($user);
 	setEventMessages($langs->trans("ECMSectionWasRemoved", $ecmdir->label), null, 'mesgs');
 

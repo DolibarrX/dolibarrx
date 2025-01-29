@@ -90,8 +90,8 @@ restrictedArea($user, 'bookmark', $object);
 
 // Permissions
 $permissiontoread = $user->hasRight('bookmark', 'lire');
-$permissiontoadd = $user->hasRight('bookmark', 'creer');
-$permissiontodelete = ($user->hasRight('bookmark', 'supprimer') || ($permissiontoadd && $object->fk_user == $user->id));
+$permissionToAdd = $user->hasRight('bookmark', 'creer');
+$permissiontodelete = ($user->hasRight('bookmark', 'supprimer') || ($permissionToAdd && $object->fk_user == $user->id));
 
 
 /*
@@ -278,7 +278,7 @@ print '<input type="hidden" name="mode" value="'.$mode.'">';
 
 
 $newcardbutton = '';
-$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/bookmarks/card.php?action=create&backtopage='.urlencode(DOL_URL_ROOT.'/bookmarks/list.php'), '', $permissiontoadd);
+$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/bookmarks/card.php?action=create&backtopage='.urlencode(DOL_URL_ROOT.'/bookmarks/list.php'), '', $permissionToAdd);
 
 print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'bookmark', 0, $newcardbutton, '', $limit, 0, 0, 1);
 
@@ -411,7 +411,7 @@ while ($i < $imaxinloop) {
 		}
 		$title      = $obj->title;
 		$link       = $obj->url;
-		$canedit    = $permissiontoadd;
+		$canedit    = $permissionToAdd;
 		$candelete  = $permissiontodelete;
 
 		// Title

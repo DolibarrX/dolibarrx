@@ -221,7 +221,7 @@ if (empty($resHook)) {
 	$objectclass = 'Reception';
 	$objectlabel = 'Receptions';
 	$permissiontoread = $user->hasRight('reception', 'lire');
-	$permissiontoadd = $user->hasRight('reception', 'creer');
+	$permissionToAdd = $user->hasRight('reception', 'creer');
 	$permissiontodelete = $user->hasRight('reception', 'supprimer');
 	$uploaddir = $config->reception->multidir_output[$config->entity];
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
@@ -561,7 +561,7 @@ if (empty($resHook)) {
 				// Fac builddoc
 				$donotredirect = 1;
 				$upload_dir = $config->fournisseur->facture->dir_output;
-				$permissiontoadd = ($user->hasRight('fournisseur', 'facture', 'creer') || $user->hasRight('supplier_invoice', 'creer'));
+				$permissionToAdd = ($user->hasRight('fournisseur', 'facture', 'creer') || $user->hasRight('supplier_invoice', 'creer'));
 
 				// Call action to build doc
 				$savobject = $object;

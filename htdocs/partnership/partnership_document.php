@@ -83,7 +83,7 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 $upload_dir = $config->partnership->multidir_output[$object->entity ?: $config->entity]."/partnership/".get_exdir(0, 0, 0, 1, $object);
 
 $permissiontoread = $user->hasRight('partnership', 'read');
-$permissiontoadd = $user->hasRight('partnership', 'write'); // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd = $user->hasRight('partnership', 'write'); // Used by the include of actions_addupdatedelete.inc.php
 $managedfor = getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR', 'thirdparty');
 
 // Security check - Protection if external user
@@ -155,7 +155,7 @@ if ($object->id) {
 	 {
 	 $langs->load("projects");
 	 $morehtmlref.='<br>'.$langs->trans('Project') . ' ';
-	 if ($permissiontoadd)
+	 if ($permissionToAdd)
 	 {
 	 if ($action != 'classify')
 	 //$morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&token='.newToken().'&id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
@@ -202,7 +202,7 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'partnership';
+	$modulePart = 'partnership';
 	$param = '&id='.$object->id;
 
 	//$relativepathwithnofile='partnership/' . dol_sanitizeFileName($object->id).'/';

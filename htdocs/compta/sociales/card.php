@@ -93,8 +93,8 @@ if ($id > 0 || $ref) {
 }
 
 $permissiontoread = $user->hasRight('tax', 'charges', 'lire');
-$permissiontoadd = $user->hasRight('tax', 'charges', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->rights->tax->charges->supprimer || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
+$permissionToAdd = $user->hasRight('tax', 'charges', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->rights->tax->charges->supprimer || ($permissionToAdd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
 $permissionnote = $user->hasRight('tax', 'charges', 'creer'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('tax', 'charges', 'creer'); // Used by the include of actions_dellink.inc.php
 $upload_dir = $config->tax->multidir_output[isset($object->entity) ? $object->entity : 1];
@@ -119,7 +119,7 @@ if ($resHook < 0) {
 
 if (empty($resHook)) {
 	// Classify paid
-	if ($action == 'confirm_paid' && $permissiontoadd && $confirm == 'yes') {
+	if ($action == 'confirm_paid' && $permissionToAdd && $confirm == 'yes') {
 		$result = $object->setPaid($user);
 	}
 
@@ -136,16 +136,16 @@ if (empty($resHook)) {
 	}
 
 	// Link to a project
-	if ($action == 'classin' && $permissiontoadd) {
+	if ($action == 'classin' && $permissionToAdd) {
 		$object->setProject(GETPOST('fk_project'));
 	}
 
-	if ($action == 'setfk_user' && $permissiontoadd) {
+	if ($action == 'setfk_user' && $permissionToAdd) {
 		$object->fk_user = $fk_user;
 		$object->update($user);
 	}
 
-	if ($action == 'setlib' && $permissiontoadd) {
+	if ($action == 'setlib' && $permissionToAdd) {
 		$result = $object->setValueFrom('libelle', GETPOST('lib'), '', null, 'text', '', $user, 'TAX_MODIFY');
 		if ($result < 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
@@ -153,7 +153,7 @@ if (empty($resHook)) {
 	}
 
 	// payment mode
-	if ($action == 'setmode' && $permissiontoadd) {
+	if ($action == 'setmode' && $permissionToAdd) {
 		$result = $object->setPaymentMethods(GETPOSTINT('mode_reglement_id'));
 		if ($result < 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
@@ -161,7 +161,7 @@ if (empty($resHook)) {
 	}
 
 	// Bank account
-	if ($action == 'setbankaccount' && $permissiontoadd) {
+	if ($action == 'setbankaccount' && $permissionToAdd) {
 		$result = $object->setBankAccount(GETPOSTINT('fk_account'));
 		if ($result < 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
@@ -186,7 +186,7 @@ if (empty($resHook)) {
 
 
 	// Add social contribution
-	if ($action == 'add' && $permissiontoadd) {
+	if ($action == 'add' && $permissionToAdd) {
 		$amount = price2num(GETPOST('amount', 'alpha'), 'MT');
 
 		if (!$dateech) {
@@ -224,7 +224,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'update' && !$cancel && $permissiontoadd) {
+	if ($action == 'update' && !$cancel && $permissionToAdd) {
 		$amount = price2num(GETPOST('amount', 'alpha'), 'MT');
 
 		if (!$dateech) {
@@ -268,7 +268,7 @@ if (empty($resHook)) {
 		$action = '';
 	}
 
-	if ($action == 'confirm_clone' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_clone' && $confirm == 'yes' && $permissionToAdd) {
 		$db->begin();
 
 		$originalId = $object->id;
@@ -561,7 +561,7 @@ if ($id > 0) {
 		if (isModEnabled('project')) {
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.((int) $object->id).'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';

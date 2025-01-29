@@ -92,7 +92,7 @@ if ($object->fetch($id, $ref)) {
 }
 
 
-$permissiontoadd = ($user->hasRight('facture', 'creer')); // Used by the include of actions_setnotes.inc.php
+$permissionToAdd = ($user->hasRight('facture', 'creer')); // Used by the include of actions_setnotes.inc.php
 
 /*
  * Actions
@@ -176,9 +176,9 @@ if ($object->id > 0) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'payment';
+	$modulePart = 'payment';
 	// TODO: get the appropriate permission
-	$permissiontoadd = true;
+	$permissionToAdd = true;
 	$permtoedit = true;
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';

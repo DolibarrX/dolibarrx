@@ -211,16 +211,16 @@ function getVersions($authentication)
  * Method to get a document by webservice
  *
  * @param	array{login:string,password:string,entity:?int,dolibarrkey:string}	$authentication		Array with authentication information
- * @param 	string	$modulepart		 	Properties of document
+ * @param 	string	$modulePart		 	Properties of document
  * @param	string	$file				Relative path
  * @param	string	$refname			Ref of object to check permission for external users (autodetect if not provided)
  * @return	array{result:array{result_code:string,result_label:string},document?:array{filename:string,mimetype:string,content:string,length:int}}	Array of data
  */
-function getDocument($authentication, $modulepart, $file, $refname = '')
+function getDocument($authentication, $modulePart, $file, $refname = '')
 {
 	global $db, $config;
 
-	dol_syslog("Function: getDocument login=".$authentication['login'].' - modulepart='.$modulepart.' - file='.$file);
+	dol_syslog("Function: getDocument login=".$authentication['login'].' - modulepart='.$modulePart.' - file='.$file);
 
 	if ($authentication['entity']) {
 		$config->entity = $authentication['entity'];
@@ -246,7 +246,7 @@ function getDocument($authentication, $modulepart, $file, $refname = '')
 	}
 
 	// Check parameters
-	if (!$error && (!$file || !$modulepart)) {
+	if (!$error && (!$file || !$modulePart)) {
 		$error++;
 		$errorcode = 'BAD_PARAMETERS';
 		$errorlabel = "Parameter file and modulepart must be both provided.";
@@ -264,7 +264,7 @@ function getDocument($authentication, $modulepart, $file, $refname = '')
 		}
 
 		// Security check
-		$check_access = dol_check_secure_access_document($modulepart, $original_file, $config->entity, $fuser, $refname);
+		$check_access = dol_check_secure_access_document($modulePart, $original_file, $config->entity, $fuser, $refname);
 		$accessallowed              = $check_access['accessallowed'];
 		$sqlprotectagainstexternals = $check_access['sqlprotectagainstexternals'];
 		$original_file              = $check_access['original_file'];

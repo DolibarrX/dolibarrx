@@ -64,7 +64,7 @@ if ($id > 0 || !empty($ref)) {
 }
 
 $permissiontoread = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'read')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'model_advance', 'read')));
-$permissiontoadd = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'write')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'model_advance', 'write'))); // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'write')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'model_advance', 'write'))); // Used by the include of actions_addupdatedelete.inc.php
 
 // Security check (enable the most restrictive one)
 if ($user->socid > 0) {
@@ -119,7 +119,7 @@ if (empty($resHook)) {
 		$action = '';
 	}
 
-	if ($action == "update" && $permissiontoadd) {
+	if ($action == "update" && $permissionToAdd) {
 		$result = $assetdepreciationoptions->setDeprecationOptionsFromPost(1);
 		if ($result > 0) {
 			$result = $assetdepreciationoptions->updateDeprecationOptions($user, 0, $object->id);
@@ -198,7 +198,7 @@ if ($id > 0 || !empty($ref)) {
 
 		if (empty($resHook)) {
 			if ($object->status == $object::STATUS_DRAFT/* && !empty($object->enabled_modes)*/) {
-				print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissiontoadd);
+				print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissionToAdd);
 			}
 		}
 		print '</div>' . "\n";

@@ -146,7 +146,7 @@ $arrayfields = dol_sort_array($arrayfields, 'position');
 
 $permissiontoread = $user->hasRight('stock', 'lire');
 $permissiontodelete = $user->hasRight('stock', 'supprimer');
-$permissiontoadd = $user->hasRight('stock', 'creer');
+$permissionToAdd = $user->hasRight('stock', 'creer');
 
 // Security check
 $result = restrictedArea($user, 'stock');

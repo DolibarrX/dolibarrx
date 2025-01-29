@@ -87,7 +87,7 @@ if ($id > 0 || !empty($ref)) {
 }
 
 $permissiontoread = $user->admin;
-$permissiontoadd = $user->hasRight('hrm', 'write'); // Used by the include of actions_addupdatedelete.inc.php
+$permissionToAdd = $user->hasRight('hrm', 'write'); // Used by the include of actions_addupdatedelete.inc.php
 $upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check - Protection if external user
@@ -164,7 +164,7 @@ if ($object->id > 0) {
 	 {
 	 $langs->load("projects");
 	 $morehtmlref.='<br>'.$langs->trans('Project') . ' ';
-	 if ($permissiontoadd)
+	 if ($permissionToAdd)
 	 {
 	 if ($action != 'classify')
 	 //$morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&token='.newToken().'&id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';

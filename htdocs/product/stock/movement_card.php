@@ -412,7 +412,7 @@ if ($action == "transfert_stock" && !$cancel && $usercancreate) {
 // The builddoc action for object of a movement must be on the movement card
 // Actions to build doc
 $upload_dir = $config->stock->dir_output."movement/";
-$permissiontoadd = $user->hasRight('stock', 'creer');
+$permissionToAdd = $user->hasRight('stock', 'creer');
 include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 
@@ -1192,7 +1192,7 @@ if ($resql) {
  * Generated documents
  */
 //Area for doc and last events of warehouse are stored on the main card of warehouse
-$modulepart = 'movement';
+$modulePart = 'movement';
 
 if ($action != 'create' && $action != 'edit' && $action != 'delete' && $id > 0) {
 	print '<br>';
@@ -1218,7 +1218,7 @@ if ($action != 'create' && $action != 'edit' && $action != 'delete' && $id > 0) 
 	$genallowed = $user->hasRight('stock', 'lire');
 	$delallowed = $user->hasRight('stock', 'creer');
 
-	print $formfile->showdocuments($modulepart, $objectref, $filedir, $urlsource, $genallowed, $delallowed, '', 0, 0, 0, 28, 0, '', 0, '', $object->default_lang, '', $object);
+	print $formfile->showdocuments($modulePart, $objectref, $filedir, $urlsource, $genallowed, $delallowed, '', 0, 0, 0, 28, 0, '', 0, '', $object->default_lang, '', $object);
 	$somethingshown = $formfile->numoffiles;
 
 	print '</div><div class="fichehalfright">';

@@ -55,7 +55,7 @@ if (!empty($user->socid)) {
 }
 $result = restrictedArea($user, 'supplier_proposal', $id);
 
-$permissiontoadd = $user->hasRight('supplier_proposal', 'creer');
+$permissionToAdd = $user->hasRight('supplier_proposal', 'creer');
 
 
 /*

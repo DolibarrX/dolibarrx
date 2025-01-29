@@ -96,10 +96,10 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 $enablepermissioncheck = getDolGlobalInt('MYMODULE_ENABLE_PERMISSION_CHECK');
 if ($enablepermissioncheck) {
 	$permissiontoread = $user->hasRight('mymodule', 'myobject', 'read');
-	$permissiontoadd = $user->hasRight('mymodule', 'myobject', 'write');
+	$permissionToAdd = $user->hasRight('mymodule', 'myobject', 'write');
 } else {
 	$permissiontoread = 1;
-	$permissiontoadd = 1;
+	$permissionToAdd = 1;
 }
 
 // Security check (enable the most restrictive one)
@@ -119,7 +119,7 @@ if (!$permissiontoread) {
  * Add a new contact
  */
 
-if ($action == 'addcontact' && $permissiontoadd) {
+if ($action == 'addcontact' && $permissionToAdd) {
 	$contactid = (GETPOST('userid') ? GETPOSTINT('userid') : GETPOSTINT('contactid'));
 	$typeid = (GETPOST('typecontact') ? GETPOST('typecontact') : GETPOST('type'));
 	$result = $object->add_contact($contactid, $typeid, GETPOST("source", 'aZ09'));
@@ -135,10 +135,10 @@ if ($action == 'addcontact' && $permissiontoadd) {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
 	}
-} elseif ($action == 'swapstatut' && $permissiontoadd) {
+} elseif ($action == 'swapstatut' && $permissionToAdd) {
 	// Toggle the status of a contact
 	$result = $object->swapContactStatus(GETPOSTINT('ligne'));
-} elseif ($action == 'deletecontact' && $permissiontoadd) {	// Permission to add on object because this is an update of a link of object, not a deletion of data
+} elseif ($action == 'deletecontact' && $permissionToAdd) {	// Permission to add on object because this is an update of a link of object, not a deletion of data
 	// Deletes a contact
 	$result = $object->delete_contact($lineid);
 
@@ -194,7 +194,7 @@ if ($object->id) {
 	 if (isModEnabled('project')) {
 	 $langs->load("projects");
 	 $morehtmlref.='<br>'.$langs->trans('Project') . ' ';
-	 if ($permissiontoadd)
+	 if ($permissionToAdd)
 	 {
 	 if ($action != 'classify')
 	 //$morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&token='.newToken().'&id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';

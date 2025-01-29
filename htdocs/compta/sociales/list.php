@@ -129,7 +129,7 @@ $arrayfields = dol_sort_array($arrayfields, 'position');
 $hookManager->initHooks(array('sclist'));
 $object = new ChargeSociales($db);
 
-$permissiontoadd = $user->hasRight('tax', 'charges', 'creer');
+$permissionToAdd = $user->hasRight('tax', 'charges', 'creer');
 $permissiontodelete = $user->hasRight('tax', 'charges', 'supprimer');
 
 // Security check
@@ -399,7 +399,7 @@ $newcardbutton = '';
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewList'), '', 'fa fa-bars imgforviewmode', $_SERVER["PHP_SELF"].'?mode=common'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ((empty($mode) || $mode == 'common') ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewKanban'), '', 'fa fa-th-list imgforviewmode', $_SERVER["PHP_SELF"].'?mode=kanban'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ($mode == 'kanban' ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitleSeparator();
-$newcardbutton .= dolGetButtonTitle($langs->trans('MenuNewSocialContribution'), '', 'fa fa-plus-circle', $url, '', $permissiontoadd);
+$newcardbutton .= dolGetButtonTitle($langs->trans('MenuNewSocialContribution'), '', 'fa fa-plus-circle', $url, '', $permissionToAdd);
 
 // List of mass actions available
 $arrayofmassactions = [];

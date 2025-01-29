@@ -44,7 +44,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
  */
 
 // Define if user can read permissions
-$permissiontoadd = ($user->admin || $user->hasRight("user", "user", "write"));
+$permissionToAdd = ($user->admin || $user->hasRight("user", "user", "write"));
 $permissiontoread = ($user->admin || $user->hasRight("user", "user", "read"));
 $permissiontoedit = ($user->admin || $user->hasRight("user", "user", "write"));
 $permissiontodisable = ($user->admin || $user->hasRight("user", "user", "delete"));

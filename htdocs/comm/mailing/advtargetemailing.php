@@ -114,7 +114,7 @@ if (!$user->hasRight('mailing', 'lire') || (!getDolGlobalString('EXTERNAL_USERS_
 //$result = restrictedArea($user, 'mailing');
 
 $permissiontoread = $user->hasRight('mailing', 'lire');
-$permissiontoadd = $user->hasRight('mailing', 'creer');
+$permissionToAdd = $user->hasRight('mailing', 'creer');
 
 
 /*
@@ -134,7 +134,7 @@ if ($action == 'loadfilter' && $permissiontoread) {
 	}
 }
 
-if ($action == 'add' && $permissiontoadd) {
+if ($action == 'add' && $permissionToAdd) {
 	$user_contact_query = false;
 
 	$array_query = [];
@@ -271,7 +271,7 @@ if ($action == 'add' && $permissiontoadd) {
 	}
 }
 
-if ($action == 'clear' && $permissiontoadd) {
+if ($action == 'clear' && $permissionToAdd) {
 	$mailingtargets = new MailingTargets($db);
 	$mailingtargets->clear_target($id);
 
@@ -279,11 +279,11 @@ if ($action == 'clear' && $permissiontoadd) {
 	exit();
 }
 
-if (($action == 'savefilter' || $action == 'createfilter') && $permissiontoadd) {
+if (($action == 'savefilter' || $action == 'createfilter') && $permissionToAdd) {
 	$template_name = GETPOST('template_name');
 	$error = 0;
 
-	if ($action == 'createfilter' && empty($template_name) && $permissiontoadd) {
+	if ($action == 'createfilter' && empty($template_name) && $permissionToAdd) {
 		setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentitiesnoconv('AdvTgtOrCreateNewFilter')), null, 'errors');
 		$error++;
 	}
@@ -383,7 +383,7 @@ if (($action == 'savefilter' || $action == 'createfilter') && $permissiontoadd) 
 	}
 }
 
-if ($action == 'deletefilter' && $permissiontoadd) {
+if ($action == 'deletefilter' && $permissionToAdd) {
 	$result = $advTarget->delete($user);
 	if ($result < 0) {
 		setEventMessages($advTarget->error, $advTarget->errors, 'errors');
@@ -392,7 +392,7 @@ if ($action == 'deletefilter' && $permissiontoadd) {
 	exit();
 }
 
-if ($action == 'delete' && $permissiontoadd) {
+if ($action == 'delete' && $permissionToAdd) {
 	// Ici, rowid indique le destinataire et id le mailing
 	$sql = "DELETE FROM ".MAIN_DB_PREFIX."mailing_cibles WHERE rowid = ".((int) $rowid);
 	$resql = $db->query($sql);

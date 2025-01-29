@@ -77,7 +77,7 @@ $upload_dir = $config->category->multidir_output[$object->entity];
 // Security check
 $result = restrictedArea($user, 'category', $id, '&category');
 
-$permissiontoadd = $user->hasRight('category', 'creer');
+$permissionToAdd = $user->hasRight('category', 'creer');
 
 
 /*
@@ -110,11 +110,11 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'confirm_delete' && GETPOST("file") && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_delete' && GETPOST("file") && $confirm == 'yes' && $permissionToAdd) {
 		$object->delete_photo($upload_dir."/".GETPOST("file"));
 	}
 
-	if ($action == 'addthumb' && GETPOST("file") && $permissiontoadd) {
+	if ($action == 'addthumb' && GETPOST("file") && $permissionToAdd) {
 		$object->addThumbs($upload_dir."/".GETPOST("file"));
 	}
 }

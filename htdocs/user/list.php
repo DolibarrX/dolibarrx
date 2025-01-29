@@ -216,9 +216,9 @@ if ($contextpage == 'employeelist' && !GETPOSTISSET('search_employee')) {
 }
 
 // Define value to know what current user can do on users
-$permissiontoadd = (isModEnabled('multicompany') && !empty($user->entity) && getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') ? false : (!empty($user->admin) || $user->hasRight("user", "user", "write")));
+$permissionToAdd = (isModEnabled('multicompany') && !empty($user->entity) && getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') ? false : (!empty($user->admin) || $user->hasRight("user", "user", "write")));
 $canreaduser = (!empty($user->admin) || $user->hasRight("user", "user", "read"));
-$canedituser = $permissiontoadd;
+$canedituser = $permissionToAdd;
 $candisableuser = (isModEnabled('multicompany') && !empty($user->entity) && getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') ? false : (!empty($user->admin) || $user->hasRight("user", "user", "delete")));
 $canreadgroup = $canreaduser;
 $caneditgroup = $canedituser;
@@ -309,7 +309,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	// Disable or Enable records
-	if (!$error && ($massaction == 'disable' || $massaction == 'reactivate') && $permissiontoadd) {
+	if (!$error && ($massaction == 'disable' || $massaction == 'reactivate') && $permissionToAdd) {
 		$objecttmp = new User($db);
 
 		$db->begin();
@@ -646,16 +646,16 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 
 // List of mass actions available
 $arrayofmassactions = [];
-if ($permissiontoadd) {
+if ($permissionToAdd) {
 	$arrayofmassactions['disable'] = img_picture('', 'close_title', 'class="picturefixedwidth"').$langs->trans("DisableUser");
 }
-if ($permissiontoadd) {
+if ($permissionToAdd) {
 	$arrayofmassactions['reactivate'] = img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("Reactivate");
 }
-if (isModEnabled('category') && $permissiontoadd) {
+if (isModEnabled('category') && $permissionToAdd) {
 	$arrayofmassactions['preaffecttag'] = img_picture('', 'category', 'class="picturefixedwidth"').$langs->trans("AffectTag");
 }
-if ($permissiontoadd) {
+if ($permissionToAdd) {
 	$arrayofmassactions['presetsupervisor'] = img_picture('', 'user', 'class="picturefixedwidth"').$langs->trans("SetSupervisor");
 }
 //if ($permissiontodelete) $arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
@@ -688,7 +688,7 @@ $newcardbutton .= dolGetButtonTitle($langs->trans('ViewList'), '', 'fa fa-bars p
 $newcardbutton .= dolGetButtonTitle($langs->trans('HierarchicView'), '', 'fa fa-stream paddingleft imgforviewmode', DOL_URL_ROOT.'/user/hierarchy.php?mode=hierarchy'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', (($mode == 'hierarchy') ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewKanban'), '', 'fa fa-th-list imgforviewmode', $_SERVER["PHP_SELF"].'?mode=kanban'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ($mode == 'kanban' ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitleSeparator();
-$newcardbutton .= dolGetButtonTitle($langs->trans('NewUser'), '', 'fa fa-plus-circle', $url, '', (int) $permissiontoadd);
+$newcardbutton .= dolGetButtonTitle($langs->trans('NewUser'), '', 'fa fa-plus-circle', $url, '', (int) $permissionToAdd);
 
 /*$moreparam = array('morecss'=>'btnTitleSelected');
 $morehtmlright = dolGetButtonTitle($langs->trans("List"), '', 'fa fa-list paddingleft imgforviewmode', DOL_URL_ROOT.'/user/list.php'.(($search_status != '' && $search_status >= 0) ? '?search_status='.$search_status : ''), '', 1, $moreparam);

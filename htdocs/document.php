@@ -127,19 +127,19 @@ $encoding = '';
 $action = GETPOST('action', 'aZ09');
 $original_file = GETPOST('file', 'alphanohtml');
 $hashp = GETPOST('hashp', 'aZ09');
-$modulepart = GETPOST('modulepart', 'alpha');
+$modulePart = GETPOST('modulepart', 'alpha');
 $urlsource = GETPOST('urlsource', 'alpha');
 $entity = GETPOSTINT('entity');
 
 // Security check
-if (empty($modulepart) && empty($hashp)) {
+if (empty($modulePart) && empty($hashp)) {
 	httponly_accessforbidden('Bad link. Bad value for parameter modulepart', 400);
 }
 if (empty($original_file) && empty($hashp)) {
 	httponly_accessforbidden('Bad link. Missing identification to find file (original_file or hashp)', 400);
 }
-if ($modulepart == 'fckeditor') {
-	$modulepart = 'medias'; // For backward compatibility
+if ($modulePart == 'fckeditor') {
+	$modulePart = 'medias'; // For backward compatibility
 }
 
 $socid = 0;
@@ -148,7 +148,7 @@ if ($user->socid > 0) {
 }
 
 // For some module part, dir may be privates
-if (in_array($modulepart, array('facture_paiement', 'unpaid'))) {
+if (in_array($modulePart, array('facture_paiement', 'unpaid'))) {
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$original_file = 'private/'.$user->id.'/'.$original_file; // If user has no permission to see all, output dir is specific to user
 	}
@@ -179,10 +179,10 @@ if (!empty($hashp)) {
 		if (is_numeric($tmp[0])) { // If first tmp is numeric, it is subdir of company for multicompany, we take next part.
 			$tmp = explode('/', $tmp[1], 2);
 		}
-		$moduleparttocheck = $tmp[0]; // moduleparttocheck is first part of path
+		$moduleParttocheck = $tmp[0]; // moduleparttocheck is first part of path
 
-		if ($modulepart) {	// Not required, so often not defined, for link using public hashp parameter.
-			if ($moduleparttocheck == $modulepart) {
+		if ($modulePart) {	// Not required, so often not defined, for link using public hashp parameter.
+			if ($moduleParttocheck == $modulePart) {
 				// We remove first level of directory
 				$original_file = (($tmp[1] ? $tmp[1].'/' : '').$ecmfile->filename); // this is relative to module dir
 				//var_dump($original_file); exit;
@@ -190,7 +190,7 @@ if (!empty($hashp)) {
 				httponly_accessforbidden('Bad link. File is from another module part.', 403);
 			}
 		} else {
-			$modulepart = $moduleparttocheck;
+			$modulePart = $moduleParttocheck;
 			$original_file = (($tmp[1] ? $tmp[1].'/' : '').$ecmfile->filename); // this is relative to module dir
 		}
 		$entity = $ecmfile->entity;
@@ -225,7 +225,7 @@ if (GETPOST('type', 'alpha')) {
 }
 // Security: Force to octet-stream if file is a dangerous file. For example when it is a .noexe file
 // We do not force if file is a javascript to be able to get js from website module with <script src="
-// Note: Force whatever is $modulepart seems ok.
+// Note: Force whatever is $modulePart seems ok.
 if (!in_array($type, array('text/x-javascript')) && !dolIsAllowedForPreview($original_file)) {
 	$type = 'application/octet-stream';
 }
@@ -237,16 +237,16 @@ $original_file = str_replace('..\\', '/', $original_file);
 
 
 // Security check
-if (empty($modulepart)) {
+if (empty($modulePart)) {
 	accessforbidden('Bad value for parameter modulepart');
 }
 
 // Check security and set return info with full path of file
-$check_access = dol_check_secure_access_document($modulepart, $original_file, $entity, $user, '');
+$check_access = dol_check_secure_access_document($modulePart, $original_file, $entity, $user, '');
 $accessallowed              = $check_access['accessallowed'];
 $sqlprotectagainstexternals = $check_access['sqlprotectagainstexternals'];
 $fullpath_original_file     = $check_access['original_file']; // $fullpath_original_file is now a full path name
-//var_dump($modulepart.' '.$fullpath_original_file.' '.$original_file.' '.$accessallowed);exit;
+//var_dump($modulePart.' '.$fullpath_original_file.' '.$original_file.' '.$accessallowed);exit;
 
 if (!empty($hashp)) {
 	$accessallowed = 1; // When using hashp, link is public so we force $accessallowed
@@ -305,7 +305,7 @@ if (!file_exists($fullpath_original_file_osencoded)) {
 
 // Hooks
 $hookManager->initHooks(array('document'));
-$parameters = array('ecmfile' => $ecmfile, 'modulepart' => $modulepart, 'original_file' => $original_file,
+$parameters = array('ecmfile' => $ecmfile, 'modulepart' => $modulePart, 'original_file' => $original_file,
 	'entity' => $entity, 'fullpath_original_file' => $fullpath_original_file,
 	'filename' => $filename, 'fullpath_original_file_osencoded' => $fullpath_original_file_osencoded);
 $object = new stdClass();

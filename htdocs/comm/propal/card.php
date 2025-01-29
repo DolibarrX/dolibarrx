@@ -1836,7 +1836,7 @@ if (empty($resHook)) {
 
 	// Actions to build doc
 	$upload_dir = !empty($config->propal->multidir_output[$object->entity]) ? $config->propal->multidir_output[$object->entity] : $config->propal->dir_output;
-	$permissiontoadd = $usercancreate;
+	$permissionToAdd = $usercancreate;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 }
 

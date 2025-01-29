@@ -85,14 +85,14 @@ $salaryBonPl = $object->checkIfSalaryBonPrelevement();
 if ($type == 'bank-transfer') {
 	$result = restrictedArea($user, 'paymentbybanktransfer', '', '', '');
 
-	$permissiontoadd = $user->hasRight('paymentbybanktransfer', 'create');
+	$permissionToAdd = $user->hasRight('paymentbybanktransfer', 'create');
 	$permissiontosend = $user->hasRight('paymentbybanktransfer', 'send');
 	$permissiontocreditdebit = $user->hasRight('paymentbybanktransfer', 'debit');
 	$permissiontodelete = $user->hasRight('paymentbybanktransfer', 'read');
 } else {
 	$result = restrictedArea($user, 'prelevement', '', '', 'bons');
 
-	$permissiontoadd = $user->hasRight('prelevement', 'bons', 'creer');
+	$permissionToAdd = $user->hasRight('prelevement', 'bons', 'creer');
 	$permissiontosend = $user->hasRight('prelevement', 'bons', 'send');
 	$permissiontocreditdebit = $user->hasRight('prelevement', 'bons', 'credit');
 	$permissiontodelete = $user->hasRight('prelevement', 'bons', 'read');
@@ -111,7 +111,7 @@ if ($resHook < 0) {
 }
 
 if (empty($resHook)) {
-	if ($action == 'setbankaccount' && $permissiontoadd) {
+	if ($action == 'setbankaccount' && $permissionToAdd) {
 		$object->oldcopy = dol_clone($object, 2);
 		$object->fk_bank_account = GETPOSTINT('fk_bank_account');
 
@@ -292,7 +292,7 @@ if ($id > 0 || $ref) {
 		$labelofbankfield = 'BankToPayCreditTransfer';
 	}
 	//print $langs->trans($labelofbankfield);
-	$caneditbank = $permissiontoadd;
+	$caneditbank = $permissionToAdd;
 	if ($object->status != $object::STATUS_DRAFT) {
 		$caneditbank = 0;
 	}
@@ -330,9 +330,9 @@ if ($id > 0 || $ref) {
 	}
 	print $langs->trans($labelfororderfield).'</td><td>';
 
-	$modulepart = 'prelevement';
+	$modulePart = 'prelevement';
 	if ($object->type == 'bank-transfer') {
-		$modulepart = 'paymentbybanktransfer';
+		$modulePart = 'paymentbybanktransfer';
 	}
 
 	if (isModEnabled('multicompany')) {
@@ -351,7 +351,7 @@ if ($id > 0 || $ref) {
 		$relativepath = 'receipts/'.$object->ref.'.xml';
 	}
 
-	print '<a data-ajax="false" href="'.DOL_URL_ROOT.'/document.php?type=text/plain&amp;modulepart='.$modulepart.'&amp;file='.urlencode($relativepath).'">'.$relativepath;
+	print '<a data-ajax="false" href="'.DOL_URL_ROOT.'/document.php?type=text/plain&amp;modulepart='.$modulePart.'&amp;file='.urlencode($relativepath).'">'.$relativepath;
 	print img_picture('', 'download', 'class="paddingleft"');
 	print '</a>';
 	print '</td></tr>';

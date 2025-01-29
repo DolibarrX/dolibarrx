@@ -74,12 +74,12 @@ class MemberCardController extends Controller
 		// set form card
 		$cardAccess = getDolGlobalString('WEBPORTAL_MEMBER_CARD_ACCESS');
 		$permissiontoread = (int) isModEnabled('member') && in_array($cardAccess, array('visible', 'edit'));
-		$permissiontoadd = (int) isModEnabled('member') && in_array($cardAccess, array('edit'));
+		$permissionToAdd = (int) isModEnabled('member') && in_array($cardAccess, array('edit'));
 		$permissiontodelete = 0;
 		$permissionnote = 0;
 		$permissiondellink = 0;
 		$formCardWebPortal = new FormCardWebPortal($this->db);
-		$formCardWebPortal->init('member', $context->logged_member->id, $permissiontoread, $permissiontoadd, $permissiontodelete, $permissionnote, $permissiondellink);
+		$formCardWebPortal->init('member', $context->logged_member->id, $permissiontoread, $permissionToAdd, $permissiontodelete, $permissionnote, $permissiondellink);
 
 		// hook for action
 		$hookRes = $this->hookDoAction();

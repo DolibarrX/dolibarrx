@@ -143,7 +143,7 @@ $usercansend = (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') || $user->hasRigh
 $permissionnote = $usercancreate; // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $usercancreate; // Used by the include of actions_dellink.inc.php
 $permissiontoedit = $usercancreate; // Used by the include of actions_lineupdown.inc.php
-$permissiontoadd = $usercancreate; // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd = $usercancreate; // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $usercandelete;
 
 $error = 0;
@@ -190,14 +190,14 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_lineupdown.inc.php'; // Must be 'include', not 'include_once'
 
 	// Link invoice to order
-	if (GETPOST('linkedOrder') && empty($cancel) && $id > 0 && $permissiontoadd) {
+	if (GETPOST('linkedOrder') && empty($cancel) && $id > 0 && $permissionToAdd) {
 		$object->fetch($id);
 		$object->fetch_thirdparty();
 		$result = $object->add_object_linked('order_supplier', GETPOST('linkedOrder'));
 	}
 
 	// Action clone object
-	if ($action == 'confirm_clone' && $confirm == 'yes' && $permissiontoadd) {
+	if ($action == 'confirm_clone' && $confirm == 'yes' && $permissionToAdd) {
 		$objectutil = dol_clone($object, 1); // To avoid to denaturate loaded object when setting some properties for clone. We use native clone to keep this->db valid.
 		'@phan-var-force FactureFournisseur $objectutil';  // Same object type for cloned object
 
@@ -2021,7 +2021,7 @@ if (empty($resHook)) {
 
 	// Actions to build doc
 	$upload_dir = $config->fournisseur->facture->dir_output;
-	$permissiontoadd = $usercancreate;
+	$permissionToAdd = $usercancreate;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 	// Make calculation according to calculationrule
@@ -3281,7 +3281,7 @@ if ($action == 'create') {
 		if (isModEnabled('project')) {
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
-			if ($permissiontoadd) {
+			if ($permissionToAdd) {
 				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.((int) $object->id).'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';

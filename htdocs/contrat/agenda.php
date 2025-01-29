@@ -104,7 +104,7 @@ if ($id > 0 || !empty($ref)) {
 	$result = $object->fetch($id, $ref);
 }
 
-$permissiontoadd = $user->hasRight('contrat', 'creer');     //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd = $user->hasRight('contrat', 'creer');     //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 
 $result = restrictedArea($user, 'contrat', $object->id);
 

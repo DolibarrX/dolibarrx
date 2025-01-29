@@ -71,13 +71,13 @@ class FormFile
 	 * Show an image with feature to edit it
 	 *
 	 * @param	string	$htmlname				HTML name
-	 * @param 	string 	$modulepart				Module part
+	 * @param 	string 	$modulePart				Module part
 	 * @param 	string 	$dirformainimage		Main directory of module
 	 * @param 	string 	$subdirformainimage		Subdirectory into main directory. Often ''.
 	 * @param 	string 	$fileformainimage		File name of image to show
 	 * @return	string							HTML code to show and edit image
 	 */
-	public function showImageToEdit(string $htmlname, string $modulepart, string $dirformainimage, string $subdirformainimage, string $fileformainimage)
+	public function showImageToEdit(string $htmlname, string $modulePart, string $dirformainimage, string $subdirformainimage, string $fileformainimage)
 	{
 		global $langs;
 
@@ -120,7 +120,7 @@ class FormFile
 			$out .= '</div>';
 			if (file_exists($dirformainimage.'/'.$subdirformainimage.'thumbs/'.$fileformainimagesmall)) {
 				$out .= '<div class="inline-block valignmiddle marginrightonly">';
-				$out .= '<img id="'.$htmlname.'" style="'.$max.'height: '.$imgheight.'px; '.$max.'width: '.$imgwidth.'px;" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&file='.urlencode($subdirformainimage.'thumbs/'.$fileformainimagesmall).'">';
+				$out .= '<img id="'.$htmlname.'" style="'.$max.'height: '.$imgheight.'px; '.$max.'width: '.$imgwidth.'px;" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulePart.'&file='.urlencode($subdirformainimage.'thumbs/'.$fileformainimagesmall).'">';
 				$out .= '</div>';
 			} elseif (!empty($fileformainimage)) {
 				// Regenerate the thumbs
@@ -129,13 +129,13 @@ class FormFile
 				}
 				$imgThumbSmall = vignette($dirformainimage.'/'.$subdirformainimage.$fileformainimage, $maxwidthmini, $maxheightmini, '_small', $quality);
 				$out .= '<div class="inline-block valignmiddle">';
-				$out .= '<img id="'.$htmlname.'" style="'.$max.'height: '.$imgheight.'px; '.$max.'width: '.$imgwidth.'px;" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&file='.urlencode($subdirformainimage.'thumbs/'.basename($imgThumbSmall)).'">';
+				$out .= '<img id="'.$htmlname.'" style="'.$max.'height: '.$imgheight.'px; '.$max.'width: '.$imgwidth.'px;" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulePart.'&file='.urlencode($subdirformainimage.'thumbs/'.basename($imgThumbSmall)).'">';
 				$out .= '</div>';
 			}
 		} elseif (!empty($fileformainimage)) {
 			if (file_exists($dirformainimage.'/'.$subdirformainimage.$fileformainimage)) {
 				$out .= '<div class="inline-block valignmiddle">';
-				$out .= '<img id="'.$htmlname.'" style="'.$max.'height: '.$imgheight.'px; '.$max.'width: '.$imgwidth.'px;" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&file='.urlencode($subdirformainimage.$fileformainimage).'">';
+				$out .= '<img id="'.$htmlname.'" style="'.$max.'height: '.$imgheight.'px; '.$max.'width: '.$imgwidth.'px;" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulePart.'&file='.urlencode($subdirformainimage.$fileformainimage).'">';
 				$out .= '</div>';
 				$out .= '<div class="inline-block valignmiddle marginrightonly"><a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=remove'.$htmlname.'&token='.newToken().'">'.img_delete($langs->trans("Delete"), '', 'marginleftonly').'</a></div>';
 			} else {
@@ -390,7 +390,7 @@ class FormFile
 	/**
 	 *      Show the box with list of available documents for object
 	 *
-	 *      @param      string				$modulepart         propal, facture, facture_fourn, ...
+	 *      @param      string				$modulePart         propal, facture, facture_fourn, ...
 	 *      @param      string				$modulesubdir       Sub-directory to scan (Example: '0/1/10', 'FA/DD/MM/YY/9999'). Use '' if file is not into subdir of module.
 	 *      @param      string				$filedir            Directory to scan
 	 *      @param      string				$urlsource          Url of origin page (for return)
@@ -409,11 +409,11 @@ class FormFile
 	 * 		@return		int										Return integer <0 if KO, number of shown files if OK
 	 *      @deprecated                                         Use print xxx->showdocuments() instead.
 	 */
-	public function show_documents($modulepart, $modulesubdir, $filedir, $urlsource, $genallowed, $delallowed = 0, $modelselected = '', $allowgenifempty = 1, $forcenomultilang = 0, $iconPDF = 0, $notused = 0, $noform = 0, $param = '', $title = '', $buttonlabel = '', $codelang = '')
+	public function show_documents($modulePart, $modulesubdir, $filedir, $urlsource, $genallowed, $delallowed = 0, $modelselected = '', $allowgenifempty = 1, $forcenomultilang = 0, $iconPDF = 0, $notused = 0, $noform = 0, $param = '', $title = '', $buttonlabel = '', $codelang = '')
 	{
 		// phpcs:enable
 		$this->numoffiles = 0;
-		print $this->showdocuments($modulepart, $modulesubdir, $filedir, $urlsource, $genallowed, $delallowed, $modelselected, $allowgenifempty, $forcenomultilang, $iconPDF, $notused, $noform, $param, $title, $buttonlabel, $codelang);
+		print $this->showdocuments($modulePart, $modulesubdir, $filedir, $urlsource, $genallowed, $delallowed, $modelselected, $allowgenifempty, $forcenomultilang, $iconPDF, $notused, $noform, $param, $title, $buttonlabel, $codelang);
 		return $this->numoffiles;
 	}
 
@@ -421,7 +421,7 @@ class FormFile
 	 *      Return a string to show the box with list of available documents for object.
 	 *      This also set the property $this->numoffiles
 	 *
-	 *      @param      string				$modulepart         Module the files are related to ('propal', 'facture', 'facture_fourn', 'mymodule', 'mymodule:MyObject', 'mymodule_temp', ...)
+	 *      @param      string				$modulePart         Module the files are related to ('propal', 'facture', 'facture_fourn', 'mymodule', 'mymodule:MyObject', 'mymodule_temp', ...)
 	 *      @param      string				$modulesubdir       Existing (so sanitized) sub-directory to scan (Example: '0/1/10', 'FA/DD/MM/YY/9999'). Use '' if file is not into a subdir of module.
 	 *      @param      string				$filedir            Directory to scan (must not end with a /). Example: '/mydolibarrdocuments/facture/FAYYMM-1234'
 	 *      @param      string				$urlsource          Url of origin page (for return)
@@ -444,7 +444,7 @@ class FormFile
 	 *      @param		string				$tooltipontemplatecombo		Text to show on a tooltip after the combo list of templates
 	 * 		@return		string|int             					Output string with HTML array of documents (might be empty string)
 	 */
-	public function showdocuments($modulepart, $modulesubdir, $filedir, $urlsource, $genallowed, $delallowed = 0, $modelselected = '', $allowgenifempty = 1, $forcenomultilang = 0, $iconPDF = 0, $notused = 0, $noform = 0, $param = '', $title = '', $buttonlabel = '', $codelang = '', $morePicture = '', $object = null, $hideifempty = 0, $removeaction = 'remove_file', $tooltipontemplatecombo = '')
+	public function showdocuments($modulePart, $modulesubdir, $filedir, $urlsource, $genallowed, $delallowed = 0, $modelselected = '', $allowgenifempty = 1, $forcenomultilang = 0, $iconPDF = 0, $notused = 0, $noform = 0, $param = '', $title = '', $buttonlabel = '', $codelang = '', $morePicture = '', $object = null, $hideifempty = 0, $removeaction = 'remove_file', $tooltipontemplatecombo = '')
 	{
 		global $dolibarr_main_url_root;
 
@@ -459,7 +459,7 @@ class FormFile
 		$resHook = 0;
 		if (is_object($hookManager)) {
 			$parameters = array(
-				'modulepart' => &$modulepart,
+				'modulepart' => &$modulePart,
 				'modulesubdir' => &$modulesubdir,
 				'filedir' => &$filedir,
 				'urlsource' => &$urlsource,
@@ -496,7 +496,7 @@ class FormFile
 
 		// For backward compatibility
 		if (!empty($iconPDF)) {
-			return $this->getDocumentsLink($modulepart, $modulesubdir, $filedir);
+			return $this->getDocumentsLink($modulePart, $modulesubdir, $filedir);
 		}
 
 		// Add entity in $param if not already exists
@@ -506,7 +506,7 @@ class FormFile
 
 		$printer = 0;
 		// The direct print feature is implemented only for such elements
-		if (in_array($modulepart, array('contract', 'facture', 'supplier_proposal', 'propal', 'proposal', 'order', 'order', 'expedition', 'order_fournisseur', 'expensereport', 'delivery', 'ticket'))) {
+		if (in_array($modulePart, array('contract', 'facture', 'supplier_proposal', 'propal', 'proposal', 'order', 'order', 'expedition', 'order_fournisseur', 'expensereport', 'delivery', 'ticket'))) {
 			$printer = ($user->hasRight('printing', 'read') && isModEnabled('printing'));
 		}
 
@@ -530,7 +530,7 @@ class FormFile
 		$out .= "\n".'<!-- Start show_document -->'."\n";
 		//print 'filedir='.$filedir;
 
-		if (preg_match('/massfilesarea_/', $modulepart)) {
+		if (preg_match('/massfilesarea_/', $modulePart)) {
 			$out .= '<div id="show_files"><br></div>'."\n";
 			$title = $langs->trans("MassFilesArea").' <a href="" id="togglemassfilesarea" ref="shown">('.$langs->trans("Hide").')</a>';
 			$title .= '<script nonce="'.getNonce().'">
@@ -538,13 +538,13 @@ class FormFile
 					jQuery(\'#togglemassfilesarea\').click(function() {
 						if (jQuery(\'#togglemassfilesarea\').attr(\'ref\') == "shown")
 						{
-							jQuery(\'#'.$modulepart.'_table\').hide();
+							jQuery(\'#'.$modulePart.'_table\').hide();
 							jQuery(\'#togglemassfilesarea\').attr("ref", "hidden");
 							jQuery(\'#togglemassfilesarea\').text("('.dol_escape_js($langs->trans("Show")).')");
 						}
 						else
 						{
-							jQuery(\'#'.$modulepart.'_table\').show();
+							jQuery(\'#'.$modulePart.'_table\').show();
 							jQuery(\'#togglemassfilesarea\').attr("ref","shown");
 							jQuery(\'#togglemassfilesarea\').text("('.dol_escape_js($langs->trans("Hide")).')");
 						}
@@ -559,12 +559,12 @@ class FormFile
 			$titletoshow = ($title == 'none' ? '' : $title);
 		}
 
-		$submodulepart = $modulepart;
+		$submodulepart = $modulePart;
 
 		// modulepart = 'nameofmodule' or 'nameofmodule:NameOfObject'
-		$tmp = explode(':', $modulepart);
+		$tmp = explode(':', $modulePart);
 		if (!empty($tmp[1])) {
-			$modulepart = $tmp[0];
+			$modulePart = $tmp[0];
 			$submodulepart = $tmp[1];
 		}
 
@@ -576,7 +576,7 @@ class FormFile
 		if ($genallowed) {
 			$modellist = [];
 
-			if ($modulepart == 'company') {
+			if ($modulePart == 'company') {
 				$showempty = 1; // can have no template active
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
@@ -584,63 +584,63 @@ class FormFile
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php';
 					$modellist = ModeleThirdPartyDoc::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'propal') {
+			} elseif ($modulePart == 'propal') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/propale/modules_propale.php';
 					$modellist = ModelePDFPropales::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'supplier_proposal') {
+			} elseif ($modulePart == 'supplier_proposal') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_proposal/modules_supplier_proposal.php';
 					$modellist = ModelePDFSupplierProposal::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'order') {
+			} elseif ($modulePart == 'order') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/order/modules_order.php';
 					$modellist = ModelePDFOrders::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'expedition') {
+			} elseif ($modulePart == 'expedition') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/expedition/modules_expedition.php';
 					$modellist = ModelePdfExpedition::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'reception') {
+			} elseif ($modulePart == 'reception') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/reception/modules_reception.php';
 					$modellist = ModelePdfReception::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'delivery') {
+			} elseif ($modulePart == 'delivery') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/delivery/modules_delivery.php';
 					$modellist = ModelePDFDeliveryOrder::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'ficheinter') {
+			} elseif ($modulePart == 'ficheinter') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/fichinter/modules_fichinter.php';
 					$modellist = ModelePDFFicheinter::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'facture') {
+			} elseif ($modulePart == 'facture') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
 					$modellist = ModelePDFFactures::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'contract') {
+			} elseif ($modulePart == 'contract') {
 				$showempty = 1; // can have no template active
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
@@ -648,56 +648,56 @@ class FormFile
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/contract/modules_contract.php';
 					$modellist = ModelePDFContract::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'project') {
+			} elseif ($modulePart == 'project') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/project/modules_project.php';
 					$modellist = ModelePDFProjects::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'project_task') {
+			} elseif ($modulePart == 'project_task') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/project/task/modules_task.php';
 					$modellist = ModelePDFTask::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'product') {
+			} elseif ($modulePart == 'product') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/product/modules_product.class.php';
 					$modellist = ModelePDFProduct::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'product_batch') {
+			} elseif ($modulePart == 'product_batch') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/product_batch/modules_product_batch.class.php';
 					$modellist = ModelePDFProductBatch::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'stock') {
+			} elseif ($modulePart == 'stock') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/stock/modules_stock.php';
 					$modellist = ModelePDFStock::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'hrm') {
+			} elseif ($modulePart == 'hrm') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/hrm/modules_evaluation.php';
 					$modellist = ModelePDFEvaluation::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'movement') {
+			} elseif ($modulePart == 'movement') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/movement/modules_movement.php';
 					$modellist = ModelePDFMovement::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'export') {
+			} elseif ($modulePart == 'export') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
@@ -705,14 +705,14 @@ class FormFile
 					//$modellist = ModeleExports::liste_modeles($this->db);		// liste_modeles() does not exists. We are using listOfAvailableExportFormat() method instead that return a different array format.
 					$modellist = [];
 				}
-			} elseif ($modulepart == 'order_fournisseur' || $modulepart == 'supplier_order') {
+			} elseif ($modulePart == 'order_fournisseur' || $modulePart == 'supplier_order') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_orderfournisseur.php';
 					$modellist = ModelePDFSuppliersOrders::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'facture_fournisseur' || $modulepart == 'supplier_invoice') {
+			} elseif ($modulePart == 'facture_fournisseur' || $modulePart == 'supplier_invoice') {
 				$showempty = 1; // can have no template active
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
@@ -720,58 +720,58 @@ class FormFile
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_invoice/modules_facturefournisseur.php';
 					$modellist = ModelePDFSuppliersInvoices::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'supplier_payment') {
+			} elseif ($modulePart == 'supplier_payment') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_payment/modules_supplier_payment.php';
 					$modellist = ModelePDFSuppliersPayments::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'remisecheque') {
+			} elseif ($modulePart == 'remisecheque') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/cheque/modules_chequereceipts.php';
 					$modellist = ModeleChequeReceipts::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'donation') {
+			} elseif ($modulePart == 'donation') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/dons/modules_don.php';
 					$modellist = ModeleDon::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'member') {
+			} elseif ($modulePart == 'member') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/member/modules_cards.php';
 					$modellist = ModelePDFCards::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'agenda' || $modulepart == 'actions') {
+			} elseif ($modulePart == 'agenda' || $modulePart == 'actions') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/action/modules_action.php';
 					$modellist = ModeleAction::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'expensereport') {
+			} elseif ($modulePart == 'expensereport') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/expensereport/modules_expensereport.php';
 					$modellist = ModeleExpenseReport::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'unpaid') {
+			} elseif ($modulePart == 'unpaid') {
 				$modellist = '';
-			} elseif ($modulepart == 'user') {
+			} elseif ($modulePart == 'user') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/user/modules_user.class.php';
 					$modellist = ModelePDFUser::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'usergroup') {
+			} elseif ($modulePart == 'usergroup') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
@@ -780,12 +780,12 @@ class FormFile
 				}
 			} else {
 				// For normalized standard modules
-				$file = dol_buildpath('/core/modules/'.$modulepart.'/modules_'.strtolower($submodulepart).'.php', 0);
+				$file = dol_buildpath('/core/modules/'.$modulePart.'/modules_'.strtolower($submodulepart).'.php', 0);
 				if (file_exists($file)) {
 					$res = include_once $file;
 				} else {
 					// For normalized external modules.
-					$file = dol_buildpath('/'.$modulepart.'/core/modules/'.$modulepart.'/modules_'.strtolower($submodulepart).'.php', 0);
+					$file = dol_buildpath('/'.$modulePart.'/core/modules/'.$modulePart.'/modules_'.strtolower($submodulepart).'.php', 0);
 					$res = include_once $file;
 				}
 
@@ -794,7 +794,7 @@ class FormFile
 				if (class_exists($class)) {
 					$modellist = call_user_func($class.'::liste_modeles', $this->db);
 				} else {
-					dol_print_error($this->db, "Bad value for modulepart '".$modulepart."' in showdocuments (class ".$class." for Doc generation not found)");
+					dol_print_error($this->db, "Bad value for modulepart '".$modulePart."' in showdocuments (class ".$class." for Doc generation not found)");
 					return -1;
 				}
 			}
@@ -869,17 +869,17 @@ class FormFile
 				$genbutton .= ' disabled';
 			}
 			$genbutton .= '>';
-			if ($allowgenifempty && !is_array($modellist) && empty($modellist) && empty($config->dol_no_mouse_hover) && $modulepart != 'unpaid') {
+			if ($allowgenifempty && !is_array($modellist) && empty($modellist) && empty($config->dol_no_mouse_hover) && $modulePart != 'unpaid') {
 				$langs->load("errors");
 				$genbutton .= ' '.img_warning($langs->transnoentitiesnoconv("WarningNoDocumentModelActivated"));
 				/*if (empty($modellist)) {
 					$genbutton .= '<input type="hidden" name="model" value="auto">';
 				}*/
 			}
-			if (!$allowgenifempty && !is_array($modellist) && empty($modellist) && empty($config->dol_no_mouse_hover) && $modulepart != 'unpaid') {
+			if (!$allowgenifempty && !is_array($modellist) && empty($modellist) && empty($config->dol_no_mouse_hover) && $modulePart != 'unpaid') {
 				$genbutton = '';
 			}
-			if (empty($modellist) && !$showempty && $modulepart != 'unpaid') {
+			if (empty($modellist) && !$showempty && $modulePart != 'unpaid') {
 				$genbutton = '';
 			}
 			$out .= $genbutton;
@@ -896,7 +896,7 @@ class FormFile
 			$out .= '</tr>';
 
 			// Execute hooks
-			$parameters = array('colspan' => ($colspan + $colspanmore), 'socid' => (isset($GLOBALS['socid']) ? $GLOBALS['socid'] : ''), 'id' => (isset($GLOBALS['id']) ? $GLOBALS['id'] : ''), 'modulepart' => $modulepart);
+			$parameters = array('colspan' => ($colspan + $colspanmore), 'socid' => (isset($GLOBALS['socid']) ? $GLOBALS['socid'] : ''), 'id' => (isset($GLOBALS['id']) ? $GLOBALS['id'] : ''), 'modulepart' => $modulePart);
 			if (is_object($hookManager)) {
 				$resHook = $hookManager->executeHooks('formBuilddocOptions', $parameters, $GLOBALS['object']);
 				$out .= $hookManager->resPrint;
@@ -916,12 +916,12 @@ class FormFile
 			$out .= '<!-- html.formfile::showdocuments -->'."\n";
 
 			// Show title of array if not already shown
-			if ((!empty($file_list) || !empty($link_list) || preg_match('/^massfilesarea/', $modulepart))
+			if ((!empty($file_list) || !empty($link_list) || preg_match('/^massfilesarea/', $modulePart))
 				&& !$headershown) {
 				$headershown = 1;
 				$out .= '<div class="titre">'.$titletoshow.'</div>'."\n";
 				$out .= '<div class="div-table-responsive-no-min">';
-				$out .= '<table class="noborder centpercent" id="'.$modulepart.'_table">'."\n";
+				$out .= '<table class="noborder centpercent" id="'.$modulePart.'_table">'."\n";
 			}
 
 			// Loop on each file found
@@ -963,7 +963,7 @@ class FormFile
 					if ($modulesubdir) {
 						$relativepath = (string) $modulesubdir."/".$file["name"]; // Cas propal, facture...
 					}
-					if ($modulepart == 'export') {
+					if ($modulePart == 'export') {
 						$relativepath = (string) $file["name"]; // Other case
 					}
 
@@ -975,7 +975,7 @@ class FormFile
 					}
 
 					// Show file name with link to download
-					$imgpreview = $this->showPreview($file, $modulepart, $relativepath, 0, $param);
+					$imgpreview = $this->showPreview($file, $modulePart, $relativepath, 0, $param);
 
 					$out .= '<td class="minwidth200 tdoverflowmax300">';
 					if ($imgpreview) {
@@ -984,13 +984,13 @@ class FormFile
 						$out .= '<span class="spanoverflow">';
 					}
 					if (is_object($ecmfile)) {
-						$out .= $ecmfile->getNomUrl(1, $modulepart, 0, 0, ' documentdownload');
+						$out .= $ecmfile->getNomUrl(1, $modulePart, 0, 0, ' documentdownload');
 					} else {
 						$out .= '<a class="documentdownload paddingright" ';
 						if (getDolGlobalInt('MAIN_DISABLE_FORCE_SAVEAS') == 2) {
 							$out .= 'target="_blank" ';
 						}
-						$out .= 'href="'.$documenturl.'?modulepart='.$modulepart.'&file='.urlencode($relativepath).($param ? '&'.$param : '').'"';
+						$out .= 'href="'.$documenturl.'?modulepart='.$modulePart.'&file='.urlencode($relativepath).($param ? '&'.$param : '').'"';
 
 						$mime = dol_mimetype($relativepath, '', 0);
 						if (preg_match('/text/', $mime)) {
@@ -1049,12 +1049,12 @@ class FormFile
 							$tmpurlsource = preg_replace('/#[a-zA-Z0-9_]*$/', '', $urlsource);
 							$out .= '<a class="reposition" href="'.$tmpurlsource.((strpos($tmpurlsource, '?') === false) ? '?' : '&').'action='.urlencode($removeaction).'&token='.newToken().'&file='.urlencode($relativepath);
 							$out .= ($param ? '&'.$param : '');
-							//$out.= '&modulepart='.$modulepart; // TODO obsolete ?
+							//$out.= '&modulepart='.$modulePart; // TODO obsolete ?
 							//$out.= '&urlsource='.urlencode($urlsource); // TODO obsolete ?
 							$out .= '">'.img_picture($langs->trans("Delete"), 'delete').'</a>';
 						}
 						if ($printer) {
-							$out .= '<a class="marginleftonly reposition" href="'.$urlsource.(strpos($urlsource, '?') ? '&' : '?').'action=print_file&token='.newToken().'&printer='.urlencode($modulepart).'&file='.urlencode($relativepath);
+							$out .= '<a class="marginleftonly reposition" href="'.$urlsource.(strpos($urlsource, '?') ? '&' : '?').'action=print_file&token='.newToken().'&printer='.urlencode($modulePart).'&file='.urlencode($relativepath);
 							$out .= ($param ? '&'.$param : '');
 							$out .= '">'.img_picture($langs->trans("PrintFile", $relativepath), 'printer.png').'</a>';
 						}
@@ -1069,7 +1069,7 @@ class FormFile
 						$addColumnForPicture = ($delallowed || $printer || $morePicture);
 						$colspan = (4 + ($addColumnForPicture ? 1 : 0));
 						$colspanmore = 0;
-						$parameters = array('colspan' => ($colspan + $colspanmore), 'socid' => (isset($GLOBALS['socid']) ? $GLOBALS['socid'] : ''), 'id' => (isset($GLOBALS['id']) ? $GLOBALS['id'] : ''), 'modulepart' => $modulepart, 'relativepath' => $relativepath);
+						$parameters = array('colspan' => ($colspan + $colspanmore), 'socid' => (isset($GLOBALS['socid']) ? $GLOBALS['socid'] : ''), 'id' => (isset($GLOBALS['id']) ? $GLOBALS['id'] : ''), 'modulepart' => $modulePart, 'relativepath' => $relativepath);
 						$res = $hookManager->executeHooks('formBuilddocLineOptions', $parameters, $file);
 						if (empty($res)) {
 							$out .= $hookManager->resPrint; // Complete line
@@ -1143,7 +1143,7 @@ class FormFile
 	 *  You may want to call this into a div like this:
 	 *  print '<div class="inline-block valignmiddle">'.$formfile->getDocumentsLink($element_doc, $filename, $filedir).'</div>';
 	 *
-	 *	@param	string	$modulepart		'propal', 'facture', 'facture_fourn', ...
+	 *	@param	string	$modulePart		'propal', 'facture', 'facture_fourn', ...
 	 *	@param	string	$modulesubdir	Sub-directory to scan (Example: '0/1/10', 'FA/DD/MM/YY/9999'). Use '' if file is not into subdir of module.
 	 *	@param	string	$filedir		Full path to directory to scan
 	 *  @param	string	$filter			Filter filenames on this regex string (Example: '\.pdf$')
@@ -1151,7 +1151,7 @@ class FormFile
 	 *  @param	int 	$allfiles		0=Only generated docs, 1=All files
 	 *	@return	string              	Output string with HTML link of documents (might be empty string). This also fill the array ->infofiles
 	 */
-	public function getDocumentsLink($modulepart, $modulesubdir, $filedir, $filter = '', $morecss = 'valignmiddle', $allfiles = 0)
+	public function getDocumentsLink($modulePart, $modulesubdir, $filedir, $filter = '', $morecss = 'valignmiddle', $allfiles = 0)
 	{
 		global $config, $langs;
 
@@ -1202,10 +1202,10 @@ class FormFile
 					$relativepath = (string) $modulesubdir."/".$file["name"]; // Cas propal, facture...
 				}
 				// Autre cas
-				if ($modulepart == 'donation') {
+				if ($modulePart == 'donation') {
 					$relativepath = (string) get_exdir($modulesubdir, 2, 0, 0, null, 'donation').$file["name"];
 				}
-				if ($modulepart == 'export') {
+				if ($modulePart == 'export') {
 					$relativepath = (string) $file["name"];
 				}
 
@@ -1220,7 +1220,7 @@ class FormFile
 
 				// Preview
 				if (!empty($config->use_javascript_ajax) && ($config->browser->layout != 'phone')) {
-					$tmparray = getAdvancedPreviewUrl($modulepart, $relativepath, 1, '&entity='.$entity);
+					$tmparray = getAdvancedPreviewUrl($modulePart, $relativepath, 1, '&entity='.$entity);
 					if ($tmparray && $tmparray['url']) {
 						$tmpout .= '<li><a href="'.$tmparray['url'].'"'.($tmparray['css'] ? ' class="'.$tmparray['css'].'"' : '').($tmparray['mime'] ? ' mime="'.$tmparray['mime'].'"' : '').($tmparray['target'] ? ' target="'.$tmparray['target'].'"' : '').'>';
 						//$tmpout.= img_picture('','detail');
@@ -1234,7 +1234,7 @@ class FormFile
 				if (getDolGlobalInt('MAIN_DISABLE_FORCE_SAVEAS') == 2) {
 					$tmpout .= 'target="_blank" ';
 				}
-				$tmpout .= 'href="'.DOL_URL_ROOT.'/document.php?modulepart='.$modulepart.'&amp;entity='.$entity.'&amp;file='.urlencode($relativepath).'"';
+				$tmpout .= 'href="'.DOL_URL_ROOT.'/document.php?modulepart='.$modulePart.'&amp;entity='.$entity.'&amp;file='.urlencode($relativepath).'"';
 				$mime = dol_mimetype($relativepath, '', 0);
 				if (preg_match('/text/', $mime)) {
 					$tmpout .= ' target="_blank" rel="noopener noreferrer"';
@@ -1267,13 +1267,13 @@ class FormFile
 	 *
 	 *	@param array<array{name:string,path:string,level1name:string,relativename:string,fullname:string,date:string,size:int,perm:int,type:string}>	$filearray Array of files loaded by dol_dir_list('files') function before calling this.
 	 * 	@param	 ?CommonObject	$object				Object on which document is linked to.
-	 * 	@param	 string			$modulepart			Value for modulepart used by download or viewimage wrapper.
+	 * 	@param	 string			$modulePart			Value for modulepart used by download or viewimage wrapper.
 	 * 	@param	 string			$param				Parameters on sort links (param must start with &, example &aaa=bbb&ccc=ddd)
 	 * 	@param	 int<0,1>		$forcedownload		Force to open dialog box "Save As" when clicking on file.
 	 * 	@param	 string			$relativepath		Relative path of docs (autodefined if not provided), relative to module dir, not to MAIN_DATA_ROOT.
 	 * 	@param	 int<0,1>		$permonobject		Permission on object (so permission to delete or crop document)
 	 * 	@param	 int<0,6>		$useinecm			Change output to add more information:
-	 * 												0, 4, 5, 6: Add a preview column. Show also a rename button. Show also a crop button for some values of $modulepart (must be supported into hard coded list in this function + photos_resize.php + restrictedArea + checkUserAccessToObject)
+	 * 												0, 4, 5, 6: Add a preview column. Show also a rename button. Show also a crop button for some values of $modulePart (must be supported into hard coded list in this function + photos_resize.php + restrictedArea + checkUserAccessToObject)
 	 * 												1: Add link to edit ECM entry
 	 * 												2: Add rename and crop link
 	 *                                  		    5: Add link to edit ECM entry and add a preview column
@@ -1294,7 +1294,7 @@ class FormFile
 	 * 	@return	 int								Return integer <0 if KO, nb of files shown if OK
 	 *  @see list_of_autoecmfiles()
 	 */
-	public function list_of_documents($filearray, $object, $modulepart, $param = '', $forcedownload = 0, $relativepath = '', $permonobject = 1, $useinecm = 0, $textifempty = '', $maxlength = 0, $title = '', $url = '', $showrelpart = 0, $permtoeditline = -1, $upload_dir = '', $sortfield = '', $sortorder = 'ASC', $disablemove = 1, $addfilterfields = 0, $disablecrop = -1, $moreattrondiv = '', $moreoptions = [])
+	public function list_of_documents($filearray, $object, $modulePart, $param = '', $forcedownload = 0, $relativepath = '', $permonobject = 1, $useinecm = 0, $textifempty = '', $maxlength = 0, $title = '', $url = '', $showrelpart = 0, $permtoeditline = -1, $upload_dir = '', $sortfield = '', $sortorder = 'ASC', $disablemove = 1, $addfilterfields = 0, $disablecrop = -1, $moreattrondiv = '', $moreoptions = [])
 	{
 		// phpcs:enable
 		global $user, $config, $langs, $hookManager, $form;
@@ -1304,7 +1304,7 @@ class FormFile
 		if ($disablecrop == -1) {
 			$disablecrop = 1;
 			// Values here must be supported by the photos_resize.php page.
-			if (in_array($modulepart, array('bank', 'bom', 'expensereport', 'facture', 'facture_fournisseur', 'holiday', 'medias', 'member', 'mrp', 'project', 'product', 'produit', 'propal', 'service', 'societe', 'tax', 'tax-vat', 'ticket', 'user'))) {
+			if (in_array($modulePart, array('bank', 'bom', 'expensereport', 'facture', 'facture_fournisseur', 'holiday', 'medias', 'member', 'mrp', 'project', 'product', 'produit', 'propal', 'service', 'societe', 'tax', 'tax-vat', 'ticket', 'user'))) {
 				$disablecrop = 0;
 			}
 		}
@@ -1337,7 +1337,7 @@ class FormFile
 		$hookManager->initHooks(array('formfile'));
 		$parameters = array(
 				'filearray' => $filearray,
-				'modulepart' => $modulepart,
+				'modulepart' => $modulePart,
 				'param' => $param,
 				'forcedownload' => $forcedownload,
 				'relativepath' => $relativepath, // relative filename to module dir
@@ -1369,7 +1369,7 @@ class FormFile
 
 			if ($permtoeditline < 0) {  // Old behaviour for backward compatibility. New feature should call method with value 0 or 1
 				$permtoeditline = 0;
-				if (in_array($modulepart, array('product', 'produit', 'service'))) {
+				if (in_array($modulePart, array('product', 'produit', 'service'))) {
 					if ($user->hasRight('produit', 'creer') && $object->type == Product::TYPE_PRODUCT) {
 						$permtoeditline = 1;
 					}
@@ -1408,7 +1408,7 @@ class FormFile
 				print '<input type="hidden" name="token" value="'.newToken().'">';
 				print '<input type="hidden" name="action" value="renamefile">';
 				print '<input type="hidden" name="id" value="'.(is_object($object) ? $object->id : '').'">';
-				print '<input type="hidden" name="modulepart" value="'.$modulepart.'">';
+				print '<input type="hidden" name="modulepart" value="'.$modulePart.'">';
 			}
 
 			print '<div class="div-table-responsive-no-min"'.($moreattrondiv ? ' '.$moreattrondiv : '').'>';
@@ -1467,7 +1467,7 @@ class FormFile
 			$nboflines = 0;
 			$lastrowid = 0;
 			$parametersByDefault = array(
-				'modulepart' => $modulepart,
+				'modulepart' => $modulePart,
 				'relativepath' => $relativepath,
 				'permtoedit' => $permtoeditline,
 				'permonobject' => $permonobject,
@@ -1480,19 +1480,19 @@ class FormFile
 					//var_dump($filearray[$key]);
 
 					// get specific parameters from file attributes if set or get default ones
-					$modulepart = ($file['modulepart'] ?? $parametersByDefault['modulepart']);
+					$modulePart = ($file['modulepart'] ?? $parametersByDefault['modulepart']);
 					$relativepath = ($file['relativepath'] ?? $parametersByDefault['relativepath']);
 					$permtoeditline = ($file['permtoedit'] ?? $parametersByDefault['permtoedit']);
 					$permonobject = ($file['permonobject'] ?? $parametersByDefault['permonobject']);
 
-					// Note: for supplier invoice, $modulepart may be already 'facture_fournisseur' and $relativepath may be already '6/1/SI2210-0013/'
-					if (empty($relativepath) || empty($modulepart)) {
+					// Note: for supplier invoice, $modulePart may be already 'facture_fournisseur' and $relativepath may be already '6/1/SI2210-0013/'
+					if (empty($relativepath) || empty($modulePart)) {
 						$filepath = $file['level1name'].'/'.$file['name'];
 					} else {
 						$filepath = $relativepath.$file['name'];
 					}
-					if (empty($modulepart)) {
-						$modulepart = basename(dirname($file['path']));
+					if (empty($modulePart)) {
+						$modulePart = basename(dirname($file['path']));
 					}
 					if (empty($relativepath)) {
 						$relativepath = preg_replace('/\/(.+)/', '', $filepath) . '/';
@@ -1516,7 +1516,7 @@ class FormFile
 					if (getDolGlobalInt('MAIN_DISABLE_FORCE_SAVEAS') == 2) {
 						print 'target="_blank" ';
 					}
-					print 'href="'.DOL_URL_ROOT.'/document.php?modulepart='.$modulepart;
+					print 'href="'.DOL_URL_ROOT.'/document.php?modulepart='.$modulePart;
 					if ($forcedownload) {
 						print '&attachment=1';
 					}
@@ -1550,7 +1550,7 @@ class FormFile
 					}
 					// Preview link
 					if (!$editline) {
-						print $this->showPreview($file, $modulepart, $filepath, 0, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
+						print $this->showPreview($file, $modulePart, $filepath, 0, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
 					}
 
 					print "</td>\n";
@@ -1588,9 +1588,9 @@ class FormFile
 							//print $file['path'].'/'.$smallfile.'<br>';
 
 
-							$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
+							$urlforhref = getAdvancedPreviewUrl($modulePart, $relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
 							if (empty($urlforhref)) {
-								$urlforhref = DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']));
+								$urlforhref = DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulePart).'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']));
 								print '<a href="'.$urlforhref.'" class="aphoto" target="_blank" rel="noopener noreferrer">';
 							} else {
 								print '<a href="'.$urlforhref['url'].'" class="'.$urlforhref['css'].'" target="'.$urlforhref['target'].'" mime="'.$urlforhref['mime'].'">';
@@ -1602,7 +1602,7 @@ class FormFile
 								//print ' style="max-height: '.$maxheightmini.'px"';
 								print ' style="max-height: 24px"';
 							}
-							print ' src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.$smallfile);
+							print ' src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulePart).'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.$smallfile);
 							if (!empty($filearray[$key]['date'])) {	// We know the date of file, we can use it as cache key so URL will be in browser cache as long as file date is not modified.
 								print '&cache='.urlencode((string) $filearray[$key]['date']);
 							}
@@ -1659,8 +1659,8 @@ class FormFile
 						}
 
 						if (empty($useinecm) || $useinecm == 2 || $useinecm == 3 || $useinecm == 6) {	// 6=Media file manager
-							$newmodulepart = $modulepart;
-							if (in_array($modulepart, array('product', 'produit', 'service'))) {
+							$newmodulepart = $modulePart;
+							if (in_array($modulePart, array('product', 'produit', 'service'))) {
 								$newmodulepart = 'produit|service';
 							}
 							if (image_format_supported($file['name']) > 0) {
@@ -1672,15 +1672,15 @@ class FormFile
 										$moreparaminurl .= '&website='.GETPOST('website', 'alpha');
 									}
 									// Set the backtourl
-									if ($modulepart == 'medias' && !GETPOST('website')) {
-										$moreparaminurl .= '&backtourl='.urlencode(DOL_URL_ROOT.'/ecm/index_medias.php?file_manager=1&modulepart='.$modulepart.'&section_dir='.$relativepath);
+									if ($modulePart == 'medias' && !GETPOST('website')) {
+										$moreparaminurl .= '&backtourl='.urlencode(DOL_URL_ROOT.'/ecm/index_medias.php?file_manager=1&modulepart='.$modulePart.'&section_dir='.$relativepath);
 									}
 									// Link to convert into webp
 									if (!preg_match('/\.webp$/i', $file['name'])) {
-										if ($modulepart == 'medias' && !GETPOST('website')) {
-											print '<a href="'.DOL_URL_ROOT.'/ecm/index_medias.php?action=confirmconvertimgwebp&token='.newToken().'&section_dir='.urlencode($relativepath).'&filetoregenerate='.urlencode($fileinfo['basename']).'&module='.$modulepart.$param.$moreparaminurl.'" title="'.dol_escape_htmltag($langs->trans("GenerateChosenImgWebp")).'">'.img_picture('', 'images', 'class="flip marginrightonly"').'</a>';
-										} elseif ($modulepart == 'medias' && GETPOST('website')) {
-											print '<a href="'.DOL_URL_ROOT.'/website/index.php?action=confirmconvertimgwebp&token='.newToken().'&section_dir='.urlencode($relativepath).'&filetoregenerate='.urlencode($fileinfo['basename']).'&module='.$modulepart.$param.$moreparaminurl.'" title="'.dol_escape_htmltag($langs->trans("GenerateChosenImgWebp")).'">'.img_picture('', 'images', 'class="flip marginrightonly"').'</a>';
+										if ($modulePart == 'medias' && !GETPOST('website')) {
+											print '<a href="'.DOL_URL_ROOT.'/ecm/index_medias.php?action=confirmconvertimgwebp&token='.newToken().'&section_dir='.urlencode($relativepath).'&filetoregenerate='.urlencode($fileinfo['basename']).'&module='.$modulePart.$param.$moreparaminurl.'" title="'.dol_escape_htmltag($langs->trans("GenerateChosenImgWebp")).'">'.img_picture('', 'images', 'class="flip marginrightonly"').'</a>';
+										} elseif ($modulePart == 'medias' && GETPOST('website')) {
+											print '<a href="'.DOL_URL_ROOT.'/website/index.php?action=confirmconvertimgwebp&token='.newToken().'&section_dir='.urlencode($relativepath).'&filetoregenerate='.urlencode($fileinfo['basename']).'&module='.$modulePart.$param.$moreparaminurl.'" title="'.dol_escape_htmltag($langs->trans("GenerateChosenImgWebp")).'">'.img_picture('', 'images', 'class="flip marginrightonly"').'</a>';
 										}
 									}
 								}
@@ -1695,8 +1695,8 @@ class FormFile
 										$moreparaminurl .= '&website='.GETPOST('website', 'alpha');
 									}
 									// Set the backtourl
-									if ($modulepart == 'medias' && !GETPOST('website')) {
-										$moreparaminurl .= '&backtourl='.urlencode(DOL_URL_ROOT.'/ecm/index_medias.php?file_manager=1&modulepart='.$modulepart.'&section_dir='.$relativepath);
+									if ($modulePart == 'medias' && !GETPOST('website')) {
+										$moreparaminurl .= '&backtourl='.urlencode(DOL_URL_ROOT.'/ecm/index_medias.php?file_manager=1&modulepart='.$modulePart.'&section_dir='.$relativepath);
 									}
 									//var_dump($moreparaminurl);
 									print '<a class="editfielda" href="'.DOL_URL_ROOT.'/core/photos_resize.php?modulepart='.urlencode($newmodulepart).$moreparaminurl.'&file='.urlencode($relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension'])).'" title="'.dol_escape_htmltag($langs->trans("ResizeOrCrop")).'">'.img_picture($langs->trans("ResizeOrCrop"), 'resize', 'class="paddingrightonly"').'</a>';
@@ -1704,7 +1704,7 @@ class FormFile
 							}
 
 							if ($permtoeditline) {
-								$paramsectiondir = (in_array($modulepart, array('medias', 'ecm')) ? '&section_dir='.urlencode($relativepath) : '');
+								$paramsectiondir = (in_array($modulePart, array('medias', 'ecm')) ? '&section_dir='.urlencode($relativepath) : '');
 								print '<a class="editfielda reposition editfilelink paddingright marginleftonly" href="'.(($useinecm == 1 || $useinecm == 5) ? '#' : ($url.'?action=editfile&token='.newToken().'&urlfile='.urlencode($filepath).$paramsectiondir.$param)).'" rel="'.$filepath.'">'.img_edit('default', 0, 'class="paddingrightonly"').'</a>';
 							}
 						}
@@ -1796,7 +1796,7 @@ class FormFile
 	 *
 	 *  @param	string	$upload_dir         Directory that was scanned. This directory will contains files into subdirs REF/files
 	 *	@param array<array{name:string,path:string,level1name:string,relativename:string,fullname:string,date:string,size:int,perm:int,type:string}>	$filearray Array of files loaded by dol_dir_list('files') function before calling this.
-	 *  @param  string	$modulepart         Value for modulepart used by download wrapper. Value can be $object->table_name (that is 'myobject' or 'mymodule_myobject') or $object->element.'-'.$module (for compatibility purpose)
+	 *  @param  string	$modulePart         Value for modulepart used by download wrapper. Value can be $object->table_name (that is 'myobject' or 'mymodule_myobject') or $object->element.'-'.$module (for compatibility purpose)
 	 *  @param  string	$param              Parameters on sort links
 	 *  @param  int		$forcedownload      Force to open dialog box "Save As" when clicking on file
 	 *  @param  string	$relativepath       Relative path of docs (autodefined if not provided)
@@ -1809,7 +1809,7 @@ class FormFile
 	 *  @return int                 		Return integer <0 if KO, nb of files shown if OK
 	 *  @see list_of_documents()
 	 */
-	public function list_of_autoecmfiles($upload_dir, $filearray, $modulepart, $param, $forcedownload = 0, $relativepath = '', $permissiontodelete = 1, $useinecm = 0, $textifempty = '', $maxlength = 0, $url = '', $addfilterfields = 0)
+	public function list_of_autoecmfiles($upload_dir, $filearray, $modulePart, $param, $forcedownload = 0, $relativepath = '', $permissiontodelete = 1, $useinecm = 0, $textifempty = '', $maxlength = 0, $url = '', $addfilterfields = 0)
 	{
 		// phpcs:enable
 		global $config, $langs, $hookManager, $form;
@@ -1817,7 +1817,7 @@ class FormFile
 		global $search_doc_ref;
 		global $dolibarr_main_url_root;
 
-		dol_syslog(get_class($this).'::list_of_autoecmfiles upload_dir='.$upload_dir.' modulepart='.$modulepart);
+		dol_syslog(get_class($this).'::list_of_autoecmfiles upload_dir='.$upload_dir.' modulepart='.$modulePart);
 
 		// Show list of documents
 		if (empty($useinecm) || $useinecm == 6) {
@@ -1830,7 +1830,7 @@ class FormFile
 		if (!empty($addfilterfields)) {
 			print '<form action="'.$_SERVER['PHP_SELF'].'">';
 			print '<input type="hidden" name="token" value="'.newToken().'">';
-			print '<input type="hidden" name="module" value="'.$modulepart.'">';
+			print '<input type="hidden" name="module" value="'.$modulePart.'">';
 		}
 
 		print '<div class="div-table-responsive-no-min">';
@@ -1852,7 +1852,7 @@ class FormFile
 
 		print '<tr class="liste_titre">';
 		$sortref = "fullname";
-		if ($modulepart == 'invoice_supplier') {
+		if ($modulePart == 'invoice_supplier') {
 			$sortref = 'level1name';
 		}
 		print_liste_field_titre("Ref", $url, $sortref, "", $param, '', $sortfield, $sortorder);
@@ -1864,74 +1864,74 @@ class FormFile
 
 		// To show ref or specific information according to view to show (defined by $module)
 		$object_instance = null;
-		if ($modulepart == 'company') {
+		if ($modulePart == 'company') {
 			include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 			$object_instance = new Societe($this->db);
-		} elseif ($modulepart == 'invoice') {
+		} elseif ($modulePart == 'invoice') {
 			include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 			$object_instance = new Facture($this->db);
-		} elseif ($modulepart == 'invoice_supplier') {
+		} elseif ($modulePart == 'invoice_supplier') {
 			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 			$object_instance = new FactureFournisseur($this->db);
-		} elseif ($modulepart == 'propal') {
+		} elseif ($modulePart == 'propal') {
 			include_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 			$object_instance = new Propal($this->db);
-		} elseif ($modulepart == 'supplier_proposal') {
+		} elseif ($modulePart == 'supplier_proposal') {
 			include_once DOL_DOCUMENT_ROOT.'/supplier_proposal/class/supplier_proposal.class.php';
 			$object_instance = new SupplierProposal($this->db);
-		} elseif ($modulepart == 'order') {
+		} elseif ($modulePart == 'order') {
 			include_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 			$object_instance = new Order($this->db);
-		} elseif ($modulepart == 'order_supplier') {
+		} elseif ($modulePart == 'order_supplier') {
 			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 			$object_instance = new OrderFournisseur($this->db);
-		} elseif ($modulepart == 'contract') {
+		} elseif ($modulePart == 'contract') {
 			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 			$object_instance = new Contrat($this->db);
-		} elseif ($modulepart == 'product') {
+		} elseif ($modulePart == 'product') {
 			include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 			$object_instance = new Product($this->db);
-		} elseif ($modulepart == 'tax') {
+		} elseif ($modulePart == 'tax') {
 			include_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
 			$object_instance = new ChargeSociales($this->db);
-		} elseif ($modulepart == 'tax-vat') {
+		} elseif ($modulePart == 'tax-vat') {
 			include_once DOL_DOCUMENT_ROOT.'/compta/tva/class/tva.class.php';
 			$object_instance = new Tva($this->db);
-		} elseif ($modulepart == 'salaries') {
+		} elseif ($modulePart == 'salaries') {
 			include_once DOL_DOCUMENT_ROOT.'/salaries/class/salary.class.php';
 			$object_instance = new Salary($this->db);
-		} elseif ($modulepart == 'project') {
+		} elseif ($modulePart == 'project') {
 			include_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 			$object_instance = new Project($this->db);
-		} elseif ($modulepart == 'project_task') {
+		} elseif ($modulePart == 'project_task') {
 			include_once DOL_DOCUMENT_ROOT.'/projet/class/task.class.php';
 			$object_instance = new Task($this->db);
-		} elseif ($modulepart == 'fichinter') {
+		} elseif ($modulePart == 'fichinter') {
 			include_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
 			$object_instance = new Fichinter($this->db);
-		} elseif ($modulepart == 'user') {
+		} elseif ($modulePart == 'user') {
 			include_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 			$object_instance = new User($this->db);
-		} elseif ($modulepart == 'expensereport') {
+		} elseif ($modulePart == 'expensereport') {
 			include_once DOL_DOCUMENT_ROOT.'/expensereport/class/expensereport.class.php';
 			$object_instance = new ExpenseReport($this->db);
-		} elseif ($modulepart == 'holiday') {
+		} elseif ($modulePart == 'holiday') {
 			include_once DOL_DOCUMENT_ROOT.'/holiday/class/holiday.class.php';
 			$object_instance = new Holiday($this->db);
-		} elseif ($modulepart == 'recruitment-recruitmentcandidature') {
+		} elseif ($modulePart == 'recruitment-recruitmentcandidature') {
 			include_once DOL_DOCUMENT_ROOT.'/recruitment/class/recruitmentcandidature.class.php';
 			$object_instance = new RecruitmentCandidature($this->db);
-		} elseif ($modulepart == 'bank') {
+		} elseif ($modulePart == 'bank') {
 			include_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 			$object_instance = new Account($this->db);
-		} elseif ($modulepart == 'chequereceipt') {
+		} elseif ($modulePart == 'chequereceipt') {
 			include_once DOL_DOCUMENT_ROOT.'/compta/paiement/cheque/class/remisecheque.class.php';
 			$object_instance = new RemiseCheque($this->db);
-		} elseif ($modulepart == 'mrp-mo') {
+		} elseif ($modulePart == 'mrp-mo') {
 			include_once DOL_DOCUMENT_ROOT.'/mrp/class/mo.class.php';
 			$object_instance = new Mo($this->db);
 		} else {
-			$parameters = array('modulepart' => $modulepart);
+			$parameters = array('modulepart' => $modulePart);
 			$resHook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
 			if ($resHook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
 				if (array_key_exists('classpath', $hookManager->resArray) && !empty($hookManager->resArray['classpath'])) {
@@ -1975,28 +1975,28 @@ class FormFile
 				$id = 0;
 				$ref = '';
 
-				// To show ref or specific information according to view to show (defined by $modulepart)
-				// $modulepart can be $object->table_name (that is 'mymodule_myobject') or $object->element.'-'.$module (for compatibility purpose)
+				// To show ref or specific information according to view to show (defined by $modulePart)
+				// $modulePart can be $object->table_name (that is 'mymodule_myobject') or $object->element.'-'.$module (for compatibility purpose)
 				$reg = [];
-				if ($modulepart == 'company' || $modulepart == 'tax' || $modulepart == 'tax-vat' || $modulepart == 'salaries') {
+				if ($modulePart == 'company' || $modulePart == 'tax' || $modulePart == 'tax-vat' || $modulePart == 'salaries') {
 					preg_match('/(\d+)\/[^\/]+$/', $relativefile, $reg);
 					$id = (isset($reg[1]) ? $reg[1] : '');
-				} elseif ($modulepart == 'invoice_supplier') {
+				} elseif ($modulePart == 'invoice_supplier') {
 					preg_match('/([^\/]+)\/[^\/]+$/', $relativefile, $reg);
 					$ref = (isset($reg[1]) ? $reg[1] : '');
 					if (is_numeric($ref)) {
 						$id = $ref;
 						$ref = '';
 					}
-				} elseif ($modulepart == 'user') {
+				} elseif ($modulePart == 'user') {
 					// $ref may be also id with old supplier invoices
 					preg_match('/(.*)\/[^\/]+$/', $relativefile, $reg);
 					$id = (isset($reg[1]) ? $reg[1] : '');
-				} elseif ($modulepart == 'project_task') {
+				} elseif ($modulePart == 'project_task') {
 					// $ref of task is the sub-directory of the project
 					$reg = explode("/", $relativefile);
 					$ref = (isset($reg[1]) ? $reg[1] : '');
-				} elseif (in_array($modulepart, array(
+				} elseif (in_array($modulePart, array(
 					'invoice',
 					'propal',
 					'supplier_proposal',
@@ -2016,7 +2016,7 @@ class FormFile
 					preg_match('/(.*)\/[^\/]+$/', $relativefile, $reg);
 					$ref = (isset($reg[1]) ? $reg[1] : '');
 				} else {
-					$parameters = array('modulepart' => $modulepart, 'fileinfo' => $file);
+					$parameters = array('modulepart' => $modulePart, 'fileinfo' => $file);
 					$resHook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
 					if ($resHook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
 						if (array_key_exists('ref', $hookManager->resArray) && !empty($hookManager->resArray['ref'])) {
@@ -2026,7 +2026,7 @@ class FormFile
 							$id = $hookManager->resArray['id'];
 						}
 					}
-					//print 'Error: Value for modulepart = '.$modulepart.' is not yet implemented in function list_of_autoecmfiles'."\n";
+					//print 'Error: Value for modulepart = '.$modulePart.' is not yet implemented in function list_of_autoecmfiles'."\n";
 				}
 
 				if (!$id && !$ref) {
@@ -2034,7 +2034,7 @@ class FormFile
 				}
 
 				$found = 0;
-				if (!empty($config->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref])) {
+				if (!empty($config->cache['modulepartobject'][$modulePart.'_'.$id.'_'.$ref])) {
 					$found = 1;
 				} else {
 					//print 'Fetch '.$id." - ".$ref.' class='.get_class($object_instance).'<br>';
@@ -2059,24 +2059,24 @@ class FormFile
 
 					if ($result > 0) {  // Save object loaded into a cache
 						$found = 1;
-						$config->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref] = clone $object_instance;
+						$config->cache['modulepartobject'][$modulePart.'_'.$id.'_'.$ref] = clone $object_instance;
 					}
 					if ($result == 0) {
 						$found = 1;
-						$config->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref] = 'notfound';
+						$config->cache['modulepartobject'][$modulePart.'_'.$id.'_'.$ref] = 'notfound';
 						unset($filearray[$key]);
 					}
 				}
 
-				if ($found <= 0 || !is_object($config->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref])) {
+				if ($found <= 0 || !is_object($config->cache['modulepartobject'][$modulePart.'_'.$id.'_'.$ref])) {
 					continue; // We do not show orphelins files
 				}
 
 				print '<!-- Line list_of_autoecmfiles key='.$key.' -->'."\n";
 				print '<tr class="oddeven">';
 				print '<td>';
-				if ($found > 0 && is_object($config->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref])) {
-					$tmpobject = $config->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref];
+				if ($found > 0 && is_object($config->cache['modulepartobject'][$modulePart.'_'.$id.'_'.$ref])) {
+					$tmpobject = $config->cache['modulepartobject'][$modulePart.'_'.$id.'_'.$ref];
 					//if (! in_array($tmpobject->element, array('expensereport'))) {
 					print $tmpobject->getNomUrl(1, 'document');
 					//} else {
@@ -2089,10 +2089,10 @@ class FormFile
 				//$modulesubdir=dol_sanitizeFileName($ref);
 				//$modulesubdir = dirname($relativefile);
 
-				//$filedir=$config->$modulepart->dir_output . '/' . dol_sanitizeFileName($obj->ref);
+				//$filedir=$config->$modulePart->dir_output . '/' . dol_sanitizeFileName($obj->ref);
 				//$filedir = $file['path'];
 				//$urlsource=$_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-				//print $formfile->getDocumentsLink($modulepart, $filename, $filedir);
+				//print $formfile->getDocumentsLink($modulePart, $filename, $filedir);
 				print '</td>';
 
 				// File
@@ -2103,7 +2103,7 @@ class FormFile
 				if (getDolGlobalInt('MAIN_DISABLE_FORCE_SAVEAS') == 2) {
 					print 'target="_blank" ';
 				}
-				print 'href="'.DOL_URL_ROOT.'/document.php?modulepart='.urlencode($modulepart);
+				print 'href="'.DOL_URL_ROOT.'/document.php?modulepart='.urlencode($modulePart);
 				if ($forcedownload) {
 					print '&attachment=1';
 				}
@@ -2112,9 +2112,9 @@ class FormFile
 				print dol_escape_htmltag(dol_trunc($file['name'], $maxlength, 'middle'));
 				print '</a>';
 
-				//print $this->getDocumentsLink($modulepart, $modulesubdir, $filedir, '^'.preg_quote($file['name'],'/').'$');
+				//print $this->getDocumentsLink($modulePart, $modulesubdir, $filedir, '^'.preg_quote($file['name'],'/').'$');
 
-				print $this->showPreview($file, $modulepart, $file['relativename']);
+				print $this->showPreview($file, $modulePart, $file['relativename']);
 
 				print "</td>\n";
 
@@ -2155,7 +2155,7 @@ class FormFile
 					print img_picture($langs->trans("FileSharedViaALink"), 'globe').' ';
 					print '<input type="text" class="quatrevingtpercent width100 nopadding nopadding small" id="downloadlink" name="downloadexternallink" value="'.dol_escape_htmltag($fulllink).'">';
 				}
-				//if (!empty($useinecm) && $useinecm != 6)  print '<a data-ajax="false" href="'.DOL_URL_ROOT.'/document.php?modulepart='.$modulepart;
+				//if (!empty($useinecm) && $useinecm != 6)  print '<a data-ajax="false" href="'.DOL_URL_ROOT.'/document.php?modulepart='.$modulePart;
 				//if ($forcedownload) print '&attachment=1';
 				//print '&file='.urlencode($relativefile).'">';
 				//print img_view().'</a> &nbsp; ';
@@ -2346,19 +2346,19 @@ class FormFile
 	 * Show detail icon with link for preview
 	 *
 	 * @param   array{name:string,path:string,level1name:string,relativename:string,fullname:string,date:string,size:int,perm:int,type:string}     $file           Array with data of file. Example: array('name'=>...)
-	 * @param   string    $modulepart     propal, facture, facture_fourn, ...
+	 * @param   string    $modulePart     propal, facture, facture_fourn, ...
 	 * @param   string    $relativepath   Relative path of docs
 	 * @param   integer   $ruleforPicture   Rule for picture: 0=Use the generic preview picture, 1=Use the picture of mime type of file). Use a negative value to show a generic picture even if preview not available.
 	 * @param	string	  $param		  More param on http links
 	 * @return  string    $out            Output string with HTML
 	 */
-	public function showPreview($file, $modulepart, $relativepath, $ruleforPicture = 0, $param = '')
+	public function showPreview($file, $modulePart, $relativepath, $ruleforPicture = 0, $param = '')
 	{
 		global $langs, $config;
 
 		$out = '';
 		if ($config->browser->layout != 'phone' && !empty($config->use_javascript_ajax)) {
-			$urladvancedpreview = getAdvancedPreviewUrl($modulepart, $relativepath, 1, $param); // Return if a file is qualified for preview.
+			$urladvancedpreview = getAdvancedPreviewUrl($modulePart, $relativepath, 1, $param); // Return if a file is qualified for preview.
 			if (count($urladvancedpreview)) {
 				$out .= '<a class="picturepreview '.$urladvancedpreview['css'].'" href="'.$urladvancedpreview['url'].'"'.(empty($urladvancedpreview['mime']) ? '' : ' mime="'.$urladvancedpreview['mime'].'"').' '.(empty($urladvancedpreview['target']) ? '' : ' target="'.$urladvancedpreview['target'].'"').'>';
 				//$out.= '<a class="picturepreview">';
