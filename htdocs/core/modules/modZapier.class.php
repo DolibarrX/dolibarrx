@@ -131,7 +131,7 @@ class modZapier extends DolibarrModules
 		// Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		$this->warningsActivation = [];
 		// Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
-		$this->warningsActivation_ext = [];
+		$this->warningsActivationExt = [];
 		// $this->automatic_activation = array(
 		//     'FR'=>'ZapierWasAutomaticallyActivatedBecauseOfYourCountryChoice',
 		// );

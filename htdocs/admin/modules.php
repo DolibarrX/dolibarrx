@@ -596,8 +596,8 @@ foreach ($modulesdir as $dir) {
 								if (!empty($objMod->warningsActivation)) {
 									$arrayofwarnings[$modName] = $objMod->warningsActivation;
 								}
-								if (!empty($objMod->warningsActivation_ext)) {
-									$arrayofwarningsext[$modName] = $objMod->warningsActivation_ext;
+								if (!empty($objMod->warningsActivationExt)) {
+									$arrayofwarningsext[$modName] = $objMod->warningsActivationExt;
 								}
 
 								$familyposition = (empty($familyInfo[$familykey]['position']) ? '0' : $familyInfo[$familykey]['position']);
