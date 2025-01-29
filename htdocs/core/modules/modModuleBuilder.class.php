@@ -69,7 +69,7 @@ class modModuleBuilder extends DolibarrModules
 		$this->hidden = false; // A condition to disable module
 		$this->depends = []; // List of modules id that must be enabled if this module is enabled
 		$this->requiredBy = []; // List of modules id to disable if this one is disabled
-		$this->conflictwith = []; // List of modules id this module is in conflict with
+		$this->conflictWith = []; // List of modules id this module is in conflict with
 		$this->langfiles = [];
 
 		// Constants

@@ -150,7 +150,7 @@ class modMyModule extends DolibarrModules
 		// List of module class names to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
 		$this->requiredBy = [];
 		// List of module class names this module is in conflict with. Example: array('modModuleToDisable1', ...)
-		$this->conflictwith = [];
+		$this->conflictWith = [];
 
 		// The language file dedicated to your module
 		$this->langfiles = array("mymodule@mymodule");

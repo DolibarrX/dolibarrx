@@ -68,7 +68,7 @@ class modPropale extends DolibarrModules
 		$this->hidden = false; // A condition to hide module
 		$this->depends = array("modSociete"); // List of module class names as string that must be enabled if this module is enabled
 		$this->requiredBy = []; // List of module ids to disable if this one is disabled
-		$this->conflictwith = []; // List of module class names as string this module is in conflict with
+		$this->conflictWith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->configPageUrl = array("propal.php");
 		$this->langfiles = array("propal", "bills", "companies", "deliveries", "products");

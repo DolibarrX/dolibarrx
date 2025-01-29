@@ -69,7 +69,7 @@ class modBank extends DolibarrModules
 		// Dependencies
 		$this->depends = [];
 		$this->requiredBy = array("modSimpleAccounting", "modAccounting", "modPrelevement");
-		$this->conflictwith = [];
+		$this->conflictWith = [];
 		$this->langfiles = array("banks", "compta", "bills", "companies", "accounting");
 
 		// Constants

@@ -1280,13 +1280,13 @@ function activateModule($value, $withdeps = 1, $noconfverification = 0)
 				}
 			}
 
-			if (isset($objMod->conflictwith) && is_array($objMod->conflictwith) && !empty($objMod->conflictwith)) {
+			if (isset($objMod->conflictWith) && is_array($objMod->conflictWith) && !empty($objMod->conflictWith)) {
 				// Deactivation des modules qui entrent en conflict
-				$num = count($objMod->conflictwith);
+				$num = count($objMod->conflictWith);
 				for ($i = 0; $i < $num; $i++) {
 					foreach ($modulesdir as $dir) {
-						if (file_exists($dir . $objMod->conflictwith[$i] . ".class.php")) {
-							unActivateModule($objMod->conflictwith[$i], 0);
+						if (file_exists($dir . $objMod->conflictWith[$i] . ".class.php")) {
+							unActivateModule($objMod->conflictWith[$i], 0);
 						}
 					}
 				}

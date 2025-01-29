@@ -70,7 +70,7 @@ class modBlockedLog extends DolibarrModules
 		$this->hidden = false; // A condition to disable module
 		$this->depends = array('always'=>'modFacture'); // List of modules id that must be enabled if this module is enabled
 		$this->requiredBy = []; // List of modules id to disable if this one is disabled
-		$this->conflictwith = []; // List of modules id this module is in conflict with
+		$this->conflictWith = []; // List of modules id this module is in conflict with
 		$this->langfiles = array('blockedlog');
 
 		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)

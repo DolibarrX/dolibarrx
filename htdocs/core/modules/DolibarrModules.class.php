@@ -442,7 +442,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 * @var string[] List of module class names as string this module is in conflict with.
 	 * @see $depends
 	 */
-	public $conflictwith;
+	public $conflictWith;
 
 	/**
 	 * @var string[] Module language files

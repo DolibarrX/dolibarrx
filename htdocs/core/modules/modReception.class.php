@@ -69,7 +69,7 @@ class modReception extends DolibarrModules
 		// Dependencies
 		$this->depends = array("modFournisseur");
 		$this->requiredBy = [];
-		$this->conflictwith = [];
+		$this->conflictWith = [];
 		$this->langfiles = array('receptions');
 
 		// Constants

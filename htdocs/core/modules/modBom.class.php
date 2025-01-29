@@ -111,7 +111,7 @@ class modBom extends DolibarrModules
 		// List of module class names as string that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR'...))
 		$this->depends = array('modProduct');
 		$this->requiredBy = array('modMrp');
-		$this->conflictwith = [];
+		$this->conflictWith = [];
 		$this->langfiles = array("mrp");
 		//$this->phpmin = array(7, 0));					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(9, 0); // Minimum version of Dolibarr required by module

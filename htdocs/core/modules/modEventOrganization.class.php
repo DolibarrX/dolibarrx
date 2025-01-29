@@ -120,7 +120,7 @@ class modEventOrganization extends DolibarrModules
 		// List of module class names as string that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR'...))
 		$this->depends = array('modProjet', 'modCategory', 'modAgenda');
 		$this->requiredBy = []; // List of module class names as string to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
-		$this->conflictwith = []; // List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
+		$this->conflictWith = []; // List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
 
 		// The language file dedicated to your module
 		$this->langfiles = array("eventorganization");

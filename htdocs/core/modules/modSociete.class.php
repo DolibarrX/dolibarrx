@@ -71,7 +71,7 @@ class modSociete extends DolibarrModules
 		$this->hidden = false; // A condition to hide module
 		$this->depends = []; // List of module class names as string that must be enabled if this module is enabled
 		$this->requiredBy = array("modExpedition", "modFacture", "modFournisseur", "modFicheinter", "modPropale", "modContrat", "modOrder"); // List of module ids to disable if this one is disabled
-		$this->conflictwith = []; // List of module class names as string this module is in conflict with
+		$this->conflictWith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->langfiles = array("companies", 'bills', "compta", "admin", "banks");
 

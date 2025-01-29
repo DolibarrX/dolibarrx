@@ -122,7 +122,7 @@ class modZapier extends DolibarrModules
 		// List of module class names as string to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
 		$this->requiredBy = [];
 		// List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
-		$this->conflictwith = [];
+		$this->conflictWith = [];
 		$this->langfiles = array("zapier");
 		// Minimum version of PHP required by module
 		//$this->phpmin = array(7, 0);

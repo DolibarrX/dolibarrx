@@ -67,7 +67,7 @@ class modFacture extends DolibarrModules
 		// Dependencies
 		$this->depends = array('always' => "modSociete");
 		$this->requiredBy = array("modSimpleAccounting", "modAccounting");
-		$this->conflictwith = [];
+		$this->conflictWith = [];
 		$this->langfiles = array("bills", "companies", "compta", "products");
 		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='text')
 		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='text')

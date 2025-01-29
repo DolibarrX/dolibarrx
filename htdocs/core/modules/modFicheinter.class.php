@@ -66,7 +66,7 @@ class modFicheinter extends DolibarrModules
 		// Dependencies
 		$this->depends = array("modSociete");
 		$this->requiredBy = [];
-		$this->conflictwith = [];
+		$this->conflictWith = [];
 		$this->langfiles = array("bills", "companies", "interventions");
 
 		// Config pages
