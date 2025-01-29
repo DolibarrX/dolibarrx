@@ -403,7 +403,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var int Module is enabled globally (Multicompany support)
 	 */
-	public $core_enabled;
+	public $coreEnabled;
 
 	/**
 	 * @var string Name of image file used for this module
@@ -1171,7 +1171,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$err = 0;
 
 		// Common module
-		$entity = ((!empty($this->alwaysEnabled) || !empty($this->core_enabled)) ? 0 : $config->entity);
+		$entity = ((!empty($this->alwaysEnabled) || !empty($this->coreEnabled)) ? 0 : $config->entity);
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."const";
 		$sql .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->constName)."'";
@@ -1221,7 +1221,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$err = 0;
 
 		// Common module
-		$entity = ((!empty($this->alwaysEnabled) || !empty($this->core_enabled)) ? 0 : $config->entity);
+		$entity = ((!empty($this->alwaysEnabled) || !empty($this->coreEnabled)) ? 0 : $config->entity);
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."const";
 		$sql .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->constName)."'";
@@ -2140,7 +2140,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$sql .= " WHERE (module = '".$this->db->escape($module)."' OR module_origin = '".$this->db->escape($module)."')";
 
 		// Delete all entities if core module
-		if (empty($this->core_enabled)) {
+		if (empty($this->coreEnabled)) {
 			$sql .= " AND entity = ".((int) $config->entity);
 		}
 
@@ -2176,7 +2176,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$err = 0;
 
 		// Common module
-		$entity = ((!empty($this->alwaysEnabled) || !empty($this->core_enabled)) ? 0 : $config->entity);
+		$entity = ((!empty($this->alwaysEnabled) || !empty($this->coreEnabled)) ? 0 : $config->entity);
 
 		$this->db->begin();
 

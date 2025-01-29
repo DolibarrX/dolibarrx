@@ -1009,7 +1009,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 			if (!empty($objMod->disabled)) {
 				$codeenabledisable .= $langs->trans("Disabled");
 			} elseif (is_object($objMod)
-				&& (!empty($objMod->alwaysEnabled) || ((isModEnabled('multicompany') && $objMod->core_enabled) && ($user->entity || $config->entity != 1)))) {
+				&& (!empty($objMod->alwaysEnabled) || ((isModEnabled('multicompany') && $objMod->coreEnabled) && ($user->entity || $config->entity != 1)))) {
 				// @phan-suppress-next-line PhanUndeclaredMethod
 				if (method_exists($objMod, 'alreadyUsed') && $objMod->alreadyUsed()) {
 					$codeenabledisable .= $langs->trans("Used");
