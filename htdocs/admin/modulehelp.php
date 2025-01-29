@@ -512,9 +512,9 @@ if ($mode == 'feature') {
 	$text .= '<br>';
 
 	$text .= '<br><strong>'.$langs->trans("AddSheduledJobs").':</strong> ';
-	if (isset($objMod->cronjobs) && is_array($objMod->cronjobs) && count($objMod->cronjobs)) {
+	if (isset($objMod->cronJobs) && is_array($objMod->cronJobs) && count($objMod->cronJobs)) {
 		$i = 0;
-		foreach ($objMod->cronjobs as $val) {
+		foreach ($objMod->cronJobs as $val) {
 			$text .= ($i ? ', ' : '').($val['label']);
 			$i++;
 		}

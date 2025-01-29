@@ -253,7 +253,7 @@ class modPartnership extends DolibarrModules
 		$arraydate = dol_getdate(dol_now());
 		$datestart = dol_mktime(21, 15, 0, $arraydate['mon'], $arraydate['mday'], $arraydate['year']);
 
-		$this->cronjobs = array(
+		$this->cronJobs = array(
 			0 => array(
 				'priority' => 60,
 				'label' => 'CancelPartnershipForExpiredMembers',

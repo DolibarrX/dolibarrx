@@ -171,7 +171,7 @@ class modHRM extends DolibarrModules
 
 		// Cronjobs (List of cron jobs entries to add when module is enabled)
 		// unit_frequency must be 60 for minute, 3600 for hour, 86400 for day, 604800 for week
-		$this->cronjobs = array(
+		$this->cronJobs = array(
 			//  0 => array(
 			//      'label' => 'MyJob label',
 			//      'jobtype' => 'method',

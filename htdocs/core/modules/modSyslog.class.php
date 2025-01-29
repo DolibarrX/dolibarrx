@@ -88,7 +88,7 @@ class modSyslog extends DolibarrModules
 		$comment .= 'Warning: Main application cron script must be run with same account than your web server to avoid to get log files with different owner than required by web server. ';
 		$comment .= 'Another solution is to set web server Operating System group as the group of directory documents and set GROUP permission "rws" on this directory so log files will always have the group and permissions of the web server Operating System group.';
 
-		$this->cronjobs = array(
+		$this->cronJobs = array(
 			0 => array(
 				'label' => 'CompressSyslogs',
 				'jobtype' => 'method',

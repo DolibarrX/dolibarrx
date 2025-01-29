@@ -135,7 +135,7 @@ class modProjet extends DolibarrModules
 			4=>array('file'=>'box_funnel_of_prospection.php', 'enabledbydefaulton'=>'Home'),
 		);
 		// Cronjobs
-		$this->cronjobs[] = array(
+		$this->cronJobs[] = array(
 			'label' => 'WeeklyWorkingHoursReport',
 			'jobtype' => 'method',
 			'class' => 'projet/class/project.class.php',

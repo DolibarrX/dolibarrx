@@ -144,7 +144,7 @@ class modFournisseur extends DolibarrModules
 
 		$arraydate = dol_getdate(dol_now());
 		$datestart = dol_mktime(23, 0, 0, $arraydate['mon'], $arraydate['mday'], $arraydate['year']);
-		$this->cronjobs = array(
+		$this->cronJobs = array(
 			0 => array(
 				'label' => 'RecurringSupplierInvoicesJob',
 				'jobtype' => 'method',

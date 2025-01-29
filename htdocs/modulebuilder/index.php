@@ -6378,7 +6378,7 @@ if ($module == 'initmodule') {
 			print '<!-- tab=cron -->'."\n";
 			$pathtofile = $listofmodules[strtolower($module)]['moduledescriptorrelpath'];
 
-			$cronjobs = $moduleobj->cronjobs;
+			$cronJobs = $moduleobj->cronJobs;
 
 			if ($action != 'editfile' || empty($file)) {
 				print '<span class="opacitymedium">'.str_replace('{s1}', '<a target="adminbis" class="nofocusvisible" href="'.DOL_URL_ROOT.'/cron/list.php">'.$langs->transnoentities('CronList').'</a>', $langs->trans("CronJobDefDesc", '{s1}')).'</span><br>';
@@ -6409,8 +6409,8 @@ if ($module == 'initmodule') {
 				print_liste_field_titre("Comment", $_SERVER["PHP_SELF"], "", "", $param, '', $sortfield, $sortorder);
 				print "</tr>\n";
 
-				if (count($cronjobs)) {
-					foreach ($cronjobs as $cron) {
+				if (count($cronJobs)) {
+					foreach ($cronJobs as $cron) {
 						print '<tr class="oddeven">';
 
 						print '<td>';

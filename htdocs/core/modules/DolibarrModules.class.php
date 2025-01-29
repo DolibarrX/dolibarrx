@@ -122,7 +122,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var array<array{entity?:int,label?:string,jobtype?:string,class?:string,objectname?:string,method?:string,command?:string,parameters?:string,md5params?:string,comment?:string,frequency?:int,unitfrequency?:int,priority?:int,datestart?:int,dateend?:int,datenextrun?:string,status?:int,maxrun?:int,libname?:string,test?:string|bool}> Module cron jobs entries
 	 */
-	public $cronjobs = array();
+	public $cronJobs = array();
 
 	/**
 	 * @var array<int,array<int<0,7>,string|int>> 	Module access rights
@@ -1618,10 +1618,10 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 		$err = 0;
 
-		if (is_array($this->cronjobs)) {
+		if (is_array($this->cronJobs)) {
 			dol_syslog(get_class($this) . "::insert_cronjobs", LOG_DEBUG);
 
-			foreach ($this->cronjobs as $key => $value) {
+			foreach ($this->cronJobs as $key => $value) {
 				$now = dol_now();
 
 				$entity = isset($value['entity']) ? $value['entity'] : $config->entity;
@@ -1730,7 +1730,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 		$err = 0;
 
-		if (is_array($this->cronjobs)) {
+		if (is_array($this->cronJobs)) {
 			$sql = "DELETE FROM ".MAIN_DB_PREFIX."cronjob";
 			$sql .= " WHERE module_name = '".$this->db->escape(empty($this->rights_class) ? strtolower($this->name) : $this->rights_class)."'";
 			$sql .= " AND entity = ".$config->entity;

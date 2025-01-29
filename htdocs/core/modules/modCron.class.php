@@ -96,7 +96,7 @@ class modCron extends DolibarrModules
 		);
 
 		// Cronjobs
-		$this->cronjobs = array(
+		$this->cronJobs = array(
 			0=>array('entity'=>0, 'label'=>'PurgeDeleteTemporaryFilesShort', 'jobtype'=>'method', 'class'=>'core/class/utils.class.php', 'objectname'=>'Utils', 'method'=>'purgeFiles', 'parameters'=>'tempfilesold+logfiles', 'comment'=>'PurgeDeleteTemporaryFiles', 'frequency'=>2, 'unitfrequency'=>3600 * 24 * 7, 'priority'=>50, 'status'=>1, 'test'=>true),
 			1=>array('entity'=>0, 'label'=>'MakeLocalDatabaseDumpShort', 'jobtype'=>'method', 'class'=>'core/class/utils.class.php', 'objectname'=>'Utils', 'method'=>'dumpDatabase', 'parameters'=>'none,auto,1,auto,10,0,0', 'comment'=>'MakeLocalDatabaseDump', 'frequency'=>1, 'unitfrequency'=>3600 * 24 * 7, 'priority'=>90, 'status'=>0, 'test'=>'in_array($config->db->type, array(\'mysql\', \'mysqli\'))'),
 			2=>array('entity'=>0, 'label'=>'MakeSendLocalDatabaseDumpShort', 'jobtype'=>'method', 'class'=>'core/class/utils.class.php', 'objectname'=>'Utils', 'method'=>'sendBackup', 'parameters'=>',,,,,sql', 'comment'=>'MakeSendLocalDatabaseDump', 'frequency'=>1, 'unitfrequency'=>604800, 'priority'=>91, 'status'=>0, 'test'=>'!empty($config->global->MAIN_ALLOW_BACKUP_BY_EMAIL) && in_array($config->db->type, array(\'mysql\', \'mysqli\'))'),

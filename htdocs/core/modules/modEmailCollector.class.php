@@ -156,7 +156,7 @@ class modEmailCollector extends DolibarrModules
 
 		// Cronjobs (List of cron jobs entries to add when module is enabled)
 		// unit_frequency must be 60 for minute, 3600 for hour, 86400 for day, 604800 for week
-		$this->cronjobs = array(
+		$this->cronJobs = array(
 			0=>array('label'=>'Email collector', 'priority'=>50, 'jobtype'=>'method', 'class'=>'/emailcollector/class/emailcollector.class.php', 'objectname'=>'EmailCollector', 'method'=>'doCollect', 'parameters'=>'', 'comment'=>'Comment', 'frequency'=>5, 'unitfrequency'=>60, 'status'=>1, 'test'=>'isModEnabled("emailcollector")')
 		);
 

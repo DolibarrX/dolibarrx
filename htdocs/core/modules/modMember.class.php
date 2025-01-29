@@ -403,7 +403,7 @@ class modMember extends DolibarrModules
 		// Cronjobs
 		$arraydate = dol_getdate(dol_now());
 		$datestart = dol_mktime(22, 0, 0, $arraydate['mon'], $arraydate['mday'], $arraydate['year']);
-		$this->cronjobs = array(
+		$this->cronJobs = array(
 			0=>array(
 				'label'=>'SendReminderForExpiredSubscriptionTitle',
 				'jobtype'=>'method', 'class'=>'members/class/member.class.php',
