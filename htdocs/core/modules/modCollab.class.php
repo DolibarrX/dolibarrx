@@ -27,7 +27,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/modules/DolibarrModules.class.php';
 
 
 /**
- *	Class to describe Websites module
+ *	Description and activation file for the Collab module
  */
 class modCollab extends DolibarrModules
 {
@@ -41,6 +41,7 @@ class modCollab extends DolibarrModules
 		global $langs, $config;
 
 		$this->db = $db;
+
 		$this->number = 30000;
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
@@ -70,7 +71,7 @@ class modCollab extends DolibarrModules
 		$this->depends = []; // List of modules id that must be enabled if this module is enabled
 		$this->requiredBy = []; // List of modules id to disable if this one is disabled
 		$this->conflictWith = []; // List of modules id this module is in conflict with
-		$this->langFiles = array("collab");
+		$this->langFiles = ['collab'];
 
 		// Constants
 		//-----------
