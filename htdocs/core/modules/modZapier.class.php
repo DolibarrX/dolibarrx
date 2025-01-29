@@ -129,9 +129,9 @@ class modZapier extends DolibarrModules
 		// Minimum version of Dolibarr required by module
 		$this->need_dolibarr_version = array(10, 0);
 		// Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
-		$this->warnings_activation = [];
+		$this->warningsActivation = [];
 		// Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
-		$this->warnings_activation_ext = [];
+		$this->warningsActivation_ext = [];
 		// $this->automatic_activation = array(
 		//     'FR'=>'ZapierWasAutomaticallyActivatedBecauseOfYourCountryChoice',
 		// );

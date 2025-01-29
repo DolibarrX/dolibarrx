@@ -593,11 +593,11 @@ foreach ($modulesdir as $dir) {
 								}
 
 								// Add list of warnings to show into arrayofwarnings and arrayofwarningsext
-								if (!empty($objMod->warnings_activation)) {
-									$arrayofwarnings[$modName] = $objMod->warnings_activation;
+								if (!empty($objMod->warningsActivation)) {
+									$arrayofwarnings[$modName] = $objMod->warningsActivation;
 								}
-								if (!empty($objMod->warnings_activation_ext)) {
-									$arrayofwarningsext[$modName] = $objMod->warnings_activation_ext;
+								if (!empty($objMod->warningsActivation_ext)) {
+									$arrayofwarningsext[$modName] = $objMod->warningsActivation_ext;
 								}
 
 								$familyposition = (empty($familyInfo[$familykey]['position']) ? '0' : $familyInfo[$familykey]['position']);

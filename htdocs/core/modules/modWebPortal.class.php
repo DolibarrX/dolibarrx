@@ -148,8 +148,8 @@ class modWebPortal extends DolibarrModules
 		//$this->need_javascript_ajax = 0;
 
 		// Messages at activation
-		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
-		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
+		$this->warningsActivation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
+		$this->warningsActivation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
 		//$this->automatic_activation = array('FR'=>'WebPortalWasAutomaticallyActivatedBecauseOfYourCountryChoice');
 		//$this->alwaysEnabled = true;								// If true, can't be disabled
 

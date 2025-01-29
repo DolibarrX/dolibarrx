@@ -454,14 +454,14 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 *
 	 * array('always'='text') or array('FR'='text')
 	 */
-	public $warnings_activation;
+	public $warningsActivation;
 
 	/**
 	 * @var array<string,string> Array of warnings to show when we activate an external module
 	 *
 	 * array('always'='text') or array('FR'='text')
 	 */
-	public $warnings_activation_ext;
+	public $warningsActivation_ext;
 
 	/**
 	 * @var array<string,string> Array of warnings to show when we disable the module

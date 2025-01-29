@@ -91,8 +91,8 @@ class modEmailCollector extends DolibarrModules
 		$this->requiredBy = []; // List of module ids to disable if this one is disabled
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with
 		$this->langFiles = array("admin");
-		$this->warnings_activation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
-		$this->warnings_activation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warningsActivation = []; // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
+		$this->warningsActivation_ext = []; // Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		//$this->automatic_activation = array('FR'=>'davWasAutomaticallyActivatedBecauseOfYourCountryChoice');
 		//$this->alwaysEnabled = true;								// If true, can't be disabled
 
