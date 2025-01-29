@@ -66,14 +66,14 @@ $left = ($langs->trans("DIRECTION") == 'rtl' ? 'right' : 'left');
 $title = $langs->trans("Info");
 
 // URL http://mydolibarr/core/get_info.php?dol_use_jmobile=1 can be used for tests
-$head = '<!-- Info user page -->'."\n";
+$head = '<!-- Info user page -->' . "\n";
 $arrayofjs = [];
 $arrayofcss = [];
 top_htmlhead($head, $title, 0, 0, $arrayofjs, $arrayofcss);
 
 
 
-print '<body>'."\n";
+print '<body>' . "\n";
 print '<div style="padding: 20px;">';
 //print '<br>';
 
@@ -82,18 +82,18 @@ $appli = constant('DOL_APPLICATION_TITLE');
 if (getDolGlobalString('MAIN_APPLICATION_TITLE')) {
 	$appli = getDolGlobalString('MAIN_APPLICATION_TITLE');
 	if (preg_match('/\d\.\d/', $appli)) {
-		if (!preg_match('/'.preg_quote(DOL_VERSION).'/', $appli)) {
-			$appli .= " (".DOL_VERSION.")"; // If new title contains a version that is different than core
+		if (!preg_match('/' . preg_quote(DOL_VERSION) . '/', $appli)) {
+			$appli .= " (" . DOL_VERSION . ")"; // If new title contains a version that is different than core
 		}
 	} else {
-		$appli .= " ".DOL_VERSION;
+		$appli .= " " . DOL_VERSION;
 	}
 } else {
-	$appli .= " ".DOL_VERSION;
+	$appli .= " " . DOL_VERSION;
 }
 
 if (getDolGlobalInt('MAIN_FEATURES_LEVEL')) {
-	$appli .= "<br>".$langs->trans("LevelOfFeature").': '.getDolGlobalInt('MAIN_FEATURES_LEVEL');
+	$appli .= "<br>" . $langs->trans("LevelOfFeature") . ': ' . getDolGlobalInt('MAIN_FEATURES_LEVEL');
 }
 
 $logouttext = '';
@@ -102,19 +102,19 @@ $toprightmenu = '';
 if (!getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 	//$logouthtmltext=$appli.'<br>';
 	if ($_SESSION["dol_authmode"] != 'forceuser' && $_SESSION["dol_authmode"] != 'http') {
-		$logouthtmltext .= $langs->trans("Logout").'<br>';
+		$logouthtmltext .= $langs->trans("Logout") . '<br>';
 
-		$logouttext .= '<a href="'.DOL_URL_ROOT.'/user/logout.php?token='.newToken().'">';
+		$logouttext .= '<a href="' . DOL_URL_ROOT . '/user/logout.php?token=' . newToken() . '">';
 		//$logouttext .= img_picture($langs->trans('Logout').":".$langs->trans('Logout'), 'logout_top.png', 'class="login"', 0, 0, 1);
 		$logouttext .= '<span class="fa fa-sign-out atoplogin"></span>';
 		$logouttext .= '</a>';
 	} else {
 		$logouthtmltext .= $langs->trans("NoLogoutProcessWithAuthMode", $_SESSION["dol_authmode"]);
-		$logouttext .= img_picture($langs->trans('Logout').":".$langs->trans('Logout'), 'logout_top.png', 'class="login"', 0, 0, 1);
+		$logouttext .= img_picture($langs->trans('Logout') . ":" . $langs->trans('Logout'), 'logout_top.png', 'class="login"', 0, 0, 1);
 	}
 }
 
-print '<div class="login_block_getinfo">'."\n";
+print '<div class="login_block_getinfo">' . "\n";
 
 // Add login user link
 $toprightmenu .= '<div class="login_block_user">';
@@ -125,7 +125,7 @@ $toprightmenu .= '<div class="inline-block nowrap"><div class="inline-block logi
 $toprightmenu .= $user->getNomUrl($picture, '', -1, 0, 11, 0, ($user->firstname ? 'firstname' : -1), 'atoplogin');
 $toprightmenu .= '</div></div>';
 
-$toprightmenu .= '</div>'."\n";
+$toprightmenu .= '</div>' . "\n";
 
 $toprightmenu .= '<div class="login_block_other">';
 
@@ -143,13 +143,13 @@ if (is_numeric($result)) {
 }
 
 if (!isset($form) || !is_object($form)) {
-	include_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
+	include_once DOL_DOCUMENT_ROOT . '/core/class/html.form.class.php';
 	$form = new Form($db);
 }
 
 // Link to module builder
 if (isModEnabled('modulebuilder')) {
-	$text = '<a href="'.DOL_URL_ROOT.'/modulebuilder/index.php?mainmenu=home&leftmenu=admintools" target="modulebuilder">';
+	$text = '<a href="' . DOL_URL_ROOT . '/modulebuilder/index.php?mainmenu=home&leftmenu=admintools" target="modulebuilder">';
 	//$text.= img_picture(":".$langs->trans("ModuleBuilder"), 'printer_top.png', 'class="printer"');
 	$text .= '<span class="fa fa-bug atoplogin"></span>';
 	$text .= '</a>';
@@ -169,6 +169,6 @@ print $toprightmenu;
 print "</div>\n"; // end div class="login_block"
 
 print '</div>';
-print '</body></html>'."\n";
+print '</body></html>' . "\n";
 
 $db->close();
