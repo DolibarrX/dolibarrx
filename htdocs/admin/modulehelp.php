@@ -370,15 +370,15 @@ if ($mode == 'desc') {
 			$textexternal .= ' <a href="'.DOL_URL_ROOT.'/admin/tools/export_files.php?export_type=externalmodule&what='.urlencode($moduledir).'&compression=zip&zipfilename_template=module_'.$moduledir.'-'.$version.'.notorig" target="_blank" rel="noopener">'.img_picture('', 'download').'</a>';
 		}
 
-		if ($objMod->editor_name != 'dolibarr') {
-			$textexternal .= '<br><span class="opacitymedium">'.$langs->trans("Publisher").':</span> '.(empty($objMod->editor_name) ? $langs->trans("Unknown") : $objMod->editor_name);
+		if ($objMod->editorName != 'dolibarr') {
+			$textexternal .= '<br><span class="opacitymedium">'.$langs->trans("Publisher").':</span> '.(empty($objMod->editorName) ? $langs->trans("Unknown") : $objMod->editorName);
 		}
 		$editor_url = $objMod->editor_url;
 		if (!preg_match('/^http/', $editor_url)) {
 			$editor_url = 'http://'.$editor_url;
 		}
 		if (!empty($objMod->editor_url) && !preg_match('/dolibarr\.org/i', $objMod->editor_url)) {
-			$textexternal .= ($objMod->editor_name != 'dolibarr' ? ' - ' : '').img_picture('', 'globe').' <a href="'.$editor_url.'" target="_blank" rel="noopener noreferrer external">'.$objMod->editor_url.'</a>';
+			$textexternal .= ($objMod->editorName != 'dolibarr' ? ' - ' : '').img_picture('', 'globe').' <a href="'.$editor_url.'" target="_blank" rel="noopener noreferrer external">'.$objMod->editor_url.'</a>';
 		}
 		$text .= $textexternal;
 	} else {

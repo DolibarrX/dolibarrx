@@ -51,7 +51,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var string 	Publisher name
 	 */
-	public $editor_name;
+	public $editorName;
 
 	/**
 	 * @var string 	URL of module at publisher site
@@ -943,7 +943,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 */
 	public function getPublisher()
 	{
-		return $this->editor_name;
+		return $this->editorName;
 	}
 
 	/**
@@ -1023,7 +1023,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		if (!empty($this->version) && !in_array($this->version, array('experimental', 'development'))) {
 			return 'external';
 		}
-		if (!empty($this->editor_name) || !empty($this->editor_url)) {
+		if (!empty($this->editorName) || !empty($this->editor_url)) {
 			return 'external';
 		}
 		if ($this->number >= 100000) {

@@ -72,7 +72,7 @@ class modPartnership extends DolibarrModules
 		$this->descriptionlong = "PartnershipDescriptionLong";
 
 		// // Author
-		// $this->editor_name = 'Editor name';
+		// $this->editorName = 'Editor name';
 		// $this->editor_url = 'https://www.example.com';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
