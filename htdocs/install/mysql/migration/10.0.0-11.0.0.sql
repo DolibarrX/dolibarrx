@@ -359,9 +359,9 @@ create table llx_fichinter_rec
 	entity				integer DEFAULT 1 NOT NULL,	 -- multi company id
 	fk_soc				integer DEFAULT NULL,
 	datec				datetime,  -- date de creation
-	fk_contrat			integer DEFAULT 0,          -- contrat auquel est rattache la fiche
+	fk_contract			integer DEFAULT 0,          -- contract to which the file is attached
 	fk_user_author		integer,                    -- createur
-	fk_projet			integer,                    -- projet auquel est associe la facture
+	fk_projet			integer,                    -- project to which the invoice is associated
 	duree				real,                       -- duree totale de l'intervention
 	description			text,
 	modelpdf			varchar(50),

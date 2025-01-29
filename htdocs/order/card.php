@@ -379,7 +379,7 @@ if (empty($resHook)) {
 					$subelement = 'propal';
 				}
 				if ($element == 'contract') {
-					$element = $subelement = 'contrat';
+					$element = $subelement = 'contract';
 				}
 
 				$object->origin = $origin;
@@ -400,7 +400,7 @@ if (empty($resHook)) {
 
 						$classname = ucfirst($subelement);
 						$srcobject = new $classname($db);
-						'@phan-var-force Order|Propal|Contrat $srcobject';
+						'@phan-var-force Order|Propal|Contract $srcobject';
 
 						dol_syslog("Try to find source object origin=".$object->origin." originid=".$object->origin_id." to add lines");
 						$result = $srcobject->fetch($object->origin_id);
@@ -1826,14 +1826,14 @@ if ($action == 'create' && $usercancreate) {
 				$element = 'comm/propal';
 				$subelement = 'propal';
 			} elseif ($element == 'contract') {
-				$element = $subelement = 'contrat';
+				$element = $subelement = 'contract';
 			}
 
 			dol_include_once('/'.$element.'/class/'.$subelement.'.class.php');
 
 			$classname = ucfirst($subelement);
 			$objectsrc = new $classname($db);
-			'@phan-var-force Order|Propal|Contrat $objectsrc';  // Can possibly be other class but CommonObject is too general
+			'@phan-var-force Order|Propal|Contract $objectsrc';  // Can possibly be other class but CommonObject is too general
 			$objectsrc->fetch($originid);
 			if (empty($objectsrc->lines) && method_exists($objectsrc, 'fetch_lines')) {
 				$objectsrc->fetch_lines();
@@ -2172,8 +2172,8 @@ if ($action == 'create' && $usercancreate) {
 
 		if (!empty($origin) && !empty($originid) && is_object($objectsrc)) {
 			// TODO for compatibility
-			if ($origin == 'contrat') {
-				// Calcul contrat->price (HT), contrat->total (TTC), contrat->tva
+			if ($origin == 'contract') {
+				// Calcul contract->price (HT), contract->total (TTC), contract->tva
 				//$objectsrc->remise_absolue = $remise_absolue;
 				//$objectsrc->remise_percent = $remise_percent;
 				$objectsrc->update_price(1);
@@ -2197,7 +2197,7 @@ if ($action == 'create' && $usercancreate) {
 				case 'Expedition':
 					$newclassname = 'Sending';
 					break;
-				case 'Contrat':
+				case 'Contract':
 					$newclassname = 'Contract';
 					break;
 				default:
@@ -3079,15 +3079,15 @@ if ($action == 'create' && $usercancreate) {
 				$arrayforbutaction[] = array(
 					'lang' => 'contracts',
 					'enabled' => (isModEnabled("contract") && ($object->statut == Order::STATUS_VALIDATED || $object->statut == Order::STATUS_SHIPMENTONPROCESS || $object->statut == Order::STATUS_CLOSED)),
-					'perm' => ($user->hasRight('contrat', 'creer') == 1),
+					'perm' => ($user->hasRight('contract', 'creer') == 1),
 					'label' => 'AddContract',
-					'url' => '/contrat/card.php?action=create&amp;origin=' . $object->element . '&amp;originid=' . $object->id . '&amp;socid=' . $object->socid,
+					'url' => '/contract/card.php?action=create&amp;origin=' . $object->element . '&amp;originid=' . $object->id . '&amp;socid=' . $object->socid,
 				);
-				/*if (isModEnabled('contrat') && ($object->statut == Order::STATUS_VALIDATED || $object->statut == Order::STATUS_SHIPMENTONPROCESS || $object->statut == Order::STATUS_CLOSED)) {
+				/*if (isModEnabled('contract') && ($object->statut == Order::STATUS_VALIDATED || $object->statut == Order::STATUS_SHIPMENTONPROCESS || $object->statut == Order::STATUS_CLOSED)) {
 					$langs->load("contracts");
 
-					if ($user->hasRight('contrat', 'creer')) {
-						print dolGetButtonAction('', $langs->trans('AddContract'), 'default', DOL_URL_ROOT.'/contrat/card.php?action=create&amp;origin='.$object->element.'&amp;originid='.$object->id.'&amp;socid='.$object->socid, '');
+					if ($user->hasRight('contract', 'creer')) {
+						print dolGetButtonAction('', $langs->trans('AddContract'), 'default', DOL_URL_ROOT.'/contract/card.php?action=create&amp;origin='.$object->element.'&amp;originid='.$object->id.'&amp;socid='.$object->socid, '');
 					}
 				}*/
 

@@ -130,8 +130,8 @@ ALTER TABLE llx_accounting_bookkeeping ADD INDEX idx_accounting_bookkeeping_fk_d
 
 ALTER TABLE llx_c_revenuestamp ADD COLUMN revenuestamp_type  varchar(16) DEFAULT 'fixed' NOT NULL;
 
-UPDATE llx_contrat SET ref = rowid WHERE ref IS NULL OR ref = '';
-ALTER TABLE llx_contratdet ADD COLUMN vat_src_code varchar(10) DEFAULT '';
+UPDATE llx_contract SET ref = rowid WHERE ref IS NULL OR ref = '';
+ALTER TABLE llx_contractdet ADD COLUMN vat_src_code varchar(10) DEFAULT '';
 
 INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active ) values (42, 'propal',  'external', 'SHIPPING', 'Customer contact for delivery', 1);
 
@@ -172,7 +172,7 @@ ALTER TABLE llx_ecm_files ADD COLUMN src_object_id integer;
 ALTER TABLE llx_propal ADD COLUMN last_main_doc varchar(255);
 ALTER TABLE llx_order ADD COLUMN last_main_doc varchar(255);
 ALTER TABLE llx_facture ADD COLUMN last_main_doc varchar(255);
-ALTER TABLE llx_contrat ADD COLUMN last_main_doc varchar(255);
+ALTER TABLE llx_contract ADD COLUMN last_main_doc varchar(255);
 ALTER TABLE llx_expedition ADD COLUMN last_main_doc varchar(255);
 ALTER TABLE llx_fichinter ADD COLUMN last_main_doc varchar(255);
 ALTER TABLE llx_livraison ADD COLUMN last_main_doc varchar(255);
@@ -191,10 +191,10 @@ ALTER TABLE llx_facture_rec ADD COLUMN suspended integer DEFAULT 0;
 
 ALTER TABLE llx_facture_rec MODIFY COLUMN titre VARCHAR(100);
 
-ALTER TABLE llx_contrat MODIFY COLUMN ref varchar(50);
-ALTER TABLE llx_contrat MODIFY COLUMN ref_customer varchar(50);
-ALTER TABLE llx_contrat MODIFY COLUMN ref_supplier varchar(50);
-ALTER TABLE llx_contrat MODIFY COLUMN ref_ext varchar(50);
+ALTER TABLE llx_contract MODIFY COLUMN ref varchar(50);
+ALTER TABLE llx_contract MODIFY COLUMN ref_customer varchar(50);
+ALTER TABLE llx_contract MODIFY COLUMN ref_supplier varchar(50);
+ALTER TABLE llx_contract MODIFY COLUMN ref_ext varchar(50);
 
 
 UPDATE llx_c_email_templates SET position = 0 WHERE position IS NULL;
@@ -486,7 +486,7 @@ ALTER TABLE llx_socpeople MODIFY COLUMN ref_ext varchar(255);
 ALTER TABLE llx_actioncomm MODIFY COLUMN ref_ext varchar(255);
 ALTER TABLE llx_expedition MODIFY COLUMN ref_ext varchar(255);
 ALTER TABLE llx_livraison MODIFY COLUMN ref_ext varchar(255);
-ALTER TABLE llx_contrat MODIFY COLUMN ref_ext varchar(255);
+ALTER TABLE llx_contract MODIFY COLUMN ref_ext varchar(255);
 
 ALTER TABLE llx_actioncomm MODIFY COLUMN label varchar(255) NOT NULL;
 
@@ -516,7 +516,7 @@ UPDATE llx_accounting_account SET pcg_type = 'EXPENSE' where pcg_type = 'COMPRAS
 
 ALTER TABLE llx_c_action_trigger MODIFY COLUMN elementtype varchar(24) NOT NULL;
 
-insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('CONTRACT_SENTBYMAIL','Contract sent by mail','Executed when a contract is sent by mail','contrat',18);
+insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('CONTRACT_SENTBYMAIL','Contract sent by mail','Executed when a contract is sent by mail','contract',18);
 
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('PROPOSAL_SUPPLIER_VALIDATE','Price request validated','Executed when a commercial proposal is validated','proposal_supplier',10);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('PROPOSAL_SUPPLIER_SENTBYMAIL','Price request sent by mail','Executed when a commercial proposal is sent by mail','proposal_supplier',10);

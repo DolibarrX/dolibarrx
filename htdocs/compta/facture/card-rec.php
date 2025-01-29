@@ -275,10 +275,10 @@ if (empty($resHook)) {
 
 				$srcObject->fetchObjectLinked();
 
-				if (!empty($srcObject->linkedObjectsIds['contrat'])) {
-					$contractidid = reset($srcObject->linkedObjectsIds['contrat']);
+				if (!empty($srcObject->linkedObjectsIds['contract'])) {
+					$contractidid = reset($srcObject->linkedObjectsIds['contract']);
 
-					$object->origin = 'contrat';
+					$object->origin = 'contract';
 					$object->origin_id = $contractidid;
 					$object->linked_objects[$object->origin] = $object->origin_id;
 				}

@@ -45,7 +45,7 @@ if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formprojet.class.php';
 }
 if (isModEnabled('contract')) {
-	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcontract.class.php';
 }
 
@@ -106,7 +106,7 @@ $extrafields = new ExtraFields($db);
 $arrayfields = array(
 	'f.title' => array('label' => "Ref", 'checked' => 1),
 	's.nom' => array('label' => "ThirdParty", 'checked' => 1),
-	'f.fk_contrat' => array('label' => "Contract", 'checked' => 1),
+	'f.fk_contract' => array('label' => "Contract", 'checked' => 1),
 	'f.duree' => array('label' => "Duration", 'checked' => 1),
 	'f.total_ttc' => array('label' => "AmountTTC", 'checked' => 1),
 	'f.frequency' => array('label' => "RecurringInvoiceTemplate", 'checked' => 1),
@@ -182,7 +182,7 @@ if ($action == 'add' && $permissionToAdd) {
 		$object->description = GETPOST('description', 'restricthtml');
 		$object->socid = GETPOSTINT('socid');
 		$object->fk_project = GETPOSTINT('projectid');
-		$object->fk_contrat = GETPOSTINT('contractid');
+		$object->fk_contract = GETPOSTINT('contractid');
 
 		$object->frequency = $frequency;
 		$object->unit_frequency = GETPOST('unit_frequency', 'alpha');
@@ -209,7 +209,7 @@ if ($action == 'add' && $permissionToAdd) {
 	if ($object->socid > 0) {
 		$newinter->socid = $object->socid;
 		$newinter->fk_project = $object->fk_project;
-		$newinter->fk_contrat = $object->fk_contrat;
+		$newinter->fk_contract = $object->fk_contract;
 	} else {
 		$newinter->socid = GETPOSTINT("socid");
 	}
@@ -281,7 +281,7 @@ $form = new Form($db);
 $fichinterrecstatic = new FichinterRec($db);
 $companystatic = new Societe($db);
 if (isModEnabled('contract')) {
-	$contratstatic = new Contrat($db);
+	$contractstatic = new Contract($db);
 }
 if (isModEnabled('project')) {
 	$projectstatic = new Project($db);
@@ -314,7 +314,7 @@ if ($action == 'create') {
 		if (isModEnabled('project') && $object->fk_project > 0) {
 			$rowspan++;
 		}
-		if (isModEnabled('contract') && $object->fk_contrat > 0) {
+		if (isModEnabled('contract') && $object->fk_contract > 0) {
 			$rowspan++;
 		}
 
@@ -366,11 +366,11 @@ if ($action == 'create') {
 			print "</td></tr>";
 		}
 
-		// Contrat
+		// Contract
 		if (isModEnabled('contract')) {
 			$formcontract = new FormContract($db);
 			print "<tr><td>".$langs->trans("Contract")."</td><td>";
-			$contractid = GETPOST('contractid') ? GETPOST('contractid') : (!empty($object->fk_contrat) ? $object->fk_contrat : 0) ;
+			$contractid = GETPOST('contractid') ? GETPOST('contractid') : (!empty($object->fk_contract) ? $object->fk_contract : 0) ;
 			$numcontract = $formcontract->select_contract($object->thirdparty->id, $contractid, 'contracttid');
 			print "</td></tr>";
 		}
@@ -585,21 +585,21 @@ if ($action == 'create') {
 				print '<table class="nobordernopadding" width="100%"><tr><td>';
 				print $langs->trans('Contract');
 				print '</td>';
-				if ($action != 'contrat') {
-					print '<td class="right"><a href="'.$_SERVER["PHP_SELF"].'?action=contrat&id='.$object->id.'&token='.newToken().'">';
+				if ($action != 'contract') {
+					print '<td class="right"><a href="'.$_SERVER["PHP_SELF"].'?action=contract&id='.$object->id.'&token='.newToken().'">';
 					print img_edit($langs->trans('SetContract'), 1);
 					print '</a></td>';
 				}
 				print '</tr></table>';
 				print '</td><td>';
-				if ($action == 'contrat') {
+				if ($action == 'contract') {
 					$formcontract = new FormContract($db);
-					$formcontract->formSelectContract($_SERVER["PHP_SELF"].'?id='.$object->id, $object->socid, $object->fk_contrat, 'contratid', 0, 1);
+					$formcontract->formSelectContract($_SERVER["PHP_SELF"].'?id='.$object->id, $object->socid, $object->fk_contract, 'contractid', 0, 1);
 				} else {
-					if ($object->fk_contrat) {
-						$contratstatic = new Contrat($db);
-						$contratstatic->fetch($object->fk_contrat);
-						print $contratstatic->getNomUrl(0, '', 1);
+					if ($object->fk_contract) {
+						$contractstatic = new Contract($db);
+						$contractstatic->fetch($object->fk_contract);
+						print $contractstatic->getNomUrl(0, '', 1);
 					} else {
 						print "&nbsp;";
 					}
@@ -788,7 +788,7 @@ if ($action == 'create') {
 		// List mode
 
 		$sql = "SELECT f.rowid as id, s.nom as name, s.rowid as socid, f.title,";
-		$sql .= " f.duree, f.fk_contrat, f.fk_projet as fk_project, f.frequency, f.nb_gen_done, f.nb_gen_max,";
+		$sql .= " f.duree, f.fk_contract, f.fk_projet as fk_project, f.frequency, f.nb_gen_done, f.nb_gen_max,";
 		$sql .= " f.date_last_gen, f.date_when, f.datec, f.status";
 
 		$sql .= " FROM ".MAIN_DB_PREFIX."fichinter_rec as f";
@@ -837,7 +837,7 @@ if ($action == 'create') {
 			print_liste_field_titre("Ref", $_SERVER['PHP_SELF'], "f.title", "", "", 'width="200px"', $sortfield, $sortorder, 'left ');
 			print_liste_field_titre("Company", $_SERVER['PHP_SELF'], "s.nom", "", "", 'width="200px"', $sortfield, $sortorder, 'left ');
 			if (isModEnabled('contract')) {
-				print_liste_field_titre("Contract", $_SERVER['PHP_SELF'], "f.fk_contrat", "", "", 'width="100px"', $sortfield, $sortorder, 'left ');
+				print_liste_field_titre("Contract", $_SERVER['PHP_SELF'], "f.fk_contract", "", "", 'width="100px"', $sortfield, $sortorder, 'left ');
 			}
 			if (isModEnabled('project')) {
 				print_liste_field_titre("Project", $_SERVER['PHP_SELF'], "f.fk_project", "", "", 'width="100px"', $sortfield, $sortorder, 'left ');
@@ -873,9 +873,9 @@ if ($action == 'create') {
 
 					if (isModEnabled('contract')) {
 						print '<td>';
-						if ($objp->fk_contrat > 0) {
-							$contratstatic->fetch($objp->fk_contrat);
-							print $contratstatic->getNomUrl(1);
+						if ($objp->fk_contract > 0) {
+							$contractstatic->fetch($objp->fk_contract);
+							print $contractstatic->getNomUrl(1);
 						}
 						print '</td>';
 					}

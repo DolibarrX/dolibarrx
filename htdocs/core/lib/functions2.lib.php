@@ -2168,9 +2168,9 @@ function dolGetElementUrl($objectid, $objecttype, $withPicture = 0, $option = ''
 		$module = 'delivery_note';
 	} elseif ($objecttype == 'contract') {
 		$langs->load('contracts');
-		$classpath = 'contrat/class';
-		$module = 'contrat';
-		$myobject = 'contrat';
+		$classpath = 'contract/class';
+		$module = 'contract';
+		$myobject = 'contract';
 	} elseif ($objecttype == 'member') {
 		$langs->load('members');
 		$classpath = 'members/class';
@@ -2690,7 +2690,7 @@ function getModuleDirForApiClass($moduleobject)
 	}
 
 	if ($moduleobject == 'contracts') {
-		$moduledirforclass = 'contrat';
+		$moduledirforclass = 'contract';
 	} elseif (in_array($moduleobject, array('admin', 'login', 'setup', 'access', 'status', 'tools', 'documents'))) {
 		$moduledirforclass = 'api';
 	} elseif ($moduleobject == 'contact' || $moduleobject == 'contacts' || $moduleobject == 'customer' || $moduleobject == 'thirdparty' || $moduleobject == 'thirdparties') {

@@ -322,12 +322,12 @@ if ($action == "importSignature") {
 				}
 			}
 		} elseif ($mode == 'contract') {
-			require_once DOL_DOCUMENT_ROOT . '/contrat/class/contrat.class.php';
+			require_once DOL_DOCUMENT_ROOT . '/contract/class/contract.class.php';
 			require_once DOL_DOCUMENT_ROOT . '/core/lib/pdf.lib.php';
-			$object = new Contrat($db);
+			$object = new Contract($db);
 			$object->fetch(0, $ref);
 
-			$upload_dir = !empty($config->contrat->multidir_output[$object->entity]) ? $config->contrat->multidir_output[$object->entity] : $config->contrat->dir_output;
+			$upload_dir = !empty($config->contract->multidir_output[$object->entity]) ? $config->contract->multidir_output[$object->entity] : $config->contract->dir_output;
 			$upload_dir .= '/' . dol_sanitizeFileName($object->ref) . '/';
 
 			$date = dol_print_date(dol_now(), "%Y%m%d%H%M%S");
@@ -350,7 +350,7 @@ if ($action == "importSignature") {
 			if (!$error) {
 				// Defined modele of doc
 				$last_main_doc_file = $object->last_main_doc;
-				$directdownloadlink = $object->getLastMainDocLink('contrat');    // url to download the $object->last_main_doc
+				$directdownloadlink = $object->getLastMainDocLink('contract');    // url to download the $object->last_main_doc
 
 				if (preg_match('/\.pdf/i', $last_main_doc_file)) {
 					// TODO Use the $last_main_doc_file to defined the $newpdffilename and $sourcefile
@@ -450,7 +450,7 @@ if ($action == "importSignature") {
 					// We should just create an image file with the signature.
 				}
 				$user = new User($db);
-				$object->setSignedStatus($user, Contrat::$SIGNED_STATUSES['STATUS_SIGNED_RECEIVER_ONLINE'], 0, 'CONTRACT_MODIFY');
+				$object->setSignedStatus($user, Contract::$SIGNED_STATUSES['STATUS_SIGNED_RECEIVER_ONLINE'], 0, 'CONTRACT_MODIFY');
 			}
 		} elseif ($mode == 'fichinter') {
 			require_once DOL_DOCUMENT_ROOT . '/fichinter/class/fichinter.class.php';

@@ -92,7 +92,7 @@ ALTER TABLE llx_ecm_files ADD COLUMN content text;
 
 ALTER TABLE llx_product DROP FOREIGN KEY fk_product_default_warehouse;
 
-DROP TABLE llx_contratdet_log;
+DROP TABLE llx_contractdet_log;
 
 ALTER TABLE llx_societe_rib MODIFY COLUMN iban_prefix varchar(80);
 ALTER TABLE llx_bank_account MODIFY COLUMN iban_prefix varchar(80);
@@ -119,12 +119,12 @@ DELETE FROM llx_document_model WHERE nom='standard' AND type='evaluation';
 DELETE FROM llx_document_model WHERE nom='standard' AND type='supplier_payment';
 DELETE FROM llx_document_model WHERE nom='standard' AND type='member';
 
-ALTER TABLE llx_contrat ADD COLUMN total_tva double(24,8) DEFAULT 0;
-ALTER TABLE llx_contrat ADD COLUMN localtax1 double(24,8) DEFAULT 0;
-ALTER TABLE llx_contrat ADD COLUMN localtax2 double(24,8) DEFAULT 0;
-ALTER TABLE llx_contrat ADD COLUMN revenuestamp double(24,8) DEFAULT 0;
-ALTER TABLE llx_contrat ADD COLUMN total_ht double(24,8) DEFAULT 0;
-ALTER TABLE llx_contrat ADD COLUMN total_ttc double(24,8) DEFAULT 0;
+ALTER TABLE llx_contract ADD COLUMN total_tva double(24,8) DEFAULT 0;
+ALTER TABLE llx_contract ADD COLUMN localtax1 double(24,8) DEFAULT 0;
+ALTER TABLE llx_contract ADD COLUMN localtax2 double(24,8) DEFAULT 0;
+ALTER TABLE llx_contract ADD COLUMN revenuestamp double(24,8) DEFAULT 0;
+ALTER TABLE llx_contract ADD COLUMN total_ht double(24,8) DEFAULT 0;
+ALTER TABLE llx_contract ADD COLUMN total_ttc double(24,8) DEFAULT 0;
 
 ALTER TABLE llx_expedition_package MODIFY COLUMN dangerous_goods varchar(60) DEFAULT '0';
 
@@ -196,7 +196,7 @@ CREATE TABLE llx_paymentexpensereport_expensereport
 )ENGINE=innodb;
 
 
-ALTER TABLE llx_contrat ADD COLUMN denormalized_lower_planned_end_date datetime;
+ALTER TABLE llx_contract ADD COLUMN denormalized_lower_planned_end_date datetime;
 
 -- Missing field vat_reverse_charge with constant MAIN_COMPANY_PERENTITY_SHARED
 ALTER TABLE llx_societe_perentity ADD COLUMN vat_reverse_charge tinyint DEFAULT 0;
@@ -367,8 +367,8 @@ ALTER TABLE llx_order_fournisseurdet ADD COLUMN subprice_ttc double(24,8) DEFAUL
 ALTER TABLE llx_order_fournisseurdet ADD COLUMN multicurrency_subprice_ttc double(24,8) DEFAULT 0 after multicurrency_subprice;
 ALTER TABLE llx_orderdet ADD COLUMN subprice_ttc double(24,8) DEFAULT 0 after subprice;
 ALTER TABLE llx_orderdet ADD COLUMN multicurrency_subprice_ttc double(24,8) DEFAULT 0 after multicurrency_subprice;
-ALTER TABLE llx_contratdet ADD COLUMN subprice_ttc double(24,8) DEFAULT 0 after subprice;
-ALTER TABLE llx_contratdet ADD COLUMN multicurrency_subprice_ttc double(24,8) DEFAULT 0 after multicurrency_subprice;
+ALTER TABLE llx_contractdet ADD COLUMN subprice_ttc double(24,8) DEFAULT 0 after subprice;
+ALTER TABLE llx_contractdet ADD COLUMN multicurrency_subprice_ttc double(24,8) DEFAULT 0 after multicurrency_subprice;
 ALTER TABLE llx_deliverydet ADD COLUMN subprice_ttc double(24,8) DEFAULT 0 after subprice;
 ALTER TABLE llx_expensereport_det ADD COLUMN subprice_ttc double(24,8) DEFAULT 0 after subprice;
 ALTER TABLE llx_expensereport_det ADD COLUMN multicurrency_subprice_ttc double(24,8) DEFAULT 0 after multicurrency_subprice;

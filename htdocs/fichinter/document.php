@@ -26,7 +26,7 @@
 /**
  *       \file       htdocs/fichinter/document.php
  *       \ingroup    fichinter
- *       \brief      Page des documents joints sur les contrats
+ *       \brief      Page des documents joints sur les contracts
  */
 
 // Load Dolibarr environment

@@ -21,15 +21,15 @@
  */
 
 /**
- *      \file       htdocs/contrat/note.php
- *      \ingroup    contrat
+ *      \file       htdocs/contract/note.php
+ *      \ingroup    contract
  *      \brief      Card with notes on contract
  */
 
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/contract.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 }
@@ -56,16 +56,16 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-//$hookManager->initHooks(array('contractcard', 'globalcard'));  -> Conflict with contrat\card.php
+//$hookManager->initHooks(array('contractcard', 'globalcard'));  -> Conflict with contract\card.php
 $hookManager->initHooks(array('contractnote'));
 
-$object = new Contrat($db);
+$object = new Contract($db);
 $object->fetch($id, $ref);
 
-$permissionToAdd   = $user->hasRight('contrat', 'creer');     //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissionnote = $user->hasRight('contrat', 'creer'); // Used by the include of actions_setnotes.inc.php
+$permissionToAdd   = $user->hasRight('contract', 'creer');     //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionnote = $user->hasRight('contract', 'creer'); // Used by the include of actions_setnotes.inc.php
 
-$result = restrictedArea($user, 'contrat', $object->id);
+$result = restrictedArea($user, 'contract', $object->id);
 
 
 /*
@@ -89,7 +89,7 @@ if (empty($resHook)) {
 $title = $langs->trans("Contract");
 $help_url = 'EN:Module_Contracts|FR:Module_Contrat|ES:Contratos_de_servicio';
 
-llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contrat page-card_note');
+llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contract page-card_note');
 
 $form = new Form($db);
 
@@ -104,7 +104,7 @@ if ($id > 0 || !empty($ref)) {
 
 	// Contract card
 
-	$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+	$linkback = '<a href="'.DOL_URL_ROOT.'/contract/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 
 	$morehtmlref = '';
@@ -126,7 +126,7 @@ if ($id > 0 || !empty($ref)) {
 	// Thirdparty
 	$morehtmlref .= '<br>'.$object->thirdparty->getNomUrl(1);
 	if (!getDolGlobalString('MAIN_DISABLE_OTHER_LINK') && $object->thirdparty->id > 0) {
-		$morehtmlref .= ' <span class="otherlink">(<a href="'.DOL_URL_ROOT.'/contrat/list.php?socid='.$object->thirdparty->id.'&search_name='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherContracts").'</a>)</span>';
+		$morehtmlref .= ' <span class="otherlink">(<a href="'.DOL_URL_ROOT.'/contract/list.php?socid='.$object->thirdparty->id.'&search_name='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherContracts").'</a>)</span>';
 	}
 	// Project
 	if (isModEnabled('project')) {
@@ -181,9 +181,9 @@ if ($id > 0 || !empty($ref)) {
 	// Date
 	print '<tr>';
 	print '<td class="titlefield">';
-	print $form->editfieldkey("Date", 'date_contrat', $object->date_contrat, $object, 0);
+	print $form->editfieldkey("Date", 'date_contract', $object->date_contract, $object, 0);
 	print '</td><td>';
-	print $form->editfieldval("Date", 'date_contrat', $object->date_contrat, $object, 0, 'datehourpicker');
+	print $form->editfieldval("Date", 'date_contract', $object->date_contract, $object, 0, 'datehourpicker');
 	print '</td>';
 	print '</tr>';
 

@@ -43,7 +43,7 @@ create table llx_facture_fourn_rec
     fk_user_author              integer,             -- user creating
     fk_user_modif               integer,             -- user making last change
 
-    fk_projet                   integer,             -- projet auquel est associe la facture
+    fk_projet                   integer,             -- project to which the invoice is associated
 
     fk_account                  integer,             -- bank account
     fk_cond_reglement		    integer,   	         -- condition de reglement (30 jours, fin de mois ...)

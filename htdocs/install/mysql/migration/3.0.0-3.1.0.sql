@@ -181,7 +181,7 @@ INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang)
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (8,'WITHDRAW_CREDIT','Créditer prélèvement','Executed when a withdrawal is credited','withdraw',26);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (9,'WITHDRAW_EMIT','Emission prélèvement','Executed when a withdrawal is emited','withdraw',27);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (10,'COMPANY_CREATE','Third party created','Executed when a third party is created','societe',1);
-INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (11,'CONTRACT_VALIDATE','Contract validated','Executed when a contract is validated','contrat',17);
+INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (11,'CONTRACT_VALIDATE','Contract validated','Executed when a contract is validated','contract',17);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (12,'PROPAL_SENTBYMAIL','Commercial proposal sent by mail','Executed when a commercial proposal is sent by mail','propal',3);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (13,'ORDER_SENTBYMAIL','Customer order sent by mail','Executed when a customer order is sent by mail ','order',5);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (14,'BILL_PAYED','Customer invoice payed','Executed when a customer invoice is payed','facture',7);
@@ -416,7 +416,7 @@ INSERT INTO llx_c_tva(rowid,fk_pays,taux,recuperableonly,note,active) VALUES (46
 
 update llx_actioncomm set elementtype='invoice' where elementtype='facture';
 update llx_actioncomm set elementtype='order' where elementtype='order';
-update llx_actioncomm set elementtype='contract' where elementtype='contrat';
+update llx_actioncomm set elementtype='contract' where elementtype='contract';
 
 
 alter table llx_propal add column   tms             timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP after fk_projet;

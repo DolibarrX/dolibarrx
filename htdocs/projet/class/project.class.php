@@ -1005,7 +1005,7 @@ class Project extends CommonObject
 			'order_fournisseur' => 'fk_projet',
 			'facture_fourn' => 'fk_projet',
 			'expensereport_det' => 'fk_projet',
-			'contrat' => 'fk_projet',
+			'contract' => 'fk_projet',
 			'fichinter' => 'fk_projet',
 			'don' => array('field' => 'fk_projet', 'module' => 'don'),
 			'actioncomm' => 'fk_project',

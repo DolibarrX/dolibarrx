@@ -49,7 +49,7 @@ if (!file_exists($conffile)) {
 require_once $conffile;
 require_once $dolibarr_main_document_root.'/compta/facture/class/facture.class.php';
 require_once $dolibarr_main_document_root.'/comm/propal/class/propal.class.php';
-require_once $dolibarr_main_document_root.'/contrat/class/contrat.class.php';
+require_once $dolibarr_main_document_root.'/contract/class/contract.class.php';
 require_once $dolibarr_main_document_root.'/order/class/order.class.php';
 require_once $dolibarr_main_document_root.'/fourn/class/fournisseur.order.class.php';
 require_once $dolibarr_main_document_root.'/core/lib/price.lib.php';
@@ -281,7 +281,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 				migrate_price_order_fournisseur($db, $langs, $config);
 
-				migrate_price_contrat($db, $langs, $config);
+				migrate_price_contract($db, $langs, $config);
 
 				migrate_paiementfourn_facturefourn($db, $langs, $config);
 
@@ -377,7 +377,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			$afterversionarray = explode('.', '3.1.9');
 			$beforeversionarray = explode('.', '3.2.9');
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
-				migrate_price_contrat($db, $langs, $config);
+				migrate_price_contract($db, $langs, $config);
 
 				migrate_mode_reglement($db, $langs, $config);
 
@@ -1078,7 +1078,7 @@ function migrate_paiements_orphelins_2($db, $langs, $config)
 
 
 /**
- * Mise a jour des contrats (gestion du contrat + detail de contrat)
+ * Mise a jour des contracts (gestion du contract + detail de contract)
  *
  * @param	DoliDB		$db		Database handler
  * @param	Translate	$langs	Object langs
@@ -1094,13 +1094,13 @@ function migrate_contracts_det($db, $langs, $config)
 	print '<br>';
 	print '<b>'.$langs->trans('MigrationContractsUpdate')."</b><br>\n";
 
-	$sql = "SELECT c.rowid as cref, c.date_contrat, c.statut, c.fk_product, c.fk_facture, c.fk_user_author,";
+	$sql = "SELECT c.rowid as cref, c.date_contract, c.statut, c.fk_product, c.fk_facture, c.fk_user_author,";
 	$sql .= " p.ref, p.label, p.description, p.price, p.tva_tx, p.duration, cd.rowid";
-	$sql .= " FROM ".MAIN_DB_PREFIX."contrat as c";
+	$sql .= " FROM ".MAIN_DB_PREFIX."contract as c";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p";
 	$sql .= " ON c.fk_product = p.rowid";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."contratdet as cd";
-	$sql .= " ON c.rowid=cd.fk_contrat";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."contractdet as cd";
+	$sql .= " ON c.rowid=cd.fk_contract";
 	$sql .= " WHERE cd.rowid IS NULL AND p.rowid IS NOT NULL";
 	$resql = $db->query($sql);
 
@@ -1117,15 +1117,15 @@ function migrate_contracts_det($db, $langs, $config)
 			while ($i < $num) {
 				$obj = $db->fetch_object($resql);
 
-				$sql = "INSERT INTO ".MAIN_DB_PREFIX."contratdet (";
-				$sql .= "fk_contrat, fk_product, statut, label, description,";
+				$sql = "INSERT INTO ".MAIN_DB_PREFIX."contractdet (";
+				$sql .= "fk_contract, fk_product, statut, label, description,";
 				$sql .= "date_ouverture_prevue, date_ouverture, date_fin_validite, tva_tx, qty,";
 				$sql .= "subprice, price_ht, fk_user_author, fk_user_ouverture)";
 				$sql .= " VALUES (";
 				$sql .= ((int) $obj->cref).", ".($obj->fk_product ? ((int) $obj->fk_product) : 0).", ";
 				$sql .= "0, ";
 				$sql .= "'".$db->escape($obj->label)."', null, ";
-				$sql .= ($obj->date_contrat ? "'".$db->idate($db->jdate($obj->date_contrat))."'" : "null").", ";
+				$sql .= ($obj->date_contract ? "'".$db->idate($db->jdate($obj->date_contract))."'" : "null").", ";
 				$sql .= "null, ";
 				$sql .= "null, ";
 				$sql .= ((float) $obj->tva_tx).", 1, ";
@@ -1237,7 +1237,7 @@ function migrate_links_transfert($db, $langs, $config)
 }
 
 /**
- * Mise a jour des date de contrats non renseignees
+ * Mise a jour des date de contracts non renseignees
  *
  * @param	DoliDB		$db		Database handler
  * @param	Translate	$langs	Object langs
@@ -1251,7 +1251,7 @@ function migrate_contracts_date1($db, $langs, $config)
 	print '<br>';
 	print '<b>'.$langs->trans('MigrationContractsEmptyDatesUpdate')."</b><br>\n";
 
-	$sql = "update ".MAIN_DB_PREFIX."contrat set date_contrat=tms where date_contrat is null";
+	$sql = "update ".MAIN_DB_PREFIX."contract set date_contract=tms where date_contract is null";
 	dolibarr_install_syslog("upgrade2::migrate_contracts_date1");
 	$resql = $db->query($sql);
 	if (!$resql) {
@@ -1263,7 +1263,7 @@ function migrate_contracts_date1($db, $langs, $config)
 		print $langs->trans('MigrationContractsEmptyDatesNothingToUpdate')."<br>\n";
 	}
 
-	$sql = "update ".MAIN_DB_PREFIX."contrat set datec=tms where datec is null";
+	$sql = "update ".MAIN_DB_PREFIX."contract set datec=tms where datec is null";
 	dolibarr_install_syslog("upgrade2::migrate_contracts_date1");
 	$resql = $db->query($sql);
 	if (!$resql) {
@@ -1295,11 +1295,11 @@ function migrate_contracts_date2($db, $langs, $config)
 	print '<br>';
 	print '<b>'.$langs->trans('MigrationContractsInvalidDatesUpdate')."</b><br>\n";
 
-	$sql = "SELECT c.rowid as cref, c.datec, c.date_contrat, MIN(cd.date_ouverture) as datemin";
-	$sql .= " FROM ".MAIN_DB_PREFIX."contrat as c,";
-	$sql .= " ".MAIN_DB_PREFIX."contratdet as cd";
-	$sql .= " WHERE c.rowid=cd.fk_contrat AND cd.date_ouverture IS NOT NULL";
-	$sql .= " GROUP BY c.rowid, c.date_contrat";
+	$sql = "SELECT c.rowid as cref, c.datec, c.date_contract, MIN(cd.date_ouverture) as datemin";
+	$sql .= " FROM ".MAIN_DB_PREFIX."contract as c,";
+	$sql .= " ".MAIN_DB_PREFIX."contractdet as cd";
+	$sql .= " WHERE c.rowid=cd.fk_contract AND cd.date_ouverture IS NOT NULL";
+	$sql .= " GROUP BY c.rowid, c.date_contract";
 	$resql = $db->query($sql);
 
 	dolibarr_install_syslog("upgrade2::migrate_contracts_date2");
@@ -1309,32 +1309,32 @@ function migrate_contracts_date2($db, $langs, $config)
 		$num = $db->num_rows($resql);
 
 		if ($num) {
-			$nbcontratsmodifie = 0;
+			$nbcontractsmodifie = 0;
 			$db->begin();
 
 			while ($i < $num) {
 				$obj = $db->fetch_object($resql);
-				if ($obj->date_contrat > $obj->datemin) {
+				if ($obj->date_contract > $obj->datemin) {
 					$datemin = $db->jdate($obj->datemin);
 
-					print $langs->trans('MigrationContractsInvalidDateFix', $obj->cref, $obj->date_contrat, $obj->datemin)."<br>\n";
-					$sql = "UPDATE ".MAIN_DB_PREFIX."contrat";
-					$sql .= " SET date_contrat='".$db->idate($datemin)."'";
+					print $langs->trans('MigrationContractsInvalidDateFix', $obj->cref, $obj->date_contract, $obj->datemin)."<br>\n";
+					$sql = "UPDATE ".MAIN_DB_PREFIX."contract";
+					$sql .= " SET date_contract='".$db->idate($datemin)."'";
 					$sql .= " WHERE rowid = ".((int) $obj->cref);
 					$resql2 = $db->query($sql);
 					if (!$resql2) {
 						dol_print_error($db);
 					}
 
-					$nbcontratsmodifie++;
+					$nbcontractsmodifie++;
 				}
 				$i++;
 			}
 
 			$db->commit();
 
-			if ($nbcontratsmodifie) {
-				print $langs->trans('MigrationContractsInvalidDatesNumber', $nbcontratsmodifie)."<br>\n";
+			if ($nbcontractsmodifie) {
+				print $langs->trans('MigrationContractsInvalidDatesNumber', $nbcontractsmodifie)."<br>\n";
 			} else {
 				print  $langs->trans('MigrationContractsInvalidDatesNothingToUpdate')."<br>\n";
 			}
@@ -1347,7 +1347,7 @@ function migrate_contracts_date2($db, $langs, $config)
 }
 
 /**
- * Mise a jour des dates de creation de contrat
+ * Mise a jour des dates de creation de contract
  *
  * @param	DoliDB		$db		Database handler
  * @param	Translate	$langs	Object langs
@@ -1361,7 +1361,7 @@ function migrate_contracts_date3($db, $langs, $config)
 	print '<br>';
 	print '<b>'.$langs->trans('MigrationContractsIncoherentCreationDateUpdate')."</b><br>\n";
 
-	$sql = "update ".MAIN_DB_PREFIX."contrat set datec=date_contrat where datec is null or datec > date_contrat";
+	$sql = "update ".MAIN_DB_PREFIX."contract set datec=date_contract where datec is null or datec > date_contract";
 	dolibarr_install_syslog("upgrade2::migrate_contracts_date3");
 	$resql = $db->query($sql);
 	if (!$resql) {
@@ -1377,7 +1377,7 @@ function migrate_contracts_date3($db, $langs, $config)
 }
 
 /**
- * Reouverture des contrats qui ont au moins une ligne non fermee
+ * Reouverture des contracts qui ont au moins une ligne non fermee
  *
  * @param	DoliDB		$db		Database handler
  * @param	Translate	$langs	Object langs
@@ -1391,8 +1391,8 @@ function migrate_contracts_open($db, $langs, $config)
 	print '<br>';
 	print '<b>'.$langs->trans('MigrationReopeningContracts')."</b><br>\n";
 
-	$sql = "SELECT c.rowid as cref FROM ".MAIN_DB_PREFIX."contrat as c, ".MAIN_DB_PREFIX."contratdet as cd";
-	$sql .= " WHERE cd.statut = 4 AND c.statut=2 AND c.rowid=cd.fk_contrat";
+	$sql = "SELECT c.rowid as cref FROM ".MAIN_DB_PREFIX."contract as c, ".MAIN_DB_PREFIX."contractdet as cd";
+	$sql .= " WHERE cd.statut = 4 AND c.statut=2 AND c.rowid=cd.fk_contract";
 	dolibarr_install_syslog("upgrade2::migrate_contracts_open");
 	$resql = $db->query($sql);
 	if (!$resql) {
@@ -1404,14 +1404,14 @@ function migrate_contracts_open($db, $langs, $config)
 		$num = $db->num_rows($resql);
 
 		if ($num) {
-			$nbcontratsmodifie = 0;
+			$nbcontractsmodifie = 0;
 			$db->begin();
 
 			while ($i < $num) {
 				$obj = $db->fetch_object($resql);
 
 				print $langs->trans('MigrationReopenThisContract', $obj->cref)."<br>\n";
-				$sql = "UPDATE ".MAIN_DB_PREFIX."contrat";
+				$sql = "UPDATE ".MAIN_DB_PREFIX."contract";
 				$sql .= " SET statut = 1";
 				$sql .= " WHERE rowid = ".((int) $obj->cref);
 				$resql2 = $db->query($sql);
@@ -1419,15 +1419,15 @@ function migrate_contracts_open($db, $langs, $config)
 					dol_print_error($db);
 				}
 
-				$nbcontratsmodifie++;
+				$nbcontractsmodifie++;
 
 				$i++;
 			}
 
 			$db->commit();
 
-			if ($nbcontratsmodifie) {
-				print $langs->trans('MigrationReopenedContractsNumber', $nbcontratsmodifie)."<br>\n";
+			if ($nbcontractsmodifie) {
+				print $langs->trans('MigrationReopenedContractsNumber', $nbcontractsmodifie)."<br>\n";
 			} else {
 				print $langs->trans('MigrationReopeningContractsNothingToUpdate')."<br>\n";
 			}
@@ -1729,7 +1729,7 @@ function migrate_price_propal($db, $langs, $config)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_price_contrat($db, $langs, $config)
+function migrate_price_contract($db, $langs, $config)
 {
 	$db->begin();
 
@@ -1746,12 +1746,12 @@ function migrate_price_contrat($db, $langs, $config)
 
 	// List of contract lines not up to date
 	$sql = "SELECT cd.rowid, cd.qty, cd.subprice, cd.remise_percent, cd.tva_tx as vatrate, cd.info_bits,";
-	$sql .= " c.rowid as contratid";
-	$sql .= " FROM ".MAIN_DB_PREFIX."contratdet as cd, ".MAIN_DB_PREFIX."contrat as c";
-	$sql .= " WHERE cd.fk_contrat = c.rowid";
+	$sql .= " c.rowid as contractid";
+	$sql .= " FROM ".MAIN_DB_PREFIX."contractdet as cd, ".MAIN_DB_PREFIX."contract as c";
+	$sql .= " WHERE cd.fk_contract = c.rowid";
 	$sql .= " AND ((cd.total_ttc = 0 AND cd.remise_percent != 100 AND cd.subprice > 0) or cd.total_ttc IS NULL)";
 
-	dolibarr_install_syslog("upgrade2::migrate_price_contrat");
+	dolibarr_install_syslog("upgrade2::migrate_price_contract");
 	$resql = $db->query($sql);
 	if ($resql) {
 		$num = $db->num_rows($resql);
@@ -1768,22 +1768,22 @@ function migrate_price_contrat($db, $langs, $config)
 				$info_bits = $obj->info_bits;
 
 				// On met a jour les 3 nouveaux champs
-				$contratligne = new ContratLigne($db);
-				//$contratligne->fetch($rowid); Non requis car le update_total ne met a jour que chp redefinis
-				$contratligne->fetch($rowid);
+				$contractligne = new ContractLine($db);
+				//$contractligne->fetch($rowid); Non requis car le update_total ne met a jour que chp redefinis
+				$contractligne->fetch($rowid);
 
-				$result = calcul_price_total($qty, $pu, $remise_percent, $vatrate, 0, 0, 0, 'HT', $info_bits, $contratligne->product_type, $tmpmysoc);
+				$result = calcul_price_total($qty, $pu, $remise_percent, $vatrate, 0, 0, 0, 'HT', $info_bits, $contractligne->product_type, $tmpmysoc);
 				$total_ht  = $result[0];
 				$total_tva = $result[1];
 				$total_ttc = $result[2];
 
-				$contratligne->total_ht  = (float) $total_ht;
-				$contratligne->total_tva = (float) $total_tva;
-				$contratligne->total_ttc = (float) $total_ttc;
+				$contractligne->total_ht  = (float) $total_ht;
+				$contractligne->total_tva = (float) $total_tva;
+				$contractligne->total_ttc = (float) $total_ttc;
 
-				dolibarr_install_syslog("upgrade2: Line ".$rowid.": contratdetid=".$obj->rowid." pu=".$pu." qty=".$qty." vatrate=".$vatrate." remise_percent=".$remise_percent."  -> ".$total_ht.", ".$total_tva." , ".$total_ttc);
+				dolibarr_install_syslog("upgrade2: Line ".$rowid.": contractdetid=".$obj->rowid." pu=".$pu." qty=".$qty." vatrate=".$vatrate." remise_percent=".$remise_percent."  -> ".$total_ht.", ".$total_tva." , ".$total_ttc);
 				print '. ';
-				$contratligne->update_total();
+				$contractligne->update_total();
 
 				$i++;
 			}
@@ -5093,7 +5093,7 @@ function migrate_contractdet_rank()
 	print '<tr class="trforrunsql"><td colspan="4">';
 	print '<b>'.$langs->trans('MigrationContractLineRank')."</b><br>\n";
 
-	$sql = "SELECT c.rowid as cid ,cd.rowid as cdid,cd.rang FROM ".$db->prefix()."contratdet as cd INNER JOIN ".$db->prefix()."contrat as c ON c.rowid=cd.fk_contrat AND cd.rang=0";
+	$sql = "SELECT c.rowid as cid ,cd.rowid as cdid,cd.rang FROM ".$db->prefix()."contractdet as cd INNER JOIN ".$db->prefix()."contract as c ON c.rowid=cd.fk_contract AND cd.rang=0";
 	$sql .= " ORDER BY c.rowid,cd.rowid";
 
 	$resql = $db->query($sql);
@@ -5107,7 +5107,7 @@ function migrate_contractdet_rank()
 				$currentRank = 1;
 			}
 
-			$sqlUpd = "UPDATE ".$db->prefix()."contratdet SET rang=".(int) $currentRank." WHERE rowid=".(int) $obj->cdid;
+			$sqlUpd = "UPDATE ".$db->prefix()."contractdet SET rang=".(int) $currentRank." WHERE rowid=".(int) $obj->cdid;
 			$resultstring = '.';
 			print $resultstring;
 			$resqlUpd = $db->query($sqlUpd);

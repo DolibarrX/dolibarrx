@@ -260,7 +260,7 @@ if ($type == 'directory') {
 	} elseif ($module == 'order_supplier') {
 		$upload_dir = $config->fournisseur->order->dir_output;
 	} elseif ($module == 'contract') {
-		$upload_dir = $config->contrat->dir_output;
+		$upload_dir = $config->contract->dir_output;
 	} elseif ($module == 'product') {
 		$upload_dir = $config->product->dir_output;
 	} elseif ($module == 'tax') {

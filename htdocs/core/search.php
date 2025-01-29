@@ -80,7 +80,7 @@ if (GETPOST('search_intervention') != '') {
 	exit;
 }
 if (GETPOST('search_contract') != '') {
-	header("Location: ".DOL_URL_ROOT.'/contrat/list.php?sall='.urlencode(GETPOST('search_contract')));
+	header("Location: ".DOL_URL_ROOT.'/contract/list.php?sall='.urlencode(GETPOST('search_contract')));
 	exit;
 }
 if (GETPOST('search_invoice') != '') {

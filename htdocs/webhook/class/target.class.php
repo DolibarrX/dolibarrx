@@ -258,7 +258,7 @@ class Target extends CommonObject
 			'facturerec' 		=> 'bill',
 			'ficheinter'    	=> 'intervention',
 			'shipping'	   		=> 'shipment',
-			'contrat'       	=> 'contract',
+			'contract'       	=> 'contract',
 			'recruitment'       => 'recruitmentjobposition',
 		);
 		// Define the array $arrayofkeyval for $this->fields["trigger_codes"]

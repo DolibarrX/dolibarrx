@@ -53,7 +53,7 @@ if (isModEnabled('order')) {
 	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 }
 if (isModEnabled('contract')) {
-	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 }
 if (isModEnabled('deplacement')) {
 	require_once DOL_DOCUMENT_ROOT.'/compta/deplacement/class/deplacement.class.php';
@@ -510,14 +510,14 @@ $listofreferent = array(
 	'contract' => array(
 		'name' => "Contracts",
 		'title' => "ListContractAssociatedProject",
-		'class' => 'Contrat',
-		'table' => 'contrat',
-		'datefieldname' => 'date_contrat',
-		'urlnew' => DOL_URL_ROOT.'/contrat/card.php?action=create&projectid='.$id.'&socid='.$socid.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id),
+		'class' => 'Contract',
+		'table' => 'contract',
+		'datefieldname' => 'date_contract',
+		'urlnew' => DOL_URL_ROOT.'/contract/card.php?action=create&projectid='.$id.'&socid='.$socid.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id),
 		'lang' => 'contracts',
 		'buttonnew' => 'AddContract',
-		'testnew' => $user->hasRight('contrat', 'creer'),
-		'test' => isModEnabled('contract') && $user->hasRight('contrat', 'lire')
+		'testnew' => $user->hasRight('contract', 'creer'),
+		'test' => isModEnabled('contract') && $user->hasRight('contract', 'lire')
 	),
 	'intervention' => array(
 		'name' => "Interventions",
@@ -1419,7 +1419,7 @@ foreach ($listofreferent as $key => $value) {
 					} else {
 						$date = $element->date; // invoice, ...
 						if (empty($date)) {
-							$date = $element->date_contrat;
+							$date = $element->date_contract;
 						}
 						if (empty($date)) {
 							$date = $element->datev;

@@ -19,15 +19,15 @@
  */
 
 /**
- *       \file       htdocs/product/stats/contrat.php
- *       \ingroup    product service contrat
- *       \brief      Page des stats des contrats pour un produit
+ *       \file       htdocs/product/stats/contract.php
+ *       \ingroup    product service contract
+ *       \brief      Page des stats des contracts pour un produit
  */
 
 // Load Dolibarr environment
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 /**
@@ -69,7 +69,7 @@ if (!$sortorder) {
 	$sortorder = "DESC";
 }
 if (!$sortfield) {
-	$sortfield = "c.date_contrat";
+	$sortfield = "c.date_contract";
 }
 
 $socid = 0;
@@ -81,8 +81,8 @@ $result = restrictedArea($user, 'produit|service', $fieldvalue, 'product&product
  * View
  */
 
-$staticcontrat = new Contrat($db);
-$staticcontratligne = new ContratLigne($db);
+$staticContract = new Contract($db);
+$staticContractLine = new ContractLine($db);
 
 $form = new Form($db);
 
@@ -98,7 +98,7 @@ if ($id > 0 || !empty($ref)) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
-	llxHeader("", "", $langs->trans("CardProduct".$product->type), '', 0, 0, '', '', 'mod-product page-stats_contrat');
+	llxHeader("", "", $langs->trans("CardProduct".$product->type), '', 0, 0, '', '', 'mod-product page-stats_contract');
 
 	if ($result > 0) {
 		$head = product_prepare_head($product);
@@ -143,15 +143,15 @@ if ($id > 0 || !empty($ref)) {
 		$sql .= " sum(".$db->ifsql("cd.statut=4 AND cd.date_fin_validite > '".$db->idate($now)."'", 1, 0).") as nb_running,";
 		$sql .= " sum(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NULL OR cd.date_fin_validite <= '".$db->idate($now)."')", 1, 0).') as nb_late,';
 		$sql .= " sum(".$db->ifsql("cd.statut=5", 1, 0).') as nb_closed,';
-		$sql .= " c.rowid as rowid, c.ref, c.ref_customer, c.ref_supplier, c.date_contrat, c.statut as statut,";
+		$sql .= " c.rowid as rowid, c.ref, c.ref_customer, c.ref_supplier, c.date_contract, c.statut as statut,";
 		$sql .= " s.nom as name, s.rowid as socid, s.code_client";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 		}
-		$sql .= ", ".MAIN_DB_PREFIX."contrat as c";
-		$sql .= ", ".MAIN_DB_PREFIX."contratdet as cd";
-		$sql .= " WHERE c.rowid = cd.fk_contrat";
+		$sql .= ", ".MAIN_DB_PREFIX."contract as c";
+		$sql .= ", ".MAIN_DB_PREFIX."contractdet as cd";
+		$sql .= " WHERE c.rowid = cd.fk_contract";
 		$sql .= " AND c.fk_soc = s.rowid";
 		$sql .= " AND c.entity IN (".getEntity('contract').")";
 		$sql .= " AND cd.fk_product = ".((int) $product->id);
@@ -161,7 +161,7 @@ if ($id > 0 || !empty($ref)) {
 		if ($socid) {
 			$sql .= " AND s.rowid = ".((int) $socid);
 		}
-		$sql .= " GROUP BY c.rowid, c.ref, c.ref_customer, c.ref_supplier, c.date_contrat, c.statut, s.nom, s.rowid, s.code_client";
+		$sql .= " GROUP BY c.rowid, c.ref, c.ref_customer, c.ref_supplier, c.date_contract, c.statut, s.nom, s.rowid, s.code_client";
 		$sql .= $db->order($sortfield, $sortorder);
 
 		//Calcul total qty and amount for global if full scan list
@@ -205,7 +205,7 @@ if ($id > 0 || !empty($ref)) {
 			}
 
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-			print_barre_liste($langs->trans("Contrats"), $page, $_SERVER["PHP_SELF"], $option, $sortfield, $sortorder, '', $num, $totalofrecords, '', 0, '', '', $limit, 0, 0, 1);
+			print_barre_liste($langs->trans("Contracts"), $page, $_SERVER["PHP_SELF"], $option, $sortfield, $sortorder, '', $num, $totalofrecords, '', 0, '', '', $limit, 0, 0, 1);
 
 			if (!empty($page)) {
 				$option .= '&page='.urlencode((string) ($page));
@@ -219,14 +219,14 @@ if ($id > 0 || !empty($ref)) {
 			print_liste_field_titre("Ref", $_SERVER["PHP_SELF"], "c.rowid", "", "&amp;id=".$product->id, '', $sortfield, $sortorder);
 			print_liste_field_titre("Company", $_SERVER["PHP_SELF"], "s.nom", "", "&amp;id=".$product->id, '', $sortfield, $sortorder);
 			print_liste_field_titre("CustomerCode", $_SERVER["PHP_SELF"], "s.code_client", "", "&amp;id=".$product->id, '', $sortfield, $sortorder);
-			print_liste_field_titre("Date", $_SERVER["PHP_SELF"], "c.date_contrat", "", "&amp;id=".$product->id, 'align="center"', $sortfield, $sortorder);
+			print_liste_field_titre("Date", $_SERVER["PHP_SELF"], "c.date_contract", "", "&amp;id=".$product->id, 'align="center"', $sortfield, $sortorder);
 			//print_liste_field_titre("AmountHT"),$_SERVER["PHP_SELF"],"c.amount","","&amp;id=".$product->id,'align="right"',$sortfield,$sortorder);
-			print_liste_field_titre($staticcontratligne->LibStatut($staticcontratligne::STATUS_INITIAL, 3, -1, 'class="nochangebackground"'), $_SERVER["PHP_SELF"], "", '', '', 'align="center" width="16"', $sortfield, $sortorder, 'maxwidthsearch ');
-			print_liste_field_titre($staticcontratligne->LibStatut($staticcontratligne::STATUS_OPEN, 3, -1, 'class="nochangebackground"'), $_SERVER["PHP_SELF"], "", '', '', 'align="center" width="16"', $sortfield, $sortorder, 'maxwidthsearch ');
-			print_liste_field_titre($staticcontratligne->LibStatut($staticcontratligne::STATUS_CLOSED, 3, -1, 'class="nochangebackground"'), $_SERVER["PHP_SELF"], "", '', '', 'align="center" width="16"', $sortfield, $sortorder, 'maxwidthsearch ');
+			print_liste_field_titre($staticContractLine->LibStatut($staticContractLine::STATUS_INITIAL, 3, -1, 'class="nochangebackground"'), $_SERVER["PHP_SELF"], "", '', '', 'align="center" width="16"', $sortfield, $sortorder, 'maxwidthsearch ');
+			print_liste_field_titre($staticContractLine->LibStatut($staticContractLine::STATUS_OPEN, 3, -1, 'class="nochangebackground"'), $_SERVER["PHP_SELF"], "", '', '', 'align="center" width="16"', $sortfield, $sortorder, 'maxwidthsearch ');
+			print_liste_field_titre($staticContractLine->LibStatut($staticContractLine::STATUS_CLOSED, 3, -1, 'class="nochangebackground"'), $_SERVER["PHP_SELF"], "", '', '', 'align="center" width="16"', $sortfield, $sortorder, 'maxwidthsearch ');
 			print "</tr>\n";
 
-			$contracttmp = new Contrat($db);
+			$contracttmp = new Contract($db);
 
 			if ($num > 0) {
 				while ($i < min($num, $limit)) {
@@ -244,13 +244,13 @@ if ($id > 0 || !empty($ref)) {
 					print '<td><a href="'.DOL_URL_ROOT.'/comm/card.php?socid='.$objp->socid.'">'.img_object($langs->trans("ShowCompany"), "company").' '.dol_trunc($objp->name, 44).'</a></td>';
 					print "<td>".$objp->code_client."</td>\n";
 					print "<td align=\"center\">";
-					print dol_print_date($db->jdate($objp->date_contrat), 'dayhour')."</td>";
+					print dol_print_date($db->jdate($objp->date_contract), 'dayhour')."</td>";
 					//print "<td align=\"right\">".price($objp->total_ht)."</td>\n";
 					//print '<td align="right">';
 					print '<td class="center">'.($objp->nb_initial > 0 ? $objp->nb_initial : '').'</td>';
 					print '<td class="center">'.($objp->nb_running + $objp->nb_late > 0 ? $objp->nb_running + $objp->nb_late : '').'</td>';
 					print '<td class="center">'.($objp->nb_closed > 0 ? $objp->nb_closed : '').'</td>';
-					//$contratstatic->LibStatut($objp->statut,5).'</td>';
+					//$contractstatic->LibStatut($objp->statut,5).'</td>';
 					print "</tr>\n";
 					$i++;
 				}

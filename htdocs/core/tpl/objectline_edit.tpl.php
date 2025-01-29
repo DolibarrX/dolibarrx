@@ -52,8 +52,8 @@ if (empty($object) || !is_object($object)) {
 }
 
 '
-@phan-var-force Propal|Contrat|Order|Facture|Expedition|Delivery|FactureFournisseur|FactureFournisseur|SupplierProposal $object
-@phan-var-force PropaleLigne|ContratLigne|CommonObjectLine|CommonInvoiceLine|CommonOrderLine|ExpeditionLigne|DeliveryLine|FactureFournisseurLigneRec|SupplierInvoiceLine|SupplierProposalLine $line
+@phan-var-force Propal|Contract|Order|Facture|Expedition|Delivery|FactureFournisseur|FactureFournisseur|SupplierProposal $object
+@phan-var-force PropaleLigne|ContractLine|CommonObjectLine|CommonInvoiceLine|CommonOrderLine|ExpeditionLigne|DeliveryLine|FactureFournisseurLigneRec|SupplierInvoiceLine|SupplierProposalLine $line
 @phan-var-force ThirdParty $seller
 @phan-var-force ThirdParty $buyer
 @phan-var-force string $var

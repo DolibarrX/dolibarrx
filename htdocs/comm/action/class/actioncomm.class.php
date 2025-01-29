@@ -482,7 +482,7 @@ class ActionComm extends CommonObject
 		if ($this->elementtype == 'order') {
 			$this->elementtype = 'order';
 		}
-		if ($this->elementtype == 'contrat') {
+		if ($this->elementtype == 'contract') {
 			$this->elementtype = 'contract';
 		}
 		if (empty($this->fk_element) && !empty($this->elementid)) {

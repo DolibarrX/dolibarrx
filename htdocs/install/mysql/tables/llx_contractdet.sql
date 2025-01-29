@@ -17,12 +17,12 @@
 --
 -- ============================================================================
 
-create table llx_contratdet
+create table llx_contractdet
 (
   rowid                 integer AUTO_INCREMENT PRIMARY KEY,
   tms                   timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-  fk_contrat            integer       NOT NULL,
+  fk_contract            integer       NOT NULL,
   fk_product            integer       NULL,                -- doit pouvoir etre nul pour ligne detail sans produits
 
   statut                smallint      DEFAULT 0,

@@ -43,7 +43,7 @@ require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
 require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
-require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/deplacement/class/deplacement.class.php';
 require_once DOL_DOCUMENT_ROOT.'/expensereport/class/expensereport.class.php';
@@ -397,10 +397,10 @@ class pdf_beluga extends ModelePDFProjects
 					'contract' => array(
 						'name' => "Contracts",
 						'title' => "ListContractAssociatedProject",
-						'class' => 'Contrat',
-						'table' => 'contrat',
-						'datefieldname' => 'date_contrat',
-						'test' => isModEnabled('contract') && $user->hasRight('contrat', 'lire'),
+						'class' => 'Contract',
+						'table' => 'contract',
+						'datefieldname' => 'date_contract',
+						'test' => isModEnabled('contract') && $user->hasRight('contract', 'lire'),
 						'lang' => 'contract'),
 					'intervention' => array(
 						'name' => "Interventions",
@@ -639,7 +639,7 @@ class pdf_beluga extends ModelePDFProjects
 										$date = $element->datep;
 									}
 									if (empty($date)) {
-										$date = $element->date_contrat;
+										$date = $element->date_contract;
 									}
 									if (empty($date)) {
 										$date = $element->datev; // Intervention card

@@ -116,7 +116,7 @@ ALTER TABLE llx_prelevement_facture_demande MODIFY COLUMN code_bank varchar(128)
 ALTER TABLE llx_prelevement_lignes MODIFY COLUMN code_bank varchar(128);
 ALTER TABLE llx_societe_rib MODIFY COLUMN code_bank varchar(128);
 
-ALTER TABLE llx_contrat ADD COLUMN ref_customer varchar(30);
+ALTER TABLE llx_contract ADD COLUMN ref_customer varchar(30);
 ALTER TABLE llx_order ADD COLUMN fk_warehouse integer DEFAULT NULL AFTER fk_shipping_method;
 
 ALTER TABLE llx_order_fournisseur ADD COLUMN billed smallint DEFAULT 0 AFTER fk_statut;

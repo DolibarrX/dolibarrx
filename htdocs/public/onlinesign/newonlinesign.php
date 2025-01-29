@@ -161,8 +161,8 @@ if ($source == 'proposal') {
 	$object = new Propal($db);
 	$result = $object->fetch(0, $ref, '', $entity);
 } elseif ($source == 'contract') {
-	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-	$object = new Contrat($db);
+	require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
+	$object = new Contract($db);
 	$result = $object->fetch(0, $ref);
 } elseif ($source == 'fichinter') {
 	require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';

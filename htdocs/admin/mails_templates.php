@@ -234,7 +234,7 @@ if (isModEnabled("supplier_order") && ($user->hasRight('fournisseur', 'order', '
 if (isModEnabled("supplier_invoice") && ($user->hasRight('fournisseur', 'facture', 'lire') || $user->hasRight('supplier_invoice', 'read'))) {
 	$elementList['invoice_supplier_send'] = img_picture('', 'bill', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendSupplierInvoice'));
 }
-if (isModEnabled('contract') && $user->hasRight('contrat', 'lire')) {
+if (isModEnabled('contract') && $user->hasRight('contract', 'lire')) {
 	$elementList['contract'] = img_picture('', 'contract', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendContract'));
 }
 if (isModEnabled('ticket') && $user->hasRight('ticket', 'read')) {

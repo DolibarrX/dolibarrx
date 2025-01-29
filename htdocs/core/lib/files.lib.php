@@ -2999,8 +2999,8 @@ function dol_check_secure_access_document($modulePart, $original_file, $entity, 
 		}
 		$original_file = $config->ficheinter->dir_output . '/' . $original_file;
 	} elseif (($modulePart == 'apercucontract') && !empty($config->contract->multidir_output[$entity])) {
-		// Wrapping pour les apercu contrat
-		if ($fuser->hasRight('contrat', $lire)) {
+		// Wrapping pour les apercu contract
+		if ($fuser->hasRight('contract', $lire)) {
 			$accessallowed = 1;
 		}
 		$original_file = $config->contract->multidir_output[$entity] . '/' . $original_file;
@@ -3260,7 +3260,7 @@ function dol_check_secure_access_document($modulePart, $original_file, $entity, 
 		}
 		$original_file = $config->fournisseur->facture->dir_output . '/temp/massgeneration/' . $user->id . '/' . $original_file;
 	} elseif ($modulePart == 'massfilesarea_contract' && !empty($config->contract->dir_output)) {
-		if ($fuser->hasRight('contrat', $lire) || preg_match('/^specimen/i', $original_file)) {
+		if ($fuser->hasRight('contract', $lire) || preg_match('/^specimen/i', $original_file)) {
 			$accessallowed = 1;
 		}
 		$original_file = $config->contract->dir_output . '/temp/massgeneration/' . $user->id . '/' . $original_file;
@@ -3417,12 +3417,12 @@ function dol_check_secure_access_document($modulePart, $original_file, $entity, 
 			$original_file = $config->stock->multidir_output[$entity] . '/movement/' . $original_file;
 		}
 	} elseif ($modulePart == 'contract' && !empty($config->contract->multidir_output[$entity])) {
-		// Wrapping pour les contrats
-		if ($fuser->hasRight('contrat', $lire) || preg_match('/^specimen/i', $original_file)) {
+		// Wrapping pour les contracts
+		if ($fuser->hasRight('contract', $lire) || preg_match('/^specimen/i', $original_file)) {
 			$accessallowed = 1;
 		}
 		$original_file = $config->contract->multidir_output[$entity] . '/' . $original_file;
-		$sqlprotectagainstexternals = "SELECT fk_soc as fk_soc FROM " . MAIN_DB_PREFIX . "contrat WHERE ref='" . $db->escape($refname) . "' AND entity IN (" . getEntity('contract') . ")";
+		$sqlprotectagainstexternals = "SELECT fk_soc as fk_soc FROM " . MAIN_DB_PREFIX . "contract WHERE ref='" . $db->escape($refname) . "' AND entity IN (" . getEntity('contract') . ")";
 	} elseif ($modulePart == 'donation' && !empty($config->don->dir_output)) {
 		// Wrapping pour les dons
 		if ($fuser->hasRight('don', $lire) || preg_match('/^specimen/i', $original_file)) {

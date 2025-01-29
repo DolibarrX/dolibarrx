@@ -459,7 +459,7 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s on s.rowid = f.fk_soc";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as p on p.rowid = f.fk_projet";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."contrat as c on c.rowid = f.fk_contrat";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."contract as c on c.rowid = f.fk_contract";
 
 		$parameters = array('filters' => $filters);
 		// Note that $action and $object may have been modified by hook

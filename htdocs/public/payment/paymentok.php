@@ -1736,8 +1736,8 @@ if ($ispaymentok) {
 			$ispostactionok = -1;
 		}
 	} elseif (array_key_exists('CON', $tmptag) && $tmptag['CON'] > 0) {
-		include_once DOL_DOCUMENT_ROOT . '/contrat/class/contrat.class.php';
-		$object = new Contrat($db);
+		include_once DOL_DOCUMENT_ROOT . '/contract/class/contract.class.php';
+		$object = new Contract($db);
 		$result = $object->fetch((int) $tmptag['CON']);
 		if ($result) {
 			$FinalPaymentAmt = $_SESSION["FinalPaymentAmt"];

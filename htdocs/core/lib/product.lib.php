@@ -641,21 +641,21 @@ function show_stats_for_company($product, $socid)
 	}
 
 	// Contracts
-	if (isModEnabled('contract') && $user->hasRight('contrat', 'lire')) {
+	if (isModEnabled('contract') && $user->hasRight('contract', 'lire')) {
 		$nblines++;
-		$ret = $product->load_stats_contrat($socid);
+		$ret = $product->load_stats_contract($socid);
 		if ($ret < 0) {
 			dol_print_error($db);
 		}
 		$langs->load("contracts");
 		print '<tr><td>';
-		print '<a href="' . DOL_URL_ROOT . '/product/stats/contrat.php?id=' . $product->id . '">' . img_object('', 'contract', 'class="picturefixedwidth"') . $langs->trans("Contracts") . '</a>';
+		print '<a href="' . DOL_URL_ROOT . '/product/stats/contract.php?id=' . $product->id . '">' . img_object('', 'contract', 'class="picturefixedwidth"') . $langs->trans("Contracts") . '</a>';
 		print '</td><td class="right">';
-		print $product->stats_contrat['customers'];
+		print $product->stats_contract['customers'];
 		print '</td><td class="right">';
-		print $product->stats_contrat['nb'];
+		print $product->stats_contract['nb'];
 		print '</td><td class="right">';
-		print price($product->stats_contrat['qty'], 1, $langs, 0, 0);
+		print price($product->stats_contract['qty'], 1, $langs, 0, 0);
 		print '</td>';
 		print '</tr>';
 	}

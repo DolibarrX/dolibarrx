@@ -23,7 +23,7 @@ update llx_propal set fk_projet = null where fk_projet not in (select rowid from
 update llx_order set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_facture set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_order_fournisseur set fk_projet = null where fk_projet not in (select rowid from llx_projet);
-update llx_contrat set fk_projet = null where fk_projet not in (select rowid from llx_projet);
+update llx_contract set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_deplacement set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_facture_fourn set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_facture_rec set fk_projet = null where fk_projet not in (select rowid from llx_projet);
@@ -444,8 +444,8 @@ ALTER TABLE llx_order ADD COLUMN extraparams varchar(255) AFTER import_key;
 ALTER TABLE llx_facture ADD COLUMN extraparams varchar(255) AFTER import_key;
 ALTER TABLE llx_fichinter ADD COLUMN extraparams varchar(255) AFTER model_pdf;
 ALTER TABLE llx_deplacement ADD COLUMN extraparams varchar(255) AFTER note_public;
-ALTER TABLE llx_contrat ADD COLUMN import_key varchar(14) AFTER note_public;
-ALTER TABLE llx_contrat ADD COLUMN extraparams varchar(255) AFTER import_key;
+ALTER TABLE llx_contract ADD COLUMN import_key varchar(14) AFTER note_public;
+ALTER TABLE llx_contract ADD COLUMN extraparams varchar(255) AFTER import_key;
 ALTER TABLE llx_order_fournisseur ADD COLUMN extraparams varchar(255) AFTER import_key;
 ALTER TABLE llx_facture_fourn ADD COLUMN extraparams varchar(255) AFTER import_key;
 

@@ -18,17 +18,17 @@
 --
 -- ============================================================================
 
-create table llx_contrat
+create table llx_contract
 (
   rowid						integer AUTO_INCREMENT PRIMARY KEY,
-  ref						varchar(255),		            -- contrat reference
+  ref						varchar(255),		            -- contract reference
   ref_customer				varchar(255),		            -- customer contract ref
   ref_supplier				varchar(255),		            -- supplier contract ref
   ref_ext					varchar(255),		            -- external contract ref
   entity					integer DEFAULT 1 NOT NULL,		-- multi company id
   tms						timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   datec						datetime,                   	-- creation date
-  date_contrat				datetime,
+  date_contract				datetime,
   statut					smallint DEFAULT 0,				-- not used. deprecated
 
   fin_validite				datetime,	-- not used

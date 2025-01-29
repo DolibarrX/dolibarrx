@@ -36,7 +36,7 @@ class box_services_contracts extends ModeleBoxes
 	public $boxcode = "lastproductsincontract";
 	public $boximg = "object_product";
 	public $boxlabel = "BoxLastProductsInContract";
-	public $depends = array("service", "contrat");
+	public $depends = array("service", "contract");
 
 	/**
 	 *  Constructor
@@ -50,9 +50,9 @@ class box_services_contracts extends ModeleBoxes
 
 		$this->db = $db;
 
-		$this->hidden = !($user->hasRight('service', 'lire') && $user->hasRight('contrat', 'lire'));
+		$this->hidden = !($user->hasRight('service', 'lire') && $user->hasRight('contract', 'lire'));
 
-		$this->urltoaddentry = DOL_URL_ROOT.'/contrat/card.php?action=create';
+		$this->urltoaddentry = DOL_URL_ROOT.'/contract/card.php?action=create';
 		$this->msgNoRecords = 'NoContractedProducts';
 	}
 
@@ -68,17 +68,17 @@ class box_services_contracts extends ModeleBoxes
 
 		$this->max = $max;
 
-		include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 
 		$form = new Form($this->db);
 
 		$this->info_box_head = array(
-			'text' => $langs->trans("BoxLastProductsInContract", $max).'<a class="paddingleft valignmiddle" href="'.DOL_URL_ROOT.'/contrat/list.php?sortfield=c.tms&sortorder=DESC"><span class="badge">...</span></a>'
+			'text' => $langs->trans("BoxLastProductsInContract", $max).'<a class="paddingleft valignmiddle" href="'.DOL_URL_ROOT.'/contract/list.php?sortfield=c.tms&sortorder=DESC"><span class="badge">...</span></a>'
 		);
 
-		if ($user->hasRight('service', 'lire') && $user->hasRight('contrat', 'lire')) {
-			$contractstatic = new Contrat($this->db);
-			$contractlinestatic = new ContratLigne($this->db);
+		if ($user->hasRight('service', 'lire') && $user->hasRight('contract', 'lire')) {
+			$contractstatic = new Contract($this->db);
+			$contractlinestatic = new ContractLine($this->db);
 			$thirdpartytmp = new Societe($this->db);
 			$productstatic = new Product($this->db);
 
@@ -87,8 +87,8 @@ class box_services_contracts extends ModeleBoxes
 			$sql .= " cd.rowid as cdid, cd.label, cd.description, cd.tms as datem, cd.statut as contractline_status, cd.product_type as type, cd.date_fin_validite as date_line,";
 			$sql .= " p.rowid as product_id, p.ref as product_ref, p.label as product_label, p.fk_product_type as product_type, p.entity as product_entity, p.tobuy, p.tosell";
 			$sql .= " FROM (".MAIN_DB_PREFIX."societe as s";
-			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."contrat as c ON s.rowid = c.fk_soc";
-			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."contratdet as cd ON c.rowid = cd.fk_contrat";
+			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."contract as c ON s.rowid = c.fk_soc";
+			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."contractdet as cd ON c.rowid = cd.fk_contract";
 			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON cd.fk_product = p.rowid";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= " INNER JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
@@ -115,7 +115,7 @@ class box_services_contracts extends ModeleBoxes
 					$datem = $this->db->jdate($objp->datem);
 
 					$contractlinestatic->id = $objp->cdid;
-					$contractlinestatic->fk_contrat = $objp->rowid;
+					$contractlinestatic->fk_contract = $objp->rowid;
 					$contractlinestatic->label = $objp->label;
 					$contractlinestatic->description = $objp->description;
 					$contractlinestatic->type = $objp->type;
@@ -143,7 +143,7 @@ class box_services_contracts extends ModeleBoxes
 					$thirdpartytmp->code_compta_fournisseur = $objp->code_compta_fournisseur;
 
 					$dateline = $this->db->jdate($objp->date_line);
-					if ($contractstatic->status == Contrat::STATUS_VALIDATED && $objp->contractline_status == ContratLigne::STATUS_OPEN && !empty($dateline) && ($dateline + $config->contrat->services->expires->warning_delay) < $now) {
+					if ($contractstatic->status == Contract::STATUS_VALIDATED && $objp->contractline_status == ContractLine::STATUS_OPEN && !empty($dateline) && ($dateline + $config->contract->services->expires->warning_delay) < $now) {
 						$late = img_warning($langs->trans("Late"));
 					}
 

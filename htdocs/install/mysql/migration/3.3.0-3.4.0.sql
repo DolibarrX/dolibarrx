@@ -45,8 +45,8 @@ UPDATE llx_const set name = __ENCRYPT('LIVRAISON_ADDON_NUMBER')__ where __DECRYP
 ALTER TABLE llx_user add COLUMN fk_user integer;
 
 -- margin on contracts
-alter table llx_contratdet add column fk_product_fournisseur_price integer after info_bits;
-alter table llx_contratdet add column buy_price_ht double(24,8) DEFAULT 0 after fk_product_fournisseur_price;
+alter table llx_contractdet add column fk_product_fournisseur_price integer after info_bits;
+alter table llx_contractdet add column buy_price_ht double(24,8) DEFAULT 0 after fk_product_fournisseur_price;
 
 -- serialised array, to store value of select list choices for example
 alter table llx_extrafields add column param text after pos;
@@ -171,8 +171,8 @@ ALTER TABLE llx_order_fournisseurdet MODIFY COLUMN localtax1_type varchar(10) DE
 ALTER TABLE llx_order_fournisseurdet MODIFY COLUMN localtax2_type varchar(10) DEFAULT NULL;
 ALTER TABLE llx_orderdet MODIFY COLUMN localtax1_type varchar(10) DEFAULT NULL;
 ALTER TABLE llx_orderdet MODIFY COLUMN localtax2_type varchar(10) DEFAULT NULL;
-ALTER TABLE llx_contratdet MODIFY COLUMN localtax1_type varchar(10) DEFAULT NULL;
-ALTER TABLE llx_contratdet MODIFY COLUMN localtax2_type varchar(10) DEFAULT NULL;
+ALTER TABLE llx_contractdet MODIFY COLUMN localtax1_type varchar(10) DEFAULT NULL;
+ALTER TABLE llx_contractdet MODIFY COLUMN localtax2_type varchar(10) DEFAULT NULL;
 ALTER TABLE llx_facture_fourn_det MODIFY COLUMN localtax1_type varchar(10) DEFAULT NULL;
 ALTER TABLE llx_facture_fourn_det MODIFY COLUMN localtax2_type varchar(10) DEFAULT NULL;
 ALTER TABLE llx_facturedet_rec MODIFY COLUMN localtax1_type varchar(10) DEFAULT NULL;
@@ -287,7 +287,7 @@ ALTER TABLE llx_facture CHANGE COLUMN note note_private text;
 ALTER TABLE llx_order CHANGE COLUMN note note_private text;
 ALTER TABLE llx_propal CHANGE COLUMN note note_private text;
 ALTER TABLE llx_order_fournisseur CHANGE COLUMN note note_private text;
-ALTER TABLE llx_contrat CHANGE COLUMN note note_private text;
+ALTER TABLE llx_contract CHANGE COLUMN note note_private text;
 ALTER TABLE llx_deplacement CHANGE COLUMN note note_private text;
 ALTER TABLE llx_don CHANGE COLUMN note note_private text;
 ALTER TABLE llx_facture_fourn CHANGE COLUMN note note_private text;

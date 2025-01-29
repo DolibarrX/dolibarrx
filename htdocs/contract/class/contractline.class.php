@@ -29,8 +29,8 @@
  */
 
 /**
- *	\file       htdocs/contrat/class/contratligne.class.php
- *	\ingroup    contrat
+ *	\file       htdocs/contract/class/contractline.class.php
+ *	\ingroup    contract
  *	\brief      File of class to manage contract lines
  */
 
@@ -41,33 +41,33 @@ require_once DOL_DOCUMENT_ROOT.'/margin/lib/margins.lib.php';
 /**
  *	Class to manage lines of contracts
  */
-class ContratLigne extends CommonObjectLine
+class ContractLine extends CommonObjectLine
 {
 	/**
 	 * @var string ID to identify managed object
 	 */
-	public $element = 'contratdet';
+	public $element = 'contractdet';
 
 	/**
 	 * @var string Name of table without prefix where object is stored
 	 */
-	public $table_element = 'contratdet';
+	public $table_element = 'contractdet';
 
 	/**
 	 * @see CommonObjectLine
 	 */
-	public $parent_element = 'contrat';
+	public $parent_element = 'contract';
 
 	/**
 	 * @see CommonObjectLine
 	 */
-	public $fk_parent_attribute = 'fk_contrat';
+	public $fk_parent_attribute = 'fk_contract';
 
 	/**
 	 * @var string 	Name to use for 'features' parameter to check module permissions user->rights->feature with restrictedArea().
 	 * 				Undefined means same value than $element. Can be use to force a check on another element for example for class of line, we mention here the parent element.
 	 */
-	public $element_for_permission = 'contrat';
+	public $element_for_permission = 'contract';
 
 	/**
 	 * @var int ID
@@ -82,7 +82,7 @@ class ContratLigne extends CommonObjectLine
 	/**
 	 * @var int ID
 	 */
-	public $fk_contrat;
+	public $fk_contract;
 
 	/**
 	 * @var int ID
@@ -311,7 +311,7 @@ class ContratLigne extends CommonObjectLine
 		'total_ttc' => array('type' => 'integer', 'label' => 'AmountTTC', 'enabled' => 1, 'visible' => -1, 'notnull' => 1, 'position' => 38, 'isameasure' => 1),
 		//'datec' =>array('type'=>'datetime', 'label'=>'DateCreation', 'enabled'=>1, 'visible'=>-1, 'position'=>40),
 		//'fk_soc' =>array('type'=>'integer:Societe:societe/class/societe.class.php', 'label'=>'ThirdParty', 'enabled'=>1, 'visible'=>-1, 'notnull'=>1, 'position'=>70),
-		'fk_contrat' => array('type' => 'integer:Contrat:contrat/class/contrat.class.php', 'label' => 'Contract', 'enabled' => 1, 'visible' => -1, 'notnull' => 1, 'position' => 70),
+		'fk_contract' => array('type' => 'integer:Contract:contract/class/contract.class.php', 'label' => 'Contract', 'enabled' => 1, 'visible' => -1, 'notnull' => 1, 'position' => 70),
 		'fk_product' => array('type' => 'integer:Product:product/class/product.class.php:1', 'label' => 'Product', 'enabled' => 1, 'visible' => -1, 'position' => 75),
 		//'fk_user_author' =>array('type'=>'integer:User:user/class/user.class.php', 'label'=>'Fk user author', 'enabled'=>1, 'visible'=>-1, 'notnull'=>1, 'position'=>90),
 		'note_private' => array('type' => 'html', 'label' => 'NotePublic', 'enabled' => 1, 'visible' => 0, 'position' => 105),
@@ -422,7 +422,7 @@ class ContratLigne extends CommonObjectLine
 	}
 
 	/**
-	 *	Return clickable name (with picture eventually) for ContratLigne
+	 *	Return clickable name (with picture eventually) for ContractLine
 	 *
 	 *  @param	int		$withPicture		0=No picture, 1=Include picture into link, 2=Only picture
 	 *  @param	int		$maxlength		Max length
@@ -441,7 +441,7 @@ class ContratLigne extends CommonObjectLine
 		$dataparams = '';
 		if (getDolGlobalInt('MAIN_ENABLE_AJAX_TOOLTIP')) {
 			$params = [
-				'id' => $this->fk_contrat,
+				'id' => $this->fk_contract,
 				'objecttype' => $this->element,
 			];
 			$classfortooltip = 'classforajaxtooltip';
@@ -449,7 +449,7 @@ class ContratLigne extends CommonObjectLine
 			$label = '';
 		}
 
-		$link = '<a href="'.DOL_URL_ROOT.'/contrat/card.php?id='.$this->fk_contrat.'"';
+		$link = '<a href="'.DOL_URL_ROOT.'/contract/card.php?id='.$this->fk_contract.'"';
 		$link .= ($label ? ' title="'.dolPrintHTMLForAttribute($label).'"' : ' title="tocomplete"');
 		$link .= $dataparams.' class="'.$classfortooltip.'">';
 		$linkend = '</a>';
@@ -488,7 +488,7 @@ class ContratLigne extends CommonObjectLine
 		$sql = "SELECT";
 		$sql .= " t.rowid,";
 		$sql .= " t.tms,";
-		$sql .= " t.fk_contrat,";
+		$sql .= " t.fk_contract,";
 		$sql .= " t.fk_product,";
 		$sql .= " t.statut,";
 		$sql .= " t.label,"; // This field is not used. Only label of product
@@ -528,7 +528,7 @@ class ContratLigne extends CommonObjectLine
 		$sql .= " t.commentaire,";
 		$sql .= " t.fk_unit,";
 		$sql .= " t.rang";
-		$sql .= " FROM ".MAIN_DB_PREFIX."contratdet as t LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = t.fk_product";
+		$sql .= " FROM ".MAIN_DB_PREFIX."contractdet as t LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = t.fk_product";
 		if ($id) {
 			$sql .= " WHERE t.rowid = ".((int) $id);
 		}
@@ -546,7 +546,7 @@ class ContratLigne extends CommonObjectLine
 				$this->ref   = $obj->rowid;
 
 				$this->tms = $this->db->jdate($obj->tms);
-				$this->fk_contrat = $obj->fk_contrat;
+				$this->fk_contract = $obj->fk_contract;
 				$this->fk_product = $obj->fk_product;
 				$this->statut = $obj->statut;
 				$this->product_ref = $obj->product_ref;
@@ -622,7 +622,7 @@ class ContratLigne extends CommonObjectLine
 		$error = 0;
 
 		// Clean parameters
-		$this->fk_contrat = (int) $this->fk_contrat;
+		$this->fk_contract = (int) $this->fk_contract;
 		$this->fk_product = (int) $this->fk_product;
 		$this->statut = (int) $this->statut;
 		$this->label = trim($this->label);
@@ -701,8 +701,8 @@ class ContratLigne extends CommonObjectLine
 		$this->db->begin();
 
 		// Update request
-		$sql = "UPDATE ".MAIN_DB_PREFIX."contratdet SET";
-		$sql .= " fk_contrat = ".((int) $this->fk_contrat).",";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."contractdet SET";
+		$sql .= " fk_contract = ".((int) $this->fk_contract).",";
 		$sql .= " fk_product = ".($this->fk_product ? ((int) $this->fk_product) : 'null').",";
 		$sql .= " statut = ".((int) $this->statut).",";
 		$sql .= " label = '".$this->db->escape($this->label)."',";
@@ -757,9 +757,9 @@ class ContratLigne extends CommonObjectLine
 			dol_syslog(get_class($this)."::update CONTRACT_SYNC_PLANNED_DATE_OF_SERVICES is on so we update date for all lines", LOG_DEBUG);
 
 			if ($this->date_start != $this->oldcopy->date_start) {
-				$sql = 'UPDATE '.MAIN_DB_PREFIX.'contratdet SET';
+				$sql = 'UPDATE '.MAIN_DB_PREFIX.'contractdet SET';
 				$sql .= " date_ouverture_prevue = ".($this->date_start != '' ? "'".$this->db->idate($this->date_start)."'" : "null");
-				$sql .= " WHERE fk_contrat = ".((int) $this->fk_contrat);
+				$sql .= " WHERE fk_contract = ".((int) $this->fk_contract);
 
 				$resql = $this->db->query($sql);
 				if (!$resql) {
@@ -768,9 +768,9 @@ class ContratLigne extends CommonObjectLine
 				}
 			}
 			if ($this->date_end != $this->oldcopy->date_end) {
-				$sql = 'UPDATE '.MAIN_DB_PREFIX.'contratdet SET';
+				$sql = 'UPDATE '.MAIN_DB_PREFIX.'contractdet SET';
 				$sql .= " date_fin_validite = ".($this->date_end != '' ? "'".$this->db->idate($this->date_end)."'" : "null");
-				$sql .= " WHERE fk_contrat = ".((int) $this->fk_contrat);
+				$sql .= " WHERE fk_contract = ".((int) $this->fk_contract);
 
 				$resql = $this->db->query($sql);
 				if (!$resql) {
@@ -814,7 +814,7 @@ class ContratLigne extends CommonObjectLine
 		$this->db->begin();
 
 		// Mise a jour ligne en base
-		$sql = "UPDATE ".MAIN_DB_PREFIX."contratdet SET";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."contractdet SET";
 		$sql .= " total_ht=".price2num($this->total_ht, 'MT');
 		$sql .= ",total_tva=".price2num($this->total_tva, 'MT');
 		$sql .= ",total_localtax1=".price2num($this->total_localtax1, 'MT');
@@ -837,7 +837,7 @@ class ContratLigne extends CommonObjectLine
 
 
 	/**
-	 * Inserts a contrat line into database
+	 * Inserts a contract line into database
 	 *
 	 * @param int $notrigger Set to 1 if you don't want triggers to be fired
 	 * @return int Return integer <0 if KO, >0 if OK
@@ -849,8 +849,8 @@ class ContratLigne extends CommonObjectLine
 		$error = 0;
 
 		// Insertion dans la base
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."contratdet";
-		$sql .= " (fk_contrat, label, description, fk_product, qty, vat_src_code, tva_tx,";
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."contractdet";
+		$sql .= " (fk_contract, label, description, fk_product, qty, vat_src_code, tva_tx,";
 		$sql .= " localtax1_tx, localtax2_tx, localtax1_type, localtax2_type, remise_percent, subprice,";
 		$sql .= " total_ht, total_tva, total_localtax1, total_localtax2, total_ttc,";
 		$sql .= " info_bits,";
@@ -862,7 +862,7 @@ class ContratLigne extends CommonObjectLine
 		if ($this->date_end > 0) {
 			$sql .= ",date_fin_validite";
 		}
-		$sql .= ") VALUES ($this->fk_contrat, '', '".$this->db->escape($this->description)."',";
+		$sql .= ") VALUES ($this->fk_contract, '', '".$this->db->escape($this->description)."',";
 		$sql .= ($this->fk_product > 0 ? $this->fk_product : "null").",";
 		$sql .= " '".$this->db->escape($this->qty)."',";
 		$sql .= " '".$this->db->escape($this->vat_src_code)."',";
@@ -898,7 +898,7 @@ class ContratLigne extends CommonObjectLine
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX.'contratdet');
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX.'contractdet');
 
 			// Insert of extrafields
 			if (!$error) {
@@ -945,14 +945,14 @@ class ContratLigne extends CommonObjectLine
 
 		$this->db->begin();
 
-		$this->statut = ContratLigne::STATUS_OPEN;
+		$this->statut = ContractLine::STATUS_OPEN;
 		$this->date_start_real = $date;
 		$this->date_end = $date_end;
 		$this->fk_user_ouverture = $user->id;
 		$this->date_end_real = null;
 		$this->commentaire = $comment;
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."contratdet SET statut = ".((int) $this->statut).",";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."contractdet SET statut = ".((int) $this->statut).",";
 		$sql .= " date_ouverture = ".(dol_strlen((string) $this->date_start_real) != 0 ? "'".$this->db->idate($this->date_start_real)."'" : "null").",";
 		if ($date_end >= 0) {
 			$sql .= " date_fin_validite = ".(dol_strlen($this->date_end) != 0 ? "'".$this->db->idate($this->date_end)."'" : "null").",";
@@ -960,7 +960,7 @@ class ContratLigne extends CommonObjectLine
 		$sql .= " fk_user_ouverture = ".((int) $this->fk_user_ouverture).",";
 		$sql .= " date_cloture = null,";
 		$sql .= " commentaire = '".$this->db->escape($comment)."'";
-		$sql .= " WHERE rowid = ".((int) $this->id)." AND (statut = ".ContratLigne::STATUS_INITIAL." OR statut = ".ContratLigne::STATUS_CLOSED.")";
+		$sql .= " WHERE rowid = ".((int) $this->id)." AND (statut = ".ContractLine::STATUS_INITIAL." OR statut = ".ContractLine::STATUS_CLOSED.")";
 
 		dol_syslog(get_class($this)."::active_line", LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -1010,11 +1010,11 @@ class ContratLigne extends CommonObjectLine
 
 		$this->db->begin();
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."contratdet SET statut = ".((int) ContratLigne::STATUS_CLOSED).",";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."contractdet SET statut = ".((int) ContractLine::STATUS_CLOSED).",";
 		$sql .= " date_cloture = '".$this->db->idate($date_end_real)."',";
 		$sql .= " fk_user_cloture = ".((int) $user->id).",";
 		$sql .= " commentaire = '".$this->db->escape($comment)."'";
-		$sql .= " WHERE rowid = ".((int) $this->id)." AND statut = ".((int) ContratLigne::STATUS_OPEN);
+		$sql .= " WHERE rowid = ".((int) $this->id)." AND statut = ".((int) ContractLine::STATUS_OPEN);
 
 		$resql = $this->db->query($sql);
 		if ($resql) {

@@ -3048,11 +3048,11 @@ function printDropdownQuickadd($mode = 0)
 				"position" => 50,
 			),
 			array(
-				"url" => "/contrat/card.php?action=create&amp;mainmenu=commercial",
+				"url" => "/contract/card.php?action=create&amp;mainmenu=commercial",
 				"title" => "NewContractSubscription@contracts",
 				"name" => "Contract@contracts",
 				"picture" => "object_contract",
-				"activation" => isModEnabled('contract') && $user->hasRight("contrat", "write"), // vs hooking
+				"activation" => isModEnabled('contract') && $user->hasRight("contract", "write"), // vs hooking
 				"position" => 60,
 			),
 			array(

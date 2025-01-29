@@ -165,8 +165,8 @@ if (isModEnabled('bank') && !getDolGlobalString('MAIN_SEARCHFORM_MISC_PAYMENTS_D
 		'url' => DOL_URL_ROOT.'/compta/bank/various_payment/list.php?leftmenu=tax_various'.($search_boxvalue ? '&search_all='.urlencode($search_boxvalue) : ''));
 }
 
-if (isModEnabled('contract') && !getDolGlobalString('MAIN_SEARCHFORM_CONTRACT_DISABLED') && $user->hasRight('contrat', 'lire')) {
-	$arrayresult['searchintocontract'] = array('position' => 130, 'img' => 'object_contract', 'label' => $langs->trans("SearchIntoContracts", $search_boxvalue), 'text' => img_picture('', 'object_contract', 'class="picturefixedwidth"').' '.$langs->trans("SearchIntoContracts", $search_boxvalue), 'url' => DOL_URL_ROOT.'/contrat/list.php'.($search_boxvalue ? '?search_all='.urlencode($search_boxvalue) : ''));
+if (isModEnabled('contract') && !getDolGlobalString('MAIN_SEARCHFORM_CONTRACT_DISABLED') && $user->hasRight('contract', 'lire')) {
+	$arrayresult['searchintocontract'] = array('position' => 130, 'img' => 'object_contract', 'label' => $langs->trans("SearchIntoContracts", $search_boxvalue), 'text' => img_picture('', 'object_contract', 'class="picturefixedwidth"').' '.$langs->trans("SearchIntoContracts", $search_boxvalue), 'url' => DOL_URL_ROOT.'/contract/list.php'.($search_boxvalue ? '?search_all='.urlencode($search_boxvalue) : ''));
 }
 if (isModEnabled('intervention') && !getDolGlobalString('MAIN_SEARCHFORM_FICHINTER_DISABLED') && $user->hasRight('ficheinter', 'lire')) {
 	$arrayresult['searchintointervention'] = array('position' => 140, 'img' => 'object_intervention', 'label' => $langs->trans("SearchIntoInterventions", $search_boxvalue), 'text' => img_picture('', 'object_intervention', 'class="picturefixedwidth"').' '.$langs->trans("SearchIntoInterventions", $search_boxvalue), 'url' => DOL_URL_ROOT.'/fichinter/list.php'.($search_boxvalue ? '?search_all='.urlencode($search_boxvalue) : ''));

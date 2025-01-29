@@ -42,7 +42,7 @@ if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 }
 if (isModEnabled('contract')) {
-	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 }
 
 /**
@@ -75,7 +75,7 @@ $search_ref_client = GETPOST('search_ref_client', 'alpha');
 $search_company = GETPOST('search_company', 'alpha');
 $search_desc = GETPOST('search_desc', 'alpha');
 $search_projet_ref = GETPOST('search_projet_ref', 'alpha');
-$search_contrat_ref = GETPOST('search_contrat_ref', 'alpha');
+$search_contract_ref = GETPOST('search_contract_ref', 'alpha');
 $search_status = GETPOST('search_status', 'alpha');
 $search_signed_status = GETPOST('search_signed_status', 'alpha');
 $search_all = trim(GETPOST('search_all', 'alphanohtml'));
@@ -143,7 +143,7 @@ $arrayfields = array(
 	'f.ref_client' => array('label' => 'RefCustomer', 'checked' => 1),
 	's.nom' => array('label' => 'ThirdParty', 'checked' => 1),
 	'pr.ref' => array('label' => 'Project', 'checked' => 1, 'enabled' => (!isModEnabled('project') ? 0 : 1)),
-	'c.ref' => array('label' => 'Contract', 'checked' => 1, 'enabled' => (empty($config->contrat->enabled) ? 0 : 1)),
+	'c.ref' => array('label' => 'Contract', 'checked' => 1, 'enabled' => (empty($config->contract->enabled) ? 0 : 1)),
 	'f.description' => array('label' => 'Description', 'checked' => 1),
 	'f.datec' => array('label' => 'DateCreation', 'checked' => 0, 'position' => 500),
 	'f.tms' => array('label' => 'DateModificationShort', 'checked' => 0, 'position' => 500),
@@ -203,7 +203,7 @@ if (empty($resHook)) {
 		$search_ref_client = "";
 		$search_company = "";
 		$search_projet_ref = "";
-		$search_contrat_ref = "";
+		$search_contract_ref = "";
 		$search_desc = "";
 		$search_status = "";
 		$search_signed_status = '';
@@ -241,7 +241,7 @@ if (isModEnabled('project')) {
 	$projetstatic = new Project($db);
 }
 if (isModEnabled('contract')) {
-	$contratstatic = new Contrat($db);
+	$contractstatic = new Contract($db);
 }
 
 $now = dol_now();
@@ -273,7 +273,7 @@ if (isModEnabled('project')) {
 	$sql .= ", pr.rowid as projet_id, pr.ref as projet_ref, pr.title as projet_title";
 }
 if (isModEnabled('contract')) {
-	$sql .= ", c.rowid as contrat_id, c.ref as contrat_ref, c.ref_customer as contrat_ref_customer, c.ref_supplier as contrat_ref_supplier";
+	$sql .= ", c.rowid as contract_id, c.ref as contract_ref, c.ref_customer as contract_ref_customer, c.ref_supplier as contract_ref_supplier";
 }
 // Add fields from extrafields
 if (!empty($extrafields->attributes[$object->table_element]['label'])) {
@@ -293,7 +293,7 @@ if (isModEnabled('project')) {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as pr on f.fk_projet = pr.rowid";
 }
 if (isModEnabled('contract')) {
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."contrat as c on f.fk_contrat = c.rowid";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."contract as c on f.fk_contract = c.rowid";
 }
 if (isset($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX.$object->table_element."_extrafields as ef on (f.rowid = ef.fk_object)";
@@ -325,8 +325,8 @@ if ($search_company) {
 if ($search_projet_ref) {
 	$sql .= natural_search('pr.ref', $search_projet_ref);
 }
-if ($search_contrat_ref) {
-	$sql .= natural_search('c.ref', $search_contrat_ref);
+if ($search_contract_ref) {
+	$sql .= natural_search('c.ref', $search_contract_ref);
 }
 if ($search_desc) {
 	if (!getDolGlobalString('FICHINTER_DISABLE_DETAILS') && $atleastonefieldinlines) {
@@ -618,7 +618,7 @@ if (!empty($arrayfields['pr.ref']['checked'])) {
 }
 if (!empty($arrayfields['c.ref']['checked'])) {
 	print '<td class="liste_titre">';
-	print '<input type="text" class="flat" name="search_contrat_ref" value="'.$search_contrat_ref.'" size="8">';
+	print '<input type="text" class="flat" name="search_contract_ref" value="'.$search_contract_ref.'" size="8">';
 	print '</td>';
 }
 if (!empty($arrayfields['f.description']['checked'])) {
@@ -937,12 +937,12 @@ while ($i < $imaxinloop) {
 		// Contract
 		if (!empty($arrayfields['c.ref']['checked'])) {
 			print '<td class="tdoverflowmax150">';
-			$contratstatic->id = $obj->contrat_id;
-			$contratstatic->ref = $obj->contrat_ref;
-			$contratstatic->ref_customer = $obj->contrat_ref_customer;
-			$contratstatic->ref_supplier = $obj->contrat_ref_supplier;
-			if ($contratstatic->id > 0) {
-				print $contratstatic->getNomUrl(1, '');
+			$contractstatic->id = $obj->contract_id;
+			$contractstatic->ref = $obj->contract_ref;
+			$contractstatic->ref_customer = $obj->contract_ref_customer;
+			$contractstatic->ref_supplier = $obj->contract_ref_supplier;
+			if ($contractstatic->id > 0) {
+				print $contractstatic->getNomUrl(1, '');
 				print '</td>';
 			}
 			if (!$i) {

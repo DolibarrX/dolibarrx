@@ -190,7 +190,7 @@ class FichinterRec extends Fichinter
 			$sql .= ", note_public";
 			$sql .= ", fk_user_author";
 			$sql .= ", fk_projet";
-			$sql .= ", fk_contrat";
+			$sql .= ", fk_contract";
 			$sql .= ", modelpdf";
 			$sql .= ", frequency";
 			$sql .= ", unit_frequency";
@@ -212,7 +212,7 @@ class FichinterRec extends Fichinter
 			// If the company is the same, keep the links to the project and the contract
 			if ($this->socid == $fichintsrc->socid) {
 				$sql .= ", ".(!empty($fichintsrc->fk_project) ? ((int) $fichintsrc->fk_project) : "null");
-				$sql .= ", ".(!empty($fichintsrc->fk_contrat) ? ((int) $fichintsrc->fk_contrat) : "null");
+				$sql .= ", ".(!empty($fichintsrc->fk_contract) ? ((int) $fichintsrc->fk_contract) : "null");
 			} else {
 				$sql .= ", null, null";
 			}
@@ -293,7 +293,7 @@ class FichinterRec extends Fichinter
 	public function fetch($rowid = 0, $ref = '', $ref_ext = '')
 	{
 		$sql = 'SELECT f.title, f.fk_soc';
-		$sql .= ', f.datec, f.duree, f.fk_projet, f.fk_contrat, f.description';
+		$sql .= ', f.datec, f.duree, f.fk_projet, f.fk_contract, f.description';
 		$sql .= ', f.note_private, f.note_public, f.fk_user_author';
 		$sql .= ', f.frequency, f.unit_frequency, f.date_when, f.date_last_gen, f.nb_gen_done, f.nb_gen_max, f.auto_validate';
 		$sql .= ', f.note_private, f.note_public, f.fk_user_author';
@@ -322,7 +322,7 @@ class FichinterRec extends Fichinter
 				$this->status = $obj->status;
 				$this->statut = $obj->status;	// deprecated
 				$this->fk_project = $obj->fk_projet;
-				$this->fk_contrat = $obj->fk_contrat;
+				$this->fk_contract = $obj->fk_contract;
 				$this->note_private = $obj->note_private;
 				$this->note_public = $obj->note_public;
 				$this->user_author = $obj->fk_user_author;

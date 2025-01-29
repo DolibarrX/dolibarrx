@@ -79,7 +79,7 @@ class Product extends CommonObject
 		'propaldet' => array('name' => 'Proposal', 'parent' => 'propal', 'parentkey' => 'fk_propal'),
 		'orderdet' => array('name' => 'Order', 'parent' => 'order', 'parentkey' => 'fk_order'),
 		'facturedet' => array('name' => 'Invoice', 'parent' => 'facture', 'parentkey' => 'fk_facture'),
-		'contratdet' => array('name' => 'Contract', 'parent' => 'contrat', 'parentkey' => 'fk_contrat'),
+		'contractdet' => array('name' => 'Contract', 'parent' => 'contract', 'parentkey' => 'fk_contract'),
 		'facture_fourn_det' => array('name' => 'SupplierInvoice', 'parent' => 'facture_fourn', 'parentkey' => 'fk_facture_fourn'),
 		'order_fournisseurdet' => array('name' => 'SupplierOrder', 'parent' => 'order_fournisseur', 'parentkey' => 'fk_order'),
 		'mrp_production' => array('name' => 'Mo', 'parent' => 'mrp_mo', 'parentkey' => 'fk_mo', 'enabled' => 'isModEnabled("mrp")'),
@@ -615,7 +615,7 @@ class Product extends CommonObject
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats contracts
 	 */
-	public $stats_contrat = [];
+	public $stats_contract = [];
 
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats invoices
@@ -4007,25 +4007,25 @@ class Product extends CommonObject
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *  Charge tableau des stats contrat pour le produit/service
+	 *  Charge tableau des stats contract pour le produit/service
 	 *
 	 * @param  int $socid Id societe
-	 * @return int                     Array of stats in $this->stats_contrat, <0 if ko or >0 if ok
+	 * @return int                     Array of stats in $this->stats_contract, <0 if ko or >0 if ok
 	 */
-	public function load_stats_contrat($socid = 0)
+	public function load_stats_contract($socid = 0)
 	{
 		// phpcs:enable
 		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT c.fk_soc) as nb_customers, COUNT(DISTINCT c.rowid) as nb,";
 		$sql .= " COUNT(cd.rowid) as nb_rows, SUM(cd.qty) as qty";
-		$sql .= " FROM ".$this->db->prefix()."contratdet as cd";
-		$sql .= ", ".$this->db->prefix()."contrat as c";
+		$sql .= " FROM ".$this->db->prefix()."contractdet as cd";
+		$sql .= ", ".$this->db->prefix()."contract as c";
 		$sql .= ", ".$this->db->prefix()."societe as s";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";
 		}
-		$sql .= " WHERE c.rowid = cd.fk_contrat";
+		$sql .= " WHERE c.rowid = cd.fk_contract";
 		$sql .= " AND c.fk_soc = s.rowid";
 		$sql .= " AND c.entity IN (".getEntity('contract').")";
 		$sql .= " AND cd.fk_product = ".((int) $this->id);
@@ -4040,10 +4040,10 @@ class Product extends CommonObject
 		$result = $this->db->query($sql);
 		if ($result) {
 			$obj = $this->db->fetch_object($result);
-			$this->stats_contrat['customers'] = $obj->nb_customers;
-			$this->stats_contrat['nb'] = $obj->nb;
-			$this->stats_contrat['rows'] = $obj->nb_rows;
-			$this->stats_contrat['qty'] = $obj->qty ? $obj->qty : 0;
+			$this->stats_contract['customers'] = $obj->nb_customers;
+			$this->stats_contract['nb'] = $obj->nb;
+			$this->stats_contract['rows'] = $obj->nb_rows;
+			$this->stats_contract['qty'] = $obj->qty ? $obj->qty : 0;
 
 			// if it's a virtual product, maybe it is in contract by extension
 			if (getDolGlobalString('PRODUCT_STATS_WITH_PARENT_PROD_IF_INCDEC')) {
@@ -4055,12 +4055,12 @@ class Product extends CommonObject
 						$qtyCoef = $fatherData['qty'];
 
 						if ($fatherData['incdec']) {
-							$pFather->load_stats_contrat($socid);
+							$pFather->load_stats_contract($socid);
 
-							$this->stats_contrat['customers'] += $pFather->stats_contrat['customers'];
-							$this->stats_contrat['nb'] += $pFather->stats_contrat['nb'];
-							$this->stats_contrat['rows'] += $pFather->stats_contrat['rows'];
-							$this->stats_contrat['qty'] += $pFather->stats_contrat['qty'] * $qtyCoef;
+							$this->stats_contract['customers'] += $pFather->stats_contract['customers'];
+							$this->stats_contract['nb'] += $pFather->stats_contract['nb'];
+							$this->stats_contract['rows'] += $pFather->stats_contract['rows'];
+							$this->stats_contract['qty'] += $pFather->stats_contract['qty'] * $qtyCoef;
 						}
 					}
 				}
@@ -4069,7 +4069,7 @@ class Product extends CommonObject
 			$parameters = array('socid' => $socid);
 			$resHook = $hookManager->executeHooks('loadStatsContract', $parameters, $this, $action);
 			if ($resHook > 0) {
-				$this->stats_contrat = $hookManager->resArray['stats_contrat'];
+				$this->stats_contract = $hookManager->resArray['stats_contract'];
 			}
 
 			return 1;
@@ -4688,12 +4688,12 @@ class Product extends CommonObject
 		// phpcs:enable
 		global $user;
 
-		$sql = "SELECT sum(d.qty) as qty, date_format(c.date_contrat, '%Y%m')";
+		$sql = "SELECT sum(d.qty) as qty, date_format(c.date_contract, '%Y%m')";
 		if ($mode == 'bynumber') {
 			$sql .= ", count(DISTINCT c.rowid)";
 		}
 		$sql .= ", sum(d.total_ht) as total_ht";
-		$sql .= " FROM ".$this->db->prefix()."contratdet as d, ".$this->db->prefix()."contrat as c, ".$this->db->prefix()."societe as s";
+		$sql .= " FROM ".$this->db->prefix()."contractdet as d, ".$this->db->prefix()."contract as c, ".$this->db->prefix()."societe as s";
 		if ($filteronproducttype >= 0) {
 			$sql .= ", ".$this->db->prefix()."product as p";
 		}
@@ -4701,7 +4701,7 @@ class Product extends CommonObject
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";
 		}
 		$sql .= " WHERE c.entity IN (".getEntity('contract').")";
-		$sql .= " AND c.rowid = d.fk_contrat";
+		$sql .= " AND c.rowid = d.fk_contract";
 
 		if ($this->id > 0) {
 			$sql .= " AND d.fk_product = ".((int) $this->id);
@@ -4720,8 +4720,8 @@ class Product extends CommonObject
 			$sql .= " AND c.fk_soc = ".((int) $socid);
 		}
 		$sql .= $morefilter;
-		$sql .= " GROUP BY date_format(c.date_contrat,'%Y%m')";
-		$sql .= " ORDER BY date_format(c.date_contrat,'%Y%m') DESC";
+		$sql .= " GROUP BY date_format(c.date_contract,'%Y%m')";
+		$sql .= " ORDER BY date_format(c.date_contract,'%Y%m') DESC";
 
 		return $this->_get_stats($sql, $mode, $year);
 	}

@@ -180,7 +180,7 @@ if (!empty($object->thirdparty->client)) {
 	if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
 		$elementTypeArray['invoice'] = $langs->transnoentitiesnoconv('Invoices');
 	}
-	if (isModEnabled('contract') && $user->hasRight('contrat', 'lire')) {
+	if (isModEnabled('contract') && $user->hasRight('contract', 'lire')) {
 		$elementTypeArray['contract'] = $langs->transnoentitiesnoconv('Contracts');
 	}
 }
@@ -309,16 +309,16 @@ if ($type_element == 'fichinter') { 	// Customer : show products from invoices
 	$doc_number = 'c.ref';
 	$thirdTypeSelect = 'supplier';
 } elseif ($type_element == 'contract') { 	// Order
-	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-	$documentstatic = new Contrat($db);
-	$documentstaticline = new ContratLigne($db);
-	$sql_select = 'SELECT c.rowid as doc_id, c.ref as doc_number, \'1\' as doc_type, c.date_contrat as dateprint, d.statut as status, tc.libelle as type_contact_label, ';
-	$tables_from = MAIN_DB_PREFIX.'contratdet d';
-	$tables_from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'contrat as c ON d.fk_contrat=c.rowid';
+	require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
+	$documentstatic = new Contract($db);
+	$documentstaticline = new ContractLine($db);
+	$sql_select = 'SELECT c.rowid as doc_id, c.ref as doc_number, \'1\' as doc_type, c.date_contract as dateprint, d.statut as status, tc.libelle as type_contact_label, ';
+	$tables_from = MAIN_DB_PREFIX.'contractdet d';
+	$tables_from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'contract as c ON d.fk_contract=c.rowid';
 	$tables_from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product p ON d.fk_product=p.rowid';
 	$tables_from .= ' INNER JOIN '.MAIN_DB_PREFIX.'element_contact ec ON ec.element_id=c.rowid AND ec.fk_socpeople = '.((int) $object->id);
-	$tables_from .= ' INNER JOIN '.MAIN_DB_PREFIX."c_type_contact tc ON (ec.fk_c_type_contact=tc.rowid and tc.element='contrat' and tc.source='external' and tc.active=1)";
-	$where = ' WHERE c.entity IN ('.getEntity('contrat').')';
+	$tables_from .= ' INNER JOIN '.MAIN_DB_PREFIX."c_type_contact tc ON (ec.fk_c_type_contact=tc.rowid and tc.element='contract' and tc.source='external' and tc.active=1)";
+	$where = ' WHERE c.entity IN ('.getEntity('contract').')';
 	$dateprint = 'c.date_valid';
 	$doc_number = 'c.ref';
 	$thirdTypeSelect = 'customer';

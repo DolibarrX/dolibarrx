@@ -54,8 +54,8 @@ $id = $fk_element;
 
 /* Example:
 field:editval_ref_customer (8 first chars will removed to know name of property)
-element:contrat
-table_element:contrat
+element:contract
+table_element:contract
 fk_element:4
 type:string
 value:aaa

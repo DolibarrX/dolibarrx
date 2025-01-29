@@ -21,30 +21,30 @@
 
 /**
  * \file       htdocs/core/lib/contract.lib.php
- * \brief      Ensemble de functions de base pour le module contrat
+ * \brief      Ensemble de functions de base pour le module contract
  */
 
 /**
  * Prepare array with list of tabs
  *
- * @param   Contrat	$object		Object related to tabs
+ * @param   Contract	$object		Object related to tabs
  * @return	array<array{0:string,1:string,2:string}>	Array of tabs to show
  */
-function contract_prepare_head(Contrat $object)
+function contract_prepare_head(Contract $object)
 {
 	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = [];
 
-	$head[$h][0] = DOL_URL_ROOT . '/contrat/card.php?id=' . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/contract/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("ContractCard");
 	$head[$h][2] = 'card';
 	$h++;
 
 	if (!getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
 		$nbContact = count($object->liste_contact(-1, 'internal')) + count($object->liste_contact(-1, 'external'));
-		$head[$h][0] = DOL_URL_ROOT . '/contrat/contact.php?id=' . $object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/contract/contact.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans("ContactsAddresses");
 		if ($nbContact > 0) {
 			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbContact . '</span>';
@@ -55,7 +55,7 @@ function contract_prepare_head(Contrat $object)
 
 	/* deprecated. Contracts and tickets are already linked with the generic "Link to" feature */
 	if (isModEnabled('ticket') && getDolGlobalString('TICKET_LINK_TO_CONTRACT_WITH_HARDLINK')) {
-		$head[$h][0] = DOL_URL_ROOT . '/contrat/ticket.php?id=' . $object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/contract/ticket.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans("Tickets");
 		$head[$h][2] = 'ticket';
 		$h++;
@@ -75,7 +75,7 @@ function contract_prepare_head(Contrat $object)
 		if (!empty($object->note_public)) {
 			$nbNote++;
 		}
-		$head[$h][0] = DOL_URL_ROOT . '/contrat/note.php?id=' . $object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/contract/note.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans("Notes");
 		if ($nbNote > 0) {
 			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbNote . '</span>';
@@ -86,10 +86,10 @@ function contract_prepare_head(Contrat $object)
 
 	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
-	$upload_dir = $config->contrat->multidir_output[$object->entity] . "/" . dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->contract->multidir_output[$object->entity] . "/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
-	$head[$h][0] = DOL_URL_ROOT . '/contrat/document.php?id=' . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/contract/document.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Documents");
 	if (($nbFiles + $nbLinks) > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . ($nbFiles + $nbLinks) . '</span>';
@@ -98,7 +98,7 @@ function contract_prepare_head(Contrat $object)
 	$h++;
 
 
-	$head[$h][0] = DOL_URL_ROOT . '/contrat/agenda.php?id=' . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/contract/agenda.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Events");
 	if (isModEnabled('agenda') && ($user->hasRight('agenda', 'myactions', 'read') || $user->hasRight('agenda', 'allactions', 'read'))) {
 		$nbEvent = 0;
@@ -149,8 +149,8 @@ function contract_admin_prepare_head()
 	global $langs, $config, $db;
 
 	$extrafields = new ExtraFields($db);
-	$extrafields->fetch_name_optionals_label('contrat');
-	$extrafields->fetch_name_optionals_label('contratdet');
+	$extrafields->fetch_name_optionals_label('contract');
+	$extrafields->fetch_name_optionals_label('contractdet');
 
 	$h = 0;
 	$head = [];
@@ -166,18 +166,18 @@ function contract_admin_prepare_head()
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
 	complete_head_from_modules($config, $langs, null, $head, $h, 'contract_admin', 'add', 'core');
 
-	$head[$h][0] = DOL_URL_ROOT . '/contrat/admin/contract_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/contract/admin/contract_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
-	$nbExtrafields = $extrafields->attributes['contrat']['count'];
+	$nbExtrafields = $extrafields->attributes['contract']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'attributes';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT . '/contrat/admin/contractdet_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/contract/admin/contractdet_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsLines");
-	$nbExtrafields = $extrafields->attributes['contratdet']['count'];
+	$nbExtrafields = $extrafields->attributes['contractdet']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}

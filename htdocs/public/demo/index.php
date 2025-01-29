@@ -95,14 +95,14 @@ if (empty($resHook)) {
 		),
 		array(
 			'default' => '0', 'key' => 'profmanufacture', 'label' => 'DemoCompanyManufacturing',
-			'disablemodules' => 'member,contrat,don,externalsite,ficheinter,ftp,mailmanspip,prelevement,service',
+			'disablemodules' => 'member,contract,don,externalsite,ficheinter,ftp,mailmanspip,prelevement,service',
 			'icon' => DOL_URL_ROOT.'/public/demo/demo-profile-manufacturing.jpg',
 			'url' => $url,
 			'lang' => '',
 		),
 		array(
 			'default' => '0', 'key' => 'profdemoprodstock', 'label' => 'DemoCompanyProductAndStocks',
-			'disablemodules' => 'member,bom,contrat,don,externalsite,ficheinter,ftp,mailmanspip,mrp,prelevement,service',
+			'disablemodules' => 'member,bom,contract,don,externalsite,ficheinter,ftp,mailmanspip,mrp,prelevement,service',
 			//'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot2.png',
 			'icon' => DOL_URL_ROOT.'/public/demo/demo-profile-product.jpg',
 			'url' => $url,
@@ -110,7 +110,7 @@ if (empty($resHook)) {
 		),
 		array(
 			'default' => '0', 'key' => 'profdemofun2', 'label' => 'DemoFundation2',
-			'disablemodules' => 'barcode,cashdesk,bom,order,commercial,compta,comptabilite,contrat,expedition,externalsite,ficheinter,ftp,incoterm,mailmanspip,margin,mrp,prelevement,product,productbatch,projet,propal,propale,service,societe,stock,tax,takepos',
+			'disablemodules' => 'barcode,cashdesk,bom,order,commercial,compta,comptabilite,contract,expedition,externalsite,ficheinter,ftp,incoterm,mailmanspip,margin,mrp,prelevement,product,productbatch,projet,propal,propale,service,societe,stock,tax,takepos',
 			//'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot6.png',
 			'icon' => DOL_URL_ROOT.'/public/demo/demo-profile-foundation.jpg',
 			'url' => $url,

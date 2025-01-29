@@ -177,7 +177,7 @@ ALTER TABLE llx_order_fournisseurdet ADD COLUMN vat_src_code varchar(10) DEFAULT
 ALTER TABLE llx_propaldet ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
 ALTER TABLE llx_supplier_proposaldet ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
 ALTER TABLE llx_supplier_proposaldet ADD COLUMN fk_unit integer DEFAULT NULL;
-ALTER TABLE llx_contratdet ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
+ALTER TABLE llx_contractdet ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
 
 ALTER TABLE llx_c_payment_term CHANGE COLUMN fdm type_cdr TINYINT;
 
@@ -261,7 +261,7 @@ ALTER TABLE llx_expensereport ADD UNIQUE INDEX idx_expensereport_uk_ref (ref, en
 UPDATE llx_projet_task SET ref = NULL WHERE ref = '';
 ALTER TABLE llx_projet_task ADD UNIQUE INDEX uk_projet_task_ref (ref, entity);
 
-ALTER TABLE llx_contrat ADD COLUMN fk_user_modif integer;
+ALTER TABLE llx_contract ADD COLUMN fk_user_modif integer;
 
 UPDATE llx_accounting_account SET account_parent = 0 WHERE account_parent = '';
 

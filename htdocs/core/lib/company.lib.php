@@ -1848,7 +1848,7 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 			$sql .= ", o.ref";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'BOM') {
 			$sql .= ", o.ref";
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'Contrat') {
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'Contract') {
 			$sql .= ", o.ref";
 		} elseif (is_object($filterobj) && is_array($filterobj->fields) && is_array($filterobj->fields['rowid']) && $filterobj->table_element && $filterobj->element) {
 			if (!empty($filterobj->fields['ref'])) {
@@ -1907,8 +1907,8 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 			$sql .= ", " . MAIN_DB_PREFIX . "ticket as o";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'BOM') {
 			$sql .= ", " . MAIN_DB_PREFIX . "bom_bom as o";
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'Contrat') {
-			$sql .= ", " . MAIN_DB_PREFIX . "contrat as o";
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'Contract') {
+			$sql .= ", " . MAIN_DB_PREFIX . "contract as o";
 		} elseif (
 			is_object($filterobj) && is_array($filterobj->fields) && is_array($filterobj->fields['rowid'])
 			&& ((!empty($filterobj->fields['ref']) && is_array($filterobj->fields['ref'])) || (!empty($filterobj->fields['label']) && is_array($filterobj->fields['label'])) || (!empty($filterobj->fields['titre']) && is_array($filterobj->fields['titre'])))  // @phan-suppress-curren-line PhanTypeInvalidDimOffset
@@ -1965,7 +1965,7 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = " . ((int) $filterobj->id);
 				}
-			} elseif (is_object($filterobj) && get_class($filterobj) == 'Contrat') {
+			} elseif (is_object($filterobj) && get_class($filterobj) == 'Contract') {
 				$sql .= " AND a.fk_element = o.rowid AND a.elementtype = 'contract'";
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = " . ((int) $filterobj->id);

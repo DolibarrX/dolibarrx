@@ -846,7 +846,7 @@ if ($ok && GETPOST('clean_orphelin_dir', 'alpha')) {
 			$upload_dir = $config->fournisseur->order->dir_output;
 		}
 		if ($modulePart == 'contract') {
-			$upload_dir = $config->contrat->dir_output;
+			$upload_dir = $config->contract->dir_output;
 		}
 
 		if (empty($upload_dir)) {
@@ -878,8 +878,8 @@ if ($ok && GETPOST('clean_orphelin_dir', 'alpha')) {
 			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 			$object_instance = new OrderFournisseur($db);
 		} elseif ($modulePart == 'contract') {
-			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-			$object_instance = new Contrat($db);
+			include_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
+			$object_instance = new Contract($db);
 		} elseif ($modulePart == 'tax') {
 			include_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
 			$object_instance = new ChargeSociales($db);

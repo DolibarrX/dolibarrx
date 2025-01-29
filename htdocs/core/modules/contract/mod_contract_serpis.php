@@ -88,7 +88,7 @@ class mod_contract_serpis extends ModelNumRefContracts
 
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."contrat";
+		$sql .= " FROM ".MAIN_DB_PREFIX."contract";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		$sql .= " AND entity = ".$config->entity;
 
@@ -113,7 +113,7 @@ class mod_contract_serpis extends ModelNumRefContracts
 	 *	Return next value
 	 *
 	 *	@param	Societe		$objsoc     third party object
-	 *	@param	Contrat		$contract	contract object
+	 *	@param	Contract		$contract	contract object
 	 *	@return string|int<-1,0>		Value if OK, <=0 if KO
 	 */
 	public function getNextValue($objsoc, $contract)
@@ -122,7 +122,7 @@ class mod_contract_serpis extends ModelNumRefContracts
 
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."contrat";
+		$sql .= " FROM ".MAIN_DB_PREFIX."contract";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		$sql .= " AND entity = ".$config->entity;
 
@@ -139,7 +139,7 @@ class mod_contract_serpis extends ModelNumRefContracts
 			return -1;
 		}
 
-		$date = $contract->date_contrat;
+		$date = $contract->date_contract;
 		$yymm = dol_print_date($date, "%y%m");
 
 		if ($max >= (pow(10, 4) - 1)) {

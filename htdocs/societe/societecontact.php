@@ -337,7 +337,7 @@ if ($id > 0 || !empty($ref)) {
 			}
 		}
 	} else {
-		// Contrat non trouve
+		// Contract non trouve
 		print "ErrorRecordNotFound";
 	}
 }

@@ -178,7 +178,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			$object->sendtoid = array($object->id => $object->id);
 			// $object->socid = $object->socid;
 		} elseif ($action == 'CONTACT_MODIFY') {
-			'@phan-var-force Contrat $object';
+			'@phan-var-force Contract $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "companies"));
 
@@ -196,7 +196,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			$object->sendtoid = array($object->id => $object->id);
 			// $object->socid = $object->socid;
 		} elseif ($action == 'CONTRACT_VALIDATE') {
-			'@phan-var-force Contrat $object';
+			'@phan-var-force Contract $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "contracts"));
 
@@ -213,7 +213,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = [];
 		} elseif ($action == 'CONTRACT_SENTBYMAIL') {
-			'@phan-var-force Contrat $object';
+			'@phan-var-force Contract $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "contracts"));
 

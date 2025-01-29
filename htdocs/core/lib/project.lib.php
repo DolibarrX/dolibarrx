@@ -166,7 +166,7 @@ function project_prepare_head(Project $project, $moreparam = '')
 				$nbElements += $project->getElementCount('invoice_supplier', 'facture_fourn');
 			}
 			if (isModEnabled('contract')) {
-				$nbElements += $project->getElementCount('contract', 'contrat');
+				$nbElements += $project->getElementCount('contract', 'contract');
 			}
 			if (isModEnabled('intervention')) {
 				$nbElements += $project->getElementCount('intervention', 'fichinter');

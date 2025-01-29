@@ -139,7 +139,7 @@ class pdf_strato extends ModelePDFContract
 	/**
 	 *  Function to build pdf on disk
 	 *
-	 *  @param      Contrat     $object             Object source to build document
+	 *  @param      Contract     $object             Object source to build document
 	 *  @param      Translate   $outputlangs        Lang output object
 	 *  @param      string      $srctemplatepath    Full path of source filename for generator using a template file
 	 *  @param      int<0,1>    $hidedetails        Do not show line details
@@ -605,7 +605,7 @@ class pdf_strato extends ModelePDFContract
 	 *  Show top header of page.
 	 *
 	 *  @param	TCPDF		$pdf     		Object PDF
-	 *  @param  Contrat		$object     	Object to show
+	 *  @param  Contract		$object     	Object to show
 	 *  @param  int	    	$showaddress    0=no, 1=yes
 	 *  @param  Translate	$outputlangs	Object lang for output
 	 *  @param  Translate	$outputlangsbis	Object lang for output bis
@@ -694,7 +694,7 @@ class pdf_strato extends ModelePDFContract
 		$posy += 4;
 		$pdf->SetXY($posx, $posy);
 		$pdf->SetTextColor(0, 0, 60);
-		$pdf->MultiCell($w, 3, $outputlangs->transnoentities("Date")." : ".dol_print_date($object->date_contrat, "day", false, $outputlangs, true), '', 'R');
+		$pdf->MultiCell($w, 3, $outputlangs->transnoentities("Date")." : ".dol_print_date($object->date_contract, "day", false, $outputlangs, true), '', 'R');
 
 		if (!getDolGlobalString('MAIN_PDF_HIDE_CUSTOMER_CODE') && $object->thirdparty->code_client) {
 			$posy += 4;
@@ -830,7 +830,7 @@ class pdf_strato extends ModelePDFContract
 	 *   	Show footer of page. Need this->emetteur object
 	 *
 	 *   	@param	TCPDF		$pdf     			PDF
-	 * 		@param	Contrat		$object				Object to show
+	 * 		@param	Contract		$object				Object to show
 	 *      @param	Translate	$outputlangs		Object lang for output
 	 *      @param	int			$hidefreetext		1=Hide free text
 	 *      @return	integer

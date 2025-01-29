@@ -35,7 +35,7 @@ class box_contracts extends ModeleBoxes
 	public $boxcode = "lastcontracts";
 	public $boximg = "object_contract";
 	public $boxlabel = "BoxLastContracts";
-	public $depends = array("contrat"); // conf->contrat->enabled
+	public $depends = array("contract"); // conf->contract->enabled
 
 	/**
 	 *  Constructor
@@ -49,8 +49,8 @@ class box_contracts extends ModeleBoxes
 
 		$this->db = $db;
 
-		$this->hidden = !($user->hasRight('contrat', 'lire'));
-		$this->urltoaddentry = DOL_URL_ROOT.'/contrat/card.php?action=create';
+		$this->hidden = !($user->hasRight('contract', 'lire'));
+		$this->urltoaddentry = DOL_URL_ROOT.'/contract/card.php?action=create';
 		$this->msgNoRecords = 'NoRecordedContracts';
 	}
 
@@ -66,20 +66,20 @@ class box_contracts extends ModeleBoxes
 
 		$this->max = $max;
 
-		include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 
 		$this->info_box_head = array(
-			'text' => '<span class="valignmiddle">'.$langs->trans("BoxTitleLastContracts", $max).'</span><a class="paddingleft valignmiddle" href="'.DOL_URL_ROOT.'/contrat/list.php?sortfield=c.tms&sortorder=DESC"><span class="badge">...</span></a>'
+			'text' => '<span class="valignmiddle">'.$langs->trans("BoxTitleLastContracts", $max).'</span><a class="paddingleft valignmiddle" href="'.DOL_URL_ROOT.'/contract/list.php?sortfield=c.tms&sortorder=DESC"><span class="badge">...</span></a>'
 		);
 
-		if ($user->hasRight('contrat', 'lire')) {
-			$contractstatic = new Contrat($this->db);
+		if ($user->hasRight('contract', 'lire')) {
+			$contractstatic = new Contract($this->db);
 			$thirdpartytmp = new Societe($this->db);
 
 			$sql = "SELECT s.nom as name, s.rowid as socid, s.email, s.client, s.fournisseur, s.code_client, s.code_fournisseur, s.code_compta, s.code_compta_fournisseur,";
-			$sql .= " c.rowid, c.ref, c.statut as fk_statut, c.date_contrat, c.datec, c.tms as date_modification, c.fin_validite, c.date_cloture,";
+			$sql .= " c.rowid, c.ref, c.statut as fk_statut, c.date_contract, c.datec, c.tms as date_modification, c.fin_validite, c.date_cloture,";
 			$sql .= " c.ref_customer, c.ref_supplier";
-			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."contrat as c";
+			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."contract as c";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 			}
@@ -92,7 +92,7 @@ class box_contracts extends ModeleBoxes
 				$sql .= " AND s.rowid = ".((int) $user->socid);
 			}
 			if (getDolGlobalString('MAIN_LASTBOX_ON_OBJECT_DATE')) {
-				$sql .= " ORDER BY c.date_contrat DESC, c.ref DESC ";
+				$sql .= " ORDER BY c.date_contract DESC, c.ref DESC ";
 			} else {
 				$sql .= " ORDER BY c.tms DESC, c.ref DESC ";
 			}
@@ -135,7 +135,7 @@ class box_contracts extends ModeleBoxes
 					$thirdpartytmp->code_compta_fournisseur = $objp->code_compta_fournisseur;
 
 					// fin_validite is no more on contract but on services
-					// if ($objp->fk_statut == 1 && $dateterm < ($now - $config->contrat->cloture->warning_delay)) { $late = img_warning($langs->trans("Late")); }
+					// if ($objp->fk_statut == 1 && $dateterm < ($now - $config->contract->cloture->warning_delay)) { $late = img_warning($langs->trans("Late")); }
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="nowraponall"',

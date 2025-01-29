@@ -58,7 +58,7 @@ if (isModEnabled("supplier_order")) {
 	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 }
 if (isModEnabled('contract')) {
-	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 }
 if (isModEnabled('intervention')) {
 	require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
@@ -968,9 +968,9 @@ class doc_generic_project_odt extends ModelePDFProjects
 					),
 					'contract' => array(
 						'title' => "ListContractAssociatedProject",
-						'class' => 'Contrat',
-						'table' => 'contrat',
-						'test' => isModEnabled('contract') && $user->hasRight('contrat', 'lire')
+						'class' => 'Contract',
+						'table' => 'contract',
+						'test' => isModEnabled('contract') && $user->hasRight('contract', 'lire')
 					),
 					'intervention' => array(
 						'title' => "ListFichinterAssociatedProject",
@@ -1065,7 +1065,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 										$dateref = $element->datep;
 									}
 									if (empty($dateref)) {
-										$dateref = $element->date_contrat;
+										$dateref = $element->date_contract;
 									}
 									$ref_array['date'] = (string) $dateref;
 

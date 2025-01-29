@@ -487,7 +487,7 @@ insert into llx_c_invoice_subtype (entity, fk_country, code, label, active) VALU
 
 ALTER TABLE llx_partnership ADD COLUMN email_partnership varchar(64) after fk_member;
 
-ALTER TABLE llx_contratdet ADD INDEX idx_contratdet_statut (statut);
+ALTER TABLE llx_contractdet ADD INDEX idx_contractdet_statut (statut);
 
 ALTER TABLE fk_product_price_product DROP FOREIGN KEY fk_product_price_product;
 

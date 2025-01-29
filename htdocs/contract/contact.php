@@ -22,15 +22,15 @@
  */
 
 /**
- *      \file       htdocs/contrat/contact.php
- *      \ingroup    contrat
- *      \brief      Onglet de gestion des contacts des contrats
+ *      \file       htdocs/contract/contact.php
+ *      \ingroup    contract
+ *      \brief      Onglet de gestion des contacts des contracts
  */
 
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/contract.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 if (isModEnabled('project')) {
@@ -59,14 +59,14 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 
-$object = new Contrat($db);
+$object = new Contract($db);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('contractcontactcard', 'globalcard'));
 
-$permissionToAdd   = $user->hasRight('contrat', 'creer');     //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissionToAdd   = $user->hasRight('contract', 'creer');     //  Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 
-$result = restrictedArea($user, 'contrat', $object->id);
+$result = restrictedArea($user, 'contract', $object->id);
 
 
 /*
@@ -81,7 +81,7 @@ if ($resHook < 0) {
 
 if (empty($resHook)) {
 	// Add new contact
-	if ($action == 'addcontact' && $user->hasRight('contrat', 'creer')) {
+	if ($action == 'addcontact' && $user->hasRight('contract', 'creer')) {
 		$result = $object->fetch($id);
 
 		if ($result > 0 && $id > 0) {
@@ -106,7 +106,7 @@ if (empty($resHook)) {
 	}
 
 	// Toggle the status of a contact
-	if ($action == 'swapstatut' && $user->hasRight('contrat', 'creer')) {
+	if ($action == 'swapstatut' && $user->hasRight('contract', 'creer')) {
 		if ($object->fetch($id)) {
 			$result = $object->swapContactStatus(GETPOSTINT('ligne'));
 		} else {
@@ -115,7 +115,7 @@ if (empty($resHook)) {
 	}
 
 	// Delete contact
-	if ($action == 'deletecontact' && $user->hasRight('contrat', 'creer')) {
+	if ($action == 'deletecontact' && $user->hasRight('contract', 'creer')) {
 		$object->fetch($id);
 		$result = $object->delete_contact(GETPOSTINT("lineid"));
 
@@ -133,7 +133,7 @@ if (empty($resHook)) {
 $title = $langs->trans("Contract");
 $help_url = 'EN:Module_Contracts|FR:Module_Contrat|ES:Contratos_de_servicio';
 
-llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contrat page-card_contact');
+llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contract page-card_contact');
 
 $form = new Form($db);
 $formcompany = new FormCompany($db);
@@ -158,7 +158,7 @@ if ($id > 0 || !empty($ref)) {
 
 		// Contract card
 
-		$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+		$linkback = '<a href="'.DOL_URL_ROOT.'/contract/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 
 		$morehtmlref = '';
@@ -180,7 +180,7 @@ if ($id > 0 || !empty($ref)) {
 		// Thirdparty
 		$morehtmlref .= '<br>'.$object->thirdparty->getNomUrl(1);
 		if (!getDolGlobalString('MAIN_DISABLE_OTHER_LINK') && $object->thirdparty->id > 0) {
-			$morehtmlref .= ' <span class="otherlink">(<a href="'.DOL_URL_ROOT.'/contrat/list.php?socid='.$object->thirdparty->id.'&search_name='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherContracts").'</a>)</span>';
+			$morehtmlref .= ' <span class="otherlink">(<a href="'.DOL_URL_ROOT.'/contract/list.php?socid='.$object->thirdparty->id.'&search_name='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherContracts").'</a>)</span>';
 		}
 		// Project
 		if (isModEnabled('project')) {
@@ -235,9 +235,9 @@ if ($id > 0 || !empty($ref)) {
 		// Date
 		print '<tr>';
 		print '<td class="titlefield">';
-		print $form->editfieldkey("Date", 'date_contrat', $object->date_contrat, $object, 0);
+		print $form->editfieldkey("Date", 'date_contract', $object->date_contract, $object, 0);
 		print '</td><td>';
-		print $form->editfieldval("Date", 'date_contrat', $object->date_contrat, $object, 0, 'datehourpicker');
+		print $form->editfieldval("Date", 'date_contract', $object->date_contract, $object, 0, 'datehourpicker');
 		print '</td>';
 		print '</tr>';
 

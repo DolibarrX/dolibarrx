@@ -328,7 +328,7 @@ if ($action == 'presend') {
 				$subelement = 'propal';
 			}
 			if ($element == 'contract') {
-				$element = $subelement = 'contrat';
+				$element = $subelement = 'contract';
 			}
 			if ($element == 'inter') {
 				$element = $subelement = 'fichinter';

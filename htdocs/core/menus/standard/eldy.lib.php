@@ -242,7 +242,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'submenus' => [],
 	);
 
-	// Commercial (propal, order, supplier_proposal, supplier_order, contrat, ficheinter)
+	// Commercial (propal, order, supplier_proposal, supplier_order, contract, ficheinter)
 	$tmpentry = array(
 		'enabled' => (
 			isModEnabled('propal')
@@ -260,10 +260,10 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 			|| $user->hasRight('fournisseur', 'lire')
 			|| $user->hasRight('fournisseur', 'order', 'lire')
 			|| $user->hasRight('supplier_order', 'lire')
-			|| $user->hasRight('contrat', 'lire')
+			|| $user->hasRight('contract', 'lire')
 			|| $user->hasRight('ficheinter', 'lire')
 		),
-		'module' => 'propal|order|supplier_proposal|supplier_order|contrat|ficheinter'
+		'module' => 'propal|order|supplier_proposal|supplier_order|contract|ficheinter'
 	);
 
 	$onlysupplierorder = $user->hasRight('fournisseur', 'order', 'lire') &&
@@ -271,7 +271,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 	!$user->hasRight('order', 'lire') &&
 	!$user->hasRight('supplier_order', 'lire') &&
 	!$user->hasRight('supplier_proposal', 'lire') &&
-	!$user->hasRight('contrat', 'lire') &&
+	!$user->hasRight('contract', 'lire') &&
 	!$user->hasRight('ficheinter', 'lire');
 
 	$menu_arr[] = array(
@@ -795,7 +795,7 @@ function print_left_eldy_menu($db, $menu_array_before, $menu_array_after, &$tabM
 		}
 
 		/*
-		 * Menu COMMERCIAL (propal, order, supplier_proposal, supplier_order, contrat, ficheinter)
+		 * Menu COMMERCIAL (propal, order, supplier_proposal, supplier_order, contract, ficheinter)
 		 */
 		if ($mainmenu == 'commercial') {
 			get_left_menu_commercial($mainmenu, $newmenu, $usemenuhider, $leftmenu, $type_user);
@@ -1341,7 +1341,7 @@ function get_left_menu_thridparties($mainmenu, &$newmenu, $usemenuhider = 1, $le
 }
 
 /**
- * Get left Menu COMMERCIAL (propal, order, supplier_proposal, supplier_order, contrat, ficheinter)
+ * Get left Menu COMMERCIAL (propal, order, supplier_proposal, supplier_order, contract, ficheinter)
  *
  * @param	string		$mainmenu		Main menu
  * @param	Menu 		$newmenu		Object Menu to return back list of menu entries
@@ -1437,18 +1437,18 @@ function get_left_menu_commercial($mainmenu, &$newmenu, $usemenuhider = 1, $left
 			}
 		}
 
-		// Contrat
+		// Contract
 		if (isModEnabled('contract')) {
 			$langs->load("contracts");
-			$newmenu->add("/contrat/index.php?leftmenu=contracts", $langs->trans("ContractsSubscriptions"), 0, $user->hasRight('contrat', 'lire'), '', $mainmenu, 'contracts', 2000, '', '', '', img_picture('', 'contract', 'class="paddingright picturefixedwidth"'));
-			$newmenu->add("/contrat/card.php?action=create&amp;leftmenu=contracts", $langs->trans("NewContractSubscription"), 1, $user->hasRight('contrat', 'creer'));
-			$newmenu->add("/contrat/list.php?leftmenu=contracts", $langs->trans("List"), 1, $user->hasRight('contrat', 'lire'));
-			$newmenu->add("/contrat/services_list.php?leftmenu=contracts", $langs->trans("MenuServices"), 1, $user->hasRight('contrat', 'lire'));
+			$newmenu->add("/contract/index.php?leftmenu=contracts", $langs->trans("ContractsSubscriptions"), 0, $user->hasRight('contract', 'lire'), '', $mainmenu, 'contracts', 2000, '', '', '', img_picture('', 'contract', 'class="paddingright picturefixedwidth"'));
+			$newmenu->add("/contract/card.php?action=create&amp;leftmenu=contracts", $langs->trans("NewContractSubscription"), 1, $user->hasRight('contract', 'creer'));
+			$newmenu->add("/contract/list.php?leftmenu=contracts", $langs->trans("List"), 1, $user->hasRight('contract', 'lire'));
+			$newmenu->add("/contract/services_list.php?leftmenu=contracts", $langs->trans("MenuServices"), 1, $user->hasRight('contract', 'lire'));
 			if ($usemenuhider || empty($leftmenu) || $leftmenu == "contracts") {
-				$newmenu->add("/contrat/services_list.php?leftmenu=contracts&amp;search_status=0", $langs->trans("MenuInactiveServices"), 2, $user->hasRight('contrat', 'lire'));
-				$newmenu->add("/contrat/services_list.php?leftmenu=contracts&amp;search_status=4", $langs->trans("MenuRunningServices"), 2, $user->hasRight('contrat', 'lire'));
-				$newmenu->add("/contrat/services_list.php?leftmenu=contracts&amp;search_status=4%26filter=expired", $langs->trans("MenuExpiredServices"), 2, $user->hasRight('contrat', 'lire'));
-				$newmenu->add("/contrat/services_list.php?leftmenu=contracts&amp;search_status=5", $langs->trans("MenuClosedServices"), 2, $user->hasRight('contrat', 'lire'));
+				$newmenu->add("/contract/services_list.php?leftmenu=contracts&amp;search_status=0", $langs->trans("MenuInactiveServices"), 2, $user->hasRight('contract', 'lire'));
+				$newmenu->add("/contract/services_list.php?leftmenu=contracts&amp;search_status=4", $langs->trans("MenuRunningServices"), 2, $user->hasRight('contract', 'lire'));
+				$newmenu->add("/contract/services_list.php?leftmenu=contracts&amp;search_status=4%26filter=expired", $langs->trans("MenuExpiredServices"), 2, $user->hasRight('contract', 'lire'));
+				$newmenu->add("/contract/services_list.php?leftmenu=contracts&amp;search_status=5", $langs->trans("MenuClosedServices"), 2, $user->hasRight('contract', 'lire'));
 			}
 		}
 

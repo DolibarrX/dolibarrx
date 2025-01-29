@@ -253,10 +253,10 @@ alter table llx_propaldet add column localtax2_type varchar(1) after localtax2_t
 ALTER TABLE llx_propaldet MODIFY COLUMN localtax1_type varchar(1);
 ALTER TABLE llx_propaldet MODIFY COLUMN localtax2_type varchar(1);
 
-alter table llx_contratdet add column localtax1_type varchar(1) after localtax1_tx;
-alter table llx_contratdet add column localtax2_type varchar(1) after localtax2_tx;
-ALTER TABLE llx_contratdet MODIFY COLUMN localtax1_type varchar(1);
-ALTER TABLE llx_contratdet MODIFY COLUMN localtax2_type varchar(1);
+alter table llx_contractdet add column localtax1_type varchar(1) after localtax1_tx;
+alter table llx_contractdet add column localtax2_type varchar(1) after localtax2_tx;
+ALTER TABLE llx_contractdet MODIFY COLUMN localtax1_type varchar(1);
+ALTER TABLE llx_contractdet MODIFY COLUMN localtax2_type varchar(1);
 -- END TASK #204
 
 ALTER TABLE llx_menu MODIFY COLUMN enabled varchar(255) NULL DEFAULT '1';

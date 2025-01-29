@@ -230,10 +230,10 @@ class Documents extends DolibarrApi
 			if ($result <= 0) {
 				throw new RestException(500, 'Error generating document');
 			}
-		} elseif ($modulePart == 'contrat' || $modulePart == 'contract') {
-			require_once DOL_DOCUMENT_ROOT . '/contrat/class/contrat.class.php';
+		} elseif ($modulePart == 'contract' || $modulePart == 'contract') {
+			require_once DOL_DOCUMENT_ROOT . '/contract/class/contract.class.php';
 
-			$tmpobject = new Contrat($this->db);
+			$tmpobject = new Contract($this->db);
 			$result = $tmpobject->fetch(0, preg_replace('/\.[^\.]+$/', '', basename($original_file)));
 
 			if (!$result) {
@@ -562,17 +562,17 @@ class Documents extends DolibarrApi
 			// $upload_dir = $config->ecm->dir_output;
 			// $type = 'all';
 			// $recursive = 0;
-		} elseif ($modulePart == 'contrat' || $modulePart == 'contract') {
-			$modulePart = 'contrat';
-			require_once DOL_DOCUMENT_ROOT . '/contrat/class/contrat.class.php';
+		} elseif ($modulePart == 'contract' || $modulePart == 'contract') {
+			$modulePart = 'contract';
+			require_once DOL_DOCUMENT_ROOT . '/contract/class/contract.class.php';
 
-			$object = new Contrat($this->db);
+			$object = new Contract($this->db);
 			$result = $object->fetch($id, $ref);
 			if (!$result) {
 				throw new RestException(404, 'Contract not found');
 			}
 
-			$upload_dir = $config->contrat->dir_output . "/" . get_exdir(0, 0, 0, 1, $object, 'contract');
+			$upload_dir = $config->contract->dir_output . "/" . get_exdir(0, 0, 0, 1, $object, 'contract');
 		} elseif ($modulePart == 'projet' || $modulePart == 'project') {
 			$modulePart = 'project';
 			require_once DOL_DOCUMENT_ROOT . '/projet/class/project.class.php';
@@ -772,10 +772,10 @@ class Documents extends DolibarrApi
 				require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 				$object = new Contact($this->db);
 				$fetchbyid = true;
-			} elseif ($modulePart == 'contrat' || $modulePart == 'contract') {
-				$modulePart = 'contrat';
-				require_once DOL_DOCUMENT_ROOT . '/contrat/class/contrat.class.php';
-				$object = new Contrat($this->db);
+			} elseif ($modulePart == 'contract' || $modulePart == 'contract') {
+				$modulePart = 'contract';
+				require_once DOL_DOCUMENT_ROOT . '/contract/class/contract.class.php';
+				$object = new Contract($this->db);
 			} elseif ($modulePart == 'mrp') {
 				$modulePart = 'mrp';
 				require_once DOL_DOCUMENT_ROOT . '/mrp/class/mo.class.php';

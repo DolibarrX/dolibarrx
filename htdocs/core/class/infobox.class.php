@@ -172,7 +172,7 @@ class InfoBox
 						$box->note = (empty($obj->note) ? '' : $obj->note);
 
 						// Filter on box->enabled (used for example by box_comptes)
-						// Filter also on box->depends. Example: array("product|service") or array("contrat", "service")
+						// Filter also on box->depends. Example: array("product|service") or array("contract", "service")
 						$enabled = $box->enabled;
 						if (isset($box->depends) && count($box->depends) > 0) {
 							foreach ($box->depends as $moduleelem) {

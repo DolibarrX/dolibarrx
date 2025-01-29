@@ -389,8 +389,8 @@ ALTER TABLE llx_product_fournisseur_price_log ADD COLUMN multicurrency_price_ttc
 
 ALTER TABLE llx_product_customer_price_log ADD COLUMN default_vat_code varchar(10);
 
-UPDATE llx_contrat SET ref = rowid WHERE ref IS NULL OR ref = '';
-ALTER TABLE llx_contratdet ADD COLUMN vat_src_code varchar(10) DEFAULT '';
+UPDATE llx_contract SET ref = rowid WHERE ref IS NULL OR ref = '';
+ALTER TABLE llx_contractdet ADD COLUMN vat_src_code varchar(10) DEFAULT '';
 
 CREATE TABLE llx_payment_various
 (

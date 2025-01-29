@@ -25,13 +25,13 @@
  */
 
 /**
- *	    \file       htdocs/contrat/services_list.php
- *      \ingroup    contrat
+ *	    \file       htdocs/contract/services_list.php
+ *      \ingroup    contract
  *		\brief      Page to list services in contracts
  */
 
 require "../main.inc.php";
-require_once DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php";
+require_once DOL_DOCUMENT_ROOT."/contract/class/contract.class.php";
 require_once DOL_DOCUMENT_ROOT."/product/class/product.class.php";
 require_once DOL_DOCUMENT_ROOT."/societe/class/societe.class.php";
 
@@ -119,7 +119,7 @@ $filter_opcloture = GETPOST('filter_opcloture', 'alphawithlgt');
 
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$object = new ContratLigne($db);
+$object = new ContractLine($db);
 $hookManager->initHooks(array('contractservicelist'));
 $extrafields = new ExtraFields($db);
 
@@ -129,14 +129,14 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 $search_array_options = $extrafields->getOptionalsFromPost($object->table_element, '', 'search_');
 
 // Security check
-$contratid = GETPOSTINT('id');
+$contractid = GETPOSTINT('id');
 if (!empty($user->socid)) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'contrat', $contratid);
+$result = restrictedArea($user, 'contract', $contractid);
 
-$staticcontrat = new Contrat($db);
-$staticcontratligne = new ContratLigne($db);
+$staticContract = new Contract($db);
+$staticContractLine = new ContractLine($db);
 $companystatic = new Societe($db);
 
 $arrayfields = array(
@@ -163,11 +163,11 @@ $object->fields = dol_sort_array($object->fields, 'position');
 $arrayfields = dol_sort_array($arrayfields, 'position');
 '@phan-var-force array<string,array{label:string,checked?:int<0,1>,position?:int,help?:string}> $arrayfields';  // dol_sort_array looses type for Phan
 
-$permissiontoread = $user->hasRight('contrat', 'lire');
-$permissionToAdd = $user->hasRight('contrat', 'creer');
-$permissiontodelete = $user->hasRight('contrat', 'supprimer');
+$permissiontoread = $user->hasRight('contract', 'lire');
+$permissionToAdd = $user->hasRight('contract', 'creer');
+$permissiontodelete = $user->hasRight('contract', 'supprimer');
 
-$result = restrictedArea($user, 'contrat', 0);
+$result = restrictedArea($user, 'contract', 0);
 
 
 /*
@@ -280,12 +280,12 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 $parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
-$sql .= " FROM ".MAIN_DB_PREFIX."contrat as c,";
+$sql .= " FROM ".MAIN_DB_PREFIX."contract as c,";
 $sql .= " ".MAIN_DB_PREFIX."societe as s,";
 if (!$user->hasRight('societe', 'client', 'voir')) {
 	$sql .= " ".MAIN_DB_PREFIX."societe_commerciaux as sc,";
 }
-$sql .= " ".MAIN_DB_PREFIX."contratdet as cd";
+$sql .= " ".MAIN_DB_PREFIX."contractdet as cd";
 if (!empty($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX.$object->table_element."_extrafields as ef on (cd.rowid = ef.fk_object)";
 }
@@ -294,7 +294,7 @@ if ($search_product_category > 0) {
 	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'category_product as cp ON cp.fk_product=cd.fk_product';
 }
 $sql .= " WHERE c.entity IN (".getEntity($object->element).")";
-$sql .= " AND c.rowid = cd.fk_contrat";
+$sql .= " AND c.rowid = cd.fk_contract";
 if ($search_product_category > 0) {
 	$sql .= " AND cp.fk_category = ".((int) $search_product_category);
 }
@@ -429,7 +429,7 @@ if ($limit) {
 }
 
 //print $sql;
-dol_syslog("contrat/services_list.php", LOG_DEBUG);
+dol_syslog("contract/services_list.php", LOG_DEBUG);
 $resql = $db->query($sql);
 if (!$resql) {
 	dol_print_error($db);
@@ -451,7 +451,7 @@ if ($num == 1 && getDolGlobalInt('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $sear
 // Output page
 // --------------------------------------------------------------------
 
-llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contrat page-list_services bodyforlist');
+llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contract page-list_services bodyforlist');
 
 $arrayofselected = is_array($toselect) ? $toselect : [];
 
@@ -530,7 +530,7 @@ $arrayofmassactions = array(
 	//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
 	//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 );
-//if ($user->hasRight('contrat', 'supprimer')) $arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
+//if ($user->hasRight('contract', 'supprimer')) $arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 //if (in_array($massaction, array('presend','predelete'))) $arrayofmassactions=[];
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -809,7 +809,7 @@ print '</tr>'."\n";
 // Loop on record
 // --------------------------------------------------------------------
 
-$contractstatic = new Contrat($db);
+$contractstatic = new Contract($db);
 $productstatic = new Product($db);
 
 $i = 0;
@@ -959,7 +959,7 @@ while ($i < $imaxinloop) {
 	if (!empty($arrayfields['cd.date_ouverture_prevue']['checked'])) {
 		print '<td class="center nowraponall">';
 		print($obj->date_ouverture_prevue ? dol_print_date($db->jdate($obj->date_ouverture_prevue), 'dayhour') : '&nbsp;');
-		if ($db->jdate($obj->date_ouverture_prevue) && ($db->jdate($obj->date_ouverture_prevue) < ($now - $config->contrat->services->inactifs->warning_delay)) && $obj->statut == 0) {
+		if ($db->jdate($obj->date_ouverture_prevue) && ($db->jdate($obj->date_ouverture_prevue) < ($now - $config->contract->services->inactifs->warning_delay)) && $obj->statut == 0) {
 			print ' '.img_picture($langs->trans("Late"), "warning");
 		} else {
 			print '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -978,8 +978,8 @@ while ($i < $imaxinloop) {
 	// End date
 	if (!empty($arrayfields['cd.date_fin_validite']['checked'])) {
 		print '<td class="center nowraponall">'.($obj->date_fin_validite ? dol_print_date($db->jdate($obj->date_fin_validite), 'dayhour') : '&nbsp;');
-		if ($obj->date_fin_validite && $db->jdate($obj->date_fin_validite) < ($now - $config->contrat->services->expires->warning_delay) && $obj->statut < 5) {
-			$warning_delay = $config->contrat->services->expires->warning_delay / 3600 / 24;
+		if ($obj->date_fin_validite && $db->jdate($obj->date_fin_validite) < ($now - $config->contract->services->expires->warning_delay) && $obj->statut < 5) {
+			$warning_delay = $config->contract->services->expires->warning_delay / 3600 / 24;
 			$textlate = $langs->trans("Late").' = '.$langs->trans("DateReference").' > '.$langs->trans("DateToday").' '.(ceil($warning_delay) >= 0 ? '+' : '').ceil($warning_delay).' '.$langs->trans("days");
 			print img_warning($textlate);
 		} else {
@@ -1028,9 +1028,9 @@ while ($i < $imaxinloop) {
 		if ($obj->cstatut == 0) {
 			// If contract is draft, we say line is also draft
 			//print $contractstatic->LibStatut(0, 5);
-			print $staticcontratligne->LibStatut($obj->statut, 5, ($obj->date_fin_validite && $db->jdate($obj->date_fin_validite) < $now) ? 1 : 0, '', ' - '.$langs->trans("Draft"));
+			print $staticContractLine->LibStatut($obj->statut, 5, ($obj->date_fin_validite && $db->jdate($obj->date_fin_validite) < $now) ? 1 : 0, '', ' - '.$langs->trans("Draft"));
 		} else {
-			print $staticcontratligne->LibStatut($obj->statut, 5, ($obj->date_fin_validite && $db->jdate($obj->date_fin_validite) < $now) ? 1 : 0);
+			print $staticContractLine->LibStatut($obj->statut, 5, ($obj->date_fin_validite && $db->jdate($obj->date_fin_validite) < $now) ? 1 : 0);
 		}
 		print '</td>';
 		if (!$i) {

@@ -33,7 +33,7 @@ class box_services_expired extends ModeleBoxes
 	public $boxcode = "expiredservices"; // id of box
 	public $boximg = "object_contract";
 	public $boxlabel = "BoxOldestExpiredServices";
-	public $depends = array("contrat"); // conf->propal->enabled
+	public $depends = array("contract"); // conf->propal->enabled
 
 	/**
 	 *  Constructor
@@ -47,9 +47,9 @@ class box_services_expired extends ModeleBoxes
 
 		$this->db = $db;
 
-		$this->hidden = !($user->hasRight('contrat', 'lire'));
+		$this->hidden = !($user->hasRight('contract', 'lire'));
 
-		$this->urltoaddentry = DOL_URL_ROOT.'/contrat/card.php?action=create';
+		$this->urltoaddentry = DOL_URL_ROOT.'/contract/card.php?action=create';
 		$this->msgNoRecords = 'NoExpiredServices';
 	}
 
@@ -65,32 +65,32 @@ class box_services_expired extends ModeleBoxes
 
 		$this->max = $max;
 
-		include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 
 		$now = dol_now();
 
 		$this->info_box_head = array('text' => $langs->trans("BoxLastExpiredServices", $max));
 
-		if ($user->hasRight('contrat', 'lire')) {
+		if ($user->hasRight('contract', 'lire')) {
 			// Select contracts with at least one expired service
 			$sql = "SELECT ";
-			$sql .= " c.rowid, c.ref, c.statut as fk_statut, c.date_contrat, c.ref_customer, c.ref_supplier,";
+			$sql .= " c.rowid, c.ref, c.statut as fk_statut, c.date_contract, c.ref_customer, c.ref_supplier,";
 			$sql .= " s.nom as name, s.rowid as socid, s.email, s.client, s.fournisseur, s.code_client, s.code_fournisseur, s.code_compta, s.code_compta_fournisseur,";
 			$sql .= " MIN(cd.date_fin_validite) as date_line, COUNT(cd.rowid) as nb_services";
-			$sql .= " FROM ".MAIN_DB_PREFIX."contrat as c, ".MAIN_DB_PREFIX."societe s, ".MAIN_DB_PREFIX."contratdet as cd";
+			$sql .= " FROM ".MAIN_DB_PREFIX."contract as c, ".MAIN_DB_PREFIX."societe s, ".MAIN_DB_PREFIX."contractdet as cd";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 			}
 			$sql .= " WHERE cd.statut = 4 AND cd.date_fin_validite <= '".$this->db->idate($now)."'";
 			$sql .= " AND c.entity = ".$config->entity;
-			$sql .= " AND c.fk_soc=s.rowid AND cd.fk_contrat=c.rowid AND c.statut > 0";
+			$sql .= " AND c.fk_soc=s.rowid AND cd.fk_contract=c.rowid AND c.statut > 0";
 			if ($user->socid) {
 				$sql .= ' AND c.fk_soc = '.((int) $user->socid);
 			}
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 			}
-			$sql .= " GROUP BY c.rowid, c.ref, c.statut, c.date_contrat, c.ref_customer, c.ref_supplier, s.nom, s.rowid";
+			$sql .= " GROUP BY c.rowid, c.ref, c.statut, c.date_contract, c.ref_customer, c.ref_supplier, s.nom, s.rowid";
 			$sql .= ", s.email, s.client, s.fournisseur, s.code_client, s.code_fournisseur, s.code_compta, s.code_compta_fournisseur";
 			$sql .= " ORDER BY date_line ASC";
 			$sql .= $this->db->plimit($max, 0);
@@ -102,7 +102,7 @@ class box_services_expired extends ModeleBoxes
 				$i = 0;
 
 				$thirdpartytmp = new Societe($this->db);
-				$contract = new Contrat($this->db);
+				$contract = new Contract($this->db);
 
 				while ($i < $num) {
 					$late = '';
@@ -127,7 +127,7 @@ class box_services_expired extends ModeleBoxes
 					$contract->ref_supplier = $objp->ref_supplier;
 
 					$dateline = $this->db->jdate($objp->date_line);
-					if (($dateline + $config->contrat->services->expires->warning_delay) < $now) {
+					if (($dateline + $config->contract->services->expires->warning_delay) < $now) {
 						$late = img_warning($langs->trans("Late"));
 					}
 

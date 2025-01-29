@@ -602,7 +602,7 @@ class FormProjets extends Form
 				break;*/
 				return '';
 			case "order":
-			case "contrat":
+			case "contract":
 			case "fichinter":
 				$sql = "SELECT t.rowid, t.ref";
 				break;

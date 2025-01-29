@@ -349,7 +349,7 @@ if (empty($resHook)) {
 						//'Category' => '/categories/class/category.class.php',
 						'Order' => '/order/class/order.class.php',
 						'OrderFournisseur' => '/fourn/class/fournisseur.order.class.php',
-						'Contrat' => '/contrat/class/contrat.class.php',
+						'Contract' => '/contract/class/contract.class.php',
 						'Delivery' => '/delivery/class/delivery.class.php',
 						'Facture' => '/compta/facture/class/facture.class.php',
 						'FactureFournisseur' => '/fourn/class/fournisseur.facture.class.php',

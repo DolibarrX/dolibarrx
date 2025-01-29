@@ -101,8 +101,8 @@ if (!empty($extrafields)) {
 		$objectline = new SupplierProposalLine($this->db);
 	} elseif ($this->table_element_line == 'facturedet') {
 		$objectline = new FactureLigne($this->db);
-	} elseif ($this->table_element_line == 'contratdet') {
-		$objectline = new ContratLigne($this->db);
+	} elseif ($this->table_element_line == 'contractdet') {
+		$objectline = new ContractLine($this->db);
 	} elseif ($this->table_element_line == 'order_fournisseurdet') {
 		$objectline = new OrderFournisseurLigne($this->db);
 	} elseif ($this->table_element_line == 'facture_fourn_det') {
@@ -117,7 +117,7 @@ print "<!-- BEGIN PHP TEMPLATE objectline_create.tpl.php -->\n";
 $nolinesbefore = (count($this->lines) == 0 || $forcetoshowtitlelines);
 if ($nolinesbefore) {
 	?>
-	<tr class="liste_titre<?php echo(($nolinesbefore || $object->element == 'contrat') ? '' : ' liste_titre_add_') ?> nodrag nodrop">
+	<tr class="liste_titre<?php echo(($nolinesbefore || $object->element == 'contract') ? '' : ' liste_titre_add_') ?> nodrag nodrop">
 		<?php if (getDolGlobalString('MAIN_VIEW_LINE_NUMBER')) { ?>
 			<td class="linecolnum center"></td>
 		<?php } ?>
@@ -180,7 +180,7 @@ if ($nolinesbefore) {
 	<?php
 }
 ?>
-<tr class="pair nodrag nodrop nohoverpair<?php echo ($nolinesbefore || $object->element == 'contrat') ? '' : ' liste_titre_create'; ?>">
+<tr class="pair nodrag nodrop nohoverpair<?php echo ($nolinesbefore || $object->element == 'contract') ? '' : ' liste_titre_create'; ?>">
 	<?php
 	$coldisplay = 0;
 	// Adds a line numbering column
@@ -196,7 +196,7 @@ if ($nolinesbefore) {
 		if (!getDolGlobalString('MAIN_DISABLE_FREE_LINES')) {
 			$freelines = true;
 			$forceall = 1; // We always force all type for free lines (module product or service means we use predefined product or service)
-			if ($object->element == 'contrat') {
+			if ($object->element == 'contract') {
 				if (!isModEnabled('product') && !isModEnabled('service') && !getDolGlobalString('CONTRACT_SUPPORT_PRODUCTS')) {
 					$forceall = -1; // With contract, by default, no choice at all, except if CONTRACT_SUPPORT_PRODUCTS is set
 				} elseif (!getDolGlobalString('CONTRACT_SUPPORT_PRODUCTS')) {
@@ -246,7 +246,7 @@ if ($nolinesbefore) {
 			if (empty($config->dol_optimize_smallscreen)) {
 				if (isModEnabled("product") && !isModEnabled('service')) {
 					$labelforradio = $langs->trans('PredefinedProducts');
-				} elseif ((!isModEnabled('product') && isModEnabled('service')) || ($object->element == 'contrat' && !getDolGlobalString('CONTRACT_SUPPORT_PRODUCTS'))) {
+				} elseif ((!isModEnabled('product') && isModEnabled('service')) || ($object->element == 'contract' && !getDolGlobalString('CONTRACT_SUPPORT_PRODUCTS'))) {
 					$labelforradio = $langs->trans('PredefinedServices');
 				} else {
 					$labelforradio = $langs->trans('PredefinedProductsAndServices');
@@ -260,7 +260,7 @@ if ($nolinesbefore) {
 			print '</label>';
 			//print ' ';
 			$filtertype = '';
-			if (!empty($object->element) && $object->element == 'contrat' && !getDolGlobalString('CONTRACT_SUPPORT_PRODUCTS')) {
+			if (!empty($object->element) && $object->element == 'contract' && !getDolGlobalString('CONTRACT_SUPPORT_PRODUCTS')) {
 				$filtertype = '1';
 			}
 			if (empty($senderissupplier)) {
@@ -551,7 +551,7 @@ if ($nolinesbefore) {
 </tr>
 
 <?php
-if ((isModEnabled("service") || ($object->element == 'contrat')) && $dateSelector && GETPOST('type') != '0') {	// We show date field if required
+if ((isModEnabled("service") || ($object->element == 'contract')) && $dateSelector && GETPOST('type') != '0') {	// We show date field if required
 	print '<tr id="trlinefordates" class="oddeven">'."\n";
 	if (getDolGlobalString('MAIN_VIEW_LINE_NUMBER')) {
 		print '<td></td>';
@@ -576,7 +576,7 @@ if ((isModEnabled("service") || ($object->element == 'contrat')) && $dateSelecto
 		}
 	}
 
-	if (!empty($object->element) && $object->element == 'contrat') {
+	if (!empty($object->element) && $object->element == 'contract') {
 		print $langs->trans("DateStartPlanned").' ';
 		print $form->selectDate($date_start, "date_start", $usehm, $usehm, 1, "addproduct");
 		print ' &nbsp; '.$langs->trans("DateEndPlanned").' ';

@@ -37,11 +37,11 @@
 --
 
 -- Contract / Contrat
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('contrat', 'internal', 'SALESREPSIGN',  'Commercial signataire du contrat', 1);
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('contrat', 'internal', 'SALESREPFOLL',  'Commercial suivi du contrat', 1);
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('contrat', 'external', 'BILLING',       'Contact client facturation contrat', 1);
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('contrat', 'external', 'CUSTOMER',      'Contact client suivi contrat', 1);
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('contrat', 'external', 'SALESREPSIGN',  'Contact client signataire contrat', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('contract', 'internal', 'SALESREPSIGN',  'Commercial signataire du contrat', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('contract', 'internal', 'SALESREPFOLL',  'Commercial suivi du contrat', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('contract', 'external', 'BILLING',       'Contact client facturation contrat', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('contract', 'external', 'CUSTOMER',      'Contact client suivi contrat', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('contract', 'external', 'SALESREPSIGN',  'Contact client signataire contrat', 1);
 
 -- Proposal / Propal
 insert into llx_c_type_contact (element, source, code, libelle, active ) values ('propal',  'internal', 'SALESREPFOLL',  'Commercial à l''origine de la propale', 1);

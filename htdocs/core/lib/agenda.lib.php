@@ -379,8 +379,8 @@ function show_array_last_actions_done($max = 5)
 			print "</tr>\n";
 			$i++;
 		}
-		// TODO Ajouter rappel pour "il y a des contrats a mettre en service"
-		// TODO Ajouter rappel pour "il y a des contrats qui arrivent a expiration"
+		// TODO Ajouter rappel pour "il y a des contracts a mettre en service"
+		// TODO Ajouter rappel pour "il y a des contracts qui arrivent a expiration"
 		print "</table></div><br>";
 
 		$db->free($resql);

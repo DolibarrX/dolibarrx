@@ -42,7 +42,7 @@ class mailing_thirdparties_services_expired extends MailingTargets
 	/**
 	 * @var string[] This module allows to select by categories must be also enabled if category module is not activated
 	 */
-	public $require_module = array('contrat');
+	public $require_module = array('contract');
 
 	/**
 	 * @var string condition to enable module
@@ -126,12 +126,12 @@ class mailing_thirdparties_services_expired extends MailingTargets
 		$now = dol_now();
 
 		// La requete doit retourner: id, email, name
-		$sql = "SELECT s.rowid as id, s.email, s.nom as name, cd.rowid as cdid, cd.date_ouverture as date_start_real, cd.date_fin_validite as date_end, cd.fk_contrat";
-		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."contrat as c";
-		$sql .= ", ".MAIN_DB_PREFIX."contratdet as cd, ".MAIN_DB_PREFIX."product as p";
+		$sql = "SELECT s.rowid as id, s.email, s.nom as name, cd.rowid as cdid, cd.date_ouverture as date_start_real, cd.date_fin_validite as date_end, cd.fk_contract";
+		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."contract as c";
+		$sql .= ", ".MAIN_DB_PREFIX."contractdet as cd, ".MAIN_DB_PREFIX."product as p";
 		$sql .= " WHERE s.entity IN (".getEntity('societe').")";
 		$sql .= " AND s.email NOT IN (SELECT email FROM ".MAIN_DB_PREFIX."mailing_cibles WHERE fk_mailing=".((int) $mailing_id).")";
-		$sql .= " AND s.rowid = c.fk_soc AND cd.fk_contrat = c.rowid AND s.email != ''";
+		$sql .= " AND s.rowid = c.fk_soc AND cd.fk_contract = c.rowid AND s.email != ''";
 		$sql .= " AND cd.statut= 4 AND cd.fk_product=p.rowid AND p.ref = '".$this->db->escape($product)."'";
 		$sql .= " AND cd.date_fin_validite < '".$this->db->idate($now)."'";
 		if (empty($this->evenunsubscribe)) {
@@ -158,7 +158,7 @@ class mailing_thirdparties_services_expired extends MailingTargets
 					'other' =>
 					('DateStart='.dol_print_date($this->db->jdate($obj->date_start_real), 'day')).';'.	// date start real
 					('DateEnd='.dol_print_date($this->db->jdate($obj->date_end), 'day')).';'.			// date end planned
-					('Contract='.$obj->fk_contrat).';'.
+					('Contract='.$obj->fk_contract).';'.
 					('ContactLine='.$obj->cdid),
 					'source_url' => $this->url($obj->id),
 					'source_id' => (int) $obj->id,
@@ -217,10 +217,10 @@ class mailing_thirdparties_services_expired extends MailingTargets
 		// Example: return parent::getNbOfRecipients("SELECT count(*) as nb from dolibarr_table");
 		// Example: return 500;
 		$sql = "SELECT count(*) as nb";
-		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."contrat as c";
-		$sql .= ", ".MAIN_DB_PREFIX."contratdet as cd, ".MAIN_DB_PREFIX."product as p";
+		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."contract as c";
+		$sql .= ", ".MAIN_DB_PREFIX."contractdet as cd, ".MAIN_DB_PREFIX."product as p";
 		$sql .= " WHERE s.entity IN (".getEntity('societe').")";
-		$sql .= " AND s.rowid = c.fk_soc AND cd.fk_contrat = c.rowid AND s.email != ''";
+		$sql .= " AND s.rowid = c.fk_soc AND cd.fk_contract = c.rowid AND s.email != ''";
 		$sql .= " AND cd.statut= 4 AND cd.fk_product=p.rowid";
 		$sql .= " AND p.ref IN (".$this->db->sanitize("'".implode("','", $this->arrayofproducts)."'", 1).")";
 		$sql .= " AND cd.date_fin_validite < '".$this->db->idate($now)."'";

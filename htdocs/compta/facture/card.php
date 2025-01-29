@@ -160,7 +160,7 @@ $usercanread = $user->hasRight("facture", "lire");
 $usercancreate = $user->hasRight("facture", "creer");
 $usercanissuepayment = $user->hasRight("facture", "paiement");
 $usercandelete = $user->hasRight("facture", "supprimer") || ($usercancreate && isset($object->status) && $object->status == $object::STATUS_DRAFT);
-$usercancreatecontract = $user->hasRight("contrat", "creer");
+$usercancreatecontract = $user->hasRight("contract", "creer");
 
 // Advanced Permissions
 $usercanvalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $usercancreate) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('facture', 'invoice_advance', 'validate')));
@@ -1538,7 +1538,7 @@ if (empty($resHook)) {
 						$subelement = 'propal';
 					}
 					if ($element == 'contract') {
-						$element = $subelement = 'contrat';
+						$element = $subelement = 'contract';
 					}
 					if ($element == 'inter') {
 						$element = $subelement = 'fichinter';
@@ -1757,7 +1757,7 @@ if (empty($resHook)) {
 									if (!isset($config->global->CONTRACT_EXCLUDE_SERVICES_STATUS_FOR_INVOICE)) {
 										$config->global->CONTRACT_EXCLUDE_SERVICES_STATUS_FOR_INVOICE = '5';
 									}
-									if ($srcobject->element == 'contrat' && in_array($lines[$i]->statut, explode(',', getDolGlobalString('CONTRACT_EXCLUDE_SERVICES_STATUS_FOR_INVOICE')))) {
+									if ($srcobject->element == 'contract' && in_array($lines[$i]->statut, explode(',', getDolGlobalString('CONTRACT_EXCLUDE_SERVICES_STATUS_FOR_INVOICE')))) {
 										continue;
 									}
 
@@ -3283,7 +3283,7 @@ if ($action == 'create') {
 				$subelement = 'propal';
 			}
 			if ($element == 'contract') {
-				$element = $subelement = 'contrat';
+				$element = $subelement = 'contract';
 			}
 			if ($element == 'shipping') {
 				$element = $subelement = 'expedition';
@@ -3293,7 +3293,7 @@ if ($action == 'create') {
 
 			$classname = ucfirst($subelement);
 			$objectsrc = new $classname($db);
-			'@phan-var-force Order|Propal|Contrat|Expedition $objectsrc';
+			'@phan-var-force Order|Propal|Contract|Expedition $objectsrc';
 			$objectsrc->fetch($originid);
 			if (empty($objectsrc->lines) && method_exists($objectsrc, 'fetch_lines')) {
 				$objectsrc->fetch_lines();
@@ -3409,7 +3409,7 @@ if ($action == 'create') {
 		print ajax_combobox('situations');
 	}
 
-	if ($origin == 'contrat') {
+	if ($origin == 'contract') {
 		$langs->load("admin");
 		$text = $langs->trans("ToCreateARecurringInvoice");
 		$text .= ' '.$langs->trans("ToCreateARecurringInvoiceGene", $langs->transnoentitiesnoconv("MenuFinancial"), $langs->transnoentitiesnoconv("BillsCustomers"), $langs->transnoentitiesnoconv("ListOfTemplates"));
@@ -4166,9 +4166,9 @@ if ($action == 'create') {
 			$langs->loadLangs(array('orders', 'propal'));
 
 			// TODO for compatibility
-			if ($origin == 'contrat') {
-				'@phan-var-force Contrat $objectsrc';
-				// Calcul contrat->price (HT), contrat->total (TTC), contrat->tva
+			if ($origin == 'contract') {
+				'@phan-var-force Contract $objectsrc';
+				// Calcul contract->price (HT), contract->total (TTC), contract->tva
 				$objectsrc->update_price(1, 'auto', 1);
 			}
 
@@ -4190,7 +4190,7 @@ if ($action == 'create') {
 				case 'Expedition':
 					$newclassname = 'Sending';
 					break;
-				case 'Contrat':
+				case 'Contract':
 					$newclassname = 'Contract';
 					break;
 				case 'Fichinter':
@@ -5843,7 +5843,7 @@ if ($action == 'create') {
 					$langs->load("contracts");
 
 					if ($usercancreatecontract) {
-						print '<a class="butAction" href="' . DOL_URL_ROOT . '/contrat/card.php?action=create&amp;origin=' . $object->element . '&amp;originid=' . $object->id . '&amp;socid=' . $object->socid . '">' . $langs->trans('AddContract') . '</a>';
+						print '<a class="butAction" href="' . DOL_URL_ROOT . '/contract/card.php?action=create&amp;origin=' . $object->element . '&amp;originid=' . $object->id . '&amp;socid=' . $object->socid . '">' . $langs->trans('AddContract') . '</a>';
 					}
 				}
 			}

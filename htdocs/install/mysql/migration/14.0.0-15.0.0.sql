@@ -301,7 +301,7 @@ CREATE TABLE llx_hrm_job_user(
     description text,
     date_creation datetime NOT NULL,
     tms timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    fk_contrat integer,
+    fk_contract integer,
     fk_user integer,
     fk_job integer NOT NULL,
     date_start date,
@@ -462,7 +462,7 @@ ALTER TABLE llx_order_fournisseur MODIFY COLUMN multicurrency_code varchar(3);
 ALTER TABLE llx_order_fournisseurdet MODIFY COLUMN multicurrency_code varchar(3);
 ALTER TABLE llx_order MODIFY COLUMN multicurrency_code varchar(3);
 ALTER TABLE llx_orderdet MODIFY COLUMN multicurrency_code varchar(3);
-ALTER TABLE llx_contratdet MODIFY COLUMN multicurrency_code varchar(3);
+ALTER TABLE llx_contractdet MODIFY COLUMN multicurrency_code varchar(3);
 ALTER TABLE llx_expensereport_det MODIFY COLUMN multicurrency_code varchar(3);
 ALTER TABLE llx_expensereport MODIFY COLUMN multicurrency_code varchar(3);
 ALTER TABLE llx_facture_fourn_det MODIFY COLUMN multicurrency_code varchar(3);

@@ -227,7 +227,7 @@ class Config extends stdClass
 	 * @var stdClass
 	 * @deprecated Use contract
 	 */
-	public $contrat;
+	public $contract;
 
 	/**
 	 * @var stdClass Contract
@@ -388,7 +388,7 @@ class Config extends stdClass
 		$this->fournisseur = new stdClass();
 		$this->product = new stdClass();
 		$this->service = new stdClass();
-		$this->contrat = new stdClass();
+		$this->contract = new stdClass();
 		$this->actions = new stdClass();
 		$this->agenda = new stdClass();
 		$this->order = new stdClass();
@@ -459,7 +459,7 @@ class Config extends stdClass
 		$this->compta = new stdClass();
 		$this->product = new stdClass();
 		$this->service = new stdClass();
-		$this->contrat = new stdClass();
+		$this->contract = new stdClass();
 		$this->actions = new stdClass();
 		$this->agenda = new stdClass();
 		$this->order = new stdClass();
@@ -823,12 +823,12 @@ class Config extends stdClass
 			$this->productbatch->multidir_output = array($this->entity => $rootfordata."/productlot");
 			$this->productbatch->multidir_temp = array($this->entity => $rootfortemp."/productlot/temp");
 
-			// Module contrat
-			$this->contrat->multidir_output = array($this->entity => $rootfordata."/contract");
-			$this->contrat->multidir_temp = array($this->entity => $rootfortemp."/contract/temp");
+			// Module contract
+			$this->contract->multidir_output = array($this->entity => $rootfordata."/contract");
+			$this->contract->multidir_temp = array($this->entity => $rootfortemp."/contract/temp");
 			// For backward compatibility
-			$this->contrat->dir_output = $rootfordata."/contract";
-			$this->contrat->dir_temp = $rootfortemp."/contract/temp";
+			$this->contract->dir_output = $rootfordata."/contract";
+			$this->contract->dir_temp = $rootfortemp."/contract/temp";
 
 			// Module bank
 			$this->bank->multidir_output = array($this->entity => $rootfordata."/bank");
@@ -1094,7 +1094,7 @@ class Config extends stdClass
 
 			// Define list of limited modules (value must be key found for "name" property of module, so for example 'supplierproposal' for Module "Supplier Proposal"
 			if (!isset($this->global->MAIN_MODULES_FOR_EXTERNAL)) {
-				$this->global->MAIN_MODULES_FOR_EXTERNAL = 'user,societe,propal,order,facture,category,supplierproposal,fournisseur,contact,projet,contrat,ficheinter,expedition,reception,agenda,resource,member,blockedlog,ticket'; // '' means 'all'. Note that contact is added here as it should be a module later.
+				$this->global->MAIN_MODULES_FOR_EXTERNAL = 'user,societe,propal,order,facture,category,supplierproposal,fournisseur,contact,projet,contract,ficheinter,expedition,reception,agenda,resource,member,blockedlog,ticket'; // '' means 'all'. Note that contact is added here as it should be a module later.
 			}
 			if (!empty($this->modules_parts['moduleforexternal'])) {		// Module part to include an external module into the MAIN_MODULES_FOR_EXTERNAL list
 				foreach ($this->modules_parts['moduleforexternal'] as $key => $value) {
@@ -1163,12 +1163,12 @@ class Config extends stdClass
 				$this->facture->client->warning_delay = (isset($this->global->MAIN_DELAY_CUSTOMER_BILLS_UNPAYED) ? (int) $this->global->MAIN_DELAY_CUSTOMER_BILLS_UNPAYED : 0) * 86400;
 				$this->facture->fournisseur->warning_delay = (isset($this->global->MAIN_DELAY_SUPPLIER_BILLS_TO_PAY) ? (int) $this->global->MAIN_DELAY_SUPPLIER_BILLS_TO_PAY : 0) * 86400;
 			}
-			if (isset($this->contrat)) {
-				$this->contrat->services = new stdClass();
-				$this->contrat->services->inactifs = new stdClass();
-				$this->contrat->services->expires = new stdClass();
-				$this->contrat->services->inactifs->warning_delay = (isset($this->global->MAIN_DELAY_NOT_ACTIVATED_SERVICES) ? (int) $this->global->MAIN_DELAY_NOT_ACTIVATED_SERVICES : 0) * 86400;
-				$this->contrat->services->expires->warning_delay = (isset($this->global->MAIN_DELAY_RUNNING_SERVICES) ? (int) $this->global->MAIN_DELAY_RUNNING_SERVICES : 0) * 86400;
+			if (isset($this->contract)) {
+				$this->contract->services = new stdClass();
+				$this->contract->services->inactifs = new stdClass();
+				$this->contract->services->expires = new stdClass();
+				$this->contract->services->inactifs->warning_delay = (isset($this->global->MAIN_DELAY_NOT_ACTIVATED_SERVICES) ? (int) $this->global->MAIN_DELAY_NOT_ACTIVATED_SERVICES : 0) * 86400;
+				$this->contract->services->expires->warning_delay = (isset($this->global->MAIN_DELAY_RUNNING_SERVICES) ? (int) $this->global->MAIN_DELAY_RUNNING_SERVICES : 0) * 86400;
 			}
 			if (isset($this->order)) {
 				$this->bank->rappro	= new stdClass();
@@ -1304,9 +1304,9 @@ class Config extends stdClass
 			if (isset($this->order)) {
 				$this->order = $this->order;
 			}
-			// contract is new use, contrat is old use still initialised
-			if (isset($this->contrat)) {
-				$this->contract = $this->contrat;
+			// contract is new use, contract is old use still initialised
+			if (isset($this->contract)) {
+				$this->contract = $this->contract;
 			}
 			// category is new use, category is old use still initialised
 			if (isset($this->category)) {

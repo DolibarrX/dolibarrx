@@ -1,5 +1,5 @@
 -- ===================================================================
--- Copyright (C) 2013 Charles-Fr BENKE	<charles.fr@benke.fr>
+-- Copyright (C) 2014      Florian Henry	<florian.henry@open-concept.pro>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -16,5 +16,10 @@
 --
 -- ===================================================================
 
-
-ALTER TABLE llx_contrat_extrafields ADD UNIQUE INDEX uk_contrat_extrafields (fk_object);
+create table llx_contractdet_extrafields
+(
+  rowid            integer AUTO_INCREMENT PRIMARY KEY,
+  tms              timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  fk_object        integer NOT NULL,    -- object id
+  import_key       varchar(14)      	-- import key
+)ENGINE=innodb;

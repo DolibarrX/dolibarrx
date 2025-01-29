@@ -89,7 +89,7 @@ $error = 0;
 
 // Note: list of strings for objectclass could be extended to accepted/expected classes
 '
-@phan-var-force "CommonObject"|"OrderFournisseur"|"ConferenceOrBoothAttendee"|"Contrat"|"Contact"|"Expedition"|"ExpenseReport"|"Facture"|"FactureFournisseur"|"Fichinter"|"Holiday"|"Partnership"|"Project"|"Propal"|"Societe"|"SupplierProposal" $objectclass
+@phan-var-force "CommonObject"|"OrderFournisseur"|"ConferenceOrBoothAttendee"|"Contract"|"Contact"|"Expedition"|"ExpenseReport"|"Facture"|"FactureFournisseur"|"Fichinter"|"Holiday"|"Partnership"|"Project"|"Propal"|"Societe"|"SupplierProposal" $objectclass
 @phan-var-force string $massaction
 @phan-var-force string $uploaddir
 ';
@@ -605,7 +605,7 @@ if (!$error && $massaction == 'confirm_presend') {
 						$trackid = strtolower(get_class($objecttmp));
 						if (get_class($objecttmp) == 'Contact') {
 							$trackid = 'ctc';
-						} elseif (get_class($objecttmp) == 'Contrat') {
+						} elseif (get_class($objecttmp) == 'Contract') {
 							$trackid = 'con';
 						} elseif (get_class($objecttmp) == 'Propal') {
 							$trackid = 'pro';
@@ -1213,7 +1213,7 @@ if (!$error && ($massaction == 'delete' || ($action == 'delete' && $confirm == '
 if (!$error && $massaction == 'generate_doc' && $permissiontoread) {
 	// Complete with classes that use this massaction
 	<<<'EOPHAN'
-@phan-var-force 'Order'|'OrderFournisseur'|'Contrat'|'Expedition'|'ExpenseReport'|'Facture'|'FactureFournisseur'|'Fichinter'|'Project'|'Propal'|'SupplierProposal' $objectclass
+@phan-var-force 'Order'|'OrderFournisseur'|'Contract'|'Expedition'|'ExpenseReport'|'Facture'|'FactureFournisseur'|'Fichinter'|'Project'|'Propal'|'SupplierProposal' $objectclass
 EOPHAN;
 
 	$db->begin();

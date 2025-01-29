@@ -29,13 +29,13 @@
  */
 
 /**
- *	\file       htdocs/contrat/class/contrat.class.php
- *	\ingroup    contrat
+ *	\file       htdocs/contract/class/contract.class.php
+ *	\ingroup    contract
  *	\brief      File of class to manage contracts
  */
 
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
-require_once DOL_DOCUMENT_ROOT.'/contrat/class/contratligne.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contract/class/contractline.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/margin/lib/margins.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonsignedobject.class.php';
@@ -46,29 +46,29 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/commonsignedobject.class.php';
  * @property	int				$signed_status
  * @static		array<int>		$SIGNED_STATUSES
  */
-class Contrat extends CommonObject
+class Contract extends CommonObject
 {
 	use CommonSignedObject;
 
 	/**
 	 * @var string ID to identify managed object
 	 */
-	public $element = 'contrat';
+	public $element = 'contract';
 
 	/**
 	 * @var string Name of table without prefix where object is stored
 	 */
-	public $table_element = 'contrat';
+	public $table_element = 'contract';
 
 	/**
 	 * @var string    Name of subtable line
 	 */
-	public $table_element_line = 'contratdet';
+	public $table_element_line = 'contractdet';
 
 	/**
 	 * @var string Fieldname with ID of parent key if this field has a parent
 	 */
-	public $fk_element = 'fk_contrat';
+	public $fk_element = 'fk_contract';
 
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
@@ -171,7 +171,7 @@ class Contrat extends CommonObject
 	/**
 	 * @var int|string		Date when contract was signed
 	 */
-	public $date_contrat;
+	public $date_contract;
 
 	/**
 	 * @var int
@@ -203,7 +203,7 @@ class Contrat extends CommonObject
 	public $extraparams = [];
 
 	/**
-	 * @var ContratLigne[]		Contract lines
+	 * @var ContractLine[]		Contract lines
 	 */
 	public $lines = [];
 
@@ -231,7 +231,7 @@ class Contrat extends CommonObject
 	//public $higher_planner_end_date;
 
 	/**
-	 * Maps ContratLigne IDs to $this->lines indexes
+	 * Maps ContractLine IDs to $this->lines indexes
 	 * @var int[]
 	 */
 	protected $lines_id_index_mapper = [];
@@ -274,7 +274,7 @@ class Contrat extends CommonObject
 		'entity' => array('type' => 'integer', 'label' => 'Entity', 'default' => '1', 'enabled' => 1, 'visible' => -2, 'notnull' => 1, 'position' => 30, 'index' => 1),
 		'tms' => array('type' => 'timestamp', 'label' => 'DateModification', 'enabled' => 1, 'visible' => -1, 'notnull' => 1, 'position' => 35),
 		'datec' => array('type' => 'datetime', 'label' => 'DateCreation', 'enabled' => 1, 'visible' => -1, 'position' => 40),
-		'date_contrat' => array('type' => 'datetime', 'label' => 'Date contrat', 'enabled' => 1, 'visible' => -1, 'position' => 45),
+		'date_contract' => array('type' => 'datetime', 'label' => 'Date contract', 'enabled' => 1, 'visible' => -1, 'position' => 45),
 		'signed_status' => array('type' => 'smallint(6)', 'label' => 'SignedStatus', 'enabled' => 1, 'visible' => -1, 'position' => 50, 'arrayofkeyval' => array(0 => 'NoSignature', 1 => 'SignedSender', 2 => 'SignedReceiver', 3 => 'SignedReceiverOnline', 9 => 'SignedAll')),
 		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php', 'label' => 'ThirdParty', 'enabled' => 'isModEnabled("societe")', 'visible' => -1, 'notnull' => 1, 'position' => 70),
 		'fk_projet' => array('type' => 'integer:Project:projet/class/project.class.php:1:(fk_statut:=:1)', 'label' => 'Project', 'enabled' => "isModEnabled('project')", 'visible' => -1, 'position' => 75),
@@ -428,16 +428,16 @@ class Contrat extends CommonObject
 		// Load lines
 		$this->fetch_lines();
 
-		foreach ($this->lines as $contratline) {
+		foreach ($this->lines as $contractLine) {
 			// Open lines not already open
-			if ($contratline->statut != ContratLigne::STATUS_OPEN) {
-				$contratline->context = $this->context;
+			if ($contractLine->statut != ContractLine::STATUS_OPEN) {
+				$contractLine->context = $this->context;
 
-				$result = $contratline->active_line($user, $date_start, !empty($date_end) ? $date_end : -1, $comment);	// This call trigger LINECONTRACT_ACTIVATE
+				$result = $contractLine->active_line($user, $date_start, !empty($date_end) ? $date_end : -1, $comment);	// This call trigger LINECONTRACT_ACTIVATE
 				if ($result < 0) {
 					$error++;
-					$this->error = $contratline->error;
-					$this->errors = $contratline->errors;
+					$this->error = $contractLine->error;
+					$this->errors = $contractLine->errors;
 					break;
 				}
 			}
@@ -479,20 +479,20 @@ class Contrat extends CommonObject
 
 		$error = 0;
 
-		foreach ($this->lines as $contratline) {
+		foreach ($this->lines as $contractLine) {
 			// Close lines not already closed
-			if ($contratline->statut != ContratLigne::STATUS_CLOSED) {
-				$contratline->date_end_real = $now;
-				$contratline->date_cloture = $now;	// For backward compatibility
-				$contratline->user_closing_id = $user->id;
-				$contratline->statut = ContratLigne::STATUS_CLOSED;
+			if ($contractLine->statut != ContractLine::STATUS_CLOSED) {
+				$contractLine->date_end_real = $now;
+				$contractLine->date_cloture = $now;	// For backward compatibility
+				$contractLine->user_closing_id = $user->id;
+				$contractLine->statut = ContractLine::STATUS_CLOSED;
 
-				$result = $contratline->close_line($user, $now, $comment, $notrigger);
+				$result = $contractLine->close_line($user, $now, $comment, $notrigger);
 
 				if ($result < 0) {
 					$error++;
-					$this->error = $contratline->error.($contratline->error ? ' ('.$this->ref.')' : '');
-					$this->errors = $contratline->errors;
+					$this->error = $contractLine->error.($contractLine->error ? ' ('.$this->ref.')' : '');
+					$this->errors = $contractLine->errors;
 					break;
 				}
 			}
@@ -553,7 +553,7 @@ class Contrat extends CommonObject
 		$this->newref = dol_sanitizeFileName($num);
 
 		if ($num) {
-			$sql = "UPDATE ".MAIN_DB_PREFIX."contrat SET ref = '".$this->db->escape($num)."', statut = 1";
+			$sql = "UPDATE ".MAIN_DB_PREFIX."contract SET ref = '".$this->db->escape($num)."', statut = 1";
 			$sql .= " WHERE rowid = ".((int) $this->id)." AND statut = 0";
 
 			dol_syslog(get_class($this)."::validate", LOG_DEBUG);
@@ -659,7 +659,7 @@ class Contrat extends CommonObject
 
 		$this->fetch_thirdparty();
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."contrat SET statut = 0";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."contract SET statut = 0";
 		//$sql.= ", fk_user_valid = null, date_valid = null";
 		$sql .= " WHERE rowid = ".((int) $this->id)." AND statut = 1";
 
@@ -717,12 +717,12 @@ class Contrat extends CommonObject
 		$sql .= " ref_ext,";
 		$sql .= " entity,";
 		$sql .= " signed_status,";
-		$sql .= " date_contrat as datecontrat,";
+		$sql .= " date_contract as datecontract,";
 		$sql .= " fk_user_author,";
 		$sql .= " fk_projet as fk_project,";
 		$sql .= " fk_commercial_signature, fk_commercial_suivi,";
 		$sql .= " note_private, note_public, model_pdf, last_main_doc, extraparams";
-		$sql .= " FROM ".MAIN_DB_PREFIX."contrat";
+		$sql .= " FROM ".MAIN_DB_PREFIX."contract";
 		if (!$id) {
 			$sql .= " WHERE entity IN (".getEntity('contract').")";
 		} else {
@@ -760,8 +760,8 @@ class Contrat extends CommonObject
 					$this->status = $obj->status;
 					$this->signed_status = $obj->signed_status;
 
-					$this->date_contrat = $this->db->jdate($obj->datecontrat);
-					$this->date_creation = $this->db->jdate($obj->datecontrat);
+					$this->date_contract = $this->db->jdate($obj->datecontract);
+					$this->date_creation = $this->db->jdate($obj->datecontract);
 
 					$this->user_author_id = $obj->fk_user_author;
 
@@ -829,7 +829,7 @@ class Contrat extends CommonObject
 	 *	@param		int<0,1>		$only_services			0=Default for all, 1=Force only services (depending on setup, we may also have physical products in a contract)
 	 *	@param		int<0,1>		$loadalsotranslation	0=Default to not load translations, 1=Load also translations of product descriptions
 	 *  @param		int<0,1>		$noextrafields			0=Default to load extrafields, 1=Do not load the extrafields of lines
-	 *  @return 	array<int,ContratLigne>|int<min,-1>		Return array of contract lines
+	 *  @return 	array<int,ContractLine>|int<min,-1>		Return array of contract lines
 	 */
 	public function fetch_lines($only_services = 0, $loadalsotranslation = 0, $noextrafields = 0)
 	{
@@ -851,7 +851,7 @@ class Contrat extends CommonObject
 
 		// Selects contract lines related to a product
 		$sql = "SELECT p.label as product_label, p.description as product_desc, p.ref as product_ref, p.fk_product_type as product_type,";
-		$sql .= " d.rowid, d.fk_contrat, d.statut as status, d.description, d.price_ht, d.vat_src_code, d.tva_tx, d.localtax1_tx, d.localtax2_tx, d.localtax1_type, d.localtax2_type, d.qty, d.remise_percent, d.subprice, d.fk_product_fournisseur_price as fk_fournprice, d.buy_price_ht as pa_ht,";
+		$sql .= " d.rowid, d.fk_contract, d.statut as status, d.description, d.price_ht, d.vat_src_code, d.tva_tx, d.localtax1_tx, d.localtax2_tx, d.localtax1_type, d.localtax2_type, d.qty, d.remise_percent, d.subprice, d.fk_product_fournisseur_price as fk_fournprice, d.buy_price_ht as pa_ht,";
 		$sql .= " d.total_ht,";
 		$sql .= " d.total_tva,";
 		$sql .= " d.total_localtax1,";
@@ -868,8 +868,8 @@ class Contrat extends CommonObject
 		$sql .= " d.fk_unit,";
 		$sql .= " d.product_type as type,";
 		$sql .= " d.rang";
-		$sql .= " FROM ".MAIN_DB_PREFIX."contratdet as d LEFT JOIN ".MAIN_DB_PREFIX."product as p ON d.fk_product = p.rowid";
-		$sql .= " WHERE d.fk_contrat = ".((int) $this->id);
+		$sql .= " FROM ".MAIN_DB_PREFIX."contractdet as d LEFT JOIN ".MAIN_DB_PREFIX."product as p ON d.fk_product = p.rowid";
+		$sql .= " WHERE d.fk_contract = ".((int) $this->id);
 		if ($only_services == 1) {
 			$sql .= " AND d.product_type = 1";
 		}
@@ -884,11 +884,11 @@ class Contrat extends CommonObject
 			while ($i < $num) {
 				$objp = $this->db->fetch_object($result);
 
-				$line = new ContratLigne($this->db);
+				$line = new ContractLine($this->db);
 
 				$line->id = $objp->rowid;
 				$line->ref				= $objp->rowid;
-				$line->fk_contrat = $objp->fk_contrat;
+				$line->fk_contract = $objp->fk_contract;
 				$line->desc = $objp->description; // Description line
 				$line->qty				= $objp->qty;
 				$line->vat_src_code 	= $objp->vat_src_code;
@@ -967,16 +967,16 @@ class Contrat extends CommonObject
 				//dol_syslog("1 ".$line->desc);
 				//dol_syslog("2 ".$line->product_desc);
 
-				if ($line->statut == ContratLigne::STATUS_INITIAL) {
+				if ($line->statut == ContractLine::STATUS_INITIAL) {
 					$this->nbofserviceswait++;
 				}
-				if ($line->statut == ContratLigne::STATUS_OPEN && (empty($line->date_end) || $line->date_end >= $now)) {
+				if ($line->statut == ContractLine::STATUS_OPEN && (empty($line->date_end) || $line->date_end >= $now)) {
 					$this->nbofservicesopened++;
 				}
-				if ($line->statut == ContratLigne::STATUS_OPEN && (!empty($line->date_end) && $line->date_end < $now)) {
+				if ($line->statut == ContractLine::STATUS_OPEN && (!empty($line->date_end) && $line->date_end < $now)) {
 					$this->nbofservicesexpired++;
 				}
-				if ($line->statut == ContratLigne::STATUS_CLOSED) {
+				if ($line->statut == ContractLine::STATUS_CLOSED) {
 					$this->nbofservicesclosed++;
 				}
 
@@ -1038,11 +1038,11 @@ class Contrat extends CommonObject
 		$now = dol_now();
 
 		// Insert contract
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."contrat (datec, fk_soc, fk_user_author, date_contrat,";
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."contract (datec, fk_soc, fk_user_author, date_contract,";
 		$sql .= " fk_commercial_signature, fk_commercial_suivi, fk_projet,";
 		$sql .= " ref, entity, signed_status, note_private, note_public, ref_customer, ref_supplier, ref_ext)";
 		$sql .= " VALUES ('".$this->db->idate($now)."', ".((int) $this->socid).", ".((int) $user->id);
-		$sql .= ", ".(dol_strlen($this->date_contrat) != 0 ? "'".$this->db->idate($this->date_contrat)."'" : "NULL");
+		$sql .= ", ".(dol_strlen($this->date_contract) != 0 ? "'".$this->db->idate($this->date_contract)."'" : "NULL");
 		$sql .= ",".($this->commercial_signature_id > 0 ? ((int) $this->commercial_signature_id) : "NULL");
 		$sql .= ",".($this->commercial_suivi_id > 0 ? ((int) $this->commercial_suivi_id) : "NULL");
 		$sql .= ",".($this->fk_project > 0 ? ((int) $this->fk_project) : "NULL");
@@ -1060,7 +1060,7 @@ class Contrat extends CommonObject
 		if ($resql) {
 			$error = 0;
 
-			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."contrat");
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."contract");
 
 			// Load object modContract
 			$module = (getDolGlobalString('CONTRACT_ADDON') ? $config->global->CONTRACT_ADDON : 'mod_contract_serpis');
@@ -1070,11 +1070,11 @@ class Contrat extends CommonObject
 			$result = dol_include_once('/core/modules/contract/'.$module.'.php');
 			if ($result > 0) {
 				$modCodeContract = new $module();
-				'@phan-var-force ModelNumRefContracts $modCodeContrat';
+				'@phan-var-force ModelNumRefContracts $modCodeContract';
 
 				if (!empty($modCodeContract->code_auto)) {
 					// Force the ref to a draft value if numbering module is an automatic numbering
-					$sql = 'UPDATE '.MAIN_DB_PREFIX."contrat SET ref='(PROV".$this->id.")' WHERE rowid=".((int) $this->id);
+					$sql = 'UPDATE '.MAIN_DB_PREFIX."contract SET ref='(PROV".$this->id.")' WHERE rowid=".((int) $this->id);
 					if ($this->db->query($sql)) {
 						if ($this->id) {
 							$this->ref = "(PROV".$this->id.")";
@@ -1090,7 +1090,7 @@ class Contrat extends CommonObject
 				}
 			}
 
-			// Insert business contacts ('SALESREPSIGN','contrat')
+			// Insert business contacts ('SALESREPSIGN','contract')
 			if (!$error) {
 				$result = $this->add_contact($this->commercial_signature_id, 'SALESREPSIGN', 'internal');
 				if ($result < 0) {
@@ -1098,7 +1098,7 @@ class Contrat extends CommonObject
 				}
 			}
 
-			// Insert business contacts ('SALESREPFOLL','contrat')
+			// Insert business contacts ('SALESREPFOLL','contract')
 			if (!$error) {
 				$result = $this->add_contact($this->commercial_suivi_id, 'SALESREPFOLL', 'internal');
 				if ($result < 0) {
@@ -1238,12 +1238,12 @@ class Contrat extends CommonObject
 
 		// Delete lines
 		if (!$error) {
-			// Delete contratdet extrafields
-			$main = MAIN_DB_PREFIX.'contratdet';
+			// Delete contractdet extrafields
+			$main = MAIN_DB_PREFIX.'contractdet';
 			$ef = $main."_extrafields";
-			$sql = "DELETE FROM ".$ef." WHERE fk_object IN (SELECT rowid FROM ".$main." WHERE fk_contrat = ".((int) $this->id).")";
+			$sql = "DELETE FROM ".$ef." WHERE fk_object IN (SELECT rowid FROM ".$main." WHERE fk_contract = ".((int) $this->id).")";
 
-			dol_syslog(get_class($this)."::delete contratdet_extrafields", LOG_DEBUG);
+			dol_syslog(get_class($this)."::delete contractdet_extrafields", LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if (!$resql) {
 				$this->error = $this->db->error();
@@ -1252,11 +1252,11 @@ class Contrat extends CommonObject
 		}
 
 		if (!$error) {
-			// Delete contratdet
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."contratdet";
-			$sql .= " WHERE fk_contrat=".((int) $this->id);
+			// Delete contractdet
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."contractdet";
+			$sql .= " WHERE fk_contract=".((int) $this->id);
 
-			dol_syslog(get_class($this)."::delete contratdet", LOG_DEBUG);
+			dol_syslog(get_class($this)."::delete contractdet", LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if (!$resql) {
 				$this->error = $this->db->error();
@@ -1277,10 +1277,10 @@ class Contrat extends CommonObject
 
 		// Delete contract
 		if (!$error) {
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."contrat";
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."contract";
 			$sql .= " WHERE rowid=".((int) $this->id);
 
-			dol_syslog(get_class($this)."::delete contrat", LOG_DEBUG);
+			dol_syslog(get_class($this)."::delete contract", LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if (!$resql) {
 				$this->error = $this->db->error();
@@ -1300,8 +1300,8 @@ class Contrat extends CommonObject
 		if (!$error) {
 			// We remove directory
 			$ref = dol_sanitizeFileName($this->ref);
-			if ($config->contrat->dir_output) {
-				$dir = $config->contrat->multidir_output[$this->entity]."/".$ref;
+			if ($config->contract->dir_output) {
+				$dir = $config->contract->multidir_output[$this->entity]."/".$ref;
 				if (file_exists($dir)) {
 					$res = @dol_delete_dir_recursive($dir);
 					if (!$res) {
@@ -1392,13 +1392,13 @@ class Contrat extends CommonObject
 		// $this->oldcopy must have been set by the caller of update
 
 		// Update request
-		$sql = "UPDATE ".MAIN_DB_PREFIX."contrat SET";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."contract SET";
 		$sql .= " ref=".(isset($this->ref) ? "'".$this->db->escape($this->ref)."'" : "null").",";
 		$sql .= " ref_customer=".(isset($this->ref_customer) ? "'".$this->db->escape($this->ref_customer)."'" : "null").",";
 		$sql .= " ref_supplier=".(isset($this->ref_supplier) ? "'".$this->db->escape($this->ref_supplier)."'" : "null").",";
 		$sql .= " ref_ext=".(isset($this->ref_ext) ? "'".$this->db->escape($this->ref_ext)."'" : "null").",";
 		$sql .= " entity=".((int) $config->entity).",";
-		$sql .= " date_contrat=".(dol_strlen($this->date_contrat) != 0 ? "'".$this->db->idate($this->date_contrat)."'" : 'null').",";
+		$sql .= " date_contract=".(dol_strlen($this->date_contract) != 0 ? "'".$this->db->idate($this->date_contract)."'" : 'null').",";
 		$sql .= " statut=".(isset($this->statut) ? $this->statut : (isset($this->status) ? $this->status : "null")).",";
 		$sql .= " fk_soc=".($this->socid > 0 ? $this->socid : "null").",";
 		$sql .= " fk_projet=".($this->fk_project > 0 ? $this->fk_project : "null").",";
@@ -1450,7 +1450,7 @@ class Contrat extends CommonObject
 
 
 	/**
-	 *  Ajoute une ligne de contrat en base
+	 *  Ajoute une ligne de contract en base
 	 *
 	 *  @param	string		$desc            	Description of line
 	 *  @param  float		$pu_ht              Unit price net
@@ -1590,8 +1590,8 @@ class Contrat extends CommonObject
 			}
 
 			// Insertion dans la base
-			$sql = "INSERT INTO ".MAIN_DB_PREFIX."contratdet";
-			$sql .= " (fk_contrat, label, description, fk_product, qty, tva_tx, vat_src_code,";
+			$sql = "INSERT INTO ".MAIN_DB_PREFIX."contractdet";
+			$sql .= " (fk_contract, label, description, fk_product, qty, tva_tx, vat_src_code,";
 			$sql .= " localtax1_tx, localtax2_tx, localtax1_type, localtax2_type, remise_percent, subprice,";
 			$sql .= " total_ht, total_tva, total_localtax1, total_localtax2, total_ttc,";
 			$sql .= " info_bits,";
@@ -1641,10 +1641,10 @@ class Contrat extends CommonObject
 
 			$resql = $this->db->query($sql);
 			if ($resql) {
-				$contractlineid = $this->db->last_insert_id(MAIN_DB_PREFIX."contratdet");
+				$contractlineid = $this->db->last_insert_id(MAIN_DB_PREFIX."contractdet");
 
 				if (!$error) {
-					$contractline = new ContratLigne($this->db);
+					$contractline = new ContractLine($this->db);
 					$contractline->array_options = $array_options;
 					$contractline->id = $contractlineid;
 					$result = $contractline->insertExtraFields();
@@ -1684,7 +1684,7 @@ class Contrat extends CommonObject
 	}
 
 	/**
-	 *  Mets a jour une ligne de contrat
+	 *  Mets a jour une ligne de contract
 	 *
 	 *  @param	int			$rowid            	Id de la ligne de facture
 	 *  @param  string		$desc             	Description de la ligne
@@ -1789,7 +1789,7 @@ class Contrat extends CommonObject
 			}
 		}
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."contratdet set description = '".$this->db->escape($desc)."'";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."contractdet set description = '".$this->db->escape($desc)."'";
 		$sql .= ",price_ht = ".((float) price2num($price));
 		$sql .= ",subprice = ".((float) price2num($subprice));
 		$sql .= ",remise = ".((float) price2num($remise));
@@ -1835,7 +1835,7 @@ class Contrat extends CommonObject
 		$result = $this->db->query($sql);
 		if ($result) {
 			if (is_array($array_options) && count($array_options) > 0) { // For avoid conflicts if trigger used
-				$contractline = new ContratLigne($this->db);
+				$contractline = new ContractLine($this->db);
 				$contractline->fetch($rowid);
 
 				// We replace values in $contractline->array_options only for entries defined into $array_options
@@ -1908,7 +1908,7 @@ class Contrat extends CommonObject
 
 			if (!$error) {
 				// Remove extrafields
-				$contractline = new ContratLigne($this->db);
+				$contractline = new ContractLine($this->db);
 				$contractline->id = $idline;
 				$result = $contractline->deleteExtraFields();
 				if ($result < 0) {
@@ -1976,7 +1976,7 @@ class Contrat extends CommonObject
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *  Return the label of a given contrat status
+	 *  Return the label of a given contract status
 	 *
 	 *  @param	int		$status      	Id status
 	 *  @param  int		$mode       	0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label (status of services), 5=Short label + Picto, 6=Long label + Picto (status of services), 7=Same than 6 with fixed length (status of services)
@@ -2013,13 +2013,13 @@ class Contrat extends CommonObject
 				$text .= '</span>';
 			}
 			$text .= ($mode == 7 ? '<span class="nowraponall">' : '');
-			$text .= ($mode != 7 || $this->nbofserviceswait > 0) ? ($this->nbofserviceswait.ContratLigne::LibStatut(0, 3, -1, 'class="marginleft2"')).(($mode != 7 || $this->nbofservicesopened || $this->nbofservicesexpired || $this->nbofservicesclosed) ? ' &nbsp; ' : '') : '';
+			$text .= ($mode != 7 || $this->nbofserviceswait > 0) ? ($this->nbofserviceswait.ContractLine::LibStatut(0, 3, -1, 'class="marginleft2"')).(($mode != 7 || $this->nbofservicesopened || $this->nbofservicesexpired || $this->nbofservicesclosed) ? ' &nbsp; ' : '') : '';
 			$text .= ($mode == 7 ? '</span><span class="nowraponall">' : '');
-			$text .= ($mode != 7 || $this->nbofservicesopened > 0) ? ($this->nbofservicesopened.ContratLigne::LibStatut(4, 3, 0, 'class="marginleft2"')).(($mode != 7 || $this->nbofservicesexpired || $this->nbofservicesclosed) ? ' &nbsp; ' : '') : '';
+			$text .= ($mode != 7 || $this->nbofservicesopened > 0) ? ($this->nbofservicesopened.ContractLine::LibStatut(4, 3, 0, 'class="marginleft2"')).(($mode != 7 || $this->nbofservicesexpired || $this->nbofservicesclosed) ? ' &nbsp; ' : '') : '';
 			$text .= ($mode == 7 ? '</span><span class="nowraponall">' : '');
-			$text .= ($mode != 7 || $this->nbofservicesexpired > 0) ? ($this->nbofservicesexpired.ContratLigne::LibStatut(4, 3, 1, 'class="marginleft2"')).(($mode != 7 || $this->nbofservicesclosed) ? ' &nbsp; ' : '') : '';
+			$text .= ($mode != 7 || $this->nbofservicesexpired > 0) ? ($this->nbofservicesexpired.ContractLine::LibStatut(4, 3, 1, 'class="marginleft2"')).(($mode != 7 || $this->nbofservicesclosed) ? ' &nbsp; ' : '') : '';
 			$text .= ($mode == 7 ? '</span><span class="nowraponall">' : '');
-			$text .= ($mode != 7 || $this->nbofservicesclosed > 0) ? ($this->nbofservicesclosed.ContratLigne::LibStatut(5, 3, -1, 'class="marginleft2"')) : '';
+			$text .= ($mode != 7 || $this->nbofservicesclosed > 0) ? ($this->nbofservicesclosed.ContractLine::LibStatut(5, 3, -1, 'class="marginleft2"')) : '';
 			$text .= ($mode == 7 ? '</span>' : '');
 			if (getDolGlobalString('CONTRACT_SHOW_SIGNATURE_STATUS_WITH_SERVICE_STATUS')) {
 				$text .= is_null($this->signed_status) ? '' : ' '.$this->getLibSignedStatus(5);
@@ -2048,7 +2048,7 @@ class Contrat extends CommonObject
 		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 			return ['optimize' => $langs->trans("ShowContract")];
 		}
-		if ($user->hasRight('contrat', 'lire')) {
+		if ($user->hasRight('contract', 'lire')) {
 			$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("Contract").'</u>';
 			/* Status of a contract is status of all services, so disabled
 			if (isset($this->statut)) {
@@ -2101,7 +2101,7 @@ class Contrat extends CommonObject
 
 		$result = '';
 
-		$url = DOL_URL_ROOT.'/contrat/card.php?id='.$this->id;
+		$url = DOL_URL_ROOT.'/contract/card.php?id='.$this->id;
 
 		//if ($option !== 'nolink')
 		//{
@@ -2130,7 +2130,7 @@ class Contrat extends CommonObject
 		}
 
 		$linkclose = '';
-		if (empty($notooltip) && $user->hasRight('contrat', 'lire')) {
+		if (empty($notooltip) && $user->hasRight('contract', 'lire')) {
 			if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 				$label = $langs->trans("ShowContract");
 				$linkclose .= ' alt="'.dolPrintHTMLForAttribute($label).'"';
@@ -2165,9 +2165,9 @@ class Contrat extends CommonObject
 	}
 
 	/**
-	 *  Charge les information d'ordre info dans l'objet contrat
+	 *  Charge les information d'ordre info dans l'objet contract
 	 *
-	 *  @param  int		$id     id du contrat a charger
+	 *  @param  int		$id     id du contract a charger
 	 *  @return	void
 	 */
 	public function info($id)
@@ -2175,7 +2175,7 @@ class Contrat extends CommonObject
 		$sql = "SELECT c.rowid, c.ref, c.datec,";
 		$sql .= " c.tms as date_modification,";
 		$sql .= " fk_user_author";
-		$sql .= " FROM ".MAIN_DB_PREFIX."contrat as c";
+		$sql .= " FROM ".MAIN_DB_PREFIX."contract as c";
 		$sql .= " WHERE c.rowid = ".((int) $id);
 
 		$result = $this->db->query($sql);
@@ -2210,8 +2210,8 @@ class Contrat extends CommonObject
 		$tab = [];
 
 		$sql = "SELECT cd.rowid";
-		$sql .= " FROM ".MAIN_DB_PREFIX."contratdet as cd";
-		$sql .= " WHERE fk_contrat =".((int) $this->id);
+		$sql .= " FROM ".MAIN_DB_PREFIX."contractdet as cd";
+		$sql .= " WHERE fk_contract =".((int) $this->id);
 		if ($status >= 0) {
 			$sql .= " AND statut = ".((int) $status);
 		}
@@ -2240,16 +2240,16 @@ class Contrat extends CommonObject
 	 *	@param	int[]		$status					sort contracts having these status
 	 *	@param  string[]	$product_categories		sort contracts containing these product categories
 	 *	@param	int[]		$line_status			sort contracts where lines have these status
-	 *  @return array<int,Contrat>|int<min,-1>					Array of contracts id or <0 if error
+	 *  @return array<int,Contract>|int<min,-1>					Array of contracts id or <0 if error
 	 */
 	public function getListOfContracts($option = 'all', $status = [], $product_categories = [], $line_status = [])
 	{
 		$tab = [];
 
 		$sql = "SELECT c.rowid";
-		$sql .= " FROM ".MAIN_DB_PREFIX."contrat as c";
+		$sql .= " FROM ".MAIN_DB_PREFIX."contract as c";
 		if (!empty($product_categories)) {
-			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."contratdet as cd ON cd.fk_contrat = c.rowid";
+			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."contractdet as cd ON cd.fk_contract = c.rowid";
 			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."category_product as cp ON cp.fk_product = cd.fk_product AND cp.fk_category IN (".$this->db->sanitize(implode(', ', $product_categories)).")";
 		}
 		$sql .= " WHERE c.fk_soc =".((int) $this->socid);
@@ -2265,9 +2265,9 @@ class Contrat extends CommonObject
 			$i = 0;
 			while ($i < $num) {
 				$obj = $this->db->fetch_object($resql);
-				$contrat = new Contrat($this->db);
-				$contrat->fetch($obj->rowid);
-				$tab[$contrat->id] = $contrat;
+				$contract = new Contract($this->db);
+				$contract->fetch($obj->rowid);
+				$tab[$contract->id] = $contract;
 				$i++;
 			}
 			return $tab;
@@ -2291,8 +2291,8 @@ class Contrat extends CommonObject
 		// phpcs:enable
 		global $config, $langs;
 
-		$this->from = " FROM ".MAIN_DB_PREFIX."contrat as c";
-		$this->from .= ", ".MAIN_DB_PREFIX."contratdet as cd";
+		$this->from = " FROM ".MAIN_DB_PREFIX."contract as c";
+		$this->from .= ", ".MAIN_DB_PREFIX."contractdet as cd";
 		$this->from .= ", ".MAIN_DB_PREFIX."societe as s";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$this->from .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
@@ -2302,20 +2302,20 @@ class Contrat extends CommonObject
 			$sql = "SELECT cd.rowid, cd.date_ouverture_prevue as datefin";
 			$sql .= $this->from;
 			$sql .= " WHERE c.statut = 1";
-			$sql .= " AND c.rowid = cd.fk_contrat";
+			$sql .= " AND c.rowid = cd.fk_contract";
 			$sql .= " AND cd.statut = 0";
 		} elseif ($mode == 'expired') {
 			$sql = "SELECT cd.rowid, cd.date_fin_validite as datefin";
 			$sql .= $this->from;
 			$sql .= " WHERE c.statut = 1";
-			$sql .= " AND c.rowid = cd.fk_contrat";
+			$sql .= " AND c.rowid = cd.fk_contract";
 			$sql .= " AND cd.statut = 4";
 			$sql .= " AND cd.date_fin_validite < '".$this->db->idate(dol_now())."'";
 		} elseif ($mode == 'active') {
 			$sql = "SELECT cd.rowid, cd.date_fin_validite as datefin";
 			$sql .= $this->from;
 			$sql .= " WHERE c.statut = 1";
-			$sql .= " AND c.rowid = cd.fk_contrat";
+			$sql .= " AND c.rowid = cd.fk_contract";
 			$sql .= " AND cd.statut = 4";
 			//$datetouse = dol_now();
 			//$sql.= " AND cd.date_fin_validite < '".$this->db->idate($datetouse)."'";
@@ -2338,18 +2338,18 @@ class Contrat extends CommonObject
 				$warning_delay = $config->contract->services->inactifs->warning_delay;
 				$label = $langs->trans("BoardNotActivatedServices");
 				$labelShort = $langs->trans("BoardNotActivatedServicesShort");
-				$url = DOL_URL_ROOT.'/contrat/services_list.php?mainmenu=commercial&leftmenu=contracts&search_status=0&sortfield=cd.date_fin_validite&sortorder=asc';
-				$url_late = DOL_URL_ROOT.'/contrat/services_list.php?mainmenu=commercial&leftmenu=contracts&search_status=0&search_option=late';
+				$url = DOL_URL_ROOT.'/contract/services_list.php?mainmenu=commercial&leftmenu=contracts&search_status=0&sortfield=cd.date_fin_validite&sortorder=asc';
+				$url_late = DOL_URL_ROOT.'/contract/services_list.php?mainmenu=commercial&leftmenu=contracts&search_status=0&search_option=late';
 			} elseif ($mode == 'active') {
 				$warning_delay = $config->contract->services->expires->warning_delay;
-				$url = DOL_URL_ROOT.'/contrat/services_list.php?mainmenu=commercial&leftmenu=contracts&search_status=4&filter=expired&sortfield=cd.date_fin_validite&sortorder=asc';
-				$url_late = DOL_URL_ROOT.'/contrat/services_list.php?mainmenu=commercial&leftmenu=contracts&search_status=4&search_option=late';
+				$url = DOL_URL_ROOT.'/contract/services_list.php?mainmenu=commercial&leftmenu=contracts&search_status=4&filter=expired&sortfield=cd.date_fin_validite&sortorder=asc';
+				$url_late = DOL_URL_ROOT.'/contract/services_list.php?mainmenu=commercial&leftmenu=contracts&search_status=4&search_option=late';
 				$label = $langs->trans("BoardExpiredServices");
 				$labelShort = $langs->trans("BoardExpiredServicesShort");
 			} else {
 				$warning_delay = $config->contract->services->expires->warning_delay;
-				$url = DOL_URL_ROOT.'/contrat/services_list.php?mainmenu=commercial&leftmenu=contracts&sortfield=cd.date_fin_validite&sortorder=asc';
-				$url_late = DOL_URL_ROOT.'/contrat/services_list.php?mainmenu=commercial&leftmenu=contracts&search_option=late';
+				$url = DOL_URL_ROOT.'/contract/services_list.php?mainmenu=commercial&leftmenu=contracts&sortfield=cd.date_fin_validite&sortorder=asc';
+				$url_late = DOL_URL_ROOT.'/contract/services_list.php?mainmenu=commercial&leftmenu=contracts&search_option=late';
 				$label = $langs->trans("BoardRunningServices");
 				$labelShort = $langs->trans("BoardRunningServicesShort");
 			}
@@ -2391,7 +2391,7 @@ class Contrat extends CommonObject
 		$clause = "WHERE";
 
 		$sql = "SELECT count(c.rowid) as nb";
-		$sql .= " FROM ".MAIN_DB_PREFIX."contrat as c";
+		$sql .= " FROM ".MAIN_DB_PREFIX."contract as c";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON c.fk_soc = s.rowid";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON s.rowid = sc.fk_soc";
@@ -2415,7 +2415,7 @@ class Contrat extends CommonObject
 	}
 
 
-	/* gestion des contacts d'un contrat */
+	/* gestion des contacts d'un contract */
 
 	/**
 	 *  Return id des contacts clients de facturation
@@ -2479,7 +2479,7 @@ class Contrat extends CommonObject
 		$this->socid = 1;
 		$this->status = 0;
 		$this->date_creation = (dol_now() - 3600 * 24 * 7);
-		$this->date_contrat = dol_now();
+		$this->date_contract = dol_now();
 		$this->commercial_signature_id = 1;
 		$this->commercial_suivi_id = 1;
 		$this->note_private = 'This is a comment (private)';
@@ -2489,7 +2489,7 @@ class Contrat extends CommonObject
 		$nbp = min(1000, GETPOSTINT('nblines') ? GETPOSTINT('nblines') : 5);	// We can force the nb of lines to test from command line (but not more than 1000)
 		$xnbp = 0;
 		while ($xnbp < $nbp) {
-			$line = new ContratLigne($this->db);
+			$line = new ContractLine($this->db);
 			$line->qty = 1;
 			$line->subprice = 100;
 			$line->tva_tx = 19.6;
@@ -2585,7 +2585,7 @@ class Contrat extends CommonObject
 	public static function replaceThirdparty(DoliDB $dbs, $origin_id, $dest_id)
 	{
 		$tables = array(
-			'contrat'
+			'contract'
 		);
 
 		return CommonObject::commonReplaceThirdparty($dbs, $origin_id, $dest_id, $tables);
@@ -2602,7 +2602,7 @@ class Contrat extends CommonObject
 	public static function replaceProduct(DoliDB $db, $origin_id, $dest_id)
 	{
 		$tables = array(
-			'contratdet'
+			'contractdet'
 		);
 
 		return CommonObject::commonReplaceProduct($db, $origin_id, $dest_id, $tables);
@@ -2755,9 +2755,9 @@ class Contrat extends CommonObject
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
 		$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid, cd.date_fin_validite, p.duration';
-		$sql .= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd';
+		$sql .= ' FROM '.MAIN_DB_PREFIX.'contract as c, '.MAIN_DB_PREFIX.'contractdet as cd';
 		$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product as p ON p.rowid = cd.fk_product';
-		$sql .= ' WHERE cd.fk_contrat = c.rowid';
+		$sql .= ' WHERE cd.fk_contract = c.rowid';
 		$sql .= " AND date_format(cd.date_fin_validite, '%Y-%m-%d') <= date_format('".$this->db->idate($enddatetoscan)."', '%Y-%m-%d')";
 		$sql .= " AND cd.statut = 4";
 		if ($thirdparty_id > 0) {
@@ -2780,7 +2780,7 @@ class Contrat extends CommonObject
 					}
 
 					// Load contract
-					$object = new Contrat($this->db);
+					$object = new Contract($this->db);
 					$object->fetch($obj->rowid);		// fetch also lines
 					//$object->fetch_thirdparty();
 
@@ -2805,7 +2805,7 @@ class Contrat extends CommonObject
 					// Test if there is at least 1 open invoice
 					if (isset($object->linkedObjects['facture']) && is_array($object->linkedObjects['facture']) && count($object->linkedObjects['facture']) > 0) {
 						// Sort array of linked invoices by ascending date
-						usort($object->linkedObjects['facture'], array('Contrat', 'contractCmpDate'));
+						usort($object->linkedObjects['facture'], array('Contract', 'contractCmpDate'));
 						//dol_sort_array($object->linkedObjects['facture'], 'date');
 
 						$someinvoicenotpaid = 0;
@@ -2835,17 +2835,17 @@ class Contrat extends CommonObject
 						}
 
 						if ($protecti < 1000) {	// If not, there is a pb
-							// We will update the end of date of contrat, so first we refresh contract data
+							// We will update the end of date of contract, so first we refresh contract data
 							dol_syslog("We will update the end of date of contract with newdate = ".dol_print_date($newdate, 'dayhourrfc'));
 
 							$this->db->begin();
 
 							$errorforlocaltransaction = 0;
 
-							$label = 'Renewal of contrat '.$object->ref.' line '.$obj->lid;
+							$label = 'Renewal of contract '.$object->ref.' line '.$obj->lid;
 							$comment = 'Renew date of contract '.$object->ref.' line '.$obj->lid.' by doAutoRenewContracts';
 
-							$sqlupdate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$this->db->idate($newdate)."'";
+							$sqlupdate = 'UPDATE '.MAIN_DB_PREFIX."contractdet SET date_fin_validite = '".$this->db->idate($newdate)."'";
 							$sqlupdate .= ' WHERE rowid = '.((int) $obj->lid);
 							$resqlupdate = $this->db->query($sqlupdate);
 							if ($resqlupdate) {
@@ -2945,8 +2945,8 @@ class Contrat extends CommonObject
 			'@phan-var-force Societe $tmpthirdparty';
 			$return .= '<br><div class="info-box-label inline-block valignmiddle">'.$tmpthirdparty->getNomUrl(1).'</div>';
 		}
-		if (property_exists($this, 'date_contrat')) {
-			$return .= '<br><span class="opacitymedium valignmiddle">'.$langs->trans("DateContract").' : </span><span class="info-box-label valignmiddle">'.dol_print_date($this->date_contrat, 'day').'</span>';
+		if (property_exists($this, 'date_contract')) {
+			$return .= '<br><span class="opacitymedium valignmiddle">'.$langs->trans("DateContract").' : </span><span class="info-box-label valignmiddle">'.dol_print_date($this->date_contract, 'day').'</span>';
 		}
 		if (method_exists($this, 'getLibStatut')) {
 			$return .= '<br><div class="info-box-status valignmiddle">'.$this->getLibStatut(7).'</div>';

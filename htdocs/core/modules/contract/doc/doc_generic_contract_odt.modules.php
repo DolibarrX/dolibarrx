@@ -200,7 +200,7 @@ class doc_generic_contract_odt extends ModelePDFContract
 	/**
 	 *  Function to build a document on disk using the generic odt module
 	 *
-	 *  @param      Contrat     $object             Object source to build document
+	 *  @param      Contract     $object             Object source to build document
 	 *  @param      Translate   $outputlangs        Lang output object
 	 *  @param      string      $srctemplatepath    Full path of source filename for generator using a template file
 	 *  @param      int<0,1>    $hidedetails        Do not show line details
@@ -239,7 +239,7 @@ class doc_generic_contract_odt extends ModelePDFContract
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
-				$object = new Contrat($this->db);
+				$object = new Contract($this->db);
 				$result = $object->fetch($id);
 				if ($result < 0) {
 					dol_print_error($this->db, $object->error);
@@ -287,11 +287,11 @@ class doc_generic_contract_odt extends ModelePDFContract
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->contrat->dir_temp=".$config->contrat->dir_temp;
+				//print "conf->contract->dir_temp=".$config->contract->dir_temp;
 
 				dol_mkdir($config->contract->dir_temp);
 				if (!is_writable($config->contract->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->contrat->dir_temp);
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->contract->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -361,7 +361,7 @@ class doc_generic_contract_odt extends ModelePDFContract
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $config->contrat->dir_temp,
+							'PATH_TO_TMP'	  => $config->contract->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

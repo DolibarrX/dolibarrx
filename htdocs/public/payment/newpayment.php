@@ -1366,18 +1366,18 @@ if ($source == 'contractline') {
 	$found = true;
 	$langs->load("contracts");
 
-	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 
-	$contract = new Contrat($db);
-	$contractline = new ContratLigne($db);
+	$contract = new Contract($db);
+	$contractline = new ContractLine($db);
 
 	$result = $contractline->fetch(0, $ref);
 	if ($result <= 0) {
 		$mesg = $contractline->error;
 		$error++;
 	} else {
-		if ($contractline->fk_contrat > 0) {
-			$result = $contract->fetch($contractline->fk_contrat);
+		if ($contractline->fk_contract > 0) {
+			$result = $contract->fetch($contractline->fk_contract);
 			if ($result > 0) {
 				$result = $contract->fetch_thirdparty($contract->socid);
 			} else {

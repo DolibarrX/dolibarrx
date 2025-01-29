@@ -24,14 +24,14 @@
  */
 
 /**
- *       \file       htdocs/contrat/document.php
- *       \ingroup    contrat
- *       \brief      Page des documents joints sur les contrats
+ *       \file       htdocs/contract/document.php
+ *       \ingroup    contract
+ *       \brief      Page des documents joints sur les contracts
  */
 
 require "../main.inc.php";
 require_once DOL_DOCUMENT_ROOT.'/core/lib/contract.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
@@ -81,21 +81,21 @@ if (!$sortfield) {
 }
 
 
-$object = new Contrat($db);
+$object = new Contract($db);
 $object->fetch($id, $ref);
 if ($object->id > 0) {
 	$object->fetch_thirdparty();
 }
 
-$upload_dir = $config->contrat->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
+$upload_dir = $config->contract->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
 $modulePart = 'contract';
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('contractcard', 'globalcard'));
 
-$permissionToAdd = $user->hasRight('contrat', 'creer');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('contract', 'creer');	// Used by the include of actions_dellink.inc.php
 
-$result = restrictedArea($user, 'contrat', $object->id);
+$result = restrictedArea($user, 'contract', $object->id);
 
 
 /*
@@ -114,7 +114,7 @@ $form = new Form($db);
 $title = $langs->trans("Contract");
 $help_url = 'EN:Module_Contracts|FR:Module_Contrat';
 
-llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contrat page-card_documents');
+llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contract page-card_documents');
 
 
 if ($object->id) {
@@ -133,7 +133,7 @@ if ($object->id) {
 
 	// Contract card
 
-	$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+	$linkback = '<a href="'.DOL_URL_ROOT.'/contract/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 
 	$morehtmlref = '';
@@ -155,7 +155,7 @@ if ($object->id) {
 	// Thirdparty
 	$morehtmlref .= '<br>'.$object->thirdparty->getNomUrl(1);
 	if (!getDolGlobalString('MAIN_DISABLE_OTHER_LINK') && $object->thirdparty->id > 0) {
-		$morehtmlref .= ' <span class="otherlink">(<a href="'.DOL_URL_ROOT.'/contrat/list.php?socid='.$object->thirdparty->id.'&search_name='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherContracts").'</a>)</span>';
+		$morehtmlref .= ' <span class="otherlink">(<a href="'.DOL_URL_ROOT.'/contract/list.php?socid='.$object->thirdparty->id.'&search_name='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherContracts").'</a>)</span>';
 	}
 	// Project
 	if (isModEnabled('project')) {
@@ -197,8 +197,8 @@ if ($object->id) {
 	print dol_get_fiche_end();
 
 	$modulePart = 'contract';
-	$permissionToAdd = $user->hasRight('contrat', 'creer');
-	$permtoedit = $user->hasRight('contrat', 'creer');
+	$permissionToAdd = $user->hasRight('contract', 'creer');
+	$permtoedit = $user->hasRight('contract', 'creer');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 } else {

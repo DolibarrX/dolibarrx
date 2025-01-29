@@ -1886,8 +1886,8 @@ class FormFile
 			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 			$object_instance = new OrderFournisseur($this->db);
 		} elseif ($modulePart == 'contract') {
-			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-			$object_instance = new Contrat($this->db);
+			include_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
+			$object_instance = new Contract($this->db);
 		} elseif ($modulePart == 'product') {
 			include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 			$object_instance = new Product($this->db);

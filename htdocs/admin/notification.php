@@ -304,7 +304,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 		$elementLabel = $langs->trans('Shipping');
 	} elseif ($notifiedevent['elementtype'] == 'expensereport' || $notifiedevent['elementtype'] == 'expense_report') {
 		$elementLabel = $langs->trans('ExpenseReport');
-	} elseif ($notifiedevent['elementtype'] == 'contrat') {
+	} elseif ($notifiedevent['elementtype'] == 'contract') {
 		$elementLabel = $langs->trans('Contract');
 	}
 
@@ -326,7 +326,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 		$model = 'invoice_supplier_send';
 	} elseif ($notifiedevent['elementtype'] == 'member') {
 		$model = 'member';
-	} elseif ($notifiedevent['elementtype'] == 'contrat') {
+	} elseif ($notifiedevent['elementtype'] == 'contract') {
 		$model = 'contract_send';
 	}
 
@@ -448,7 +448,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 	} elseif ($notifiedevent['elementtype'] == 'expensereport' || $notifiedevent['elementtype'] == 'expense_report') {
 		$elementPicto = 'expensereport';
 		$elementLabel = $langs->trans('ExpenseReport');
-	} elseif ($notifiedevent['elementtype'] == 'contrat') {
+	} elseif ($notifiedevent['elementtype'] == 'contract') {
 		$elementPicto = 'contract';
 		$elementLabel = $langs->trans('Contract');
 	} elseif ($notifiedevent['elementtype'] == 'agenda') {

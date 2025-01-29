@@ -330,7 +330,7 @@ define(
 		'member' => 'member',  // Has new directory
 		'member_type' => 'member_type',   // No directory, but file called member_type
 		'bank' => 'bank',   // Has new directory
-		'contrat' => 'contract', // Has new directory
+		'contract' => 'contract', // Has new directory
 		'entrepot' => 'stock',   // Has new directory
 		'projet'  => 'project', // Has new directory
 		'category' => 'category', // Has old directory
@@ -462,9 +462,9 @@ function getEntity($element, $shared = 1, $currentobject = null)
 		case 'projet':
 			$element = 'project';
 			break;
-		case 'contrat':
+		case 'contract':
 			$element = 'contract';
-			break; // "/contrat/class/contrat.class.php"
+			break; // "/contract/class/contract.class.php"
 		case 'order_supplier':
 			$element = 'supplier_order';
 			break; // "/fourn/class/fournisseur.order.class.php"
@@ -2952,7 +2952,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 			$modulePart = $object->element;
 		} elseif ($object->element == 'fichinter' || $object->element == 'intervention') {
 			$modulePart = 'ficheinter';
-		} elseif ($object->element == 'contrat' || $object->element == 'contract') {
+		} elseif ($object->element == 'contract' || $object->element == 'contract') {
 			$modulePart = 'contract';
 		} elseif ($object->element == 'order_supplier') {
 			$modulePart = 'supplier_order';
@@ -3193,7 +3193,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 			$tmptxt = $object->getLibStatut(5, $object->totalpaid);
 		}
 		$morehtmlstatus .= $tmptxt;
-	} elseif ($object->element == 'contrat' || $object->element == 'contract') {
+	} elseif ($object->element == 'contract' || $object->element == 'contract') {
 		if ($object->statut == 0) {
 			$morehtmlstatus .= $object->getLibStatut(5);
 		} else {
@@ -5310,10 +5310,10 @@ function img_picture($titlealt, $picture, $moreatt = '', $pictureIsFullPath = 0,
 				'bill' => 'infobox-order', 'billa' => 'infobox-order', 'billr' => 'infobox-order', 'billd' => 'infobox-order',
 				'bookcal' => 'infobox-action',
 				'margin' => 'infobox-bank_account', 'conferenceorbooth' => 'infobox-project',
-				'cash-register' => 'infobox-bank_account', 'contract' => 'infobox-contrat', 'check' => 'font-status4', 'collab' => 'infobox-action', 'conversation' => 'infobox-contrat',
+				'cash-register' => 'infobox-bank_account', 'contract' => 'infobox-contract', 'check' => 'font-status4', 'collab' => 'infobox-action', 'conversation' => 'infobox-contract',
 				'donation' => 'infobox-order', 'dolly' => 'infobox-order',  'dollyrevert' => 'flip infobox-order_supplier',
 				'ecm' => 'infobox-action', 'eventorganization' => 'infobox-project',
-				'hrm' => 'infobox-member', 'group' => 'infobox-member', 'intervention' => 'infobox-contrat',
+				'hrm' => 'infobox-member', 'group' => 'infobox-member', 'intervention' => 'infobox-contract',
 				'incoterm' => 'infobox-supplier_proposal',
 				'currency' => 'infobox-bank_account', 'multicurrency' => 'infobox-bank_account',
 				'members' => 'infobox-member', 'member' => 'infobox-member', 'money-bill-alt' => 'infobox-bank_account',
@@ -5321,14 +5321,14 @@ function img_picture($titlealt, $picture, $moreatt = '', $pictureIsFullPath = 0,
 				'user' => 'infobox-member', 'users' => 'infobox-member',
 				'error' => 'pictureerror', 'warning' => 'picturewarning', 'switch_on' => 'font-status4', 'switch_on_warning' => 'font-status4 warning', 'switch_on_red' => 'font-status8',
 				'holiday' => 'infobox-holiday', 'info' => 'opacityhigh', 'invoice' => 'infobox-order',
-				'knowledgemanagement' => 'infobox-contrat rotate90', 'loan' => 'infobox-bank_account',
+				'knowledgemanagement' => 'infobox-contract rotate90', 'loan' => 'infobox-bank_account',
 				'payment' => 'infobox-bank_account', 'payment_vat' => 'infobox-bank_account', 'poll' => 'infobox-member', 'pos' => 'infobox-bank_account', 'project' => 'infobox-project', 'projecttask' => 'infobox-project',
 				'propal' => 'infobox-propal', 'proposal' => 'infobox-propal','private' => 'infobox-project',
 				'reception' => 'flip infobox-order_supplier', 'recruitmentjobposition' => 'infobox-member', 'recruitmentcandidature' => 'infobox-member',
 				'resource' => 'infobox-action',
 				'salary' => 'infobox-bank_account', 'shapes' => 'infobox-member', 'shipment' => 'infobox-order', 'stripe' => 'infobox-bank_account', 'supplier_invoice' => 'infobox-order_supplier', 'supplier_invoicea' => 'infobox-order_supplier', 'supplier_invoiced' => 'infobox-order_supplier',
 				'supplier' => 'infobox-order_supplier', 'supplier_order' => 'infobox-order_supplier', 'supplier_proposal' => 'infobox-supplier_proposal',
-				'ticket' => 'infobox-contrat', 'title_accountancy' => 'infobox-bank_account', 'title_hrm' => 'infobox-holiday', 'expensereport' => 'infobox-expensereport', 'trip' => 'infobox-expensereport', 'title_agenda' => 'infobox-action',
+				'ticket' => 'infobox-contract', 'title_accountancy' => 'infobox-bank_account', 'title_hrm' => 'infobox-holiday', 'expensereport' => 'infobox-expensereport', 'trip' => 'infobox-expensereport', 'title_agenda' => 'infobox-action',
 				'vat' => 'infobox-bank_account',
 				//'title_setup'=>'infobox-action', 'tools'=>'infobox-action',
 				'list-alt' => 'imgforviewmode', 'calendar' => 'imgforviewmode', 'calendarweek' => 'imgforviewmode', 'calendarmonth' => 'imgforviewmode', 'calendarday' => 'imgforviewmode', 'calendarperuser' => 'imgforviewmode'
@@ -9366,8 +9366,8 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 				$substitutionArray['__RECEPTIONTRACKNUMURL__'] = $object->tracking_url;
 			}
 
-			if (is_object($object) && $object->element == 'contrat' && $object->id > 0 && is_array($object->lines)) {
-				'@phan-var-force Contrat $object';
+			if (is_object($object) && $object->element == 'contract' && $object->id > 0 && is_array($object->lines)) {
+				'@phan-var-force Contract $object';
 				$dateplannedstart = '';
 				$datenextexpiration = '';
 				foreach ($object->lines as $line) {
@@ -9465,7 +9465,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 						$amounttouse = $object->last_subscription_amount;
 					}
 				}
-				if (is_object($object) && $object->element == 'contrat') {
+				if (is_object($object) && $object->element == 'contract') {
 					$typeforonlinepayment = 'contract';
 				}
 				if (is_object($object) && $object->element == 'fichinter') {
@@ -9501,7 +9501,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 				} else {
 					$substitutionArray['__DIRECTDOWNLOAD_URL_INVOICE__'] = '';
 				}
-				if (getDolGlobalString('CONTRACT_ALLOW_EXTERNAL_DOWNLOAD') && is_object($object) && $object->element == 'contrat') {
+				if (getDolGlobalString('CONTRACT_ALLOW_EXTERNAL_DOWNLOAD') && is_object($object) && $object->element == 'contract') {
 					$substitutionArray['__DIRECTDOWNLOAD_URL_CONTRACT__'] = $object->getLastMainDocLink($object->element);
 				} else {
 					$substitutionArray['__DIRECTDOWNLOAD_URL_CONTRACT__'] = '';
@@ -9531,9 +9531,9 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 					'@phan-var-force Facture $object';
 					$substitutionArray['__URL_INVOICE__'] = DOL_MAIN_URL_ROOT."/compta/facture/card.php?id=".$object->id;
 				}
-				if (is_object($object) && $object->element == 'contrat') {
-					'@phan-var-force Contrat $object';
-					$substitutionArray['__URL_CONTRACT__'] = DOL_MAIN_URL_ROOT."/contrat/card.php?id=".$object->id;
+				if (is_object($object) && $object->element == 'contract') {
+					'@phan-var-force Contract $object';
+					$substitutionArray['__URL_CONTRACT__'] = DOL_MAIN_URL_ROOT."/contract/card.php?id=".$object->id;
 					require_once DOL_DOCUMENT_ROOT.'/core/lib/signature.lib.php';
 					$substitutionArray['__ONLINE_SIGN_URL__'] = getOnlineSignatureUrl(0, 'contract', $object->ref, 1, $object);
 				}
@@ -13123,7 +13123,7 @@ function getElementProperties($elementType)
 		$classpath = $module.'/class';
 		$classfile = $module;
 		$classname = preg_replace('/det$/', 'Line', $element);
-		if (in_array($module, array('expedition', 'propale', 'facture', 'contrat', 'fichinter', 'orderfournisseur'))) {
+		if (in_array($module, array('expedition', 'propale', 'facture', 'contract', 'fichinter', 'orderfournisseur'))) {
 			$classname = preg_replace('/det$/', 'Ligne', $element);
 		}
 	}
@@ -13257,15 +13257,15 @@ function getElementProperties($elementType)
 		$table_element = 'supplier_proposaldet';
 		$parent_element = 'supplier_proposal';
 	} elseif ($elementType == 'contract') {
-		$classpath = 'contrat/class';
-		$module = 'contrat';
-		$subelement = 'contrat';
+		$classpath = 'contract/class';
+		$module = 'contract';
+		$subelement = 'contract';
 		$table_element = 'contract';
-	} elseif ($elementType == 'contratdet') {
-		$classpath = 'contrat/class';
-		$module = 'contrat';
-		$table_element = 'contratdet';
-		$parent_element = 'contrat';
+	} elseif ($elementType == 'contractdet') {
+		$classpath = 'contract/class';
+		$module = 'contract';
+		$table_element = 'contractdet';
+		$parent_element = 'contract';
 	} elseif ($elementType == 'mailing') {
 		$classpath = 'comm/mailing/class';
 		$module = 'mailing';
@@ -14346,7 +14346,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 			$sql .= ", sp.lastname, sp.firstname";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 			$sql .= ", m.lastname, m.firstname";
-		} elseif (is_object($filterobj) && in_array(get_class($filterobj), array('Order', 'OrderFournisseur', 'Product', 'Ticket', 'BOM', 'Contrat', 'Facture', 'FactureFournisseur'))) {
+		} elseif (is_object($filterobj) && in_array(get_class($filterobj), array('Order', 'OrderFournisseur', 'Product', 'Ticket', 'BOM', 'Contract', 'Facture', 'FactureFournisseur'))) {
 			$sql .= ", o.ref";
 		}
 		$sql .= " FROM ".MAIN_DB_PREFIX."actioncomm as a";
@@ -14378,8 +14378,8 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 			$sql .= ", ".MAIN_DB_PREFIX."ticket as o";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'BOM') {
 			$sql .= ", ".MAIN_DB_PREFIX."bom_bom as o";
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'Contrat') {
-			$sql .= ", ".MAIN_DB_PREFIX."contrat as o";
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'Contract') {
+			$sql .= ", ".MAIN_DB_PREFIX."contract as o";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Facture') {
 			$sql .= ", ".MAIN_DB_PREFIX."facture as o";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'FactureFournisseur') {
@@ -14422,7 +14422,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = ".((int) $filterobj->id);
 				}
-			} elseif (is_object($filterobj) && get_class($filterobj) == 'Contrat') {
+			} elseif (is_object($filterobj) && get_class($filterobj) == 'Contract') {
 				$sql .= " AND a.fk_element = o.rowid AND a.elementtype = 'contract'";
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = ".((int) $filterobj->id);

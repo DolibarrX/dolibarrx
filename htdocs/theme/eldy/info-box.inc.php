@@ -410,7 +410,7 @@ if (GETPOSTISSET('THEME_SATURATE_RATIO')) {
 .bg-infobox-supplier_proposal, .bg-infobox-invoice_supplier, .bg-infobox-order_supplier {
 	<?php echo $prefix; ?>color: #599caf !important;
 }
-.bg-infobox-contrat, .bg-infobox-ticket{
+.bg-infobox-contract, .bg-infobox-ticket{
 	<?php echo $prefix; ?>color: #3bbfa8 !important;
 }
 .bg-infobox-bank_account{
@@ -453,7 +453,7 @@ a.vmenu span, span.vmenu, span.vmenu span {
 .infobox-order_supplier:not(.error) {
 	color: #599caf;
 }
-.infobox-contrat, .infobox-ticket{
+.infobox-contract, .infobox-ticket{
 	color: #3bbfa8;
 }
 .infobox-bank_account{
@@ -488,7 +488,7 @@ a.vmenu span, span.vmenu, span.vmenu span {
 .fa-dol-order_supplier:before {
 	content: "\f570";
 }
-.fa-dol-contrat:before {
+.fa-dol-contract:before {
 	content: "\f0f2";
 }
 .fa-dol-ticket:before {

@@ -49,7 +49,7 @@ if (isModEnabled('project')) {
 if (isModEnabled('contract')) {
 	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formcontract.class.php';
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/contract.lib.php';
-	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	include_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 }
 
 /**
@@ -257,7 +257,7 @@ if (empty($resHook)) {
 			$object->fk_soc = GETPOSTINT('socid');
 			$fk_user_assign = GETPOSTINT('fk_user_assign');
 			$object->fk_project = GETPOSTINT('projectid');
-			$object->fk_contract = GETPOSTISSET('contractid') ? GETPOSTINT('contractid') : GETPOSTINT('contratid');
+			$object->fk_contract = GETPOSTISSET('contractid') ? GETPOSTINT('contractid') : GETPOSTINT('contractid');
 
 			if ($fk_user_assign > 0) {
 				$object->fk_user_assign = $fk_user_assign;
@@ -579,7 +579,7 @@ if (empty($resHook)) {
 			exit();
 		}
 	} elseif ($action == 'setcontract' && $permissionToAdd) {
-		// Categorisation dans contrat
+		// Categorisation dans contract
 		if ($object->fetch(GETPOSTINT('id'), '', GETPOST('track_id', 'alpha')) >= 0) {
 			$object->setContract(GETPOSTINT('contractid'));
 			$url = 'card.php?track_id=' . $object->track_id;
@@ -765,7 +765,7 @@ if ($action == 'create' || $action == 'presend') {
 	$formticket->showForm(0, 'edit', 0, null, $action, $object);
 
 	print dol_get_fiche_end();
-} elseif (empty($action) || in_array($action, ['builddoc', 'view', 'addlink', 'dellink', 'presend', 'presend_addmessage', 'close', 'abandon', 'delete', 'editcustomer', 'progression', 'categories', 'reopen', 'edit_contrat', 'editsubject', 'edit_extras', 'update_extras', 'edit_extrafields', 'set_extrafields', 'classify', 'sel_contract', 'edit_message_init', 'set_status', 'dellink'])) {
+} elseif (empty($action) || in_array($action, ['builddoc', 'view', 'addlink', 'dellink', 'presend', 'presend_addmessage', 'close', 'abandon', 'delete', 'editcustomer', 'progression', 'categories', 'reopen', 'edit_contract', 'editsubject', 'edit_extras', 'update_extras', 'edit_extrafields', 'set_extrafields', 'classify', 'sel_contract', 'edit_message_init', 'set_status', 'dellink'])) {
 	if (!empty($res) && $res > 0) {
 		// or for unauthorized internals users
 		if (!$user->socid && (getDolGlobalString('TICKET_LIMIT_VIEW_ASSIGNED_ONLY') && $object->fk_user_assign != $user->id) && !$user->hasRight('ticket', 'manage')) {
@@ -1020,20 +1020,20 @@ if ($action == 'create' || $action == 'presend') {
 				$morehtmlref .= '<br>';
 				if ($permissiontoedit) {
 					$morehtmlref .= img_picture($langs->trans("Contract"), 'contract', 'class="picturefixedwidth"');
-					if ($action == 'edit_contrat') {
+					if ($action == 'edit_contract') {
 						$formcontract = new FormContract($db);
-						$morehtmlref .= $formcontract->formSelectContract($_SERVER["PHP_SELF"].'?id='.$object->id, $object->socid, $object->fk_contract, 'contratid', 0, 1, 1, 1);
+						$morehtmlref .= $formcontract->formSelectContract($_SERVER["PHP_SELF"].'?id='.$object->id, $object->socid, $object->fk_contract, 'contractid', 0, 1, 1, 1);
 					} else {
-						$morehtmlref .= '<a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=edit_contrat&token='.newToken().'&id='.$object->id.'">';
+						$morehtmlref .= '<a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=edit_contract&token='.newToken().'&id='.$object->id.'">';
 						$morehtmlref .=  img_edit($langs->trans('SetContract'));
 						$morehtmlref .=  '</a>';
 					}
 				} else {
 					if (!empty($object->fk_contract)) {
-						$contratstatic = new Contrat($db);
-						$contratstatic->fetch($object->fk_contract);
+						$contractstatic = new Contract($db);
+						$contractstatic->fetch($object->fk_contract);
 						//print '<a href="'.DOL_URL_ROOT.'/projet/card.php?id='.$selected.'">'.$projet->title.'</a>';
-						$morehtmlref .= $contratstatic->getNomUrl(0, 0, 1);
+						$morehtmlref .= $contractstatic->getNomUrl(0, 0, 1);
 					}
 				}
 			}

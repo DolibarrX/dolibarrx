@@ -1748,7 +1748,7 @@ abstract class CommonObject
 					$modulename = $obj->module ?? $obj->element;
 					if (strpos($obj->element, 'project') !== false) {
 						$modulename = 'projet';
-					} elseif ($obj->element == 'contrat') {
+					} elseif ($obj->element == 'contract') {
 						$element = 'contract';
 					} elseif ($obj->element == 'action') {
 						$modulename = 'agenda';
@@ -3928,8 +3928,8 @@ abstract class CommonObject
 		$sql .= " WHERE ".$this->fk_element." = ".((int) $this->id);
 		if ($exclspec) {
 			$product_field = 'product_type';
-			if ($this->table_element_line == 'contratdet') {
-				$product_field = ''; // contratdet table has no product_type field
+			if ($this->table_element_line == 'contractdet') {
+				$product_field = ''; // contractdet table has no product_type field
 			}
 			if ($product_field) {
 				$sql .= " AND ".$product_field." <> 9";
@@ -5606,7 +5606,7 @@ abstract class CommonObject
 		}
 
 		if (!empty($line->desc)) {
-			'@phan-var-force OrderLine|FactureLigne|ContratLigne|FactureFournisseurLigneRec|SupplierInvoiceLine|SupplierProposalLine $line';
+			'@phan-var-force OrderLine|FactureLigne|ContractLine|FactureFournisseurLigneRec|SupplierInvoiceLine|SupplierProposalLine $line';
 			if ($line->desc == '(CREDIT_NOTE)') {  // TODO Not sure this is used for source object
 				$discount = new DiscountAbsolute($this->db);
 				$discount->fetch($line->fk_remise_except);
@@ -6035,7 +6035,7 @@ abstract class CommonObject
 			if ($this->element == 'product' && getDolGlobalInt("PRODUCT_ALLOW_EXTERNAL_DOWNLOAD")) {
 				$setsharekey = true;
 			}
-			if ($this->element == 'contrat' && getDolGlobalInt("CONTRACT_ALLOW_EXTERNAL_DOWNLOAD")) {
+			if ($this->element == 'contract' && getDolGlobalInt("CONTRACT_ALLOW_EXTERNAL_DOWNLOAD")) {
 				$setsharekey = true;
 			}
 			if ($this->element == 'fichinter' && getDolGlobalInt("FICHINTER_ALLOW_EXTERNAL_DOWNLOAD")) {

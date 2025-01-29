@@ -46,7 +46,7 @@ class Fichinter extends CommonObject
 		'rowid' => array('type' => 'integer', 'label' => 'TechnicalID', 'enabled' => 1, 'visible' => -1, 'notnull' => 1, 'position' => 10),
 		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php', 'label' => 'ThirdParty', 'enabled' => 'isModEnabled("societe")', 'visible' => -1, 'notnull' => 1, 'position' => 15),
 		'fk_projet' => array('type' => 'integer:Project:projet/class/project.class.php:1:(fk_statut:=:1)', 'label' => 'Fk projet', 'enabled' => 'isModEnabled("project")', 'visible' => -1, 'position' => 20),
-		'fk_contrat' => array('type' => 'integer', 'label' => 'Fk contrat', 'enabled' => '$config->contrat->enabled', 'visible' => -1, 'position' => 25),
+		'fk_contract' => array('type' => 'integer', 'label' => 'Fk contract', 'enabled' => '$config->contract->enabled', 'visible' => -1, 'position' => 25),
 		'ref' => array('type' => 'varchar(30)', 'label' => 'Ref', 'enabled' => 1, 'visible' => -1, 'notnull' => 1, 'showoncombobox' => 1, 'position' => 30),
 		'ref_ext' => array('type' => 'varchar(255)', 'label' => 'RefExt', 'enabled' => 1, 'visible' => 0, 'position' => 35),
 		'ref_client' => array('type' => 'varchar(255)', 'label' => 'RefCustomer', 'enabled' => 1, 'visible' => -1, 'position' => 36),
@@ -156,7 +156,7 @@ class Fichinter extends CommonObject
 	/**
 	 * @var int Contract ID
 	 */
-	public $fk_contrat = 0;
+	public $fk_contract = 0;
 
 	/**
 	 * @var int Project ID
@@ -322,7 +322,7 @@ class Fichinter extends CommonObject
 		$sql .= ", description";
 		$sql .= ", model_pdf";
 		$sql .= ", fk_projet";
-		$sql .= ", fk_contrat";
+		$sql .= ", fk_contract";
 		$sql .= ", fk_statut";
 		$sql .= ", signed_status";
 		$sql .= ", note_private";
@@ -339,7 +339,7 @@ class Fichinter extends CommonObject
 		$sql .= ", ".($this->description ? "'".$this->db->escape($this->description)."'" : "null");
 		$sql .= ", '".$this->db->escape($this->model_pdf)."'";
 		$sql .= ", ".($this->fk_project ? ((int) $this->fk_project) : 0);
-		$sql .= ", ".($this->fk_contrat ? ((int) $this->fk_contrat) : 0);
+		$sql .= ", ".($this->fk_contract ? ((int) $this->fk_contract) : 0);
 		$sql .= ", ".((int) $this->statut);
 		$sql .= ", ".($this->signed_status);
 		$sql .= ", ".($this->note_private ? "'".$this->db->escape($this->note_private)."'" : "null");
@@ -480,7 +480,7 @@ class Fichinter extends CommonObject
 		$sql .= " f.datec, f.dateo, f.datee, f.datet, f.fk_user_author,";
 		$sql .= " f.date_valid as datev,";
 		$sql .= " f.tms as datem,";
-		$sql .= " f.duree, f.fk_projet as fk_project, f.note_public, f.note_private, f.model_pdf, f.last_main_doc, f.extraparams, fk_contrat, f.entity as entity";
+		$sql .= " f.duree, f.fk_projet as fk_project, f.note_public, f.note_private, f.model_pdf, f.last_main_doc, f.extraparams, fk_contract, f.entity as entity";
 		$sql .= " FROM ".MAIN_DB_PREFIX."fichinter as f";
 		if ($ref) {
 			$sql .= " WHERE f.entity IN (".getEntity('intervention').")";
@@ -514,7 +514,7 @@ class Fichinter extends CommonObject
 				$this->note_public  = $obj->note_public;
 				$this->note_private = $obj->note_private;
 				$this->model_pdf    = $obj->model_pdf;
-				$this->fk_contrat = $obj->fk_contrat;
+				$this->fk_contract = $obj->fk_contract;
 				$this->entity = $obj->entity;
 
 				$this->user_creation_id = $obj->fk_user_author;
@@ -1271,16 +1271,16 @@ class Fichinter extends CommonObject
 	 *	@param      int		$contractid		Description
 	 *	@return     int						Return integer <0 if KO, >0 if OK
 	 */
-	public function set_contrat($user, $contractid)
+	public function set_contract($user, $contractid)
 	{
 		// phpcs:enable
 		if ($user->hasRight('ficheinter', 'creer')) {
 			$sql = "UPDATE ".MAIN_DB_PREFIX."fichinter ";
-			$sql .= " SET fk_contrat = ".((int) $contractid);
+			$sql .= " SET fk_contract = ".((int) $contractid);
 			$sql .= " WHERE rowid = ".((int) $this->id);
 
 			if ($this->db->query($sql)) {
-				$this->fk_contrat = $contractid;
+				$this->fk_contract = $contractid;
 				return 1;
 			} else {
 				$this->error = $this->db->error();

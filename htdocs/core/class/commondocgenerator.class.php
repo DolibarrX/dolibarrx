@@ -676,7 +676,7 @@ abstract class CommonDocGenerator
 		}
 
 		// Ignore notice for deprecated date - @phan-suppress-next-line PhanUndeclaredProperty
-		$date = (isset($object->element) && $object->element == 'contrat' && isset($object->date_contrat)) ? $object->date_contrat : (isset($object->date) ? $object->date : null);
+		$date = (isset($object->element) && $object->element == 'contract' && isset($object->date_contract)) ? $object->date_contract : (isset($object->date) ? $object->date : null);
 
 		if ($object instanceof OrderFournisseur) {
 			$object->date_validation =  $object->date_valid;

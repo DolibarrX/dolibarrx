@@ -223,7 +223,7 @@ abstract class ActionsContactCardCommon
 			}
 			if (isModEnabled('contract')) {
 				$this->tpl['contact_element'][$i]['linked_element_label'] = $langs->trans("ContactForContracts");
-				$this->tpl['contact_element'][$i]['linked_element_value'] = $this->object->ref_contrat ? $this->object->ref_contrat : $langs->trans("NoContactForAnyContract");
+				$this->tpl['contact_element'][$i]['linked_element_value'] = $this->object->ref_contract ? $this->object->ref_contract : $langs->trans("NoContactForAnyContract");
 				$i++;
 			}
 			if (isModEnabled('invoice')) {

@@ -84,10 +84,10 @@ ALTER TABLE llx_order_fournisseurdet_extrafields DROP INDEX idx_order_fournisseu
 ALTER TABLE llx_order_fournisseurdet_extrafields ADD UNIQUE INDEX uk_order_fournisseurdet_extrafields (fk_object);
 ALTER TABLE llx_orderdet_extrafields DROP INDEX idx_orderdet_extrafields;
 ALTER TABLE llx_orderdet_extrafields ADD UNIQUE INDEX uk_orderdet_extrafields (fk_object);
-ALTER TABLE llx_contrat_extrafields DROP INDEX idx_contrat_extrafields;
-ALTER TABLE llx_contrat_extrafields ADD UNIQUE INDEX uk_contrat_extrafields (fk_object);
-ALTER TABLE llx_contratdet_extrafields DROP INDEX idx_contratdet_extrafields;
-ALTER TABLE llx_contratdet_extrafields ADD UNIQUE INDEX uk_contratdet_extrafields (fk_object);
+ALTER TABLE llx_contract_extrafields DROP INDEX idx_contract_extrafields;
+ALTER TABLE llx_contract_extrafields ADD UNIQUE INDEX uk_contract_extrafields (fk_object);
+ALTER TABLE llx_contractdet_extrafields DROP INDEX idx_contractdet_extrafields;
+ALTER TABLE llx_contractdet_extrafields ADD UNIQUE INDEX uk_contractdet_extrafields (fk_object);
 ALTER TABLE llx_delivery_extrafields DROP INDEX idx_delivery_extrafields;
 ALTER TABLE llx_delivery_extrafields ADD UNIQUE INDEX uk_delivery_extrafields (fk_object);
 ALTER TABLE llx_deliverydet_extrafields DROP INDEX idx_deliverydet_extrafields;
@@ -248,13 +248,13 @@ ALTER TABLE llx_order_fournisseur_dispatch RENAME TO llx_receptiondet_batch;
 UPDATE llx_const SET name = 'THIRDPARTY_CAN_HAVE_CUSTOMER_CATEGORY_EVEN_IF_NOT_CUSTOMER_PROSPECT' WHERE name = 'THIRDPARTY_CAN_HAVE_CATEGORY_EVEN_IF_NOT_CUSTOMER_PROSPECT_SUPPLIER';
 
 ALTER TABLE llx_fichinter ADD COLUMN signed_status smallint DEFAULT NULL AFTER duree;
-ALTER TABLE llx_contrat ADD COLUMN signed_status smallint DEFAULT NULL AFTER date_contrat;
+ALTER TABLE llx_contract ADD COLUMN signed_status smallint DEFAULT NULL AFTER date_contract;
 ALTER TABLE llx_expedition ADD COLUMN signed_status smallint DEFAULT NULL AFTER billed;
 
 ALTER TABLE llx_fichinter ADD COLUMN online_sign_ip	varchar(48);
 ALTER TABLE llx_fichinter ADD COLUMN online_sign_name varchar(64);
-ALTER TABLE llx_contrat ADD COLUMN online_sign_ip	varchar(48);
-ALTER TABLE llx_contrat ADD COLUMN online_sign_name varchar(64);
+ALTER TABLE llx_contract ADD COLUMN online_sign_ip	varchar(48);
+ALTER TABLE llx_contract ADD COLUMN online_sign_name varchar(64);
 ALTER TABLE llx_expedition ADD COLUMN online_sign_ip	varchar(48);
 ALTER TABLE llx_expedition ADD COLUMN online_sign_name varchar(64);
 

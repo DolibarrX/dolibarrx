@@ -62,7 +62,7 @@ if (empty($forceall)) {
 if (empty($filtertype)) {
 	$filtertype = 0;
 }
-if (!empty($object->element) && $object->element == 'contrat' && !getDolGlobalString('STOCK_SUPPORT_SERVICES')) {
+if (!empty($object->element) && $object->element == 'contract' && !getDolGlobalString('STOCK_SUPPORT_SERVICES')) {
 	$filtertype = -1;
 }
 
@@ -121,7 +121,7 @@ if ($nolinesbefore) {
 	print '</tr>';
 }
 
-print '<tr class="pair nodrag nodrop nohoverpair'.(($nolinesbefore || $object->element == 'contrat') ? '' : ' liste_titre_create').'">';
+print '<tr class="pair nodrag nodrop nohoverpair'.(($nolinesbefore || $object->element == 'contract') ? '' : ' liste_titre_create').'">';
 $coldisplay = 0;
 
 // Adds a line numbering column

@@ -28,14 +28,14 @@
  */
 
 /**
- *       \file       htdocs/contrat/list.php
- *       \ingroup    contrat
+ *       \file       htdocs/contract/list.php
+ *       \ingroup    contract
  *       \brief      Page to list contracts
  */
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
@@ -147,19 +147,19 @@ if ($user->socid > 0) {
 
 $hookManager->initHooks(array('contractlist'));
 
-$result = restrictedArea($user, 'contrat', $id);
+$result = restrictedArea($user, 'contract', $id);
 
-$diroutputmassaction = $config->contrat->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->contract->dir_output.'/temp/massgeneration/'.$user->id;
 
-$staticcontrat = new Contrat($db);
-$staticcontratligne = new ContratLigne($db);
+$staticContract = new Contract($db);
+$staticContractLine = new ContractLine($db);
 
 if ($search_status == '') {
 	$search_status = 1;
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$object = new Contrat($db);
+$object = new Contract($db);
 $extrafields = new ExtraFields($db);
 
 // fetch optionals attributes and labels
@@ -198,7 +198,7 @@ $arrayfields = array(
 	'state.nom' => array('label' => $langs->trans("StateShort"), 'checked' => 0, 'position' => 33),
 	'country.code_iso' => array('label' => $langs->trans("Country"), 'checked' => 0, 'position' => 34),
 	'sale_representative' => array('label' => $langs->trans("SaleRepresentativesOfThirdParty"), 'checked' => -1, 'position' => 80),
-	'c.date_contrat' => array('label' => $langs->trans("DateContract"), 'checked' => 1, 'position' => 45),
+	'c.date_contract' => array('label' => $langs->trans("DateContract"), 'checked' => 1, 'position' => 45),
 	'c.datec' => array('label' => $langs->trans("DateCreation"), 'checked' => 0, 'position' => 500),
 	'c.tms' => array('label' => $langs->trans("DateModificationShort"), 'checked' => 0, 'position' => 500),
 	'lower_planned_end_date' => array('label' => $langs->trans("LowerDateEndPlannedShort"), 'checked' => 1, 'position' => 900, 'help' => $langs->trans("LowerDateEndPlannedShort")),
@@ -216,11 +216,11 @@ if (!$user->hasRight('societe', 'client', 'voir')) {
 	$search_sale = $user->id;
 }
 
-$permissiontoread = $user->hasRight('contrat', 'lire');
-$permissionToAdd = $user->hasRight('contrat', 'creer');
-$permissiontodelete = $user->hasRight('contrat', 'supprimer');
+$permissiontoread = $user->hasRight('contract', 'lire');
+$permissionToAdd = $user->hasRight('contract', 'creer');
+$permissiontodelete = $user->hasRight('contract', 'supprimer');
 
-$result = restrictedArea($user, 'contrat', 0);
+$result = restrictedArea($user, 'contract', 0);
 
 
 
@@ -295,9 +295,9 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 }
 
 if (empty($resHook)) {
-	$objectclass = 'Contrat';
+	$objectclass = 'Contract';
 	$objectlabel = 'Contracts';
-	$uploaddir = $config->contrat->dir_output;
+	$uploaddir = $config->contract->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -311,14 +311,14 @@ $formfile = new FormFile($db);
 $formother = new FormOther($db);
 $socstatic = new Societe($db);
 $formcompany = new FormCompany($db);
-$contracttmp = new Contrat($db);
+$contracttmp = new Contract($db);
 
 $now = dol_now();
 
 $title = "";
 
 $sql = 'SELECT';
-$sql .= " c.rowid, c.ref, c.datec as date_creation, c.tms as date_modification, c.date_contrat, c.statut, c.ref_customer, c.ref_supplier, c.note_private, c.note_public, c.entity, c.signed_status,";
+$sql .= " c.rowid, c.ref, c.datec as date_creation, c.tms as date_modification, c.date_contract, c.statut, c.ref_customer, c.ref_supplier, c.note_private, c.note_public, c.entity, c.signed_status,";
 $sql .= ' s.rowid as socid, s.nom as name, s.name_alias, s.email, s.town, s.zip, s.fk_pays as country_id, s.client, s.code_client, s.status as company_status, s.logo as company_logo,';
 $sql .= " typent.code as typent_code,";
 $sql .= " state.code_departement as state_code, state.nom as state_name,";
@@ -328,7 +328,7 @@ $sql .= " MIN(".$db->ifsql("cd.statut=4", "cd.date_fin_validite", "null").") as 
 $sql .= " SUM(".$db->ifsql("cd.statut=0", 1, 0).') as nb_initial,';
 $sql .= " SUM(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NULL OR cd.date_fin_validite >= '".$db->idate($now)."')", 1, 0).') as nb_running,';
 $sql .= " SUM(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NOT NULL AND cd.date_fin_validite < '".$db->idate($now)."')", 1, 0).') as nb_expired,';
-$sql .= " SUM(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NOT NULL AND cd.date_fin_validite < '".$db->idate($now - $config->contrat->services->expires->warning_delay)."')", 1, 0).') as nb_late,';
+$sql .= " SUM(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NOT NULL AND cd.date_fin_validite < '".$db->idate($now - $config->contract->services->expires->warning_delay)."')", 1, 0).') as nb_late,';
 $sql .= " SUM(".$db->ifsql("cd.statut=5", 1, 0).') as nb_closed';
 // Add fields from extrafields
 if (!empty($extrafields->attributes[$object->table_element]['label'])) {
@@ -348,11 +348,11 @@ $sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as country on (country.rowid = s.fk_pays)";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_typent as typent on (typent.id = s.fk_typent)";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as state on (state.rowid = s.fk_departement)";
-$sql .= ", ".MAIN_DB_PREFIX."contrat as c";
+$sql .= ", ".MAIN_DB_PREFIX."contract as c";
 if (!empty($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX.$object->table_element."_extrafields as ef on (c.rowid = ef.fk_object)";
 }
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."contratdet as cd ON c.rowid = cd.fk_contrat";
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."contractdet as cd ON c.rowid = cd.fk_contract";
 if ($search_user > 0) {
 	$sql .= ", ".MAIN_DB_PREFIX."element_contact as ec";
 	$sql .= ", ".MAIN_DB_PREFIX."c_type_contact as tc";
@@ -366,10 +366,10 @@ if ($socid > 0) {
 	$sql .= " AND s.rowid = ".((int) $socid);
 }
 if ($search_date_start) {
-	$sql .= " AND c.date_contrat >= '".$db->idate($search_date_start)."'";
+	$sql .= " AND c.date_contract >= '".$db->idate($search_date_start)."'";
 }
 if ($search_date_end) {
-	$sql .= " AND c.date_contrat <= '".$db->idate($search_date_end)."'";
+	$sql .= " AND c.date_contract <= '".$db->idate($search_date_end)."'";
 }
 if ($search_name) {
 	$sql .= natural_search('s.nom', $search_name);
@@ -402,7 +402,7 @@ if ($search_all) {
 	$sql .= natural_search(array_keys($fieldstosearchall), $search_all);
 }
 if ($search_user > 0) {
-	$sql .= " AND ec.fk_c_type_contact = tc.rowid AND tc.element='contrat' AND tc.source='internal' AND ec.element_id = c.rowid AND ec.fk_socpeople = ".((int) $search_user);
+	$sql .= " AND ec.fk_c_type_contact = tc.rowid AND tc.element='contract' AND tc.source='internal' AND ec.element_id = c.rowid AND ec.fk_socpeople = ".((int) $search_user);
 }
 // Search on sale representative
 if ($search_sale && $search_sale != '-1') {
@@ -420,17 +420,17 @@ if (!empty($searchCategoryProductList)) {
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
-			$searchCategoryProductSqlList[] = "NOT EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."contratdet as cd WHERE cd.fk_contrat = c.rowid AND cd.fk_product = ck.fk_product)";
+			$searchCategoryProductSqlList[] = "NOT EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."contractdet as cd WHERE cd.fk_contract = c.rowid AND cd.fk_product = ck.fk_product)";
 		} elseif (intval($searchCategoryProduct) > 0) {
 			if ($searchCategoryProductOperator == 0) {
-				$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."contratdet as cd WHERE cd.fk_contrat = c.rowid AND cd.fk_product = ck.fk_product AND ck.fk_category = ".((int) $searchCategoryProduct).")";
+				$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."contractdet as cd WHERE cd.fk_contract = c.rowid AND cd.fk_product = ck.fk_product AND ck.fk_category = ".((int) $searchCategoryProduct).")";
 			} else {
 				$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategoryProduct);
 			}
 		}
 	}
 	if ($listofcategoryid) {
-		$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."contratdet as cd WHERE cd.fk_contrat = c.rowid AND cd.fk_product = ck.fk_product AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
+		$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."contractdet as cd WHERE cd.fk_contract = c.rowid AND cd.fk_product = ck.fk_product AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
 	}
 	if ($searchCategoryProductOperator == 1) {
 		if (!empty($searchCategoryProductSqlList)) {
@@ -510,7 +510,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 $parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
-$sql .= " GROUP BY c.rowid, c.ref, c.datec, c.tms, c.date_contrat, c.statut, c.ref_customer, c.ref_supplier, c.note_private, c.note_public, c.entity, c.signed_status,";
+$sql .= " GROUP BY c.rowid, c.ref, c.datec, c.tms, c.date_contract, c.statut, c.ref_customer, c.ref_supplier, c.note_private, c.note_public, c.entity, c.signed_status,";
 $sql .= ' s.rowid, s.nom, s.name_alias, s.email, s.town, s.zip, s.fk_pays, s.client, s.code_client, s.status, s.logo,';
 $sql .= " typent.code,";
 $sql .= " state.code_departement, state.nom";
@@ -562,8 +562,8 @@ if (!getDolGlobalInt('MAIN_DISABLE_FULL_SCANLIST')) {
 		$sqlforcount = str_replace('LEFT JOIN '.MAIN_DB_PREFIX.'c_country as country on (country.rowid = s.fk_pays)', '', $sqlforcount);
 		$sqlforcount = str_replace('LEFT JOIN '.MAIN_DB_PREFIX.'c_typent as typent on (typent.id = s.fk_typent)', '', $sqlforcount);
 		$sqlforcount = str_replace('LEFT JOIN '.MAIN_DB_PREFIX.'c_departements as state on (state.rowid = s.fk_departement)', '', $sqlforcount);
-		$sqlforcount = str_replace('LEFT JOIN '.MAIN_DB_PREFIX.'contratdet as cd ON c.rowid = cd.fk_contrat', '', $sqlforcount);
-		//$sqlforcount = str_replace('LEFT JOIN '.MAIN_DB_PREFIX.'contrat_extrafields as ef on (c.rowid = ef.fk_object)', '', $sqlforcount);	// We my need this if there is filters on extrafields
+		$sqlforcount = str_replace('LEFT JOIN '.MAIN_DB_PREFIX.'contractdet as cd ON c.rowid = cd.fk_contract', '', $sqlforcount);
+		//$sqlforcount = str_replace('LEFT JOIN '.MAIN_DB_PREFIX.'contract_extrafields as ef on (c.rowid = ef.fk_object)', '', $sqlforcount);	// We my need this if there is filters on extrafields
 		$sqlforcount = preg_replace('/GROUP BY.*$/', '', $sqlforcount);
 
 		$resql = $db->query($sqlforcount);
@@ -600,7 +600,7 @@ $num = $db->num_rows($resql);
 if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $search_all && !$page) {
 	$obj = $db->fetch_object($resql);
 	$id = $obj->rowid;
-	header("Location: ".DOL_URL_ROOT.'/contrat/card.php?id='.$id);
+	header("Location: ".DOL_URL_ROOT.'/contract/card.php?id='.$id);
 	exit;
 }
 
@@ -610,7 +610,7 @@ if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $s
 $title = $langs->trans("Contracts");
 $help_url = 'EN:Module_Contracts|FR:Module_Contrat|ES:Contratos_de_servicio';
 
-llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contrat page-list bodyforlist');
+llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contract page-list bodyforlist');
 
 $i = 0;
 
@@ -771,7 +771,7 @@ if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predel
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
-$url = DOL_URL_ROOT.'/contrat/card.php?action=create';
+$url = DOL_URL_ROOT.'/contract/card.php?action=create';
 if (!empty($socid)) {
 	$url .= '&socid='.((int) $socid);
 }
@@ -779,7 +779,7 @@ $newcardbutton = '';
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewList'), '', 'fa fa-bars imgforviewmode', $_SERVER["PHP_SELF"].'?mode=common'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ((empty($mode) || $mode == 'common') ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewKanban'), '', 'fa fa-th-list imgforviewmode', $_SERVER["PHP_SELF"].'?mode=kanban'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ($mode == 'kanban' ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitleSeparator();
-$newcardbutton .= dolGetButtonTitle($langs->trans('NewContractSubscription'), '', 'fa fa-plus-circle', $url, '', $user->hasRight('contrat', 'creer'));
+$newcardbutton .= dolGetButtonTitle($langs->trans('NewContractSubscription'), '', 'fa fa-plus-circle', $url, '', $user->hasRight('contract', 'creer'));
 
 print '<form method="POST" id="searchFormList" action="'.$_SERVER['PHP_SELF'].'">'."\n";
 if ($optioncss != '') {
@@ -800,7 +800,7 @@ print_barre_liste($langs->trans("Contracts"), $page, $_SERVER["PHP_SELF"], $para
 
 $topicmail = "SendContractRef";
 $modelmail = "contract";
-$objecttmp = new Contrat($db);
+$objecttmp = new Contract($db);
 $trackid = 'con'.$object->id;
 include DOL_DOCUMENT_ROOT.'/core/tpl/massactions_pre.tpl.php';
 
@@ -940,7 +940,7 @@ if (!empty($arrayfields['typent.code']['checked'])) {
 if (!empty($arrayfields['sale_representative']['checked'])) {
 	print '<td class="liste_titre"></td>';
 }
-if (!empty($arrayfields['c.date_contrat']['checked'])) {
+if (!empty($arrayfields['c.date_contract']['checked'])) {
 	print '<td class="liste_titre center">';
 	print '<div class="nowrapfordate">';
 	print $form->selectDate($search_date_start ? $search_date_start : -1, 'search_date_start', 0, 0, 1, '', 1, 0, 0, '', '', '', '', 1, '', $langs->trans('From'));
@@ -1066,8 +1066,8 @@ if (!empty($arrayfields['sale_representative']['checked'])) {
 	print_liste_field_titre($arrayfields['sale_representative']['label'], $_SERVER["PHP_SELF"], "", "", $param, '', $sortfield, $sortorder);
 	$totalarray['nbfield']++;	// For the column action
 }
-if (!empty($arrayfields['c.date_contrat']['checked'])) {
-	print_liste_field_titre($arrayfields['c.date_contrat']['label'], $_SERVER["PHP_SELF"], "c.date_contrat", "", $param, '', $sortfield, $sortorder, 'center ');
+if (!empty($arrayfields['c.date_contract']['checked'])) {
+	print_liste_field_titre($arrayfields['c.date_contract']['label'], $_SERVER["PHP_SELF"], "c.date_contract", "", $param, '', $sortfield, $sortorder, 'center ');
 	$totalarray['nbfield']++;	// For the column action
 }
 if (!empty($arrayfields['c.signed_status']['checked'])) {
@@ -1093,13 +1093,13 @@ if (!empty($arrayfields['lower_planned_end_date']['checked'])) {
 	$totalarray['nbfield']++;	// For the column action
 }
 if (!empty($arrayfields['status']['checked'])) {
-	print_liste_field_titre($staticcontratligne->LibStatut(0, 3, -1, 'class="nochangebackground"'), '', '', '', '', 'width="16"');
+	print_liste_field_titre($staticContractLine->LibStatut(0, 3, -1, 'class="nochangebackground"'), '', '', '', '', 'width="16"');
 	$totalarray['nbfield']++;	// For the column action
-	print_liste_field_titre($staticcontratligne->LibStatut(4, 3, 0, 'class="nochangebackground"'), '', '', '', '', 'width="16"');
+	print_liste_field_titre($staticContractLine->LibStatut(4, 3, 0, 'class="nochangebackground"'), '', '', '', '', 'width="16"');
 	$totalarray['nbfield']++;	// For the column action
-	print_liste_field_titre($staticcontratligne->LibStatut(4, 3, 1, 'class="nochangebackground"'), '', '', '', '', 'width="16"');
+	print_liste_field_titre($staticContractLine->LibStatut(4, 3, 1, 'class="nochangebackground"'), '', '', '', '', 'width="16"');
 	$totalarray['nbfield']++;	// For the column action
-	print_liste_field_titre($staticcontratligne->LibStatut(5, 3, -1, 'class="nochangebackground"'), '', '', '', '', 'width="16"');
+	print_liste_field_titre($staticContractLine->LibStatut(5, 3, -1, 'class="nochangebackground"'), '', '', '', '', 'width="16"');
 	$totalarray['nbfield']++;	// For the column action
 }
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
@@ -1162,7 +1162,7 @@ while ($i < $imaxinloop) {
 		$arraydata = [];
 		$arraydata['thirdparty'] = $socstatic;
 		$arraydata['selected'] = in_array($obj->rowid, $arrayofselected);
-		$contracttmp->date_contrat = $obj->date_contrat;
+		$contracttmp->date_contract = $obj->date_contract;
 		print $contracttmp->getKanbanView('', $arraydata);
 		if ($i == ($imaxinloop - 1)) {
 			print '</div>';
@@ -1195,12 +1195,12 @@ while ($i < $imaxinloop) {
 			}
 			if (!empty($obj->note_private) || !empty($obj->note_public)) {
 				print ' <span class="note">';
-				print '<a href="'.DOL_URL_ROOT.'/contrat/note.php?id='.$obj->rowid.'&save_lastsearch_values=1">'.img_picture($langs->trans("ViewPrivateNote"), 'note').'</a>';
+				print '<a href="'.DOL_URL_ROOT.'/contract/note.php?id='.$obj->rowid.'&save_lastsearch_values=1">'.img_picture($langs->trans("ViewPrivateNote"), 'note').'</a>';
 				print '</span>';
 			}
 
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $config->contrat->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->contract->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 			print $formfile->getDocumentsLink($contracttmp->element, $filename, $filedir);
 			print '</td>';
@@ -1323,8 +1323,8 @@ while ($i < $imaxinloop) {
 			print '</td>';
 		}
 		// Date
-		if (!empty($arrayfields['c.date_contrat']['checked'])) {
-			print '<td class="center">'.dol_print_date($db->jdate($obj->date_contrat), 'day', 'tzserver').'</td>';
+		if (!empty($arrayfields['c.date_contract']['checked'])) {
+			print '<td class="center">'.dol_print_date($db->jdate($obj->date_contract), 'day', 'tzserver').'</td>';
 		}
 		// Signed Status
 		if (!empty($arrayfields['c.signed_status']['checked'])) {

@@ -25,9 +25,9 @@
  */
 
 /**
- *  \file       htdocs/contrat/messaging.php
- *  \ingroup    contrat
- *  \brief      Page of contrat events
+ *  \file       htdocs/contract/messaging.php
+ *  \ingroup    contract
+ *  \brief      Page of contract events
  */
 
 // Load Dolibarr environment
@@ -35,7 +35,7 @@ require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/contract.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 
 /**
  * @var Config $config
@@ -50,7 +50,7 @@ $langs->loadLangs(array('agenda', 'contracts', 'companies'));
 
 $action		= GETPOST('action', 'alpha');
 $confirm	= GETPOST('confirm', 'alpha');
-$contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'contratagenda';
+$contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'contractagenda';
 
 if (GETPOST('actioncode', 'array')) {
 	$actioncode = GETPOST('actioncode', 'array', 3);
@@ -86,7 +86,7 @@ if (!$sortorder) {
 }
 
 // Initialize a technical objects
-$object = new Contrat($db);
+$object = new Contract($db);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('agendacontract', 'globalcard'));
@@ -100,12 +100,12 @@ if ($user->socid) {
 
 $result = $object->fetch($id);
 if ($result <= 0) {
-	accessforbidden('Contrat not found');
+	accessforbidden('Contract not found');
 }
 
-$result = restrictedArea($user, 'contrat', $id, '&contrat');
+$result = restrictedArea($user, 'contract', $id, '&contract');
 
-if (!$user->hasRight('contrat', 'lire')) {
+if (!$user->hasRight('contract', 'lire')) {
 	accessforbidden();
 }
 
@@ -152,7 +152,7 @@ if ($result > 0) {
 }
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 
 $object->fetch_thirdparty();
 
@@ -162,7 +162,7 @@ if (getDolGlobalString('MAIN_HTML_TITLE') && preg_match('/contractrefonly/', get
 }
 $help_url = 'EN:Module_Contracts|FR:Module_Contrat|ES:Contratos_de_servicio';
 
-llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contrat page-card_messaging');
+llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-contract page-card_messaging');
 
 if (isModEnabled('notification')) {
 	$langs->load("mails");
@@ -171,14 +171,14 @@ $head = contract_prepare_head($object);
 
 print dol_get_fiche_head($head, 'agenda', $langs->trans("Contract"), -1, 'contract');
 
-$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1">'.$langs->trans("BackToList").'</a>';
+$linkback = '<a href="'.DOL_URL_ROOT.'/contract/list.php?restore_lastsearch_values=1">'.$langs->trans("BackToList").'</a>';
 
 $morehtmlref = '';
 if (!empty($modCodeContract->code_auto)) {
 	$morehtmlref .= $object->ref;
 } else {
-	$morehtmlref .= $form->editfieldkey("", 'ref', $object->ref, $object, $user->hasRight('contrat', 'creer'), 'string', '', 0, 3);
-	$morehtmlref .= $form->editfieldval("", 'ref', $object->ref, $object, $user->hasRight('contrat', 'creer'), 'string', '', null, 2);
+	$morehtmlref .= $form->editfieldkey("", 'ref', $object->ref, $object, $user->hasRight('contract', 'creer'), 'string', '', 0, 3);
+	$morehtmlref .= $form->editfieldval("", 'ref', $object->ref, $object, $user->hasRight('contract', 'creer'), 'string', '', null, 2);
 }
 
 $permtoedit = 0;
@@ -194,7 +194,7 @@ $morehtmlref .= $form->editfieldval("RefSupplier", 'ref_supplier', $object->ref_
 // Thirdparty
 $morehtmlref .= '<br>'.$object->thirdparty->getNomUrl(1);
 if (!getDolGlobalString('MAIN_DISABLE_OTHER_LINK') && $object->thirdparty->id > 0) {
-	$morehtmlref .= ' (<a href="'.DOL_URL_ROOT.'/contrat/list.php?socid='.$object->thirdparty->id.'&search_name='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherContracts").'</a>)';
+	$morehtmlref .= ' (<a href="'.DOL_URL_ROOT.'/contract/list.php?socid='.$object->thirdparty->id.'&search_name='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherContracts").'</a>)';
 }
 // Project
 if (isModEnabled('project')) {
@@ -238,8 +238,8 @@ print dol_get_fiche_end();
 
 $morehtmlright = '';
 
-$morehtmlright .= dolGetButtonTitle($langs->trans('FullConversation'), '', 'fa fa-comments imgforviewmode', DOL_URL_ROOT.'/contrat/messaging.php?id='.$object->id, '', 2);
-$morehtmlright .= dolGetButtonTitle($langs->trans('SeeAll'), '', 'fa fa-bars imgforviewmode', DOL_URL_ROOT.'/contrat/agenda.php?id='.$object->id, '', 1);
+$morehtmlright .= dolGetButtonTitle($langs->trans('FullConversation'), '', 'fa fa-comments imgforviewmode', DOL_URL_ROOT.'/contract/messaging.php?id='.$object->id, '', 2);
+$morehtmlright .= dolGetButtonTitle($langs->trans('SeeAll'), '', 'fa fa-bars imgforviewmode', DOL_URL_ROOT.'/contract/agenda.php?id='.$object->id, '', 1);
 
 if (isModEnabled('agenda')) {
 	if ($user->hasRight('agenda', 'myactions', 'create') || $user->hasRight('agenda', 'allactions', 'create')) {

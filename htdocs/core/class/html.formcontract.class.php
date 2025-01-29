@@ -63,7 +63,7 @@ class FormContract
 	 *  @param	string	$morecss	More CSS
 	 *	@return int|string          If nooutput = 0: Nbr of contract if OK, <0 if KO, If nooutput = 1: The HTML select string
 	 */
-	public function select_contract($socid = -1, $selected = 0, $htmlname = 'contrattid', $maxlength = 16, $showempty = 1, $showRef = 0, $noouput = 0, $morecss = 'minwidth150')
+	public function select_contract($socid = -1, $selected = 0, $htmlname = 'contracttid', $maxlength = 16, $showempty = 1, $showRef = 0, $noouput = 0, $morecss = 'minwidth150')
 	{
 		// phpcs:enable
 		global $user, $config, $langs;
@@ -78,9 +78,9 @@ class FormContract
 		// Search all contacts
 		$sql = "SELECT c.rowid, c.ref, c.fk_soc, c.statut,";
 		$sql .= " c.ref_customer, c.ref_supplier";
-		$sql .= " FROM ".$this->db->prefix()."contrat as c";
+		$sql .= " FROM ".$this->db->prefix()."contract as c";
 		$sql .= " WHERE c.entity = ".$config->entity;
-		//if ($contratListId) $sql.= " AND c.rowid IN (".$this->db->sanitize($contratListId).")";
+		//if ($contractListId) $sql.= " AND c.rowid IN (".$this->db->sanitize($contractListId).")";
 		if ($socid > 0) {
 			// CONTRACT_ALLOW_TO_LINK_FROM_OTHER_COMPANY is 'all' or a list of ids separated by coma.
 			if (!getDolGlobalString('CONTRACT_ALLOW_TO_LINK_FROM_OTHER_COMPANY')) {
@@ -190,7 +190,7 @@ class FormContract
 	 *  @param	int		$noouput	1=Return the output instead of display
 	 *  @return string|void         html string
 	 */
-	public function formSelectContract($page, $socid = -1, $selected = 0, $htmlname = 'contrattid', $maxlength = 16, $showempty = 1, $showRef = 0, $noouput = 0)
+	public function formSelectContract($page, $socid = -1, $selected = 0, $htmlname = 'contracttid', $maxlength = 16, $showempty = 1, $showRef = 0, $noouput = 0)
 	{
 		global $langs;
 

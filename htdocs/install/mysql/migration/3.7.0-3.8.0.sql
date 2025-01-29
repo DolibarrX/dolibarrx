@@ -195,7 +195,7 @@ ALTER TABLE llx_product_association ADD COLUMN incdec integer DEFAULT 1;
 ALTER TABLE llx_bank_account_extrafields ADD INDEX idx_bank_account_extrafields (fk_object);
 
 
-create table llx_contratdet_extrafields
+create table llx_contractdet_extrafields
 (
   rowid            integer AUTO_INCREMENT PRIMARY KEY,
   tms              timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -203,7 +203,7 @@ create table llx_contratdet_extrafields
   import_key       varchar(14)      	-- import key
 )ENGINE=innodb;
 
-ALTER TABLE llx_contratdet_extrafields ADD INDEX idx_contratdet_extrafields (fk_object);
+ALTER TABLE llx_contractdet_extrafields ADD INDEX idx_contractdet_extrafields (fk_object);
 
 ALTER TABLE llx_product_fournisseur_price ADD COLUMN delivery_time_days integer;
 
@@ -521,7 +521,7 @@ insert into llx_c_action_trigger (code,label,description,elementtype,rang) value
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('PROPAL_VALIDATE','Customer proposal validated','Executed when a commercial proposal is validated','propal',2);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('COMPANY_SENTBYMAIL','Mails sent from third party card','Executed when you send email from third party card','societe',1);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('COMPANY_CREATE','Third party created','Executed when a third party is created','societe',1);
-insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('CONTRACT_VALIDATE','Contract validated','Executed when a contract is validated','contrat',18);
+insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('CONTRACT_VALIDATE','Contract validated','Executed when a contract is validated','contract',18);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('PROPAL_SENTBYMAIL','Commercial proposal sent by mail','Executed when a commercial proposal is sent by mail','propal',3);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_SENTBYMAIL','Customer order sent by mail','Executed when a customer order is sent by mail ','order',5);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('BILL_PAYED','Customer invoice paid','Executed when a customer invoice is paid','facture',7);
@@ -628,8 +628,8 @@ ALTER TABLE llx_propaldet ADD CONSTRAINT fk_propaldet_fk_unit FOREIGN KEY (fk_un
 alter table llx_orderdet add fk_unit integer DEFAULT NULL;
 ALTER TABLE llx_orderdet ADD CONSTRAINT fk_orderdet_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);
 
-alter table llx_contratdet add fk_unit integer DEFAULT NULL;
-ALTER TABLE llx_contratdet ADD CONSTRAINT fk_contratdet_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);
+alter table llx_contractdet add fk_unit integer DEFAULT NULL;
+ALTER TABLE llx_contractdet ADD CONSTRAINT fk_contractdet_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);
 
 alter table llx_order_fournisseurdet add fk_unit integer DEFAULT NULL;
 ALTER TABLE llx_order_fournisseurdet ADD CONSTRAINT fk_order_fournisseurdet_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);

@@ -3283,7 +3283,7 @@ li.tmenu:hover .tmenuimage:not(.menuhider), li.tmenu:hover .tmenuimage:not(.menu
 											'user' => '', 'syslog' => '', 'societe' => 'companies', 'projet' => 'project', 'propale' => 'commercial', 'order' => 'commercial',
 											'produit' => 'products', 'service' => 'products', 'stock' => 'products',
 											'don' => 'accountancy', 'tax' => 'accountancy', 'bank' => 'accountancy', 'facture' => 'accountancy', 'compta' => 'accountancy', 'accounting' => 'accountancy', 'member' => 'members', 'import' => 'tools', 'export' => 'tools', 'mailing' => 'tools',
-											'contrat' => 'commercial', 'ficheinter' => 'commercial', 'ticket' => 'ticket', 'deplacement' => 'commercial',
+											'contract' => 'commercial', 'ficheinter' => 'commercial', 'ticket' => 'ticket', 'deplacement' => 'commercial',
 											'fournisseur' => 'companies',
 											'barcode' => '', 'fckeditor' => '', 'category' => '',
 										);

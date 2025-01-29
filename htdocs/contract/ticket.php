@@ -21,15 +21,15 @@
  */
 
 /**
- *	  	\file	   	htdocs/contrat/ticket.php
- *	  	\ingroup	contrat
+ *	  	\file	   	htdocs/contract/ticket.php
+ *	  	\ingroup	contract
  *		\brief	 	Page of associated ticket
  */
 
 
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/contract.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 }
@@ -64,7 +64,7 @@ if ($user->socid > 0) {
 	$socid = $user->socid;
 }
 
-$result = restrictedArea($user, 'contrat', $id);
+$result = restrictedArea($user, 'contract', $id);
 
 
 /*
@@ -73,12 +73,12 @@ $result = restrictedArea($user, 'contrat', $id);
 $title = $langs->trans("Contract") . ' - ' . $langs->trans("Tickets");
 $help_url = 'EN:Module_Contracts|FR:Module_Contrat|ES:Contratos_de_servicio';
 
-llxHeader("", $title, $help_url, '', 0, 0, '', '', '', 'mod-contrat page-card_ticket');
+llxHeader("", $title, $help_url, '', 0, 0, '', '', '', 'mod-contract page-card_ticket');
 
 $form = new Form($db);
 $userstatic = new User($db);
 
-$object = new Contrat($db);
+$object = new Contract($db);
 $result = $object->fetch($id, $ref);
 $ret = $object->fetch_thirdparty();
 $head = contract_prepare_head($object);
@@ -86,7 +86,7 @@ $head = contract_prepare_head($object);
 
 dol_get_fiche_head($head, 'ticket', $langs->trans("Contract"), -1, 'contract');
 
-$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php'.(! empty($socid) ? '?socid='.$socid : '').'">';
+$linkback = '<a href="'.DOL_URL_ROOT.'/contract/list.php'.(! empty($socid) ? '?socid='.$socid : '').'">';
 $linkback .= $langs->trans("BackToList").'</a>';
 
 $morehtmlref = '';
@@ -188,7 +188,7 @@ print '<td  align="center" nowrap >'.$langs->trans("DateEnd").'</td>';
 print '<td  align="right">'.$langs->trans("Progress").'</td>';
 print '<td align="right" width="100">'.$langs->trans("Status").'</td>';
 print '</tr>';
-// on récupère la totalité des tickets liés au contrat
+// on récupère la totalité des tickets liés au contract
 $allticketarray = $object->getTicketsArray();
 if (is_array($allticketarray) && count($allticketarray) > 0) {
 	foreach ($allticketarray as $key => $value) {

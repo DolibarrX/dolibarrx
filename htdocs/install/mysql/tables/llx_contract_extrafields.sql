@@ -16,7 +16,7 @@
 --
 -- ========================================================================
 
-create table llx_contrat_extrafields
+create table llx_contract_extrafields
 (
   rowid                     integer AUTO_INCREMENT PRIMARY KEY,
   tms                       timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

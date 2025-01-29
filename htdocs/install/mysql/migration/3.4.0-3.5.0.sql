@@ -332,9 +332,9 @@ ALTER TABLE llx_facture_fourn MODIFY COLUMN fk_cond_reglement	integer NULL;
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) values (9,'COMPANY_SENTBYMAIL','Mails sent from third party card','Executed when you send email from third party card','societe',1);
 
 
-ALTER TABLE llx_contratdet ADD column product_type integer DEFAULT 1 after total_ttc;
+ALTER TABLE llx_contractdet ADD column product_type integer DEFAULT 1 after total_ttc;
 
-create table llx_contrat_extrafields
+create table llx_contract_extrafields
 (
   rowid                     integer AUTO_INCREMENT PRIMARY KEY,
   tms                       timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

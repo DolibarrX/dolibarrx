@@ -139,7 +139,7 @@ $usercansend = (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') || (getDolGlobalS
 $usermustrespectpricemin = ((getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !$user->hasRight('produit', 'ignore_price_min_advance')) || !getDolGlobalString('MAIN_USE_ADVANCED_PERMS'));
 $usercancreateorder = ($user->hasRight('order', 'creer') == 1);
 $usercancreateinvoice = ($user->hasRight('facture', 'creer') == 1);
-$usercancreatecontract = ($user->hasRight('contrat', 'creer') == 1);
+$usercancreatecontract = ($user->hasRight('contract', 'creer') == 1);
 $usercancreateintervention = ($user->hasRight('ficheinter', 'creer') == 1);
 $usercancreatepurchaseorder = ($user->hasRight('fournisseur', 'order', 'creer') || $user->hasRight('supplier_order', 'creer'));
 
@@ -552,7 +552,7 @@ if (empty($resHook)) {
 						$subelement = 'propal';
 					}
 					if ($element == 'contract') {
-						$element = $subelement = 'contrat';
+						$element = $subelement = 'contract';
 					}
 					if ($element == 'inter') {
 						$element = $subelement = 'fichinter';
@@ -576,7 +576,7 @@ if (empty($resHook)) {
 
 						$classname = ucfirst($subelement);
 						$srcobject = new $classname($db);
-						'@phan-var-force Order|Propal|Contrat|Fichinter|Expedition $srcobject';  // Can be other class, but CommonObject is too generic
+						'@phan-var-force Order|Propal|Contract|Fichinter|Expedition $srcobject';  // Can be other class, but CommonObject is too generic
 
 						dol_syslog("Try to find source object origin=".$object->origin." originid=".$object->origin_id." to add lines");
 						$result = $srcobject->fetch($object->origin_id);
@@ -1914,7 +1914,7 @@ if ($action == 'create') {
 				$subelement = 'propal';
 			}
 			if ($element == 'contract') {
-				$element = $subelement = 'contrat';
+				$element = $subelement = 'contract';
 			}
 			if ($element == 'shipping') {
 				$element = $subelement = 'expedition';
@@ -1924,7 +1924,7 @@ if ($action == 'create') {
 
 			$classname = ucfirst($subelement);
 			$objectsrc = new $classname($db);
-			'@phan-var-force Order|Propal|Contrat|Expedition $objectsrc';  // Can be other class, but CommonObject is too generic
+			'@phan-var-force Order|Propal|Contract|Expedition $objectsrc';  // Can be other class, but CommonObject is too generic
 			$objectsrc->fetch($originid);
 			if (empty($objectsrc->lines) && method_exists($objectsrc, 'fetch_lines')) {
 				$objectsrc->fetch_lines();
@@ -2235,8 +2235,8 @@ if ($action == 'create') {
 		// Lines from source
 		if (!empty($origin) && !empty($originid) && is_object($objectsrc)) {
 			// TODO for compatibility
-			if ($origin == 'contrat') {
-				// Calcul contrat->price (HT), contrat->total (TTC), contrat->tva
+			if ($origin == 'contract') {
+				// Calcul contract->price (HT), contract->total (TTC), contract->tva
 				//$objectsrc->remise_absolue = $remise_absolue;	// deprecated
 				//$objectsrc->remise_percent = $remise_percent;
 				$objectsrc->update_price(1, 'auto', 1);
@@ -3196,13 +3196,13 @@ if ($action == 'create') {
 					'enabled' => (isModEnabled('contract') && $object->status == Propal::STATUS_SIGNED),
 					'perm' => $usercancreatecontract,
 					'label' => 'AddContract',
-					'url' => '/contrat/card.php?action=create&origin=' . urlencode($object->element) . '&originid=' . ((int) $object->id) . '&socid=' . ((int) $object->socid)
+					'url' => '/contract/card.php?action=create&origin=' . urlencode($object->element) . '&originid=' . ((int) $object->id) . '&socid=' . ((int) $object->socid)
 				);
 				/*if (isModEnabled('contract') && $object->status == Propal::STATUS_SIGNED) {
 					$langs->load("contracts");
 
 					if ($usercancreatecontract) {
-						print '<a class="butAction" href="'.DOL_URL_ROOT.'/contrat/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->socid.'">'.$langs->trans('AddContract').'</a>';
+						print '<a class="butAction" href="'.DOL_URL_ROOT.'/contract/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->socid.'">'.$langs->trans('AddContract').'</a>';
 					}
 				}*/
 

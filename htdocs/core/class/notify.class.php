@@ -928,7 +928,7 @@ class Notify
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextActionAdded", $link);
 								break;
 							case 'CONTRACT_MODIFY':
-								$link = '<a href="'.$urlwithroot.'/contrat/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
+								$link = '<a href="'.$urlwithroot.'/contract/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
 								$context_info = array_key_exists('signature', $object->context) ? $object->getLibSignedStatus() : '';
 								$dir_output = $config->contract->multidir_output;
 								$object_type = 'contract';
@@ -1243,10 +1243,10 @@ class Notify
 						$mesg = $langs->transnoentitiesnoconv("EMailTextActionAdded", $link);
 						break;
 					case 'CONTRACT_MODIFY':
-						$link = '<a href="'.$urlwithroot.'/contrat/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
+						$link = '<a href="'.$urlwithroot.'/contract/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
 						$context_info = array_key_exists('signature', $object->context) ? $object->getLibSignedStatus() : '';
 						$dir_output = $config->contract->multidir_output;
-						$object_type = 'contrat';
+						$object_type = 'contract';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextContractModified", $link, $context_info);
 						break;
 					default:

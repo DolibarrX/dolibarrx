@@ -19,10 +19,10 @@
  */
 
 /**
- *	\defgroup   contrat     Module contract
- *	\brief      Module pour gerer la tenue de contrat de services
- *	\file       htdocs/core/modules/modContrat.class.php
- *	\ingroup    contrat
+ *	\defgroup   contract     Module contract
+ *	\brief      Module pour gerer la tenue de contract de services
+ *	\file       htdocs/core/modules/modContract.class.php
+ *	\ingroup    contract
  *	\brief      Description and activation file for the module contract
  */
 
@@ -30,9 +30,9 @@ include_once DOL_DOCUMENT_ROOT.'/core/modules/DolibarrModules.class.php';
 
 
 /**
- *	Class to describe and enable module Contrat
+ *	Class to describe and enable module Contract
  */
-class modContrat extends DolibarrModules
+class modContract extends DolibarrModules
 {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
@@ -50,7 +50,7 @@ class modContrat extends DolibarrModules
 		$this->modulePosition = '41';
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
-		$this->description = "Gestion des contrats de services";
+		$this->description = "Gestion des contracts de services";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
@@ -74,7 +74,7 @@ class modContrat extends DolibarrModules
 				"CONTRACT_ADDON",
 				"chaine",
 				"mod_contract_serpis",
-				"Nom du gestionnaire de numbertation des contrats",
+				"Nom du gestionnaire de numbertation des contracts",
 				0,
 			],
 			[
@@ -101,40 +101,40 @@ class modContrat extends DolibarrModules
 
 		// Permissions
 		$this->rights = [];
-		$this->rightsClass = 'contrat';
+		$this->rightsClass = 'contract';
 		$r = 0;
 
 		$r++;
 		$this->rights[$r][0] = 161;
-		$this->rights[$r][1] = 'Lire les contrats';
+		$this->rights[$r][1] = 'Lire les contracts';
 		$this->rights[$r][2] = 'r';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'lire';
 
 		$r++;
 		$this->rights[$r][0] = 162;
-		$this->rights[$r][1] = 'Creer / modifier les contrats';
+		$this->rights[$r][1] = 'Creer / modifier les contracts';
 		$this->rights[$r][2] = 'w';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'creer';
 
 		$r++;
 		$this->rights[$r][0] = 163;
-		$this->rights[$r][1] = 'Activer un service d\'un contrat';
+		$this->rights[$r][1] = 'Activer un service d\'un contract';
 		$this->rights[$r][2] = 'w';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'activer';
 
 		$r++;
 		$this->rights[$r][0] = 164;
-		$this->rights[$r][1] = 'Desactiver un service d\'un contrat';
+		$this->rights[$r][1] = 'Desactiver un service d\'un contract';
 		$this->rights[$r][2] = 'w';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'desactiver';
 
 		$r++;
 		$this->rights[$r][0] = 165;
-		$this->rights[$r][1] = 'Supprimer un contrat';
+		$this->rights[$r][1] = 'Supprimer un contract';
 		$this->rights[$r][2] = 'd';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'supprimer';
@@ -161,11 +161,11 @@ class modContrat extends DolibarrModules
 		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'ContractsAndLine'; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = 'contract';
-		$this->export_permission[$r] = array(array("contrat", "export"));
+		$this->export_permission[$r] = array(array("contract", "export"));
 		$this->export_fields_array[$r] = array('s.rowid'=>"IdCompany", 's.nom'=>'CompanyName', 's.address'=>'Address', 's.zip'=>'Zip', 's.town'=>'Town', 'c.code'=>'CountryCode',
 		's.email'=>'Email', 's.phone'=>'Phone', 's.siren'=>'ProfId1', 's.siret'=>'ProfId2', 's.ape'=>'ProfId3', 's.idprof4'=>'ProfId4', 's.code_compta'=>'CustomerAccountancyCode',
 		's.code_compta_fournisseur'=>'SupplierAccountancyCode', 's.tva_intra'=>'VATIntra',
-		'co.rowid'=>"Id", 'co.ref'=>"Ref", 'co.datec'=>"DateCreation", 'co.date_contrat'=>"DateContract",
+		'co.rowid'=>"Id", 'co.ref'=>"Ref", 'co.datec'=>"DateCreation", 'co.date_contract'=>"DateContract",
 		'co.fin_validite'=>"ContractEndDate", 'co.date_cloture'=>"DateClosing", 'co.note_private'=>"NotePrivate", 'co.note_public'=>"NotePublic",
 		'cod.rowid'=>'LineId', 'cod.label'=>"LineLabel", 'cod.description'=>"LineDescription", 'cod.price_ht'=>"LineUnitPrice", 'cod.tva_tx'=>"LineVATRate",
 		'cod.qty'=>"LineQty", 'cod.total_ht'=>"LineTotalHT", 'cod.total_tva'=>"LineTotalVAT", 'cod.total_ttc'=>"LineTotalTTC",
@@ -175,7 +175,7 @@ class modContrat extends DolibarrModules
 		$this->export_entities_array[$r] = array('s.rowid'=>"company", 's.nom'=>'company', 's.address'=>'company', 's.zip'=>'company',
 		's.town'=>'company', 'c.code'=>'company', 's.email'=>'company', 's.phone'=>'company', 's.siren'=>'company', 's.siret'=>'company', 's.ape'=>'company',
 		's.idprof4'=>'company', 's.code_compta'=>'company', 's.code_compta_fournisseur'=>'company', 's.tva_intra'=>'company',
-		'co.rowid'=>"contract", 'co.ref'=>"contract", 'co.datec'=>"contract", 'co.date_contrat'=>"contract",
+		'co.rowid'=>"contract", 'co.ref'=>"contract", 'co.datec'=>"contract", 'co.date_contract'=>"contract",
 		'co.fin_validite'=>"contract", 'co.date_cloture'=>"contract", 'co.note_private'=>"contract", 'co.note_public'=>"contract",
 		'cod.rowid'=>'contract_line', 'cod.label'=>"contract_line", 'cod.description'=>"contract_line", 'cod.price_ht'=>"contract_line", 'cod.tva_tx'=>"contract_line",
 		'cod.qty'=>"contract_line", 'cod.total_ht'=>"contract_line", 'cod.total_tva'=>"contract_line", 'cod.total_ttc'=>"contract_line",
@@ -185,7 +185,7 @@ class modContrat extends DolibarrModules
 		$this->export_TypeFields_array[$r] = array('s.rowid'=>"Numeric", 's.nom'=>'Text', 's.address'=>'Text', 's.zip'=>'Text', 's.town'=>'Text', 'c.code'=>'Text',
 		's.email'=>'Text', 's.phone'=>'Text', 's.siren'=>'Text', 's.siret'=>'Text', 's.ape'=>'Text', 's.idprof4'=>'Text', 's.code_compta'=>'Text',
 		's.code_compta_fournisseur'=>'Text', 's.tva_intra'=>'Text',
-		'co.ref'=>"Text", 'co.datec'=>"Date", 'co.date_contrat'=>"Date",
+		'co.ref'=>"Text", 'co.datec'=>"Date", 'co.date_contract'=>"Date",
 		'co.fin_validite'=>"Date", 'co.date_cloture'=>"Date", 'co.note_private'=>"Text", 'co.note_public'=>"Text",
 		'cod.label'=>"Text", 'cod.description'=>"Text", 'cod.price_ht'=>"Numeric", 'cod.tva_tx'=>"Numeric",
 		'cod.qty'=>"Numeric", 'cod.total_ht'=>"Numeric", 'cod.total_tva'=>"Numeric", 'cod.total_ttc'=>"Numeric",
@@ -193,11 +193,11 @@ class modContrat extends DolibarrModules
 		'p.rowid'=>'List:product:label', 'p.ref'=>'Text', 'p.label'=>'Text');
 
 
-		$keyforselect = 'contrat';
+		$keyforselect = 'contract';
 		$keyforelement = 'contract';
 		$keyforaliasextra = 'coextra';
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
-		$keyforselect = 'contratdet';
+		$keyforselect = 'contractdet';
 		$keyforelement = 'contract_line';
 		$keyforaliasextra = 'codextra';
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
@@ -205,11 +205,11 @@ class modContrat extends DolibarrModules
 		$this->export_sql_start[$r] = 'SELECT DISTINCT ';
 		$this->export_sql_end[$r]  = ' FROM '.MAIN_DB_PREFIX.'societe as s';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_country as c on s.fk_pays = c.rowid';
-		$this->export_sql_end[$r] .= ' INNER JOIN '.MAIN_DB_PREFIX.'contrat as co ON co.fk_soc = s.rowid';
-		$this->export_sql_end[$r] .= ' INNER JOIN '.MAIN_DB_PREFIX.'contratdet as cod ON co.rowid = cod.fk_contrat';
+		$this->export_sql_end[$r] .= ' INNER JOIN '.MAIN_DB_PREFIX.'contract as co ON co.fk_soc = s.rowid';
+		$this->export_sql_end[$r] .= ' INNER JOIN '.MAIN_DB_PREFIX.'contractdet as cod ON co.rowid = cod.fk_contract';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product as p ON (cod.fk_product = p.rowid)';
-		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'contrat_extrafields as coextra on (co.rowid = coextra.fk_object)';
-		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'contratdet_extrafields as codextra on (cod.rowid = codextra.fk_object)';
+		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'contract_extrafields as coextra on (co.rowid = coextra.fk_object)';
+		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'contractdet_extrafields as codextra on (cod.rowid = codextra.fk_object)';
 		$this->export_sql_end[$r] .= ' WHERE co.entity IN ('.getEntity('contract').')';
 	}
 

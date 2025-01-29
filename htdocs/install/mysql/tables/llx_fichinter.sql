@@ -22,7 +22,7 @@ create table llx_fichinter
   rowid				integer AUTO_INCREMENT PRIMARY KEY,
   fk_soc			integer NOT NULL,
   fk_projet			integer DEFAULT 0,          -- projet auquel est rattache la fiche
-  fk_contrat		integer DEFAULT 0,          -- contrat auquel est rattache la fiche
+  fk_contract		integer DEFAULT 0,          -- contract to which the file is attached
   ref				varchar(30) NOT NULL,       -- number
   ref_ext			varchar(255),
   ref_client		varchar(255),				-- customer intervention number

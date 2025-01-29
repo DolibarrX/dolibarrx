@@ -1007,7 +1007,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
 			$elementTypeArray['invoice'] = $langs->transnoentitiesnoconv('Invoices');
 		}
-		if (isModEnabled('contract') && $user->hasRight('contrat', 'lire')) {
+		if (isModEnabled('contract') && $user->hasRight('contract', 'lire')) {
 			$elementTypeArray['contract'] = $langs->transnoentitiesnoconv('Contracts');
 		}
 
@@ -1103,7 +1103,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
 			$elementTypeArray['invoice'] = $langs->transnoentitiesnoconv('Invoices');
 		}
-		if (isModEnabled('contract') && $user->hasRight('contrat', 'lire')) {
+		if (isModEnabled('contract') && $user->hasRight('contract', 'lire')) {
 			$elementTypeArray['contract'] = $langs->transnoentitiesnoconv('Contracts');
 		}
 	}

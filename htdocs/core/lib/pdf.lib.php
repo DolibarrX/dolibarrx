@@ -1943,7 +1943,7 @@ function pdf_getlineref($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line ref_supplier
  *
- *	@param	Contrat|OrderFournisseur|FactureFournisseur|Facture|Product|Reception|SupplierProposal	$object	Object
+ *	@param	Contract|OrderFournisseur|FactureFournisseur|Facture|Product|Reception|SupplierProposal	$object	Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2576,14 +2576,14 @@ function pdf_getLinkedObjects(&$object, $outputlangs)
 				$linkedobjects[$objecttype]['date_title'] = $outputlangs->transnoentities("OrderDate");
 				$linkedobjects[$objecttype]['date_value'] = dol_print_date($elementobject->date, 'day', '', $outputlangs);
 			}
-		} elseif ($objecttype == 'contrat') {
-			'@phan-var-force Contrat[] $objects';
+		} elseif ($objecttype == 'contract') {
+			'@phan-var-force Contract[] $objects';
 			$outputlangs->load('contracts');
 			foreach ($objects as $elementobject) {
 				$linkedobjects[$objecttype]['ref_title'] = $outputlangs->transnoentities("RefContract");
 				$linkedobjects[$objecttype]['ref_value'] = $outputlangs->transnoentities($elementobject->ref);
 				$linkedobjects[$objecttype]['date_title'] = $outputlangs->transnoentities("DateContract");
-				$linkedobjects[$objecttype]['date_value'] = dol_print_date($elementobject->date_contrat, 'day', '', $outputlangs);
+				$linkedobjects[$objecttype]['date_value'] = dol_print_date($elementobject->date_contract, 'day', '', $outputlangs);
 			}
 		} elseif ($objecttype == 'fichinter') {
 			'@phan-var-force Fichinter[] $objects';

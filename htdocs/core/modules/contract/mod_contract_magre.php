@@ -91,10 +91,10 @@ class mod_contract_magre extends ModelNumRefContracts
 	{
 		global $db, $langs;
 
-		require_once DOL_DOCUMENT_ROOT . '/contrat/class/contrat.class.php';
+		require_once DOL_DOCUMENT_ROOT . '/contract/class/contract.class.php';
 		require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
 
-		$contract = new Contrat($db);
+		$contract = new Contract($db);
 		$contract->initAsSpecimen();
 		$thirdparty = new Societe($db);
 		$thirdparty->initAsSpecimen();
@@ -112,7 +112,7 @@ class mod_contract_magre extends ModelNumRefContracts
 	 *	Return next value
 	 *
 	 *	@param	Societe			$objsoc     third party object
-	 *	@param	Contrat			$contract	contract object
+	 *	@param	Contract			$contract	contract object
 	 *	@return string|int<-1,0>			Value if OK, <=0 if KO
 	 */
 	public function getNextValue($objsoc, $contract)
@@ -128,7 +128,7 @@ class mod_contract_magre extends ModelNumRefContracts
 			return 0;
 		}
 
-		$numFinal = get_next_value($db, $mask, 'contrat', 'ref', '', $objsoc, $contract->date_contrat);
+		$numFinal = get_next_value($db, $mask, 'contract', 'ref', '', $objsoc, $contract->date_contract);
 
 		return  $numFinal;
 	}

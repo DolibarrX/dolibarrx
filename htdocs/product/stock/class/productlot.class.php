@@ -65,7 +65,7 @@ class Productlot extends CommonObject
 	/**
 	 * @var array{customers:int,nb:int,rows:int,qty:int} stats contracts
 	 */
-	public $stats_contrat;
+	public $stats_contract;
 
 	/**
 	 * @var array{customers:int,nb:int,rows:int,qty:int} stats invoices

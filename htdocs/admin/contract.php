@@ -28,7 +28,7 @@
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/contract.lib.php';
 
 /**
@@ -88,7 +88,7 @@ if ($action == 'updateMask') {
 } elseif ($action == 'specimen') { // For contract
 	$modele = GETPOST('module', 'alpha');
 
-	$contract = new Contrat($db);
+	$contract = new Contract($db);
 	$contract->initAsSpecimen();
 
 	// Search template files
@@ -296,7 +296,7 @@ foreach ($dirmodels as $reldir) {
 						}
 						print '</td>';
 
-						$contract = new Contrat($db);
+						$contract = new Contract($db);
 						$contract->initAsSpecimen();
 
 						// Info

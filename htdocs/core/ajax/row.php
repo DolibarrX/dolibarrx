@@ -128,7 +128,7 @@ if (GETPOST('roworder', 'alpha', 3) && GETPOST('table_element_line', 'aZ09', 3)
 		$perm = 1;
 	} elseif ($table_element_line == 'projet_task' && $fk_element == 'fk_projet' && $user->hasRight('projet', 'creer')) {
 		$perm = 1;
-	} elseif ($table_element_line == 'contratdet' && $fk_element == 'fk_contrat' && $user->hasRight('contrat', 'creer')) {
+	} elseif ($table_element_line == 'contractdet' && $fk_element == 'fk_contract' && $user->hasRight('contract', 'creer')) {
 		$perm = 1;
 	} elseif ($table_element_line == 'stocktransfer_stocktransferline' && $fk_element == 'fk_stocktransfer' && $user->hasRight('stocktransfer', 'stocktransfer', 'write')) {
 		$perm = 1;
@@ -174,7 +174,7 @@ if (GETPOST('roworder', 'alpha', 3) && GETPOST('table_element_line', 'aZ09', 3)
 
 	// Reorder line to have position of children lines sharing same counter than parent lines
 	// This should be useless because there is no need to have children sharing same counter than parent, but well, it's cleaner into database.
-	if (in_array($fk_element, array('fk_facture', 'fk_propal', 'fk_order','fk_contrat'))) {
+	if (in_array($fk_element, array('fk_facture', 'fk_propal', 'fk_order','fk_contract'))) {
 		$result = $row->line_order(true);
 	}
 } else {

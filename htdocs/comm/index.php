@@ -42,7 +42,7 @@ require_once DOL_DOCUMENT_ROOT.'/supplier_proposal/class/supplier_proposal.class
 require_once DOL_DOCUMENT_ROOT.'/core/lib/propal.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
 if (isModEnabled('contract')) {
-	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 }
 if (isModEnabled('intervention')) {
 	require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
@@ -81,7 +81,7 @@ $now = dol_now();
 
 //restrictedArea($user, 'societe', $socid, '&societe', '', 'fk_soc', 'rowid', 0);
 if (!$user->hasRight('propal', 'read') && !$user->hasRight('supplier_proposal', 'read') && !$user->hasRight('order', 'read') && !$user->hasRight('fournisseur', 'order', 'read')
-	&& !$user->hasRight('supplier_order', 'read') && !$user->hasRight('fichinter', 'read') && !$user->hasRight('contrat', 'read')) {
+	&& !$user->hasRight('supplier_order', 'read') && !$user->hasRight('fichinter', 'read') && !$user->hasRight('contract', 'read')) {
 	accessforbidden();
 }
 
@@ -1037,22 +1037,22 @@ if ((isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) && $use
 /*
  * Latest contracts
  */
-if (isModEnabled('contract') && $user->hasRight("contrat", "lire") && 0) { // TODO A REFAIRE DEPUIS NOUVEAU CONTRAT
-	$staticcontrat = new Contrat($db);
+if (isModEnabled('contract') && $user->hasRight("contract", "lire") && 0) { // TODO A REFAIRE DEPUIS NOUVEAU CONTRAT
+	$staticContract = new Contract($db);
 
 	$sql = "SELECT s.rowid as socid, s.nom as name, s.name_alias";
 	$sql .= ", s.code_client, s.code_compta as code_compta_client, s.client";
 	$sql .= ", s.code_fournisseur, s.code_compta_fournisseur, s.fournisseur";
 	$sql .= ", s.logo, s.email, s.entity";
 	$sql .= ", s.canvas";
-	$sql .= ", c.statut, c.rowid as contratid, p.ref, c.fin_validite as datefin, c.date_cloture as dateclo";
+	$sql .= ", c.statut, c.rowid as contractid, p.ref, c.fin_validite as datefin, c.date_cloture as dateclo";
 	$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-	$sql .= ", ".MAIN_DB_PREFIX."contrat as c";
+	$sql .= ", ".MAIN_DB_PREFIX."contract as c";
 	$sql .= ", ".MAIN_DB_PREFIX."product as p";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	}
-	$sql .= " WHERE c.entity IN (".getEntity($staticcontrat->element).")";
+	$sql .= " WHERE c.entity IN (".getEntity($staticContract->element).")";
 	$sql .= " AND c.fk_soc = s.rowid";
 	$sql .= " AND c.fk_product = p.rowid";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
@@ -1090,13 +1090,13 @@ if (isModEnabled('contract') && $user->hasRight("contrat", "lire") && 0) { // TO
 				$companystatic->entity = $obj->entity;
 				$companystatic->canvas = $obj->canvas;
 
-				$staticcontrat->id = $obj->contratid;
-				$staticcontrat->ref = $obj->ref;
+				$staticContract->id = $obj->contractid;
+				$staticContract->ref = $obj->ref;
 
 				print '<tr class="oddeven">';
-				print '<td class="nowraponall">'.$staticcontrat->getNomUrl(1).'</td>';
+				print '<td class="nowraponall">'.$staticContract->getNomUrl(1).'</td>';
 				print '<td class="tdoverflowmax150">'.$companystatic->getNomUrl(1, 'customer').'</td>';
-				print '<td class="right">'.$staticcontrat->LibStatut($obj->statut, 3).'</td>';
+				print '<td class="right">'.$staticContract->LibStatut($obj->statut, 3).'</td>';
 				print '</tr>';
 
 				$i++;

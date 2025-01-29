@@ -558,11 +558,11 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 				$societe = new Societe($this->db);
 				$company_ids = (!getDolGlobalString('WORKFLOW_TICKET_USE_PARENT_COMPANY_CONTRACTS')) ? [$object->fk_soc] : $societe->getParentsForCompany($object->fk_soc, [$object->fk_soc]);
 
-				$contrat = new Contrat($this->db);
+				$contract = new Contract($this->db);
 				$number_contracts_found = 0;
 				foreach ($company_ids as $company_id) {
-					$contrat->socid = $company_id;
-					$list = $contrat->getListOfContracts('all', array(Contrat::STATUS_DRAFT, Contrat::STATUS_VALIDATED), array(getDolGlobalString('TICKET_PRODUCT_CATEGORY')), array(ContratLigne::STATUS_INITIAL, ContratLigne::STATUS_OPEN));
+					$contract->socid = $company_id;
+					$list = $contract->getListOfContracts('all', array(Contract::STATUS_DRAFT, Contract::STATUS_VALIDATED), array(getDolGlobalString('TICKET_PRODUCT_CATEGORY')), array(ContractLine::STATUS_INITIAL, ContractLine::STATUS_OPEN));
 					if (!is_array($list) || empty($list)) {
 						continue;
 					}
@@ -590,7 +590,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 				$fichinter = new Fichinter($this->db);
 				$fichinter->socid = (int) $object->fk_soc;
 				$fichinter->fk_project = (int) $object->fk_project;
-				$fichinter->fk_contrat = (int) $object->fk_contract;
+				$fichinter->fk_contract = (int) $object->fk_contract;
 
 				$fichinter->user_author_id = $user->id;
 				$fichinter->model_pdf = getDolGlobalString('FICHEINTER_ADDON_PDF', 'soleil');

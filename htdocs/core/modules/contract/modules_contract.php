@@ -64,7 +64,7 @@ abstract class ModelePDFContract extends CommonDocGenerator
 	/**
 	 *  Function to build a document on disk
 	 *
-	 *  @param      Contrat     $object             Object source to build document
+	 *  @param      Contract     $object             Object source to build document
 	 *  @param      Translate   $outputlangs        Lang output object
 	 *  @param      string      $srctemplatepath    Full path of source filename for generator using a template file
 	 *  @param      int<0,1>    $hidedetails        Do not show line details
@@ -86,7 +86,7 @@ abstract class ModelNumRefContracts extends CommonNumRefGenerator
 	 *	Return next value
 	 *
 	 *	@param	Societe			$objsoc     third party object
-	 *	@param	Contrat			$contract	contract object
+	 *	@param	Contract			$contract	contract object
 	 *	@return string|int<-1,0>  			Next value if OK, -1 or 0 if KO
 	 */
 	abstract public function getNextValue($objsoc, $contract);

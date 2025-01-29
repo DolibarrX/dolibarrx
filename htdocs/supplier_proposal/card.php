@@ -360,7 +360,7 @@ if (empty($resHook)) {
 						$subelement = 'propal';
 					}
 					if ($element == 'contract') {
-						$element = $subelement = 'contrat';
+						$element = $subelement = 'contract';
 					}
 					if ($element == 'inter') {
 						$element = $subelement = 'fichinter';
@@ -384,7 +384,7 @@ if (empty($resHook)) {
 
 						$classname = ucfirst($subelement);
 						$srcobject = new $classname($db);
-						'@phan-var-force Order|Propal|Contrat|Fichinter|Expedition $srcobject';  // Maybe other class but CommonObject is too generic
+						'@phan-var-force Order|Propal|Contract|Fichinter|Expedition $srcobject';  // Maybe other class but CommonObject is too generic
 
 						dol_syslog("Try to find source object origin=".$object->origin." originid=".$object->origin_id." to add lines");
 						$result = $srcobject->fetch($object->origin_id);
@@ -1433,8 +1433,8 @@ if ($action == 'create') {
 		// Lines from source
 		if (!empty($origin) && !empty($originid) && is_object($objectsrc)) {
 			// TODO for compatibility
-			if ($origin == 'contrat') {
-				// Calcul contrat->price (HT), contrat->total (TTC), contrat->tva
+			if ($origin == 'contract') {
+				// Calcul contract->price (HT), contract->total (TTC), contract->tva
 				//$objectsrc->remise_absolue = $remise_absolue;
 				//$objectsrc->remise_percent = $remise_percent;
 				$objectsrc->update_price(1, 'auto', 1);

@@ -114,7 +114,7 @@ update llx_propal set fk_projet = null where fk_projet not in (select rowid from
 update llx_order set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_facture set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_order_fournisseur set fk_projet = null where fk_projet not in (select rowid from llx_projet);
-update llx_contrat set fk_projet = null where fk_projet not in (select rowid from llx_projet);
+update llx_contract set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_deplacement set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_facture_fourn set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_facture_rec set fk_projet = null where fk_projet not in (select rowid from llx_projet);
@@ -192,7 +192,7 @@ delete from llx_category_project where fk_category not in (select rowid from llx
 
 -- Fix: delete orphelins in ecm_files
 delete from llx_ecm_files where src_object_type = 'expensereport' and src_object_id NOT IN (select rowid from llx_expensereport);
-delete from llx_ecm_files where (src_object_type = 'contrat' OR src_object_type = 'contract') and src_object_id NOT IN (select rowid from llx_contrat);
+delete from llx_ecm_files where (src_object_type = 'contract' OR src_object_type = 'contract') and src_object_id NOT IN (select rowid from llx_contract);
 
 -- Fix: delete orphelin deliveries. Note: deliveries are linked to shipment by llx_element_element only. No other links.
 delete from llx_deliverydet where fk_delivery not in (select fk_target from llx_element_element where targettype = 'delivery') AND fk_delivery not in (select fk_source from llx_element_element where sourcetype = 'delivery');
@@ -524,7 +524,7 @@ DELETE FROM llx_mrp_production where qty = 0;
 UPDATE llx_accounting_bookkeeping set date_creation = tms where date_creation IS NULL;
 
 
--- UPDATE llx_contratdet set label = NULL WHERE label IS NOT NULL;
+-- UPDATE llx_contractdet set label = NULL WHERE label IS NOT NULL;
 -- UPDATE llx_facturedet_rec set label = NULL WHERE label IS NOT NULL;
 
 

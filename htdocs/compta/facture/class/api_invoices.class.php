@@ -414,9 +414,9 @@ class Invoices extends DolibarrApi
 	*/
 	public function createInvoiceFromContract($contractid)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 
-		if (!DolibarrApiAccess::$user->hasRight('contrat', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('contract', 'lire')) {
 			throw new RestException(403);
 		}
 		if (!DolibarrApiAccess::$user->hasRight('facture', 'creer')) {
@@ -426,7 +426,7 @@ class Invoices extends DolibarrApi
 			throw new RestException(400, 'Contract ID is mandatory');
 		}
 
-		$contract = new Contrat($this->db);
+		$contract = new Contract($this->db);
 		$result = $contract->fetch($contractid);
 		if (!$result) {
 			throw new RestException(404, 'Contract not found');

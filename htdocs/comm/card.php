@@ -58,7 +58,7 @@ if (isModEnabled("shipping")) {
 	require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
 }
 if (isModEnabled('contract')) {
-	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 }
 if (isModEnabled('member')) {
 	require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
@@ -1203,10 +1203,10 @@ if ($object->id > 0) {
 	/*
 	 * Latest contracts
 	 */
-	if (isModEnabled('contract') && $user->hasRight('contrat', 'lire')) {
-		$sql = "SELECT s.nom, s.rowid, c.rowid as id, c.ref as ref, c.fk_projet, c.statut as contract_status, c.datec as dc, c.date_contrat as dcon, c.ref_customer as refcus, c.ref_supplier as refsup, c.entity,";
+	if (isModEnabled('contract') && $user->hasRight('contract', 'lire')) {
+		$sql = "SELECT s.nom, s.rowid, c.rowid as id, c.ref as ref, c.fk_projet, c.statut as contract_status, c.datec as dc, c.date_contract as dcon, c.ref_customer as refcus, c.ref_supplier as refsup, c.entity,";
 		$sql .= " c.last_main_doc, c.model_pdf";
-		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."contrat as c";
+		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."contract as c";
 		$sql .= " WHERE c.fk_soc = s.rowid ";
 		$sql .= " AND s.rowid = ".((int) $object->id);
 		$sql .= " AND c.entity IN (".getEntity('contract').")";
@@ -1214,7 +1214,7 @@ if ($object->id > 0) {
 
 		$resql = $db->query($sql);
 		if ($resql) {
-			$contrat = new Contrat($db);
+			$contract = new Contract($db);
 
 			$num = $db->num_rows($resql);
 			if ($num > 0) {
@@ -1223,7 +1223,7 @@ if ($object->id > 0) {
 
 				print '<tr class="liste_titre">';
 				print '<td colspan="6"><table width="100%" class="nobordernopadding"><tr><td>'.$langs->trans("LastContracts", ($num <= $MAXLIST ? "" : $MAXLIST)).'</td>';
-				print '<td class="right"><a class="notasortlink" href="'.DOL_URL_ROOT.'/contrat/list.php?socid='.$object->id.'">'.$langs->trans("AllContracts").'<span class="badge marginleftonlyshort">'.$num.'</span></a></td>';
+				print '<td class="right"><a class="notasortlink" href="'.DOL_URL_ROOT.'/contract/list.php?socid='.$object->id.'">'.$langs->trans("AllContracts").'<span class="badge marginleftonlyshort">'.$num.'</span></a></td>';
 				//print '<td width="20px" class="right"><a href="'.DOL_URL_ROOT.'/contract/stats/index.php?socid='.$object->id.'">'.img_picture($langs->trans("Statistics"),'stats').'</a></td>';
 				print '</tr></table></td>';
 				print '</tr>';
@@ -1233,21 +1233,21 @@ if ($object->id > 0) {
 			while ($i < $num && $i < $MAXLIST) {
 				$objp = $db->fetch_object($resql);
 
-				$contrat->id = $objp->id;
-				$contrat->ref = $objp->ref ? $objp->ref : $objp->id;
-				$contrat->ref_customer = $objp->refcus;
-				$contrat->ref_supplier = $objp->refsup;
-				$contrat->fk_project = $objp->fk_projet;
-				$contrat->statut = $objp->contract_status;
-				$contrat->status = $objp->contract_status;
-				$contrat->last_main_doc = $objp->last_main_doc;
-				$contrat->model_pdf = $objp->model_pdf;
-				$contrat->fetch_lines();
+				$contract->id = $objp->id;
+				$contract->ref = $objp->ref ? $objp->ref : $objp->id;
+				$contract->ref_customer = $objp->refcus;
+				$contract->ref_supplier = $objp->refsup;
+				$contract->fk_project = $objp->fk_projet;
+				$contract->statut = $objp->contract_status;
+				$contract->status = $objp->contract_status;
+				$contract->last_main_doc = $objp->last_main_doc;
+				$contract->model_pdf = $objp->model_pdf;
+				$contract->fetch_lines();
 
 				$late = '';
-				foreach ($contrat->lines as $line) {
-					if ($contrat->status == Contrat::STATUS_VALIDATED && $line->statut == ContratLigne::STATUS_OPEN) {
-						if (((!empty($line->date_end) ? $line->date_end : 0) + $config->contrat->services->expires->warning_delay) < $now) {
+				foreach ($contract->lines as $line) {
+					if ($contract->status == Contract::STATUS_VALIDATED && $line->statut == ContractLine::STATUS_OPEN) {
+						if (((!empty($line->date_end) ? $line->date_end : 0) + $config->contract->services->expires->warning_delay) < $now) {
 							$late = img_warning($langs->trans("Late"));
 						}
 					}
@@ -1255,10 +1255,10 @@ if ($object->id > 0) {
 
 				print '<tr class="oddeven">';
 				print '<td class="nowraponall">';
-				print $contrat->getNomUrl(1, 12);
-				if (!empty($contrat->model_pdf)) {
+				print $contract->getNomUrl(1, 12);
+				if (!empty($contract->model_pdf)) {
 					// Preview
-					$filedir = $config->contrat->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+					$filedir = $config->contract->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 					$file_list = null;
 					if (!empty($filedir)) {
 						$file_list = dol_dir_list($filedir, 'files', 0, dol_sanitizeFileName($objp->ref).'.pdf', '(\.meta|_preview.*.*\.png)$', 'date', SORT_DESC);
@@ -1281,17 +1281,17 @@ if ($object->id > 0) {
 							}
 						}
 						$relativepath = dol_sanitizeFileName($objp->ref).'/'.dol_sanitizeFileName($objp->ref).'.pdf';
-						print $formfile->showPreview($file_list, $contrat->element, $relativepath, 0);
+						print $formfile->showPreview($file_list, $contract->element, $relativepath, 0);
 					}
 				}
 				// $filename = dol_sanitizeFileName($objp->ref);
-				// $filedir = $config->contrat->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
-				// $urlsource = '/contrat/card.php?id='.$objp->cid;
-				// print $formfile->getDocumentsLink($contrat->element, $filename, $filedir);
+				// $filedir = $config->contract->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				// $urlsource = '/contract/card.php?id='.$objp->cid;
+				// print $formfile->getDocumentsLink($contract->element, $filename, $filedir);
 				print $late;
 				print '</td><td class="tdoverflowmax100">';
-				if ($contrat->fk_project > 0) {
-					$project->fetch($contrat->fk_project);
+				if ($contract->fk_project > 0) {
+					$project->fetch($contract->fk_project);
 					print $project->getNomUrl(1);
 				}
 				print "</td>\n";
@@ -1302,7 +1302,7 @@ if ($object->id > 0) {
 				print '<td class="right" width="80px"><span title="'.$langs->trans("DateContract").'">'.dol_print_date($db->jdate($objp->dcon), 'day')."</span></td>\n";
 				print '<td width="20">&nbsp;</td>';
 				print '<td class="nowraponall right">';
-				print $contrat->getLibStatut(4);
+				print $contract->getLibStatut(4);
 				print "</td>\n";
 				print '</tr>';
 				$i++;
@@ -1701,9 +1701,9 @@ if ($object->id > 0) {
 			print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/order/card.php?socid='.$object->id.'&action=create">'.$langs->trans("AddOrder").'</a></div>';
 		}
 
-		if ($user->hasRight('contrat', 'creer') && $object->status == 1) {
+		if ($user->hasRight('contract', 'creer') && $object->status == 1) {
 			$langs->load("contracts");
-			print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/contrat/card.php?socid='.$object->id.'&action=create">'.$langs->trans("AddContract").'</a></div>';
+			print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/contract/card.php?socid='.$object->id.'&action=create">'.$langs->trans("AddContract").'</a></div>';
 		}
 
 		if (isModEnabled('intervention') && $user->hasRight('ficheinter', 'creer') && $object->status == 1) {

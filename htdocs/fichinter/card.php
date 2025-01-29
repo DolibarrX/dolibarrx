@@ -47,7 +47,7 @@ if (isModEnabled('project')) {
 }
 if (isModEnabled('contract')) {
 	require_once DOL_DOCUMENT_ROOT."/core/class/html.formcontract.class.php";
-	require_once DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php";
+	require_once DOL_DOCUMENT_ROOT."/contract/class/contract.class.php";
 }
 if (getDolGlobalString('FICHEINTER_ADDON') && is_readable(DOL_DOCUMENT_ROOT."/core/modules/fichinter/mod_" . getDolGlobalString('FICHEINTER_ADDON').".php")) {
 	require_once DOL_DOCUMENT_ROOT."/core/modules/fichinter/mod_" . getDolGlobalString('FICHEINTER_ADDON').'.php';
@@ -70,7 +70,7 @@ $id			= GETPOSTINT('id');
 $ref		= GETPOST('ref', 'alpha');
 $ref_client	= GETPOST('ref_client', 'alpha');
 $socid = GETPOSTINT('socid');
-$contratid = GETPOSTINT('contratid');
+$contractid = GETPOSTINT('contractid');
 $action		= GETPOST('action', 'alpha');
 $cancel		= GETPOST('cancel', 'alpha');
 $confirm	= GETPOST('confirm', 'alpha');
@@ -316,7 +316,7 @@ if (empty($resHook)) {
 		$object->socid = $socid;
 		$object->duration = GETPOSTINT('duration');
 		$object->fk_project = GETPOSTINT('projectid');
-		$object->fk_contrat = GETPOSTINT('contratid');
+		$object->fk_contract = GETPOSTINT('contractid');
 		$object->user_author_id = $user->id;
 		$object->description = GETPOST('description', 'restricthtml');
 		$object->ref = $ref;
@@ -345,7 +345,7 @@ if (empty($resHook)) {
 					$subelement = 'propal';
 				}
 				if ($element == 'contract') {
-					$element = $subelement = 'contrat';
+					$element = $subelement = 'contract';
 				}
 
 				$object->origin    = $origin;
@@ -376,8 +376,8 @@ if (empty($resHook)) {
 
 					$classname = ucfirst($subelement);
 					$srcobject = new $classname($db);
-					'@phan-var-force Order|Propal|Contrat $srcobject';  // Can be other class, but CommonObject is too generic
-					/** @var Order|Propal|Contrat $srcobject */
+					'@phan-var-force Order|Propal|Contract $srcobject';  // Can be other class, but CommonObject is too generic
+					/** @var Order|Propal|Contract $srcobject */
 
 					dol_syslog("Try to find source object origin=".$object->origin." originid=".$object->origin_id." to add lines");
 					$result = $srcobject->fetch($object->origin_id);
@@ -536,7 +536,7 @@ if (empty($resHook)) {
 	} elseif ($action == 'update' && $permissionToAdd) {
 		$object->socid = $socid;
 		$object->fk_project = GETPOSTINT('projectid');
-		$object->fk_contrat = GETPOSTINT('contratid');
+		$object->fk_contract = GETPOSTINT('contractid');
 		$object->user_author_id = $user->id;
 		$object->description = GETPOST('description', 'restricthtml');
 		$object->ref = $ref;
@@ -554,7 +554,7 @@ if (empty($resHook)) {
 		}
 	} elseif ($action == 'setcontract' && $permissionToAdd) {
 		// Set into a contract
-		$result = $object->set_contrat($user, GETPOSTINT('contratid'));
+		$result = $object->set_contract($user, GETPOSTINT('contractid'));
 		if ($result < 0) {
 			dol_print_error($db, $object->error);
 		}
@@ -929,14 +929,14 @@ if ($action == 'create') {
 				$subelement = 'propal';
 			}
 			if ($element == 'contract') {
-				$element = $subelement = 'contrat';
+				$element = $subelement = 'contract';
 			}
 
 			dol_include_once('/'.$element.'/class/'.$subelement.'.class.php');
 
 			$classname = ucfirst($subelement);
 			$objectsrc = new $classname($db);
-			'@phan-var-force Order|Propal|Contrat $objectsrc';
+			'@phan-var-force Order|Propal|Contract $objectsrc';
 			$objectsrc->fetch(GETPOST('originid'));
 			if (empty($objectsrc->lines) && method_exists($objectsrc, 'fetch_lines')) {
 				$objectsrc->fetch_lines();
@@ -1029,9 +1029,9 @@ if ($action == 'create') {
 		if (isModEnabled('contract') && is_object($formcontract)) {
 			$langs->load("contracts");
 			print '<tr><td>'.$langs->trans("Contract").'</td><td>';
-			$numcontrat = $formcontract->select_contract($soc->id, GETPOSTINT('contratid'), 'contratid', 0, 1, 1);
-			if ($numcontrat == 0) {
-				print ' &nbsp; <a href="'.DOL_URL_ROOT.'/contrat/card.php?socid='.$soc->id.'&action=create"><span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("AddContract").'"></span></a>';
+			$numcontract = $formcontract->select_contract($soc->id, GETPOSTINT('contractid'), 'contractid', 0, 1, 1);
+			if ($numcontract == 0) {
+				print ' &nbsp; <a href="'.DOL_URL_ROOT.'/contract/card.php?socid='.$soc->id.'&action=create"><span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("AddContract").'"></span></a>';
 			}
 			print '</td></tr>';
 		}
@@ -1388,13 +1388,13 @@ if ($action == 'create') {
 		print '</td><td>';
 		if ($action == 'editcontract') {
 			$formcontract = new FormContract($db);
-			$formcontract->formSelectContract($_SERVER["PHP_SELF"].'?id='.$object->id, $object->socid, $object->fk_contrat, 'contratid', 0, 1, 1);
+			$formcontract->formSelectContract($_SERVER["PHP_SELF"].'?id='.$object->id, $object->socid, $object->fk_contract, 'contractid', 0, 1, 1);
 		} else {
-			if ($object->fk_contrat) {
-				$contratstatic = new Contrat($db);
-				$contratstatic->fetch($object->fk_contrat);
+			if ($object->fk_contract) {
+				$contractstatic = new Contract($db);
+				$contractstatic->fetch($object->fk_contract);
 				//print '<a href="'.DOL_URL_ROOT.'/projet/card.php?id='.$selected.'">'.$projet->title.'</a>';
-				print $contratstatic->getNomUrl(0, 0, 1);
+				print $contractstatic->getNomUrl(0, 0, 1);
 			} else {
 				print "&nbsp;";
 			}

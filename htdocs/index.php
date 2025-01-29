@@ -251,9 +251,9 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	}
 
 	// Number of contract / services enabled (delayed)
-	if (isModEnabled('contract')  && !getDolGlobalString('MAIN_DISABLE_BLOCK_CONTRACT') && $user->hasRight('contrat', 'lire')) {
-		include_once DOL_DOCUMENT_ROOT . '/contrat/class/contrat.class.php';
-		$board = new Contrat($db);
+	if (isModEnabled('contract')  && !getDolGlobalString('MAIN_DISABLE_BLOCK_CONTRACT') && $user->hasRight('contract', 'lire')) {
+		include_once DOL_DOCUMENT_ROOT . '/contract/class/contract.class.php';
+		$board = new Contract($db);
 		$dashboardLines[$board->element . '_inactive'] = $board->load_board($user, "inactive");
 		// Number of active services (expired)
 		$dashboardLines[$board->element . '_active'] = $board->load_board($user, "active");
@@ -410,12 +410,12 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 			'stats' =>
 			array('invoice_supplier'),
 		),
-		'contrat' =>
+		'contract' =>
 		array(
 			'groupName' => 'Contracts',
 			'globalStatsKey' => 'Contracts',
 			'stats' =>
-			array('contrat_inactive', 'contrat_active'),
+			array('contract_inactive', 'contract_active'),
 		),
 		'ticket' =>
 		array(
