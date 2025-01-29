@@ -58,7 +58,7 @@ class modECM extends DolibarrModules
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of png file (without png) used for this module
 		$this->picture = 'folder-open';
 

@@ -182,7 +182,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 *      'hooks' => array('hookcontext1','hookcontext2')
 	 *  )
 	 */
-	public $module_parts = [];
+	public $moduleParts = [];
 
 	/**
 	 * @var string Error message
@@ -231,7 +231,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 *
 	 * HTML content supported.
 	 */
-	public $descriptionlong;
+	public $descriptionLong;
 
 	/**
 	 * @var array{}|array{langs:string,tabname:string[],tablib:string[],tabsql:string[],tabsqlsort:string[],tabfield:string[],tabfieldvalue:string[],tabfieldinsert:string[],tabrowid:string[],tabcond:array<bool|int<0,1>>,tabhelp:array<array<string,string>>} dictionaries description
@@ -388,7 +388,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var string Module constant name
 	 */
-	public $const_name;
+	public $constName;
 
 	/**
 	 * @var bool Module can't be disabled
@@ -618,7 +618,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		if (!$err) {
 			$this->db->commit();
 
-			$moduleNameInConf = strtolower(preg_replace('/^MAIN_MODULE_/', '', $this->const_name));
+			$moduleNameInConf = strtolower(preg_replace('/^MAIN_MODULE_/', '', $this->constName));
 			// two exceptions to handle
 			if ($moduleNameInConf === 'propale') {
 				$moduleNameInConf = 'propal';
@@ -715,7 +715,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 			$this->db->commit();
 
 			// Disable modules
-			$moduleNameInConf = strtolower(preg_replace('/^MAIN_MODULE_/', '', $this->const_name));
+			$moduleNameInConf = strtolower(preg_replace('/^MAIN_MODULE_/', '', $this->constName));
 			// two exceptions to handle
 			if ($moduleNameInConf === 'propale') {
 				$moduleNameInConf = 'propal';
@@ -803,7 +803,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 	/**
 	 * Gives the long description of a module. First check README-la_LA.md then README.md
-	 * If no markdown files found, it returns translated value of the key ->descriptionlong.
+	 * If no markdown files found, it returns translated value of the key ->descriptionLong.
 	 *
 	 * @return string     Long description of a module from README.md of from property.
 	 */
@@ -840,7 +840,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 			}
 		} else {
 			// Mostly for internal modules
-			if (!empty($this->descriptionlong)) {
+			if (!empty($this->descriptionLong)) {
 				if (is_array($this->langfiles)) {
 					foreach ($this->langfiles as $val) {
 						if ($val) {
@@ -849,7 +849,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 					}
 				}
 
-				$content = $langs->transnoentitiesnoconv($this->descriptionlong);
+				$content = $langs->transnoentitiesnoconv($this->descriptionLong);
 			}
 		}
 
@@ -1100,7 +1100,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$err = 0;
 
 		$sql = "SELECT tms FROM ".MAIN_DB_PREFIX."const";
-		$sql .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->const_name)."'";
+		$sql .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->constName)."'";
 		$sql .= " AND entity IN (0, ".((int) $config->entity).")";
 
 		dol_syslog(get_class($this)."::getLastActiveDate", LOG_DEBUG);
@@ -1130,7 +1130,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$err = 0;
 
 		$sql = "SELECT tms, note FROM ".MAIN_DB_PREFIX."const";
-		$sql .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->const_name)."'";
+		$sql .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->constName)."'";
 		$sql .= " AND entity IN (0, ".$config->entity.")";
 
 		dol_syslog(get_class($this)."::getLastActiveDate", LOG_DEBUG);
@@ -1174,7 +1174,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$entity = ((!empty($this->always_enabled) || !empty($this->core_enabled)) ? 0 : $config->entity);
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."const";
-		$sql .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->const_name)."'";
+		$sql .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->constName)."'";
 		$sql .= " AND entity IN (0, ".$entity.")";
 
 		dol_syslog(get_class($this)."::_active delete activation constant", LOG_DEBUG);
@@ -1192,7 +1192,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		);
 
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."const (name, value, visible, entity, note) VALUES";
-		$sql .= " (".$this->db->encrypt($this->const_name);
+		$sql .= " (".$this->db->encrypt($this->constName);
 		$sql .= ", ".$this->db->encrypt('1');
 		$sql .= ", 0, ".((int) $entity);
 		$sql .= ", '".$this->db->escape($note)."')";
@@ -1224,7 +1224,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$entity = ((!empty($this->always_enabled) || !empty($this->core_enabled)) ? 0 : $config->entity);
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."const";
-		$sql .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->const_name)."'";
+		$sql .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->constName)."'";
 		$sql .= " AND entity IN (0, ".$entity.")";
 
 		dol_syslog(get_class($this)."::_unactive", LOG_DEBUG);
@@ -1762,7 +1762,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$err = 0;
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."const";
-		$sql .= " WHERE ".$this->db->decrypt('name')." LIKE '".$this->db->escape($this->const_name)."_TABS_%'";
+		$sql .= " WHERE ".$this->db->decrypt('name')." LIKE '".$this->db->escape($this->constName)."_TABS_%'";
 		$sql .= " AND entity = ".((int) $config->entity);
 
 		dol_syslog(get_class($this)."::delete_tabs", LOG_DEBUG);
@@ -1816,7 +1816,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 					$sql .= ", entity";
 					$sql .= ")";
 					$sql .= " VALUES (";
-					$sql .= $this->db->encrypt($this->const_name."_TABS_".$i);
+					$sql .= $this->db->encrypt($this->constName."_TABS_".$i);
 					$sql .= ", 'chaine'";
 					$sql .= ", ".$this->db->encrypt($newvalue);
 					$sql .= ", null";
@@ -1973,7 +1973,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		// Test if module is activated
 		$sql_del = "SELECT ".$this->db->decrypt('value')." as value";
 		$sql_del .= " FROM ".MAIN_DB_PREFIX."const";
-		$sql_del .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->const_name)."'";
+		$sql_del .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->constName)."'";
 		$sql_del .= " AND entity IN (0,".((int) $entity).")";
 
 		$resql = $this->db->query($sql_del);
@@ -2307,7 +2307,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 				if (!is_array($value)) {
 					$dir = $value; // Default simple mode
 				} else {
-					$constname = $this->const_name."_DIR_";
+					$constname = $this->constName."_DIR_";
 					$dir       = $this->dirs[$key][1];
 					$addtodatabase = empty($this->dirs[$key][2]) ? '' : $this->dirs[$key][2]; // Create constante in llx_const
 					$subname   = empty($this->dirs[$key][3]) ? '' : strtoupper($this->dirs[$key][3]); // Add submodule name (ex: $config->module->submodule->dir_output)
@@ -2408,7 +2408,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$err = 0;
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."const";
-		$sql .= " WHERE ".$this->db->decrypt('name')." LIKE '".$this->db->escape($this->const_name)."_DIR_%'";
+		$sql .= " WHERE ".$this->db->decrypt('name')." LIKE '".$this->db->escape($this->constName)."_DIR_%'";
 		$sql .= " AND entity = ".$config->entity;
 
 		dol_syslog(get_class($this)."::delete_dirs", LOG_DEBUG);
@@ -2434,12 +2434,12 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 		$error = 0;
 
-		if (is_array($this->module_parts)) {
-			if (empty($this->module_parts['icon']) && !empty($this->picture) && preg_match('/^fa\-/', $this->picture)) {
-				$this->module_parts['icon'] = $this->picture;
+		if (is_array($this->moduleParts)) {
+			if (empty($this->moduleParts['icon']) && !empty($this->picture) && preg_match('/^fa\-/', $this->picture)) {
+				$this->moduleParts['icon'] = $this->picture;
 			}
 
-			foreach ($this->module_parts as $key => $value) {
+			foreach ($this->moduleParts as $key => $value) {
 				if (is_array($value) && count($value) == 0) {
 					continue; // Discard empty arrays
 				}
@@ -2509,7 +2509,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 					$sql .= ", entity";
 					$sql .= ")";
 					$sql .= " VALUES (";
-					$sql .= " ".$this->db->encrypt($this->const_name."_".strtoupper($key), 1);
+					$sql .= " ".$this->db->encrypt($this->constName."_".strtoupper($key), 1);
 					$sql .= ", 'chaine'";
 					$sql .= ", ".$this->db->encrypt($newvalue, 1);
 					$sql .= ", null";
@@ -2517,7 +2517,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 					$sql .= ", ".((int) $entity);
 					$sql .= ")";
 
-					dol_syslog(get_class($this)."::insert_module_parts for key=".$this->const_name."_".strtoupper($key), LOG_DEBUG);
+					dol_syslog(get_class($this)."::insert_module_parts for key=".$this->constName."_".strtoupper($key), LOG_DEBUG);
 
 					$resql = $this->db->query($sql, 1);
 					if (!$resql) {
@@ -2525,7 +2525,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 							$error++;
 							$this->error = $this->db->lasterror();
 						} else {
-							dol_syslog(get_class($this)."::insert_module_parts for ".$this->const_name."_".strtoupper($key)." Record already exists.", LOG_WARNING);
+							dol_syslog(get_class($this)."::insert_module_parts for ".$this->constName."_".strtoupper($key)." Record already exists.", LOG_WARNING);
 						}
 					}
 				}
@@ -2547,14 +2547,14 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 		$err = 0;
 
-		if (is_array($this->module_parts)) {
+		if (is_array($this->moduleParts)) {
 			dol_syslog(get_class($this)."::delete_module_parts", LOG_DEBUG);
 
-			if (empty($this->module_parts['icon']) && !empty($this->picture) && preg_match('/^fa\-/', $this->picture)) {
-				$this->module_parts['icon'] = $this->picture;
+			if (empty($this->moduleParts['icon']) && !empty($this->picture) && preg_match('/^fa\-/', $this->picture)) {
+				$this->moduleParts['icon'] = $this->picture;
 			}
 
-			foreach ($this->module_parts as $key => $value) {
+			foreach ($this->moduleParts as $key => $value) {
 				// If entity is defined
 				if (is_array($value) && isset($value['entity'])) {
 					$entity = $value['entity'];
@@ -2563,7 +2563,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 				}
 
 				$sql = "DELETE FROM ".MAIN_DB_PREFIX."const";
-				$sql .= " WHERE ".$this->db->decrypt('name')." LIKE '".$this->db->escape($this->const_name)."_".strtoupper($key)."'";
+				$sql .= " WHERE ".$this->db->decrypt('name')." LIKE '".$this->db->escape($this->constName)."_".strtoupper($key)."'";
 				$sql .= " AND entity = ".((int) $entity);
 
 				if (!$this->db->query($sql)) {
@@ -2620,7 +2620,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 			$imginfo = "info_black";
 		}
 
-		$const_name = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i', '', get_class($this)));
+		$constName = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i', '', get_class($this)));
 
 		$version = $this->getVersion(0);
 		$versiontrans = '';
@@ -2636,12 +2636,12 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 		$return = '
     	<div class="box-flex-item info-box-module'
-			.(getDolGlobalString($const_name) ? '' : ' --disabled')
+			.(getDolGlobalString($constName) ? '' : ' --disabled')
 			.($this->isCoreOrExternalModule() == 'external' ? ' --external' : '')
 			.($this->needUpdate ? ' --need-update' : '')
 			.'">
 	    <div class="info-box info-box-sm info-box-module">
-	    <div class="info-box-icon'.(!getDolGlobalString($const_name) ? '' : ' info-box-icon-module-enabled'.($versiontrans ? ' info-box-icon-module-warning' : '')).'">';
+	    <div class="info-box-icon'.(!getDolGlobalString($constName) ? '' : ' info-box-icon-module-enabled'.($versiontrans ? ' info-box-icon-module-warning' : '')).'">';
 
 		$alttext = '';
 		//if (is_array($objMod->need_dolibarr_version)) $alttext.=($alttext?' - ':'').'Dolibarr >= '.join('.',$objMod->need_dolibarr_version);
@@ -2668,7 +2668,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		}
 
 		$return .=  '</div>
-	    <div class="info-box-content info-box-text-module'.(!getDolGlobalString($const_name) ? '' : ' info-box-module-enabled'.($versiontrans ? ' info-box-content-warning' : '')).'">
+	    <div class="info-box-content info-box-text-module'.(!getDolGlobalString($constName) ? '' : ' info-box-module-enabled'.($versiontrans ? ' info-box-content-warning' : '')).'">
 	    <span class="info-box-title">'.$this->getName().'</span>
 	    <span class="info-box-desc twolinesmax opacitymedium" title="'.dol_escape_htmltag($this->getDesc()).'">'.nl2br($this->getDesc()).'</span>';
 

@@ -63,14 +63,14 @@ class modVariants extends DolibarrModules
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
 		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'
 		$this->picture = 'product';
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
-		$this->module_parts = [];
+		$this->moduleParts = [];
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/variants/temp");

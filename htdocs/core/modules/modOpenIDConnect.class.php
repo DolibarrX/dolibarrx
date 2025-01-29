@@ -54,7 +54,7 @@ class modOpenIDConnect extends DolibarrModules
 		$this->description = "Enable OpenID Connect authentication";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or 'dolibarr_deprecated' or version
 		$this->version = 'dolibarr';
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
 		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'

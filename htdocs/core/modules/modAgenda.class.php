@@ -59,7 +59,7 @@ class modAgenda extends DolibarrModules
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->picture = 'action';
 
 		// Data directories to create when module is enabled
@@ -78,7 +78,7 @@ class modAgenda extends DolibarrModules
 		$this->enabled_bydefault = true; // Will be enabled during install
 
 		// Module parts
-		$this->module_parts = [];
+		$this->moduleParts = [];
 
 		// Constants
 		//-----------

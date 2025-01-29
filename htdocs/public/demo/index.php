@@ -154,7 +154,7 @@ $orders = [];
 $categ = [];
 $i = 0; // is a sequencer of modules found
 $j = 0; // j is module number. Automatically assigned if module number is not defined.
-$const_name = '';
+$constName = '';
 
 foreach ($modulesdir as $dir) {
 	// Charge tableaux modules, nom, number, orders depuis repertoire dir
@@ -179,11 +179,11 @@ foreach ($modulesdir as $dir) {
 						$modulequalified = 1;
 
 						// We discard modules according to features level (PS: if module is activated we always show it)
-						$const_name = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
-						if ($objMod->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2 && !getDolGlobalString($const_name)) {
+						$constName = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
+						if ($objMod->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2 && !getDolGlobalString($constName)) {
 							$modulequalified = 0;
 						}
-						if ($objMod->version == 'experimental' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1 && !getDolGlobalString($const_name)) {
+						if ($objMod->version == 'experimental' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1 && !getDolGlobalString($constName)) {
 							$modulequalified = 0;
 						}
 
@@ -385,10 +385,10 @@ foreach ($demoprofiles as $profilearray) {
 				if (!empty($val->always_enabled) || in_array($modulekeyname, $alwayshiddenuncheckedmodules)) {
 					$modulequalified = 0;
 				}
-				if ($val->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2 && !getDolGlobalString($const_name)) {
+				if ($val->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2 && !getDolGlobalString($constName)) {
 					$modulequalified = 0;
 				}
-				if ($val->version == 'experimental' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1 && !getDolGlobalString($const_name)) {
+				if ($val->version == 'experimental' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1 && !getDolGlobalString($constName)) {
 					$modulequalified = 0;
 				}
 				if (!$modulequalified) {

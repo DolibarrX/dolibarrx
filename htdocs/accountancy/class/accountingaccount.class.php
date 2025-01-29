@@ -747,11 +747,11 @@ class AccountingAccount extends CommonObject
 
 		$result = -1;  // Init for static analysis
 		if (empty($resHook)) {
-			$const_name = '';
+			$constName = '';
 			if ($type == 'customer') {
-				$const_name = "SOLD";
+				$constName = "SOLD";
 			} elseif ($type == 'supplier') {
-				$const_name = "BUY";
+				$constName = "BUY";
 			}
 
 			require_once DOL_DOCUMENT_ROOT . '/core/lib/company.lib.php';
@@ -766,38 +766,38 @@ class AccountingAccount extends CommonObject
 			$suggestedaccountingaccountbydefaultfor = '';
 			if ($factureDet->product_type == 1) {
 				if ($buyer->country_code == $seller->country_code || empty($buyer->country_code)) {  // If buyer in same country than seller (if not defined, we assume it is same country)
-					$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $const_name . '_ACCOUNT');
+					$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $constName . '_ACCOUNT');
 					$suggestedaccountingaccountbydefaultfor = '';
 				} else {
 					if ($isSellerInEEC && $isBuyerInEEC && $factureDet->tva_tx != 0) {    // European intravat sale, but with a VAT
-						$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $const_name . '_ACCOUNT');
+						$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $constName . '_ACCOUNT');
 					} elseif ($isSellerInEEC && $isBuyerInEEC && empty($buyer->tva_intra)) {    // European intravat sale, without VAT intra community number
-						$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $const_name . '_ACCOUNT');
+						$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $constName . '_ACCOUNT');
 						$suggestedaccountingaccountbydefaultfor = 'eecwithoutvatnumber';
 					} elseif ($isSellerInEEC && $isBuyerInEEC) {    // European intravat sale
-						$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $const_name . '_INTRA_ACCOUNT');
+						$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $constName . '_INTRA_ACCOUNT');
 						$suggestedaccountingaccountbydefaultfor = 'eec';
 					} else {                                        // Foreign sale
-						$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $const_name . '_EXPORT_ACCOUNT');
+						$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $constName . '_EXPORT_ACCOUNT');
 						$suggestedaccountingaccountbydefaultfor = 'export';
 					}
 				}
 			} elseif ($factureDet->product_type == 0) {
 				if ($buyer->country_code == $seller->country_code || empty($buyer->country_code)) {  // If buyer in same country than seller (if not defined, we assume it is same country)
-					$code_l = getDolGlobalString('ACCOUNTING_PRODUCT_' . $const_name . '_ACCOUNT');
+					$code_l = getDolGlobalString('ACCOUNTING_PRODUCT_' . $constName . '_ACCOUNT');
 					$suggestedaccountingaccountbydefaultfor = '';
 				} else {
 					if ($isSellerInEEC && $isBuyerInEEC && $factureDet->tva_tx != 0) {    // European intravat sale, but with a VAT
-						$code_l = getDolGlobalString('ACCOUNTING_PRODUCT_' . $const_name . '_ACCOUNT');
+						$code_l = getDolGlobalString('ACCOUNTING_PRODUCT_' . $constName . '_ACCOUNT');
 						$suggestedaccountingaccountbydefaultfor = 'eecwithvat';
 					} elseif ($isSellerInEEC && $isBuyerInEEC && empty($buyer->tva_intra)) {    // European intravat sale, without VAT intra community number
-						$code_l = getDolGlobalString('ACCOUNTING_PRODUCT_' . $const_name . '_ACCOUNT');
+						$code_l = getDolGlobalString('ACCOUNTING_PRODUCT_' . $constName . '_ACCOUNT');
 						$suggestedaccountingaccountbydefaultfor = 'eecwithoutvatnumber';
 					} elseif ($isSellerInEEC && $isBuyerInEEC) {    // European intravat sale
-						$code_l = getDolGlobalString('ACCOUNTING_PRODUCT_' . $const_name . '_INTRA_ACCOUNT');
+						$code_l = getDolGlobalString('ACCOUNTING_PRODUCT_' . $constName . '_INTRA_ACCOUNT');
 						$suggestedaccountingaccountbydefaultfor = 'eec';
 					} else {
-						$code_l = getDolGlobalString('ACCOUNTING_PRODUCT_' . $const_name . '_EXPORT_ACCOUNT');
+						$code_l = getDolGlobalString('ACCOUNTING_PRODUCT_' . $constName . '_EXPORT_ACCOUNT');
 						$suggestedaccountingaccountbydefaultfor = 'export';
 					}
 				}

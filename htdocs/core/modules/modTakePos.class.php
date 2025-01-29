@@ -64,12 +64,12 @@ class modTakePos extends DolibarrModules
 		// Module description, used if translation string 'ModuleTakePosDesc' not found (MyModue is name of module).
 		$this->description = "Point of sales module (Touch Screen POS)";
 		// Used only if file README.md and README-LL.md not found.
-		$this->descriptionlong = "Point Of Sales (compliant with touch screen)";
+		$this->descriptionLong = "Point Of Sales (compliant with touch screen)";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
 		$this->version = 'dolibarr';
 		// Key used in llx_const table to save module status enabled/disabled (where TAKEPOS is value of property name of module in uppercase)
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
 		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'
@@ -79,7 +79,7 @@ class modTakePos extends DolibarrModules
 		// for default path (eg: /takepos/core/xxxxx) (0=disable, 1=enable)
 		// for specific path of parts (eg: /takepos/core/modules/barcode)
 		// for specific css file (eg: /takepos/css/takepos.css.php)
-		$this->module_parts = array(
+		$this->moduleParts = array(
 									'triggers' => 0, // Set this to 1 if module has its own trigger directory (core/triggers)
 									'login' => 0, // Set this to 1 if module has its own login method file (core/login)
 									'substitutions' => 1, // Set this to 1 if module has its own substitution function file (core/substitutions)

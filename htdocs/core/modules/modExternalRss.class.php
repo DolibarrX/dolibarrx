@@ -50,7 +50,7 @@ class modExternalRss extends DolibarrModules
 		$this->description = "Ajout de files d'informations RSS dans les ecrans Dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->picture = 'rss';
 
 		// Data directories to create when module is enabled

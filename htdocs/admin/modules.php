@@ -538,14 +538,14 @@ foreach ($modulesdir as $dir) {
 							$modulequalified = 1;
 
 							// We discard modules according to features level (PS: if module is activated we always show it)
-							$const_name = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
-							if ($objMod->version == 'development' && (!getDolGlobalString($const_name) && (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2))) {
+							$constName = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
+							if ($objMod->version == 'development' && (!getDolGlobalString($constName) && (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2))) {
 								$modulequalified = 0;
 							}
-							if ($objMod->version == 'experimental' && (!getDolGlobalString($const_name) && (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1))) {
+							if ($objMod->version == 'experimental' && (!getDolGlobalString($constName) && (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1))) {
 								$modulequalified = 0;
 							}
-							if (preg_match('/deprecated/', $objMod->version) && (!getDolGlobalString($const_name) && (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 0))) {
+							if (preg_match('/deprecated/', $objMod->version) && (!getDolGlobalString($constName) && (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 0))) {
 								$modulequalified = 0;
 							}
 
@@ -844,7 +844,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 		}
 
 		$modulenameshort = strtolower(preg_replace('/^mod/i', '', get_class($objMod)));
-		$const_name = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
+		$constName = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
 
 		// Check filters
 		$modulename = $objMod->getName();
@@ -869,10 +869,10 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 			}
 		}
 		if ($search_status) {
-			if ($search_status == 'active' && !getDolGlobalString($const_name)) {
+			if ($search_status == 'active' && !getDolGlobalString($constName)) {
 				continue;
 			}
-			if ($search_status == 'disabled' && getDolGlobalString($const_name)) {
+			if ($search_status == 'disabled' && getDolGlobalString($constName)) {
 				continue;
 			}
 		}
@@ -999,7 +999,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 		}
 
 		// Activate/Disable and Setup (2 columns)
-		if (getDolGlobalString($const_name)) {	// If module is already activated
+		if (getDolGlobalString($constName)) {	// If module is already activated
 			// Set $codeenabledisable
 			$disableSetup = 0;
 			if (!empty($arrayofwarnings[$modName])) {

@@ -65,7 +65,7 @@ class modWebhook extends DolibarrModules
 		// Module description, used if translation string 'ModuleWebhookDesc' not found (Webhook is name of module).
 		$this->description = "WebHook";
 		// Used only if file README.md and README-LL.md not found.
-		$this->descriptionlong = "Interface to catch dolibarr triggers and send data of the event to an external URL";
+		$this->descriptionLong = "Interface to catch dolibarr triggers and send data of the event to an external URL";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
 		$this->version = 'dolibarr';
@@ -73,7 +73,7 @@ class modWebhook extends DolibarrModules
 		//$this->url_last_version = 'http://www.example.com/versionmodule.txt';
 
 		// Key used in llx_const table to save module status enabled/disabled (where WEBHOOK is value of property name of module in uppercase)
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
@@ -82,7 +82,7 @@ class modWebhook extends DolibarrModules
 		$this->picture = 'webhook';
 
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
-		$this->module_parts = array(
+		$this->moduleParts = array(
 			// Set this to 1 if module has its own trigger directory (core/triggers)
 			'triggers' => 1,
 			// Set this to 1 if module has its own login method file (core/login)

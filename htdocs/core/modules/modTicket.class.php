@@ -70,7 +70,7 @@ class modTicket extends DolibarrModules
 		$this->version = 'dolibarr';
 		// Key used in llx_const table to save module status enabled/disabled
 		// (where MYMODULE is value of property name of module in uppercase)
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_picturevalue.png
 		// use this->picture='picturevalue'
@@ -81,7 +81,7 @@ class modTicket extends DolibarrModules
 		// for default path (eg: /ticket/core/xxxxx) (0=disable, 1=enable)
 		// for specific path of parts (eg: /ticket/core/modules/barcode)
 		// for specific css file (eg: /ticket/css/ticket.css.php)
-		$this->module_parts = array(
+		$this->moduleParts = array(
 			// Set this to 1 if module has its own trigger directory
 			'triggers' => 1,
 		);

@@ -52,7 +52,7 @@ class modPrinting extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'number' of module)
 		$this->description = "Enable Direct Printing System.";
 		$this->version = 'dolibarr'; // 'development' or 'experimental' or 'dolibarr' or version
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
 		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'

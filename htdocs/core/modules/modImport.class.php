@@ -49,7 +49,7 @@ class modImport extends DolibarrModules
 		$this->description = "Outils d'imports de donnees Dolibarr (via un assistant)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or 'dolibarr_deprecated' or version
 		$this->version = 'dolibarr';
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->picture = 'technic';
 
 		// Data directories to create when module is enabled

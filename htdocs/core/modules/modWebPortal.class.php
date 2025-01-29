@@ -64,7 +64,7 @@ class modWebPortal extends DolibarrModules
 		// Module description, used if translation string 'ModuleWebPortalDesc' not found (WebPortal is name of module).
 		$this->description = "WebPortalDescription";
 		// Used only if file README.md and README-LL.md not found.
-		$this->descriptionlong = "WebPortalDescription";
+		$this->descriptionLong = "WebPortalDescription";
 
 		// Author
 		//$this->editorName = 'Dolibarr';
@@ -76,7 +76,7 @@ class modWebPortal extends DolibarrModules
 		//$this->url_last_version = 'http://www.example.com/versionmodule.txt';
 
 		// Key used in llx_const table to save module status enabled/disabled (where WEBPORTAL is value of property name of module in uppercase)
-		$this->const_name = 'MAIN_MODULE_' . strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_' . strtoupper($this->name);
 
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
@@ -85,7 +85,7 @@ class modWebPortal extends DolibarrModules
 		$this->picture = 'fa-door-open';
 
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
-		$this->module_parts = array(
+		$this->moduleParts = array(
 			// Set this to 1 if module has its own trigger directory (core/triggers)
 			'triggers' => 0,
 			// Set this to 1 if module has its own login method file (core/login)

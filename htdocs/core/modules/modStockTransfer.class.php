@@ -62,20 +62,20 @@ class modStockTransfer extends DolibarrModules
 		// Module description, used if translation string 'ModuleStockTransferDesc' not found (StockTransfer is name of module).
 		$this->description = $langs->trans("ModuleStockTransferDesc");
 		// Used only if file README.md and README-LL.md not found.
-		$this->descriptionlong = "Advanced management of stock transfer orders with generation of stock transfer sheets";
+		$this->descriptionLong = "Advanced management of stock transfer orders with generation of stock transfer sheets";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
 		$this->version = 'experimental';
 		// Url to the file with your last numberversion of this module
 		//$this->url_last_version = 'http://www.example.com/versionmodule.txt';
 
 		// Key used in llx_const table to save module status enabled/disabled (where STOCKTRANSFER is value of property name of module in uppercase)
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
 		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'
 		$this->picture = 'stock';
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
-		$this->module_parts = array(
+		$this->moduleParts = array(
 			// Set this to 1 if module has its own trigger directory (core/triggers)
 			'triggers' => 0,
 			// Set this to 1 if module has its own login method file (core/login)

@@ -139,14 +139,14 @@ foreach ($modulesdir as $dir) {
 								$modulequalified = 1;
 
 								// We discard modules according to features level (PS: if module is activated we always show it)
-								$const_name = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
-								if ($objMod->version == 'development' && (!getDolGlobalString($const_name) && (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2))) {
+								$constName = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
+								if ($objMod->version == 'development' && (!getDolGlobalString($constName) && (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2))) {
 									$modulequalified = 0;
 								}
-								if ($objMod->version == 'experimental' && (!getDolGlobalString($const_name) && (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1))) {
+								if ($objMod->version == 'experimental' && (!getDolGlobalString($constName) && (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1))) {
 									$modulequalified = 0;
 								}
-								if (preg_match('/deprecated/', $objMod->version) && (!getDolGlobalString($const_name) && (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 0))) {
+								if (preg_match('/deprecated/', $objMod->version) && (!getDolGlobalString($constName) && (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 0))) {
 									$modulequalified = 0;
 								}
 
@@ -272,10 +272,10 @@ $moduledesc = $objMod->getDesc();
 $moduleauthor = $objMod->getPublisher();
 $moduledir = strtolower(preg_replace('/^mod/i', '', get_class($objMod)));
 
-$const_name = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
+$constName = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
 
 $text = '<span class="opacitymedium">'.$langs->trans("LastActivationDate").':</span> ';
-if (getDolGlobalString($const_name)) {
+if (getDolGlobalString($constName)) {
 	$text .= dol_print_date($objMod->getLastActivationDate(), 'dayhour');
 } else {
 	$text .= $langs->trans("Disabled");
@@ -494,7 +494,7 @@ if ($mode == 'feature') {
 	$text .= '<br>';
 
 	$text .= '<br><strong>'.$langs->trans("AddModels").':</strong> ';
-	if (isset($objMod->module_parts) && isset($objMod->module_parts['models']) && $objMod->module_parts['models']) {
+	if (isset($objMod->moduleParts) && isset($objMod->moduleParts['models']) && $objMod->moduleParts['models']) {
 		$text .= $langs->trans("Yes");
 	} else {
 		$text .= '<span class="opacitymedium">'.$langs->trans("No").'</span>';
@@ -503,7 +503,7 @@ if ($mode == 'feature') {
 	$text .= '<br>';
 
 	$text .= '<br><strong>'.$langs->trans("AddSubstitutions").':</strong> ';
-	if (isset($objMod->module_parts) && isset($objMod->module_parts['substitutions']) && $objMod->module_parts['substitutions']) {
+	if (isset($objMod->moduleParts) && isset($objMod->moduleParts['substitutions']) && $objMod->moduleParts['substitutions']) {
 		$text .= $langs->trans("Yes");
 	} else {
 		$text .= '<span class="opacitymedium">'.$langs->trans("No").'</span>';
@@ -526,7 +526,7 @@ if ($mode == 'feature') {
 
 	$text .= '<br><strong>'.$langs->trans("AddTriggers").':</strong> ';
 	$moreinfoontriggerfile = '';
-	if (isset($objMod->module_parts) && isset($objMod->module_parts['triggers']) && $objMod->module_parts['triggers']) {
+	if (isset($objMod->moduleParts) && isset($objMod->moduleParts['triggers']) && $objMod->moduleParts['triggers']) {
 		$yesno = 'Yes';
 	} else {
 		$yesno = '<span class="opacitymedium">'.$langs->trans("No").'</span>';
@@ -562,9 +562,9 @@ if ($mode == 'feature') {
 	$text .= '<br>';
 
 	$text .= '<br><strong>'.$langs->trans("AddHooks").':</strong> ';
-	if (isset($objMod->module_parts) && isset($objMod->module_parts['hooks']) && is_array($objMod->module_parts['hooks']) && count($objMod->module_parts['hooks'])) {
+	if (isset($objMod->moduleParts) && isset($objMod->moduleParts['hooks']) && is_array($objMod->moduleParts['hooks']) && count($objMod->moduleParts['hooks'])) {
 		$i = 0;
-		foreach ($objMod->module_parts['hooks'] as $key => $val) {
+		foreach ($objMod->moduleParts['hooks'] as $key => $val) {
 			if ($key === 'entity') {
 				continue;
 			}
@@ -639,7 +639,7 @@ if ($mode == 'feature') {
 	$text .= '<br>';
 
 	$text .= '<br><strong>'.$langs->trans("AddWebsiteTemplates").':</strong> ';
-	if (isset($objMod->module_parts) && isset($objMod->module_parts['websitetemplates']) && $objMod->module_parts['websitetemplates']) {
+	if (isset($objMod->moduleParts) && isset($objMod->moduleParts['websitetemplates']) && $objMod->moduleParts['websitetemplates']) {
 		$text .= $langs->trans("Yes");
 	} else {
 		$text .= '<span class="opacitymedium">'.$langs->trans("No").'</span>';

@@ -51,7 +51,7 @@ class modFckeditor extends DolibarrModules
 		$this->description = "Editeur WYSIWYG";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of png file (without png) used for this module.
 		// Png file must be in theme/yourtheme/img directory under name object_picturevalue.png.
 		$this->picture = 'paragraph';

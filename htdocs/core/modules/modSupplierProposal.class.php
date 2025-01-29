@@ -56,7 +56,7 @@ class modSupplierProposal extends DolibarrModules
 
 		$this->version = 'dolibarr';
 
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->picture = 'supplier_proposal';
 
 		// Data directories to create when module is enabled.

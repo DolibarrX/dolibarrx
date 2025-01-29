@@ -57,11 +57,11 @@ class modProductBatch extends DolibarrModules
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
 		// Key used in llx_const table to save module status enabled/disabled (where dluo is value of property name of module in uppercase)
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 
 		$this->picture = 'lot';
 
-		$this->module_parts = [];
+		$this->moduleParts = [];
 
 		// Data directories to create when module is enabled.
 		$this->dirs = [];

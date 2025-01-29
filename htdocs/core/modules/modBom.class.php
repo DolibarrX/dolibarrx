@@ -67,7 +67,7 @@ class modBom extends DolibarrModules
 		// Module description, used if translation string 'ModuleBomDesc' not found (Bom is name of module).
 		$this->description = "Module to define your Bills Of Materials (BOM). Can be used for Manufacturing Resource Planning by the module Manufacturing Orders (MO)";
 		// Used only if file README.md and README-LL.md not found.
-		$this->descriptionlong = "Bill of Materials definitions. They can be used to make Manufacturing Resource Planning";
+		$this->descriptionLong = "Bill of Materials definitions. They can be used to make Manufacturing Resource Planning";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
 		$this->version = 'dolibarr';
@@ -75,14 +75,14 @@ class modBom extends DolibarrModules
 		//Url to the file with your last numberversion of this module
 		//$this->url_last_version = 'http://www.example.com/versionmodule.txt';
 		// Key used in llx_const table to save module status enabled/disabled (where BILLOFMATERIALS is value of property name of module in uppercase)
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
 		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'
 		$this->picture = 'bom';
 
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
-		$this->module_parts = array(
+		$this->moduleParts = array(
 			/*
 			'triggers' => 1,                                 	// Set this to 1 if module has its own trigger directory (core/triggers)
 			'login' => 0,                                    	// Set this to 1 if module has its own login method file (core/login)

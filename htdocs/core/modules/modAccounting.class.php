@@ -51,7 +51,7 @@ class modAccounting extends DolibarrModules
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or 'dolibarr_deprecated' or version
 		$this->version = 'dolibarr';
 
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->picture = 'accountancy';
 
 		// Data directories to create when module is enabled
@@ -145,7 +145,7 @@ class modAccounting extends DolibarrModules
 		$this->tabs = [];
 
 		// Css
-		$this->module_parts = [];
+		$this->moduleParts = [];
 
 		// Boxes
 		$this->boxes = array(

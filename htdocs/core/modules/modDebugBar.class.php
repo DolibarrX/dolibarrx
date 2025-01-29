@@ -52,10 +52,10 @@ class modDebugBar extends DolibarrModules
 		$this->description = "A tool for developer adding a debug bar in your browser.";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->picture = 'bug';
 
-		$this->module_parts = array('moduleforexternal' => 0);
+		$this->moduleParts = array('moduleforexternal' => 0);
 
 		// Data directories to create when module is enabled
 		$this->dirs = [];

@@ -1222,9 +1222,9 @@ function activateModule($value, $withdeps = 1, $noconfverification = 0)
 		return $ret;
 	}
 
-	$const_name = $objMod->const_name;
+	$constName = $objMod->constName;
 	if ($noconfverification == 0) {
-		if (getDolGlobalString($const_name)) {
+		if (getDolGlobalString($constName)) {
 			return $ret;
 		}
 	}
@@ -1351,7 +1351,7 @@ function unActivateModule($value, $requiredby = 1)
 		$genericMod = new DolibarrModules($db);
 		$genericMod->name = preg_replace('/^mod/i', '', $modName);
 		$genericMod->rightsClass = strtolower(preg_replace('/^mod/i', '', $modName));
-		$genericMod->const_name = 'MAIN_MODULE_' . strtoupper(preg_replace('/^mod/i', '', $modName));
+		$genericMod->constName = 'MAIN_MODULE_' . strtoupper(preg_replace('/^mod/i', '', $modName));
 		dol_syslog("modules::unActivateModule Failed to find module file, we use generic function with name " . $modName);
 		$genericMod->remove('');
 	}
@@ -1423,15 +1423,15 @@ function complete_dictionary_with_modules(&$taborder, &$tabname, &$tablib, &$tab
 						$modulequalified = 1;
 
 						// We discard modules according to features level (PS: if module is activated we always show it)
-						$const_name = 'MAIN_MODULE_' . strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
-						if ($objMod->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2 && !getDolGlobalString($const_name)) {
+						$constName = 'MAIN_MODULE_' . strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
+						if ($objMod->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2 && !getDolGlobalString($constName)) {
 							$modulequalified = 0;
 						}
-						if ($objMod->version == 'experimental' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1 && !getDolGlobalString($const_name)) {
+						if ($objMod->version == 'experimental' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1 && !getDolGlobalString($constName)) {
 							$modulequalified = 0;
 						}
 						// If module is not activated disqualified
-						if (!getDolGlobalString($const_name)) {
+						if (!getDolGlobalString($constName)) {
 							$modulequalified = 0;
 						}
 
@@ -1529,8 +1529,8 @@ function complete_dictionary_with_modules(&$taborder, &$tabname, &$tablib, &$tab
 								}
 
 								if ($nbtabname != $nbtablib || $nbtablib != $nbtabsql || $nbtabsql != $nbtabsqlsort) {
-									print 'Error in descriptor of module ' . $const_name . '. Array ->dictionaries has not same number of record for key "tabname", "tablib", "tabsql" and "tabsqlsort"';
-									//print "$const_name: $nbtabname=$nbtablib=$nbtabsql=$nbtabsqlsort=$nbtabfield=$nbtabfieldvalue=$nbtabfieldinsert=$nbtabrowid=$nbtabcond=$nbtabfieldcheck=$nbtabhelp\n";
+									print 'Error in descriptor of module ' . $constName . '. Array ->dictionaries has not same number of record for key "tabname", "tablib", "tabsql" and "tabsqlsort"';
+									//print "$constName: $nbtabname=$nbtablib=$nbtabsql=$nbtabsqlsort=$nbtabfield=$nbtabfieldvalue=$nbtabfieldinsert=$nbtabrowid=$nbtabcond=$nbtabfieldcheck=$nbtabhelp\n";
 								} else {
 									$taborder[] = 0; // Add an empty line
 								}
@@ -1584,7 +1584,7 @@ function activateModulesRequiredByCountry($country_code)
 						$modulequalified = 1;
 
 						// We discard modules according to features level (PS: if module is activated we always show it)
-						$const_name = 'MAIN_MODULE_' . strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
+						$constName = 'MAIN_MODULE_' . strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
 
 						if ($objMod->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2) {
 							$modulequalified = 0;
@@ -1592,7 +1592,7 @@ function activateModulesRequiredByCountry($country_code)
 						if ($objMod->version == 'experimental' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1) {
 							$modulequalified = 0;
 						}
-						if (getDolGlobalString($const_name)) {
+						if (getDolGlobalString($constName)) {
 							$modulequalified = 0; // already activated
 						}
 
@@ -1666,15 +1666,15 @@ function complete_elementList_with_modules(&$elementList)
 						$modulequalified = 1;
 
 						// We discard modules according to features level (PS: if module is activated we always show it)
-						$const_name = 'MAIN_MODULE_' . strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
-						if ($objMod->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2 && getDolGlobalString($const_name)) {
+						$constName = 'MAIN_MODULE_' . strtoupper(preg_replace('/^mod/i', '', get_class($objMod)));
+						if ($objMod->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2 && getDolGlobalString($constName)) {
 							$modulequalified = 0;
 						}
-						if ($objMod->version == 'experimental' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1 && getDolGlobalString($const_name)) {
+						if ($objMod->version == 'experimental' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 1 && getDolGlobalString($constName)) {
 							$modulequalified = 0;
 						}
 						// If module is not activated disqualified
-						if (!getDolGlobalString($const_name)) {
+						if (!getDolGlobalString($constName)) {
 							$modulequalified = 0;
 						}
 
@@ -1692,9 +1692,9 @@ function complete_elementList_with_modules(&$elementList)
 							$dirmod[$i] = $dir;
 							//print "x".$modName." ".$orders[$i]."\n<br>";
 
-							if (!empty($objMod->module_parts['contactelement'])) {
-								if (is_array($objMod->module_parts['contactelement'])) {
-									foreach ($objMod->module_parts['contactelement'] as $elem => $title) {
+							if (!empty($objMod->moduleParts['contactelement'])) {
+								if (is_array($objMod->moduleParts['contactelement'])) {
+									foreach ($objMod->moduleParts['contactelement'] as $elem => $title) {
 										$elementList[$elem] = $langs->trans($title);
 									}
 								} else {
@@ -1954,7 +1954,7 @@ function showModulesExludedForExternal($modules)
 	if (!empty($modules)) {
 		$tmpmodules = dol_sort_array($modules, 'module_position');
 		foreach ($tmpmodules as $module) {		// Loop on array of modules
-			$moduleconst = $module->const_name;
+			$moduleconst = $module->constName;
 			$modulename = strtolower($module->name);
 			//print 'modulename='.$modulename;
 

@@ -53,7 +53,7 @@ class modExpenseReport extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'number' of module)
 		$this->description = "Manage and claim expense reports (transportation, meal, ...)";
 		$this->version = 'dolibarr';
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->picture = 'trip';
 
 		// Data directories to create when module is enabled.
