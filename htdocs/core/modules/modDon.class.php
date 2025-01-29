@@ -61,7 +61,7 @@ class modDon extends DolibarrModules
 
 		// Dependencies
 		$this->depends = [];
-		$this->requiredby = [];
+		$this->requiredBy = [];
 
 		// Config pages
 		$this->configPageUrl = array("donation.php@don");

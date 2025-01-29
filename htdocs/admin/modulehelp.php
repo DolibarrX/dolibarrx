@@ -418,9 +418,9 @@ if ($mode == 'feature') {
 	$text .= '<br>';
 
 	$text .= '<br><strong>'.$langs->trans("RequiredBy").':</strong> ';
-	if (is_array($objMod->requiredby) && count($objMod->requiredby)) {
+	if (is_array($objMod->requiredBy) && count($objMod->requiredBy)) {
 		$i = 0;
-		foreach ($objMod->requiredby as $modulestringorarray) {
+		foreach ($objMod->requiredBy as $modulestringorarray) {
 			if (is_array($modulestringorarray)) {
 				$text .= ($i ? ', ' : '').implode(', ', $modulestringorarray);
 			} else {

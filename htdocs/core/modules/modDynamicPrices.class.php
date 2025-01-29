@@ -62,7 +62,7 @@ class modDynamicPrices extends DolibarrModules
 		// Dependencies
 		//-------------
 		$this->depends = [];
-		$this->requiredby = [];
+		$this->requiredBy = [];
 		$this->langfiles = array("other");
 
 		// Constants

@@ -70,7 +70,7 @@ class modECM extends DolibarrModules
 
 		// Dependencies
 		$this->depends = []; // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = []; // List of modules id to disable if this one is disabled
+		$this->requiredBy = []; // List of modules id to disable if this one is disabled
 
 		// Constants
 		$this->const = []; // List of parameters

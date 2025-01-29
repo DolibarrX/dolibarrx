@@ -63,7 +63,7 @@ class modContrat extends DolibarrModules
 
 		// Dependencies
 		$this->depends = array("modSociete");
-		$this->requiredby = [];
+		$this->requiredBy = [];
 
 		// Config pages
 		$this->configPageUrl = array("contract.php");

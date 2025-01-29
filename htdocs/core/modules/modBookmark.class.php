@@ -58,7 +58,7 @@ class modBookmark extends DolibarrModules
 
 		// Dependencies
 		$this->depends = [];
-		$this->requiredby = [];
+		$this->requiredBy = [];
 		$this->langfiles = array("bookmarks");
 
 		// Config pages

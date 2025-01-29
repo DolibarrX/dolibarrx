@@ -62,7 +62,7 @@ class modDocumentGeneration extends DolibarrModules
 
 		// Dependencies
 		$this->depends = [];
-		$this->requiredby = [];
+		$this->requiredBy = [];
 		$this->conflictwith = [];
 		$this->langfiles = array("orders", "bills", "companies", "mails");
 

@@ -58,7 +58,7 @@ class modClickToDial extends DolibarrModules
 
 		// Dependencies
 		$this->depends = [];
-		$this->requiredby = [];
+		$this->requiredBy = [];
 
 		// Config pages
 		$this->configPageUrl = array("clicktodial.php");

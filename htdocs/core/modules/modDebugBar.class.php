@@ -62,7 +62,7 @@ class modDebugBar extends DolibarrModules
 
 		// Dependencies
 		$this->depends = []; // May be used for product or service or third party module
-		$this->requiredby = [];
+		$this->requiredBy = [];
 
 		// Config pages
 		$this->configPageUrl = array("debugbar.php");

@@ -135,7 +135,7 @@ class modWebPortal extends DolibarrModules
 		// List of module class names that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR')...)
 		$this->depends = [];
 		// List of module class names to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
-		$this->requiredby = [];
+		$this->requiredBy = [];
 		// List of module class names this module is in conflict with. Example: array('modModuleToDisable1', ...)
 		$this->conflictwith = [];
 

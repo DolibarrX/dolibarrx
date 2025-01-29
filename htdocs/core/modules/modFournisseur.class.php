@@ -75,7 +75,7 @@ class modFournisseur extends DolibarrModules
 
 		// Dependencies
 		$this->depends = array("modSociete");
-		$this->requiredby = array("modSupplierProposal");
+		$this->requiredBy = array("modSupplierProposal");
 		$this->langfiles = array('bills', 'companies', 'suppliers', 'orders', 'sendings');
 
 		// Config pages

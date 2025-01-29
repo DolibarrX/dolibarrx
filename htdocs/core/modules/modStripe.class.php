@@ -72,7 +72,7 @@ class modStripe extends DolibarrModules
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
 		$this->depends = []; // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = []; // List of modules id to disable if this one is disabled
+		$this->requiredBy = []; // List of modules id to disable if this one is disabled
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(5, 0); // Minimum version of Dolibarr required by module
 		$this->langfiles = array("stripe");

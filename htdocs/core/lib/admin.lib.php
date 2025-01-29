@@ -1307,10 +1307,10 @@ function activateModule($value, $withdeps = 1, $noconfverification = 0)
  *  Disable a module
  *
  *  @param      string		$value               Nom du module a desactiver
- *  @param      int			$requiredby          1=Desactive aussi modules dependants
+ *  @param      int			$requiredBy          1=Desactive aussi modules dependants
  *  @return     string     				         Error message or '';
  */
-function unActivateModule($value, $requiredby = 1)
+function unActivateModule($value, $requiredBy = 1)
 {
 	global $db, $modules, $config;
 
@@ -1357,11 +1357,11 @@ function unActivateModule($value, $requiredby = 1)
 	}
 
 	// Disable modules that depends on module we disable
-	if (!$ret && $requiredby && isset($objMod) && is_object($objMod) && is_array($objMod->requiredby)) {
-		$countrb = count($objMod->requiredby);
+	if (!$ret && $requiredBy && isset($objMod) && is_object($objMod) && is_array($objMod->requiredBy)) {
+		$countrb = count($objMod->requiredBy);
 		for ($i = 0; $i < $countrb; $i++) {
-			//var_dump($objMod->requiredby[$i]);
-			unActivateModule($objMod->requiredby[$i]);
+			//var_dump($objMod->requiredBy[$i]);
+			unActivateModule($objMod->requiredBy[$i]);
 		}
 	}
 

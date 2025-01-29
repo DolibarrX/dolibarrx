@@ -64,7 +64,7 @@ class modDeplacement extends DolibarrModules
 
 		// Dependencies
 		$this->depends = [];
-		$this->requiredby = [];
+		$this->requiredBy = [];
 
 		// Constants
 		$this->const = [];

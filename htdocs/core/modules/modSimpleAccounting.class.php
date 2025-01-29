@@ -64,7 +64,7 @@ class modSimpleAccounting extends DolibarrModules
 
 		// Dependencies
 		$this->depends = array("modFacture", "modBank");
-		$this->requiredby = [];
+		$this->requiredBy = [];
 		$this->conflictwith = array("modAccounting");
 		$this->langfiles = array("compta");
 

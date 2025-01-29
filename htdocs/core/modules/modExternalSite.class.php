@@ -71,7 +71,7 @@ class modExternalSite extends DolibarrModules
 
 		// Dependencies
 		$this->depends = []; // List of modules id that must be enabled if this module is enabled
-		$this->requiredby = []; // List of modules id to disable if this one is disabled
+		$this->requiredBy = []; // List of modules id to disable if this one is disabled
 
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)

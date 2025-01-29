@@ -428,7 +428,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 * Note: Example in modTakePos:  array('always'=>array("modBank", "modFacture", "modProduct", "modCategory"), 'FR'=>array('modBlockedLog'));
 	 *       Example in modAccounting: array("modFacture", "modBank", "modTax");
 
-	 * @see $requiredby
+	 * @see $requiredBy
 	 */
 	public $depends;
 
@@ -436,7 +436,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 * @var string[] List of module class names to disable if the module is disabled.
 	 * @see $depends
 	 */
-	public $requiredby;
+	public $requiredBy;
 
 	/**
 	 * @var string[] List of module class names as string this module is in conflict with.

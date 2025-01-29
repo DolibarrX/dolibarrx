@@ -61,7 +61,7 @@ class modExternalRss extends DolibarrModules
 
 		// Dependencies
 		$this->depends = [];
-		$this->requiredby = [];
+		$this->requiredBy = [];
 		$this->phpmin = array(7, 0);
 		$this->phpmax = [];
 

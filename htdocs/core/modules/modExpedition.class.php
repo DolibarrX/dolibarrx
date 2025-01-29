@@ -77,7 +77,7 @@ class modExpedition extends DolibarrModules
 
 		// Dependencies
 		$this->depends = array("modOrder");
-		$this->requiredby = [];
+		$this->requiredBy = [];
 		$this->conflictwith = [];
 		$this->langfiles = array('deliveries', 'sendings');
 
