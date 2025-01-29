@@ -95,7 +95,7 @@ if (!$user->admin) {
 	accessforbidden();
 }
 
-$familyinfo = array(
+$familyInfo = array(
 	'hr' => array('position' => '001', 'label' => $langs->trans("ModuleFamilyHr")),
 	'crm' => array('position' => '006', 'label' => $langs->trans("ModuleFamilyCrm")),
 	'srm' => array('position' => '007', 'label' => $langs->trans("ModuleFamilySrm")),
@@ -561,8 +561,8 @@ foreach ($modulesdir as $dir) {
 									if ($publisher) {
 										// Check if there is a logo forpublisher
 										/* Do not show the company logo in combo. Make combo list dirty.
-										if (!empty($objMod->editor_squarred_logo)) {
-											$publisherlogoarray['external_'.$publisher] = img_picture('', $objMod->editor_squarred_logo, 'class="publisherlogoinline"');
+										if (!empty($objMod->editorSquarredLogo)) {
+											$publisherlogoarray['external_'.$publisher] = img_picture('', $objMod->editorSquarredLogo, 'class="publisherlogoinline"');
 										}
 										$publisherlogo = empty($publisherlogoarray['external_'.$publisher]) ? '' : $publisherlogoarray['external_'.$publisher];
 										*/
@@ -578,9 +578,9 @@ foreach ($modulesdir as $dir) {
 								$modules[$modName] = $objMod;
 
 								// Gives the possibility to the module, to provide his own family info and position of this family
-								if (is_array($objMod->familyinfo) && !empty($objMod->familyinfo)) {
-									$familyinfo = array_merge($familyinfo, $objMod->familyinfo);
-									$familykey = key($objMod->familyinfo);
+								if (is_array($objMod->familyInfo) && !empty($objMod->familyInfo)) {
+									$familyInfo = array_merge($familyInfo, $objMod->familyInfo);
+									$familykey = key($objMod->familyInfo);
 								} else {
 									$familykey = $objMod->family;
 								}
@@ -600,7 +600,7 @@ foreach ($modulesdir as $dir) {
 									$arrayofwarningsext[$modName] = $objMod->warnings_activation_ext;
 								}
 
-								$familyposition = (empty($familyinfo[$familykey]['position']) ? '0' : $familyinfo[$familykey]['position']);
+								$familyposition = (empty($familyInfo[$familykey]['position']) ? '0' : $familyInfo[$familykey]['position']);
 								$listOfOfficialModuleGroups = array('hr', 'technic', 'interface', 'technic', 'portal', 'financial', 'crm', 'base', 'products', 'srm', 'ecm', 'projects', 'other');
 								if ($external && !in_array($familykey, $listOfOfficialModuleGroups)) {
 									// If module is extern and into a custom group (not into an official predefined one), it must appear at end (custom groups should not be before official groups).
@@ -925,7 +925,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 				print '</table></div><br>';
 			}
 
-			$familytext = empty($familyinfo[$familykey]['label']) ? $familykey : $familyinfo[$familykey]['label'];
+			$familytext = empty($familyInfo[$familykey]['label']) ? $familykey : $familyInfo[$familykey]['label'];
 
 			print load_fiche_titre($familytext, '', '', 0, '', 'modulefamilygroup');
 
@@ -942,7 +942,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 		$atleastoneforfamily++;
 
 		if ($familykey != $oldfamily) {
-			$familytext = empty($familyinfo[$familykey]['label']) ? $familykey : $familyinfo[$familykey]['label'];
+			$familytext = empty($familyInfo[$familykey]['label']) ? $familykey : $familyInfo[$familykey]['label'];
 			$oldfamily = $familykey;
 		}
 

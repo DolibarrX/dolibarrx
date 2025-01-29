@@ -61,11 +61,11 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var string 	URL of logo of the publisher. Must be image filename into the module/img directory followed with @modulename. Example: 'myimage.png@mymodule'.
 	 */
-	public $editor_squarred_logo;
+	public $editorSquarredLogo;
 
 	/**
 	 * @var	string	Family
-	 * @see $familyinfo
+	 * @see $familyInfo
 	 *
 	 * Native values: 'crm', 'financial', 'hr', 'projects', 'products', 'ecm', 'technic', 'other'.
 	 * Use familyinfo to declare a custom value.
@@ -84,7 +84,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 *     )
 	 * );
 	 */
-	public $familyinfo;
+	public $familyInfo;
 
 	/**
 	 * @var string	Module position on 2 digits

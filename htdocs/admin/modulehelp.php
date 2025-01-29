@@ -102,7 +102,7 @@ $dirmod = array();
 $i = 0; // is a sequencer of modules found
 $j = 0; // j is module number. Automatically affected if module number not defined.
 $modNameLoaded = array();
-$familyinfo = array();
+$familyInfo = array();
 
 foreach ($modulesdir as $dir) {
 	// Load modules attributes in arrays (name, number, orders) from dir directory
@@ -172,9 +172,9 @@ foreach ($modulesdir as $dir) {
 									$filename[$i] = $modName;
 
 									// Gives the possibility to the module, to provide his own family info and position of this family
-									if (is_array($objMod->familyinfo) && !empty($objMod->familyinfo)) {
-										$familyinfo = array_merge($familyinfo, $objMod->familyinfo);
-										$familykey = key($objMod->familyinfo);
+									if (is_array($objMod->familyInfo) && !empty($objMod->familyInfo)) {
+										$familyInfo = array_merge($familyInfo, $objMod->familyInfo);
+										$familykey = key($objMod->familyInfo);
 									} else {
 										$familykey = $objMod->family;
 									}
@@ -187,11 +187,11 @@ foreach ($modulesdir as $dir) {
 										$moduleposition = '80'; // External modules at end by default
 									}
 
-									if (empty($familyinfo[$familykey]['position'])) {
-										$familyinfo[$familykey]['position'] = '0';
+									if (empty($familyInfo[$familykey]['position'])) {
+										$familyInfo[$familykey]['position'] = '0';
 									}
 
-									$orders[$i] = $familyinfo[$familykey]['position']."_".$familykey."_".$moduleposition."_".$j; // Sort by family, then by module position then number
+									$orders[$i] = $familyInfo[$familykey]['position']."_".$familykey."_".$moduleposition."_".$j; // Sort by family, then by module position then number
 									$dirmod[$i] = $dir;
 									//print $i.'-'.$dirmod[$i].'<br>';
 									// Set categ[$i]

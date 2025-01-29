@@ -57,7 +57,7 @@ class modWebPortal extends DolibarrModules
 		$this->modulePosition = '47';
 
 		// Gives the possibility for the module, to provide his own family info and position of this family (Overwrite $this->family and $this->modulePosition. Avoid this)
-		//$this->familyinfo = array('myownfamily' => array('position' => '01', 'label' => $langs->trans("MyOwnFamily")));
+		//$this->familyInfo = array('myownfamily' => array('position' => '01', 'label' => $langs->trans("MyOwnFamily")));
 		// Module label (no space allowed), used if translation string 'ModuleWebPortalName' not found (WebPortal is name of module).
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 
