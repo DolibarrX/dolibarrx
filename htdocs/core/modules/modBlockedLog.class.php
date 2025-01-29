@@ -89,7 +89,7 @@ class modBlockedLog extends DolibarrModules
 		}*/
 		//var_dump($this->automatic_activation);
 
-		$this->always_enabled = (isModEnabled('blockedlog')
+		$this->alwaysEnabled = (isModEnabled('blockedlog')
 			&& getDolGlobalString('BLOCKEDLOG_DISABLE_NOT_ALLOWED_FOR_COUNTRY')
 			&& in_array((empty($mysoc->country_code) ? '' : $mysoc->country_code), explode(',', getDolGlobalString('BLOCKEDLOG_DISABLE_NOT_ALLOWED_FOR_COUNTRY')))
 			&& $this->alreadyUsed());

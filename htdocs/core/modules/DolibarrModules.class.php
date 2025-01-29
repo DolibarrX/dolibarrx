@@ -393,7 +393,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var bool Module can't be disabled
 	 */
-	public $always_enabled;
+	public $alwaysEnabled;
 
 	/**
 	 * @var bool Module is disabled
@@ -1171,7 +1171,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$err = 0;
 
 		// Common module
-		$entity = ((!empty($this->always_enabled) || !empty($this->core_enabled)) ? 0 : $config->entity);
+		$entity = ((!empty($this->alwaysEnabled) || !empty($this->core_enabled)) ? 0 : $config->entity);
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."const";
 		$sql .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->constName)."'";
@@ -1221,7 +1221,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$err = 0;
 
 		// Common module
-		$entity = ((!empty($this->always_enabled) || !empty($this->core_enabled)) ? 0 : $config->entity);
+		$entity = ((!empty($this->alwaysEnabled) || !empty($this->core_enabled)) ? 0 : $config->entity);
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."const";
 		$sql .= " WHERE ".$this->db->decrypt('name')." = '".$this->db->escape($this->constName)."'";
@@ -2176,7 +2176,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$err = 0;
 
 		// Common module
-		$entity = ((!empty($this->always_enabled) || !empty($this->core_enabled)) ? 0 : $config->entity);
+		$entity = ((!empty($this->alwaysEnabled) || !empty($this->core_enabled)) ? 0 : $config->entity);
 
 		$this->db->begin();
 

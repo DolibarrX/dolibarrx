@@ -227,7 +227,7 @@ if (GETPOST('action', 'aZ09') == 'gotodemo') {     // Action run when we click o
 	// If we disable modules using personalized list
 	foreach ($modules as $val) {
 		$modulekeyname = strtolower($val->name);
-		if (!GETPOST($modulekeyname) && empty($val->always_enabled) && !in_array($modulekeyname, $alwayscheckedmodules)) {
+		if (!GETPOST($modulekeyname) && empty($val->alwaysEnabled) && !in_array($modulekeyname, $alwayscheckedmodules)) {
 			$disablestring .= $modulekeyname.',';
 			if ($modulekeyname == 'propale') {
 				$disablestring .= 'propal,';
@@ -382,7 +382,7 @@ foreach ($demoprofiles as $profilearray) {
 				$modulekeyname = strtolower($val->name);
 
 				$modulequalified = 1;
-				if (!empty($val->always_enabled) || in_array($modulekeyname, $alwayshiddenuncheckedmodules)) {
+				if (!empty($val->alwaysEnabled) || in_array($modulekeyname, $alwayshiddenuncheckedmodules)) {
 					$modulequalified = 0;
 				}
 				if ($val->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2 && !getDolGlobalString($constName)) {

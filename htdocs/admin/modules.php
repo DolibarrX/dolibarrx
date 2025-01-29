@@ -1009,7 +1009,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 			if (!empty($objMod->disabled)) {
 				$codeenabledisable .= $langs->trans("Disabled");
 			} elseif (is_object($objMod)
-				&& (!empty($objMod->always_enabled) || ((isModEnabled('multicompany') && $objMod->core_enabled) && ($user->entity || $config->entity != 1)))) {
+				&& (!empty($objMod->alwaysEnabled) || ((isModEnabled('multicompany') && $objMod->core_enabled) && ($user->entity || $config->entity != 1)))) {
 				// @phan-suppress-next-line PhanUndeclaredMethod
 				if (method_exists($objMod, 'alreadyUsed') && $objMod->alreadyUsed()) {
 					$codeenabledisable .= $langs->trans("Used");
@@ -1090,7 +1090,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 			}
 		} else { // Module not yet activated
 			// Set $codeenabledisable
-			if (!empty($objMod->always_enabled)) {
+			if (!empty($objMod->alwaysEnabled)) {
 				// A 'always_enabled' module should not never be disabled. If this happen, we keep a link to re-enable it.
 				$codeenabledisable .= '<!-- Message to show: an always_enabled module has been disabled -->'."\n";
 				$codeenabledisable .= '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&token='.newToken().'&module_position='.$modulePosition.'&action=set&token='.newToken().'&value='.$modName.'&mode='.$mode.$param.'"';

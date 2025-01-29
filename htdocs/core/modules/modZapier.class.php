@@ -136,7 +136,7 @@ class modZapier extends DolibarrModules
 		//     'FR'=>'ZapierWasAutomaticallyActivatedBecauseOfYourCountryChoice',
 		// );
 		// If true, can't be disabled
-		// $this->always_enabled = true;
+		// $this->alwaysEnabled = true;
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
 		// Example: $this->const=array(

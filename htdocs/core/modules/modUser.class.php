@@ -70,7 +70,7 @@ class modUser extends DolibarrModules
 		$this->conflictwith = []; // List of module class names as string this module is in conflict with
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 		$this->langfiles = array("main", "users", "companies", "members", "salaries", "hrm");
-		$this->always_enabled = true; // Can't be disabled
+		$this->alwaysEnabled = true; // Can't be disabled
 
 		// Constants
 		$this->const = [];
