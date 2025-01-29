@@ -72,7 +72,7 @@ class modMyModule extends DolibarrModules
 
 		// Author
 		$this->editorName = 'Editor name';
-		$this->editor_url = 'https://www.example.com';		// Must be an external online web site
+		$this->editorUrl = 'https://www.example.com';		// Must be an external online web site
 		$this->editor_squarred_logo = '';					// Must be image filename into the module/img directory followed with @modulename. Example: 'myimage.png@mymodule'
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated', 'experimental_deprecated' or a version string like 'x.y.z'

@@ -68,7 +68,7 @@ class modWebPortal extends DolibarrModules
 
 		// Author
 		//$this->editorName = 'Dolibarr';
-		//$this->editor_url = 'dolibarr.org';
+		//$this->editorUrl = 'dolibarr.org';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated', 'experimental_deprecated' or a version string like 'x.y.z'
 		$this->version = 'experimental';

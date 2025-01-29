@@ -373,12 +373,12 @@ if ($mode == 'desc') {
 		if ($objMod->editorName != 'dolibarr') {
 			$textexternal .= '<br><span class="opacitymedium">'.$langs->trans("Publisher").':</span> '.(empty($objMod->editorName) ? $langs->trans("Unknown") : $objMod->editorName);
 		}
-		$editor_url = $objMod->editor_url;
-		if (!preg_match('/^http/', $editor_url)) {
-			$editor_url = 'http://'.$editor_url;
+		$editorUrl = $objMod->editorUrl;
+		if (!preg_match('/^http/', $editorUrl)) {
+			$editorUrl = 'http://'.$editorUrl;
 		}
-		if (!empty($objMod->editor_url) && !preg_match('/dolibarr\.org/i', $objMod->editor_url)) {
-			$textexternal .= ($objMod->editorName != 'dolibarr' ? ' - ' : '').img_picture('', 'globe').' <a href="'.$editor_url.'" target="_blank" rel="noopener noreferrer external">'.$objMod->editor_url.'</a>';
+		if (!empty($objMod->editorUrl) && !preg_match('/dolibarr\.org/i', $objMod->editorUrl)) {
+			$textexternal .= ($objMod->editorName != 'dolibarr' ? ' - ' : '').img_picture('', 'globe').' <a href="'.$editorUrl.'" target="_blank" rel="noopener noreferrer external">'.$objMod->editorUrl.'</a>';
 		}
 		$text .= $textexternal;
 	} else {

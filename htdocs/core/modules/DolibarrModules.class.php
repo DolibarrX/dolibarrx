@@ -56,7 +56,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var string 	URL of module at publisher site
 	 */
-	public $editor_url;
+	public $editorUrl;
 
 	/**
 	 * @var string 	URL of logo of the publisher. Must be image filename into the module/img directory followed with @modulename. Example: 'myimage.png@mymodule'.
@@ -953,7 +953,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 */
 	public function getPublisherUrl()
 	{
-		return $this->editor_url;
+		return $this->editorUrl;
 	}
 
 	/**
@@ -1023,7 +1023,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		if (!empty($this->version) && !in_array($this->version, array('experimental', 'development'))) {
 			return 'external';
 		}
-		if (!empty($this->editorName) || !empty($this->editor_url)) {
+		if (!empty($this->editorName) || !empty($this->editorUrl)) {
 			return 'external';
 		}
 		if ($this->number >= 100000) {

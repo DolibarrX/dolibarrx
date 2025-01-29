@@ -3801,12 +3801,12 @@ if ($module == 'initmodule') {
 					print $langs->trans("EditorUrl");
 					print '</td><td>';
 					if ($action == 'edit_moduledescription' && GETPOST('keydescription', 'alpha') === 'editor_url') {
-						print '<input name="propsmodule" value="'.dol_escape_htmltag($moduleobj->editor_url).'">';
+						print '<input name="propsmodule" value="'.dol_escape_htmltag($moduleobj->editorUrl).'">';
 						print '<input class="reposition button smallpaddingimp" type="submit" name="modifyeditorurl" value="'.$langs->trans("Modify").'"/>';
 						print '<input class="reposition button button-cancel smallpaddingimp" type="submit" name="cancel" value="'.$langs->trans("Cancel").'"/>';
 					} else {
-						if (!empty($moduleobj->editor_url)) {
-							print '<a href="'.$moduleobj->editor_url.'" target="_blank" rel="noopener">'.$moduleobj->editor_url.' '.img_picture('', 'globe').'</a>';
+						if (!empty($moduleobj->editorUrl)) {
+							print '<a href="'.$moduleobj->editorUrl.'" target="_blank" rel="noopener">'.$moduleobj->editorUrl.' '.img_picture('', 'globe').'</a>';
 						}
 						print '<a class="editfielda reposition marginleftonly marginrighttonly paddingright paddingleft" href="'.$_SERVER["PHP_SELF"].'?action=edit_moduledescription&token='.newToken().'&tab='.urlencode($tab).'&module='.urlencode($module).'&keydescription=editor_url">'.img_edit().'</a>';
 					}
