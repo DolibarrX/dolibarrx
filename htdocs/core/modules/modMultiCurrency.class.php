@@ -48,7 +48,7 @@ class modMultiCurrency extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->number = 40000;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'multicurrency';
+		$this->rightsClass = 'multicurrency';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
@@ -245,7 +245,7 @@ class modMultiCurrency extends DolibarrModules
 		$r = 1;
 
 		// Example:
-		// $this->export_code[$r]=$this->rights_class.'_'.$r;
+		// $this->export_code[$r]=$this->rightsClass.'_'.$r;
 		// $this->export_label[$r]='MyModule';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		// $this->export_enabled[$r]='1';                               // Condition to show export in list (ie: '$user->id==3'). Set to 1 to always show when module is enabled.
 		// $this->export_icon[$r]='generic:MyModule';

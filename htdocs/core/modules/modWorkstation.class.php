@@ -49,7 +49,7 @@ class modWorkstation extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->number = 690;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'workstation';
+		$this->rightsClass = 'workstation';
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
 		$this->family = "products";
@@ -310,7 +310,7 @@ class modWorkstation extends DolibarrModules
 		/* BEGIN MODULEBUILDER EXPORT WORKSTATION */
 		/*
 		$langs->load("workstation@workstation");
-		$this->export_code[$r]=$this->rights_class.'_'.$r;
+		$this->export_code[$r]=$this->rightsClass.'_'.$r;
 		$this->export_label[$r]='WorkstationLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r]='workstation@workstation';
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
@@ -341,7 +341,7 @@ class modWorkstation extends DolibarrModules
 		/* BEGIN MODULEBUILDER IMPORT WORKSTATION */
 		/*
 		 $langs->load("workstation@workstation");
-		 $this->export_code[$r]=$this->rights_class.'_'.$r;
+		 $this->export_code[$r]=$this->rightsClass.'_'.$r;
 		 $this->export_label[$r]='WorkstationLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		 $this->export_icon[$r]='workstation@workstation';
 		 $keyforclass = 'Workstation'; $keyforclassfile='/workstation/class/workstation.class.php'; $keyforelement='workstation@workstation';

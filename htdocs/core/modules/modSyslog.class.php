@@ -81,7 +81,7 @@ class modSyslog extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'syslog';
+		$this->rightsClass = 'syslog';
 
 		// Cronjobs
 		$comment = 'Compress and archive log files. The number of versions to keep is defined into the setup of module. ';

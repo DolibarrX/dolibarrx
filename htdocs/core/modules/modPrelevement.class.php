@@ -89,7 +89,7 @@ class modPrelevement extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'prelevement';
+		$this->rightsClass = 'prelevement';
 		$r = 0;
 		$r++;
 		$this->rights[$r][0] = 151;

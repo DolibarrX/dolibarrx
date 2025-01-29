@@ -92,7 +92,7 @@ class modLoan extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'loan';
+		$this->rightsClass = 'loan';
 		$r = 0;
 
 		$r++;

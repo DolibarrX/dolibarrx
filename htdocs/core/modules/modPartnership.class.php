@@ -52,7 +52,7 @@ class modPartnership extends DolibarrModules
 		$this->number = 58000;
 
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'partnership';
+		$this->rightsClass = 'partnership';
 
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
@@ -379,7 +379,7 @@ class modPartnership extends DolibarrModules
 		/* BEGIN MODULEBUILDER EXPORT PARTNERSHIP */
 		/*
 		$langs->load("partnership");
-		$this->export_code[$r]=$this->rights_class.'_'.$r;
+		$this->export_code[$r]=$this->rightsClass.'_'.$r;
 		$this->export_label[$r]='PartnershipLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r]='partnership';
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
@@ -410,7 +410,7 @@ class modPartnership extends DolibarrModules
 		/* BEGIN MODULEBUILDER IMPORT PARTNERSHIP */
 		/*
 		 $langs->load("partnership");
-		 $this->export_code[$r]=$this->rights_class.'_'.$r;
+		 $this->export_code[$r]=$this->rightsClass.'_'.$r;
 		 $this->export_label[$r]='PartnershipLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		 $this->export_icon[$r]='partnership';
 		 $keyforclass = 'Partnership'; $keyforclassfile='/partnership/class/partnership.class.php'; $keyforelement='partnership';

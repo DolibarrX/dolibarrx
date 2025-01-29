@@ -93,7 +93,7 @@ class modSalaries extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'salaries';
+		$this->rightsClass = 'salaries';
 		$r = 0;
 
 		$r++;
@@ -147,7 +147,7 @@ class modSalaries extends DolibarrModules
 		$r = 0;
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'SalariesAndPayments';
 		$this->export_icon[$r] = 'salary';
 		$this->export_permission[$r] = array(array("salaries", "export"));

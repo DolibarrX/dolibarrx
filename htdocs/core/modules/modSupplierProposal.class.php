@@ -102,7 +102,7 @@ class modSupplierProposal extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'supplier_proposal';
+		$this->rightsClass = 'supplier_proposal';
 		$r = 0;
 
 		$r++;

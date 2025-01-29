@@ -84,7 +84,7 @@ class modOauth extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'oauth';
+		$this->rightsClass = 'oauth';
 
 		$r = 0;
 		// $this->rights[$r][0]     Id permission (unique tous modules confondus)

@@ -94,6 +94,6 @@ class modLdap extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'ldap';
+		$this->rightsClass = 'ldap';
 	}
 }

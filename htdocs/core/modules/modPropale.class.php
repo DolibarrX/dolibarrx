@@ -126,7 +126,7 @@ class modPropale extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'propale';
+		$this->rightsClass = 'propale';
 		$r = 0;
 
 		$r++;
@@ -192,7 +192,7 @@ class modPropale extends DolibarrModules
 		$r = 0;
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'ProposalsAndProposalsLines'; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_permission[$r] = array(array("propale", "export"));
 		$this->export_fields_array[$r] = array(
@@ -305,7 +305,7 @@ class modPropale extends DolibarrModules
 		$r = 0;
 
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'Proposals'; // Translation key
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -389,7 +389,7 @@ class modPropale extends DolibarrModules
 
 		//Import Proposal Lines
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'line_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'line_'.$r;
 		$this->import_label[$r] = "ProposalLines"; // Translation key
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon

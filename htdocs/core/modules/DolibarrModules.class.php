@@ -137,7 +137,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var string 	Module access rights family
 	 */
-	public $rights_class;
+	public $rightsClass;
 
 	const URL_FOR_BLACKLISTED_MODULES = 'https://ping.dolibarr.org/modules-blacklist.txt';
 
@@ -1647,7 +1647,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 				// Search if cron entry already present
 				$sql = "SELECT count(*) as nb FROM " . MAIN_DB_PREFIX . "cronjob";
-				//$sql .= " WHERE module_name = '" . $this->db->escape(empty($this->rights_class) ? strtolower($this->name) : $this->rights_class) . "'";
+				//$sql .= " WHERE module_name = '" . $this->db->escape(empty($this->rightsClass) ? strtolower($this->name) : $this->rightsClass) . "'";
 				$sql .= " WHERE label = '".$this->db->escape($label)."'";
 				/* unique key is on label,entity so no need for this test
 				if ($classesname) {
@@ -1703,7 +1703,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 				$cronjob->status = $status;
 				$cronjob->test = $test;
 				$cronjob->libname = $libname;
-				$cronjob->module_name = empty($this->rights_class) ? strtolower($this->name) : $this->rights_class;
+				$cronjob->module_name = empty($this->rightsClass) ? strtolower($this->name) : $this->rightsClass;
 
 				$retCreate = $cronjob->create($user);
 
@@ -1732,7 +1732,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 		if (is_array($this->cronJobs)) {
 			$sql = "DELETE FROM ".MAIN_DB_PREFIX."cronjob";
-			$sql .= " WHERE module_name = '".$this->db->escape(empty($this->rights_class) ? strtolower($this->name) : $this->rights_class)."'";
+			$sql .= " WHERE module_name = '".$this->db->escape(empty($this->rightsClass) ? strtolower($this->name) : $this->rightsClass)."'";
 			$sql .= " AND entity = ".$config->entity;
 			$sql .= " AND test = '1'"; // We delete on lines that are not set with a complete test that is '$config->module->enabled' so when module is disabled, the cron is also removed.
 			// For crons declared with a '$config->module->enabled', there is no need to delete the line, so we don't loose setup if we reenable module.
@@ -2010,7 +2010,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 					}
 
 					// name of module (default: current module name)
-					$r_module = (empty($this->rights_class) ? strtolower($this->name) : $this->rights_class);
+					$r_module = (empty($this->rightsClass) ? strtolower($this->name) : $this->rightsClass);
 
 					// name of the module from which the right comes (default: empty means same module the permission is for)
 					$r_module_origin = '';
@@ -2019,7 +2019,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 						// name of the module to which the right must be applied
 						$r_module = $this->rights[$key][self::KEY_MODULE];
 						// name of the module from which the right comes
-						$r_module_origin = (empty($this->rights_class) ? strtolower($this->name) : $this->rights_class);
+						$r_module_origin = (empty($this->rightsClass) ? strtolower($this->name) : $this->rightsClass);
 					}
 
 					// condition to show or hide a user right (default: 1) (eg isModEnabled('anothermodule') or ($config->global->MAIN_FEATURES_LEVEL > 0) or etc..)
@@ -2134,7 +2134,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 		$err = 0;
 
-		$module = empty($this->rights_class) ? strtolower($this->name) : $this->rights_class;
+		$module = empty($this->rightsClass) ? strtolower($this->name) : $this->rightsClass;
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."rights_def";
 		$sql .= " WHERE (module = '".$this->db->escape($module)."' OR module_origin = '".$this->db->escape($module)."')";
@@ -2185,7 +2185,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 			$menu->menu_handler = 'all';
 
 			//$menu->module=strtolower($this->name);    TODO When right_class will be same than module name
-			$menu->module = (empty($this->rights_class) ? strtolower($this->name) : $this->rights_class);
+			$menu->module = (empty($this->rightsClass) ? strtolower($this->name) : $this->rightsClass);
 
 			if (!$this->menu[$key]['fk_menu']) {
 				$menu->fk_menu = 0;
@@ -2269,7 +2269,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$err = 0;
 
 		//$module=strtolower($this->name);        TODO When right_class will be same than module name
-		$module = empty($this->rights_class) ? strtolower($this->name) : $this->rights_class;
+		$module = empty($this->rightsClass) ? strtolower($this->name) : $this->rightsClass;
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."menu";
 		$sql .= " WHERE module = '".$this->db->escape($module)."'";

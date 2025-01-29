@@ -88,7 +88,7 @@ class modECM extends DolibarrModules
 		//$r++;
 
 		// Permissions
-		$this->rights_class = 'ecm'; // Permission key
+		$this->rightsClass = 'ecm'; // Permission key
 		$this->rights = array(); // Permission array used by this module
 
 		$r++;

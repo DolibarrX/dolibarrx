@@ -84,7 +84,7 @@ class modSimpleAccounting extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'compta';
+		$this->rightsClass = 'compta';
 		$r = 0;
 
 		$r++;

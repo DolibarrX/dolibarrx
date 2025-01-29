@@ -75,7 +75,7 @@ class modDocumentGeneration extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'document';
+		$this->rightsClass = 'document';
 
 		$r = 0;
 

@@ -174,7 +174,7 @@ class modAsset extends DolibarrModules
 
 		// Permissions
 		$this->rights = array(); // Permission array used by this module
-		$this->rights_class = 'asset';
+		$this->rightsClass = 'asset';
 		$r = 0;
 
 		$r++;

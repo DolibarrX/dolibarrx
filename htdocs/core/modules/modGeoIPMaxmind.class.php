@@ -81,7 +81,7 @@ class modGeoIPMaxmind extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'geoipmaxmind';
+		$this->rightsClass = 'geoipmaxmind';
 		$r = 0;
 	}
 }

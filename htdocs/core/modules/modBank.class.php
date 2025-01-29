@@ -80,7 +80,7 @@ class modBank extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'bank';
+		$this->rightsClass = 'bank';
 		$r = 0;
 
 		$r++;
@@ -144,7 +144,7 @@ class modBank extends DolibarrModules
 
 		// Bank lines
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'Ecritures bancaires et releves';
 		$this->export_permission[$r] = array(array("bank", "export"));
 		$this->export_fields_array[$r] = array(
@@ -175,7 +175,7 @@ class modBank extends DolibarrModules
 
 		//
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'Bordereaux remise Chq/Fact';
 		$this->export_permission[$r] = array(array("bank", "export"));
 		$this->export_fields_array[$r] = array("bch.rowid"=>"DepositId", "bch.ref"=>"Numero", "bch.ref_ext"=>"RefExt", 'ba.ref'=>'AccountRef', 'ba.label'=>'AccountLabel', 'b.datev'=>'DateValue', 'b.num_chq'=>'ChequeOrTransferNumber', 'b.amount'=>'Credit', 'b.num_releve'=>'AccountStatement', 'b.datec'=>"DateCreation",
@@ -203,7 +203,7 @@ class modBank extends DolibarrModules
 
 		// Various Payment
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'VariousPayment';
 		$this->export_permission[$r] = array(array("bank", "export"));
 		$this->export_fields_array[$r] = array(

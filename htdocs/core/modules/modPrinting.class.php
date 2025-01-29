@@ -82,7 +82,7 @@ class modPrinting extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'printing';
+		$this->rightsClass = 'printing';
 
 		$r = 0;
 		// $this->rights[$r][0]     Id permission (unique tous modules confondus)

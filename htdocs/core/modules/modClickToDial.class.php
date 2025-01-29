@@ -71,6 +71,6 @@ class modClickToDial extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'clicktodial';
+		$this->rightsClass = 'clicktodial';
 	}
 }

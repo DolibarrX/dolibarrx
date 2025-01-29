@@ -179,7 +179,7 @@ class modFournisseur extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'fournisseur';
+		$this->rightsClass = 'fournisseur';
 		$r = 0;
 
 		$r++;
@@ -337,7 +337,7 @@ class modFournisseur extends DolibarrModules
 		$alias_product_perentity = !getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED') ? "p" : "ppe";
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'Vendor invoices and lines of invoices';
 		$this->export_icon[$r] = 'invoice';
 		$this->export_permission[$r] = array(array("fournisseur", "facture", "export"));
@@ -455,7 +455,7 @@ class modFournisseur extends DolibarrModules
 
 		// Invoices and payments
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'Factures fournisseurs et reglements';
 		$this->export_icon[$r] = 'invoice';
 		$this->export_permission[$r] = array(array("fournisseur", "facture", "export"));
@@ -538,7 +538,7 @@ class modFournisseur extends DolibarrModules
 
 		// Order
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'Purchase Orders and lines of purchase orders';
 		$this->export_icon[$r] = 'order';
 		$this->export_permission[$r] = array(array("fournisseur", "order", "export"));
@@ -621,7 +621,7 @@ class modFournisseur extends DolibarrModules
 		$r = 0;
 
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "SupplierInvoices"; // Translation key
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -723,7 +723,7 @@ class modFournisseur extends DolibarrModules
 
 		//Import Supplier Invoice Lines
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "SupplierInvoiceLines"; // Translation key
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon

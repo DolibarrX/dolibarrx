@@ -73,7 +73,7 @@ class modLabel extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'label';
+		$this->rightsClass = 'label';
 
 		$this->rights[1][0] = 601; // id de la permission
 		$this->rights[1][1] = 'Read stickers';

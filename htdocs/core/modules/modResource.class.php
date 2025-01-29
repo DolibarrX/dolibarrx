@@ -51,7 +51,7 @@ class modResource extends DolibarrModules
 		$this->number = 63000;
 
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'resource';
+		$this->rightsClass = 'resource';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
@@ -237,7 +237,7 @@ class modResource extends DolibarrModules
 		$r = 0;
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = "ResourceSingular"; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_permission[$r] = array(array("resource", "read"));
 
@@ -266,7 +266,7 @@ class modResource extends DolibarrModules
 
 		// Import list of third parties and attributes
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'ImportDataset_resource_1';
 		$this->import_icon[$r] = 'resource';
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon

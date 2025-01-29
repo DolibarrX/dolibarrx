@@ -128,7 +128,7 @@ class modAgenda extends DolibarrModules
 		// Permissions
 		//------------
 		$this->rights = array();
-		$this->rights_class = 'agenda';
+		$this->rightsClass = 'agenda';
 		$r = 0;
 
 		// $this->rights[$r][0]     Id permission (unique tous modules confondus)
@@ -438,7 +438,7 @@ class modAgenda extends DolibarrModules
 		$r = 0;
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = "ExportDataset_event1";
 		$this->export_permission[$r] = array(array("agenda", "export"));
 		$this->export_fields_array[$r] = array('ac.id' => "IdAgenda", 'ac.ref_ext' => "ExternalRef",'ac.ref' => "Ref", 'ac.datec' => "DateCreation", 'ac.datep' => "DateActionBegin",
@@ -510,7 +510,7 @@ class modAgenda extends DolibarrModules
 
 		// Import Events
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "ExportDataset_event1";
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array();

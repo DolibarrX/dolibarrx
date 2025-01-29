@@ -48,7 +48,7 @@ class modIncoterm extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->number = 62000;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'incoterm';
+		$this->rightsClass = 'incoterm';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		$this->family = "srm";

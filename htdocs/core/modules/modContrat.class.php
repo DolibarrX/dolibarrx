@@ -101,7 +101,7 @@ class modContrat extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'contrat';
+		$this->rightsClass = 'contrat';
 		$r = 0;
 
 		$r++;
@@ -158,7 +158,7 @@ class modContrat extends DolibarrModules
 
 		$r = 1;
 
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'ContractsAndLine'; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = 'contract';
 		$this->export_permission[$r] = array(array("contrat", "export"));

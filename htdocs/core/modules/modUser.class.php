@@ -84,7 +84,7 @@ class modUser extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'user';
+		$this->rightsClass = 'user';
 		$this->rightsAdminAllowed = 1; // Admin is always granted of permission (even when module is disabled)
 		$r = 0;
 
@@ -202,7 +202,7 @@ class modUser extends DolibarrModules
 		$r = 0;
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'List of users and attributes'; // Translation key (used only if key ExportDataset_user_1 not found)
 		$this->export_permission[$r] = array(array("user", "user", "export"));
 		$this->export_fields_array[$r] = array(
@@ -274,7 +274,7 @@ class modUser extends DolibarrModules
 
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'List of security events'; // Translation key (used only if key ExportDataset_user_2 not found)
 		$this->export_permission[$r] = array(array("user"));	// Only admin
 		$this->export_fields_array[$r] = array(
@@ -312,7 +312,7 @@ class modUser extends DolibarrModules
 
 		// Import list of users attributes
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'ImportDataset_user_1';
 		$this->import_icon[$r] = 'user';
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon

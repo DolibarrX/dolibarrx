@@ -113,7 +113,7 @@ class modProduct extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'produit';
+		$this->rightsClass = 'produit';
 		$r = 0;
 
 		$this->rights[$r][0] = 31; // id de la permission
@@ -198,7 +198,7 @@ class modProduct extends DolibarrModules
 		$alias_product_perentity = !getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED') ? "p" : "ppe";
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = "Products"; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_permission[$r] = array(array("produit", "export"));
 		$this->export_fields_array[$r] = array(
@@ -338,7 +338,7 @@ class modProduct extends DolibarrModules
 		if (getDolGlobalString('PRODUIT_MULTIPRICES')) {
 			// Exports product multiprice
 			$r++;
-			$this->export_code[$r] = $this->rights_class.'_'.$r;
+			$this->export_code[$r] = $this->rightsClass.'_'.$r;
 			$this->export_label[$r] = "ProductsMultiPrice"; // Translation key (used only if key ExportDataset_xxx_z not found)
 			$this->export_permission[$r] = array(array("produit", "export"));
 			$this->export_fields_array[$r] = array('p.rowid' => "Id", 'p.ref' => "Ref", 'p.label' => "Label",
@@ -374,7 +374,7 @@ class modProduct extends DolibarrModules
 		if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES')) {
 			// Exports product multiprice
 			$r++;
-			$this->export_code[$r] = $this->rights_class.'_'.$r;
+			$this->export_code[$r] = $this->rightsClass.'_'.$r;
 			$this->export_label[$r] = "ProductsPricePerCustomer"; // Translation key (used only if key ExportDataset_xxx_z not found)
 			$this->export_permission[$r] = array(array("produit", "export"));
 			$this->export_fields_array[$r] = array('p.rowid' => "Id", 'p.ref' => "Ref", 'p.label' => "Label",
@@ -409,7 +409,7 @@ class modProduct extends DolibarrModules
 		if (getDolGlobalString('PRODUIT_SOUSPRODUITS')) {
 			// Exports virtual products
 			$r++;
-			$this->export_code[$r] = $this->rights_class.'_'.$r;
+			$this->export_code[$r] = $this->rightsClass.'_'.$r;
 			$this->export_label[$r] = "AssociatedProducts"; // Translation key (used only if key ExportDataset_xxx_z not found)
 			$this->export_permission[$r] = array(array("produit", "export"));
 			$this->export_fields_array[$r] = array(
@@ -485,7 +485,7 @@ class modProduct extends DolibarrModules
 		// Import list of products
 
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "Products"; // Translation key
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use a different icon from the one defined in import_icon
@@ -764,7 +764,7 @@ class modProduct extends DolibarrModules
 		if (getDolGlobalString('STOCK_ALLOW_ADD_LIMIT_STOCK_BY_WAREHOUSE')) {
 			// Import products limit and desired stock by product and warehouse
 			$r++;
-			$this->import_code[$r] = $this->rights_class.'_stock_by_warehouse';
+			$this->import_code[$r] = $this->rightsClass.'_stock_by_warehouse';
 			$this->import_label[$r] = "ProductStockWarehouse"; // Translation key
 			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -791,7 +791,7 @@ class modProduct extends DolibarrModules
 		if (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
 			// Import suppliers prices (note: this code is duplicated in module Service)
 			$r++;
-			$this->import_code[$r] = $this->rights_class.'_supplierprices';
+			$this->import_code[$r] = $this->rightsClass.'_supplierprices';
 			$this->import_label[$r] = "SuppliersPricesOfProductsOrServices"; // Translation key
 			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -908,7 +908,7 @@ class modProduct extends DolibarrModules
 		if (getDolGlobalString('PRODUIT_MULTIPRICES')) {
 			// Import products multiprices
 			$r++;
-			$this->import_code[$r] = $this->rights_class.'_multiprice';
+			$this->import_code[$r] = $this->rightsClass.'_multiprice';
 			$this->import_label[$r] = "ProductsOrServiceMultiPrice"; // Translation key
 			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -941,7 +941,7 @@ class modProduct extends DolibarrModules
 		if (getDolGlobalInt('MAIN_MULTILANGS')) {
 			// Import translations of product names and descriptions
 			$r++;
-			$this->import_code[$r] = $this->rights_class.'_languages';
+			$this->import_code[$r] = $this->rightsClass.'_languages';
 			$this->import_label[$r] = "ProductsOrServicesTranslations";
 			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -959,7 +959,7 @@ class modProduct extends DolibarrModules
 		if (getDolGlobalInt('PRODUIT_SOUSPRODUITS')) {
 			// Import products kit
 			$r++;
-			$this->import_code[$r] = $this->rights_class . '_' . $r;
+			$this->import_code[$r] = $this->rightsClass . '_' . $r;
 			$this->import_label[$r] = "AssociatedProducts"; // Translation key
 			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon

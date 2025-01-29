@@ -90,7 +90,7 @@ class modFTP extends DolibarrModules
 		//$r++;
 
 		// Permissions
-		$this->rights_class = 'ftp'; // Permission key
+		$this->rightsClass = 'ftp'; // Permission key
 		$this->rights = array(); // Permission array used by this module
 
 		$r++;

@@ -48,7 +48,7 @@ class modEventOrganization extends DolibarrModules
 
 		$this->number = 2450;
 
-		$this->rights_class = 'eventorganization';
+		$this->rightsClass = 'eventorganization';
 
 		$this->family = "projects";
 
@@ -315,7 +315,7 @@ class modEventOrganization extends DolibarrModules
 
 		/* BEGIN MODULEBUILDER EXPORT CONFERENCEORBOOTHATTENDEES */
 		$langs->load("eventorganization");
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'ListOfAttendeesOfEvent';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = $this->picture;
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
@@ -356,7 +356,7 @@ class modEventOrganization extends DolibarrModules
 
 		/* BEGIN MODULEBUILDER EXPORT CONFERENCEORBOOTH */
 		$langs->load("eventorganization");
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'ListOfConfOrBoothOfEvent';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = 'conferenceorbooth';
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array

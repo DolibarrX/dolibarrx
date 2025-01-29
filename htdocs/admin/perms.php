@@ -109,10 +109,10 @@ foreach ($modulesdir as $dir) {
 						}
 					}
 					// Load all permissions
-					if ($objMod->rights_class) {
+					if ($objMod->rightsClass) {
 						$ret = $objMod->insert_permissions(0, $entity);
-						$modules[$objMod->rights_class] = $objMod;
-						//print "modules[".$objMod->rights_class."]=$objMod;";
+						$modules[$objMod->rightsClass] = $objMod;
+						//print "modules[".$objMod->rightsClass."]=$objMod;";
 					}
 				}
 			}

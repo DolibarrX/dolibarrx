@@ -84,7 +84,7 @@ class modOpenIDConnect extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'openid_connect';
+		$this->rightsClass = 'openid_connect';
 
 		// List of menus to add
 		$this->menu = array();

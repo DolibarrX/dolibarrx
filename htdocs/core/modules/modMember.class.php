@@ -204,7 +204,7 @@ class modMember extends DolibarrModules
 		// Permissions
 		//------------
 		$this->rights = array();
-		$this->rights_class = 'member';
+		$this->rightsClass = 'member';
 		$r = 0;
 
 		// $this->rights[$r][0]     Id permission (unique tous modules confondus)
@@ -283,7 +283,7 @@ class modMember extends DolibarrModules
 		// $this->export_sql[$r]           SQL query that offers data for export
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'MembersAndSubscriptions';
 		$this->export_permission[$r] = array(array("member", "export"));
 		$this->export_fields_array[$r] = array(
@@ -332,7 +332,7 @@ class modMember extends DolibarrModules
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "Members"; // Translation key
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon

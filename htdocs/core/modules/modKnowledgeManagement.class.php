@@ -49,7 +49,7 @@ class modKnowledgeManagement extends DolibarrModules
 		$this->number = 57000;
 
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'knowledgemanagement';
+		$this->rightsClass = 'knowledgemanagement';
 
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
@@ -368,7 +368,7 @@ class modKnowledgeManagement extends DolibarrModules
 		/* BEGIN MODULEBUILDER EXPORT KNOWLEDGERECORD */
 		/*
 		$langs->load("knowledgemanagement");
-		$this->export_code[$r]=$this->rights_class.'_'.$r;
+		$this->export_code[$r]=$this->rightsClass.'_'.$r;
 		$this->export_label[$r]='KnowledgeRecordLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r]='knowledgerecord@knowledgemanagement';
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
@@ -399,7 +399,7 @@ class modKnowledgeManagement extends DolibarrModules
 		/* BEGIN MODULEBUILDER IMPORT KNOWLEDGERECORD */
 		/*
 		 $langs->load("knowledgemanagement");
-		 $this->export_code[$r]=$this->rights_class.'_'.$r;
+		 $this->export_code[$r]=$this->rightsClass.'_'.$r;
 		 $this->export_label[$r]='KnowledgeRecordLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		 $this->export_icon[$r]='knowledgerecord@knowledgemanagement';
 		 $keyforclass = 'KnowledgeRecord'; $keyforclassfile='/knowledgemanagement/class/knowledgerecord.class.php'; $keyforelement='knowledgerecord@knowledgemanagement';

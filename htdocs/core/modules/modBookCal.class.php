@@ -49,7 +49,7 @@ class modBookCal extends DolibarrModules
 		$this->number = 2430;
 
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'bookcal';
+		$this->rightsClass = 'bookcal';
 
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
@@ -463,7 +463,7 @@ class modBookCal extends DolibarrModules
 		/* BEGIN MODULEBUILDER EXPORT AVAILABILITIES */
 		/*
 		$langs->load("agenda");
-		$this->export_code[$r]=$this->rights_class.'_'.$r;
+		$this->export_code[$r]=$this->rightsClass.'_'.$r;
 		$this->export_label[$r]='AvailabilitiesLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r]='availabilities@bookcal';
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
@@ -495,7 +495,7 @@ class modBookCal extends DolibarrModules
 		/* BEGIN MODULEBUILDER IMPORT AVAILABILITIES */
 		/*
 		$langs->load("agenda");
-		$this->import_code[$r]=$this->rights_class.'_'.$r;
+		$this->import_code[$r]=$this->rightsClass.'_'.$r;
 		$this->import_label[$r]='AvailabilitiesLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->import_icon[$r]='availabilities@bookcal';
 		$this->import_tables_array[$r] = array('t' => MAIN_DB_PREFIX.'bookcal_availabilities', 'extra' => MAIN_DB_PREFIX.'bookcal_availabilities_extrafields');

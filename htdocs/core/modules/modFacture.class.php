@@ -147,7 +147,7 @@ class modFacture extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'facture';
+		$this->rightsClass = 'facture';
 		$r = 0;
 
 		$r++;
@@ -230,7 +230,7 @@ class modFacture extends DolibarrModules
 		$r = 1;
 
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "Invoices"; // Translation key
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -347,7 +347,7 @@ class modFacture extends DolibarrModules
 
 		// Import Invoice Lines
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "InvoiceLine"; // Translation key
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -507,7 +507,7 @@ class modFacture extends DolibarrModules
 		$alias_product_perentity = !getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED') ? "p" : "ppe";
 
 		// Invoices and lines
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'CustomersInvoicesAndInvoiceLines'; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = 'invoice';
 		$this->export_permission[$r] = array(array("facture", "facture", "export", "other"));
@@ -670,7 +670,7 @@ class modFacture extends DolibarrModules
 		$r++;
 
 		// Invoices and payments
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'CustomersInvoicesAndPayments'; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = 'invoice';
 		$this->export_permission[$r] = array(array("facture", "facture", "export"));

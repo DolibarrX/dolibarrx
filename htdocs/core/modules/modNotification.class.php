@@ -77,7 +77,7 @@ class modNotification extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'notification';
+		$this->rightsClass = 'notification';
 	}
 
 

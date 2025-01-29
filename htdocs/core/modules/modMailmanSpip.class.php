@@ -81,7 +81,7 @@ class modMailmanSpip extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'mailmanspip';
+		$this->rightsClass = 'mailmanspip';
 
 		// Menus
 		//-------

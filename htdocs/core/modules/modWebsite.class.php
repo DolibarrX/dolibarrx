@@ -80,7 +80,7 @@ class modWebsite extends DolibarrModules
 
 		// Permissions
 		$this->rights = array(); // Permission array used by this module
-		$this->rights_class = 'website';
+		$this->rightsClass = 'website';
 		$r = 0;
 
 		$this->rights[$r][0] = 10001;
@@ -132,7 +132,7 @@ class modWebsite extends DolibarrModules
 		// Exports
 		$r = 1;
 
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'MyWebsitePages'; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_permission[$r] = array(array("website", "export"));
 		$this->export_icon[$r] = 'globe';

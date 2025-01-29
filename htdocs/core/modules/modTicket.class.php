@@ -51,7 +51,7 @@ class modTicket extends DolibarrModules
 		// (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->number = 56000;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'ticket';
+		$this->rightsClass = 'ticket';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
@@ -372,7 +372,7 @@ class modTicket extends DolibarrModules
 
 		// Export list of tickets and attributes
 		$langs->load("ticket");
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'ExportDataset_ticket_1';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_permission[$r] = array(array("ticket", "export"));
 		$this->export_icon[$r] = 'ticket';

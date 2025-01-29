@@ -76,7 +76,7 @@ class modImport extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'import';
+		$this->rightsClass = 'import';
 		$r = 0;
 
 		$r++;

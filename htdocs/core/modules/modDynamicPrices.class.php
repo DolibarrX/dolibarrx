@@ -80,7 +80,7 @@ class modDynamicPrices extends DolibarrModules
 		// Permissions
 		//------------
 		$this->rights = array();
-		$this->rights_class = 'dynamicprices';
+		$this->rightsClass = 'dynamicprices';
 		$r = 0;
 	}
 

@@ -94,7 +94,7 @@ class modIntracommreport extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'intracommreport';
+		$this->rightsClass = 'intracommreport';
 		$r = 0;
 
 		$r++;

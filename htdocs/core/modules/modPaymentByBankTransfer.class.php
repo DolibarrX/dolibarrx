@@ -90,7 +90,7 @@ class modPaymentByBankTransfer extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'paymentbybanktransfer';
+		$this->rightsClass = 'paymentbybanktransfer';
 		$r = 0;
 		$r++;
 		$this->rights[$r][0] = 561;

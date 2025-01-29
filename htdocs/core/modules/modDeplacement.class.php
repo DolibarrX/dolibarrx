@@ -74,7 +74,7 @@ class modDeplacement extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'deplacement';
+		$this->rightsClass = 'deplacement';
 
 		$this->rights[1][0] = 171;
 		$this->rights[1][1] = 'View own expense and travel reports, and its hierarchy';

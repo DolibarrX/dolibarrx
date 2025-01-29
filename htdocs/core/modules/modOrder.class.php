@@ -114,7 +114,7 @@ class modOrder extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'order';
+		$this->rightsClass = 'order';
 
 		$r = 0;
 
@@ -198,7 +198,7 @@ class modOrder extends DolibarrModules
 		$r = 0;
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'CustomersOrdersAndOrdersLines'; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_permission[$r] = array(array("order", "order", "export"));
 		$this->export_fields_array[$r] = array(

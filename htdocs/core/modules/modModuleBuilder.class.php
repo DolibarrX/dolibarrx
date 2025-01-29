@@ -87,7 +87,7 @@ class modModuleBuilder extends DolibarrModules
 		// Permissions
 		//------------
 		$this->rights = array(); // Permission array used by this module
-		$this->rights_class = 'modulebuilder';
+		$this->rightsClass = 'modulebuilder';
 
 		$r = 0;
 

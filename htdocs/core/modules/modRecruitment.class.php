@@ -48,7 +48,7 @@ class modRecruitment extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->number = 750;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'recruitment';
+		$this->rightsClass = 'recruitment';
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
 		$this->family = "hr";
@@ -333,7 +333,7 @@ class modRecruitment extends DolibarrModules
 		/* BEGIN MODULEBUILDER EXPORT RECRUITMENTJOBPOSITION */
 		/*
 		$langs->load("recruitment");
-		$this->export_code[$r]=$this->rights_class.'_'.$r;
+		$this->export_code[$r]=$this->rightsClass.'_'.$r;
 		$this->export_label[$r]='RecruitmentJobPositionLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r]='recruitmentjobposition';
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
@@ -364,7 +364,7 @@ class modRecruitment extends DolibarrModules
 		/* BEGIN MODULEBUILDER IMPORT RECRUITMENTJOBPOSITION */
 		/*
 		 $langs->load("recruitment");
-		 $this->export_code[$r]=$this->rights_class.'_'.$r;
+		 $this->export_code[$r]=$this->rightsClass.'_'.$r;
 		 $this->export_label[$r]='RecruitmentJobPositionLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		 $this->export_icon[$r]='recruitmentjobposition';
 		 $keyforclass = 'RecruitmentJobPosition'; $keyforclassfile='/mymobule/class/recruitmentjobposition.class.php'; $keyforelement='recruitmentjobposition';

@@ -81,7 +81,7 @@ class modTax extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'tax';
+		$this->rightsClass = 'tax';
 		$r = 0;
 
 		$r++;
@@ -125,7 +125,7 @@ class modTax extends DolibarrModules
 		$r = 0;
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'Taxes et charges sociales, et leurs reglements';
 		$this->export_permission[$r] = array(array("tax", "charges", "export"));
 		$this->export_fields_array[$r] = array('cc.libelle'=>"Type", 'c.rowid'=>"IdSocialContribution", 'c.libelle'=>"Label", 'c.date_ech'=>'DateDue', 'c.periode'=>'Period', 'c.amount'=>"AmountExpected", "c.paye"=>"Status", 'p.rowid'=>'PaymentId', 'p.datep'=>'DatePayment', 'p.amount'=>'AmountPayment', 'p.num_paiement'=>'Numero');
@@ -140,7 +140,7 @@ class modTax extends DolibarrModules
 
 		// Import social contributions
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "ImportDataset_tax_contrib"; // Translation key
 		$this->import_icon[$r] = 'tax';
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -158,7 +158,7 @@ class modTax extends DolibarrModules
 
 		// Import Taxes
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "ImportDataset_tax_vat"; // Translation key
 		$this->import_icon[$r] = 'tax';
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon

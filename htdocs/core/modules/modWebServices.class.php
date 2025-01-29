@@ -76,7 +76,7 @@ class modWebServices extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'webservices';
+		$this->rightsClass = 'webservices';
 		$r = 0;
 	}
 }

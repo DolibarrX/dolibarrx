@@ -48,7 +48,7 @@ class modWebhook extends DolibarrModules
 		$this->number = 68305; // TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve an id number for your module
 
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'webhook';
+		$this->rightsClass = 'webhook';
 
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page

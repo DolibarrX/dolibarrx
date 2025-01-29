@@ -106,7 +106,7 @@ class modCron extends DolibarrModules
 
 		// Permissions
 		$this->rights = array(); // Permission array used by this module
-		$this->rights_class = 'cron';
+		$this->rightsClass = 'cron';
 		$r = 0;
 
 		$this->rights[$r][0] = 23001;

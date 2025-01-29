@@ -86,7 +86,7 @@ class modCategory extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'category';
+		$this->rightsClass = 'category';
 
 		$r = 0;
 
@@ -123,7 +123,7 @@ class modCategory extends DolibarrModules
 
 		// All Categories List
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_list';
+		$this->export_code[$r] = $this->rightsClass.'_list';
 		$this->export_label[$r] = 'CatListAll';
 		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'true';
@@ -180,7 +180,7 @@ class modCategory extends DolibarrModules
 
 		// 0 Products
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_0_'.Category::$MAP_ID_TO_CODE[0];
+		$this->export_code[$r] = $this->rightsClass.'_0_'.Category::$MAP_ID_TO_CODE[0];
 		$this->export_label[$r] = 'CatProdList';
 		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'isModEnabled("product") || isModEnabled("service")';
@@ -209,7 +209,7 @@ class modCategory extends DolibarrModules
 
 		// 1 Suppliers
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_1_'.Category::$MAP_ID_TO_CODE[1];
+		$this->export_code[$r] = $this->rightsClass.'_1_'.Category::$MAP_ID_TO_CODE[1];
 		$this->export_label[$r] = 'CatSupList';
 		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'isModEnabled("supplier_order") || isModEnabled("supplier_invoice")';
@@ -257,7 +257,7 @@ class modCategory extends DolibarrModules
 
 		// 2 Customers/Prospects
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_2_'.Category::$MAP_ID_TO_CODE[2];
+		$this->export_code[$r] = $this->rightsClass.'_2_'.Category::$MAP_ID_TO_CODE[2];
 		$this->export_label[$r] = 'CatCusList';
 		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'isModEnabled("societe")';
@@ -307,7 +307,7 @@ class modCategory extends DolibarrModules
 
 		// 3 Members
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_3_'.Category::$MAP_ID_TO_CODE[3];
+		$this->export_code[$r] = $this->rightsClass.'_3_'.Category::$MAP_ID_TO_CODE[3];
 		$this->export_label[$r] = 'CatMemberList';
 		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'isModEnabled("member")';
@@ -332,7 +332,7 @@ class modCategory extends DolibarrModules
 
 		// 4 Contacts
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_4_'.Category::$MAP_ID_TO_CODE[4];
+		$this->export_code[$r] = $this->rightsClass.'_4_'.Category::$MAP_ID_TO_CODE[4];
 		$this->export_label[$r] = 'CatContactList';
 		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'isModEnabled("societe")';
@@ -392,7 +392,7 @@ class modCategory extends DolibarrModules
 
 		// 6 Projects
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_6_'.Category::$MAP_ID_TO_CODE[6];
+		$this->export_code[$r] = $this->rightsClass.'_6_'.Category::$MAP_ID_TO_CODE[6];
 		$this->export_label[$r] = 'CatProjectsList';
 		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = "isModEnabled('project')";
@@ -418,7 +418,7 @@ class modCategory extends DolibarrModules
 
 		// 7 Users
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_7_'.Category::$MAP_ID_TO_CODE[7];
+		$this->export_code[$r] = $this->rightsClass.'_7_'.Category::$MAP_ID_TO_CODE[7];
 		$this->export_label[$r] = 'CatUsersList';
 		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'isModEnabled("user")';
@@ -456,7 +456,7 @@ class modCategory extends DolibarrModules
 
 		// Categories
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_list';
+		$this->import_code[$r] = $this->rightsClass.'_list';
 		$this->import_label[$r] = "CatList"; // Translation key
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -486,7 +486,7 @@ class modCategory extends DolibarrModules
 		// 0 Products
 		if (isModEnabled("product")) {
 			$r++;
-			$this->import_code[$r] = $this->rights_class.'_0_'.Category::$MAP_ID_TO_CODE[0];
+			$this->import_code[$r] = $this->rightsClass.'_0_'.Category::$MAP_ID_TO_CODE[0];
 			$this->import_label[$r] = "CatProdLinks"; // Translation key
 			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -505,7 +505,7 @@ class modCategory extends DolibarrModules
 		// 1 Suppliers
 		if (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
 			$r++;
-			$this->import_code[$r] = $this->rights_class.'_1_'.Category::$MAP_ID_TO_CODE[1];
+			$this->import_code[$r] = $this->rightsClass.'_1_'.Category::$MAP_ID_TO_CODE[1];
 			$this->import_label[$r] = "CatSupLinks"; // Translation key
 			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -526,7 +526,7 @@ class modCategory extends DolibarrModules
 		// 2 Customers
 		if (isModEnabled("societe")) {
 			$r++;
-			$this->import_code[$r] = $this->rights_class.'_2_'.Category::$MAP_ID_TO_CODE[2];
+			$this->import_code[$r] = $this->rightsClass.'_2_'.Category::$MAP_ID_TO_CODE[2];
 			$this->import_label[$r] = "CatCusLinks"; // Translation key
 			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -547,7 +547,7 @@ class modCategory extends DolibarrModules
 		// 3 Members
 		if (isModEnabled('member')) {
 			$r++;
-			$this->import_code[$r] = $this->rights_class.'_3_'.Category::$MAP_ID_TO_CODE[3];
+			$this->import_code[$r] = $this->rightsClass.'_3_'.Category::$MAP_ID_TO_CODE[3];
 			$this->import_label[$r] = "CatMembersLinks"; // Translation key
 			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -565,7 +565,7 @@ class modCategory extends DolibarrModules
 		// 4 Contacts/Addresses
 		if (isModEnabled("societe")) {
 			$r++;
-			$this->import_code[$r] = $this->rights_class.'_4_'.Category::$MAP_ID_TO_CODE[4];
+			$this->import_code[$r] = $this->rightsClass.'_4_'.Category::$MAP_ID_TO_CODE[4];
 			$this->import_label[$r] = "CatContactsLinks"; // Translation key
 			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -588,7 +588,7 @@ class modCategory extends DolibarrModules
 		// 6 Projects
 		if (isModEnabled('project')) {
 			$r++;
-			$this->import_code[$r] = $this->rights_class.'_6_'.Category::$MAP_ID_TO_CODE[6];
+			$this->import_code[$r] = $this->rightsClass.'_6_'.Category::$MAP_ID_TO_CODE[6];
 			$this->import_label[$r] = "CatProjectsLinks"; // Translation key
 			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -606,7 +606,7 @@ class modCategory extends DolibarrModules
 		// 7 Users
 		if (isModEnabled('user')) {
 			$r++;
-			$this->import_code[$r] = $this->rights_class.'_7_'.Category::$MAP_ID_TO_CODE[7];
+			$this->import_code[$r] = $this->rightsClass.'_7_'.Category::$MAP_ID_TO_CODE[7];
 			$this->import_label[$r] = "CatUsersLinks"; // Translation key
 			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon

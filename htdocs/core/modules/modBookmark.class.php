@@ -74,7 +74,7 @@ class modBookmark extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'bookmark';
+		$this->rightsClass = 'bookmark';
 		$r = 0;
 
 		$r++;

@@ -49,7 +49,7 @@ class modVariants extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->number = 610;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'variants';
+		$this->rightsClass = 'variants';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page

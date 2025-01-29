@@ -76,7 +76,7 @@ class modBarcode extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'barcode';
+		$this->rightsClass = 'barcode';
 		$r = 0;
 
 		$this->rights[$r][0] = 301; // id de la permission

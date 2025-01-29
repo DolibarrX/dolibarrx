@@ -83,7 +83,7 @@ class modReceiptPrinter extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'receiptprinter';
+		$this->rightsClass = 'receiptprinter';
 
 		$r = 0;
 		// $this->rights[$r][0]     Id permission (unique tous modules confondus)

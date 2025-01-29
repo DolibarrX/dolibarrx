@@ -96,7 +96,7 @@ class modFicheinter extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'ficheinter';
+		$this->rightsClass = 'ficheinter';
 		$r = 0;
 
 		$r++;
@@ -161,7 +161,7 @@ class modFicheinter extends DolibarrModules
 		//--------
 		$r = 1;
 
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'InterventionCardsAndInterventionLines'; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_permission[$r] = array(array("ficheinter", "export"));
 		$this->export_fields_array[$r] = array(

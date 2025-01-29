@@ -113,7 +113,7 @@ class modStock extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'stock';
+		$this->rightsClass = 'stock';
 
 		$r = 0;
 
@@ -219,7 +219,7 @@ class modStock extends DolibarrModules
 
 		// Export warehouses
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_emplacement';
+		$this->export_code[$r] = $this->rightsClass.'_emplacement';
 		$this->export_label[$r] = "Warehouses"; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = "warehouse";
 		$this->export_permission[$r] = array(array("stock", "lire"));
@@ -250,7 +250,7 @@ class modStock extends DolibarrModules
 
 		// Export stock (without batch number)
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_emplacement_product';
+		$this->export_code[$r] = $this->rightsClass.'_emplacement_product';
 		$this->export_label[$r] = "Stocks"; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = "warehouse";
 		$this->export_permission[$r] = array(array("stock", "lire"));
@@ -308,7 +308,7 @@ class modStock extends DolibarrModules
 			// This request is same than previous but without field ps.stock (real stock in warehouse) and with link to subtable productbatch
 			$r++;
 
-			$this->export_code[$r] = $this->rights_class.'_emplacement_product_lot';
+			$this->export_code[$r] = $this->rightsClass.'_emplacement_product_lot';
 			$this->export_label[$r] = "StocksWithBatch"; // Translation key (used only if key ExportDataset_xxx_z not found)
 			$this->export_icon[$r] = "warehouse";
 			$this->export_permission[$r] = array(array("stock", "lire"));
@@ -368,7 +368,7 @@ class modStock extends DolibarrModules
 
 		// Export of stock movements
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_movement';
+		$this->export_code[$r] = $this->rightsClass.'_movement';
 		$this->export_label[$r] = "StockMovements"; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = "movement";
 		$this->export_permission[$r] = array(array("stock", "lire"));
@@ -414,7 +414,7 @@ class modStock extends DolibarrModules
 
 		// Export inventories
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_inventory';
+		$this->export_code[$r] = $this->rightsClass.'_inventory';
 		$this->export_label[$r] = "Inventories"; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = "inventory";
 		$this->export_permission[$r] = array(array("stock", "lire"));
@@ -470,7 +470,7 @@ class modStock extends DolibarrModules
 
 		// Import warehouses
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "Warehouses"; // Translation key
 		$this->import_icon[$r] = "warehouse";
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -511,7 +511,7 @@ class modStock extends DolibarrModules
 
 		// Import stocks
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "Stocks"; // Translation key
 		$this->import_icon[$r] = "stock";
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon

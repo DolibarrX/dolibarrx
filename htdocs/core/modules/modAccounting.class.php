@@ -154,7 +154,7 @@ class modAccounting extends DolibarrModules
 		);
 
 		// Permissions
-		$this->rights_class = 'accounting';
+		$this->rightsClass = 'accounting';
 
 		$this->rights = array(); // Permission array used by this module
 		$r = 0;
@@ -240,7 +240,7 @@ class modAccounting extends DolibarrModules
 		$r = 0;
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'Chartofaccounts';
 		$this->export_icon[$r] = $this->picture;
 		$this->export_permission[$r] = array(array("accounting", "chartofaccount"));
@@ -262,7 +262,7 @@ class modAccounting extends DolibarrModules
 
 		// Chart of accounts
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "Chartofaccounts"; // Translation key
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -280,7 +280,7 @@ class modAccounting extends DolibarrModules
 
 		// General ledger
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'ImportAccountingEntries';
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
@@ -326,7 +326,7 @@ class modAccounting extends DolibarrModules
 
 		// General ledger - File FEC
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'ImportAccountingEntriesFECFormat';
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon

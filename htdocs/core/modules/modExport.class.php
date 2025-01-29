@@ -74,7 +74,7 @@ class modExport extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'export';
+		$this->rightsClass = 'export';
 		$r = 0;
 
 		$r++;

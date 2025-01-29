@@ -134,7 +134,7 @@ class modSociete extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'societe';
+		$this->rightsClass = 'societe';
 		$r = 0;
 
 		$r++;
@@ -269,7 +269,7 @@ class modSociete extends DolibarrModules
 
 		// Export list of third parties and attributes
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'ExportDataset_company_1';
 		$this->export_icon[$r] = 'company';
 		$this->export_permission[$r] = array(array("societe", "export"));
@@ -362,7 +362,7 @@ class modSociete extends DolibarrModules
 
 		// Export list of contacts and attributes
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'ExportDataset_company_2';
 		$this->export_icon[$r] = 'contact';
 		$this->export_permission[$r] = array(array("societe", "contact", "export"));
@@ -452,7 +452,7 @@ class modSociete extends DolibarrModules
 
 		// Export list of third-party and bank/payment methods
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'ExportDataset_company_3';
 		$this->export_icon[$r] = 'account';
 		if (getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) {
@@ -544,7 +544,7 @@ class modSociete extends DolibarrModules
 		// Import list of third parties and attributes
 
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'ImportDataset_company_1';
 		$this->import_icon[$r] = 'company';
 		$this->import_entities_array[$r] = array(); // We define here only fields that use a different icon from the one defined in import_icon
@@ -818,7 +818,7 @@ class modSociete extends DolibarrModules
 
 		// Import list of contacts/addresses of thirparties and attributes
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'ImportDataset_company_2';
 		$this->import_icon[$r] = 'contact';
 		$this->import_entities_array[$r] = array('s.fk_soc' => 'company'); // We define here only fields that use a different icon than the one defined in import_icon
@@ -943,7 +943,7 @@ class modSociete extends DolibarrModules
 
 		// Import Bank Accounts
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "ImportDataset_company_3"; // Translation key
 		$this->import_icon[$r] = 'company';
 		$this->import_entities_array[$r] = array(); // We define here only fields that use a different icon to the one defined in import_icon
@@ -1002,7 +1002,7 @@ class modSociete extends DolibarrModules
 
 		// Import Company Sales representatives
 		$r++;
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = "ImportDataset_company_4"; // Translation key
 		$this->import_icon[$r] = 'company';
 		$this->import_entities_array[$r] = array('sr.fk_user' => 'user'); // We define here only fields that use another icon that the one defined into import_icon

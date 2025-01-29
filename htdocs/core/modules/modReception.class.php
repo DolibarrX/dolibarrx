@@ -109,7 +109,7 @@ class modReception extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'reception';
+		$this->rightsClass = 'reception';
 		$r = 0;
 
 		$r++;
@@ -178,7 +178,7 @@ class modReception extends DolibarrModules
 
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'Receptions'; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_permission[$r] = array(array("reception", "reception", "export"));
 		$this->export_fields_array[$r] = array(

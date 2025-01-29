@@ -46,7 +46,7 @@ class modPaypal extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->number = 50200;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'paypal';
+		$this->rightsClass = 'paypal';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
@@ -169,7 +169,7 @@ class modPaypal extends DolibarrModules
 		$r = 1;
 
 		// Example:
-		// $this->export_code[$r]=$this->rights_class.'_'.$r;
+		// $this->export_code[$r]=$this->rightsClass.'_'.$r;
 		// $this->export_label[$r]='CustomersInvoicesAndInvoiceLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		// $this->export_permission[$r]=array(array("facture","facture","export"));
 		// $this->export_fields_array[$r]=array(

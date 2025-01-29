@@ -42,7 +42,7 @@ class modDebugBar extends DolibarrModules
 
 		$this->number = 43;
 
-		$this->rights_class = 'debugbar';
+		$this->rightsClass = 'debugbar';
 
 		$this->family = "base";
 		$this->modulePosition = '75';

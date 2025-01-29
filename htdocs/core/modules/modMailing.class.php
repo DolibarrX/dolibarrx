@@ -87,7 +87,7 @@ class modMailing extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'mailing';
+		$this->rightsClass = 'mailing';
 		$r = 0;
 
 		$r++;

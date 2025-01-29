@@ -113,7 +113,7 @@ class modExpenseReport extends DolibarrModules
 
 		// Permissions
 		$this->rights = array(); // Permission array used by this module
-		$this->rights_class = 'expensereport';
+		$this->rightsClass = 'expensereport';
 
 		$this->rights[$r][0] = 771;
 		$this->rights[$r][1] = 'Read expense reports (yours and your subordinates)';

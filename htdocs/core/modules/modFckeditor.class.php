@@ -81,6 +81,6 @@ class modFckeditor extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'fckeditor';
+		$this->rightsClass = 'fckeditor';
 	}
 }

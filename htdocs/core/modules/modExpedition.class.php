@@ -139,7 +139,7 @@ class modExpedition extends DolibarrModules
 		);
 
 		// Permissions
-		$this->rights_class = 'expedition';
+		$this->rightsClass = 'expedition';
 		$this->rights = array();
 		$r = 0;
 
@@ -241,7 +241,7 @@ class modExpedition extends DolibarrModules
 
 
 		$r++;
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'Shipments'; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_permission[$r] = array(array("expedition", "shipment", "export"));
 		$this->export_fields_array[$r] = array(

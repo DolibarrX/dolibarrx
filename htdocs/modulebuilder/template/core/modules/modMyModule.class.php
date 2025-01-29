@@ -50,7 +50,7 @@ class modMyModule extends DolibarrModules
 		$this->number = 500000; // TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve an id number for your module
 
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'mymodule';
+		$this->rightsClass = 'mymodule';
 
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
@@ -392,7 +392,7 @@ class modMyModule extends DolibarrModules
 		/* BEGIN MODULEBUILDER EXPORT MYOBJECT */
 		/*
 		$langs->load("mymodule@mymodule");
-		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'MyObjectLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = $this->picture;
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
@@ -423,7 +423,7 @@ class modMyModule extends DolibarrModules
 		/* BEGIN MODULEBUILDER IMPORT MYOBJECT */
 		/*
 		$langs->load("mymodule@mymodule");
-		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_code[$r] = $this->rightsClass.'_'.$r;
 		$this->import_label[$r] = 'MyObjectLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->import_icon[$r] = $this->picture;
 		$this->import_tables_array[$r] = array('t' => $this->db->prefix().'mymodule_myobject', 'extra' => $this->db->prefix().'mymodule_myobject_extrafields');

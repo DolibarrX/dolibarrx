@@ -41,7 +41,7 @@ class modBlockedLog extends DolibarrModules
 		$this->db = $db;
 		$this->number = 3200;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'blockedlog';
+		$this->rightsClass = 'blockedlog';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page

@@ -45,7 +45,7 @@ class modWorkflow extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->number = 6000;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'workflow';
+		$this->rightsClass = 'workflow';
 
 		$this->family = "technic";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)

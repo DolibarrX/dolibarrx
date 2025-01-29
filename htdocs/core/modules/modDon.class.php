@@ -117,7 +117,7 @@ class modDon extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'don';
+		$this->rightsClass = 'don';
 
 		$this->rights[1][0] = 701;
 		$this->rights[1][1] = 'Lire les dons';

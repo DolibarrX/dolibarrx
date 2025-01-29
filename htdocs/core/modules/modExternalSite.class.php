@@ -92,7 +92,7 @@ class modExternalSite extends DolibarrModules
 		//$r++;
 
 		// Permissions
-		$this->rights_class = 'externalsite'; // Permission key
+		$this->rightsClass = 'externalsite'; // Permission key
 		$this->rights = array(); // Permission array used by this module
 
 		$this->module_parts = array(

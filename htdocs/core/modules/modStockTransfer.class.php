@@ -49,7 +49,7 @@ class modStockTransfer extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->number = 701; // TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve an id number for your module
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'stocktransfer';
+		$this->rightsClass = 'stocktransfer';
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
 		$this->family = "products";
@@ -367,7 +367,7 @@ class modStockTransfer extends DolibarrModules
 		/* BEGIN MODULEBUILDER EXPORT STOCKTRANSFER */
 		/*
 		$langs->load("stocktransfer@stocktransfer");
-		$this->export_code[$r]=$this->rights_class.'_'.$r;
+		$this->export_code[$r]=$this->rightsClass.'_'.$r;
 		$this->export_label[$r]='StockTransferLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r]='stocktransfer@stocktransfer';
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
@@ -398,7 +398,7 @@ class modStockTransfer extends DolibarrModules
 		/* BEGIN MODULEBUILDER IMPORT STOCKTRANSFER */
 		/*
 		 $langs->load("stocktransfer@stocktransfer");
-		 $this->export_code[$r]=$this->rights_class.'_'.$r;
+		 $this->export_code[$r]=$this->rightsClass.'_'.$r;
 		 $this->export_label[$r]='StockTransferLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		 $this->export_icon[$r]='stocktransfer@stocktransfer';
 		 $keyforclass = 'StockTransfer'; $keyforclassfile='/stocktransfer/class/stocktransfer.class.php'; $keyforelement='stocktransfer@stocktransfer';

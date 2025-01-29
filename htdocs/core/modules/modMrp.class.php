@@ -48,7 +48,7 @@ class modMrp extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->number = 660;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'mrp';
+		$this->rightsClass = 'mrp';
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
 		$this->family = "products";
@@ -246,7 +246,7 @@ class modMrp extends DolibarrModules
 		// Exports profiles provided by this module
 		$r = 1;
 
-		$this->export_code[$r]=$this->rights_class.'_'.$r;
+		$this->export_code[$r]=$this->rightsClass.'_'.$r;
 		$this->export_label[$r]='MOs';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r]='mrp';
 		$this->export_fields_array[$r] = array(
@@ -309,7 +309,7 @@ class modMrp extends DolibarrModules
 
 		// Export of MO + liste of consumption / production
 		$r++;
-		$this->export_code[$r]=$this->rights_class.'_'.$r;
+		$this->export_code[$r]=$this->rightsClass.'_'.$r;
 		$this->export_label[$r]='ConsumptionAndProductionInMos';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r]='mrp';
 		$this->export_fields_array[$r] = array(
@@ -413,7 +413,7 @@ class modMrp extends DolibarrModules
 		$langs->load("mrp");
 		/* BEGIN MODULEBUILDER IMPORT MO */
 		/*
-		 $this->export_code[$r]=$this->rights_class.'_'.$r;
+		 $this->export_code[$r]=$this->rightsClass.'_'.$r;
 		 $this->export_label[$r]='MoLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		 $this->export_icon[$r]='mo@mrp';
 		 $keyforclass = 'Mo'; $keyforclassfile='/mymobule/class/mo.class.php'; $keyforelement='mo';
@@ -428,7 +428,7 @@ class modMrp extends DolibarrModules
 		 $r++; */
 		/* END MODULEBUILDER IMPORT MO */
 		$r++;
-		$this->import_code[$r]=$this->rights_class.'_'.$r;
+		$this->import_code[$r]=$this->rightsClass.'_'.$r;
 		$this->import_label[$r]='MOs';	// Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->import_icon[$r]='mrp';
 		$this->import_entities_array[$r] = array(); // We define here only fields that use a different icon from the one defined in import_icon

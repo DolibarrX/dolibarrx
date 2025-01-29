@@ -1350,7 +1350,7 @@ function unActivateModule($value, $requiredby = 1)
 		include_once DOL_DOCUMENT_ROOT . '/core/modules/DolibarrModules.class.php';
 		$genericMod = new DolibarrModules($db);
 		$genericMod->name = preg_replace('/^mod/i', '', $modName);
-		$genericMod->rights_class = strtolower(preg_replace('/^mod/i', '', $modName));
+		$genericMod->rightsClass = strtolower(preg_replace('/^mod/i', '', $modName));
 		$genericMod->const_name = 'MAIN_MODULE_' . strtoupper(preg_replace('/^mod/i', '', $modName));
 		dol_syslog("modules::unActivateModule Failed to find module file, we use generic function with name " . $modName);
 		$genericMod->remove('');
