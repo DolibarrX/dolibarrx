@@ -73,7 +73,7 @@ class modBom extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		//Url to the file with your last numberversion of this module
-		//$this->url_last_version = 'http://www.example.com/versionmodule.txt';
+		//$this->urlLastVersion = 'http://www.example.com/versionmodule.txt';
 		// Key used in llx_const table to save module status enabled/disabled (where BILLOFMATERIALS is value of property name of module in uppercase)
 		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.

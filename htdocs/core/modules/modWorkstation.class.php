@@ -66,7 +66,7 @@ class modWorkstation extends DolibarrModules
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
 		$this->version = 'dolibarr';
 		// Url to the file with your last numberversion of this module
-		//$this->url_last_version = 'http://www.example.com/versionmodule.txt';
+		//$this->urlLastVersion = 'http://www.example.com/versionmodule.txt';
 
 		// Key used in llx_const table to save module status enabled/disabled (where WORKSTATION is value of property name of module in uppercase)
 		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);

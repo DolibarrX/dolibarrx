@@ -495,7 +495,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var bool
 	 */
-	public $enabled_bydefault;
+	public $enabledByDefault;
 
 	/**
 	 * @var bool|int<0,1> Whether to hide the module.
@@ -505,7 +505,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var string url to check for module update
 	 */
-	public $url_last_version;
+	public $urlLastVersion;
 
 
 	/**
@@ -2696,7 +2696,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 	/**
 	 * Check for module update.
-	 * Get URL content of $this->url_last_version and set $this->lastVersion and$this->needUpdate
+	 * Get URL content of $this->urlLastVersion and set $this->lastVersion and$this->needUpdate
 	 * TODO Store result in DB.
 	 * TODO Add a cron task to monitor for updates.
 	 *
@@ -2705,8 +2705,8 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function checkForUpdate()
 	{
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-		if (!empty($this->url_last_version)) {
-			$lastVersion = getURLContent($this->url_last_version, 'GET', '', 1, [], array('http', 'https'), 0);	// Accept http or https links on external remote server only
+		if (!empty($this->urlLastVersion)) {
+			$lastVersion = getURLContent($this->urlLastVersion, 'GET', '', 1, [], array('http', 'https'), 0);	// Accept http or https links on external remote server only
 			if (isset($lastVersion['content']) && strlen($lastVersion['content']) < 30) {
 				// Security warning :  be careful with remote data content, the module editor could be hacked (or evil) so limit to a-z A-Z 0-9 _ . -
 				$this->lastVersion = preg_replace("/[^a-zA-Z0-9_\.\-]+/", "", $lastVersion['content']);

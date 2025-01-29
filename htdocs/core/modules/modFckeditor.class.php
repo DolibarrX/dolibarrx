@@ -66,7 +66,7 @@ class modFckeditor extends DolibarrModules
 		$this->disabled = (defined('JS_CKEDITOR') && in_array(constant('JS_CKEDITOR'), array('disabled', 'disabled/')));
 		$this->depends = [];
 		$this->requiredBy = array('modWebsites');
-		$this->enabled_bydefault = true; // Will be enabled during install
+		$this->enabledByDefault = true; // Will be enabled during install
 
 		// Constants
 		$this->const = [];

@@ -64,7 +64,7 @@ class modExport extends DolibarrModules
 		$this->requiredBy = [];
 		$this->phpmin = array(7, 0);
 		$this->phpmax = [];
-		$this->enabled_bydefault = true; // Will be enabled during install
+		$this->enabledByDefault = true; // Will be enabled during install
 
 		// Constants
 		$this->const = [];

@@ -334,7 +334,7 @@ if ($action == "set" || empty($action) || preg_match('/upgrade/i', $action)) {
 										if (class_exists($modName)) {
 											$objMod = new $modName($db);
 											$modNameLoaded[$modName] = $dir;
-											if (!empty($objMod->enabled_bydefault) && !in_array($file, $tmparray)) {
+											if (!empty($objMod->enabledByDefault) && !in_array($file, $tmparray)) {
 												$tmparray[] = $file;
 											}
 										}

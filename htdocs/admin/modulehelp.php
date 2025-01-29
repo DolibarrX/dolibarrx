@@ -385,7 +385,7 @@ if ($mode == 'desc') {
 		$text .= '<br><span class="opacitymedium">'.$langs->trans("Origin").':</span> '.$langs->trans("Core");
 		if (empty($objMod->number)) {
 			$text .= ' &nbsp; <span class="italic opacitymedium">('.$langs->trans("AlwaysEnabled").')</span>';
-		} elseif (!empty($objMod->enabled_bydefault)) {
+		} elseif (!empty($objMod->enabledByDefault)) {
 			$text .= ' &nbsp; <span class="italic opacitymedium">('.$langs->trans("EnabledByDefaultAtInstall").')</span>';
 		}
 	}
