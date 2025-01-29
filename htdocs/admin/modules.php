@@ -1022,8 +1022,8 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 				}
 			} else {
 				// @phan-suppress-next-line PhanUndeclaredMethod
-				if (is_object($objMod) && !empty($objMod->warnings_unactivation[$mysoc->country_code]) && method_exists($objMod, 'alreadyUsed') && $objMod->alreadyUsed()) {
-					$codeenabledisable .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$modulePosition.'&amp;action=reset_confirm&amp;confirm_message_code='.urlencode($objMod->warnings_unactivation[$mysoc->country_code]).'&amp;value='.$modName.'&amp;mode='.$mode.$param.'">';
+				if (is_object($objMod) && !empty($objMod->warningsUnactivation[$mysoc->country_code]) && method_exists($objMod, 'alreadyUsed') && $objMod->alreadyUsed()) {
+					$codeenabledisable .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$modulePosition.'&amp;action=reset_confirm&amp;confirm_message_code='.urlencode($objMod->warningsUnactivation[$mysoc->country_code]).'&amp;value='.$modName.'&amp;mode='.$mode.$param.'">';
 					$codeenabledisable .= img_picture($langs->trans("Activated").($warningstring ? ' '.$warningstring : ''), 'switch_on');
 					$codeenabledisable .= '</a>';
 					if (getDolGlobalInt("MAIN_FEATURES_LEVEL") > 1) {

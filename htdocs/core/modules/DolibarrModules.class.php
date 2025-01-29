@@ -468,7 +468,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 *
 	 * array('always'='text') or array('FR'='text')
 	 */
-	public $warnings_unactivation;
+	public $warningsUnactivation;
 
 	/**
 	 * @var int[] Minimum version of PHP required by module.
