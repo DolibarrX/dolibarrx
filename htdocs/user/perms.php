@@ -556,7 +556,7 @@ if ($result) {
 			print '<a name="'.$objMod->getName().'"></a>';
 			print '</td>';
 			// Permission and tick (2 columns)
-			if (($caneditperms && empty($objMod->rights_admin_allowed)) || empty($object->admin)) {
+			if (($caneditperms && empty($objMod->rightsAdminAllowed)) || empty($object->admin)) {
 				if ($caneditperms) {
 					print '<td class="center wraponsmartphone">';
 					print '<span class="permtohide_'.$obj->module.'" '.(!$isexpanded ? ' style="display:none"' : '').'>';
@@ -607,7 +607,7 @@ if ($result) {
 		print '</td>';
 
 		// Permission and tick (2 columns)
-		if (!empty($object->admin) && !empty($objMod->rights_admin_allowed)) {    // Permission granted because admin
+		if (!empty($object->admin) && !empty($objMod->rightsAdminAllowed)) {    // Permission granted because admin
 			print '<!-- perm is a perm allowed to any admin -->';
 			if ($caneditperms) {
 				print '<td class="center">'.img_picture($langs->trans("AdministratorDesc"), 'star').'</td>';
@@ -702,7 +702,7 @@ if ($result) {
 		}
 		// Special warning case for the permission "Allow to modify other users password"
 		if ($obj->module == 'user' && $obj->perms == 'user' && $obj->subperms == 'password') {
-			if ((!empty($object->admin) && !empty($objMod->rights_admin_allowed)) ||
+			if ((!empty($object->admin) && !empty($objMod->rightsAdminAllowed)) ||
 				in_array($obj->id, $permsuser) /* if edited user owns this permissions */ ||
 				(isset($permsgroupbyentitypluszero) && is_array($permsgroupbyentitypluszero) && in_array($obj->id, $permsgroupbyentitypluszero))) {
 				print ' '.img_warning($langs->trans("AllowPasswordResetBySendingANewPassByEmail"));
@@ -710,7 +710,7 @@ if ($result) {
 		}
 		// Special warning case for the permission "Create/modify other users, groups and permissions"
 		if ($obj->module == 'user' && $obj->perms == 'user' && ($obj->subperms == 'creer' || $obj->subperms == 'create')) {
-			if ((!empty($object->admin) && !empty($objMod->rights_admin_allowed)) ||
+			if ((!empty($object->admin) && !empty($objMod->rightsAdminAllowed)) ||
 				in_array($obj->id, $permsuser) /* if edited user owns this permissions */ ||
 				(isset($permsgroupbyentitypluszero) && is_array($permsgroupbyentitypluszero) && in_array($obj->id, $permsgroupbyentitypluszero))) {
 				print ' '.img_warning($langs->trans("AllowAnyPrivileges"));

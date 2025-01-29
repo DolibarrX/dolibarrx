@@ -132,7 +132,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var int<0,1>	1=Admin is always granted of permission of modules (even when module is disabled)
 	 */
-	public $rights_admin_allowed;
+	public $rightsAdminAllowed;
 
 	/**
 	 * @var string 	Module access rights family

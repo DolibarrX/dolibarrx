@@ -85,7 +85,7 @@ class modUser extends DolibarrModules
 		// Permissions
 		$this->rights = array();
 		$this->rights_class = 'user';
-		$this->rights_admin_allowed = 1; // Admin is always granted of permission (even when module is disabled)
+		$this->rightsAdminAllowed = 1; // Admin is always granted of permission (even when module is disabled)
 		$r = 0;
 
 		$r++;
