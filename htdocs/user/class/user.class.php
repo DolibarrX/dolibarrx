@@ -1454,7 +1454,7 @@ class User extends CommonObject
 									}
 									$this->rights->$module->$perms->$subperms = 1;
 								} else {
-									// if we have already define a subperm like this $this->rights->$module->level1->level2 with llx_user_rights, we don't want override level1 because the level2 can be not define on user group
+									// if we have already define a subperm like this $this->rights->$module->level1->level2 with llx_user_rights, we do not want override level1 because the level2 can be not define on user group
 									if (!isset($this->rights->$module->$perms) || !is_object($this->rights->$module->$perms)) {
 										if (empty($this->rights->$module->$perms)) {			// if not already counted
 											$this->nb_rights++;

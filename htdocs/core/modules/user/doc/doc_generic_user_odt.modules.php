@@ -150,7 +150,7 @@ class doc_generic_user_odt extends ModelePDFUser
 		$texthelp .= '<br><br><span class="opacitymedium">'.$langs->trans("ExampleOfDirectoriesForModelGen").'</span>';
 		// Add list of substitution keys
 		$texthelp .= '<br>'.$langs->trans("FollowingSubstitutionKeysCanBeUsed").'<br>';
-		$texthelp .= $langs->transnoentitiesnoconv("FullListOnOnlineDocumentation"); // This contains an url, we don't modify it
+		$texthelp .= $langs->transnoentitiesnoconv("FullListOnOnlineDocumentation"); // This contains an url, we do not modify it
 
 		$texte .= $form->textWithPicture($texttitle, $texthelp, 1, 'help', '', 1, 3, $this->name);
 		$texte .= '<div><div style="display: inline-block; min-width: 100px; vertical-align: middle;">';
@@ -333,7 +333,7 @@ class doc_generic_user_odt extends ModelePDFUser
 						$socobject = $object->contact;
 					} else {
 						$socobject = $object->thirdparty;
-						// if we have a CUSTOMER contact and we don't use it as recipient we store the contact object for later use
+						// if we have a CUSTOMER contact and we do not use it as recipient we store the contact object for later use
 						$contactobject = $object->contact;
 					}
 				} else {

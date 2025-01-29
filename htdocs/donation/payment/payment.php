@@ -18,15 +18,15 @@
  */
 
 /**
- *  \file       htdocs/don/payment/payment.php
+ *  \file       htdocs/donation/payment/payment.php
  *  \ingroup    donations
  *  \brief      Page to add payment of a donation
  */
 
 // Load Dolibarr environment
 require '../../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/paymentdonation.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/paymentdonation.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
 /**
@@ -52,9 +52,9 @@ if ($user->socid > 0) {
 
 $object = new Don($db);
 
-$permissiontoread = $user->hasRight('don', 'lire');
-$permissionToAdd = $user->hasRight('don', 'creer');
-$permissiontodelete = $user->hasRight('don', 'supprimer');
+$permissiontoread = $user->hasRight('donation', 'lire');
+$permissionToAdd = $user->hasRight('donation', 'creer');
+$permissiontodelete = $user->hasRight('donation', 'supprimer');
 
 
 /*
@@ -65,7 +65,7 @@ if ($action == 'add_payment' && $permissionToAdd) {
 	$error = 0;
 
 	if ($cancel) {
-		$loc = DOL_URL_ROOT.'/don/card.php?rowid='.$chid;
+		$loc = DOL_URL_ROOT.'/donation/card.php?rowid='.$chid;
 		header("Location: ".$loc);
 		exit;
 	}
@@ -134,7 +134,7 @@ if ($action == 'add_payment' && $permissionToAdd) {
 
 			if (!$error) {
 				$db->commit();
-				$loc = DOL_URL_ROOT.'/don/card.php?rowid='.$chid;
+				$loc = DOL_URL_ROOT.'/donation/card.php?rowid='.$chid;
 				header('Location: '.$loc);
 				exit;
 			} else {

@@ -162,7 +162,7 @@ if ($action == 'validatehistory' && $user->hasRight('accounting', 'bind', 'write
 	$sql .= " LEFT JOIN ".$db->prefix()."accounting_account as aa4 ON ".$db->sanitize($alias_societe_perentity).".accountancy_code_sell = aa4.account_number        AND aa4.active = 1 AND aa4.fk_pcg_version = '".$db->escape($chartaccountcode)."' AND aa4.entity = ".$config->entity;
 	$sql .= " WHERE f.fk_statut > 0 AND l.fk_code_ventilation <= 0";
 	$sql .= " AND l.product_type <= 2";
-	$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We don't share object for accountancy
+	$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share object for accountancy
 	if (getDolGlobalString('ACCOUNTING_DATE_START_BINDING')) {
 		$sql .= " AND f.datef >= '".$db->idate(getDolGlobalString('ACCOUNTING_DATE_START_BINDING'))."'";
 	}
@@ -375,7 +375,7 @@ if (getDolGlobalString('ACCOUNTING_DATE_START_BINDING')) {
 }
 $sql .= " AND f.fk_statut > 0";
 $sql .= " AND fd.product_type <= 2";
-$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We don't share object for accountancy
+$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share object for accountancy
 $sql .= " AND aa.account_number IS NULL";
 if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
 	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.",".Facture::TYPE_REPLACEMENT.",".Facture::TYPE_CREDIT_NOTE.",".Facture::TYPE_SITUATION.")";
@@ -512,7 +512,7 @@ $sql .= "  AND f.datef <= '".$db->idate($search_date_end)."'";
 if (getDolGlobalString('ACCOUNTING_DATE_START_BINDING')) {
 	$sql .= " AND f.datef >= '".$db->idate(getDolGlobalString('ACCOUNTING_DATE_START_BINDING'))."'";
 }
-$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We don't share object for accountancy
+$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share object for accountancy
 $sql .= " AND f.fk_statut > 0";
 $sql .= " AND fd.product_type <= 2";
 if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
@@ -614,7 +614,7 @@ if (getDolGlobalString('SHOW_TOTAL_OF_PREVIOUS_LISTS_IN_LIN_PAGE')) { // This pa
 	if (getDolGlobalString('ACCOUNTING_DATE_START_BINDING')) {
 		$sql .= " AND f.datef >= '".$db->idate(getDolGlobalString('ACCOUNTING_DATE_START_BINDING'))."'";
 	}
-	$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We don't share object for accountancy
+	$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share object for accountancy
 	$sql .= " AND f.fk_statut > 0";
 	$sql .= " AND fd.product_type <= 2";
 	if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
@@ -711,7 +711,7 @@ if (getDolGlobalString('SHOW_TOTAL_OF_PREVIOUS_LISTS_IN_LIN_PAGE')) { // This pa
 		if (getDolGlobalString('ACCOUNTING_DATE_START_BINDING')) {
 			$sql .= " AND f.datef >= '".$db->idate(getDolGlobalString('ACCOUNTING_DATE_START_BINDING'))."'";
 		}
-		$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We don't share object for accountancy
+		$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share object for accountancy
 		$sql .= " AND f.fk_statut > 0";
 		$sql .= " AND fd.product_type <= 2";
 		if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {

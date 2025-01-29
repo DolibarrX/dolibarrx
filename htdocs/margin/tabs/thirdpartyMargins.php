@@ -304,7 +304,7 @@ if ($socid > 0) {
 		$selectedfields = '';
 
 		$i = 0;
-		print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+		print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 		print '<table class="noborder centpercent">';
 
 		// Fields title search

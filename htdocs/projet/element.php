@@ -58,8 +58,8 @@ if (isModEnabled('contract')) {
 if (isModEnabled('deplacement')) {
 	require_once DOL_DOCUMENT_ROOT.'/compta/deplacement/class/deplacement.class.php';
 }
-if (isModEnabled('don')) {
-	require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+if (isModEnabled('donation')) {
+	require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 }
 if (isModEnabled('shipping')) {
 	require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
@@ -137,7 +137,7 @@ if (isModEnabled('deplacement')) {
 if (isModEnabled('expensereport')) {
 	$langs->load("trips");
 }
-if (isModEnabled('don')) {
+if (isModEnabled('donation')) {
 	$langs->load("donations");
 }
 if (isModEnabled('loan')) {
@@ -592,14 +592,14 @@ $listofreferent = array(
 		'title' => "ListDonationsAssociatedProject",
 		'class' => 'Don',
 		'margin' => 'add',
-		'table' => 'don',
+		'table' => 'donation',
 		'datefieldname' => 'datedon',
 		'disableamount' => 0,
-		'urlnew' => DOL_URL_ROOT.'/don/card.php?action=create&projectid='.$id.'&socid='.$socid.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id),
+		'urlnew' => DOL_URL_ROOT.'/donation/card.php?action=create&projectid='.$id.'&socid='.$socid.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id),
 		'lang' => 'donations',
 		'buttonnew' => 'AddDonation',
-		'testnew' => $user->hasRight('don', 'creer'),
-		'test' => isModEnabled('don') && $user->hasRight('don', 'lire')
+		'testnew' => $user->hasRight('donation', 'creer'),
+		'test' => isModEnabled('donation') && $user->hasRight('donation', 'lire')
 	),
 	'loan' => array(
 		'name' => "Loan",
@@ -891,7 +891,7 @@ foreach ($listofreferent as $key => $value) {
 				}
 
 				// Define $total_ht_by_line
-				if ($tablename == 'don' || $tablename == 'chargesociales' || $tablename == 'payment_various' || $tablename == 'salary') {
+				if ($tablename == 'donation' || $tablename == 'chargesociales' || $tablename == 'payment_various' || $tablename == 'salary') {
 					$total_ht_by_line = $element->amount;
 				} elseif ($tablename == 'fichinter') {
 					$total_ht_by_line = $element->getAmount();
@@ -928,7 +928,7 @@ foreach ($listofreferent as $key => $value) {
 				}
 
 				// Define $total_ttc_by_line
-				if ($tablename == 'don' || $tablename == 'chargesociales' || $tablename == 'payment_various' || $tablename == 'salary') {
+				if ($tablename == 'donation' || $tablename == 'chargesociales' || $tablename == 'payment_various' || $tablename == 'salary') {
 					$total_ttc_by_line = $element->amount;
 				} elseif ($tablename == 'fichinter') {
 					$total_ttc_by_line = $element->getAmount();
@@ -1202,10 +1202,10 @@ foreach ($listofreferent as $key => $value) {
 		// Thirdparty or user
 		print '<td>';
 		if (in_array($tablename, array('projet_task')) && $key == 'project_task') {
-			print ''; // if $key == 'project_task', we don't want details per user
+			print ''; // if $key == 'project_task', we do not want details per user
 		} elseif (in_array($tablename, array('payment_various'))) {
 			print $langs->trans("Label"); // complementary info about the payment
-		} elseif (in_array($tablename, array('expensereport_det', 'don', 'projet_task', 'stock_mouvement', 'salary'))) {
+		} elseif (in_array($tablename, array('expensereport_det', 'donation', 'projet_task', 'stock_mouvement', 'salary'))) {
 			print $langs->trans("User");
 		} else {
 			print $langs->trans("ThirdParty");
@@ -1405,8 +1405,8 @@ foreach ($listofreferent as $key => $value) {
 				} elseif ($tablename == 'chargesociales') {
 					$date = $element->date_ech;
 				} elseif (!empty($element->status) || !empty($element->statut) || !empty($element->fk_status)) {
-					if ($tablename == 'don') {
-						$date = $element->datedon;
+					if ($tablename == 'donation') {
+						$date = $element->datedonation;
 					}
 					if ($tablename == 'order_fournisseur' || $tablename == 'supplier_order') {
 						$date = ($element->date_order ? $element->date_order : $element->date_valid);
@@ -1461,13 +1461,13 @@ foreach ($listofreferent as $key => $value) {
 					$tmpuser = new User($db);
 					$tmpuser->fetch($element->fk_user);
 					print $tmpuser->getNomUrl(1, '', 48);
-				} elseif ($tablename == 'don' || $tablename == 'stock_mouvement') {
+				} elseif ($tablename == 'donation' || $tablename == 'stock_mouvement') {
 					if ($element->fk_user_author > 0) {
 						$tmpuser2 = new User($db);
 						$tmpuser2->fetch($element->fk_user_author);
 						print $tmpuser2->getNomUrl(1, '', 48);
 					}
-				} elseif ($tablename == 'projet_task' && $key == 'element_time') {	// if $key == 'project_task', we don't want details per user
+				} elseif ($tablename == 'projet_task' && $key == 'element_time') {	// if $key == 'project_task', we do not want details per user
 					print $elementuser->getNomUrl(1);
 				} elseif ($tablename == 'payment_various') {	// payment label
 					print $element->label;
@@ -1487,7 +1487,7 @@ foreach ($listofreferent as $key => $value) {
 				if (empty($value['disableamount'])) {
 					$total_ht_by_line = null;
 					$othermessage = '';
-					if ($tablename == 'don' || $tablename == 'chargesociales' || $tablename == 'payment_various' || $tablename == 'salary') {
+					if ($tablename == 'donation' || $tablename == 'chargesociales' || $tablename == 'payment_various' || $tablename == 'salary') {
 						$total_ht_by_line = $element->amount;
 					} elseif ($tablename == 'fichinter') {
 						$total_ht_by_line = $element->getAmount();
@@ -1541,7 +1541,7 @@ foreach ($listofreferent as $key => $value) {
 				// Amount inc tax
 				if (empty($value['disableamount'])) {
 					$total_ttc_by_line = null;
-					if ($tablename == 'don' || $tablename == 'chargesociales' || $tablename == 'payment_various' || $tablename == 'salary') {
+					if ($tablename == 'donation' || $tablename == 'chargesociales' || $tablename == 'payment_various' || $tablename == 'salary') {
 						$total_ttc_by_line = $element->amount;
 					} elseif ($tablename == 'fichinter') {
 						$total_ttc_by_line = $element->getAmount();

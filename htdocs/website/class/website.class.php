@@ -1132,7 +1132,7 @@ class Website extends CommonObject
 			$allaliases .= ($objectpageold->aliasalt ? ','.$objectpageold->aliasalt : '');
 
 			if (!getDolGlobalInt('WEBSITE_EXPORT_KEEP_FILES_OF_PAGES')) {
-				// We don't need to keep the PHP files of pages and aliases (they are regenerated at import) so we remove them.
+				// We do not need to keep the PHP files of pages and aliases (they are regenerated at import) so we remove them.
 				// Delete the pageX.tpl.php page
 				dol_delete_file($config->website->dir_temp.'/'.$website->ref.'/containers/page'.$objectpageold->id.'.tpl.php', 0, 0, 0, null, false, 0);
 				// Delete the alias page
@@ -2002,7 +2002,7 @@ class Website extends CommonObject
 	 * show difference between to string
 	 * @param string  $str1   first string
 	 * @param string  $str2   second string
-	 * @param int[]  $exceptNumPge    num of page files we don't want to change
+	 * @param int[]  $exceptNumPge    num of page files we do not want to change
 	 * @return array<mixed,mixed|mixed>      Array
 	 */
 	protected function showDifferences($str1, $str2, $exceptNumPge = [])

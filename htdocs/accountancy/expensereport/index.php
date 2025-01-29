@@ -260,7 +260,7 @@ if (getDolGlobalString('ACCOUNTING_DATE_START_BINDING')) {
 	$sql .= " AND er.date_debut >= '".$db->idate(getDolGlobalString('ACCOUNTING_DATE_START_BINDING'))."'";
 }
 $sql .= " AND er.fk_statut IN (".ExpenseReport::STATUS_APPROVED.", ".ExpenseReport::STATUS_CLOSED.")";
-$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We don't share object for accountancy
+$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We do not share object for accountancy
 $sql .= " AND aa.account_number IS NULL";
 $sql .= " GROUP BY erd.fk_code_ventilation,aa.account_number,aa.label";
 $sql .= ' ORDER BY aa.account_number';
@@ -370,7 +370,7 @@ if (getDolGlobalString('ACCOUNTING_DATE_START_BINDING')) {
 	$sql .= " AND er.date_debut >= '".$db->idate(getDolGlobalString('ACCOUNTING_DATE_START_BINDING'))."'";
 }
 $sql .= " AND er.fk_statut IN (".ExpenseReport::STATUS_APPROVED.", ".ExpenseReport::STATUS_CLOSED.")";
-$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We don't share object for accountancy
+$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We do not share object for accountancy
 $sql .= " AND aa.account_number IS NOT NULL";
 $sql .= " GROUP BY erd.fk_code_ventilation,aa.account_number,aa.label";
 
@@ -453,7 +453,7 @@ if (getDolGlobalString('SHOW_TOTAL_OF_PREVIOUS_LISTS_IN_LIN_PAGE')) { // This pa
 		$sql .= " AND er.date_debut >= '".$db->idate(getDolGlobalString('ACCOUNTING_DATE_START_BINDING'))."'";
 	}
 	$sql .= " AND er.fk_statut IN (".ExpenseReport::STATUS_APPROVED.", ".ExpenseReport::STATUS_CLOSED.")";
-	$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We don't share object for accountancy
+	$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We do not share object for accountancy
 
 	dol_syslog('htdocs/accountancy/expensereport/index.php');
 	$resql = $db->query($sql);

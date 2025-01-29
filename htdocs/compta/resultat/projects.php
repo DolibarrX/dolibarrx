@@ -400,19 +400,19 @@ if ($modecompta == 'BOOKKEEPING') {
 	 * Donations
 	 */
 
-	if (isModEnabled('don')) {
+	if (isModEnabled('donation')) {
 		echo '<tr class="trforbreak"><td colspan="4">'.$langs->trans("Donations").'</td></tr>';
 
 		if ($modecompta == 'CREANCES-DETTES' || $modecompta == 'RECETTES-DEPENSES') {
 			if ($modecompta == 'CREANCES-DETTES') {
 				$sql = "SELECT p.rowid as rowid, p.ref as project_name, sum(d.amount) as amount";
-				$sql .= " FROM ".MAIN_DB_PREFIX."don as d";
+				$sql .= " FROM ".MAIN_DB_PREFIX."donation as d";
 				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as p ON d.fk_projet = p.rowid";
 				$sql .= " WHERE d.entity IN (".getEntity('donation').")";
 				$sql .= " AND d.fk_statut in (1,2)";
 			} else {
 				$sql = "SELECT p.rowid as rowid, p.ref as project_name, sum(d.amount) as amount";
-				$sql .= " FROM ".MAIN_DB_PREFIX."don as d";
+				$sql .= " FROM ".MAIN_DB_PREFIX."donation as d";
 				$sql .= " INNER JOIN ".MAIN_DB_PREFIX."payment_donation as pe ON pe.fk_donation = d.rowid";
 				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as p ON d.fk_projet = p.rowid";
 				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_paiement as c ON pe.fk_typepayment = c.id";
@@ -420,7 +420,7 @@ if ($modecompta == 'BOOKKEEPING') {
 				$sql .= " AND d.fk_statut >= 2";
 			}
 			if (!empty($date_start) && !empty($date_end)) {
-				$sql .= " AND d.datedon >= '".$db->idate($date_start)."' AND d.datedon <= '".$db->idate($date_end)."'";
+				$sql .= " AND d.datedonation >= '".$db->idate($date_start)."' AND d.datedonation <= '".$db->idate($date_end)."'";
 			}
 		}
 		$sql .= " GROUP BY p.rowid, p.ref";
@@ -909,7 +909,7 @@ if ($modecompta == 'BOOKKEEPING') {
 	 * Payment Loan
 	 */
 
-	if (getDolGlobalString('ACCOUNTING_REPORTS_INCLUDE_LOAN') && isModEnabled('don') && ($modecompta == 'CREANCES-DETTES' || $modecompta == "RECETTES-DEPENSES")) {
+	if (getDolGlobalString('ACCOUNTING_REPORTS_INCLUDE_LOAN') && isModEnabled('donation') && ($modecompta == 'CREANCES-DETTES' || $modecompta == "RECETTES-DEPENSES")) {
 		$subtotal_ht = 0;
 		$subtotal_ttc = 0;
 

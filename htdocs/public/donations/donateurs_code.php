@@ -59,10 +59,10 @@ function llxFooterVierge()
 
 // Load Dolibarr environment
 require '../../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 
 // Security check
-if (!isModEnabled('don')) {
+if (!isModEnabled('donation')) {
 	httponly_accessforbidden('Module Donation not enabled');
 }
 
@@ -76,9 +76,9 @@ $langs->load("donations");
 
 llxHeaderVierge("");
 
-$sql = "SELECT d.datedon as datedon, d.lastname, d.firstname, d.amount, d.public, d.societe";
-$sql .= " FROM ".MAIN_DB_PREFIX."don as d";
-$sql .= " WHERE d.fk_statut in (2, 3) ORDER BY d.datedon DESC";
+$sql = "SELECT d.datedonation as datedonation, d.lastname, d.firstname, d.amount, d.public, d.societe";
+$sql .= " FROM ".MAIN_DB_PREFIX."donation as d";
+$sql .= " WHERE d.fk_statut in (2, 3) ORDER BY d.datedonation DESC";
 
 $resql = $db->query($sql);
 if ($resql) {
@@ -101,7 +101,7 @@ if ($resql) {
 			} else {
 				print "<td>".$langs->trans("Anonymous")."</td>\n";
 			}
-			print "<td>".dol_print_date($db->jdate($objp->datedon))."</td>\n";
+			print "<td>".dol_print_date($db->jdate($objp->datedonation))."</td>\n";
 			print '<td class="right">'.price($objp->amount).' '.$langs->trans("Currency".$config->currency).'</td>';
 			print "</tr>";
 			$i++;

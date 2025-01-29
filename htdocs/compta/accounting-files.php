@@ -43,7 +43,7 @@ require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
 require_once DOL_DOCUMENT_ROOT.'/salaries/class/paymentsalary.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 require_once DOL_DOCUMENT_ROOT.'/expensereport/class/expensereport.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
@@ -149,11 +149,11 @@ $listofchoices = array(
 	'selectinvoices' => array('label' => 'Invoices', 'picture' => 'bill', 'lang' => 'bills', 'enabled' => isModEnabled('invoice'), 'perms' => $user->hasRight('facture', 'lire')),
 	'selectsupplierinvoices' => array('label' => 'BillsSuppliers', 'picture' => 'supplier_invoice', 'lang' => 'bills', 'enabled' => isModEnabled('supplier_invoice'), 'perms' => $user->hasRight('fournisseur', 'facture', 'lire')),
 	'selectexpensereports' => array('label' => 'ExpenseReports', 'picture' => 'expensereport', 'lang' => 'trips', 'enabled' => isModEnabled('expensereport'), 'perms' => $user->hasRight('expensereport', 'lire')),
-	'selectdonations' => array('label' => 'Donations', 'picture' => 'donation', 'lang' => 'donation', 'enabled' => isModEnabled('don'), 'perms' => $user->hasRight('don', 'lire')),
+	'selectdonations' => array('label' => 'Donations', 'picture' => 'donation', 'lang' => 'donation', 'enabled' => isModEnabled('donation'), 'perms' => $user->hasRight('donation', 'lire')),
 	'selectsocialcontributions' => array('label' => 'SocialContributions', 'picture' => 'bill', 'enabled' => isModEnabled('tax'), 'perms' => $user->hasRight('tax', 'charges', 'lire')),
 	'selectpaymentsofsalaries' => array('label' => 'SalariesPayments', 'picture' => 'salary', 'lang' => 'salaries', 'enabled' => isModEnabled('salaries'), 'perms' => $user->hasRight('salaries', 'read')),
 	'selectvariouspayment' => array('label' => 'VariousPayment', 'picture' => 'payment', 'enabled' => isModEnabled('bank'), 'perms' => $user->hasRight('bank', 'lire')),
-	'selectloanspayment' => array('label' => 'PaymentLoan','picture' => 'loan', 'enabled' => isModEnabled('don'), 'perms' => $user->hasRight('loan', 'read')),
+	'selectloanspayment' => array('label' => 'PaymentLoan','picture' => 'loan', 'enabled' => isModEnabled('donation'), 'perms' => $user->hasRight('loan', 'read')),
 );
 
 
@@ -254,9 +254,9 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 			}
 			$sql .= " SELECT t.rowid as id, t.entity, t.ref, paid, amount as total_ht, amount as total_ttc, 0 as total_vat,";
 			$sql .= " 0 as localtax1, 0 as localtax2, 0 as revenuestamp,";
-			$sql .= " '".$db->escape($config->currency)."' as currency, 0 as fk_soc, t.datedon as date, t.datedon as date_due, 'Donation' as item, t.societe as thirdparty_name, '' as thirdparty_code, c.code as country_code, '' as vatnum, ".PAY_CREDIT." as sens";
-			$sql .= " FROM ".MAIN_DB_PREFIX."don as t LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON c.rowid = t.fk_country";
-			$sql .= " WHERE datedon between ".$wheretail;
+			$sql .= " '".$db->escape($config->currency)."' as currency, 0 as fk_soc, t.datedonation as date, t.datedonation as date_due, 'Donation' as item, t.societe as thirdparty_name, '' as thirdparty_code, c.code as country_code, '' as vatnum, ".PAY_CREDIT." as sens";
+			$sql .= " FROM ".MAIN_DB_PREFIX."donation as t LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON c.rowid = t.fk_country";
+			$sql .= " WHERE datedonation between ".$wheretail;
 			$sql .= " AND t.entity IN (".$db->sanitize($entity == 1 ? '0,1' : $entity).')';
 			$sql .= " AND t.fk_statut <> ".Don::STATUS_DRAFT;
 			if (!empty($projectid)) {
@@ -379,7 +379,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->id);
 							$upload_dir = $config->don->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=don&file=".str_replace('/', '%2F', $subdir).'%2F';
-							$modulePart = "don";
+							$modulePart = "donation";
 							break;
 						case "SocialContributions":
 							$subdir = '';
@@ -616,7 +616,7 @@ $userstatic = new User($db);
 $invoice = new Facture($db);
 $supplier_invoice = new FactureFournisseur($db);
 $expensereport = new ExpenseReport($db);
-$don = new Don($db);
+$donation = new Don($db);
 $salary_payment = new PaymentSalary($db);
 $charge_sociales = new ChargeSociales($db);
 $various_payment = new PaymentVarious($db);
@@ -754,7 +754,7 @@ if (!empty($date_start) && !empty($date_stop)) {
 
 	print '<br>';
 
-	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent">';
 	print '<tr class="liste_titre">';
 	print_liste_field_titre($arrayfields['type']['label'], $_SERVER["PHP_SELF"], "item", "", $param, '', $sortfield, $sortorder, 'nowrap ');

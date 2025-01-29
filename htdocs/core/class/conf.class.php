@@ -786,7 +786,7 @@ class Config extends stdClass
 				$this->fournisseur->payment->dir_temp = $rootfortemp."/fournisseur/payment/temp"; // For backward compatibility
 
 				// To prepare split of module supplier into module 'supplier' + 'supplier_order' + 'supplier_invoice'
-				if (!getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) {  // By default, if module supplier is on, and we don't use yet the new modules, we set artificially the module properties
+				if (!getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) {  // By default, if module supplier is on, and we do not use yet the new modules, we set artificially the module properties
 					$this->supplier_order = new stdClass();
 					$this->supplier_order->enabled = 1;
 					$this->supplier_order->multidir_output = array($this->entity => $rootfordata."/fournisseur/order");

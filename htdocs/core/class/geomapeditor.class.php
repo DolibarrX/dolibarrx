@@ -218,7 +218,7 @@ class GeoMapEditor
 						layers.push(layer);
 					}
 				});
-				// filter out layers that don"t have the leaflet-geoman instance
+				// filter out layers that do not have the leaflet-geoman instance
 				layers = layers.filter(layer => !!layer.pm);
 				// filter out everything that"s leaflet-geoman specific temporary stuff
 				layers = layers.filter(layer => !layer._pmTempLayer);

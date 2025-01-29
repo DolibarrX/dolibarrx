@@ -290,7 +290,7 @@ a.btnTitle.btnTitleSelected {
 	text-decoration: none;
 	box-shadow: none;
 }
-/* The buttonplus isgrowing on hover (don't know why). This is to avoid to have the cellegrowing too */
+/* The buttonplus isgrowing on hover (do not know why). This is to avoid to have the cellegrowing too */
 .btnTitlePlus:hover {
 	max-width: 24px;
 	max-height: 40px;

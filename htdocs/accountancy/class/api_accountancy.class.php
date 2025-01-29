@@ -74,7 +74,7 @@ class Accountancy extends DolibarrApi
 	 *													or '1000' for FEC
 	 *													or '1010' for FEC2
 	 *													(see AccountancyExport class)
-	 * @param		int			$lettering				[=0] by default don't export or 1 to export lettering data (columns 'letterring_code' and 'date_lettering' returns empty or not)
+	 * @param		int			$lettering				[=0] by default do not export or 1 to export lettering data (columns 'letterring_code' and 'date_lettering' returns empty or not)
 	 * @param		int			$alreadyexport			[=0] by default export data only if it's not yet exported or 1 already exported (always export data even if 'date_export" is set)
 	 * @param		int			$notnotifiedasexport	[=0] by default notified as exported or 1 not notified as exported (when the export is done, notified or not the column 'date_export')
 	 *

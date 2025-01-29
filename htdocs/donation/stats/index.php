@@ -21,15 +21,15 @@
  */
 
 /**
- *  \file       htdocs/don/stats/index.php
+ *  \file       htdocs/donation/stats/index.php
  *  \ingroup    donations
  *  \brief      Page with donations statistics
  */
 
 // Load Dolibarr environment
 require '../../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/donstats.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/donstats.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 if (isModEnabled('category')) {
@@ -68,7 +68,7 @@ $mode = GETPOST("mode") ? GETPOST("mode") : 'customer';
 $custcats = GETPOST('custcats', 'array');
 
 // Security check
-$result = restrictedArea($user, 'don');
+$result = restrictedArea($user, 'donation');
 
 /*
  * View
@@ -76,7 +76,7 @@ $result = restrictedArea($user, 'don');
 $form = new Form($db);
 $formcompany = new FormCompany($db);
 
-llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-don page-stats_index');
+llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-donation page-stats_index');
 
 $dir = $config->don->dir_temp;
 
@@ -193,7 +193,7 @@ if (!count($arrayyears)) {
 
 $h = 0;
 $head = [];
-$head[$h][0] = DOL_URL_ROOT.'/don/stats/index.php';
+$head[$h][0] = DOL_URL_ROOT.'/donation/stats/index.php';
 $head[$h][1] = $langs->trans("ByMonthYear");
 $head[$h][2] = 'byyear';
 $h++;

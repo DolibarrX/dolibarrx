@@ -893,7 +893,7 @@ abstract class CommonObject
 
 	/**
 	 * Check if an object id or ref exists
-	 * If you don't need or want to instantiate the object and just need to know if the object exists, use this method instead of fetch
+	 * If you do not need or want to instantiate the object and just need to know if the object exists, use this method instead of fetch
 	 *
 	 *  @param	string	$element   	String of element ('product', 'facture', ...)
 	 *  @param	int		$id      	Id of object
@@ -1163,7 +1163,7 @@ abstract class CommonObject
 			if ($initsharekey) {
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 
-				// TODO We can't, we don't have full path of file, only last_main_doc and ->element, so we must first rebuild full path $destfull
+				// TODO We can't, we do not have full path of file, only last_main_doc and ->element, so we must first rebuild full path $destfull
 				/*
 				 $ecmfile->filepath = $rel_dir;
 				 $ecmfile->filename = $filename;
@@ -5246,7 +5246,7 @@ abstract class CommonObject
 	 *	Return HTML table for object lines
 	 *	TODO Move this into an output class file (htmlline.class.php)
 	 *	If lines are into a template, title must also be into a template
-	 *	But for the moment we don't know if it's possible as we keep a method available on overloaded objects.
+	 *	But for the moment we do not know if it's possible as we keep a method available on overloaded objects.
 	 *
 	 *	@param	string		$action				Action code
 	 *	@param  Societe		$seller            	Object of seller third party
@@ -5476,7 +5476,7 @@ abstract class CommonObject
 	 * 	Return HTML table table of source object lines
 	 *  TODO Move this and previous function into output html class file (htmlline.class.php).
 	 *  If lines are into a template, title must also be into a template
-	 *  But for the moment we don't know if it's possible, so we keep the method available on overloaded objects.
+	 *  But for the moment we do not know if it's possible, so we keep the method available on overloaded objects.
 	 *
 	 *	@param	''|'services'	$restrictlist	''=All lines, 'services'=Restrict to services only
 	 *  @param  int[]       $selectedLines      Array of lines id for selected lines
@@ -5528,7 +5528,7 @@ abstract class CommonObject
 	 * 	Return HTML with a line of table array of source object lines
 	 *  TODO Move this and previous function into output html class file (htmlline.class.php).
 	 *  If lines are into a template, titles must also be into a template
-	 *  But for the moment we don't know if it's possible as we keep a method available on overloaded objects.
+	 *  But for the moment we do not know if it's possible as we keep a method available on overloaded objects.
 	 *
 	 * 	@param	CommonObjectLine	$line				Line
 	 * 	@param	string				$var				Not used
@@ -6735,7 +6735,7 @@ abstract class CommonObject
 								if (is_object($this->oldcopy)) {	// If this->oldcopy is not defined, we can't know if we change attribute or not, so we must keep value
 									//var_dump('algo='.$algo.' '.$this->oldcopy->array_options[$key].' -> '.$this->array_options[$key]);
 									if (isset($this->oldcopy->array_options[$key]) && $this->array_options[$key] == $this->oldcopy->array_options[$key]) {
-										// If old value encrypted in database is same than submitted new value, it means we don't change it, so we don't update.
+										// If old value encrypted in database is same than submitted new value, it means we do not change it, so we do not update.
 										if ($algo == 'dolcrypt') {	// dolibarr reversible encryption
 											if (!preg_match('/^dolcrypt:/', $this->array_options[$key])) {
 												$new_array_options[$key] = dolEncrypt($this->array_options[$key]);	// warning, must be called when on the master
@@ -7208,7 +7208,7 @@ abstract class CommonObject
 							//var_dump($key.' '.$this->array_options["options_".$key].' '.$algo);
 							if (is_object($this->oldcopy)) {		// If this->oldcopy is not defined, we can't know if we change attribute or not, so we must keep value
 								//var_dump($this->oldcopy->array_options["options_".$key]); var_dump($this->array_options["options_".$key]);
-								if (isset($this->oldcopy->array_options["options_".$key]) && $this->array_options["options_".$key] == $this->oldcopy->array_options["options_".$key]) {	// If old value encrypted in database is same than submitted new value, it means we don't change it, so we don't update.
+								if (isset($this->oldcopy->array_options["options_".$key]) && $this->array_options["options_".$key] == $this->oldcopy->array_options["options_".$key]) {	// If old value encrypted in database is same than submitted new value, it means we do not change it, so we do not update.
 									if ($algo == 'dolcrypt') {	// dolibarr reversible encryption
 										if (!preg_match('/^dolcrypt:/', $this->array_options["options_".$key])) {
 											$new_array_options["options_".$key] = dolEncrypt($this->array_options["options_".$key]);	// warning, must be called when on the master
@@ -10370,7 +10370,7 @@ abstract class CommonObject
 			$fieldvalues['ref'] = dol_string_nospecial($fieldvalues['ref']); // If field is a ref, we sanitize data
 		}
 
-		unset($fieldvalues['rowid']); // The field 'rowid' is reserved field name for autoincrement field so we don't need it into insert.
+		unset($fieldvalues['rowid']); // The field 'rowid' is reserved field name for autoincrement field so we do not need it into insert.
 
 		$keys = [];
 		$values = []; // Array to store string forged for SQL syntax
@@ -10681,7 +10681,7 @@ abstract class CommonObject
 			$fieldvalues['ref'] = dol_string_nospecial($fieldvalues['ref']); // If field is a ref, we sanitize data
 		}
 
-		unset($fieldvalues['rowid']); // The field 'rowid' is reserved field name for autoincrement field so we don't need it into update.
+		unset($fieldvalues['rowid']); // The field 'rowid' is reserved field name for autoincrement field so we do not need it into update.
 
 		// Add quotes and escape on fields with type string
 		$keys = [];
@@ -11040,7 +11040,7 @@ abstract class CommonObject
 		$this->db->begin();
 
 		$statusfield = 'status';
-		if (in_array($this->element, array('don', 'donation', 'shipping'))) {
+		if (in_array($this->element, array('donation', 'donation', 'shipping'))) {
 			$statusfield = 'fk_statut';
 		}
 

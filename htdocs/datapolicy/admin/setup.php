@@ -169,7 +169,7 @@ if ($action == 'edit') {
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="update">';
 
-	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="tagtable nobottomiftotal liste">';
 
 	print '<tr class="liste_titre"><td class="titlefield"></td>';

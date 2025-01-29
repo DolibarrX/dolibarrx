@@ -95,11 +95,11 @@ class modAgenda extends DolibarrModules
 		$resql = $this->db->query($sqlreadactions);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
-				//if (preg_match('/_CREATE$/',$obj->code) && (! in_array($obj->code, array('COMPANY_CREATE','PRODUCT_CREATE','TASK_CREATE')))) continue;    // We don't track such events (*_CREATE) by default, we prefer validation (except thirdparty/product/task creation because there is no validation).
+				//if (preg_match('/_CREATE$/',$obj->code) && (! in_array($obj->code, array('COMPANY_CREATE','PRODUCT_CREATE','TASK_CREATE')))) continue;    // We do not track such events (*_CREATE) by default, we prefer validation (except thirdparty/product/task creation because there is no validation).
 				if (preg_match('/^TASK_/', $obj->code)) {
-					continue; // We don't track such events by default.
+					continue; // We do not track such events by default.
 				}
-				//if (preg_match('/^_MODIFY/',$obj->code)) continue;    // We don't track such events by default.
+				//if (preg_match('/^_MODIFY/',$obj->code)) continue;    // We do not track such events by default.
 				$this->const[] = array('MAIN_AGENDA_ACTIONAUTO_'.$obj->code, "chaine", "1", '', 0, 'current');
 			}
 		} else {

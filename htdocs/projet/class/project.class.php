@@ -323,7 +323,7 @@ class Project extends CommonObject
 	 *  'index' if we want an index in database.
 	 *  'foreignkey'=>'tablename.field' if the field is a foreign key (it is recommended to name the field fk_...).
 	 *  'searchall' is 1 if we want to search in this field when making a search from the quick search button.
-	 *  'isameasure' must be set to 1 or 2 if field can be used for measure. Field type must be summable like integer or double(24,8). Use 1 in most cases, or 2 if you don't want to see the column total into list (for example for percentage)
+	 *  'isameasure' must be set to 1 or 2 if field can be used for measure. Field type must be summable like integer or double(24,8). Use 1 in most cases, or 2 if you do not want to see the column total into list (for example for percentage)
 	 *  'css' and 'cssview' and 'csslist' is the CSS style to use on field. 'css' is used in creation and update. 'cssview' is used in view mode. 'csslist' is used for columns in lists. For example: 'css'=>'minwidth300 maxwidth500 widthcentpercentminusx', 'cssview'=>'wordbreak', 'csslist'=>'tdoverflowmax200'
 	 *  'help' and 'helplist' is a 'TranslationString' to use to show a tooltip on field. You can also use 'TranslationString:keyfortooltiponlick' for a tooltip on click.
 	 *  'showoncombobox' if value of the field must be visible into the label of the combobox that list record
@@ -1007,7 +1007,7 @@ class Project extends CommonObject
 			'expensereport_det' => 'fk_projet',
 			'contract' => 'fk_projet',
 			'fichinter' => 'fk_projet',
-			'don' => array('field' => 'fk_projet', 'module' => 'don'),
+			'donation' => array('field' => 'fk_projet', 'module' => 'donation'),
 			'actioncomm' => 'fk_project',
 			'mrp_mo' => array('field' => 'fk_project', 'module' => 'mrp'),
 			'entrepot' => 'fk_project',

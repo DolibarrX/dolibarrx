@@ -94,7 +94,7 @@ $object = new Project($db);
 $extrafields = new ExtraFields($db);
 
 // Load object
-//include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php';  // Can't use generic include because when creating a project, ref is defined and we don't want error if fetch fails from ref.
+//include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php';  // Can't use generic include because when creating a project, ref is defined and we do not want error if fetch fails from ref.
 if ($id > 0 || !empty($ref)) {
 	$ret = $object->fetch($id, $ref); // If we create project, ref may be defined into POST but record does not yet exists into database
 	if ($ret > 0) {
@@ -255,7 +255,7 @@ if (empty($resHook)) {
 				$typeofcontact = GETPOST('typeofcontact');
 				$result = $object->add_contact($user->id, $typeofcontact, 'internal');
 
-				// -3 means type not found (renamed, de-activated or deleted), so don't prevent creation if it has been the case
+				// -3 means type not found (renamed, de-activated or deleted), so do not prevent creation if it has been the case
 				if ($result == -3) {
 					setEventMessage('ErrorPROJECTLEADERRoleMissingRestoreIt', 'errors');
 					$error++;
@@ -1698,7 +1698,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 					70 => array('lang' => 'interventions', 'enabled' => isModEnabled("intervention"), 'perm' => $user->hasRight('fichinter', 'creer') ? true : false, 'label' => 'AddIntervention', 'url' => '/fichinter/card.php?action=create&amp;projectid='.$object->id.'&amp;socid='.$object->socid),
 					80 => array('lang' => 'contracts', 'enabled' => isModEnabled("contract"), 'perm' => $user->hasRight('contract', 'creer') ? true : false, 'label' => 'AddContract', 'url' => '/contract/card.php?action=create&amp;projectid='.$object->id.'&amp;socid='.$object->socid),
 					90 => array('lang' => 'trips', 'enabled' => isModEnabled("expensereport"), 'perm' => $user->hasRight('expensereport', 'creer') ? true : false, 'label' => 'AddTrip', 'url' => '/expensereport/card.php?action=create&amp;projectid='.$object->id.'&amp;socid='.$object->socid),
-					100 => array('lang' => 'donations', 'enabled' => isModEnabled("don"), 'perm' => $user->hasRight('don', 'creer') ? true : false, 'label' => 'AddDonation', 'url' => '/don/card.php?action=create&amp;projectid='.$object->id.'&amp;socid='.$object->socid),
+					100 => array('lang' => 'donations', 'enabled' => isModEnabled("donation"), 'perm' => $user->hasRight('donation', 'creer') ? true : false, 'label' => 'AddDonation', 'url' => '/donation/card.php?action=create&amp;projectid='.$object->id.'&amp;socid='.$object->socid),
 				);
 
 				$params = array('backtopage' => $_SERVER["PHP_SELF"].'?id='.$object->id);

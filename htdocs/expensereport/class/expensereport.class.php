@@ -1976,7 +1976,7 @@ class ExpenseReport extends CommonObject
 
 			$this->line = new ExpenseReportLine($this->db);
 
-			// We don't know seller and buyer for expense reports
+			// We do not know seller and buyer for expense reports
 			$seller = $mysoc;			// We use same than current company (expense report are often done in same country)
 			$seller->tva_assuj = 1;		// Most seller uses vat
 			$buyer = new Societe($this->db);
@@ -2058,7 +2058,7 @@ class ExpenseReport extends CommonObject
 
 		$langs->load('trips');
 
-		// We don't know seller and buyer for expense reports
+		// We do not know seller and buyer for expense reports
 		if (!is_object($seller)) {
 			$seller = $mysoc;			// We use same than current company (expense report are often done in same country)
 			$seller->tva_assuj = 1;		// Most seller uses vat
@@ -2143,7 +2143,7 @@ class ExpenseReport extends CommonObject
 			return false;
 		}
 
-		// We don't know seller and buyer for expense reports
+		// We do not know seller and buyer for expense reports
 		if (!is_object($seller)) {
 			$seller = $mysoc;			// We use same than current company (expense report are often done in same country)
 			$seller->tva_assuj = 1;		// Most seller uses vat
@@ -2239,11 +2239,11 @@ class ExpenseReport extends CommonObject
 			$error = 0;
 			$type = 0; // TODO What if type is service ?
 
-			// We don't know seller and buyer for expense reports
+			// We do not know seller and buyer for expense reports
 			$seller = $mysoc;			// We use same than current company (expense report are often done in same country)
 			$seller->tva_assuj = 1;		// Most seller uses vat
-			$seller->localtax1_assuj = $mysoc->localtax1_assuj;		// We don't know, we reuse the state of company
-			$seller->localtax2_assuj = $mysoc->localtax1_assuj;		// We don't know, we reuse the state of company
+			$seller->localtax1_assuj = $mysoc->localtax1_assuj;		// We do not know, we reuse the state of company
+			$seller->localtax2_assuj = $mysoc->localtax1_assuj;		// We do not know, we reuse the state of company
 			$buyer = new Societe($this->db);
 
 			$localtaxes_type = getLocalTaxesFromRate($vatrate, 0, $buyer, $seller);

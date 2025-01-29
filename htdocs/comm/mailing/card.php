@@ -167,7 +167,7 @@ if (empty($resHook)) {
 	// Action send emailing for everybody
 	if ($action == 'sendallconfirmed' && $confirm == 'yes' && $permissiontovalidatesend) {
 		if (!getDolGlobalString('MAILING_LIMIT_SENDBYWEB')) {
-			// As security measure, we don't allow send from the GUI
+			// As security measure, we do not allow send from the GUI
 			setEventMessages($langs->trans("MailingNeedCommand"), null, 'warnings');
 			setEventMessages('<textarea cols="70" rows="'.ROWS_2.'" wrap="soft">php ./scripts/emailings/mailing-send.php '.$object->id.'</textarea>', null, 'warnings');
 			setEventMessages($langs->trans("MailingNeedCommand2"), null, 'warnings');
@@ -253,7 +253,7 @@ if (empty($resHook)) {
 						$signature = ((!empty($user->signature) && !getDolGlobalString('MAIN_MAIL_DO_NOT_USE_SIGN')) ? $user->signature : '');
 
 						$parameters = array('mode' => 'emailing');
-						$substitutionArray = getCommonSubstitutionArray($langs, 0, array('object', 'objectamount'), $targetobject); // Note: On mass emailing, this is null because be don't know object
+						$substitutionArray = getCommonSubstitutionArray($langs, 0, array('object', 'objectamount'), $targetobject); // Note: On mass emailing, this is null because be do not know object
 
 						// Array of possible substitutions (See also file mailing-send.php that should manage same substitutions)
 						$substitutionArray['__ID__'] = $obj->source_id;
@@ -499,7 +499,7 @@ if (empty($resHook)) {
 			$signature = ((!empty($user->signature) && !getDolGlobalString('MAIN_MAIL_DO_NOT_USE_SIGN')) ? $user->signature : '');
 
 			$parameters = array('mode' => 'emailing');
-			$substitutionArray = getCommonSubstitutionArray($langs, 0, array('object', 'objectamount'), $targetobject); // Note: On mass emailing, this is null because be don't know object
+			$substitutionArray = getCommonSubstitutionArray($langs, 0, array('object', 'objectamount'), $targetobject); // Note: On mass emailing, this is null because be do not know object
 
 			// other are set at begin of page
 			$substitutionArray['__EMAIL__'] = $object->sendto;

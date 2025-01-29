@@ -585,7 +585,7 @@ class MouvementStock extends CommonObject
 					}
 				} else {
 					// ($type == 1 || $type == 2)
-					//   -> After a stock decrease, we don't change value of the AWP/PMP of a product.
+					//   -> After a stock decrease, we do not change value of the AWP/PMP of a product.
 					// else
 					//   Type of movement unknown
 					$newpmp = $oldpmp;

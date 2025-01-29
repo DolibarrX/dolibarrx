@@ -16,7 +16,7 @@
 --
 -- ========================================================================
 
-create table llx_don_extrafields
+create table llx_donation_extrafields
 (
   rowid                     integer AUTO_INCREMENT PRIMARY KEY,
   tms                       timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

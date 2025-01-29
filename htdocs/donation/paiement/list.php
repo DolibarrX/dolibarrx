@@ -22,14 +22,14 @@
  */
 
 /**
- *  \file       htdocs/don/list.php
+ *  \file       htdocs/donation/list.php
  *  \ingroup    donations
  *  \brief      List of donations
  */
 
 // Load Dolibarr environment
 require '../../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingjournal.class.php';
@@ -115,11 +115,11 @@ $moreforfilter = GETPOST('moreforfilter', 'alpha');
 $hookManager->initHooks(array('donationlist'));
 
 // Security check
-$result = restrictedArea($user, 'don');
+$result = restrictedArea($user, 'donation');
 
-$permissiontoread = $user->hasRight('don', 'read');
-$permissionToAdd = $user->hasRight('don', 'write');
-$permissiontodelete = $user->hasRight('don', 'delete');
+$permissiontoread = $user->hasRight('donation', 'read');
+$permissionToAdd = $user->hasRight('donation', 'write');
+$permissiontodelete = $user->hasRight('donation', 'delete');
 
 /*
  * Actions
@@ -185,7 +185,7 @@ $sql .= $hookManager->resPrint;
 $sqlfields = $sql; // $sql fields to remove for count total
 
 $sql .= " FROM ".MAIN_DB_PREFIX."payment_donation as pd";
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."don as d ON (d.rowid = pd.fk_donation)";
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."donation as d ON (d.rowid = pd.fk_donation)";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b ON (b.rowid = pd.fk_bank)";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank_account as ba ON (ba.rowid = b.fk_account)";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON (s.rowid = d.fk_soc)";
@@ -542,7 +542,7 @@ while ($i < $imaxinloop) {
 
 	// Ref
 	if (!empty($arrayfields['pd.rowid']['checked'])) {
-		print '<td><a href="' . DOL_URL_ROOT . '/don/payment/card.php?id=' . $obj->payment_id . '">' . img_object($langs->trans("Payment"), "payment") . ' ' . $obj->payment_id . '</a></td>';
+		print '<td><a href="' . DOL_URL_ROOT . '/donation/payment/card.php?id=' . $obj->payment_id . '">' . img_object($langs->trans("Payment"), "payment") . ' ' . $obj->payment_id . '</a></td>';
 		if (!$i) {
 			$totalarray['nbfield']++;
 		}

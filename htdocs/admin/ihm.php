@@ -112,7 +112,7 @@ if ($action == 'update') {
 	$error = 0;
 
 	if ($mode == 'template') {
-		//dolibarr_del_const($db, "MAIN_THEME", 0);	// To be sure we don't have this constant set for all entities
+		//dolibarr_del_const($db, "MAIN_THEME", 0);	// To be sure we do not have this constant set for all entities
 
 		dolibarr_set_const($db, "MAIN_THEME", GETPOST("main_theme", 'aZ09'), 'chaine', 0, '', $config->entity);
 		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);

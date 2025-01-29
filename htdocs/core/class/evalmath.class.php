@@ -368,7 +368,7 @@ class EvalMath
 				return $this->trigger(5, "unexpected ')'", ")");
 			} elseif (in_array($op, $ops) and !$expecting_op) {
 				return $this->trigger(8, "unexpected operator '$op'", $op);
-			} else { // I don't even want to know what you did to get here
+			} else { // I do not even want to know what you did to get here
 				return $this->trigger(9, "an unexpected error occurred");
 			}
 			if ($index == strlen($expr)) {

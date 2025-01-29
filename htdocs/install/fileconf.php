@@ -502,7 +502,7 @@ if (!empty($force_install_noedit)) {
 				   id="db_pass" autocomplete="off"
 				   name="db_pass"
 				   value="<?php
-					// If $force_install_databasepass is on, we don't want to set password, we just show '***'. Real value will be extracted from the forced install file at step1.
+					// If $force_install_databasepass is on, we do not want to set password, we just show '***'. Real value will be extracted from the forced install file at step1.
 					// @phan-suppress-next-line PhanParamSuspiciousOrder
 					$autofill = ((!empty($_SESSION['dol_save_pass'])) ? $_SESSION['dol_save_pass'] : str_pad('', strlen($force_install_databasepass), '*'));
 					if (!empty($dolibarr_main_prod) && empty($_SESSION['dol_save_pass'])) {    // So value can't be found if install page still accessible
@@ -586,7 +586,7 @@ if (!empty($force_install_noedit)) {
 				   name="db_pass_root"
 				   class="needroot text-security"
 				   value="<?php
-					// If $force_install_databaserootpass is on, we don't want to set password here, we just show '***'. Real value will be extracted from the forced install file at step1.
+					// If $force_install_databaserootpass is on, we do not want to set password here, we just show '***'. Real value will be extracted from the forced install file at step1.
 					// @phan-suppress-next-line PhanParamSuspiciousOrder
 					$autofill = ((!empty($force_install_databaserootpass)) ? str_pad('', strlen($force_install_databaserootpass), '*') : (isset($db_pass_root) ? $db_pass_root : ''));
 					if (!empty($dolibarr_main_prod)) {

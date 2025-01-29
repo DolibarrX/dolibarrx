@@ -22,20 +22,20 @@
  */
 
 /**
- *  \file       htdocs/don/card.php
+ *  \file       htdocs/donation/card.php
  *  \ingroup    donations
  *  \brief      Page of donation card
  */
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/core/modules/dons/modules_don.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/donations/modules_donation.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/donation.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formmargin.class.php';
@@ -94,11 +94,11 @@ $upload_dir = $config->don->dir_output;
 
 
 // Security check
-$result = restrictedArea($user, 'don', $object->id);
+$result = restrictedArea($user, 'donation', $object->id);
 
-$permissiontoread = $user->hasRight('don', 'lire');
-$permissionToAdd = $user->hasRight('don', 'creer');
-$permissiontodelete = $user->hasRight('don', 'supprimer');
+$permissiontoread = $user->hasRight('donation', 'lire');
+$permissionToAdd = $user->hasRight('donation', 'creer');
+$permissiontodelete = $user->hasRight('donation', 'supprimer');
 
 
 /*
@@ -115,14 +115,14 @@ if ($resHook < 0) {
 }
 
 if (empty($resHook)) {
-	$backurlforlist = DOL_URL_ROOT.'/don/list.php';
+	$backurlforlist = DOL_URL_ROOT.'/donation/list.php';
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
 		if (empty($backtopage) || ($cancel && strpos($backtopage, '__ID__'))) {
 			if (empty($id) && (($action != 'add' && $action != 'create') || $cancel)) {
 				$backtopage = $backurlforlist;
 			} else {
-				$backtopage = DOL_URL_ROOT.'/don/card.php?id='.((!empty($id) && $id > 0) ? $id : '__ID__');
+				$backtopage = DOL_URL_ROOT.'/donation/card.php?id='.((!empty($id) && $id > 0) ? $id : '__ID__');
 			}
 		}
 	}
@@ -327,7 +327,7 @@ if (empty($resHook)) {
 		} else {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
-	} elseif ($action == 'classin' && $user->hasRight('don', 'creer')) {
+	} elseif ($action == 'classin' && $user->hasRight('donation', 'creer')) {
 		$object->setProject($projectid);
 	}
 
@@ -691,14 +691,14 @@ if (!empty($id) && $action != 'edit') {
 	// Print form confirm
 	print $formconfirm;
 
-	$linkback = '<a href="'.DOL_URL_ROOT.'/don/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+	$linkback = '<a href="'.DOL_URL_ROOT.'/donation/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref = '<div class="refidno">';
 	// Project
 	if (isModEnabled('project')) {
 		$langs->load("projects");
 		$morehtmlref .= $langs->trans('Project').' ';
-		if ($user->hasRight('don', 'creer')) {
+		if ($user->hasRight('donation', 'creer')) {
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> : ';
 			}
@@ -790,7 +790,7 @@ if (!empty($id) && $action != 'edit') {
 	$sql .= " FROM ".MAIN_DB_PREFIX."payment_donation as p";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b ON p.fk_bank = b.rowid";
 	$sql .= ", ".MAIN_DB_PREFIX."c_paiement as c ";
-	$sql .= ", ".MAIN_DB_PREFIX."don as d";
+	$sql .= ", ".MAIN_DB_PREFIX."donation as d";
 	$sql .= " WHERE d.rowid = ".((int) $id);
 	$sql .= " AND p.fk_donation = d.rowid";
 	$sql .= " AND d.entity IN (".getEntity('donation').")";
@@ -818,7 +818,7 @@ if (!empty($id) && $action != 'edit') {
 			$objp = $db->fetch_object($resql);
 
 			print '<tr class="oddeven"><td>';
-			print '<a href="'.DOL_URL_ROOT.'/don/payment/card.php?id='.$objp->rowid.'">'.img_object($langs->trans("Payment"), "payment").' '.$objp->rowid.'</a></td>';
+			print '<a href="'.DOL_URL_ROOT.'/donation/payment/card.php?id='.$objp->rowid.'">'.img_object($langs->trans("Payment"), "payment").' '.$objp->rowid.'</a></td>';
 			print '<td>'.dol_print_date($db->jdate($objp->dp), 'day')."</td>\n";
 			$labeltype = ($langs->trans("PaymentType".$objp->type_code) != "PaymentType".$objp->type_code) ? $langs->trans("PaymentType".$objp->type_code) : $objp->paiement_type;
 			print "<td>".$labeltype.' '.$objp->num_payment."</td>\n";
@@ -901,21 +901,21 @@ if (!empty($id) && $action != 'edit') {
 		}
 
 		// Create payment
-		if ($object->status == $object::STATUS_VALIDATED && $object->paid == 0 && $user->hasRight('don', 'creer')) {
+		if ($object->status == $object::STATUS_VALIDATED && $object->paid == 0 && $user->hasRight('donation', 'creer')) {
 			if ($remaintopay == 0) {
 				print '<div class="inline-block divButAction"><span class="butActionRefused classfortooltip" title="'.$langs->trans("DisabledBecauseRemainderToPayIsZero").'">'.$langs->trans('DoPayment').'</span></div>';
 			} else {
-				print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/don/payment/payment.php?rowid='.$object->id.'&action=create&token='.newToken().'">'.$langs->trans('DoPayment').'</a></div>';
+				print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/donation/payment/payment.php?rowid='.$object->id.'&action=create&token='.newToken().'">'.$langs->trans('DoPayment').'</a></div>';
 			}
 		}
 
 		// Classify 'paid'
-		if ($object->status == $object::STATUS_VALIDATED && round($remaintopay) == 0 && $object->paid == 0 && $user->hasRight('don', 'creer')) {
+		if ($object->status == $object::STATUS_VALIDATED && round($remaintopay) == 0 && $object->paid == 0 && $user->hasRight('donation', 'creer')) {
 			print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?rowid='.$object->id.'&action=set_paid&token='.newToken().'">'.$langs->trans("ClassifyPaid")."</a></div>";
 		}
 
 		// Delete
-		if ($user->hasRight('don', 'supprimer')) {
+		if ($user->hasRight('donation', 'supprimer')) {
 			if ($object->status == $object::STATUS_CANCELED || $object->status == $object::STATUS_DRAFT) {
 				print '<div class="inline-block divButAction"><a class="butActionDelete" href="card.php?rowid='.$object->id.'&action=delete&token='.newToken().'">'.$langs->trans("Delete")."</a></div>";
 			} else {
@@ -937,13 +937,13 @@ if (!empty($id) && $action != 'edit') {
 	$filename = dol_sanitizeFileName((string) $object->id);
 	$filedir = $config->don->dir_output."/".dol_sanitizeFileName((string) $object->id);
 	$urlsource = $_SERVER['PHP_SELF'].'?rowid='.$object->id;
-	$genallowed	= (($object->paid == 0 || $user->admin) && $user->hasRight('don', 'lire'));
-	$delallowed	= $user->hasRight('don', 'creer');
+	$genallowed	= (($object->paid == 0 || $user->admin) && $user->hasRight('donation', 'lire'));
+	$delallowed	= $user->hasRight('donation', 'creer');
 
 	print $formfile->showdocuments('donation', $filename, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf);
 
 	// Show links to link elements
-	$tmparray = $form->showLinkToObjectBlock($object, [], array('don'), 1);
+	$tmparray = $form->showLinkToObjectBlock($object, [], array('donation'), 1);
 	$linktoelem = $tmparray['linktoelem'];
 	$htmltoenteralink = $tmparray['htmltoenteralink'];
 	print $htmltoenteralink;

@@ -21,13 +21,13 @@
  */
 
 /**
- *	    \file       htdocs/core/modules/dons/modules_don.php
+ *	    \file       htdocs/core/modules/donations/modules_donation.php
  *		\ingroup    donations
  *		\brief      File of class to manage donation document generation
  */
 require_once DOL_DOCUMENT_ROOT.'/core/class/commondocgenerator.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonnumrefgenerator.class.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 
 
 
@@ -65,7 +65,7 @@ abstract class ModeleDon extends CommonDocGenerator
 	 *  @param	string		$currency		Currency code
 	 *  @return	int<-1,1>					>0 if OK, <0 if KO
 	 */
-	abstract public function write_file($don, $outputlangs, $currency = '');
+	abstract public function write_file($donation, $outputlangs, $currency = '');
 }
 
 

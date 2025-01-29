@@ -674,7 +674,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 		// Remove list of module's available boxes (entry in llx_boxes)
 		if (!$err && !preg_match('/(newboxdefonly|noboxes)/', $options)) {
-			$err += $this->delete_boxes(); // We don't have to delete if option ask to keep boxes safe or ask to add new box def only
+			$err += $this->delete_boxes(); // We do not have to delete if option ask to keep boxes safe or ask to add new box def only
 		}
 
 		// Remove list of module's cron job entries (entry in llx_cronjobs)
@@ -1735,7 +1735,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 			$sql .= " WHERE module_name = '".$this->db->escape(empty($this->rightsClass) ? strtolower($this->name) : $this->rightsClass)."'";
 			$sql .= " AND entity = ".$config->entity;
 			$sql .= " AND test = '1'"; // We delete on lines that are not set with a complete test that is '$config->module->enabled' so when module is disabled, the cron is also removed.
-			// For crons declared with a '$config->module->enabled', there is no need to delete the line, so we don't loose setup if we reenable module.
+			// For crons declared with a '$config->module->enabled', there is no need to delete the line, so we do not loose setup if we reenable module.
 
 			dol_syslog(get_class($this)."::delete_cronjobs", LOG_DEBUG);
 			$resql = $this->db->query($sql);

@@ -54,7 +54,7 @@ if (empty($font_loc)) {
 /*                          GENBARCODE                                  */
 /* ******************************************************************** */
 /* location of 'genbarcode'
- * leave blank if you don't have them :(
+ * leave blank if you do not have them :(
 * genbarcode is needed to render encodings other than EAN-12/EAN-13/ISBN
 */
 
@@ -108,7 +108,7 @@ function barcode_print($code, $encoding = "ANY", $scale = 2, $mode = "png", $fil
 }
 
 /**
- * Encodes $code with $encoding using genbarcode OR built-in encoder if you don't have genbarcode only EAN-13/ISBN or UPC is possible
+ * Encodes $code with $encoding using genbarcode OR built-in encoder if you do not have genbarcode only EAN-13/ISBN or UPC is possible
  *
  * You can use the following encodings (when you have genbarcode):
  *   ANY    choose best-fit (default)
@@ -454,7 +454,7 @@ function barcode_outimage($text, $bars, $scale = 1, $mode = "png", $total_y = 0,
 	$total_x = ($xpos) + $space['right'] + $space['right'];
 	$xpos = $space['left'];
 	if (!function_exists("imagecreate")) {
-		print "You don't have the gd2 extension enabled<br>\n";
+		print "You do not have the gd2 extension enabled<br>\n";
 		return;
 	}
 	$im = imagecreate($total_x, $total_y);

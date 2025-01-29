@@ -1448,7 +1448,7 @@ class Product extends CommonObject
 		$result = 0;
 		// Check name is required and codes are ok or unique. If error, this->errors[] is filled
 		if ($action != 'add') {
-			$result = $this->verify(); // We don't check when update called during a create because verify was already done
+			$result = $this->verify(); // We do not check when update called during a create because verify was already done
 		} else {
 			// we can continue
 			$result = 0;
@@ -2863,8 +2863,8 @@ class Product extends CommonObject
 	 * @param  string $ref_ext           Ref ext of product/service to load
 	 * @param  string $barcode           Barcode of product/service to load
 	 * @param  int    $ignore_expression When module dynamicprices is on, ignores the math expression for calculating price and uses the db value instead
-	 * @param  int    $ignore_price_load Load product without loading $this->multiprices... array (when we are sure we don't need them)
-	 * @param  int    $ignore_lang_load  Load product without loading $this->multilangs language arrays (when we are sure we don't need them)
+	 * @param  int    $ignore_price_load Load product without loading $this->multiprices... array (when we are sure we do not need them)
+	 * @param  int    $ignore_lang_load  Load product without loading $this->multilangs language arrays (when we are sure we do not need them)
 	 * @return int                       Return integer <0 if KO, 0 if not found, >0 if OK
 	 */
 	public function fetch($id = 0, $ref = '', $ref_ext = '', $barcode = '', $ignore_expression = 0, $ignore_price_load = 0, $ignore_lang_load = 0)

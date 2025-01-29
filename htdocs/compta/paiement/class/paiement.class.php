@@ -825,7 +825,7 @@ class Paiement extends CommonObject
 				}
 			}
 
-			// if company currency != bank currency, then we received an amount in customer currency (currently I don't manage the case : my currency is USD, the customer currency is EUR and he paid me in GBP. Seems no sense for me)
+			// if company currency != bank currency, then we received an amount in customer currency (currently I do not manage the case : my currency is USD, the customer currency is EUR and he paid me in GBP. Seems no sense for me)
 			if ($config->currency != $acc->currency_code) {
 				$totalamount = $this->multicurrency_amount;		// We will insert into llx_bank.amount in foreign currency of invoice
 				$totalamount_main_currency = $this->amount;		// We will also save the amount in main currency into column llx_bank.amount_main_currency
@@ -1139,7 +1139,7 @@ class Paiement extends CommonObject
 	/**
 	 * Information sur l'objet
 	 *
-	 * @param   int     $id      id du paiement don't il faut afficher les infos
+	 * @param   int     $id      id du paiement do not il faut afficher les infos
 	 * @return  void
 	 */
 	public function info($id)
@@ -1390,7 +1390,7 @@ class Paiement extends CommonObject
 		if ($dateofpayment) {
 			$label .= '<br><strong>'.$langs->trans("Date").':</strong> ';
 			$tmparray = dol_getdate($dateofpayment);
-			if ($tmparray['seconds'] == 0 && $tmparray['minutes'] == 0 && ($tmparray['hours'] == 0 || $tmparray['hours'] == 12)) {	// We set hours to 0:00 or 12:00 because we don't know it
+			if ($tmparray['seconds'] == 0 && $tmparray['minutes'] == 0 && ($tmparray['hours'] == 0 || $tmparray['hours'] == 12)) {	// We set hours to 0:00 or 12:00 because we do not know it
 				$label .= dol_print_date($dateofpayment, 'day');
 			} else {	// Hours was set to real date of payment (special case for POS for example)
 				$label .= dol_print_date($dateofpayment, 'dayhour', 'tzuser');

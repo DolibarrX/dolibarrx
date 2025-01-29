@@ -362,7 +362,7 @@ if (empty($resHook)) {
 						$objecttmp->date_order = dol_now();
 						$result = $objecttmp->valid($user);
 						if ($result >= 0) {
-							// If we have permission, and if we don't need to provide the idwarehouse, we go directly on approved step
+							// If we have permission, and if we do not need to provide the idwarehouse, we go directly on approved step
 							if (!getDolGlobalString('SUPPLIER_ORDER_NO_DIRECT_APPROVE') && $permissiontoapprove && !(getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_VALIDATE_ORDER') && $objecttmp->hasProductsOrServices(1))) {
 								$result = $objecttmp->approve($user);
 								setEventMessages($langs->trans("SupplierOrderValidatedAndApproved"), array($objecttmp->ref));
@@ -553,7 +553,7 @@ if (empty($resHook)) {
 								$lines[$i]->info_bits,
 								'HT',
 								$product_type,
-								// we don't use the rank from orderline because we may have lines from several orders
+								// we do not use the rank from orderline because we may have lines from several orders
 								-1,
 								false,
 								$lines[$i]->array_options,

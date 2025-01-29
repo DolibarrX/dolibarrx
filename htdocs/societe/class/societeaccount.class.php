@@ -77,7 +77,7 @@ class SocieteAccount extends CommonObject
 	 *  'index' if we want an index in database.
 	 *  'foreignkey'=>'tablename.field' if the field is a foreign key (it is recommended to name the field fk_...).
 	 *  'searchall' is 1 if we want to search in this field when making a search from the quick search button.
-	 *  'isameasure' must be set to 1 or 2 if field can be used for measure. Field type must be summable like integer or double(24,8). Use 1 in most cases, or 2 if you don't want to see the column total into list (for example for percentage)
+	 *  'isameasure' must be set to 1 or 2 if field can be used for measure. Field type must be summable like integer or double(24,8). Use 1 in most cases, or 2 if you do not want to see the column total into list (for example for percentage)
 	 *  'css' and 'cssview' and 'csslist' is the CSS style to use on field. 'css' is used in creation and update. 'cssview' is used in view mode. 'csslist' is used for columns in lists. For example: 'css'=>'minwidth300 maxwidth500 widthcentpercentminusx', 'cssview'=>'wordbreak', 'csslist'=>'tdoverflowmax200'
 	 *  'help' and 'helplist' is a 'TranslationString' to use to show a tooltip on field. You can also use 'TranslationString:keyfortooltiponlick' for a tooltip on click.
 	 *  'showoncombobox' if value of the field must be visible into the label of the combobox that list record
@@ -344,7 +344,7 @@ class SocieteAccount extends CommonObject
 	 *
 	 * @param	int			$id				Id of third party
 	 * @param	string		$site			Site (example: 'stripe', '...')
-	 * @param	int<-1,1>	$status			Status (0=test, 1=live, -1=we don't mind)
+	 * @param	int<-1,1>	$status			Status (0=test, 1=live, -1=we do not mind)
 	 * @param	string		$site_account 	Value to use to identify with account to use on site when site can offer several accounts. For example: 'pk_live_123456' when using Stripe service.
 	 * @param	int			$fk_website		Id website
 	 * @return	string						Stripe customer ref 'cu_xxxxxxxxxxxxx' or ''

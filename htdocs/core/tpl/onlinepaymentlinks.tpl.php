@@ -122,7 +122,7 @@ if (isModEnabled('member')) {
 	}
 	print '<br>';
 }
-if (isModEnabled('don')) {
+if (isModEnabled('donation')) {
 	print '<div id="donation"></div>';
 	print img_picture('', 'globe').' <span class="opacitymedium">'.$langs->trans("ToOfferALinkForOnlinePaymentOnDonation", $servicename).':</span><br>';
 	print '<strong class="wordbreak">'.getOnlinePaymentUrl(1, 'donation')."</strong><br>\n";

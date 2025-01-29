@@ -363,7 +363,7 @@ if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
 } else {
 	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.",".Facture::TYPE_REPLACEMENT.",".Facture::TYPE_CREDIT_NOTE.",".Facture::TYPE_DEPOSIT.",".Facture::TYPE_SITUATION.")";
 }
-$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We don't share object for accountancy
+$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share object for accountancy
 
 // Add where from hooks
 $parameters = [];

@@ -220,7 +220,7 @@ class Lettering extends BookKeeping
 					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "accounting_bookkeeping as bk ON (bk.fk_doc = pay.fk_bank AND bk.code_journal='" . $this->db->escape($obj->code_journal) . "')";
 					$sql .= " WHERE payfac.fk_paiement = '" . $this->db->escape($obj->url_id) . "' ";
 					$sql .= " AND bk.code_journal IN (SELECT code FROM " . MAIN_DB_PREFIX . "accounting_journal WHERE nature=4 AND entity=" . $config->entity . ") ";
-					$sql .= " AND fac.entity IN (" . getEntity('invoice', 0) . ")"; // We don't share object for accountancy
+					$sql .= " AND fac.entity IN (" . getEntity('invoice', 0) . ")"; // We do not share object for accountancy
 					$sql .= " AND ( ";
 					if ($object->code_compta_client != "") {
 						$sql .= "  bk.subledger_account = '" . $this->db->escape($object->code_compta_client) . "'  ";
@@ -248,7 +248,7 @@ class Lettering extends BookKeeping
 						$sql .= " FROM " . MAIN_DB_PREFIX . "facture fac ";
 						$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "accounting_bookkeeping as bk ON(  bk.fk_doc = fac.rowid AND fac.rowid IN (" . $this->db->sanitize(implode(',', $ids_fact)) . "))";
 						$sql .= " WHERE code_journal IN (SELECT code FROM " . MAIN_DB_PREFIX . "accounting_journal WHERE nature=2 AND entity=" . $config->entity . ") ";
-						$sql .= " AND fac.entity IN (" . getEntity('invoice', 0) . ")"; // We don't share object for accountancy
+						$sql .= " AND fac.entity IN (" . getEntity('invoice', 0) . ")"; // We do not share object for accountancy
 						$sql .= " AND ( ";
 						if ($object->code_compta_client != "") {
 							$sql .= "  bk.subledger_account = '" . $this->db->escape($object->code_compta_client) . "'  ";

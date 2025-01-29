@@ -245,7 +245,7 @@ if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co ON co.rowid = s.fk_pays ";
 $sql .= " WHERE fd.fk_code_ventilation > 0";
-$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We don't share object for accountancy
+$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share object for accountancy
 $sql .= " AND f.fk_statut > 0";
 if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
 	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.",".Facture::TYPE_REPLACEMENT.",".Facture::TYPE_CREDIT_NOTE.",".Facture::TYPE_SITUATION.")";
@@ -310,7 +310,7 @@ if (strlen(trim($search_country))) {
 if (strlen(trim($search_tvaintra))) {
 	$sql .= natural_search("s.tva_intra", $search_tvaintra);
 }
-$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We don't share object for accountancy
+$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share object for accountancy
 $sql .= $db->order($sortfield, $sortorder);
 
 // Count total nb of records

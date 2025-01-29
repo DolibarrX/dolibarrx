@@ -632,7 +632,7 @@ function includeContainer($containerref, $once = 0, $cachedelay = 0)
 
 	//dol_syslog("Include container ".$containerref.' includehtmlcontentopened='.$includehtmlcontentopened);
 
-	// We don't print info messages for pages of type library or service
+	// We do not print info messages for pages of type library or service
 	if (!empty($websitepage->type_container) && !in_array($websitepage->type_container, array('library', 'service'))) {
 		print "\n" . '<!-- include ' . $websitekey . '/' . $containerref . (is_object($websitepage) ? ' parent id=' . $websitepage->id : '') . ' level=' . $includehtmlcontentopened . ' -->' . "\n";
 	}

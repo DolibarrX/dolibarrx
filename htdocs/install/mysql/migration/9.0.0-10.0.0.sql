@@ -107,7 +107,7 @@ ALTER TABLE llx_actioncomm ADD COLUMN visibility varchar(12) DEFAULT 'default';
 
 DROP TABLE llx_ticket_msg;
 
-ALTER TABLE llx_don ADD COLUMN fk_soc integer NULL;
+ALTER TABLE llx_donation ADD COLUMN fk_soc integer NULL;
 
 ALTER TABLE llx_payment_various ADD COLUMN subledger_account varchar(32);
 

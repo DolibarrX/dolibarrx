@@ -45,8 +45,8 @@ require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/paymentdonation.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/paymentdonation.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/tva/class/tva.class.php';
 require_once DOL_DOCUMENT_ROOT.'/salaries/class/paymentsalary.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
@@ -173,7 +173,7 @@ if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u on bu2.url_id=u.rowid";
 $sql .= " WHERE ba.fk_accountancy_journal=".((int) $id_journal);
-$sql .= ' AND b.amount <> 0 AND ba.entity IN ('.getEntity('bank_account', 0).')'; // We don't share object for accountancy
+$sql .= ' AND b.amount <> 0 AND ba.entity IN ('.getEntity('bank_account', 0).')'; // We do not share object for accountancy
 if ($date_start && $date_end) {
 	$sql .= " AND b.dateo >= '".$db->idate($date_start)."' AND b.dateo <= '".$db->idate($date_end)."'";
 }
@@ -385,7 +385,7 @@ if ($result) {
 			// Now loop on each link of record in bank (code similar to bankentries_list.php)
 			foreach ($links as $key => $val) {
 				if ($links[$key]['type'] == 'user' && !$is_sc && !$is_salary && !$is_expensereport) {
-					// We must avoid as much as possible this "continue". If we want to jump to next loop, it means we don't want to process
+					// We must avoid as much as possible this "continue". If we want to jump to next loop, it means we do not want to process
 					// the case the link is user (often because managed by hard coded code into another link), and we must avoid this.
 					continue;
 				}
@@ -625,7 +625,7 @@ if ($result) {
 
 		// If no links were found to know the amount on thirdparty, we try to guess it.
 		// This may happens on bank entries without the links lines to 'company'.
-		if (empty($tabtp[$obj->rowid]) && !empty($tabmoreinfo[$obj->rowid]['withdraw'])) {	// If we don't find 'company' link because it is an old 'withdraw' record
+		if (empty($tabtp[$obj->rowid]) && !empty($tabmoreinfo[$obj->rowid]['withdraw'])) {	// If we do not find 'company' link because it is an old 'withdraw' record
 			foreach ($links as $key => $val) {
 				if ($links[$key]['type'] == 'payment') {
 					// Get thirdparty

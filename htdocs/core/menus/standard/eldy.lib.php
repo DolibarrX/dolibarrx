@@ -297,14 +297,14 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 	$tmpentry = array(
 		'enabled' => (
 			isModEnabled('invoice') ||
-			isModEnabled('don') ||
+			isModEnabled('donation') ||
 			isModEnabled('tax') ||
 			isModEnabled('salaries') ||
 			isModEnabled('supplier_invoice') ||
 			isModEnabled('loan') ||
 			isModEnabled('margin')
 		) ? 1 : 0,
-		'perms' => ($user->hasRight('facture', 'lire') || $user->hasRight('don', 'contact', 'lire')
+		'perms' => ($user->hasRight('facture', 'lire') || $user->hasRight('donation', 'contact', 'lire')
 			|| $user->hasRight('tax', 'charges', 'lire') || $user->hasRight('salaries', 'read')
 			|| $user->hasRight('fournisseur', 'facture', 'lire') || $user->hasRight('loan', 'read') || $user->hasRight('margins', 'liretous')),
 		'module' => 'facture|supplier_invoice|don|tax|salaries|loan'
@@ -1554,16 +1554,16 @@ function get_left_menu_billing($mainmenu, &$newmenu, $usemenuhider = 1, $leftmen
 
 
 		// Donations
-		if (isModEnabled('don')) {
+		if (isModEnabled('donation')) {
 			$langs->load("donations");
-			$newmenu->add("/don/index.php?leftmenu=donations&amp;mainmenu=billing", $langs->trans("Donations"), 0, $user->hasRight('don', 'lire'), '', $mainmenu, 'donations', 0, '', '', '', img_picture('', 'donation', 'class="paddingright picturefixedwidth"'));
+			$newmenu->add("/donation/index.php?leftmenu=donations&amp;mainmenu=billing", $langs->trans("Donations"), 0, $user->hasRight('donation', 'lire'), '', $mainmenu, 'donations', 0, '', '', '', img_picture('', 'donation', 'class="paddingright picturefixedwidth"'));
 			if ($usemenuhider || empty($leftmenu) || $leftmenu == "donations") {
-				$newmenu->add("/don/card.php?leftmenu=donations&action=create", $langs->trans("NewDonation"), 1, $user->hasRight('don', 'creer'));
-				$newmenu->add("/don/list.php?leftmenu=donations", $langs->trans("List"), 1, $user->hasRight('don', 'lire'));
-				$newmenu->add("/don/paiement/list.php?leftmenu=donations", $langs->trans("Payments"), 1, $user->hasRight('don', 'lire'));
-				$newmenu->add("/don/stats/index.php", $langs->trans("Statistics"), 1, $user->hasRight('don', 'lire'));
+				$newmenu->add("/donation/card.php?leftmenu=donations&action=create", $langs->trans("NewDonation"), 1, $user->hasRight('donation', 'creer'));
+				$newmenu->add("/donation/list.php?leftmenu=donations", $langs->trans("List"), 1, $user->hasRight('donation', 'lire'));
+				$newmenu->add("/donation/paiement/list.php?leftmenu=donations", $langs->trans("Payments"), 1, $user->hasRight('donation', 'lire'));
+				$newmenu->add("/donation/stats/index.php", $langs->trans("Statistics"), 1, $user->hasRight('donation', 'lire'));
 			}
-			// if ($leftmenu=="donations") $newmenu->add("/don/stats/index.php",$langs->trans("Statistics"), 1, $user->hasRight('don',  'lire'));
+			// if ($leftmenu=="donations") $newmenu->add("/donation/stats/index.php",$langs->trans("Statistics"), 1, $user->hasRight('donation',  'lire'));
 		}
 
 		// Taxes and social contributions

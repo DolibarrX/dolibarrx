@@ -1397,7 +1397,7 @@ function get_next_value($db, $mask, $table, $field, $where = '', $objsoc = '', $
 		$numFinal = $mask;
 
 		// We replace special codes except refclient
-		if (!empty($yearoffsettype) && !is_numeric($yearoffsettype) && $yearoffsettype != '=') {	// yearoffsettype is - or +, so we don't want current year
+		if (!empty($yearoffsettype) && !is_numeric($yearoffsettype) && $yearoffsettype != '=') {	// yearoffsettype is - or +, so we do not want current year
 			$numFinal = preg_replace('/\{yyyy\}/i', (string) ((int) date("Y", $date) + $yearoffset), $numFinal);
 			$numFinal = preg_replace('/\{yy\}/i', (string) ((int) date("y", $date) + $yearoffset), $numFinal);
 			$numFinal = preg_replace('/\{y\}/i', (string) ((int) substr((string) date("y", $date), 1, 1) + $yearoffset), $numFinal);
@@ -2701,8 +2701,8 @@ function getModuleDirForApiClass($moduleobject)
 		$moduledirforclass = 'comm/action';
 	} elseif ($moduleobject == 'member' || $moduleobject == 'members' || $moduleobject == 'memberstypes' || $moduleobject == 'subscriptions') {
 		$moduledirforclass = 'members';
-	} elseif ($moduleobject == 'don' || $moduleobject == 'donations') {
-		$moduledirforclass = 'don';
+	} elseif ($moduleobject == 'donation' || $moduleobject == 'donations') {
+		$moduledirforclass = 'donation';
 	} elseif ($moduleobject == 'bank' || $moduleobject == 'bankaccounts') {
 		$moduledirforclass = 'compta/bank';
 	} elseif ($moduleobject == 'category' || $moduleobject == 'category') {

@@ -313,7 +313,7 @@ $lockfile2 = DOL_DOCUMENT_ROOT.'/install.lock';	// To lock all /install pages (r
 $upgradeunlockfile = DOL_DATA_ROOT.'/upgrade.unlock';	// To unlock upgrade process
 $upgradeunlockfile2 = DOL_DOCUMENT_ROOT.'/upgrade.unlock';	// To unlock upgrade process
 if (constant('DOL_DATA_ROOT') === null) {
-	// We don't have a configuration file yet
+	// We do not have a configuration file yet
 	// Try to detect any lockfile in the default documents path
 	$lockfile = '../../documents/install.lock';
 	$upgradeunlockfile = '../../documents/upgrade.unlock';

@@ -106,7 +106,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 			$filter = '(o.tosell:=:'.((int) $tosell).')';
 		}
 		$prods = $object->getObjectsInCateg("product", 0, $limit, $offset, getDolGlobalString('TAKEPOS_SORTPRODUCTFIELD'), 'ASC', $filter);
-		// Removed properties we don't need
+		// Removed properties we do not need
 		$res = [];
 		if (is_array($prods) && count($prods) > 0) {
 			foreach ($prods as $prod) {

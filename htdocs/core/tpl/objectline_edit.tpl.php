@@ -351,7 +351,7 @@ $coldisplay++;
 		if ($user->hasRight('margins', 'creer')) {
 			if (getDolGlobalString('DISPLAY_MARGIN_RATES')) {
 				$margin_rate = (GETPOSTISSET("np_marginRate") ? GETPOST("np_marginRate", "alpha", 2) : (($line->pa_ht == 0) ? '' : price($line->marge_tx)));
-				// if credit note, don't allow to modify margin
+				// if credit note, do not allow to modify margin
 				if ($line->subprice < 0) {
 					echo '<td class="right nowrap margininfos">'.$margin_rate.'<span class="opacitymedium hideonsmartphone">%</span></td>';
 				} else {
@@ -361,7 +361,7 @@ $coldisplay++;
 			}
 			if (getDolGlobalString('DISPLAY_MARK_RATES')) {
 				$mark_rate = (GETPOSTISSET("np_markRate") ? GETPOST("np_markRate", 'alpha', 2) : price($line->marque_tx));
-				// if credit note, don't allow to modify margin
+				// if credit note, do not allow to modify margin
 				if ($line->subprice < 0) {
 					echo '<td class="right nowrap margininfos">'.$mark_rate.'<span class="opacitymedium hideonsmartphone">%</span></td>';
 				} else {

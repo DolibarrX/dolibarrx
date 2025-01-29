@@ -21,14 +21,14 @@
  */
 
 /**
- *  \file       htdocs/don/index.php
+ *  \file       htdocs/donation/index.php
  *  \ingroup    donations
  *  \brief      Home page of donation module
  */
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 
 /**
  * @var Config $config
@@ -47,7 +47,7 @@ $hookManager->initHooks(array('donationindex'));
 $donation_static = new Don($db);
 
 // Security check
-$result = restrictedArea($user, 'don');
+$result = restrictedArea($user, 'donation');
 
 
 /*
@@ -72,7 +72,7 @@ $somme = [];
 $total = 0;
 
 $sql = "SELECT count(d.rowid) as nb, sum(d.amount) as somme , d.fk_statut";
-$sql .= " FROM ".MAIN_DB_PREFIX."don as d WHERE d.entity IN (".getEntity('donation').")";
+$sql .= " FROM ".MAIN_DB_PREFIX."donation as d WHERE d.entity IN (".getEntity('donation').")";
 $sql .= " GROUP BY d.fk_statut";
 $sql .= " ORDER BY d.fk_statut";
 
@@ -104,7 +104,7 @@ if (!isset($listofsearchfields) || !is_array($listofsearchfields)) {
 	$listofsearchfields = [];
 }
 if (getDolGlobalString('MAIN_SEARCH_FORM_ON_HOME_AREAS')) {     // TODO Add a search into global search combo so we can remove this
-	if (isModEnabled('don') && $user->hasRight('don', 'lire')) {
+	if (isModEnabled('donation') && $user->hasRight('donation', 'lire')) {
 		$listofsearchfields['search_donation'] = array('text' => 'Donation');
 	}
 
@@ -215,8 +215,8 @@ $max = getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT', 5);
  */
 
 $sql = "SELECT c.rowid, c.ref, c.fk_statut, c.societe, c.lastname, c.firstname, c.tms as datem, c.amount";
-$sql .= " FROM ".MAIN_DB_PREFIX."don as c";
-$sql .= " WHERE c.entity IN (".getEntity("don").")";
+$sql .= " FROM ".MAIN_DB_PREFIX."donation as c";
+$sql .= " WHERE c.entity IN (".getEntity("donation").")";
 //$sql.= " AND c.fk_statut > 2";
 $sql .= " ORDER BY c.tms DESC";
 $sql .= $db->plimit($max, 0);
@@ -226,7 +226,7 @@ if ($resql) {
 	print '<table class="noborder centpercent">';
 	print '<tr class="liste_titre">';
 	print '<th colspan="5">'.$langs->trans("LastModifiedDonations", $max).' ';
-	print '<a href="'.DOL_URL_ROOT.'/don/list.php?sortfield=d.datem&sortorder=DESC">';
+	print '<a href="'.DOL_URL_ROOT.'/donation/list.php?sortfield=d.datem&sortorder=DESC">';
 	print '<span class="badge">...</span>';
 	print '</a>';
 	print '</th></tr>';

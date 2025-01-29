@@ -3282,7 +3282,7 @@ li.tmenu:hover .tmenuimage:not(.menuhider), li.tmenu:hover .tmenuimage:not(.menu
 										$moduletomainmenu = array(
 											'user' => '', 'syslog' => '', 'societe' => 'companies', 'projet' => 'project', 'propale' => 'commercial', 'order' => 'commercial',
 											'produit' => 'products', 'service' => 'products', 'stock' => 'products',
-											'don' => 'accountancy', 'tax' => 'accountancy', 'bank' => 'accountancy', 'facture' => 'accountancy', 'compta' => 'accountancy', 'accounting' => 'accountancy', 'member' => 'members', 'import' => 'tools', 'export' => 'tools', 'mailing' => 'tools',
+											'donation' => 'accountancy', 'tax' => 'accountancy', 'bank' => 'accountancy', 'facture' => 'accountancy', 'compta' => 'accountancy', 'accounting' => 'accountancy', 'member' => 'members', 'import' => 'tools', 'export' => 'tools', 'mailing' => 'tools',
 											'contract' => 'commercial', 'ficheinter' => 'commercial', 'ticket' => 'ticket', 'deplacement' => 'commercial',
 											'fournisseur' => 'companies',
 											'barcode' => '', 'fckeditor' => '', 'category' => '',
@@ -3296,7 +3296,7 @@ li.tmenu:hover .tmenuimage:not(.menuhider), li.tmenu:hover .tmenuimage:not(.menu
 										$generic = 1;
 										// Put here list of menu entries when the div.mainmenu.menuentry was previously defined
 										$divalreadydefined = array('home', 'companies', 'products', 'mrp', 'commercial', 'externalsite', 'accountancy', 'project', 'tools', 'members', 'agenda', 'ftp', 'holiday', 'hrm', 'bookmark', 'cashdesk', 'takepos', 'ecm', 'geoipmaxmind', 'gravatar', 'clicktodial', 'paypal', 'stripe', 'webservices', 'website');
-										// Put here list of menu entries we are sure we don't want
+										// Put here list of menu entries we are sure we do not want
 										$divnotrequired = array('multicurrency', 'salaries', 'ticket', 'margin', 'opensurvey', 'paybox', 'expensereport', 'incoterm', 'prelevement', 'propal', 'workflow', 'notification', 'supplier_proposal', 'cron', 'product', 'productbatch', 'expedition');
 										foreach ($mainmenuusedarray as $val) {
 											if (empty($val) || in_array($val, $divalreadydefined)) {

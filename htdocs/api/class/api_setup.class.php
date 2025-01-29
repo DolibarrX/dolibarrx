@@ -2556,7 +2556,7 @@ class Setup extends DolibarrApi
 				foreach ($scanfiles as $keyfile => $valfile) {
 					$tmprelativefilename = preg_replace('/^'.preg_quote(DOL_DOCUMENT_ROOT, '/').'/', '', $valfile['fullname']);
 					if (!in_array($tmprelativefilename, $file_list['insignature'])) {
-						$md5newfile = @md5_file($valfile['fullname']); // Can fails if we don't have permission to open/read file
+						$md5newfile = @md5_file($valfile['fullname']); // Can fails if we do not have permission to open/read file
 						$file_list['added'][] = array('filename' => $tmprelativefilename, 'md5' => $md5newfile);
 					}
 				}

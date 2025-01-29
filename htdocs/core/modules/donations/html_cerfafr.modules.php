@@ -22,12 +22,12 @@
  */
 
 /**
- *	\file       htdocs/core/modules/dons/html_cerfafr.modules.php
+ *	\file       htdocs/core/modules/donations/html_cerfafr.modules.php
  *	\ingroup    don
  *	\brief      Form of donation
  */
-require_once DOL_DOCUMENT_ROOT.'/core/modules/dons/modules_don.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/donations/modules_donation.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
 
@@ -74,13 +74,13 @@ class html_cerfafr extends ModeleDon
 	 *  @param	string		$currency		Currency code
 	 *	@return	int<-1,1>					>0 if OK, <0 if KO
 	 */
-	public function write_file($don, $outputlangs, $currency = '')
+	public function write_file($donation, $outputlangs, $currency = '')
 	{
 		// phpcs:enable
 		global $user, $config, $langs, $mysoc;
 
 		$now = dol_now();
-		$id = (!is_object($don) ? $don : '');
+		$id = (!is_object($donation) ? $donation : '');
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -92,9 +92,9 @@ class html_cerfafr extends ModeleDon
 		$currency = !empty($currency) ? $currency : $config->currency;
 
 		if (!empty($config->don->dir_output)) {
-			// Definition of the object don (for upward compatibility)
-			if (!is_object($don)) {
-				$don = new Don($this->db);
+			// Definition of the object donation (for upward compatibility)
+			if (!is_object($donation)) {
+				$donation = new Don($this->db);
 				$ret = $don->fetch($id);
 				$id = $don->id;
 			}
@@ -150,7 +150,7 @@ class html_cerfafr extends ModeleDon
 				*/
 
 				// Define contents
-				$donmodel = DOL_DOCUMENT_ROOT."/core/modules/dons/html_cerfafr.html";
+				$donmodel = DOL_DOCUMENT_ROOT."/core/modules/donations/html_cerfafr.html";
 				$form = implode('', file($donmodel));
 				$form = str_replace('__REF__', (string) $don->id, $form);
 				$form = str_replace('__DATE__', dol_print_date($don->date, 'day', false, $outputlangs), $form);

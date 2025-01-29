@@ -2884,7 +2884,7 @@ class Ticket extends CommonObject
 								}
 							}
 
-							// don't try to send email if no recipient
+							// do not try to send email if no recipient
 							if (!empty($sendto)) {
 								$this->sendTicketMessageByEmail($subject, $message, 0, $sendto, $listofpaths, $listofmimes, $listofnames);
 							}

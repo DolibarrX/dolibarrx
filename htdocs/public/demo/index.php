@@ -87,7 +87,7 @@ if (empty($resHook)) {
 	$demoprofiles = array(
 		array(
 			'default' => '1', 'key' => 'profdemoservonly', 'label' => 'DemoCompanyServiceOnly',
-			'disablemodules' => 'member,barcode,bom,cashdesk,don,expedition,externalsite,ftp,incoterm,mailmanspip,margin,mrp,prelevement,product,productbatch,stock,takepos',
+			'disablemodules' => 'member,barcode,bom,cashdesk,donation,expedition,externalsite,ftp,incoterm,mailmanspip,margin,mrp,prelevement,product,productbatch,stock,takepos',
 			//'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot8.png',
 			'icon' => DOL_URL_ROOT.'/public/demo/demo-profile-service.jpg',
 			'url' => $url,
@@ -95,14 +95,14 @@ if (empty($resHook)) {
 		),
 		array(
 			'default' => '0', 'key' => 'profmanufacture', 'label' => 'DemoCompanyManufacturing',
-			'disablemodules' => 'member,contract,don,externalsite,ficheinter,ftp,mailmanspip,prelevement,service',
+			'disablemodules' => 'member,contract,donation,externalsite,ficheinter,ftp,mailmanspip,prelevement,service',
 			'icon' => DOL_URL_ROOT.'/public/demo/demo-profile-manufacturing.jpg',
 			'url' => $url,
 			'lang' => '',
 		),
 		array(
 			'default' => '0', 'key' => 'profdemoprodstock', 'label' => 'DemoCompanyProductAndStocks',
-			'disablemodules' => 'member,bom,contract,don,externalsite,ficheinter,ftp,mailmanspip,mrp,prelevement,service',
+			'disablemodules' => 'member,bom,contract,donation,externalsite,ficheinter,ftp,mailmanspip,mrp,prelevement,service',
 			//'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot2.png',
 			'icon' => DOL_URL_ROOT.'/public/demo/demo-profile-product.jpg',
 			'url' => $url,
@@ -119,7 +119,7 @@ if (empty($resHook)) {
 		// All demo profiles
 		array(
 			'default' => '0', 'key' => 'profdemoall', 'label' => 'ChooseYourDemoProfilMore',
-			'disablemodules' => 'member,cashdesk,don,externalsite,mailmanspip',
+			'disablemodules' => 'member,cashdesk,donation,externalsite,mailmanspip',
 			//'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot9.png'
 			'icon' => DOL_URL_ROOT.'/public/demo/demo-profile-all.jpg',
 			'lang' => '',
@@ -129,7 +129,7 @@ if (empty($resHook)) {
 
 	// Visible
 	$alwayscheckedmodules = array('barcode', 'bookmark', 'category', 'externalrss', 'fckeditor', 'geoipmaxmind', 'gravatar', 'memcached', 'syslog', 'user', 'webservices'); // Technical module we always want
-	$alwaysuncheckedmodules = array('ai', 'dav', 'dynamicprices', 'incoterm', 'loan', 'multicurrency', 'paybox', 'paypal', 'stripe', 'google', 'printing', 'scanner', 'socialnetworks', 'webhook', 'webportal', 'website', 'zapier'); // Module we don't want by default
+	$alwaysuncheckedmodules = array('ai', 'dav', 'dynamicprices', 'incoterm', 'loan', 'multicurrency', 'paybox', 'paypal', 'stripe', 'google', 'printing', 'scanner', 'socialnetworks', 'webhook', 'webportal', 'website', 'zapier'); // Module we do not want by default
 	// Not visible
 	$alwayshiddencheckedmodules = array('accounting', 'api', 'barcode', 'blockedlog', 'bookmark', 'clicktodial', 'comptabilite', 'cron', 'document', 'domain', 'externalrss', 'externalsite', 'fckeditor', 'geoipmaxmind', 'gravatar', 'label', 'ldap',
 									'mailmanspip', 'notification', 'oauth', 'syslog', 'user', 'webservices', 'workflow',

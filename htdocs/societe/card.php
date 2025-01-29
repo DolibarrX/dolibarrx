@@ -3018,7 +3018,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 
 			// This fields are used to know VAT to include in an invoice when the thirdparty is making a sale, so when it is a supplier.
-			// We don't need them into customer profile.
+			// We do not need them into customer profile.
 			// Except for spain and localtax where localtax depends on buyer and not seller
 
 			if ($object->fournisseur) {

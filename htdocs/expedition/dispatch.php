@@ -1244,7 +1244,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 
 						if (verify_batch == false && verify_barcode == false) {		/* If the 2 flags are false, not found error */
 							errortab2.push(element);
-						} else if (verify_batch == true && verify_barcode == true) {		/* If the 2 flags are true, error: we don t know which one to take */
+						} else if (verify_batch == true && verify_barcode == true) {		/* If the 2 flags are true, error: we do not know which one to take */
 							errortab3.push(element);
 						} else if (verify_batch == true) {
 							console.log("element="+element);

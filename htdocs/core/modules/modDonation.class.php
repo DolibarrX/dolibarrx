@@ -20,9 +20,9 @@
  */
 
 /**
- *	\defgroup   don     Module donations
+ *	\defgroup   donation     Module donations
  *	\brief      Module to manage the follow-up of the donations
- *	\file       htdocs/core/modules/modDon.class.php
+ *	\file       htdocs/core/modules/modDonation.class.php
  *	\ingroup    donations
  *	\brief      Description and activation file for the module Donation
  */
@@ -33,7 +33,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/modules/DolibarrModules.class.php';
 /**
  *	Class to describe and enable module Donation
  */
-class modDon extends DolibarrModules
+class modDonation extends DolibarrModules
 {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
@@ -46,25 +46,28 @@ class modDon extends DolibarrModules
 		$this->number = 700;
 
 		$this->family = "financial";
+
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
-		$this->description = "Gestion des dons";
+		$this->description = "Donation management";
+
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
 		$this->constName = 'MAIN_MODULE_'.strtoupper($this->name);
+
 		// Name of png file (without png) used for this module.
 		// Png file must be in theme/yourtheme/img directory under name object_picturevalue.png.
 		$this->picture = 'donation';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array("/don/temp");
+		$this->dirs = array("/donation/temp");
 
 		// Dependencies
 		$this->depends = [];
 		$this->requiredBy = [];
 
 		// Config pages
-		$this->configPageUrl = array("donation.php@don");
+		$this->configPageUrl = array("donation.php@donation");
 
 		// Constants
 		$this->const = [
@@ -117,7 +120,7 @@ class modDon extends DolibarrModules
 
 		// Permissions
 		$this->rights = [];
-		$this->rightsClass = 'don';
+		$this->rightsClass = 'donation';
 
 		$this->rights[1][0] = 701;
 		$this->rights[1][1] = 'Lire les dons';
@@ -156,7 +159,7 @@ class modDon extends DolibarrModules
 	{
 		global $config;
 
-		$result = $this->_load_tables('/install/mysql/', 'don');
+		$result = $this->_load_tables('/install/mysql/', 'donation');
 		if ($result < 0) {
 			return -1; // Do not activate module if error 'not allowed' returned when loading module SQL queries (the _load_table run sql with run_sql with the error allowed parameter set to 'default')
 		}

@@ -25,7 +25,7 @@
  */
 
 /**
- *   	\file       htdocs/don/class/don.class.php
+ *   	\file       htdocs/donation/class/don.class.php
  *		\ingroup    Donation
  *		\brief      File of class to manage donations
  */
@@ -44,12 +44,12 @@ class Don extends CommonObject
 	/**
 	 * @var string ID to identify managed object
 	 */
-	public $element = 'don';
+	public $element = 'donation';
 
 	/**
 	 * @var string Name of table without prefix where object is stored
 	 */
-	public $table_element = 'don';
+	public $table_element = 'donation';
 
 	/**
 	 * @var string Field with ID of parent key if this field has a parent
@@ -403,7 +403,7 @@ class Don extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."don (";
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."donation (";
 		$sql .= "datec";
 		$sql .= ", entity";
 		$sql .= ", amount";
@@ -422,7 +422,7 @@ class Don extends CommonObject
 		$sql .= ", note_public";
 		$sql .= ", fk_user_author";
 		$sql .= ", fk_user_valid";
-		$sql .= ", datedon";
+		$sql .= ", datedonation";
 		$sql .= ", email";
 		$sql .= ", phone";
 		$sql .= ", phone_mobile";
@@ -453,7 +453,7 @@ class Don extends CommonObject
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."don");
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."donation");
 			$ret = $this->id;
 
 			if (!$notrigger) {
@@ -520,7 +520,7 @@ class Don extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."don SET";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."donation SET";
 		$sql .= " amount = ".((float) $this->amount);
 		$sql .= ", fk_payment = ".($this->modepaymentid ? $this->modepaymentid : "null");
 		$sql .= ", firstname = '".$this->db->escape($this->firstname)."'";
@@ -617,7 +617,7 @@ class Don extends CommonObject
 		}
 
 		if (!$error) {
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."don";
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."donation";
 			$sql .= " WHERE rowid=".((int) $this->id);
 
 			$resql = $this->db->query($sql);
@@ -661,14 +661,14 @@ class Don extends CommonObject
 	 */
 	public function fetch($id, $ref = '')
 	{
-		$sql = "SELECT d.rowid, d.datec, d.date_valid, d.tms as datem, d.datedon,";
+		$sql = "SELECT d.rowid, d.datec, d.date_valid, d.tms as datem, d.datedonation,";
 		$sql .= " d.fk_soc as socid, d.firstname, d.lastname, d.societe, d.amount, d.fk_statut as status, d.address, d.zip, d.town, ";
 		$sql .= " d.fk_country, d.public, d.amount, d.fk_payment, d.paid, d.note_private, d.note_public, d.email, d.phone, ";
 		$sql .= " d.phone_mobile, d.fk_projet as fk_project, d.model_pdf,";
 		$sql .= " p.ref as project_ref,";
 		$sql .= " cp.libelle as payment_label, cp.code as payment_code,";
 		$sql .= " c.code as country_code, c.label as country";
-		$sql .= " FROM ".MAIN_DB_PREFIX."don as d";
+		$sql .= " FROM ".MAIN_DB_PREFIX."donation as d";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as p ON p.rowid = d.fk_projet";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_paiement as cp ON cp.id = d.fk_payment";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON d.fk_country = c.rowid";
@@ -693,7 +693,7 @@ class Don extends CommonObject
 				$this->date_valid = $this->db->jdate($obj->date_valid);
 				$this->date_modification  = $this->db->jdate($obj->datem);
 				$this->datem              = $this->db->jdate($obj->datem);
-				$this->date               = $this->db->jdate($obj->datedon);
+				$this->date               = $this->db->jdate($obj->datedonation);
 				$this->socid              = $obj->socid;
 				$this->firstname          = $obj->firstname;
 				$this->lastname           = $obj->lastname;
@@ -764,7 +764,7 @@ class Don extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."don SET fk_statut = 1, fk_user_valid = ".((int) $userId)." WHERE rowid = ".((int) $id)." AND fk_statut = 0";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."donation SET fk_statut = 1, fk_user_valid = ".((int) $userId)." WHERE rowid = ".((int) $id)." AND fk_statut = 0";
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -802,7 +802,7 @@ class Don extends CommonObject
 	 */
 	public function setPaid($id, $modepayment = 0)
 	{
-		$sql = "UPDATE ".MAIN_DB_PREFIX."don SET fk_statut = 2, paid = 1";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."donation SET fk_statut = 2, paid = 1";
 		if ($modepayment) {
 			$sql .= ", fk_payment = ".((int) $modepayment);
 		}
@@ -833,7 +833,7 @@ class Don extends CommonObject
 	public function set_cancel($id)
 	{
 		// phpcs:enable
-		$sql = "UPDATE ".MAIN_DB_PREFIX."don SET fk_statut = -1 WHERE rowid = ".((int) $id);
+		$sql = "UPDATE ".MAIN_DB_PREFIX."donation SET fk_statut = -1 WHERE rowid = ".((int) $id);
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -881,7 +881,7 @@ class Don extends CommonObject
 		$result = 0;
 
 		$sql = "SELECT sum(amount) as total";
-		$sql .= " FROM ".MAIN_DB_PREFIX."don";
+		$sql .= " FROM ".MAIN_DB_PREFIX."donation";
 		$sql .= " WHERE fk_statut = ".((int) $param);
 		$sql .= " AND entity = ".$config->entity;
 
@@ -904,7 +904,7 @@ class Don extends CommonObject
 		$this->nb = [];
 
 		$sql = "SELECT count(d.rowid) as nb";
-		$sql .= " FROM ".MAIN_DB_PREFIX."don as d";
+		$sql .= " FROM ".MAIN_DB_PREFIX."donation as d";
 		$sql .= " WHERE d.fk_statut > 0";
 		$sql .= " AND d.entity IN (".getEntity('donation').")";
 
@@ -952,7 +952,7 @@ class Don extends CommonObject
 			$label .= ' - '.$moretitle;
 		}
 
-		$url = DOL_URL_ROOT.'/don/card.php?id='.$this->id;
+		$url = DOL_URL_ROOT.'/donation/card.php?id='.$this->id;
 
 		$add_save_lastsearch_values = ($save_lastsearch_value == 1 ? 1 : 0);
 		if ($save_lastsearch_value == -1 && isset($_SERVER["PHP_SELF"]) && preg_match('/list\.php/', $_SERVER["PHP_SELF"])) {
@@ -995,7 +995,7 @@ class Don extends CommonObject
 	{
 		$sql = 'SELECT d.rowid, d.datec, d.fk_user_author, d.fk_user_valid,';
 		$sql .= ' d.tms as datem';
-		$sql .= ' FROM '.MAIN_DB_PREFIX.'don as d';
+		$sql .= ' FROM '.MAIN_DB_PREFIX.'donation as d';
 		$sql .= ' WHERE d.rowid = '.((int) $id);
 
 		dol_syslog(get_class($this).'::info', LOG_DEBUG);
@@ -1044,7 +1044,7 @@ class Don extends CommonObject
 			}
 		}
 
-		//$modelpath = "core/modules/dons/";
+		//$modelpath = "core/modules/donations/";
 
 		// TODO Restore use of commonGenerateDocument instead of dedicated code here
 		//return $this->commonGenerateDocument($modelpath, $modele, $outputlangs, $hidedetails, $hidedesc, $hideref);
@@ -1077,7 +1077,7 @@ class Don extends CommonObject
 				$file = $prefix."_".preg_replace('/^html_/', '', $modele).".modules.php";
 
 				// Verify the path for the module
-				$file = dol_buildpath($reldir."core/modules/dons/".$file, 0);
+				$file = dol_buildpath($reldir."core/modules/donations/".$file, 0);
 				if (file_exists($file)) {
 					$filefound = 1;
 					$classname = $prefix.'_'.$modele;
@@ -1133,7 +1133,7 @@ class Don extends CommonObject
 	public static function replaceThirdparty(DoliDB $dbs, $origin_id, $dest_id)
 	{
 		$tables = array(
-			'don'
+			'donation'
 		);
 
 		return CommonObject::commonReplaceThirdparty($dbs, $origin_id, $dest_id, $tables);

@@ -4250,7 +4250,7 @@ function migrate_reload_modules($db, $langs, $config, $listofmodule = [], $force
 		'MAIN_MODULE_PRODUIT' => array('class' => 'modProduct'),
 		'MAIN_MODULE_SERVICE' => array('class' => 'modService'),
 		'MAIN_MODULE_COMMANDE' => array('class' => 'modOrder'),
-		'MAIN_MODULE_DON' => array('class' => 'modDon'),
+		'MAIN_MODULE_DON' => array('class' => 'modDonation'),
 		'MAIN_MODULE_FACTURE' => array('class' => 'modFacture'),
 		'MAIN_MODULE_FICHEINTER' => array('class' => 'modFicheinter'),
 		'MAIN_MODULE_FOURNISSEUR' => array('class' => 'modFournisseur'),

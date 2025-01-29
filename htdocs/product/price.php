@@ -356,7 +356,7 @@ if (empty($resHook)) {
 							$localtax2_type = $obj->localtax2_type;
 						}
 
-						// If spain, we don't use the localtax found into tax record in database with same code, but using the get_localtax rule.
+						// If spain, we do not use the localtax found into tax record in database with same code, but using the get_localtax rule.
 						if (in_array($mysoc->country_code, array('ES'))) {
 							$localtax1 = get_localtax($tva_tx, 1);
 							$localtax2 = get_localtax($tva_tx, 2);
@@ -440,7 +440,7 @@ if (empty($resHook)) {
 						$localtax2_type = $obj->localtax2_type;
 					}
 
-					// If spain, we don't use the localtax found into tax record in database with same code, but using the get_localtax rule.
+					// If spain, we do not use the localtax found into tax record in database with same code, but using the get_localtax rule.
 					if (in_array($mysoc->country_code, array('ES'))) {
 						$localtax1 = get_localtax($tva_tx, 1);
 						$localtax2 = get_localtax($tva_tx, 2);
@@ -751,7 +751,7 @@ if (empty($resHook)) {
 					$localtax2_type = $obj->localtax2_type;
 				}
 
-				// If spain, we don't use the localtax found into tax record in database with same code, but using the get_localtax rule.
+				// If spain, we do not use the localtax found into tax record in database with same code, but using the get_localtax rule.
 				if (in_array($mysoc->country_code, array('ES'))) {
 					$localtax1 = get_localtax($tva_tx, 1);
 					$localtax2 = get_localtax($tva_tx, 2);
@@ -903,7 +903,7 @@ if (empty($resHook)) {
 					$localtax2_type = $obj->localtax2_type;
 				}
 
-				// If spain, we don't use the localtax found into tax record in database with same code, but using the get_localtax rule.
+				// If spain, we do not use the localtax found into tax record in database with same code, but using the get_localtax rule.
 				if (in_array($mysoc->country_code, array('ES'))) {
 					$localtax1 = get_localtax($tva_tx, 1);
 					$localtax2 = get_localtax($tva_tx, 2);

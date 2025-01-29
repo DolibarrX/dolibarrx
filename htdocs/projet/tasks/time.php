@@ -1763,7 +1763,7 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 				print '<input type="hidden" name="taskid" value="' . $id . '">';
 			}
 
-			print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+			print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 			print '<table class="noborder nohover centpercent">';
 
 			print '<tr class="liste_titre">';

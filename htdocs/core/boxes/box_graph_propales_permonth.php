@@ -88,7 +88,7 @@ class box_graph_propales_permonth extends ModeleBoxes
 				'target' => 'none'	// Set '' to get target="_blank"
 		);
 
-		$dir = ''; // We don't need a path because image file will not be saved into disk
+		$dir = ''; // We do not need a path because image file will not be saved into disk
 		$prefix = '';
 		$mesg = '';
 		$px1 = null;

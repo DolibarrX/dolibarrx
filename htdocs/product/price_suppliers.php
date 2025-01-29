@@ -628,7 +628,7 @@ if ($id > 0 || $ref) {
 				// Vat rate
 				$default_vat = '';
 
-				// We don't have supplier, so we try to guess.
+				// We do not have supplier, so we try to guess.
 				// For this we build a fictive supplier with same properties than user but using vat)
 				$mysoc2 = clone $mysoc;
 				$mysoc2->name = 'Fictive seller with same country';

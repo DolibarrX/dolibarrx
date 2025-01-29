@@ -178,7 +178,7 @@ if (empty($mysoc->tva_assuj)) {
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="update">';
 
-	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent">';
 	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameters").'</td><td>'.$langs->trans("Value").'</td></tr>';
 
@@ -217,7 +217,7 @@ if (empty($mysoc->tva_assuj)) {
 	print '<br>';
 
 
-	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent">';
 
 	// Case for the parameters TAX_MODE_SELL/BUY_SERVICE/PRODUCT
@@ -245,7 +245,7 @@ if (empty($mysoc->tva_assuj)) {
 	//print ' ('.$langs->trans("CanBeChangedWhenMakingInvoice").')';
 
 
-	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent">';
 	print '<tr class="oddeven"><td class="titlefield">&nbsp;</td><td>'.$langs->trans("Buy").'</td><td>'.$langs->trans("Sell").'</td></tr>';
 

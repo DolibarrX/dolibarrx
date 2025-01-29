@@ -18,7 +18,7 @@
  */
 
 /**
- *  \file       htdocs/don/class/paymentdonation.class.php
+ *  \file       htdocs/donation/class/paymentdonation.class.php
  *  \ingroup    Donation
  *  \brief      File of class to manage payment of donations
  */
@@ -659,7 +659,7 @@ class PaymentDonation extends CommonObject
 				// Add link 'payment', 'payment_supplier', 'payment_donation' in bank_url between payment and bank transaction
 				$url = '';
 				if ($mode == 'payment_donation') {
-					$url = DOL_URL_ROOT.'/don/payment/card.php?rowid=';
+					$url = DOL_URL_ROOT.'/donation/payment/card.php?rowid=';
 				}
 				if ($url) {
 					$result = $acc->add_url_line($bank_line_id, $this->id, $url, '(paiement)', $mode);
@@ -722,7 +722,7 @@ class PaymentDonation extends CommonObject
 		$label .= '<b>'.$langs->trans('Ref').':</b> '.$this->ref;
 
 		if (!empty($this->id)) {
-			$link = '<a href="'.DOL_URL_ROOT.'/don/payment/card.php?id='.$this->id.'" title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';
+			$link = '<a href="'.DOL_URL_ROOT.'/donation/payment/card.php?id='.$this->id.'" title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';
 			$linkend = '</a>';
 
 			if ($withPicture) {

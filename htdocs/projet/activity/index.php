@@ -443,7 +443,7 @@ if (!getDolGlobalString('PROJECT_HIDE_TASKS') && getDolGlobalString('PROJECT_SHO
 
 
 	// Tasks for all resources of all opened projects and time spent for each task/resource
-	// This list can be very long, so we don't show it by default on task area. We prefer to use the list page.
+	// This list can be very long, so we do not show it by default on task area. We prefer to use the list page.
 	// Add constant PROJECT_SHOW_TASK_LIST_ON_PROJECT_AREA to show this list
 
 	$max = getDolGlobalInt('PROJECT_LIMIT_TASK_PROJECT_AREA', 1000);

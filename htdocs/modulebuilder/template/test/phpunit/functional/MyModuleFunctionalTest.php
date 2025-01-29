@@ -69,7 +69,7 @@ class MyModuleFunctionalTest extends \PHPUnit_Extensions_Selenium2TestCase  // @
 			'desiredCapabilities' => []
 		),
 		// Geckodriver does not keep the session at the moment?!
-		// XPath selectors also don't seem to work
+		// XPath selectors also do not seem to work
 		//array(
 		//    'browser' => 'Mozilla Firefox on Linux',
 		//    'browserName' => 'firefox',

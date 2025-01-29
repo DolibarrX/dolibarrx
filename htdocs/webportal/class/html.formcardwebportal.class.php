@@ -553,7 +553,7 @@ class FormCardWebPortal
 			}
 
 			if (array_key_exists('enabled', $val) && isset($val['enabled']) && !verifCond($val['enabled'])) {
-				continue; // we don't want this field
+				continue; // we do not want this field
 			}
 
 			if (!empty($val['showonheader'])) {
@@ -652,7 +652,7 @@ class FormCardWebPortal
 			}
 
 			if (array_key_exists('enabled', $val) && isset($val['enabled']) && !verifCond($val['enabled'])) {
-				continue; // We don't want this field
+				continue; // We do not want this field
 			}
 
 			$html .= '<div class="grid field_' . $key . '">';

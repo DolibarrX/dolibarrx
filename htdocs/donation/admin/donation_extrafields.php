@@ -18,7 +18,7 @@
  */
 
 /**
- *  \file       htdocs/don/admin/donation_extrafields.php
+ *  \file       htdocs/donation/admin/donation_extrafields.php
  *  \ingroup    donations
  *  \brief      Page to setup extra fields of donations
  */
@@ -47,7 +47,7 @@ $type2label = ExtraFields::getListOfTypesLabels();
 
 $action = GETPOST('action', 'aZ09');
 $attrname = GETPOST('attrname', 'alpha');
-$elementtype = 'don'; //Must be the $table_element of the class that manage extrafield
+$elementtype = 'donation'; //Must be the $table_element of the class that manage extrafield
 
 if (!$user->admin) {
 	accessforbidden();

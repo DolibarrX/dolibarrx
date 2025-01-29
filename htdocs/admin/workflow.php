@@ -264,7 +264,7 @@ print '<span class="opacitymedium">'.$langs->trans("WorkflowDesc").'</span>';
 print '<br>';
 print '<br>';
 
-// current module setup don't support any automatic workflow of this module
+// current module setup do not support any automatic workflow of this module
 if (count($workflowcodes) < 1) {
 	print $langs->trans("ThereIsNoWorkflowToModify");
 

@@ -1206,7 +1206,7 @@ if ($action == 'create' || $action == 'presend') {
 		print '<input type="hidden" name="trackid" value="'.$trackid.'">';
 
 		// Classification of ticket
-		print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+		print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 		print '<table class="border tableforfield centpercent margintable bordertopimp">';
 		print '<tr class="liste_titre">';
 		print '<td>';

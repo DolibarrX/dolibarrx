@@ -2642,7 +2642,7 @@ class BookKeeping extends CommonObject
 		$sql .= " FROM " . $this->db->prefix() . $this->table_element . " as b";
 		$sql .= " WHERE b.doc_date >= '" . $this->db->idate($date_start) . "'";
 		$sql .= " AND b.doc_date <= '" . $this->db->idate($date_end) . "'";
-		$sql .= " AND b.entity IN (" . getEntity('bookkeeping', 0) . ")"; // We don't share object for accountancy
+		$sql .= " AND b.entity IN (" . getEntity('bookkeeping', 0) . ")"; // We do not share object for accountancy
 
 		// Get count for each month into the fiscal period
 		if (getDolGlobalString("ACCOUNTANCY_DISABLE_CLOSURE_LINE_BY_LINE")) {

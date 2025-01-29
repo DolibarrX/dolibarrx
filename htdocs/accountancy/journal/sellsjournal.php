@@ -177,7 +177,7 @@ $parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " WHERE fd.fk_code_ventilation > 0";
-$sql .= " AND f.entity IN (".getEntity('invoice', 0).')'; // We don't share object for accountancy, we use source object sharing
+$sql .= " AND f.entity IN (".getEntity('invoice', 0).')'; // We do not share object for accountancy, we use source object sharing
 $sql .= " AND f.fk_statut > 0";
 if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {	// Non common setup
 	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.",".Facture::TYPE_REPLACEMENT.",".Facture::TYPE_CREDIT_NOTE.",".Facture::TYPE_SITUATION.")";
@@ -255,7 +255,7 @@ if ($result) {
 				$buyer = new Societe($db);
 				$buyer->fetch($obj->socid);
 			} else {
-				$buyer = null;	// We don't need the buyer in this case
+				$buyer = null;	// We do not need the buyer in this case
 			}
 			$seller = $mysoc;
 			$vatdata = getTaxesFromId($tax_id, $buyer, $seller, 0);

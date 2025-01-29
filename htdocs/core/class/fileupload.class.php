@@ -278,12 +278,12 @@ class FileUpload
 				return false;
 			}
 
-			$res = vignette($file_path, $maxwidthmini, $maxheightmini, '_mini'); // We don't use ->addThumbs here because there is no object
+			$res = vignette($file_path, $maxwidthmini, $maxheightmini, '_mini'); // We do not use ->addThumbs here because there is no object
 			if (preg_match('/error/i', $res)) {
 				return false;
 			}
 
-			$res = vignette($file_path, $maxwidthsmall, $maxheightsmall, '_small'); // We don't use ->addThumbs here because there is no object
+			$res = vignette($file_path, $maxwidthsmall, $maxheightsmall, '_small'); // We do not use ->addThumbs here because there is no object
 			if (preg_match('/error/i', $res)) {
 				return false;
 			}

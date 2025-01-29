@@ -2013,7 +2013,7 @@ class ActionComm extends CommonObject
 	 * @param integer   $cachedelay     			Do not rebuild file if date older than cachedelay seconds
 	 * @param string    $filename       			The name for the exported file.
 	 * @param array<string,int|string>	$filters	Array of filters. Example array('notolderthan'=>99, 'year'=>..., 'idfrom'=>..., 'actiontype'=>'systemauto', 'actioncode'=>'AC_PRODUCT_MODIFY', 'project'=>123, ...)
-	 * @param int<0,1>  $exportholiday  			0 = don't integrate holidays into the export, 1 = integrate holidays into the export
+	 * @param int<0,1>  $exportholiday  			0 = do not integrate holidays into the export, 1 = integrate holidays into the export
 	 * @return int<-1,1>                			-1 = error on build export file, 0 = export okay
 	 */
 	public function build_exportfile($format, $type, $cachedelay, $filename, $filters, $exportholiday = 0)

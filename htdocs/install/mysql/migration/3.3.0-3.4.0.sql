@@ -64,12 +64,12 @@ ALTER TABLE llx_facture_fourn ADD UNIQUE INDEX uk_facture_fourn_ref_supplier (re
 
 alter table llx_propal   CHANGE COLUMN fk_adresse_livraison fk_delivery_address integer;
 alter table llx_order CHANGE COLUMN fk_adresse_livraison fk_delivery_address integer;
-alter table llx_don      CHANGE COLUMN adresse address text;
-alter table llx_don      CHANGE COLUMN ville town text;
-alter table llx_don      CHANGE COLUMN prenom firstname varchar(50);
-alter table llx_don      CHANGE COLUMN nom lastname varchar(50);
-alter table llx_don 	  CHANGE COLUMN cp zip varchar(10);
-alter table llx_don      CHANGE COLUMN pays country varchar(50);
+alter table llx_donation      CHANGE COLUMN adresse address text;
+alter table llx_donation      CHANGE COLUMN ville town text;
+alter table llx_donation      CHANGE COLUMN prenom firstname varchar(50);
+alter table llx_donation      CHANGE COLUMN nom lastname varchar(50);
+alter table llx_donation 	  CHANGE COLUMN cp zip varchar(10);
+alter table llx_donation      CHANGE COLUMN pays country varchar(50);
 alter table llx_member CHANGE COLUMN adresse address text;
 alter table llx_member CHANGE COLUMN nom lastname varchar(50);
 alter table llx_member CHANGE COLUMN prenom firstname varchar(50);
@@ -289,7 +289,7 @@ ALTER TABLE llx_propal CHANGE COLUMN note note_private text;
 ALTER TABLE llx_order_fournisseur CHANGE COLUMN note note_private text;
 ALTER TABLE llx_contract CHANGE COLUMN note note_private text;
 ALTER TABLE llx_deplacement CHANGE COLUMN note note_private text;
-ALTER TABLE llx_don CHANGE COLUMN note note_private text;
+ALTER TABLE llx_donation CHANGE COLUMN note note_private text;
 ALTER TABLE llx_facture_fourn CHANGE COLUMN note note_private text;
 ALTER TABLE llx_facture_rec CHANGE COLUMN note note_private text;
 ALTER TABLE llx_holiday CHANGE COLUMN note note_private text;

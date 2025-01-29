@@ -94,7 +94,7 @@ if (empty($resHook)) {
 				continue;
 			}
 			if (array_key_exists('enabled', $field_info) && isset($field_info['enabled']) && !verifCond($field_info['enabled'])) {
-				continue; // We don't want this field
+				continue; // We do not want this field
 			}
 			if (!empty($field_info['column_break'])) {
 				print '</table>';

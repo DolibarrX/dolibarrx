@@ -121,7 +121,7 @@ print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="setting">';
 print '<input type="hidden" name="page_y" value="">';
 
-print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 print '<table class="noborder centpercent">';
 
 print '<tr class="liste_titre">';
@@ -164,7 +164,7 @@ print load_fiche_titre($langs->trans("ReferingWebsiteCheck"), '', '');
 print '<span class="opacitymedium">'.$langs->trans("ReferingWebsiteCheckDesc").'</span><br>';
 print '<br>';
 
-print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 print '<table class="noborder centpercent">';
 
 print '<tr class="liste_titre">';

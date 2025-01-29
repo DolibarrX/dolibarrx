@@ -1636,7 +1636,7 @@ while ($i < $imaxinloop) {
 
 	$object = $facturestatic;
 
-	//If invoice has been converted and the conversion has been used, we don't have remain to pay on invoice
+	//If invoice has been converted and the conversion has been used, we do not have remain to pay on invoice
 	if ($facturestatic->type == FactureFournisseur::TYPE_CREDIT_NOTE) {
 		if ($facturestatic->isCreditNoteUsed()) {
 			$remaintopay = -$facturestatic->getSumFromThisCreditNotesNotUsed();

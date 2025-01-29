@@ -183,8 +183,8 @@ function project_prepare_head(Project $project, $moreparam = '')
 			if (isModEnabled('expensereport')) {
 				$nbElements += $project->getElementCount('expensereport', 'expensereport');
 			}
-			if (isModEnabled('don')) {
-				$nbElements += $project->getElementCount('donation', 'don');
+			if (isModEnabled('donation')) {
+				$nbElements += $project->getElementCount('donation', 'donation');
 			}
 			if (isModEnabled('loan')) {
 				$nbElements += $project->getElementCount('loan', 'loan');
@@ -636,12 +636,12 @@ function projectLinesa(&$inc, $parent, &$lines, &$level, $var, $showproject, &$t
 
 	for ($i = 0; $i < $numlines; $i++) {
 		if ($parent == 0 && $level >= 0) {
-			$level = 0; // if $level = -1, we don't use sublevel recursion, we show all lines
+			$level = 0; // if $level = -1, we do not use sublevel recursion, we show all lines
 		}
 
 		// Process line
 		// print "i:".$i."-".$lines[$i]->fk_project.'<br>';
-		if ($lines[$i]->fk_task_parent == $parent || $level < 0) {       // if $level = -1, we don't use sublevel recursion, we show all lines
+		if ($lines[$i]->fk_task_parent == $parent || $level < 0) {       // if $level = -1, we do not use sublevel recursion, we show all lines
 			// Show task line.
 			$showline = 1;
 			$showlineingray = 0;
@@ -2899,8 +2899,8 @@ function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks 
 
 /**
  * @param   Task        $task               the task object
- * @param   bool|string $label              true = auto, false = don't display, string = replace output
- * @param   bool|string $progressNumber     true = auto, false = don't display, string = replace output
+ * @param   bool|string $label              true = auto, false = do not display, string = replace output
+ * @param   bool|string $progressNumber     true = auto, false = do not display, string = replace output
  * @param   bool        $hideOnProgressNull hide if progress is null
  * @param   bool        $spaced             used to add space at bottom (made by css)
  * @return string

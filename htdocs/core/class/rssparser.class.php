@@ -738,7 +738,7 @@ class RssParser
 			$this->inchannel = false;
 		} elseif ($this->_format == 'atom' and $this->incontent) {
 			// balance tags properly
-			// note:  i don't think this is actually necessary
+			// note:  i do not think this is actually necessary
 			if ($this->stack[0] == $el) {
 				$this->append_content("</$el>");
 			} else {

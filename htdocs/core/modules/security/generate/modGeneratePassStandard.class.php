@@ -104,7 +104,7 @@ class modGeneratePassStandard extends ModeleGenPassword
 				$char = substr($possible, mt_rand(0, dol_strlen($possible) - 1), 1);
 			}
 
-			if (substr_count($password, $char) <= 6) {	// we don't want this character if it's already 5 times in the password
+			if (substr_count($password, $char) <= 6) {	// we do not want this character if it's already 5 times in the password
 				$password .= $char;
 				$i++;
 			}

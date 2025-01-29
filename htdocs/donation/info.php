@@ -17,7 +17,7 @@
  */
 
 /**
- * 	\file       htdocs/don/info.php
+ * 	\file       htdocs/donation/info.php
  * 	\ingroup    donations
  * 	\brief      Page to show a donation information
  */
@@ -26,7 +26,7 @@
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/donation.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formprojet.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
@@ -56,7 +56,7 @@ if ($id > 0 || $ref) {
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'don', $object->id);
+$result = restrictedArea($user, 'donation', $object->id);
 
 
 
@@ -64,7 +64,7 @@ $result = restrictedArea($user, 'don', $object->id);
  * Actions
  */
 
-if ($action == 'classin' && $user->hasRight('don', 'creer')) {
+if ($action == 'classin' && $user->hasRight('donation', 'creer')) {
 	$object->fetch($id);
 	$object->setProject($projectid);
 }
@@ -91,14 +91,14 @@ $head = donation_prepare_head($object);
 
 print dol_get_fiche_head($head, 'info', $langs->trans("Donation"), -1, 'donation');
 
-$linkback = '<a href="'.DOL_URL_ROOT.'/don/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+$linkback = '<a href="'.DOL_URL_ROOT.'/donation/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 $morehtmlref = '<div class="refidno">';
 // Project
 if (isModEnabled('project')) {
 	$langs->load("projects");
 	$morehtmlref .= $langs->trans('Project').' ';
-	if ($user->hasRight('don', 'creer')) {
+	if ($user->hasRight('donation', 'creer')) {
 		if ($action != 'classify') {
 			// $morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&token='.newToken().'&id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
 		}

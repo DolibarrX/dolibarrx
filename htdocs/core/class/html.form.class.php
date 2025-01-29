@@ -105,7 +105,7 @@ class Form
 	 * @param 	string 	$preselected 	Value to show/edit (not used in this function)
 	 * @param 	object 	$object 		Object (on the page we show)
 	 * @param 	boolean $perm 			Permission to allow button to edit parameter. Set it to 0 to have a not edited field.
-	 * @param 	string 	$typeofdata 	Type of data ('string' by default, 'email', 'amount:99', 'numeric:99', 'text' or 'textarea:rows:cols', 'datepicker' ('day' do not work, don't know why), 'dayhour' or 'datehourpicker' 'checkbox:ckeditor:dolibarr_zzz:width:height:savemethod:1:rows:cols', 'select;xxx[:class]'...)
+	 * @param 	string 	$typeofdata 	Type of data ('string' by default, 'email', 'amount:99', 'numeric:99', 'text' or 'textarea:rows:cols', 'datepicker' ('day' do not work, do not know why), 'dayhour' or 'datehourpicker' 'checkbox:ckeditor:dolibarr_zzz:width:height:savemethod:1:rows:cols', 'select;xxx[:class]'...)
 	 * @param 	string 	$moreparam 		More param to add on a href URL.
 	 * @param 	int 	$fieldrequired 	1 if we want to show field as mandatory using the "fieldrequired" CSS.
 	 * @param 	int 	$notabletag 	1=Do not output table tags but output a ':', 2=Do not output table tags and no ':', 3=Do not output table tags but output a ' '
@@ -207,7 +207,7 @@ class Form
 	 * @param boolean 	$perm 			Permission to allow button to edit parameter
 	 * @param string 	$typeofdata 	Type of data ('string' by default, 'checkbox', 'email', 'phone', 'amount:99', 'numeric:99',
 	 *                                  'text' or 'textarea:rows:cols%', 'safehtmlstring', 'restricthtml',
-	 *                                  'datepicker' ('day' do not work, don't know why), 'dayhour' or 'datehourpicker', 'ckeditor:dolibarr_zzz:width:height:savemethod:toolbarstartexpanded:rows:cols', 'select;xkey:xval,ykey:yval,...')
+	 *                                  'datepicker' ('day' do not work, do not know why), 'dayhour' or 'datehourpicker', 'ckeditor:dolibarr_zzz:width:height:savemethod:toolbarstartexpanded:rows:cols', 'select;xkey:xval,ykey:yval,...')
 	 * @param string 	$editvalue 		When in edit mode, use this value as $value instead of value (for example, you can provide here a formatted price instead of numeric value, or a select combo). Use '' to use same than $value
 	 * @param ?CommonObject	$extObject 	External object ???
 	 * @param mixed 	$custommsg 		String or Array of custom messages : eg array('success' => 'MyMessage', 'error' => 'MyMessage')
@@ -387,7 +387,7 @@ class Form
 						$firstline = preg_replace('/[\n\r].*/', '', $firstline);
 						$tmpcontent = $firstline . ((strlen($firstline) != strlen($tmpcontent)) ? '...' : '');
 					}
-					// We don't use dol_escape_htmltag to get the html formatting active, but this need we must also
+					// We do not use dol_escape_htmltag to get the html formatting active, but this need we must also
 					// clean data from some dangerous html
 					$ret .= dol_string_onlythesehtmltags(dol_htmlentitiesbr($tmpcontent));
 				} else {
@@ -413,7 +413,7 @@ class Form
 	 * @param 	string 	$fieldname 	Name of the field
 	 * @param 	CommonObject	$object Object
 	 * @param 	boolean $perm 		Permission to allow button to edit parameter. Set it to 0 to have a not edited field.
-	 * @param 	string 	$typeofdata Type of data ('string' by default, 'email', 'amount:99', 'numeric:99', 'text' or 'textarea:rows:cols', 'datepicker' ('day' do not work, don't know why), 'ckeditor:dolibarr_zzz:width:height:savemethod:1:rows:cols', 'select;xxx[:class]'...)
+	 * @param 	string 	$typeofdata Type of data ('string' by default, 'email', 'amount:99', 'numeric:99', 'text' or 'textarea:rows:cols', 'datepicker' ('day' do not work, do not know why), 'ckeditor:dolibarr_zzz:width:height:savemethod:1:rows:cols', 'select;xxx[:class]'...)
 	 * @param 	string 	$check 		Same coe than $check parameter of GETPOST()
 	 * @param 	string 	$morecss 	More CSS
 	 * @return  string              HTML code for the edit of alternative language
@@ -486,7 +486,7 @@ class Form
 	 * @param 	string 	$value 		Value to show/edit
 	 * @param 	string 	$htmlname 	DIV ID (field name)
 	 * @param 	int 	$condition 	Condition to edit
-	 * @param 	string 	$inputType 	Type of input ('string', 'numeric', 'datepicker' ('day' do not work, don't know why), 'textarea:rows:cols', 'ckeditor:dolibarr_zzz:width:height:?:1:rows:cols', 'select:loadmethod:savemethod:buttononly')
+	 * @param 	string 	$inputType 	Type of input ('string', 'numeric', 'datepicker' ('day' do not work, do not know why), 'textarea:rows:cols', 'ckeditor:dolibarr_zzz:width:height:?:1:rows:cols', 'select:loadmethod:savemethod:buttononly')
 	 * @param 	string 	$editvalue 	When in edit mode, use this value as $value instead of value
 	 * @param 	?CommonObject	$extObject 	External object
 	 * @param 	mixed 	$custommsg 	String or Array of custom messages : eg array('success' => 'MyMessage', 'error' => 'MyMessage')
@@ -6745,7 +6745,7 @@ class Form
 	 * @param 	integer $useempty 				1=Add empty line
 	 * @param 	string 	$filter 				Optional filters criteras (example: 'code <> x', ' in (1,3)')
 	 * @param 	bool 	$excludeConfCurrency 	false = If company current currency not in table, we add it into list. Should always be available.
-	 *                                  		true = we are in currency_rate update , we don't want to see conf->currency in select
+	 *                                  		true = we are in currency_rate update , we do not want to see conf->currency in select
 	 * @param 	string 	$morecss 				More css
 	 * @return  string							HTML component
 	 */
@@ -6991,7 +6991,7 @@ class Form
 								break;
 						}
 					}
-				} elseif (!$idprod) {  // We don't know type of product
+				} elseif (!$idprod) {  // We do not know type of product
 					switch ($selectVatComboMode) {
 						case '1':
 							$code_country .= ",'" . $societe_acheteuse->country_code . "'";
@@ -7377,7 +7377,7 @@ class Form
 								},
 								";
 						}
-						// Note: We don't need monthNames, monthNamesShort, dayNames, dayNamesShort, dayNamesMin, they are set globally on datepicker component in lib_head.js.php
+						// Note: We do not need monthNames, monthNamesShort, dayNames, dayNamesShort, dayNamesMin, they are set globally on datepicker component in lib_head.js.php
 						if (!getDolGlobalString('MAIN_POPUP_CALENDAR_ON_FOCUS')) {
 							$buttonImage = $calendarpicture ?: DOL_URL_ROOT . "/theme/" . dol_escape_js($config->theme) . "/img/object_calendarday.png";
 							$retstring .= "
@@ -9484,11 +9484,11 @@ class Form
 			// var_dump(array_key_exists('enabled', $val));
 			// var_dump(!$val['enabled']);
 			if (array_key_exists('enabled', $val) && isset($val['enabled']) && !$val['enabled']) {
-				unset($array[$key]); // We don't want this field
+				unset($array[$key]); // We do not want this field
 				continue;
 			}
 			if (!empty($val['type']) && $val['type'] == 'separate') {
-				// Field remains in array but we don't add it into $listoffieldsforselection
+				// Field remains in array but we do not add it into $listoffieldsforselection
 				//$listoffieldsforselection .= '<li>-----</li>';
 				continue;
 			}
@@ -9889,7 +9889,7 @@ class Form
 		}
 
 		$resHook = 0; // Ensure $resHook is defined for static analysis
-		if (!empty($listofidcompanytoscan)) {  // If empty, we don't have criteria to scan the object we can link to
+		if (!empty($listofidcompanytoscan)) {  // If empty, we do not have criteria to scan the object we can link to
 			// Can complete the possiblelink array
 			$hookManager->initHooks(array('commonobject'));
 			$parameters = array('listofidcompanytoscan' => $listofidcompanytoscan, 'possiblelinks' => $possiblelinks);
@@ -10352,7 +10352,7 @@ class Form
 			$ret .= dol_htmlentities(!empty($object->$fieldref) ? $object->$fieldref : "");
 		}
 		if ($morehtmlref) {
-			// don't add a additional space, when "$morehtmlref" starts with a HTML div tag
+			// do not add a additional space, when "$morehtmlref" starts with a HTML div tag
 			if (substr($morehtmlref, 0, 4) != '<div') {
 				$ret .= ' ';
 			}

@@ -563,7 +563,7 @@ if (issetAndNoEmpty('totalchoixjour', $_SESSION) || $erreur) {
 	print $langs->trans("SelectDayDesc")."<br>\n";
 	print '</div><br>';
 
-	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table>'."\n";
 	print '<tr>'."\n";
 	print '<td></td>'."\n";
@@ -604,7 +604,7 @@ if (issetAndNoEmpty('totalchoixjour', $_SESSION) || $erreur) {
 	print '</div>';
 
 	// show buttons to cancel, delete days or create survey
-	print '<br><div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<br><div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<input type="submit" class="button small" name="reset" value="'.dol_escape_htmltag($langs->trans("RemoveAllDays")).'">';
 	print '<input type="submit" class="button small" name="reporterhoraires" value="'.dol_escape_htmltag($langs->trans("CopyHoursOfFirstDay")).'">';
 	print '<input type="submit" class="button small" name="resethoraires" value="'.dol_escape_htmltag($langs->trans("RemoveAllHours")).'">'."\n";

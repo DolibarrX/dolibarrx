@@ -1354,7 +1354,7 @@ class ProductAttribute extends CommonObject
 	 *	Return HTML table for object lines
 	 *	TODO Move this into an output class file (htmlline.class.php)
 	 *	If lines are into a template, title must also be into a template
-	 *	But for the moment we don't know if it's possible as we keep a method available on overloaded objects.
+	 *	But for the moment we do not know if it's possible as we keep a method available on overloaded objects.
 	 *
 	 *	@param	string		$action				Action code
 	 *	@param  Societe		$seller            	Object of seller third party

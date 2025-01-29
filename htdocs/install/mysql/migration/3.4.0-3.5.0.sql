@@ -29,7 +29,7 @@ UPDATE llx_c_type_contact set code = 'TASKCONTRIBUTOR' where code = 'CONTRIBUTOR
 insert into llx_c_tva(rowid,fk_pays,taux,recuperableonly,localtax1,localtax1_type,note,active) values (143, 14,'5','0','9.975','1','TPS and TVQ rate',1);
 
 -- Fix bad migration of 3.4 that make this text instead of varchar(50)
-alter table llx_don      MODIFY COLUMN town varchar(50);
+alter table llx_donation      MODIFY COLUMN town varchar(50);
 alter table llx_member MODIFY COLUMN town varchar(50);
 alter table llx_entrepot MODIFY COLUMN town varchar(50);
 alter table llx_societe  MODIFY COLUMN town varchar(50);

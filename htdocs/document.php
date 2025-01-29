@@ -49,7 +49,7 @@ if (!defined('NOREQUIREAJAX')) {
 	define('NOREQUIREAJAX', '1');
 }
 
-// For direct external download link, we don't need to load/check we are into a login session
+// For direct external download link, we do not need to load/check we are into a login session
 if (isset($_GET["hashp"]) && !defined("NOLOGIN")) {
 	if (!defined("NOLOGIN")) {
 		define("NOLOGIN", 1);

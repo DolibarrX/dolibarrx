@@ -1581,11 +1581,11 @@ class Societe extends CommonObject
 		// If error, this->errors[] is filled
 		$result = 0;
 		if ($action != 'add' && $action != 'merge') {
-			// We don't check when update called during a create because verify was already done.
+			// We do not check when update called during a create because verify was already done.
 			// For a merge, we suppose source data is clean and a customer code of a deleted thirdparty must be accepted into a target thirdparty with empty code without duplicate error
 			$result = $this->verify();
 
-			// If there is only one error and error is ErrorBadCustomerCodeSyntax and we don't change customer code, we allow the update
+			// If there is only one error and error is ErrorBadCustomerCodeSyntax and we do not change customer code, we allow the update
 			// So we can update record that were using and old numbering rule.
 			if (is_array($this->errors)) {
 				if (in_array('ErrorBadCustomerCodeSyntax', $this->errors) && is_object($this->oldcopy) && $this->oldcopy->code_client == $this->code_client) {
@@ -5307,7 +5307,7 @@ class Societe extends CommonObject
 			$dbs->query('DELETE FROM '.MAIN_DB_PREFIX.'societe_commerciaux WHERE rowid = '.((int) $obj->rowid));
 		}
 
-		// The table llx_societe_extrafields must NOT be in this list because we don't care about the old thirdparty extrafields that are managed directly into mergeCompany.
+		// The table llx_societe_extrafields must NOT be in this list because we do not care about the old thirdparty extrafields that are managed directly into mergeCompany.
 		// Do not include llx_societe because it will be replaced later.
 		$tables = array(
 			'societe_account',
@@ -5655,8 +5655,8 @@ class Societe extends CommonObject
 				if ($this->db->DDLListTables($config->db->name, $this->db->prefix().'mrp_mo')) {
 					$objects['Mo'] = '/mrp/class/mo.class.php';
 				}
-				if ($this->db->DDLListTables($config->db->name, $this->db->prefix().'don')) {
-					$objects['Don'] = '/don/class/don.class.php';
+				if ($this->db->DDLListTables($config->db->name, $this->db->prefix().'donation')) {
+					$objects['Don'] = '/donation/class/don.class.php';
 				}
 				if ($this->db->DDLListTables($config->db->name, $this->db->prefix().'partnership')) {
 					$objects['PartnerShip'] = '/partnership/class/partnership.class.php';

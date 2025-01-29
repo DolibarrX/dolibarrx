@@ -2,7 +2,7 @@
 /* Copyright (C) 2024		MDW							<mdeweerd@users.noreply.github.com>
  */
 /**
- * Simple autoloader, so we don't need Composer just for this.
+ * Simple autoloader, so we do not need Composer just for this.
  *
  * @phan-file-suppress PhanTypeMismatchArgumentInternal
  */

@@ -142,7 +142,7 @@ if (isset($extrafields->attributes[$elementtype]['type']) && is_array($extrafiel
 			print $langs->transnoentitiesnoconv($extrafields->attributes[$elementtype]['label'][$key]);
 		}
 		print '</span>';
-		print "</td>\n"; // We don't translate here, we want admin to know what is the key not translated value
+		print "</td>\n"; // We do not translate here, we want admin to know what is the key not translated value
 		// Label translated
 		//print '<td class="tdoverflowmax150" title="'.dol_escape_htmltag($langs->transnoentitiesnoconv($extrafields->attributes[$elementtype]['label'][$key])).'">'.dol_escape_htmltag($langs->transnoentitiesnoconv($extrafields->attributes[$elementtype]['label'][$key]))."</td>\n";
 		// Key

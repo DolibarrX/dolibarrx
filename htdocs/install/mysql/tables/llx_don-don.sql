@@ -20,7 +20,7 @@
 -- ===================================================================
 
 
-create table llx_don
+create table llx_donation
 (
   rowid           integer AUTO_INCREMENT PRIMARY KEY,
   ref             varchar(30) DEFAULT NULL,     -- Ref donation (TODO change to NOT NULL)

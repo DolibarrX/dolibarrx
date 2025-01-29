@@ -51,7 +51,7 @@ ALTER TABLE llx_projet ADD COLUMN fk_user_modif integer;
 
 ALTER TABLE llx_member ADD COLUMN model_pdf varchar(255);
 
-ALTER TABLE llx_don ADD COLUMN date_valid datetime;
+ALTER TABLE llx_donation ADD COLUMN date_valid datetime;
 
 DELETE FROM llx_menu where module='expensereport';
 

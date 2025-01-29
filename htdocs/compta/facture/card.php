@@ -5405,7 +5405,7 @@ if ($action == 'create') {
 					print '<td>';
 					$dateofpayment = $db->jdate($objp->dp);
 					$tmparray = dol_getdate($dateofpayment);
-					if ($tmparray['seconds'] == 0 && $tmparray['minutes'] == 0 && ($tmparray['hours'] == 0 || $tmparray['hours'] == 12)) {	// We set hours to 0:00 or 12:00 because we don't know it
+					if ($tmparray['seconds'] == 0 && $tmparray['minutes'] == 0 && ($tmparray['hours'] == 0 || $tmparray['hours'] == 12)) {	// We set hours to 0:00 or 12:00 because we do not know it
 						print dol_print_date($dateofpayment, 'day');
 					} else {	// Hours was set to real date of payment (special case for POS for example)
 						print dol_print_date($dateofpayment, 'dayhour', 'tzuser');

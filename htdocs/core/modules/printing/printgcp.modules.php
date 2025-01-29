@@ -303,7 +303,7 @@ class printing_printgcp extends PrintingDriver
 		$printers = $responsedata['printers'];
 		// Check if we have printers?
 		if (is_array($printers) && count($printers) == 0) {
-			// We don't have printers so return blank array
+			// We do not have printers so return blank array
 			$ret['available'] = [];
 		} else {
 			// We have printers so returns printers as array

@@ -321,7 +321,7 @@ class Mo extends CommonObject
 		$error = 0;
 		$idcreated = 0;
 
-		// If kits feature is enabled and we don't allow kits into BOM and MO, we check that the product is not a kit/virtual product
+		// If kits feature is enabled and we do not allow kits into BOM and MO, we check that the product is not a kit/virtual product
 		if (getDolGlobalString('PRODUIT_SOUSPRODUITS') && !getDolGlobalString('ALLOW_USE_KITS_INTO_BOM_AND_MO') && $this->fk_product > 0) {
 			include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 			$tmpproduct = new Product($this->db);
@@ -1715,7 +1715,7 @@ class Mo extends CommonObject
 	 * 	Return HTML table table of source object lines
 	 *  TODO Move this and previous function into output html class file (htmlline.class.php).
 	 *  If lines are into a template, title must also be into a template
-	 *  But for the moment we don't know if it's possible, so we keep the method available on overloaded objects.
+	 *  But for the moment we do not know if it's possible, so we keep the method available on overloaded objects.
 	 *
 	 *	@param	''|'services'	$restrictlist		''=All lines, 'services'=Restrict to services only
 	 *  @param  int[]       $selectedLines      Array of lines id for selected lines
@@ -1789,7 +1789,7 @@ class Mo extends CommonObject
 	 * 	Return HTML with a line of table array of source object lines
 	 *  TODO Move this and previous function into output html class file (htmlline.class.php).
 	 *  If lines are into a template, title must also be into a template
-	 *  But for the moment we don't know if it's possible as we keep a method available on overloaded objects.
+	 *  But for the moment we do not know if it's possible as we keep a method available on overloaded objects.
 	 *
 	 * 	@param	CommonObjectLine	$line			Line
 	 * 	@param	string				$var			Var

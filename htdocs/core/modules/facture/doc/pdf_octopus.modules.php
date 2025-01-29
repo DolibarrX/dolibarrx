@@ -763,7 +763,7 @@ class pdf_octopus extends ModelePDFFactures
 				$this->prepareArrayColumnField($object, $outputlangs, $hidedetails, $hidedesc, $hideref);
 
 				// Table simulation to know the height of the title line (this set this->tableTitleHeight)
-				// don't need it in situation invoices
+				// do not need it in situation invoices
 				// $pdf->startTransaction();
 				// $this->pdfTabTitles($pdf, $this->tab_top_newpage + ($this->tabTitleHeight/2), $tab_height, $outputlangs, $hidetop);
 				// $pdf->rollbackTransaction(true);
@@ -3241,7 +3241,7 @@ class pdf_octopus extends ModelePDFFactures
 
 			// TODO : add a flag on invoices to store this conf USE_RETAINED_WARRANTY_ONLY_FOR_SITUATION_FINAL
 
-			// note : we don't need to test USE_RETAINED_WARRANTY_ONLY_FOR_SITUATION because if $object->retained_warranty is not empty it's because it was set when this conf was active
+			// note : we do not need to test USE_RETAINED_WARRANTY_ONLY_FOR_SITUATION because if $object->retained_warranty is not empty it's because it was set when this conf was active
 
 			$displayWarranty = false;
 			if (!empty($object->retained_warranty)) {

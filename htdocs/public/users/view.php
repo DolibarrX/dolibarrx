@@ -129,7 +129,7 @@ if (!empty($logosmall) && is_readable($dir.'/'.$logosmall)) {
 	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart='.$modulePart.($config->entity > 1 ? '&entity='.$config->entity : '').'&securekey='.urlencode($securekey).'&file='.urlencode($logo);
 }
 
-// Clean data we don't want on public page
+// Clean data we do not want on public page
 if (getDolUserInt('USER_PUBLIC_HIDE_PHOTO', 0, $object)) {
 	$logo = '';
 	$logosmall = '';

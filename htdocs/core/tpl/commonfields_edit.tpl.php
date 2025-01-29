@@ -56,7 +56,7 @@ foreach ($object->fields as $key => $val) {
 	}
 
 	if (array_key_exists('enabled', $val) && isset($val['enabled']) && !verifCond($val['enabled'])) {
-		continue; // We don't want this field
+		continue; // We do not want this field
 	}
 
 	print '<tr class="field_'.$key.'"><td';

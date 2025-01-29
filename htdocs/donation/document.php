@@ -25,7 +25,7 @@
  */
 
 /**
- *       \file       htdocs/don/document.php
+ *       \file       htdocs/donation/document.php
  *       \ingroup    donation
  *       \brief      Page of linked files onto donation
  */
@@ -35,7 +35,7 @@ require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/donation.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formprojet.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
@@ -85,15 +85,15 @@ if ($id > 0 || !empty($ref)) {
 	$upload_dir = $config->don->multidir_output[$object->entity ? $object->entity : $config->entity]."/".get_exdir(0, 0, 0, 1, $object);
 }
 
-$modulePart = 'don';
+$modulePart = 'donation';
 
 // Security check
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'don', $object->id);
+$result = restrictedArea($user, 'donation', $object->id);
 
-$permissionToAdd = $user->hasRight('don', 'creer');	// Used by the include of actions_dellink.inc.php
+$permissionToAdd = $user->hasRight('donation', 'creer');	// Used by the include of actions_dellink.inc.php
 
 
 /*
@@ -102,7 +102,7 @@ $permissionToAdd = $user->hasRight('don', 'creer');	// Used by the include of ac
 
 include DOL_DOCUMENT_ROOT.'/core/actions_linkedfiles.inc.php';
 
-if ($action == 'classin' && $user->hasRight('don', 'creer')) {
+if ($action == 'classin' && $user->hasRight('donation', 'creer')) {
 	$object->fetch($id);
 	$object->setProject($projectid);
 }
@@ -138,14 +138,14 @@ if ($object->id) {
 		$totalsize += $file['size'];
 	}
 
-	$linkback = '<a href="'.DOL_URL_ROOT.'/don/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+	$linkback = '<a href="'.DOL_URL_ROOT.'/donation/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref = '<div class="refidno">';
 	// Project
 	if (isModEnabled('project')) {
 		$langs->load("projects");
 		$morehtmlref .= $langs->trans('Project').' ';
-		if ($user->hasRight('don', 'creer')) {
+		if ($user->hasRight('donation', 'creer')) {
 			if ($action != 'classify') {
 				// $morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&token='.newToken().'&id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
 			}
@@ -203,9 +203,9 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulePart = 'don';
-	$permissionToAdd = $user->hasRight('don', 'creer');
-	$permtoedit = $user->hasRight('don', 'creer');
+	$modulePart = 'donation';
+	$permissionToAdd = $user->hasRight('donation', 'creer');
+	$permtoedit = $user->hasRight('donation', 'creer');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 } else {

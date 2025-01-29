@@ -473,7 +473,7 @@ if ($step == 1 || !$datatoexport) {
 	print '<div class="opacitymedium">'.$langs->trans("SelectExportDataSet").'</div><br>';
 
 	// Affiche les modules d'exports
-	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent nomarginbottom">';
 	print '<tr class="liste_titre">';
 	print '<td>'.$langs->trans("Module").'</td>';
@@ -577,7 +577,7 @@ if ($step == 2 && $datatoexport) {
 	print '</form>';
 
 
-	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent">';
 	print '<tr class="liste_titre">';
 	print '<td>'.$langs->trans("Object").'</td>';
@@ -786,7 +786,7 @@ if ($step == 3 && $datatoexport) {
 	print '<form action="'.$_SERVER["PHP_SELF"].'?step=4&action=submitFormField&datatoexport='.$datatoexport.'" name="FilterField" method="post">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 
-	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 
 	print '<table class="noborder centpercent">';
 	print '<tr class="liste_titre">';
@@ -1006,7 +1006,7 @@ if ($step == 4 && $datatoexport) {
 
 	print '<div class="marginbottomonly"><span class="opacitymedium">'.$langs->trans("ChooseFieldsOrdersAndTitle").'</span></div>';
 
-	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent">';
 	print '<tr class="liste_titre">';
 	print '<td>'.$langs->trans("Entities").'</td>';
@@ -1119,7 +1119,7 @@ if ($step == 4 && $datatoexport) {
 		print '<input type="hidden" name="datatoexport" value="'.$datatoexport.'">';
 		print '<input type="hidden" name="hexa" value="'.$hexa.'">';
 
-		print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+		print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 		print '<table class="noborder centpercent">';
 		print '<tr class="liste_titre">';
 		print '<td>'.$langs->trans("ExportModelName").'</td>';
@@ -1359,7 +1359,7 @@ llxFooter();
 
 $db->close();
 
-exit; // don't know why but apache hangs with php 5.3.10-1ubuntu3.12 and apache 2.2.2 if i remove this exit or replace with return
+exit; // do not know why but apache hangs with php 5.3.10-1ubuntu3.12 and apache 2.2.2 if i remove this exit or replace with return
 
 
 /**

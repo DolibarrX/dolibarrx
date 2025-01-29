@@ -161,7 +161,7 @@ if ($action == 'validatehistory' && $user->hasRight('accounting', 'bind', 'write
 	$sql .= " LEFT JOIN ".$db->prefix()."accounting_account as aa4 ON " . $alias_product_perentity . ".accountancy_code_buy = aa4.account_number        AND aa4.active = 1 AND aa4.fk_pcg_version = '".$db->escape($chartaccountcode)."' AND aa4.entity = ".$config->entity;
 	$sql .= " WHERE f.fk_statut > 0 AND l.fk_code_ventilation <= 0";
 	$sql .= " AND l.product_type <= 2";
-	$sql .= " AND f.entity IN (".getEntity('facture_fourn', 0).")"; // We don't share object for accountancy
+	$sql .= " AND f.entity IN (".getEntity('facture_fourn', 0).")"; // We do not share object for accountancy
 	if (getDolGlobalString('ACCOUNTING_DATE_START_BINDING')) {
 		$sql .= " AND f.datef >= '".$db->idate(getDolGlobalString('ACCOUNTING_DATE_START_BINDING'))."'";
 	}
@@ -369,7 +369,7 @@ if (getDolGlobalString('ACCOUNTING_DATE_START_BINDING')) {
 }
 $sql .= "  AND ff.fk_statut > 0";
 $sql .= "  AND ffd.product_type <= 2";
-$sql .= " AND ff.entity IN (".getEntity('facture_fourn', 0).")"; // We don't share object for accountancy
+$sql .= " AND ff.entity IN (".getEntity('facture_fourn', 0).")"; // We do not share object for accountancy
 $sql .= " AND aa.account_number IS NULL";
 if (getDolGlobalString('FACTURE_SUPPLIER_DEPOSITS_ARE_JUST_PAYMENTS')) {
 	$sql .= " AND ff.type IN (".FactureFournisseur::TYPE_STANDARD.",".FactureFournisseur::TYPE_REPLACEMENT.",".FactureFournisseur::TYPE_CREDIT_NOTE.")";
@@ -498,7 +498,7 @@ $sql .= "  AND ff.datef <= '".$db->idate($search_date_end)."'";
 if (getDolGlobalString('ACCOUNTING_DATE_START_BINDING')) {
 	$sql .= " AND ff.datef >= '".$db->idate(getDolGlobalString('ACCOUNTING_DATE_START_BINDING'))."'";
 }
-$sql .= " AND ff.entity IN (".getEntity('facture_fourn', 0).")"; // We don't share object for accountancy
+$sql .= " AND ff.entity IN (".getEntity('facture_fourn', 0).")"; // We do not share object for accountancy
 $sql .= "  AND ff.fk_statut > 0";
 $sql .= "  AND ffd.product_type <= 2";
 if (getDolGlobalString('FACTURE_SUPPLIER_DEPOSITS_ARE_JUST_PAYMENTS')) {
@@ -591,7 +591,7 @@ if (getDolGlobalString('SHOW_TOTAL_OF_PREVIOUS_LISTS_IN_LIN_PAGE')) { // This pa
 	if (getDolGlobalString('ACCOUNTING_DATE_START_BINDING')) {
 		$sql .= " AND ff.datef >= '".$db->idate(getDolGlobalString('ACCOUNTING_DATE_START_BINDING'))."'";
 	}
-	$sql .= " AND ff.entity IN (".getEntity('facture_fourn', 0).")"; // We don't share object for accountancy
+	$sql .= " AND ff.entity IN (".getEntity('facture_fourn', 0).")"; // We do not share object for accountancy
 	$sql .= "  AND ff.fk_statut > 0";
 	$sql .= "  AND ffd.product_type <= 2";
 	if (getDolGlobalString('FACTURE_SUPPLIER_DEPOSITS_ARE_JUST_PAYMENTS')) {

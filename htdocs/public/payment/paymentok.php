@@ -1163,8 +1163,8 @@ if ($ispaymentok) {
 			$ispostactionok = -1;
 		}
 	} elseif (array_key_exists('DON', $tmptag) && $tmptag['DON'] > 0) {
-		include_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
-		$don = new Don($db);
+		include_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
+		$donation = new Don($db);
 		$result = $don->fetch((int) $tmptag['DON']);
 		if ($result) {
 			$paymentTypeId = 0;
@@ -1198,7 +1198,7 @@ if ($ispaymentok) {
 				$db->begin();
 
 				// Creation of paiement line for donation
-				include_once DOL_DOCUMENT_ROOT.'/don/class/paymentdonation.class.php';
+				include_once DOL_DOCUMENT_ROOT.'/donation/class/paymentdonation.class.php';
 				$paiement = new PaymentDonation($db);
 
 				$totalpaid = $FinalPaymentAmt;

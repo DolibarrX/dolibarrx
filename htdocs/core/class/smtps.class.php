@@ -638,7 +638,7 @@ class SMTPs
 			// Check for errors along the way
 			switch ($config->global->MAIN_MAIL_SMTPS_AUTH_TYPE) {
 				case 'NONE':
-					// Do not send the 'AUTH type' message. For test purpose, if you don't need authentication, it is better to not enter login/pass into setup.
+					// Do not send the 'AUTH type' message. For test purpose, if you do not need authentication, it is better to not enter login/pass into setup.
 					$_retVal = true;
 					break;
 				case 'PLAIN':

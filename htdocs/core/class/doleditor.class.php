@@ -105,7 +105,7 @@ class DolEditor
 	 *  @param  bool				$toolbarstartexpanded  			Bar is visible or not at start
 	 *  @param	bool|int			$uselocalbrowser				Enabled to add links to local object with a local media filemanager. -1=auto, false=only external images URL can be added into content, or images saved inline with src="data:..." with a cut/paste.
 	 *  @param  bool|int|string		$okforextendededitor    		1 or True=Allow usage of extended editor tool if qualified (like ckeditor). If 'textarea', force use of simple textarea. If 'ace', force use of Ace.
-	 *                          	                        		Warning: If you use 'ace', don't forget to also include ace.js in page header. Also, the button "save" must have class="buttonforacesave".
+	 *                          	                        		Warning: If you use 'ace', do not forget to also include ace.js in page header. Also, the button "save" must have class="buttonforacesave".
 	 *  @param  int					$rows                   		Size of rows for textarea tool
 	 *  @param  string				$cols                   		Size of cols for textarea tool (textarea number of cols '70' or percent 'x%')
 	 *  @param	int<0,1>			$readonly						0=Read/Edit, 1=Read only

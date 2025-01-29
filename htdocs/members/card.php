@@ -1391,7 +1391,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		print '</td></tr>';
 
 		// Country
-		//$object->country_id=$object->country_id?$object->country_id:$mysoc->country_id;    // In edit mode we don't force to company country if not defined
+		//$object->country_id=$object->country_id?$object->country_id:$mysoc->country_id;    // In edit mode we do not force to company country if not defined
 		print '<tr><td>'.$langs->trans('Country').'</td><td>';
 		print img_picture('', 'country', 'class="picturefixedwidth"');
 		print $form->select_country(GETPOSTISSET("country_id") ? GETPOST("country_id", "alpha") : $object->country_id, 'country_id');

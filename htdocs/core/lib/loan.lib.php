@@ -93,7 +93,7 @@ function loan_prepare_head($object)
 /**
  * Calculate remaining loan mensuality and interests
  *
- * @param   float   $mens				Value of this mensuality (interests include, set 0 if we don't paid interests for this mensuality)
+ * @param   float   $mens				Value of this mensuality (interests include, set 0 if we do not paid interests for this mensuality)
  * @param   float   $capital    		Remaining capital for this mensuality
  * @param   float   $rate				Loan rate
  * @param   int     $numactualloadterm	Actual loan term
@@ -114,7 +114,7 @@ function loanCalcMonthlyPayment($mens, $capital, $rate, $numactualloadterm, $nbt
 	$numactualloadterm = ((int) $numactualloadterm);
 	$nbterm = ((int) $nbterm);
 
-	// If mensuality is 0 we don't pay interests and remaining capital not modified
+	// If mensuality is 0 we do not pay interests and remaining capital not modified
 	if ($mens == 0) {
 		$int = 0;
 		$cap_rest = $capital;

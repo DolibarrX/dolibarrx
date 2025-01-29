@@ -59,7 +59,7 @@ foreach ($object->fields as $key => $val) {
 		continue;
 	}
 	if (array_key_exists('enabled', $val) && isset($val['enabled']) && !verifCond($val['enabled'])) {
-		continue; // We don't want this field
+		continue; // We do not want this field
 	}
 
 	if (in_array($key, array('rowid', 'ref', 'status'))) {
@@ -152,7 +152,7 @@ foreach ($object->fields as $key => $val) {
 	}
 
 	if (array_key_exists('enabled', $val) && isset($val['enabled']) && !$val['enabled']) {
-		continue; // We don't want this field
+		continue; // We do not want this field
 	}
 	if (in_array($key, array('ref', 'status'))) {
 		continue; // Ref and status are already in dol_banner

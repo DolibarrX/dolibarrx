@@ -839,7 +839,7 @@ class ContractLine extends CommonObjectLine
 	/**
 	 * Inserts a contract line into database
 	 *
-	 * @param int $notrigger Set to 1 if you don't want triggers to be fired
+	 * @param int $notrigger Set to 1 if you do not want triggers to be fired
 	 * @return int Return integer <0 if KO, >0 if OK
 	 */
 	public function insert($notrigger = 0)

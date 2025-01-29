@@ -350,7 +350,7 @@ if ($step == 1 || !$datatoimport) {
 	print '<div class="opacitymedium">'.$langs->trans("SelectImportDataSet").'</div><br>';
 
 	// Affiche les modules d'imports
-	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent nomarginbottom">';
 	print '<tr class="liste_titre">';
 	print '<td>'.$langs->trans("Module").'</td>';
@@ -460,7 +460,7 @@ if ($step == 2 && $datatoimport) {
 
 	print '<br>';
 
-	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent" cellpadding="4">';
 
 	$filetoimport = '';
@@ -684,7 +684,7 @@ if ($step == 3 && $datatoimport) {
 	// Search available imports
 	$filearray = dol_dir_list($config->import->dir_temp, 'files', 0, '', '', 'name', SORT_DESC);
 	if (count($filearray) > 0) {
-		print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+		print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 		print '<table class="noborder centpercent" width="100%" cellpadding="4">';
 
 		$dir = $config->import->dir_temp;
@@ -1063,7 +1063,7 @@ if ($step == 4 && $datatoimport) {
 	print '</form>';
 
 	// Title of array with fields
-	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent">';
 	print '<tr class="liste_titre">';
 	print '<td>'.$langs->trans("FieldsInSourceFile").'</td>';
@@ -1484,7 +1484,7 @@ if ($step == 4 && $datatoimport) {
 		print '<input type="hidden" value="'.dol_escape_htmltag($separator).'" name="separator">';
 		print '<input type="hidden" value="'.dol_escape_htmltag($enclosure).'" name="enclosure">';
 
-		print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+		print '<div class="div-table-responsive-no-min">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 		print '<table summary="selectofimportprofil" class="noborder centpercent">';
 		print '<tr class="liste_titre">';
 		print '<td>'.$langs->trans("ImportModelName").'</td>';

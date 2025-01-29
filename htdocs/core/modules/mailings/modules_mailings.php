@@ -243,7 +243,7 @@ class MailingTargets // This can't be abstract as it is used for some method
 		dol_syslog(__METHOD__.": mailing ".$j." targets added");
 
 		/*
-		//Update the status to show thirdparty mail that don't want to be contacted anymore'
+		//Update the status to show thirdparty mail that do not want to be contacted anymore'
 		$sql = "UPDATE ".$this->db->prefix()."mailing_cibles";
 		$sql .= " SET statut=3";
 		$sql .= " WHERE fk_mailing = ".((int) $mailing_id)." AND email in (SELECT email FROM ".$this->db->prefix()."societe where fk_stcomm=-1)";
@@ -251,7 +251,7 @@ class MailingTargets // This can't be abstract as it is used for some method
 		dol_syslog(__METHOD__.": mailing update status to display thirdparty mail that do not want to be contacted");
 		$result=$this->db->query($sql);
 
-		//Update the status to show contact mail that don't want to be contacted anymore'
+		//Update the status to show contact mail that do not want to be contacted anymore'
 		$sql = "UPDATE ".$this->db->prefix()."mailing_cibles";
 		$sql .= " SET statut=3";
 		$sql .= " WHERE fk_mailing = ".((int) $mailing_id)." AND source_type='contact' AND (email in (SELECT sc.email FROM ".$this->db->prefix()."socpeople AS sc ";

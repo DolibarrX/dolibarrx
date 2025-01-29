@@ -70,7 +70,7 @@ $result = restrictedArea($user, 'bom', $object, $object->table_element, '', '', 
 top_httphead('application/json');
 
 if ($result > 0) {
-	// We remove properties we don't need in answer
+	// We remove properties we do not need in answer
 	unset($object->fields);
 	unset($object->db);
 	echo json_encode($object);

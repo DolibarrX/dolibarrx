@@ -334,7 +334,7 @@ if ($mode == 'config' && $user->admin) {
 
 	print load_fiche_titre($langs->trans("ReceiptPrinterDesc"), '', '')."\n";
 
-	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent">'."\n";
 	print '<tr class="liste_titre">';
 	print '<th>'.$langs->trans("Name").'</th>';
@@ -428,7 +428,7 @@ if ($mode == 'config' && $user->admin) {
 
 	print '<span class="opacitymedium">'.$langs->trans("ReceiptPrinterTypeDesc").'...</span><br><br>'."\n";
 
-	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent">'."\n";
 	print '<tr class="oddeven"><td>'.$langs->trans("CONNECTOR_DUMMY").'</td><td>'.$langs->trans("CONNECTOR_DUMMY_HELP").'</td></tr>';
 	print '<tr class="oddeven"><td>'.$form->textWithPicture($langs->trans("CONNECTOR_NETWORK_PRINT"), $langs->trans("FromServerPointOfView")).'</td><td>'.$langs->trans("CONNECTOR_NETWORK_PRINT_HELP").'</td></tr>';
@@ -457,7 +457,7 @@ if ($mode == 'template' && $user->admin) {
 		print '<input type="hidden" name="action" value="updatetemplate">';
 	}
 
-	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent">'."\n";
 	print '<tr class="liste_titre">';
 	print '<th>'.$langs->trans("Name").'</th>';
@@ -527,7 +527,7 @@ if ($mode == 'template' && $user->admin) {
 
 	print '<br>';
 
-	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 	print '<table class="noborder centpercent">'."\n";
 	print '<tr class="liste_titre">';
 	print '<th>'.$langs->trans("Tag").'</th>';

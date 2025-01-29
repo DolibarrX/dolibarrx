@@ -33,7 +33,7 @@ if (!defined('NOREQUIREMENU')) {
 	define('NOREQUIREMENU', '1'); // If there is no need to load and show top and left menu
 }
 if (!defined('NOREQUIREHTML')) {
-	define('NOREQUIREHTML', '1'); // If we don't need to load the html.form.class.php
+	define('NOREQUIREHTML', '1'); // If we do not need to load the html.form.class.php
 }
 if (!defined('NOREQUIREAJAX')) {
 	define('NOREQUIREAJAX', '1'); // Do not load ajax.lib.php library
@@ -84,7 +84,7 @@ $listofreferent = array(
 	'intervention' => 'fichinter',
 	'trip' => 'deplacement',
 	'expensereport' => 'expensereport_det',
-	'donation' => 'don',
+	'donation' => 'donation',
 	'agenda' => 'actioncomm',
 	'project_task' => 'projet_task',
 );

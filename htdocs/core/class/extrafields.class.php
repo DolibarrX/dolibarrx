@@ -884,7 +884,7 @@ class ExtraFields
 			}
 
 			if ($entity === '' || $entity != '0') {
-				// We don't want on all entities, we delete all and current
+				// We do not want on all entities, we delete all and current
 				$sql_del = "DELETE FROM ".$this->db->prefix()."extrafields";
 				$sql_del .= " WHERE name = '".$this->db->escape($attrname)."'";
 				$sql_del .= " AND entity IN (0, ".($entity === '' ? $config->entity : $entity).")";

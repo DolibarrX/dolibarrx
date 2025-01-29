@@ -482,13 +482,13 @@ ALTER TABLE llx_societe_extrafields DROP INDEX idx_societe_extrafields;
 ALTER TABLE llx_societe_extrafields ADD UNIQUE INDEX uk_societe_extrafields (fk_object);
 
 -- Module Donation
-ALTER TABLE llx_don ADD COLUMN fk_country integer NOT NULL DEFAULT 0 AFTER country;
-ALTER TABLE llx_don CHANGE COLUMN fk_paiement fk_payment integer;
-ALTER TABLE llx_don ADD COLUMN paid smallint DEFAULT 0 NOT NULL AFTER fk_payment;
-ALTER TABLE llx_don CHANGE COLUMN fk_don_projet fk_projet integer NULL;
-ALTER TABLE llx_don CHANGE COLUMN fk_project fk_projet integer NULL;
+ALTER TABLE llx_donation ADD COLUMN fk_country integer NOT NULL DEFAULT 0 AFTER country;
+ALTER TABLE llx_donation CHANGE COLUMN fk_paiement fk_payment integer;
+ALTER TABLE llx_donation ADD COLUMN paid smallint DEFAULT 0 NOT NULL AFTER fk_payment;
+ALTER TABLE llx_donation CHANGE COLUMN fk_donation_projet fk_projet integer NULL;
+ALTER TABLE llx_donation CHANGE COLUMN fk_project fk_projet integer NULL;
 
-create table llx_don_extrafields
+create table llx_donation_extrafields
 (
   rowid                     integer AUTO_INCREMENT PRIMARY KEY,
   tms                       timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -496,7 +496,7 @@ create table llx_don_extrafields
   import_key                varchar(14)                          		-- import key
 ) ENGINE=innodb;
 
-ALTER TABLE llx_don_extrafields ADD INDEX idx_don_extrafields (fk_object);
+ALTER TABLE llx_donation_extrafields ADD INDEX idx_donation_extrafields (fk_object);
 
 create table llx_payment_donation
 (

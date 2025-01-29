@@ -1802,7 +1802,7 @@ abstract class CommonDocGenerator
 				$field->label = $outputlangs->transnoentities($label);
 				$field->type = $extrafields->attributes[$object->table_element]['type'][$key];
 
-				// don't display if empty
+				// do not display if empty
 				if ($disableOnEmpty && empty($field->content)) {
 					continue;
 				}
@@ -2048,7 +2048,7 @@ abstract class CommonDocGenerator
 
 				if (!$enabled) {
 					continue;
-				} // don't waste resources if we don't need them...
+				} // do not waste resources if we do not need them...
 
 				// Load language if required
 				if (!empty($extrafields->attributes[$object->table_element]['langfile'][$key])) {

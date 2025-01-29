@@ -150,7 +150,7 @@ if ($action == 'addline' && $user->hasRight('stock', 'mouvement', 'creer')) {
 	// TODO Check qty is ok for stock move. Note qty may not be enough yet, but we make a check now to report a warning.
 	// What is more important is to have qty when doing action 'createmovements'
 	if (!$error) {
-		// Warning, don't forget lines already added into the $_SESSION['massstockmove']
+		// Warning, do not forget lines already added into the $_SESSION['massstockmove']
 		if ($producttmp->hasbatch()) {
 		} else {
 		}

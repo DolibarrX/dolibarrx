@@ -18,8 +18,8 @@
  */
 
 /**
- *	\defgroup   	document     Module mass mailings
- *	\brief      	Module pour gerer des generations de documents
+ *	\defgroup   	document     Mass mailing module
+ *	\brief      	Module for managing document generations
  *	\file       	htdocs/core/modules/modDocumentGeneration.class.php
  *	\ingroup    	document
  *	\brief      	Description and activation file for the module Generation document

@@ -65,7 +65,7 @@ class InterfaceActionsBlockedLog extends DolibarrTriggers
 		// Test if event/record is qualified
 		if (!getDolGlobalString('BLOCKEDLOG_ADD_ACTIONS_SUPPORTED') || !in_array($action, explode(',', getDolGlobalString('BLOCKEDLOG_ADD_ACTIONS_SUPPORTED')))) {
 			// If custom actions are not set or if action not into custom actions, we can exclude action if object->elementis not valid
-			$listofqualifiedelement = array('facture', 'don', 'payment', 'payment_donation', 'subscription', 'payment_various', 'cashcontrol');
+			$listofqualifiedelement = array('facture', 'donation', 'payment', 'payment_donation', 'subscription', 'payment_various', 'cashcontrol');
 			if (!is_object($object) || !property_exists($object, 'element') || !in_array($object->element, $listofqualifiedelement)) {
 				return 1;
 			}

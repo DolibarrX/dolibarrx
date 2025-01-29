@@ -18,7 +18,7 @@
 
 use Luracast\Restler\RestException;
 
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 
 /**
  * API class for donations
@@ -36,9 +36,9 @@ class Donations extends DolibarrApi
 	);
 
 	/**
-	 * @var Don $don {@type Don}
+	 * @var Don $donation {@type Don}
 	 */
-	public $don;
+	public $donation;
 
 	/**
 	 * Constructor
@@ -47,7 +47,7 @@ class Donations extends DolibarrApi
 	{
 		global $db, $config;
 		$this->db = $db;
-		$this->don = new Don($this->db);
+		$this->donation = new Don($this->db);
 	}
 
 	/**
@@ -62,7 +62,7 @@ class Donations extends DolibarrApi
 	 */
 	public function get($id)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('don', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('donation', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -71,14 +71,14 @@ class Donations extends DolibarrApi
 			throw new RestException(404, 'Donation not found');
 		}
 
-		if (!DolibarrApi::_checkAccessToResource('don', $this->don->id)) {
+		if (!DolibarrApi::_checkAccessToResource('donation', $this->don->id)) {
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 
 		// Add external contacts ids
 		//$this->don->contacts_ids = $this->don->liste_contact(-1,'external',1);
 		//$this->don->fetchObjectLinked();
-		return $this->_cleanObjectDatas($this->don);
+		return $this->_cleanObjectDatas($this->donation);
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Donations extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $thirdparty_ids = '', $sqlfilters = '', $properties = '', $pagination_data = false)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('don', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('donation', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -113,9 +113,9 @@ class Donations extends DolibarrApi
 		if ((!DolibarrApiAccess::$user->hasRight('societe', 'client', 'voir') && !$socids)) {
 			$sql .= ", sc.fk_soc, sc.fk_user"; // We need these fields in order to filter by sale (including the case where the user can only see his prospects)
 		}
-		$sql .= " FROM ".MAIN_DB_PREFIX."don AS t LEFT JOIN ".MAIN_DB_PREFIX."don_extrafields AS ef ON (ef.fk_object = t.rowid)"; // Modification VMR Global Solutions to include extrafields as search parameters in the API GET call, so we will be able to filter on extrafields
+		$sql .= " FROM ".MAIN_DB_PREFIX."donation AS t LEFT JOIN ".MAIN_DB_PREFIX."don_extrafields AS ef ON (ef.fk_object = t.rowid)"; // Modification VMR Global Solutions to include extrafields as search parameters in the API GET call, so we will be able to filter on extrafields
 
-		$sql .= ' WHERE t.entity IN ('.getEntity('don').')';
+		$sql .= ' WHERE t.entity IN ('.getEntity('donation').')';
 		if ((!DolibarrApiAccess::$user->hasRight('societe', 'client', 'voir') && !$socids)) {
 			$sql .= " AND t.fk_soc = sc.fk_soc";
 		}
@@ -194,7 +194,7 @@ class Donations extends DolibarrApi
 	 */
 	public function post($request_data = null)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('don', 'creer')) {
+		if (!DolibarrApiAccess::$user->hasRight('donation', 'creer')) {
 			throw new RestException(403, "Insuffisant rights");
 		}
 
@@ -208,7 +208,7 @@ class Donations extends DolibarrApi
 				continue;
 			}
 
-			$this->don->$field = $this->_checkValForAPI($field, $value, $this->don);
+			$this->don->$field = $this->_checkValForAPI($field, $value, $this->donation);
 		}
 		/*if (isset($request_data["lines"])) {
 		  $lines = [];
@@ -234,7 +234,7 @@ class Donations extends DolibarrApi
 	 */
 	public function put($id, $request_data = null)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('don', 'creer')) {
+		if (!DolibarrApiAccess::$user->hasRight('donation', 'creer')) {
 			throw new RestException(403);
 		}
 
@@ -258,12 +258,12 @@ class Donations extends DolibarrApi
 
 			if ($field == 'array_options' && is_array($value)) {
 				foreach ($value as $index => $val) {
-					$this->don->array_options[$index] = $this->_checkValForAPI($field, $val, $this->don);
+					$this->don->array_options[$index] = $this->_checkValForAPI($field, $val, $this->donation);
 				}
 				continue;
 			}
 
-			$this->don->$field = $this->_checkValForAPI($field, $value, $this->don);
+			$this->don->$field = $this->_checkValForAPI($field, $value, $this->donation);
 		}
 
 		if ($this->don->update(DolibarrApiAccess::$user) > 0) {
@@ -281,7 +281,7 @@ class Donations extends DolibarrApi
 	 */
 	public function delete($id)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('don', 'supprimer')) {
+		if (!DolibarrApiAccess::$user->hasRight('donation', 'supprimer')) {
 			throw new RestException(403);
 		}
 
@@ -330,7 +330,7 @@ class Donations extends DolibarrApi
 	 */
 	public function validate($id, $idwarehouse = 0, $notrigger = 0)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('don', 'creer')) {
+		if (!DolibarrApiAccess::$user->hasRight('donation', 'creer')) {
 			throw new RestException(403);
 		}
 
@@ -339,7 +339,7 @@ class Donations extends DolibarrApi
 			throw new RestException(404, 'Donation not found');
 		}
 
-		if (!DolibarrApi::_checkAccessToResource('don', $this->don->id)) {
+		if (!DolibarrApi::_checkAccessToResource('donation', $this->don->id)) {
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 
@@ -356,13 +356,13 @@ class Donations extends DolibarrApi
 			throw new RestException(404, 'Order not found');
 		}
 
-		if (!DolibarrApi::_checkAccessToResource('don', $this->don->id)) {
+		if (!DolibarrApi::_checkAccessToResource('donation', $this->don->id)) {
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 
 		$this->don->fetchObjectLinked();
 
-		return $this->_cleanObjectDatas($this->don);
+		return $this->_cleanObjectDatas($this->donation);
 	}
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore
@@ -396,13 +396,13 @@ class Donations extends DolibarrApi
 	 */
 	private function _validate($data)
 	{
-		$don = [];
+		$donation = [];
 		foreach (Donations::$FIELDS as $field) {
 			if (!isset($data[$field])) {
 				throw new RestException(400, $field." field missing");
 			}
-			$don[$field] = $data[$field];
+			$donation[$field] = $data[$field];
 		}
-		return $don;
+		return $donation;
 	}
 }

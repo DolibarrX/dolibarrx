@@ -22,14 +22,14 @@
  */
 
 /**
- *  \file       htdocs/don/list.php
+ *  \file       htdocs/donation/list.php
  *  \ingroup    donations
  *  \brief      List of donations
  */
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 }
@@ -94,7 +94,7 @@ if (!$sortorder) {
 	$sortorder = "DESC";
 }
 if (!$sortfield) {
-	$sortfield = "d.datedon";
+	$sortfield = "d.datedonation";
 }
 
 // Initialize array of search criteria
@@ -126,11 +126,11 @@ $arrayfields = dol_sort_array($arrayfields, 'position');
 
 
 // Security check
-$result = restrictedArea($user, 'don');
+$result = restrictedArea($user, 'donation');
 
-$permissiontoread = $user->hasRight('don', 'read');
-$permissionToAdd = $user->hasRight('don', 'write');
-$permissiontodelete = $user->hasRight('don', 'delete');
+$permissiontoread = $user->hasRight('donation', 'read');
+$permissionToAdd = $user->hasRight('donation', 'write');
+$permissiontodelete = $user->hasRight('donation', 'delete');
 
 
 /*
@@ -176,7 +176,7 @@ $morecss = [];
 
 // Build and execute select
 // --------------------------------------------------------------------
-$sql = "SELECT d.rowid, d.datedon, d.fk_soc as socid, d.firstname, d.lastname, d.societe,";
+$sql = "SELECT d.rowid, d.datedonation, d.fk_soc as socid, d.firstname, d.lastname, d.societe,";
 $sql .= " d.amount, d.fk_statut as status,";
 $sql .= " p.rowid as pid, p.ref, p.title, p.public";
 // Add fields from hooks
@@ -343,9 +343,9 @@ print '<input type="hidden" name="type" value="'.$type.'">';
 $newcardbutton = '';
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewList'), '', 'fa fa-bars imgforviewmode', $_SERVER["PHP_SELF"].'?mode=common'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ((empty($mode) || $mode == 'common') ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewKanban'), '', 'fa fa-th-list imgforviewmode', $_SERVER["PHP_SELF"].'?mode=kanban'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ($mode == 'kanban' ? 2 : 1), array('morecss' => 'reposition'));
-if ($user->hasRight('don', 'creer')) {
+if ($user->hasRight('donation', 'creer')) {
 	$newcardbutton .= dolGetButtonTitleSeparator();
-	$newcardbutton .= dolGetButtonTitle($langs->trans('NewDonation'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/don/card.php?action=create');
+	$newcardbutton .= dolGetButtonTitle($langs->trans('NewDonation'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/donation/card.php?action=create');
 }
 
 // @phan-suppress-next-line PhanPluginSuspiciousParamOrder
@@ -443,7 +443,7 @@ if (getDolGlobalString('DONATION_USE_THIRDPARTIES')) {
 }
 print_liste_field_titre("Name", $_SERVER["PHP_SELF"], "d.lastname", "", $param, "", $sortfield, $sortorder);
 $totalarray['nbfield']++;
-print_liste_field_titre("Date", $_SERVER["PHP_SELF"], "d.datedon", "", $param, '', $sortfield, $sortorder, 'center ');
+print_liste_field_titre("Date", $_SERVER["PHP_SELF"], "d.datedonation", "", $param, '', $sortfield, $sortorder, 'center ');
 $totalarray['nbfield']++;
 if (isModEnabled('project')) {
 	$langs->load("projects");
@@ -471,7 +471,7 @@ while ($i < $imaxinloop) {
 	$donationstatic->setVarsFromFetchObj($obj);
 	$donationstatic->id = $obj->rowid;
 	$donationstatic->ref = $obj->rowid;
-	$donationstatic->date = $db->jdate($obj->datedon);
+	$donationstatic->date = $db->jdate($obj->datedonation);
 	$donationstatic->status = $obj->status;
 
 	$company = new Societe($db);
@@ -533,7 +533,7 @@ while ($i < $imaxinloop) {
 		print "<td>".$donationstatic->getFullName($langs)."</td>";
 
 		// Date donation
-		print '<td class="center">'.dol_print_date($db->jdate($obj->datedon), 'day').'</td>';
+		print '<td class="center">'.dol_print_date($db->jdate($obj->datedonation), 'day').'</td>';
 
 		if (isModEnabled('project')) {
 			print "<td>";

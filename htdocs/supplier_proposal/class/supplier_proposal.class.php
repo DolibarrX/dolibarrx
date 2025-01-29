@@ -1542,7 +1542,7 @@ class SupplierProposal extends CommonObject
 				return -1;
 			}
 		} else {
-			dol_syslog("You don't have permission to validate supplier proposal", LOG_WARNING);
+			dol_syslog("You do not have permission to validate supplier proposal", LOG_WARNING);
 			return -2;
 		}
 	}

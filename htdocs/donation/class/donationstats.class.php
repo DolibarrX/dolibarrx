@@ -20,13 +20,13 @@
  */
 
 /**
- *  \file       htdocs/don/class/donstats.class.php
+ *  \file       htdocs/donation/class/donstats.class.php
  *  \ingroup    donations
  *  \brief      File of class to manage donations statistics
  */
 
 include_once DOL_DOCUMENT_ROOT.'/core/class/stats.class.php';
-include_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+include_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 /**
@@ -125,10 +125,10 @@ class DonationStats extends Stats
 	 */
 	public function getNbByMonth($year, $format = 0)
 	{
-		$sql = "SELECT date_format(d.datedon,'%m') as dm, COUNT(*) as nb";
+		$sql = "SELECT date_format(d.datedonation,'%m') as dm, COUNT(*) as nb";
 		$sql .= " FROM ".$this->from;
 		$sql .= $this->join;
-		$sql .= " WHERE d.datedon BETWEEN '".$this->db->idate(dol_get_first_day($year))."' AND '".$this->db->idate(dol_get_last_day($year))."'";
+		$sql .= " WHERE d.datedonation BETWEEN '".$this->db->idate(dol_get_first_day($year))."' AND '".$this->db->idate(dol_get_last_day($year))."'";
 		$sql .= " AND ".$this->where;
 		$sql .= " GROUP BY dm";
 		$sql .= $this->db->order('dm', 'DESC');
@@ -144,7 +144,7 @@ class DonationStats extends Stats
 	 */
 	public function getNbByYear()
 	{
-		$sql = "SELECT date_format(d.datedon,'%Y') as dm, COUNT(*) as nb, SUM(d.".$this->field.")";
+		$sql = "SELECT date_format(d.datedonation,'%Y') as dm, COUNT(*) as nb, SUM(d.".$this->field.")";
 		$sql .= " FROM ".$this->from;
 		$sql .= $this->join;
 		$sql .= " WHERE ".$this->where;
@@ -163,10 +163,10 @@ class DonationStats extends Stats
 	 */
 	public function getAmountByMonth($year, $format = 0)
 	{
-		$sql = "SELECT date_format(d.datedon,'%m') as dm, sum(d.".$this->field.")";
+		$sql = "SELECT date_format(d.datedonation,'%m') as dm, sum(d.".$this->field.")";
 		$sql .= " FROM ".$this->from;
 		$sql .= $this->join;
-		$sql .= " WHERE ".dolSqlDateFilter('d.datedon', 0, 0, (int) $year, 1);
+		$sql .= " WHERE ".dolSqlDateFilter('d.datedonation', 0, 0, (int) $year, 1);
 		$sql .= " AND ".$this->where;
 		$sql .= " GROUP BY dm";
 		$sql .= $this->db->order('dm', 'DESC');
@@ -182,10 +182,10 @@ class DonationStats extends Stats
 	 */
 	public function getAverageByMonth($year)
 	{
-		$sql = "SELECT date_format(d.datedon,'%m') as dm, avg(d.".$this->field.")";
+		$sql = "SELECT date_format(d.datedonation,'%m') as dm, avg(d.".$this->field.")";
 		$sql .= " FROM ".$this->from;
 		$sql .= $this->join;
-		$sql .= " WHERE ".dolSqlDateFilter('d.datedon', 0, 0, (int) $year, 1);
+		$sql .= " WHERE ".dolSqlDateFilter('d.datedonation', 0, 0, (int) $year, 1);
 		$sql .= " AND ".$this->where;
 		$sql .= " GROUP BY dm";
 		$sql .= $this->db->order('dm', 'DESC');
@@ -200,7 +200,7 @@ class DonationStats extends Stats
 	 */
 	public function getAllByYear()
 	{
-		$sql = "SELECT date_format(d.datedon,'%Y') as year, COUNT(*) as nb, SUM(d.".$this->field.") as total, AVG(".$this->field.") as avg";
+		$sql = "SELECT date_format(d.datedonation,'%Y') as year, COUNT(*) as nb, SUM(d.".$this->field.") as total, AVG(".$this->field.") as avg";
 		$sql .= " FROM ".$this->from;
 		$sql .= $this->join;
 		$sql .= " WHERE ".$this->where;

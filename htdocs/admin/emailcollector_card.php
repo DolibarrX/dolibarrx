@@ -622,11 +622,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	// Clean info (in view mode only)
 	if ($object->acces_type == 0) {
-		// If authent is using LOGIN and not OAUTHTOKEN, we don't need to show the OAUTH token
+		// If authent is using LOGIN and not OAUTHTOKEN, we do not need to show the OAUTH token
 		unset($object->fields['oauth_service']);
 	}
 	if ($object->acces_type == 1) {
-		// If authent is using OAUTHTOKEN, we don't need to show the password
+		// If authent is using OAUTHTOKEN, we do not need to show the password
 		unset($object->fields['password']);
 	}
 

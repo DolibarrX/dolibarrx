@@ -1003,7 +1003,7 @@ if (empty($resHook)) {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
 
-		// If we have permission, and if we don't need to provide the idwarehouse, we go directly on approved step
+		// If we have permission, and if we do not need to provide the idwarehouse, we go directly on approved step
 		if (!$error && !getDolGlobalString('SUPPLIER_ORDER_NO_DIRECT_APPROVE') && $usercanapprove && !(getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_VALIDATE_ORDER') && $object->hasProductsOrServices(1))) {
 			$action = 'confirm_approve'; // can make standard or first level approval also if permission is set
 		}

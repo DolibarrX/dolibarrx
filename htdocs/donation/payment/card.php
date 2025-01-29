@@ -18,15 +18,15 @@
  */
 
 /**
- *	    \file       htdocs/don/payment/card.php
+ *	    \file       htdocs/donation/payment/card.php
  *		\ingroup    donations
  *		\brief      Tab payment of a donation
  */
 
 // Load Dolibarr environment
 require '../../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/paymentdonation.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/paymentdonation.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
 if (isModEnabled("bank")) {
@@ -62,9 +62,9 @@ if ($id > 0) {
 	}
 }
 
-$permissiontoread = $user->hasRight('don', 'lire');
-$permissionToAdd = $user->hasRight('don', 'creer');
-$permissiontodelete = $user->hasRight('don', 'supprimer');
+$permissiontoread = $user->hasRight('donation', 'lire');
+$permissionToAdd = $user->hasRight('donation', 'creer');
+$permissiontodelete = $user->hasRight('donation', 'supprimer');
 
 
 /*
@@ -78,7 +78,7 @@ if ($action == 'confirm_delete' && $confirm == 'yes' && $permissiontodelete) {
 	$result = $object->delete($user);
 	if ($result > 0) {
 		$db->commit();
-		header("Location: ".DOL_URL_ROOT."/don/index.php");
+		header("Location: ".DOL_URL_ROOT."/donation/index.php");
 		exit;
 	} else {
 		setEventMessages($object->error, $object->errors, 'errors');
@@ -95,13 +95,13 @@ if ($action == 'confirm_delete' && $confirm == 'yes' && $permissiontodelete) {
 $title = $langs->trans("Payment");
 llxHeader('', $title, '', '', 0, 0, '', '', '', 'mod-donation page-payment_card');
 
-$don = new Don($db);
+$donation = new Don($db);
 $form = new Form($db);
 
 $h = 0;
 
 $head = [];
-$head[$h][0] = DOL_URL_ROOT.'/don/payment/card.php?id='.$id;
+$head[$h][0] = DOL_URL_ROOT.'/donation/payment/card.php?id='.$id;
 $head[$h][1] = $langs->trans("DonationPayment");
 $hselected = (string) $h;
 $h++;
@@ -162,7 +162,7 @@ print '</table>';
 
 $disable_delete = 0;
 $sql = 'SELECT d.rowid as did, d.paid, d.amount as d_amount, pd.amount';
-$sql .= ' FROM '.MAIN_DB_PREFIX.'payment_donation as pd,'.MAIN_DB_PREFIX.'don as d';
+$sql .= ' FROM '.MAIN_DB_PREFIX.'payment_donation as pd,'.MAIN_DB_PREFIX.'donation as d';
 $sql .= ' WHERE pd.fk_donation = d.rowid';
 $sql .= ' AND d.entity = '.$config->entity;
 $sql .= ' AND pd.rowid = '.((int) $id);
@@ -226,7 +226,7 @@ print dol_get_fiche_end();
 print '<div class="tabsAction">';
 
 if (empty($action)) {
-	if ($user->hasRight('don', 'supprimer')) {
+	if ($user->hasRight('donation', 'supprimer')) {
 		if (!$disable_delete) {
 			print dolGetButtonAction($langs->trans('Delete'), '', 'delete', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken(), '', 1);
 		} else {

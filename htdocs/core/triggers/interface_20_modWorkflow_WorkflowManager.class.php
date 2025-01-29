@@ -573,7 +573,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 
 					foreach ($list as $linked_contract) {
 						$object->setContract($linked_contract->id);
-						// don't set '$contractid' so it is not used when creating an intervention.
+						// do not set '$contractid' so it is not used when creating an intervention.
 					}
 
 					if ($number_contracts_found > 1 && !defined('NOLOGIN')) {

@@ -117,7 +117,7 @@ print dol_get_fiche_head($head, 'xcal', $langs->trans("Agenda"), -1, 'action');
 print '<span class="opacitymedium">'.$langs->trans("AgendaSetupOtherDesc")."</span><br>\n";
 print "<br>\n";
 
-print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 print '<table class="noborder centpercent">';
 
 print '<tr class="liste_titre">';
@@ -154,7 +154,7 @@ print '</div>';
 
 print '<br>';
 
-print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 print '<table class="noborder centpercent">';
 
 print '<tr class="liste_titre">';

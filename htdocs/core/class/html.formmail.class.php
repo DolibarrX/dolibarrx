@@ -803,7 +803,7 @@ class FormMail extends Form
 				$out .= $langs->trans("MailToUsers");
 				$out .= '</td><td>';
 
-				// multiselect array convert html entities into options tags, even if we don't want this, so we encode them a second time
+				// multiselect array convert html entities into options tags, even if we do not want this, so we encode them a second time
 				$tmparray = $this->withtouser;
 				foreach ($tmparray as $key => $val) {
 					$tmparray[$key] = dol_htmlentities($tmparray[$key], 0, 'UTF-8', true);
@@ -852,7 +852,7 @@ class FormMail extends Form
 				$out .= $langs->trans("MailToCCUsers");
 				$out .= '</td><td>';
 
-				// multiselect array convert html entities into options tags, even if we don't want this, so we encode them a second time
+				// multiselect array convert html entities into options tags, even if we do not want this, so we encode them a second time
 				$tmparray = $this->withtoccuser;
 				foreach ($tmparray as $key => $val) {
 					$tmparray[$key] = dol_htmlentities($tmparray[$key], 0, 'UTF-8', true);
@@ -1236,7 +1236,7 @@ class FormMail extends Form
 
 					$tmparray[$key]['label'] = $label;
 					$tmparray[$key]['label'] = str_replace(array('<', '>'), array('(', ')'), $tmparray[$key]['label']);
-					// multiselect array convert html entities into options tags, even if we don't want this, so we encode them a second time
+					// multiselect array convert html entities into options tags, even if we do not want this, so we encode them a second time
 					$tmparray[$key]['label'] = dol_htmlentities($tmparray[$key]['label'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', true);
 
 					$tmparray[$key]['labelhtml'] = $label;
@@ -1289,7 +1289,7 @@ class FormMail extends Form
 
 					$tmparray[$key]['label'] = $label;
 					$tmparray[$key]['label'] = str_replace(array('<', '>'), array('(', ')'), $tmparray[$key]['label']);
-					// multiselect array convert html entities into options tags, even if we don't want this, so we encode them a second time
+					// multiselect array convert html entities into options tags, even if we do not want this, so we encode them a second time
 					$tmparray[$key]['label'] = dol_htmlentities($tmparray[$key]['label'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', true);
 
 					$tmparray[$key]['labelhtml'] = $label;
@@ -1338,7 +1338,7 @@ class FormMail extends Form
 
 					$tmparray[$key]['label'] = $label;
 					$tmparray[$key]['label'] = str_replace(array('<', '>'), array('(', ')'), $tmparray[$key]['label']);
-					// multiselect array convert html entities into options tags, even if we don't want this, so we encode them a second time
+					// multiselect array convert html entities into options tags, even if we do not want this, so we encode them a second time
 					$tmparray[$key]['label'] = dol_htmlentities($tmparray[$key]['label'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', true);
 
 					$tmparray[$key]['labelhtml'] = $label;
@@ -1371,7 +1371,7 @@ class FormMail extends Form
 		if (getDolGlobalString('MAIN_MAIL_AUTOCOPY_SUPPLIER_INVOICE_TO') && !empty($this->param['models']) && $this->param['models'] == 'invoice_supplier_send') {
 			$showinfobcc = getDolGlobalString('MAIN_MAIL_AUTOCOPY_SUPPLIER_INVOICE_TO');
 		}
-		if (getDolGlobalString('MAIN_MAIL_AUTOCOPY_PROJECT_TO') && !empty($this->param['models']) && $this->param['models'] == 'project') {	// don't know why there is not '_send' at end of this models name.
+		if (getDolGlobalString('MAIN_MAIL_AUTOCOPY_PROJECT_TO') && !empty($this->param['models']) && $this->param['models'] == 'project') {	// do not know why there is not '_send' at end of this models name.
 			$showinfobcc = getDolGlobalString('MAIN_MAIL_AUTOCOPY_PROJECT_TO');
 		}
 		if (getDolGlobalString('MAIN_MAIL_AUTOCOPY_SHIPMENT_TO') && !empty($this->param['models']) && $this->param['models'] == 'shipping_send') {
@@ -2174,7 +2174,7 @@ class FormMail extends Form
 					if (isModEnabled('member')) {
 						$tmparray['__SECUREKEYPAYMENT_MEMBER__'] = 'SecureKeyPAYMENTUniquePerMember';
 					}
-					if (isModEnabled('don')) {
+					if (isModEnabled('donation')) {
 						$tmparray['__SECUREKEYPAYMENT_DONATION__'] = 'SecureKeyPAYMENTUniquePerDonation';
 					}
 					if (isModEnabled('invoice')) {
@@ -2191,7 +2191,7 @@ class FormMail extends Form
 					if (isModEnabled('member')) {
 						$tmparray['__ONLINEPAYMENTLINK_MEMBER__'] = 'OnlinePaymentLinkUniquePerMember';
 					}
-					if (isModEnabled('don')) {
+					if (isModEnabled('donation')) {
 						$tmparray['__ONLINEPAYMENTLINK_DONATION__'] = 'OnlinePaymentLinkUniquePerDonation';
 					}
 					if (isModEnabled('invoice')) {

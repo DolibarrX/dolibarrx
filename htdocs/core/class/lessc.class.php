@@ -127,7 +127,7 @@ class Lessc
 
 		$url = $this->compileValue($this->lib_e($str));
 
-		// don't import if it ends in css
+		// do not import if it ends in css
 		if (substr_compare($url, '.css', -4, 4) === 0) {
 			return false;
 		}
@@ -508,7 +508,7 @@ class Lessc
 			foreach ($selectors as $child) {
 				$count = $this->expandParentSelectors($child, $parent);
 
-				// don't prepend the parent tag if & was used
+				// do not prepend the parent tag if & was used
 				if ($count > 0) {
 					$out[] = trim($child);
 				} else {
@@ -634,7 +634,7 @@ class Lessc
 	{
 		$matches = null;
 		foreach ($blocks as $block) {
-			// skip seen blocks that don't have arguments
+			// skip seen blocks that do not have arguments
 			if (isset($skip[$block->id]) && !isset($block->args)) {
 				continue;
 			}
@@ -1966,7 +1966,7 @@ class Lessc
 	}
 
 
-	// make sure a color's components don't go out of bounds
+	// make sure a color's components do not go out of bounds
 	protected function fixColor($c)
 	{
 		foreach (range(1, 3) as $i) {
@@ -3764,7 +3764,7 @@ class lessc_parser
 			if (isset($this->buffer[$this->count]) && $this->buffer[$this->count] == "@") {
 				if ($this->interpolation($interp)) {
 					$hasExpression = true;
-					$interp[2] = true; // don't unescape
+					$interp[2] = true; // do not unescape
 					$parts[] = $interp;
 					continue;
 				}
@@ -3903,7 +3903,7 @@ class lessc_parser
 		if ($this->literal(';', false)) {
 			return true;
 		} elseif ($this->count == strlen($this->buffer) || $this->buffer[$this->count] == '}') {
-			// if there is end of file or a closing block next then we don't need a ;
+			// if there is end of file or a closing block next then we do not need a ;
 			return true;
 		}
 		return false;
@@ -4041,7 +4041,7 @@ class lessc_parser
 
 
 	// advance counter to next occurrence of $what
-	// $until - don't include $what in advance
+	// $until - do not include $what in advance
 	// $allowNewline, if string, will be used as valid char set
 	protected function to($what, &$out, $until = false, $allowNewline = false)
 	{

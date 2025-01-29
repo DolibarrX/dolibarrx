@@ -502,7 +502,7 @@ class Utils
 						while (!feof($handlein)) {
 							$i++; // output line number
 							$read = fgets($handlein);
-							// Exclude warning line we don't want
+							// Exclude warning line we do not want
 							if ($i == 1 && preg_match('/Warning.*Using a password/i', $read)) {
 								continue;
 							}
@@ -1215,7 +1215,7 @@ class Utils
 					fwrite($handle, "/*!40000 ALTER TABLE `".$table."` DISABLE KEYS */;\n");
 				}
 
-				$sql = "SELECT * FROM ".$table; // Here SELECT * is allowed because we don't have definition of columns to take
+				$sql = "SELECT * FROM ".$table; // Here SELECT * is allowed because we do not have definition of columns to take
 				$result = $db->query($sql);
 				while ($row = $db->fetch_row($result)) {
 					// For each row of data we print a line of INSERT
@@ -1442,7 +1442,7 @@ class Utils
 		foreach ($cron_job->lines as $job_line) {
 			// Avoid job with no PID
 			if (empty($job_line->pid)) {
-				dol_syslog("Utils::cleanUnfinishedCronjob Cronjob ".$job_line->id." don't have a PID", LOG_DEBUG);
+				dol_syslog("Utils::cleanUnfinishedCronjob Cronjob ".$job_line->id." do not have a PID", LOG_DEBUG);
 				continue;
 			}
 

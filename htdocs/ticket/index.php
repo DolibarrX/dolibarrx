@@ -267,7 +267,7 @@ if ($user->hasRight('ticket', 'read')) {
 	print '<tr><td class="center">';
 	print $stringtoshow;
 
-	// don't display graph if no series
+	// do not display graph if no series
 	if (!empty($dataseries) && count($dataseries) > 1) {
 		$totalnb = 0;
 		foreach ($dataseries as $key => $value) {

@@ -427,14 +427,14 @@ if ((isModEnabled('fournisseur') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMO
 
 
 // Latest donations
-if (isModEnabled('don') && $user->hasRight('don', 'lire')) {
-	include_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+if (isModEnabled('donation') && $user->hasRight('donation', 'lire')) {
+	include_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 
 	$langs->load("boxes");
 	$donationstatic = new Don($db);
 
-	$sql = "SELECT d.rowid, d.lastname, d.firstname, d.societe, d.datedon as date, d.tms as dm, d.amount, d.fk_statut as status";
-	$sql .= " FROM ".MAIN_DB_PREFIX."don as d";
+	$sql = "SELECT d.rowid, d.lastname, d.firstname, d.societe, d.datedonation as date, d.tms as dm, d.amount, d.fk_statut as status";
+	$sql .= " FROM ".MAIN_DB_PREFIX."donation as d";
 	$sql .= " WHERE d.entity IN (".getEntity('donation').")";
 	// Add where from hooks
 	$parameters = [];
@@ -455,7 +455,7 @@ if (isModEnabled('don') && $user->hasRight('don', 'lire')) {
 		print '<table class="noborder centpercent">';
 		print '<tr class="liste_titre">';
 		print '<th colspan="2">'.$langs->trans("BoxTitleLastModifiedDonations", $max);
-		print '<a href="'.DOL_URL_ROOT.'/don/list.php?sortfield=d.tms&sortorder=desc"><span class="badge marginleftonly">...</span></a>';
+		print '<a href="'.DOL_URL_ROOT.'/donation/list.php?sortfield=d.tms&sortorder=desc"><span class="badge marginleftonly">...</span></a>';
 		print '</th>';
 		print '<th class="right">'.$langs->trans("AmountTTC").'</th>';
 		print '<th class="right">'.$langs->trans("DateModificationShort").'</th>';

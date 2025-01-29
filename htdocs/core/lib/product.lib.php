@@ -824,19 +824,19 @@ function show_stats_for_batch($batch, $socid)
 		print '<tr><td>';
 		print '<a href="' . dol_buildpath('/product/stock/stats/mo.php', 1) . '?id=' . $batch->id . '">' . img_object('', 'mrp', 'class="picturefixedwidth"') . $langs->trans("MO") . '</a>';
 		print '</td><td class="right">';
-		//      print $form->textWithPicture($batch->stats_mo['customers_toconsume'], $langs->trans("ToConsume")); Makes no sense with batch, at this moment we don't know batch number
+		//      print $form->textWithPicture($batch->stats_mo['customers_toconsume'], $langs->trans("ToConsume")); Makes no sense with batch, at this moment we do not know batch number
 		print $form->textWithPicture($batch->stats_mo['customers_consumed'], $langs->trans("QtyAlreadyConsumed"));
-		//      print $form->textWithPicture($batch->stats_mo['customers_toproduce'], $langs->trans("QtyToProduce")); Makes no sense with batch, at this moment we don't know batch number
+		//      print $form->textWithPicture($batch->stats_mo['customers_toproduce'], $langs->trans("QtyToProduce")); Makes no sense with batch, at this moment we do not know batch number
 		print $form->textWithPicture($batch->stats_mo['customers_produced'], $langs->trans("QtyAlreadyProduced"));
 		print '</td><td class="right">';
-		//      print $form->textWithPicture($batch->stats_mo['nb_toconsume'], $langs->trans("ToConsume")); Makes no sense with batch, at this moment we don't know batch number
+		//      print $form->textWithPicture($batch->stats_mo['nb_toconsume'], $langs->trans("ToConsume")); Makes no sense with batch, at this moment we do not know batch number
 		print $form->textWithPicture($batch->stats_mo['nb_consumed'], $langs->trans("QtyAlreadyConsumed"));
-		//      print $form->textWithPicture($batch->stats_mo['nb_toproduce'], $langs->trans("QtyToProduce")); Makes no sense with batch, at this moment we don't know batch number
+		//      print $form->textWithPicture($batch->stats_mo['nb_toproduce'], $langs->trans("QtyToProduce")); Makes no sense with batch, at this moment we do not know batch number
 		print $form->textWithPicture($batch->stats_mo['nb_produced'], $langs->trans("QtyAlreadyProduced"));
 		print '</td><td class="right">';
-		//      print $form->textWithPicture($batch->stats_mo['qty_toconsume'], $langs->trans("ToConsume")); Makes no sense with batch, at this moment we don't know batch number
+		//      print $form->textWithPicture($batch->stats_mo['qty_toconsume'], $langs->trans("ToConsume")); Makes no sense with batch, at this moment we do not know batch number
 		print $form->textWithPicture($batch->stats_mo['qty_consumed'], $langs->trans("QtyAlreadyConsumed"));
-		//      print $form->textWithPicture($batch->stats_mo['qty_toproduce'], $langs->trans("QtyToProduce")); Makes no sense with batch, at this moment we don't know batch number
+		//      print $form->textWithPicture($batch->stats_mo['qty_toproduce'], $langs->trans("QtyToProduce")); Makes no sense with batch, at this moment we do not know batch number
 		print $form->textWithPicture($batch->stats_mo['qty_produced'], $langs->trans("QtyAlreadyProduced"));
 		print '</td>';
 		print '</tr>';

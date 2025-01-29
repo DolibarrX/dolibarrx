@@ -191,7 +191,7 @@ class BlockedLog
 		 */
 
 		// Donation
-		if (isModEnabled('don')) {
+		if (isModEnabled('donation')) {
 			$this->trackedevents['DON_VALIDATE'] = 'logDON_VALIDATE';
 			$this->trackedevents['DON_DELETE'] = 'logDON_DELETE';
 			//$this->trackedevents['DON_SENTBYMAIL']='logDON_SENTBYMAIL';
@@ -288,7 +288,7 @@ class BlockedLog
 				$this->error = (string) (((int) $this->error) + 1);
 			}
 		} elseif ($this->element === 'payment_donation') {
-			require_once DOL_DOCUMENT_ROOT.'/don/class/paymentdonation.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/donation/class/paymentdonation.class.php';
 
 			$object = new PaymentDonation($this->db);
 			if ($object->fetch($this->fk_object) > 0) {
@@ -305,8 +305,8 @@ class BlockedLog
 			} else {
 				$this->error = (string) (((int) $this->error) + 1);
 			}
-		} elseif ($this->element === 'don' || $this->element === 'donation') {
-			require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+		} elseif ($this->element === 'donation' || $this->element === 'donation') {
+			require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 
 			$object = new Don($this->db);
 			if ($object->fetch($this->fk_object) > 0) {
@@ -628,7 +628,7 @@ class BlockedLog
 						include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 						$tmpobject = new Facture($this->db);
 					} elseif ($this->element == 'payment_donation') {
-						include_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+						include_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 						$tmpobject = new Don($this->db);
 					} elseif ($this->element == 'payment_various') {
 						include_once DOL_DOCUMENT_ROOT.'/compta/bank/class/paymentvarious.class.php';

@@ -86,7 +86,7 @@ if (isset($_GET["modulepart"])) {
 		$needlogin = 0;
 	}
 }
-// For direct external download link, we don't need to load/check we are into a login session
+// For direct external download link, we do not need to load/check we are into a login session
 if (isset($_GET["hashp"])) {
 	$needlogin = 0;
 }

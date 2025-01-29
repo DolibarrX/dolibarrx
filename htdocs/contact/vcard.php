@@ -99,7 +99,7 @@ if ($company->id) {
 
 	// when company e-mail is empty, use only contact e-mail
 	if (empty(trim($company->email))) {
-		// was set before, don't set twice
+		// was set before, do not set twice
 	} elseif (empty(trim($contact->email))) {
 		// when contact e-mail is empty, use only company e-mail
 		$v->setEmail($company->email);

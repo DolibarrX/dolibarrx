@@ -96,7 +96,7 @@ if (GETPOST('search_supplier_proposal') != '') {
 	exit;
 }
 if (GETPOST('search_donation') != '') {
-	header("Location: ".DOL_URL_ROOT.'/don/list.php?sall='.urlencode(GETPOST('search_donation')));
+	header("Location: ".DOL_URL_ROOT.'/donation/list.php?sall='.urlencode(GETPOST('search_donation')));
 	exit;
 }
 if (GETPOST('search_product') != '') {

@@ -2733,7 +2733,7 @@ $db->close();
  * 	@param		string[]	$fieldlist		Array of fields
  * 	@param		?Object		$obj			If we show a particular record, obj is filled with record fields
  *  @param		string		$tabname		Name of SQL table
- *  @param		''|'add'|'edit'|'hide'	$context		'add'=Output field for the "add form", 'edit'=Output field for the "edit form", 'hide'=Output field for the "add form" but we don't want it to be rendered
+ *  @param		''|'add'|'edit'|'hide'	$context		'add'=Output field for the "add form", 'edit'=Output field for the "edit form", 'hide'=Output field for the "add form" but we do not want it to be rendered
  *	@return		string						'' or value of entity into table
  */
 function dictFieldList($fieldlist, $obj = null, $tabname = '', $context = '')
@@ -2777,7 +2777,7 @@ function dictFieldList($fieldlist, $obj = null, $tabname = '', $context = '')
 			print $form->select_country($selected, $value, '', 28, 'minwidth100 maxwidth150 maxwidthonsmartphone');
 			print '</td>';
 		} elseif ($value == 'country_id') {
-			if (!in_array('country', $fieldlist)) {	// If there is already a field country, we don't show country_id (avoid duplicate)
+			if (!in_array('country', $fieldlist)) {	// If there is already a field country, we do not show country_id (avoid duplicate)
 				$country_id = (!empty($obj->{$value}) ? $obj->{$value} : 0);
 				print '<td class="tdoverflowmax100">';
 				print '<input type="hidden" name="'. $value .'" value="'.$country_id.'">';
@@ -2804,7 +2804,7 @@ function dictFieldList($fieldlist, $obj = null, $tabname = '', $context = '')
 				print '</td>';
 			}
 		} elseif ($value == 'department_buyer_id') {
-			if (!in_array('department_buyer', $fieldlist)) { // If there is already a field department buyer, we don't show department buyer id (avoid duplicate)
+			if (!in_array('department_buyer', $fieldlist)) { // If there is already a field department buyer, we do not show department buyer id (avoid duplicate)
 				$department_buyer_id = (!empty($obj->{$value}) ? $obj->{$value} : 0);
 				print '<td class="tdoverflowmax100">';
 				print '<input type="hidden" name="'.$value.'" value="'.$department_buyer_id.'">';

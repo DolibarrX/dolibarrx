@@ -119,7 +119,7 @@ if (!empty($id)) {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON erd.fk_code_ventilation = aa.rowid";
 	$sql .= " INNER JOIN ".MAIN_DB_PREFIX."expensereport as er ON er.rowid = erd.fk_expensereport";
 	$sql .= " WHERE er.fk_statut > 0 AND erd.rowid = ".((int) $id);
-	$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We don't share object for accountancy
+	$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We do not share object for accountancy
 
 	dol_syslog("/accounting/expensereport/card.php", LOG_DEBUG);
 	$result = $db->query($sql);

@@ -2119,7 +2119,7 @@ function dol_escape_htmltag($stringtoescape, $keepb = 0, $keepn = 0, $noescapeta
 
 		$tmp = (string) $stringtoescape;
 
-		// We protect the 6 special entities that we don't want to decode.
+		// We protect the 6 special entities that we do not want to decode.
 		$tmp = str_ireplace('&lt', '__DONOTDECODELT', $tmp);
 		$tmp = str_ireplace('&gt', '__DONOTDECODEGT', $tmp);
 		$tmp = str_ireplace('&amp', '__DONOTDECODEAMP', $tmp);
@@ -2129,7 +2129,7 @@ function dol_escape_htmltag($stringtoescape, $keepb = 0, $keepn = 0, $noescapeta
 
 		$tmp = html_entity_decode((string) $tmp, ENT_COMPAT, 'UTF-8');		// Convert entities into UTF8
 
-		// We restore the 6 special entities that we don't want to have been decoded by previous command
+		// We restore the 6 special entities that we do not want to have been decoded by previous command
 		$tmp = str_ireplace('__DONOTDECODELT', '&lt', $tmp);
 		$tmp = str_ireplace('__DONOTDECODEGT', '&gt', $tmp);
 		$tmp = str_ireplace('__DONOTDECODEAMP', '&amp', $tmp);
@@ -2734,7 +2734,7 @@ function dol_get_fiche_head($links = [], $active = '', $title = '', $notab = 0, 
 	}
 
 	// Show tabs
-	// if =0 we don't use the feature
+	// if =0 we do not use the feature
 	if (empty($limittoshow)) {
 		$limittoshow = getDolGlobalInt('MAIN_MAXTABS_IN_CARD', 99);
 	}
@@ -4964,7 +4964,7 @@ function dol_trunc($string, $size = 40, $trunc = 'right', $stringencoding = 'UTF
 	if ($trunc == 'right') {
 		$newstring = dol_textishtml($string) ? dol_string_nohtmltag($string, 1) : $string;
 		if (dol_strlen($newstring, $stringencoding) > ($size + ($nodot ? 0 : 1))) {
-			// If nodot is 0 and size is 1 chars more, we don't trunc and don't add …
+			// If nodot is 0 and size is 1 chars more, we do not trunc and do not add …
 			return dol_substr($newstring, 0, $size, $stringencoding).($nodot ? '' : '…');
 		} else {
 			//return 'u'.$size.'-'.$newstring.'-'.dol_strlen($newstring,$stringencoding).'-'.$string;
@@ -4982,7 +4982,7 @@ function dol_trunc($string, $size = 40, $trunc = 'right', $stringencoding = 'UTF
 	} elseif ($trunc == 'left') {
 		$newstring = dol_textishtml($string) ? dol_string_nohtmltag($string, 1) : $string;
 		if (dol_strlen($newstring, $stringencoding) > ($size + ($nodot ? 0 : 1))) {
-			// If nodot is 0 and size is 1 chars more, we don't trunc and don't add …
+			// If nodot is 0 and size is 1 chars more, we do not trunc and do not add …
 			return '…'.dol_substr($newstring, dol_strlen($newstring, $stringencoding) - $size, $size, $stringencoding);
 		} else {
 			return $string;
@@ -6806,7 +6806,7 @@ function vatrate($rate, $addpercent = false, $info_bits = 0, $usestarfornpr = 0,
 		$info_bits |= 1;
 	}
 
-	// If rate is '9/9/9' we don't change it.  If rate is '9.000' we apply price()
+	// If rate is '9/9/9' we do not change it.  If rate is '9.000' we apply price()
 	if (!preg_match('/\//', $rate)) {
 		$ret = price($rate, 0, '', 0, 0).($addpercent ? '%' : '');
 	} else {
@@ -7591,7 +7591,7 @@ function get_product_localtax_for_country($idprod, $local, $thirdpartytouse)
 		$result = $product->fetch($idprod);
 
 		if ($mysoc->country_code == $thirdpartytouse->country_code) { // If selling country is ours
-			/* Not defined yet, so we don't use this
+			/* Not defined yet, so we do not use this
 			if ($local==1) $ret=$product->localtax1_tx;
 			elseif ($local==2) $ret=$product->localtax2_tx;
 			$found=1;
@@ -7755,7 +7755,7 @@ function get_default_tva(Societe $thirdparty_seller, Societe $thirdparty_buyer, 
 	}
 
 	// If (seller in the European Community and buyer outside the European Community and private buyer) then VAT by default = VAT of the product sold. End of rule
-	// I don't see any use case that need this rule.
+	// I do not see any use case that need this rule.
 	if (getDolGlobalString('MAIN_USE_VAT_OF_PRODUCT_FOR_INDIVIDUAL_CUSTOMER_OUT_OF_EEC') && empty($buyer_in_cee)) {
 		$isacompany = $thirdparty_buyer->isACompany();
 		if (!$isacompany) {
@@ -8601,7 +8601,7 @@ function dol_htmlwithnojs($stringtoencode, $nouseofiframesandbox = 0, $check = '
 				);
 			}
 
-			// Now we remove all remaining HTML entities starting with a number. We don't want such entities.
+			// Now we remove all remaining HTML entities starting with a number. We do not want such entities.
 			$out = preg_replace('/&#x?[0-9]+/i', '', $out);	// For example if we have j&#x61vascript with an entities without the ; to hide the 'a' of 'javascript'.
 
 			// Keep only some html tags and remove also some 'javascript:' strings
@@ -9821,7 +9821,7 @@ function make_substitutions($text, $substitutionArray, $outputlangs = null, $con
 	/*
 	add a loop to scan $substitutionArray:
 	For each key ending with '@lazyload', we extract the substitution key 'XXX' and we check inside the $text (the 1st parameter of make_substitutions), if the string XXX exists.
-	If no, we don't need to make replacement, so we do nothing.
+	If no, we do not need to make replacement, so we do nothing.
 	If yes, we can make the substitution:
 
 	include_once $path;
@@ -10761,7 +10761,7 @@ function dol_eval($s, $returnvalue = 1, $hideerrors = 1, $onlysimplestring = '1'
 		$forbiddenphpstrings = array('$$', '$_', '}[');
 		$forbiddenphpstrings = array_merge($forbiddenphpstrings, array('_ENV', '_SESSION', '_COOKIE', '_GET', '_POST', '_REQUEST', 'ReflectionFunction'));
 
-		// We list all forbidden function as keywords we don't want to see (we don't mind it if is "kewyord(" or just "keyword", we don't want "keyword" at all)
+		// We list all forbidden function as keywords we do not want to see (we do not mind it if is "kewyord(" or just "keyword", we do not want "keyword" at all)
 		$forbiddenphpfunctions = [];
 		// @phpcs:ignore
 		$forbiddenphpfunctions = array_merge($forbiddenphpfunctions, array("base64"."_"."decode", "rawurl"."decode", "url"."decode", "str"."_rot13", "hex"."2bin")); // name of forbidden functions are split to avoid false positive
@@ -12379,7 +12379,7 @@ function getDictionaryValue($tablename, $field, $id, $checkentity = false, $rowi
 	if (is_null($dictvalues)) {
 		$dictvalues = [];
 
-		$sql = "SELECT * FROM ".MAIN_DB_PREFIX.$tablename." WHERE 1 = 1"; // Here select * is allowed as it is generic code and we don't have list of fields
+		$sql = "SELECT * FROM ".MAIN_DB_PREFIX.$tablename." WHERE 1 = 1"; // Here select * is allowed as it is generic code and we do not have list of fields
 		if ($checkentity) {
 			$sql .= ' AND entity IN (0,'.getEntity($tablename).')';
 		}
@@ -13659,7 +13659,7 @@ function getNonce()
 
 
 /**
- * Start a table with headers and a optional clickable number (don't forget to use "finishSimpleTable()" after the last table row)
+ * Start a table with headers and a optional clickable number (do not forget to use "finishSimpleTable()" after the last table row)
  *
  * @param string	$header			The first left header of the table (automatic translated)
  * @param string	$link			(optional) The link to a internal dolibarr page, where to go on clicking on the number or the ... (without the first "/")
@@ -13752,7 +13752,7 @@ function addSummaryTableLine($tableColumnCount, $num, $nbofloop = 0, $total = 0,
 	}
 
 	if ($nbofloop === 0) {
-		// don't show a summary line
+		// do not show a summary line
 		return;
 	}
 
@@ -13807,7 +13807,7 @@ function readfileLowMemory($fullpath_original_file_osencoded, $method = -1)
 		}
 	}
 
-	// Be sure we don't have output buffering enabled to have readfile working correctly
+	// Be sure we do not have output buffering enabled to have readfile working correctly
 	while (ob_get_level()) {
 		ob_end_flush();
 	}

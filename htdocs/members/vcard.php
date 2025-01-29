@@ -128,7 +128,7 @@ if ($company->id) {
 	}
 	// when company e-mail is empty, use only member e-mail
 	if (empty(trim($company->email))) {
-		// was set before, don't set twice
+		// was set before, do not set twice
 	} elseif (empty(trim($object->email))) {
 		// when member e-mail is empty, use only company e-mail
 		$v->setEmail($company->email);

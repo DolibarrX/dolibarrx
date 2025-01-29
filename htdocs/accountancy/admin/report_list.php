@@ -791,7 +791,7 @@ $db->close();
  * 	@param		string[]	$fieldlist		Array of fields
  * 	@param		?stdClass	$obj			If we show a particular record, obj is filled with record fields
  *  @param		string		$tabname		Name of SQL table
- *  @param		string		$context		'add'=Output field for the "add form", 'edit'=Output field for the "edit form", 'hide'=Output field for the "add form" but we don't want it to be rendered
+ *  @param		string		$context		'add'=Output field for the "add form", 'edit'=Output field for the "edit form", 'hide'=Output field for the "add form" but we do not want it to be rendered
  *	@return		void
  */
 function fieldListAccountingReport($fieldlist, $obj = null, $tabname = '', $context = '')
@@ -812,7 +812,7 @@ function fieldListAccountingReport($fieldlist, $obj = null, $tabname = '', $cont
 			}
 			print '</td>';
 		} elseif ($fieldlist[$field] == 'country_id') {
-			if (!in_array('country', $fieldlist)) {	// If there is already a field country, we don't show country_id (avoid duplicate)
+			if (!in_array('country', $fieldlist)) {	// If there is already a field country, we do not show country_id (avoid duplicate)
 				$country_id = (!empty($obj->{$fieldlist[$field]}) ? $obj->{$fieldlist[$field]} : 0);
 				print '<td>';
 				print '<input type="hidden" name="'.$fieldlist[$field].'" value="'.$country_id.'">';

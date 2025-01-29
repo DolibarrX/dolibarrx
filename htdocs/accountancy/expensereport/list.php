@@ -289,7 +289,7 @@ if ($search_date_start) {
 if ($search_date_end) {
 	$sql .= " AND erd.date <= '".$db->idate($search_date_end)."'";
 }
-$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We don't share object for accountancy
+$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We do not share object for accountancy
 
 // Add where from hooks
 $parameters = [];

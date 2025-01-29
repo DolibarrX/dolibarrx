@@ -211,7 +211,7 @@ $sql .= " INNER JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON aa.rowid = er
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_type_fees as f ON f.id = erd.fk_c_type_fees";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON u.rowid = er.fk_user_author";
 $sql .= " WHERE erd.fk_code_ventilation > 0";
-$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We don't share object for accountancy
+$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We do not share object for accountancy
 $sql .= " AND er.fk_statut IN (".ExpenseReport::STATUS_APPROVED.", ".ExpenseReport::STATUS_CLOSED.")";
 // Add search filter like
 if (strlen($search_lineid)) {
@@ -244,7 +244,7 @@ if ($search_date_start) {
 if ($search_date_end) {
 	$sql .= " AND erd.date <= '".$db->idate($search_date_end)."'";
 }
-$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We don't share object for accountancy
+$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We do not share object for accountancy
 
 $sql .= $db->order($sortfield, $sortorder);
 

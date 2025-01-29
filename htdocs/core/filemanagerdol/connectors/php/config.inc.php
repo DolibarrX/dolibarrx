@@ -50,7 +50,7 @@ if ($pos == '/') {
 $entity = ((!empty($_SESSION['dol_entity']) && $_SESSION['dol_entity'] > 1) ? $_SESSION['dol_entity'] : null);
 
 // SECURITY: You must explicitly enable this "connector". (Set it to "true").
-// WARNING: don't just set "$Config['Enabled'] = true ;", you must be sure that only
+// WARNING: do not just set "$Config['Enabled'] = true ;", you must be sure that only
 //		authenticated users can access this file or use some kind of session checking.
 $Config['Enabled'] = true;
 

@@ -23,12 +23,12 @@
  */
 
 /**
- *	\file       htdocs/core/modules/dons/html_generic.modules.php
+ *	\file       htdocs/core/modules/donations/html_generic.modules.php
  *	\ingroup    don
  *	\brief      Form of donation
  */
-require_once DOL_DOCUMENT_ROOT.'/core/modules/dons/modules_don.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/donations/modules_donation.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
 
@@ -88,7 +88,7 @@ class html_generic extends ModeleDon
 	 *  @param	Don			$don	        Donation object
 	 *  @return	string             			Label for payment type
 	 */
-	private function getDonationPaymentType($don)
+	private function getDonationPaymentType($donation)
 	{
 		$formclass = new Form($this->db);
 
@@ -113,7 +113,7 @@ class html_generic extends ModeleDon
 	 *  @param	string		$currency		Currency code
 	 *  @return	string             			Contents of the file
 	 */
-	private function getContents($don, $outputlangs, $currency)
+	private function getContents($donation, $outputlangs, $currency)
 	{
 		global $user, $config, $langs, $mysoc;
 
@@ -121,7 +121,7 @@ class html_generic extends ModeleDon
 
 		$currency = !empty($currency) ? $currency : $config->currency;
 
-		$donmodel = DOL_DOCUMENT_ROOT."/core/modules/dons/html_generic.html";
+		$donmodel = DOL_DOCUMENT_ROOT."/core/modules/donations/html_generic.html";
 		$form = implode('', file($donmodel));
 		$form = str_replace('__NOW__', dol_print_date($now, 'day', false, $outputlangs), $form);
 		$form = str_replace('__REF__', (string) $don->id, $form);
@@ -130,7 +130,7 @@ class html_generic extends ModeleDon
 		$form = str_replace('__BENEFICIARY_NAME__', $mysoc->name, $form);
 		$form = str_replace('__BENEFICIARY_FULL_ADDRESS__', $mysoc->getFullAddress(1, "<br>", 1), $form);
 
-		$form = str_replace('__PAYMENTMODE_LABEL__', $this->getDonationPaymentType($don), $form);
+		$form = str_replace('__PAYMENTMODE_LABEL__', $this->getDonationPaymentType($donation), $form);
 		$form = str_replace('__AMOUNT__', price($don->amount), $form);
 		$form = str_replace('__CURRENCY_CODE__', $config->currency, $form);
 		if (isModEnabled("societe") && getDolGlobalString('DONATION_USE_THIRDPARTIES') && $don->socid > 0 && $don->thirdparty) {
@@ -191,19 +191,19 @@ class html_generic extends ModeleDon
 	 *  @param	string		$currency		Currency code
 	 *  @return	int<-1,1>					>0 if OK, <0 if KO
 	 */
-	public function write_file($don, $outputlangs, $currency = '')
+	public function write_file($donation, $outputlangs, $currency = '')
 	{
 		// phpcs:enable
 		global $user, $config, $langs, $mysoc;
 
-		$id = (!is_object($don) ? $don : '');
+		$id = (!is_object($donation) ? $donation : '');
 
 		$outputlangs = $this->loadTranslationFiles($outputlangs);
 
 		if (!empty($config->don->dir_output)) {
-			// Definition of the object don (for upward compatibility)
-			if (!is_object($don)) {
-				$don = new Don($this->db);
+			// Definition of the object donation (for upward compatibility)
+			if (!is_object($donation)) {
+				$donation = new Don($this->db);
 				$ret = $don->fetch($id);
 				$id = $don->id;
 			}
@@ -226,7 +226,7 @@ class html_generic extends ModeleDon
 			}
 
 			if (file_exists($dir)) {
-				$this->saveFile($file, $this->getContents($don, $outputlangs, $currency));
+				$this->saveFile($file, $this->getContents($donation, $outputlangs, $currency));
 
 				$this->result = array('fullpath' => $file);
 

@@ -58,7 +58,7 @@ $element_type = GETPOST('element_type');
 
 $usercanmodify = $user->hasRight('website', 'write');
 if (!$usercanmodify) {
-	print "You don't have permission for this action.";
+	print "You do not have permission for this action.";
 	exit;
 }
 

@@ -983,7 +983,7 @@ function dolCopyDir($srcfile, $destfile, $newmask, $overwriteifexists, $arrayrep
 				}
 				// Set result
 				if ($result > 0 && $tmpresult >= 0) {
-					// Do nothing, so we don't set result to 0 if tmpresult is 0 and result was success in a previous pass
+					// Do nothing, so we do not set result to 0 if tmpresult is 0 and result was success in a previous pass
 				} else {
 					$result = $tmpresult;
 				}
@@ -2239,7 +2239,7 @@ function addFileIntoDatabaseIndex($dir, $file, $fullpathorig = '', $mode = 'uplo
 					$outputfile = $config->admin->dir_temp . '/tmppdftotext.' . $user->id . '.out'; // File used with popen method
 
 					// We also exclude '/temp/' dir and 'documents/admin/documents'
-					// We make escapement here and call executeCLI without escapement because we don't want to have the '*.log' escaped.
+					// We make escapement here and call executeCLI without escapement because we do not want to have the '*.log' escaped.
 					$cmd = getDolGlobalString('MAIN_SAVE_FILE_CONTENT_AS_TEXT_PDFTOTEXT', 'pdftotext') . " -htmlmeta '" . escapeshellcmd($filetoprocess) . "' - ";
 					$resultexec = $utils->executeCLI($cmd, $outputfile, 0, null, 1);
 
@@ -2265,7 +2265,7 @@ function addFileIntoDatabaseIndex($dir, $file, $fullpathorig = '', $mode = 'uplo
 					$outputfile = $config->admin->dir_temp . '/tmpdocling.' . $user->id . '.out'; // File used with popen method
 
 					// We also exclude '/temp/' dir and 'documents/admin/documents'
-					// We make escapement here and call executeCLI without escapement because we don't want to have the '*.log' escaped.
+					// We make escapement here and call executeCLI without escapement because we do not want to have the '*.log' escaped.
 					$cmd = getDolGlobalString('MAIN_SAVE_FILE_CONTENT_AS_TEXT_DOCLING', 'docling') . " --from pdf --to text '" . escapeshellcmd($filetoprocess) . "'";
 					$resultexec = $utils->executeCLI($cmd, $outputfile, 0, null, 1);
 
@@ -3425,7 +3425,7 @@ function dol_check_secure_access_document($modulePart, $original_file, $entity, 
 		$sqlprotectagainstexternals = "SELECT fk_soc as fk_soc FROM " . MAIN_DB_PREFIX . "contract WHERE ref='" . $db->escape($refname) . "' AND entity IN (" . getEntity('contract') . ")";
 	} elseif ($modulePart == 'donation' && !empty($config->don->dir_output)) {
 		// Wrapping pour les dons
-		if ($fuser->hasRight('don', $lire) || preg_match('/^specimen/i', $original_file)) {
+		if ($fuser->hasRight('donation', $lire) || preg_match('/^specimen/i', $original_file)) {
 			$accessallowed = 1;
 		}
 		$original_file = $config->don->dir_output . '/' . $original_file;

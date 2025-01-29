@@ -31,7 +31,7 @@ ALTER TABLE llx_order_fournisseur ADD COLUMN import_key varchar(14);
 
 ALTER TABLE llx_order_fournisseur MODIFY model_pdf varchar(255);
 ALTER TABLE llx_order MODIFY model_pdf varchar(255);
-ALTER TABLE llx_don MODIFY model_pdf varchar(255);
+ALTER TABLE llx_donation MODIFY model_pdf varchar(255);
 ALTER TABLE llx_expedition MODIFY model_pdf varchar(255);
 ALTER TABLE llx_facture_fourn MODIFY model_pdf varchar(255);
 ALTER TABLE llx_facture MODIFY model_pdf varchar(255);
@@ -481,8 +481,8 @@ ALTER TABLE llx_user ADD ref_ext varchar(30) AFTER entity;
 ALTER TABLE llx_user ADD civilite varchar(6) AFTER pass_temp;
 ALTER TABLE llx_user ADD signature text DEFAULT NULL AFTER email;
 
-ALTER TABLE llx_don ADD   phone_mobile    varchar(24) after email;
-ALTER TABLE llx_don ADD   phone           varchar(24) after email;
+ALTER TABLE llx_donation ADD   phone_mobile    varchar(24) after email;
+ALTER TABLE llx_donation ADD   phone           varchar(24) after email;
 
 ALTER TABLE llx_element_element MODIFY sourcetype varchar(32) NOT NULL;
 ALTER TABLE llx_element_element MODIFY targettype varchar(32) NOT NULL;

@@ -244,7 +244,7 @@ ALTER TABLE llx_website_page ADD COLUMN import_key varchar(14);
 ALTER TABLE llx_fichinter ADD COLUMN import_key varchar(14);
 ALTER TABLE llx_livraison ADD COLUMN import_key varchar(14);
 ALTER TABLE llx_livraison ADD COLUMN extraparams varchar(255);
-ALTER TABLE llx_don ADD COLUMN extraparams varchar(255);
+ALTER TABLE llx_donation ADD COLUMN extraparams varchar(255);
 
 ALTER TABLE llx_accounting_account ADD COLUMN import_key varchar(14);
 ALTER TABLE llx_accounting_account ADD COLUMN extraparams varchar(255);
@@ -678,7 +678,7 @@ ALTER TABLE llx_blockedlog MODIFY COLUMN amounts double(24,8) NOT NULL;
 ALTER TABLE llx_chargesociales MODIFY COLUMN amount double(24,8);
 ALTER TABLE llx_order MODIFY COLUMN amount_ht double(24,8) default 0;
 ALTER TABLE llx_order_fournisseur MODIFY COLUMN amount_ht double(24,8);
-ALTER TABLE llx_don MODIFY COLUMN amount double(24,8);
+ALTER TABLE llx_donation MODIFY COLUMN amount double(24,8);
 ALTER TABLE llx_expensereport_rules MODIFY COLUMN amount double(24,8);
 ALTER TABLE llx_loan MODIFY COLUMN capital double(24,8);
 ALTER TABLE llx_loan MODIFY COLUMN capital_position double(24,8);

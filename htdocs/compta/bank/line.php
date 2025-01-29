@@ -52,7 +52,7 @@ $langs->loadLangs(array('banks', 'categories', 'compta', 'bills', 'other'));
 if (isModEnabled('member')) {
 	$langs->load("members");
 }
-if (isModEnabled('don')) {
+if (isModEnabled('donation')) {
 	$langs->load("donations");
 }
 if (isModEnabled('loan')) {
@@ -476,7 +476,7 @@ if ($result) {
 					print $links[$key]['label'];
 					print '</a>';
 				} elseif ($links[$key]['type'] == 'payment_donation') {
-					print '<a href="'.DOL_URL_ROOT.'/don/payment/card.php?id='.$links[$key]['url_id'].'">';
+					print '<a href="'.DOL_URL_ROOT.'/donation/payment/card.php?id='.$links[$key]['url_id'].'">';
 					print img_object($langs->trans('Donation'), 'payment').' ';
 					print $langs->trans("DonationPayment");
 					print '</a>';

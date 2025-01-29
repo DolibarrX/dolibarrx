@@ -616,7 +616,7 @@ if (!$user->hasRight('fournisseur', 'lire')) {
 	$sql .= " AND (s.fournisseur <> 1 OR s.client <> 0)"; // client=0, fournisseur=0 must be visible
 }
 
-// Force the sales representative if they don't have permissions
+// Force the sales representative if they do not have permissions
 if (!$user->hasRight('societe', 'client', 'voir') && !$socid) {
 	$search_sale = array($user->id);
 }
@@ -1314,7 +1314,7 @@ $htmlofselectarray = $form->multiSelectArrayWithCheckbox('selectedfields', $arra
 $selectedfields = ($mode != 'kanban' ? $htmlofselectarray : '');
 $selectedfields .= ((count($arrayofmassactions) && $contextpage != 'poslist') ? $form->showCheckAddButtons('checkforselect', 1) : '');
 
-print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 print '<table class="tagtable nobottomiftotal liste'.($moreforfilter ? " listwithfilterbefore" : "").'">'."\n";
 
 // Fields title search

@@ -673,7 +673,7 @@ if ($action == 'charge' && isModEnabled('stripe')) {	// Test on permission not r
 				// Return $customer = array('id'=>'cus_XXXX', ...)
 
 				// Create the VAT record in Stripe
-				/* We don't know country of customer, so we can't create tax
+				/* We do not know country of customer, so we can't create tax
 				if (getDolGlobalString('STRIPE_SAVE_TAX_IDS')) {	// We setup to save Tax info on Stripe side. Warning: This may result in error when saving customer
 					if (!empty($vatcleaned))
 					{
@@ -1084,7 +1084,7 @@ if (!$source) {
 	print '</td></tr>'."\n";
 
 	// We do not add fields shipToName, shipToStreet, shipToCity, shipToState, shipToCountryCode, shipToZip, shipToStreet2, phoneNum
-	// as they don't exists (buyer is unknown, tag is free).
+	// as they do not exists (buyer is unknown, tag is free).
 }
 
 
@@ -1203,7 +1203,7 @@ if ($source == 'order') {
 		print '<input type="hidden" name="shipToStreet2" value="'.dol_escape_htmltag($shipToStreet2).'">'."\n";
 		print '<input type="hidden" name="phoneNum" value="'.dol_escape_htmltag($phoneNum).'">'."\n";
 	} else {
-		print '<!-- Shipping address not complete, so we don t use it -->'."\n";
+		print '<!-- Shipping address not complete, so we do not use it -->'."\n";
 	}
 	if (is_object($order->thirdparty)) {
 		print '<input type="hidden" name="thirdparty_id" value="'.$order->thirdparty->id.'">'."\n";
@@ -1347,7 +1347,7 @@ if ($source == 'invoice') {
 		print '<input type="hidden" name="shipToStreet2" value="'.$shipToStreet2.'">'."\n";
 		print '<input type="hidden" name="phoneNum" value="'.$phoneNum.'">'."\n";
 	} else {
-		print '<!-- Shipping address not complete, so we don t use it -->'."\n";
+		print '<!-- Shipping address not complete, so we do not use it -->'."\n";
 	}
 	if (is_object($invoice->thirdparty)) {
 		print '<input type="hidden" name="thirdparty_id" value="'.$invoice->thirdparty->id.'">'."\n";
@@ -1544,7 +1544,7 @@ if ($source == 'contractline') {
 		print '<input type="hidden" name="shipToStreet2" value="'.$shipToStreet2.'">'."\n";
 		print '<input type="hidden" name="phoneNum" value="'.$phoneNum.'">'."\n";
 	} else {
-		print '<!-- Shipping address not complete, so we don t use it -->'."\n";
+		print '<!-- Shipping address not complete, so we do not use it -->'."\n";
 	}
 	if (is_object($contract->thirdparty)) {
 		print '<input type="hidden" name="thirdparty_id" value="'.$contract->thirdparty->id.'">'."\n";
@@ -1788,7 +1788,7 @@ if ($source == 'member' || $source == 'membersubscription') {
 		print '<input type="hidden" name="shipToStreet2" value="'.$shipToStreet2.'">'."\n";
 		print '<input type="hidden" name="phoneNum" value="'.$phoneNum.'">'."\n";
 	} else {
-		print '<!-- Shipping address not complete, so we don t use it -->'."\n";
+		print '<!-- Shipping address not complete, so we do not use it -->'."\n";
 	}
 	if (is_object($member->thirdparty)) {
 		print '<input type="hidden" name="thirdparty_id" value="'.$member->thirdparty->id.'">'."\n";
@@ -1804,11 +1804,11 @@ if ($source == 'member' || $source == 'membersubscription') {
 // Payment on donation
 if ($source == 'donation') {
 	$found = true;
-	$langs->load("don");
+	$langs->load("donation");
 
-	require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 
-	$don = new Don($db);
+	$donation = new Don($db);
 	// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
 	$result = $don->fetch($ref);
 	if ($result <= 0) {
@@ -1817,7 +1817,7 @@ if ($source == 'donation') {
 	} else {
 		$don->fetch_thirdparty();
 	}
-	$object = $don;
+	$object = $donation;
 
 	if ($action != 'dopayment') { // Do not change amount if we just click on first dopayment
 		if (GETPOST("amount", 'alpha')) {
@@ -1946,7 +1946,7 @@ if ($source == 'donation') {
 		print '<input type="hidden" name="shipToStreet2" value="'.$shipToStreet2.'">'."\n";
 		print '<input type="hidden" name="phoneNum" value="'.$phoneNum.'">'."\n";
 	} else {
-		print '<!-- Shipping address not complete, so we don t use it -->'."\n";
+		print '<!-- Shipping address not complete, so we do not use it -->'."\n";
 	}
 	if (is_object($don->thirdparty)) {
 		print '<input type="hidden" name="thirdparty_id" value="'.$don->thirdparty->id.'">'."\n";
@@ -2038,7 +2038,7 @@ if ($source == 'organizedeventregistration' && is_object($thirdparty)) {
 		print '<input type="hidden" name="shipToStreet2" value="'.$shipToStreet2.'">'."\n";
 		print '<input type="hidden" name="phoneNum" value="'.$phoneNum.'">'."\n";
 	} else {
-		print '<!-- Shipping address not complete, so we don t use it -->'."\n";
+		print '<!-- Shipping address not complete, so we do not use it -->'."\n";
 	}
 	print '<input type="hidden" name="thirdparty_id" value="'.$thirdparty->id.'">'."\n";
 	print '<input type="hidden" name="email" value="'.$thirdparty->email.'">'."\n";
@@ -2122,7 +2122,7 @@ if ($source == 'boothlocation') {
 		print '<input type="hidden" name="shipToStreet2" value="'.$shipToStreet2.'">'."\n";
 		print '<input type="hidden" name="phoneNum" value="'.$phoneNum.'">'."\n";
 	} else {
-		print '<!-- Shipping address not complete, so we don t use it -->'."\n";
+		print '<!-- Shipping address not complete, so we do not use it -->'."\n";
 	}
 	print '<input type="hidden" name="thirdparty_id" value="'.$thirdparty->id.'">'."\n";
 	print '<input type="hidden" name="email" value="'.$thirdparty->email.'">'."\n";

@@ -716,7 +716,7 @@ class modProduct extends DolibarrModules
 		//clauses copied from import_fields_array
 		if (isModEnabled('stock')) {
 			$import_sample = array_merge($import_sample, array(
-				'p.tobatch' => "0 (don't use) / 1 (use batch) / 2 (use serial number)",
+				'p.tobatch' => "0 (do not use) / 1 (use batch) / 2 (use serial number)",
 				'p.seuil_stock_alerte' => '',
 				'p.pmp' => '0',
 				'p.desiredstock' => ''

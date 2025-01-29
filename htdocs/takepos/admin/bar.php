@@ -108,7 +108,7 @@ print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="set">';
 
 ?>
-<script type="text/javascript" src="<?php echo DOL_URL_ROOT ?>/takepos/js/jquery.colorbox-min.js"></script>	<!-- TODO It seems we don't need this -->
+<script type="text/javascript" src="<?php echo DOL_URL_ROOT ?>/takepos/js/jquery.colorbox-min.js"></script>	<!-- TODO It seems we do not need this -->
 <script type="text/javascript">
 function Floors() {
 	console.log("Open box to select floor");

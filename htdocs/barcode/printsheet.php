@@ -99,7 +99,7 @@ if ($resHook < 0) {
 
 if (empty($resHook)) {
 	if (GETPOST('submitproduct') && GETPOST('submitproduct')) {
-		$action = ''; // We reset because we don't want to build doc
+		$action = ''; // We reset because we do not want to build doc
 		if (GETPOSTINT('productid') > 0) {
 			$result = $producttmp->fetch(GETPOSTINT('productid'));
 			if ($result < 0) {
@@ -118,7 +118,7 @@ if (empty($resHook)) {
 		}
 	}
 	if (GETPOST('submitthirdparty') && GETPOST('submitthirdparty')) {
-		$action = ''; // We reset because we don't want to build doc
+		$action = ''; // We reset because we do not want to build doc
 		if (GETPOSTINT('socid') > 0) {
 			$thirdpartytmp->fetch(GETPOSTINT('socid'));
 			$forbarcode = $thirdpartytmp->barcode;

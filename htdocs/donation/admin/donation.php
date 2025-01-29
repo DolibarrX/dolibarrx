@@ -23,14 +23,14 @@
  */
 
 /**
- *  \file       htdocs/don/admin/donation.php
+ *  \file       htdocs/donation/admin/donation.php
  *  \ingroup    donations
  *  \brief      Page to setup the donation module
  */
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/donation.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 if (isModEnabled('accounting')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formaccounting.class.php';
@@ -67,11 +67,11 @@ $error = 0;
 if ($action == 'specimen') {
 	$modele = GETPOST('module', 'alpha');
 
-	$don = new Don($db);
+	$donation = new Don($db);
 	$don->initAsSpecimen();
 
 	// Search template files
-	$dir = DOL_DOCUMENT_ROOT."/core/modules/dons/";
+	$dir = DOL_DOCUMENT_ROOT."/core/modules/donations/";
 	$file = $modele.".modules.php";
 	if ($modele !== '' && file_exists($dir.$file)) {
 		require_once $dir.$file;
@@ -80,7 +80,7 @@ if ($action == 'specimen') {
 		$obj = new $classname($db);
 		'@phan-var-force ModeleDon $obj';
 
-		if ($obj->write_file($don, $langs) > 0) {
+		if ($obj->write_file($donation, $langs) > 0) {
 			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=donation&file=SPECIMEN.html");
 			return;
 		} else {
@@ -179,7 +179,7 @@ if (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
  * View
  */
 
-$dir = "../../core/modules/dons/";
+$dir = "../../core/modules/donations/";
 $form = new Form($db);
 if (isModEnabled('accounting')) {
 	$formaccounting = new FormAccounting($db);

@@ -183,12 +183,12 @@ ALTER TABLE llx_rights_def ADD COLUMN tms timestamp DEFAULT CURRENT_TIMESTAMP ON
 UPDATE llx_establishment SET name='' WHERE name IS NULL;
 ALTER TABLE llx_establishment CHANGE name label varchar(255) NOT NULL;
 
-ALTER TABLE llx_don ADD UNIQUE INDEX idx_don_uk_ref (ref, entity);
+ALTER TABLE llx_donation ADD UNIQUE INDEX idx_donation_uk_ref (ref, entity);
 
-ALTER TABLE llx_don ADD INDEX idx_don_fk_soc (fk_soc);
-ALTER TABLE llx_don ADD INDEX idx_don_fk_project (fk_projet);
-ALTER TABLE llx_don ADD INDEX idx_don_fk_user_author (fk_user_author);
-ALTER TABLE llx_don ADD INDEX idx_don_fk_user_valid (fk_user_valid);
+ALTER TABLE llx_donation ADD INDEX idx_donation_fk_soc (fk_soc);
+ALTER TABLE llx_donation ADD INDEX idx_donation_fk_project (fk_projet);
+ALTER TABLE llx_donation ADD INDEX idx_donation_fk_user_author (fk_user_author);
+ALTER TABLE llx_donation ADD INDEX idx_donation_fk_user_valid (fk_user_valid);
 
 ALTER TABLE llx_order ADD COLUMN revenuestamp double(24,8) DEFAULT 0 after localtax2;
 

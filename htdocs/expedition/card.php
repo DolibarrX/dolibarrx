@@ -350,7 +350,7 @@ if (empty($resHook)) {
 					// No detail were provided for lots, so if a qty was provided, we can throw an error.
 					if (GETPOST($qty)) {
 						// We try to set an amount
-						// Case we don't use the list of available qty for each warehouse/lot
+						// Case we do not use the list of available qty for each warehouse/lot
 						// GUI does not allow this yet
 						setEventMessages($langs->trans("StockIsRequiredToChooseWhichLotToUse").' ('.$langs->trans("Line").' '.GETPOSTINT($idl).')', null, 'errors');
 						$error++;

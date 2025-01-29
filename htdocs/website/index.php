@@ -1586,7 +1586,7 @@ if ($action == 'updatecss' && $usercanedit) {
 				}
 			}
 			if ($error) {
-				if (!GETPOSTISSET('updateandstay')) {	// If we click on "Save And Stay", we don not make the redirect
+				if (!GETPOSTISSET('updateandstay')) {	// If we click on "Save And Stay", we do not make the redirect
 					$action = 'preview';
 					if ($backtopage) {
 						$backtopage = preg_replace('/searchstring=[^&]*/', '', $backtopage);	// Clean backtopage url
@@ -1672,7 +1672,7 @@ if ($action == 'updatecss' && $usercanedit) {
 				$csscontent .= "require_once DOL_DOCUMENT_ROOT.'/core/lib/website.lib.php';\n";
 				$csscontent .= "require_once DOL_DOCUMENT_ROOT.'/core/website.inc.php';\n";
 				$csscontent .= "ob_start();\n";
-				$csscontent .= "if (! headers_sent()) {	/* because file is included inline when in edit mode and we don't want warning */ \n";
+				$csscontent .= "if (! headers_sent()) {	/* because file is included inline when in edit mode and we do not want warning */ \n";
 				$csscontent .= "header('Cache-Control: max-age=3600, public, must-revalidate');\n";
 				$csscontent .= "header('Content-type: text/css');\n";
 				$csscontent .= "}\n";
@@ -1925,7 +1925,7 @@ if ($action == 'updatecss' && $usercanedit) {
 				setEventMessages($langs->trans("Saved"), null, 'mesgs');
 			}
 
-			if (!GETPOSTISSET('updateandstay')) {	// If we click on "Save And Stay", we don not make the redirect
+			if (!GETPOSTISSET('updateandstay')) {	// If we click on "Save And Stay", we do not make the redirect
 				$action = 'preview';
 				if ($backtopage) {
 					$backtopage = preg_replace('/searchstring=[^&]*/', '', $backtopage);	// Clean backtopage url

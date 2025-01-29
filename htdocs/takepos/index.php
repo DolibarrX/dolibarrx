@@ -127,7 +127,7 @@ $form = new Form($db);
 
 $disablejs = 0;
 $disablehead = 0;
-$arrayofjs = array('/takepos/js/jquery.colorbox-min.js'); // TODO It seems we don't need this
+$arrayofjs = array('/takepos/js/jquery.colorbox-min.js'); // TODO It seems we do not need this
 $arrayofcss = array('/takepos/css/pos.css.php', '/takepos/css/colorbox.css');
 
 if (getDolGlobalInt('TAKEPOS_COLOR_THEME') == 1) {
@@ -226,7 +226,7 @@ function ClearSearch(clearSearchResults) {
 	}
 }
 
-// Set the focus on search field but only on desktop. On tablet or smartphone, we don't to avoid to have the keyboard open automatically
+// Set the focus on search field but only on desktop. On tablet or smartphone, we do not to avoid to have the keyboard open automatically
 function setFocusOnSearchField() {
 	console.log("Call setFocusOnSearchField in page index.php");
 	<?php if ($config->browser->layout == 'classic') { ?>

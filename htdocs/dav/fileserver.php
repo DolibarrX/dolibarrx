@@ -34,7 +34,7 @@ if (!defined('NOREQUIREMENU')) {
 	define('NOREQUIREMENU', '1'); // If there is no menu to show
 }
 if (!defined('NOREQUIREHTML')) {
-	define('NOREQUIREHTML', '1'); // If we don't need to load the html.form.class.php
+	define('NOREQUIREHTML', '1'); // If we do not need to load the html.form.class.php
 }
 if (!defined('NOREQUIREAJAX')) {
 	define('NOREQUIREAJAX', '1');

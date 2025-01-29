@@ -112,7 +112,7 @@ if (isModEnabled('bank')) {
 if (getDolGlobalString('INVOICE_USE_RETAINED_WARRANTY')) {
 	$list_account[] = 'ACCOUNTING_ACCOUNT_CUSTOMER_RETAINED_WARRANTY';
 }
-if (isModEnabled('don')) {
+if (isModEnabled('donation')) {
 	$list_account[] = 'DONATION_ACCOUNTINGACCOUNT';
 }
 if (isModEnabled('member')) {

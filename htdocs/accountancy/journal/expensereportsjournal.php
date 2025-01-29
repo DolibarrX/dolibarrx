@@ -148,7 +148,7 @@ $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Not
 $sql .= $hookManager->resPrint;
 $sql .= " WHERE er.fk_statut > 0";
 $sql .= " AND erd.fk_code_ventilation > 0";
-$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We don't share object for accountancy
+$sql .= " AND er.entity IN (".getEntity('expensereport', 0).")"; // We do not share object for accountancy
 if ($date_start && $date_end) {
 	$sql .= " AND er.date_debut >= '".$db->idate($date_start)."' AND er.date_debut <= '".$db->idate($date_end)."'";
 }

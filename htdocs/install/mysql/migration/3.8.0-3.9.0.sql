@@ -26,7 +26,7 @@ insert into llx_const (name, value, type, note, visible, entity) values (__ENCRY
 
 
 -- Was done into a 3.8 fix, so we must do it also in 3.9 
-ALTER TABLE llx_don ADD COLUMN fk_country integer NOT NULL DEFAULT 0 after country;
+ALTER TABLE llx_donation ADD COLUMN fk_country integer NOT NULL DEFAULT 0 after country;
 
 
 ALTER TABLE llx_product ADD COLUMN localtax1_type varchar(10)  NOT NULL DEFAULT '0' after localtax1_tx; 

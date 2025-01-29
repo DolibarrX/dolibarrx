@@ -507,7 +507,7 @@ class PaiementFourn extends Paiement
 			if ($bank_line_id) {
 				$accline = new AccountLine($this->db);
 				$result = $accline->fetch($bank_line_id);
-				if ($result > 0) { // If result = 0, record not found, we don't try to delete
+				if ($result > 0) { // If result = 0, record not found, we do not try to delete
 					$result = $accline->delete($user);
 				}
 				if ($result < 0) {
@@ -539,7 +539,7 @@ class PaiementFourn extends Paiement
 	/**
 	 *	Information on object
 	 *
-	 *	@param	int		$id      Id du paiement don't il faut afficher les infos
+	 *	@param	int		$id      Id du paiement do not il faut afficher les infos
 	 *	@return	void
 	 */
 	public function info($id)

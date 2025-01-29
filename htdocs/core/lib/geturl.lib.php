@@ -256,11 +256,11 @@ function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 
 
 	dol_syslog("getURLContent request=" . $request);
 	if (getDolGlobalInt('MAIN_CURL_DEBUG')) {
-		// This may contains binary data, so we don't output response by default.
+		// This may contains binary data, so we do not output response by default.
 		dol_syslog("getURLContent request=" . $request, LOG_DEBUG, 0, '_curl');
 		dol_syslog("getURLContent response =" . $response, LOG_DEBUG, 0, '_curl');
 	}
-	dol_syslog("getURLContent response size=" . strlen($response)); // This may contains binary data, so we don't output it
+	dol_syslog("getURLContent response size=" . strlen($response)); // This may contains binary data, so we do not output it
 
 	$rep = [];
 	if (curl_errno($ch)) {

@@ -169,7 +169,7 @@ if (!$result && !empty($_SERVER["GATEWAY_INTERFACE"])) {    // If install not do
 		// When we ask index.php, we MUST BE SURE that $path is '' at the end. This is required to make install process
 		// when using apache alias like '/dolibarr/' that point to htdocs.
 		// Note: If calling page was an index.php not into htdocs (ie comm/index.php, ...), then this redirect will fails,
-		// but we don't want to change this because when URL is correct, we must be sure the redirect to install/index.php will be correct.
+		// but we do not want to change this because when URL is correct, we must be sure the redirect to install/index.php will be correct.
 		$path = '';
 	} else {
 		// If what we look is not index.php, we can try to guess location of root. May not work all the time.

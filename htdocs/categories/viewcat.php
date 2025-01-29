@@ -483,7 +483,7 @@ if ($cats < 0) {
 		print '<tr class="pair">';
 		print '<td colspan="3">';
 
-		// $data[0] is the current shown category, to don'T show the current category use $data[1] instead
+		// $data[0] is the current shown category, to do not show the current category use $data[1] instead
 		tree_recur($data, $data[1], 0);
 
 		print '</td>';

@@ -203,7 +203,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 // List of fields to search into when doing a "search in all"
 $fieldstosearchall = [];
 foreach ($object->fields as $key => $val) {
-	// don't allow search in private notes for external users when doing "search in all"
+	// do not allow search in private notes for external users when doing "search in all"
 	if (!empty($user->socid) && $key == "note_private") {
 		continue;
 	}

@@ -613,7 +613,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 			dol_syslog("The payment mode of this payment is ".$paymentTypeCode." in Stripe and ".$paymentTypeCodeInDolibarr." in Dolibarr. This case is not managed by the IPN");
 		}
 	} else {
-		dol_syslog("Nothing to do in database because we don't know paymentTypeIdInDolibarr");
+		dol_syslog("Nothing to do in database because we do not know paymentTypeIdInDolibarr");
 	}
 } elseif ($event->type == 'payment_intent.payment_failed') {
 	// When a try to take payment has failed. Useful for asynchronous SEPA payment that fails.
@@ -884,7 +884,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 
 	if ($amountdispute != $payment_amountInDolibarr) {
 		http_response_code(500);
-		print "The payment disputed is ".$amountdispute." and the invoice is ".$payment_amountInDolibarr.". Amount differs, we don't know what to do.";
+		print "The payment disputed is ".$amountdispute." and the invoice is ".$payment_amountInDolibarr.". Amount differs, we do not know what to do.";
 		return -1;
 	}
 

@@ -395,7 +395,7 @@ if ($action == "set" || empty($action) || preg_match('/upgrade/i', $action)) {
 			// Define if we need to update the MAIN_VERSION_LAST_UPGRADE value in database
 			$tagdatabase = false;
 			if (!getDolGlobalString('MAIN_VERSION_LAST_UPGRADE')) {
-				$tagdatabase = true; // We don't know what it was before, so now we consider we at the chosen version.
+				$tagdatabase = true; // We do not know what it was before, so now we consider we at the chosen version.
 			} else {
 				$mainversionlastupgradearray = preg_split('/[.-]/', $config->global->MAIN_VERSION_LAST_UPGRADE);
 				$targetversionarray = preg_split('/[.-]/', $targetversion);

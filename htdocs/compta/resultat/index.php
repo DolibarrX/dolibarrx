@@ -754,21 +754,21 @@ if (isModEnabled('expensereport') && ($modecompta == 'CREANCES-DETTES' || $modec
  * Donation get dunning payments
  */
 
-if (isModEnabled('don') && ($modecompta == 'CREANCES-DETTES' || $modecompta == "RECETTES-DEPENSES")) {
+if (isModEnabled('donation') && ($modecompta == 'CREANCES-DETTES' || $modecompta == "RECETTES-DEPENSES")) {
 	$subtotal_ht = 0;
 	$subtotal_ttc = 0;
 
 	if ($modecompta == 'CREANCES-DETTES') {
-		$sql = "SELECT p.societe as nom, p.firstname, p.lastname, date_format(p.datedon,'%Y-%m') as dm, sum(p.amount) as amount";
-		$sql .= " FROM ".MAIN_DB_PREFIX."don as p";
+		$sql = "SELECT p.societe as nom, p.firstname, p.lastname, date_format(p.datedonation,'%Y-%m') as dm, sum(p.amount) as amount";
+		$sql .= " FROM ".MAIN_DB_PREFIX."donation as p";
 		$sql .= " WHERE p.entity IN (".getEntity('donation').")";
 		$sql .= " AND fk_statut in (1,2)";
 		if (!empty($date_start) && !empty($date_end)) {
-			$sql .= " AND p.datedon >= '".$db->idate($date_start)."' AND p.datedon <= '".$db->idate($date_end)."'";
+			$sql .= " AND p.datedonation >= '".$db->idate($date_start)."' AND p.datedonation <= '".$db->idate($date_end)."'";
 		}
 	} elseif ($modecompta == 'RECETTES-DEPENSES') {
 		$sql = "SELECT p.societe as nom, p.firstname, p.lastname, date_format(pe.datep,'%Y-%m') as dm, sum(p.amount) as amount";
-		$sql .= " FROM ".MAIN_DB_PREFIX."don as p";
+		$sql .= " FROM ".MAIN_DB_PREFIX."donation as p";
 		$sql .= " INNER JOIN ".MAIN_DB_PREFIX."payment_donation as pe ON pe.fk_donation = p.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_paiement as c ON pe.fk_typepayment = c.id";
 		$sql .= " WHERE p.entity IN (".getEntity('donation').")";

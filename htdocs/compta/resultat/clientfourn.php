@@ -559,25 +559,25 @@ if ($modecompta == 'BOOKKEEPING') {
 	 * Donations
 	 */
 
-	if (isModEnabled('don')) {
+	if (isModEnabled('donation')) {
 		print '<tr class="trforbreak"><td colspan="4">'.$langs->trans("Donations").'</td></tr>';
 
 		if ($modecompta == 'CREANCES-DETTES' || $modecompta == 'RECETTES-DEPENSES') {
 			if ($modecompta == 'CREANCES-DETTES') {
-				$sql = "SELECT p.societe as name, p.firstname, p.lastname, date_format(p.datedon,'%Y-%m') as dm, sum(p.amount) as amount";
-				$sql .= " FROM ".MAIN_DB_PREFIX."don as p";
+				$sql = "SELECT p.societe as name, p.firstname, p.lastname, date_format(p.datedonation,'%Y-%m') as dm, sum(p.amount) as amount";
+				$sql .= " FROM ".MAIN_DB_PREFIX."donation as p";
 				$sql .= " WHERE p.entity IN (".getEntity('donation').")";
 				$sql .= " AND fk_statut in (1,2)";
 			} else {
-				$sql = "SELECT p.societe as nom, p.firstname, p.lastname, date_format(p.datedon,'%Y-%m') as dm, sum(p.amount) as amount";
-				$sql .= " FROM ".MAIN_DB_PREFIX."don as p";
+				$sql = "SELECT p.societe as nom, p.firstname, p.lastname, date_format(p.datedonation,'%Y-%m') as dm, sum(p.amount) as amount";
+				$sql .= " FROM ".MAIN_DB_PREFIX."donation as p";
 				$sql .= " INNER JOIN ".MAIN_DB_PREFIX."payment_donation as pe ON pe.fk_donation = p.rowid";
 				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_paiement as c ON pe.fk_typepayment = c.id";
 				$sql .= " WHERE p.entity IN (".getEntity('donation').")";
 				$sql .= " AND fk_statut >= 2";
 			}
 			if (!empty($date_start) && !empty($date_end)) {
-				$sql .= " AND p.datedon >= '".$db->idate($date_start)."' AND p.datedon <= '".$db->idate($date_end)."'";
+				$sql .= " AND p.datedonation >= '".$db->idate($date_start)."' AND p.datedonation <= '".$db->idate($date_end)."'";
 			}
 		}
 		$sql .= " GROUP BY p.societe, p.firstname, p.lastname, dm";
@@ -612,7 +612,7 @@ if ($modecompta == 'BOOKKEEPING') {
 					print '<tr class="oddeven">';
 					print '<td>&nbsp;</td>';
 
-					print "<td>".$langs->trans("Donation")." <a href=\"".DOL_URL_ROOT."/don/list.php?search_company=".$obj->name."&search_name=".$obj->firstname." ".$obj->lastname."\">".$obj->name." ".$obj->firstname." ".$obj->lastname."</a></td>\n";
+					print "<td>".$langs->trans("Donation")." <a href=\"".DOL_URL_ROOT."/donation/list.php?search_company=".$obj->name."&search_name=".$obj->firstname." ".$obj->lastname."\">".$obj->name." ".$obj->firstname." ".$obj->lastname."</a></td>\n";
 
 					print '<td class="right">';
 					if ($modecompta == 'CREANCES-DETTES') {
@@ -1232,7 +1232,7 @@ if ($modecompta == 'BOOKKEEPING') {
 	 * Payment Loan
 	 */
 
-	if (getDolGlobalString('ACCOUNTING_REPORTS_INCLUDE_LOAN') && isModEnabled('don') && ($modecompta == 'CREANCES-DETTES' || $modecompta == "RECETTES-DEPENSES")) {
+	if (getDolGlobalString('ACCOUNTING_REPORTS_INCLUDE_LOAN') && isModEnabled('donation') && ($modecompta == 'CREANCES-DETTES' || $modecompta == "RECETTES-DEPENSES")) {
 		$subtotal_ht = 0;
 		$subtotal_ttc = 0;
 

@@ -4,7 +4,7 @@ if (! defined('USEDOLIBARRSERVER') && ! defined('USEDOLIBARREDITOR')) { require_
 require_once DOL_DOCUMENT_ROOT.'/core/lib/website.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/website.inc.php';
 ob_start();
-if (! headers_sent()) {	/* because file is included inline when in edit mode and we don't want warning */
+if (! headers_sent()) {	/* because file is included inline when in edit mode and we do not want warning */
 header('Cache-Control: max-age=3600, public, must-revalidate');
 header('Content-type: text/css');
 }

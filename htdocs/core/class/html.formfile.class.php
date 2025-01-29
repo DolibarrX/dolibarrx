@@ -738,7 +738,7 @@ class FormFile
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
-					include_once DOL_DOCUMENT_ROOT.'/core/modules/dons/modules_don.php';
+					include_once DOL_DOCUMENT_ROOT.'/core/modules/donations/modules_donation.php';
 					$modellist = ModeleDon::liste_modeles($this->db);
 				}
 			} elseif ($modulePart == 'member') {
@@ -1653,7 +1653,7 @@ class FormFile
 						print '<td class="valignmiddle right actionbuttons nowraponall"><!-- action on files -->';
 						if ($useinecm == 1 || $useinecm == 5) {	// ECM manual tree only
 							// $section is inside $param
-							$newparam = preg_replace('/&file=.*$/', '', $param); // We don't need param file=
+							$newparam = preg_replace('/&file=.*$/', '', $param); // We do not need param file=
 							$backtopage = DOL_URL_ROOT.'/ecm/index.php?&section_dir='.urlencode($relativepath).$newparam;
 							print '<a class="editfielda editfilelink" href="'.DOL_URL_ROOT.'/ecm/file_card.php?urlfile='.urlencode($file['name']).$param.'&backtopage='.urlencode($backtopage).'" rel="'.urlencode($file['name']).'">'.img_edit('default', 0, 'class="paddingrightonly"').'</a>';
 						}

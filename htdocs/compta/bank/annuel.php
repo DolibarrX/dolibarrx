@@ -189,7 +189,7 @@ print dol_get_fiche_head($head, 'annual', $langs->trans("FinancialAccount"), -1)
 // Affiche tableau
 print load_fiche_titre('', $link, '');
 
-print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 print '<table class="noborder centpercent">';
 
 print '<tr class="liste_titre"><td class="liste_titre borderrightlight">'.$langs->trans("Month").'</td>';

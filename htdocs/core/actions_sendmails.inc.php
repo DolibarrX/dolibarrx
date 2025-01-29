@@ -80,7 +80,7 @@ if (GETPOST('removedfile') && !GETPOST('removAll')) {
 
 	// TODO Delete only files that was uploaded from email form. This can be addressed by adding the trackid into the temp path then changing donotdeletefile to 2 instead of 1 to say "delete only if into temp dir"
 	// GETPOST('removedfile','alpha') is position of file into $_SESSION["listofpaths"...] array.
-	dol_remove_file_process(GETPOST('removedfile', 'alpha'), 0, 1, $trackid); // We do not delete because if file is the official PDF of doc, we don't want to remove it physically
+	dol_remove_file_process(GETPOST('removedfile', 'alpha'), 0, 1, $trackid); // We do not delete because if file is the official PDF of doc, we do not want to remove it physically
 	$action = 'presend';
 }
 

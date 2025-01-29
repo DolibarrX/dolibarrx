@@ -59,7 +59,7 @@ This page is a sample of page using Dolibarr HTML widget methods. It is designed
 <?php
 $form = new Form($db);
 
-print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
+print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you do not need reserved height for your table
 
 // Test1: form->selectDate using tzuser date
 print "Test 1a: We must have here current date and hour for user (must match hour on browser). Note: Check your are logged so user TZ and DST are known.";

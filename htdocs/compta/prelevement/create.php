@@ -137,7 +137,7 @@ if (empty($resHook)) {
 		$bprev = new BonPrelevement($db);
 
 		if (!$error) {
-			// getDolGlobalString('PRELEVEMENT_CODE_BANQUE') and getDolGlobalString('PRELEVEMENT_CODE_GUICHET') should be empty (we don't use them anymore)
+			// getDolGlobalString('PRELEVEMENT_CODE_BANQUE') and getDolGlobalString('PRELEVEMENT_CODE_GUICHET') should be empty (we do not use them anymore)
 			$result = $bprev->create(getDolGlobalString('PRELEVEMENT_CODE_BANQUE'), getDolGlobalString('PRELEVEMENT_CODE_GUICHET'), $mode, $format, $executiondate, 0, $type, 0, 0, $sourcetype);
 			if ($result < 0) {
 				$mesg = '';

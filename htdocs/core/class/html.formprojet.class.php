@@ -557,7 +557,7 @@ class FormProjets extends Form
 		if (!in_array(
 			$table_element,
 			array(
-				'don',
+				'donation',
 				'expensereport_det',
 				'expensereport', 'loan',
 				'stock_mouvement',
