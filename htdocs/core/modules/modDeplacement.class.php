@@ -18,7 +18,7 @@
 
 /**
  *	\defgroup   deplacement     Module traves
- *	\brief      Module pour gerer les deplacements et notes de frais
+ *	\brief      Module for managing travel and expense reports
  *	\file       htdocs/core/modules/modDeplacement.class.php
  *	\ingroup    deplacement
  *	\brief      Description and activation file for the module trips (deprecated)
