@@ -38,10 +38,10 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/project.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
 require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice-rec.class.php';
 require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contract/class/contract.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
@@ -363,19 +363,19 @@ class pdf_beluga extends ModelePDFProjects
 					'invoice' => array(
 						'name' => "CustomersInvoices",
 						'title' => "ListInvoicesAssociatedProject",
-						'class' => 'Facture',
+						'class' => 'Invoice',
 						'margin' => 'add',
-						'table' => 'facture',
+						'table' => 'invoice',
 						'datefieldname' => 'datef',
-						'test' => isModEnabled('invoice') && $user->hasRight('facture', 'lire'),
+						'test' => isModEnabled('invoice') && $user->hasRight('invoice', 'lire'),
 						'lang' => 'bills'),
 					'invoice_predefined' => array(
 						'name' => "PredefinedInvoices",
 						'title' => "ListPredefinedInvoicesAssociatedProject",
-						'class' => 'FactureRec',
-						'table' => 'facture_rec',
+						'class' => 'InvoiceRec',
+						'table' => 'invoice_rec',
 						'datefieldname' => 'datec',
-						'test' => isModEnabled('invoice') && $user->hasRight('facture', 'lire'),
+						'test' => isModEnabled('invoice') && $user->hasRight('invoice', 'lire'),
 						'lang' => 'bills'),
 					'order_supplier' => array(
 						'name' => "SuppliersOrders",
@@ -388,11 +388,11 @@ class pdf_beluga extends ModelePDFProjects
 					'invoice_supplier' => array(
 						'name' => "BillsSuppliers",
 						'title' => "ListSupplierInvoicesAssociatedProject",
-						'class' => 'FactureFournisseur',
+						'class' => 'InvoiceSupplier',
 						'margin' => 'minus',
-						'table' => 'facture_fourn',
+						'table' => 'invoice_fourn',
 						'datefieldname' => 'datef',
-						'test' => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'facture', 'lire')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire')),
+						'test' => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'invoice', 'lire')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire')),
 						'lang' => 'bills'),
 					'contract' => array(
 						'name' => "Contracts",
@@ -676,7 +676,7 @@ class pdf_beluga extends ModelePDFProjects
 
 								// Status
 								if ($element instanceof CommonInvoice) {
-									// This applies for Facture and FactureFournisseur
+									// This applies for Invoice and InvoiceSupplier
 									$outputstatut = $element->getLibStatut(1, $element->getSommePaiement());
 								} else {
 									$outputstatut = $element->getLibStatut(1);

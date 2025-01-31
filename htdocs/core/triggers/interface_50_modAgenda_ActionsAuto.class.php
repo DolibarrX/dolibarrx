@@ -420,7 +420,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			// Parameters $object->sendtoid defined by caller
 			//$object->sendtoid = [];
 		} elseif ($action == 'BILL_VALIDATE') {
-			'@phan-var-force Facture $object';
+			'@phan-var-force Invoice $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "bills"));
 
@@ -437,7 +437,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = [];
 		} elseif ($action == 'BILL_UNVALIDATE') {
-			'@phan-var-force Facture $object';
+			'@phan-var-force Invoice $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "bills"));
 
@@ -454,7 +454,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = [];
 		} elseif ($action == 'BILL_SENTBYMAIL') {
-			'@phan-var-force Facture $object';
+			'@phan-var-force Invoice $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "bills"));
 
@@ -472,7 +472,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			// Parameters $object->sendtoid defined by caller
 			//$object->sendtoid = [];
 		} elseif ($action == 'BILL_PAYED') {
-			'@phan-var-force Facture $object';
+			'@phan-var-force Invoice $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "bills"));
 
@@ -490,7 +490,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = [];
 		} elseif ($action == 'BILL_CANCEL') {
-			'@phan-var-force Facture $object';
+			'@phan-var-force Invoice $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "bills"));
 
@@ -966,7 +966,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = [];
 		} elseif ($action == 'BILL_SUPPLIER_CREATE') {
-			'@phan-var-force FactureFournisseur $object';
+			'@phan-var-force InvoiceSupplier $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "orders"));
 
@@ -983,7 +983,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = [];
 		} elseif ($action == 'BILL_SUPPLIER_VALIDATE') {
-			'@phan-var-force FactureFournisseur $object';
+			'@phan-var-force InvoiceSupplier $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "bills"));
 
@@ -1000,7 +1000,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = [];
 		} elseif ($action == 'BILL_SUPPLIER_UNVALIDATE') {
-			'@phan-var-force FactureFournisseur $object';
+			'@phan-var-force InvoiceSupplier $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "bills"));
 
@@ -1017,7 +1017,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = [];
 		} elseif ($action == 'BILL_SUPPLIER_SENTBYMAIL') {
-			'@phan-var-force FactureFournisseur $object';
+			'@phan-var-force InvoiceSupplier $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "bills", "orders"));
 
@@ -1035,7 +1035,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			// Parameters $object->sendtoid defined by caller
 			//$object->sendtoid = [];
 		} elseif ($action == 'BILL_SUPPLIER_PAYED') {
-			'@phan-var-force FactureFournisseur $object';
+			'@phan-var-force InvoiceSupplier $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "bills"));
 

@@ -25,7 +25,7 @@
 // Load Dolibarr environment
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 /**
@@ -134,7 +134,7 @@ if (empty($search_invoice_date_start) && empty($search_invoice_date_end) && !GET
  * View
  */
 
-$invoicestatic = new Facture($db);
+$invoicestatic = new Invoice($db);
 $form = new Form($db);
 
 $title = $langs->trans("ThirdParty").' - '.$langs->trans("Margins");
@@ -240,12 +240,12 @@ if ($socid > 0) {
 	$sql .= " sum(d.qty * d.buy_price_ht * (d.situation_percent / 100)) as buying_price,"; // always positive
 	$sql .= " sum(abs(d.total_ht) - (d.buy_price_ht * d.qty * (d.situation_percent / 100))) as marge"; // always positive
 	$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-	$sql .= ", ".MAIN_DB_PREFIX."facture as f";
-	$sql .= ", ".MAIN_DB_PREFIX."facturedet as d";
+	$sql .= ", ".MAIN_DB_PREFIX."invoice as f";
+	$sql .= ", ".MAIN_DB_PREFIX."invoicedet as d";
 	$sql .= " WHERE f.fk_soc = s.rowid";
 	$sql .= " AND f.fk_statut > 0";
 	$sql .= " AND f.entity IN (".getEntity('invoice').")";
-	$sql .= " AND d.fk_facture = f.rowid";
+	$sql .= " AND d.fk_invoice = f.rowid";
 	$sql .= " AND f.fk_soc = $socid";
 	$sql .= " AND d.buy_price_ht IS NOT NULL";
 	// We should not use this here. Option ForceBuyingPriceIfNull should have effect only when inserting data. Once data is recorded, it must be used as it is for report.
@@ -405,7 +405,7 @@ if ($socid > 0) {
 				$markRate = ($objp->selling_price != 0) ? (100 * $objp->marge / $objp->selling_price) : '';
 
 				$sign = '';
-				if ($objp->type == Facture::TYPE_CREDIT_NOTE) {
+				if ($objp->type == Invoice::TYPE_CREDIT_NOTE) {
 					$sign = '-';
 				}
 

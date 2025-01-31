@@ -35,7 +35,7 @@ require '../main.inc.php';
 // Libraries
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/invoice.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formsetup.class.php';
 
 /**
@@ -88,8 +88,8 @@ $item = $formSetup->newItem('INVOICE_USE_SITUATION_CREDIT_NOTE')
 $item = $formSetup->newItem('INVOICE_USE_RETAINED_WARRANTY');
 $item->nameText = $langs->trans('AllowedInvoiceForRetainedWarranty');
 $arrayAvailableType = array(
-	Facture::TYPE_SITUATION => $langs->trans("InvoiceSituation"),
-	Facture::TYPE_STANDARD.'+'.Facture::TYPE_SITUATION => $langs->trans("InvoiceSituation").' + '.$langs->trans("InvoiceStandard"),
+	Invoice::TYPE_SITUATION => $langs->trans("InvoiceSituation"),
+	Invoice::TYPE_STANDARD.'+'.Invoice::TYPE_SITUATION => $langs->trans("InvoiceSituation").' + '.$langs->trans("InvoiceStandard"),
 );
 $item->setAsSelect($arrayAvailableType);
 

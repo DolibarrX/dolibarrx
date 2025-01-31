@@ -682,7 +682,7 @@ print '</td></tr>';
 
 
 /* Seems to be not so used. So kept hidden for the moment to avoid dangerous options inflation.
-if (isModEnabled('facture'))
+if (isModEnabled('invoice'))
 {
 
 	print '<tr class="oddeven"><td>';

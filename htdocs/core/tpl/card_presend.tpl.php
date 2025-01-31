@@ -152,7 +152,7 @@ if ($action == 'presend') {
 		$formmail->fromname = getDolGlobalString('INVOICE_EMAIL_SENDER_NAME', '');
 		$formmail->fromtype = 'special';
 	}
-	if ($object->element === 'facture' && getDolGlobalString('INVOICE_EMAIL_SENDER')) {
+	if ($object->element === 'invoice' && getDolGlobalString('INVOICE_EMAIL_SENDER')) {
 		$formmail->frommail = getDolGlobalString('INVOICE_EMAIL_SENDER');
 		$formmail->fromname = getDolGlobalString('INVOICE_EMAIL_SENDER_NAME', '');
 		$formmail->fromtype = 'special';
@@ -347,7 +347,7 @@ if ($action == 'presend') {
 			dol_include_once('/'.$element.'/class/'.$subelement.'.class.php');
 			$classname = ucfirst($origin);
 			$objectsrc = new $classname($db);
-			'@phan-var-force Order|Facture $objectsrc';
+			'@phan-var-force Order|Invoice $objectsrc';
 			$objectsrc->fetch($origin_id);
 
 			$tmpobject = $objectsrc;

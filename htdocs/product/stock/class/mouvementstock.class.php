@@ -1018,17 +1018,17 @@ class MouvementStock extends CommonObject
 				require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
 				$origin = new Expedition($this->db);
 				break;
-			case 'facture':
-				require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-				$origin = new Facture($this->db);
+			case 'invoice':
+				require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+				$origin = new Invoice($this->db);
 				break;
 			case 'order_supplier':
 				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 				$origin = new OrderFournisseur($this->db);
 				break;
 			case 'invoice_supplier':
-				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-				$origin = new FactureFournisseur($this->db);
+				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
+				$origin = new InvoiceSupplier($this->db);
 				break;
 			case 'project':
 				require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';

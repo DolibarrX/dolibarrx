@@ -105,9 +105,9 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 		if ($action == 'ORDER_CLOSE') {
 			dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
 			if (isModEnabled('invoice') && getDolGlobalString('WORKFLOW_ORDER_AUTOCREATE_INVOICE')) {
-				include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-				'@phan-var-force Facture $object';
-				$newobject = new Facture($this->db);
+				include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+				'@phan-var-force Invoice $object';
+				$newobject = new Invoice($this->db);
 
 				$newobject->context['createfromorder'] = 'createfromorder';
 				$newobject->context['origin'] = $object->element;
@@ -245,11 +245,11 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 				if (!empty($object->linkedObjects['order']) && count($object->linkedObjects['order']) == 1) {	// If the invoice has only 1 source order
 					$orderLinked = reset($object->linkedObjects['order']);
 					$orderLinked->fetchObjectLinked($orderLinked->id, '', $orderLinked->element);
-					if (count($orderLinked->linkedObjects['facture']) >= 1) {
+					if (count($orderLinked->linkedObjects['invoice']) >= 1) {
 						$totalHTInvoices = 0;
 						$areAllInvoicesValidated = true;
-						foreach ($orderLinked->linkedObjects['facture'] as $key => $invoice) {
-							if ($invoice->statut == Facture::STATUS_VALIDATED || $invoice->statut == Facture::STATUS_CLOSED || $object->id == $invoice->id) {
+						foreach ($orderLinked->linkedObjects['invoice'] as $key => $invoice) {
+							if ($invoice->statut == Invoice::STATUS_VALIDATED || $invoice->statut == Invoice::STATUS_CLOSED || $object->id == $invoice->id) {
 								$totalHTInvoices += (float) $invoice->total_ht;
 							} else {
 								$areAllInvoicesValidated = false;

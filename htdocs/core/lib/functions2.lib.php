@@ -917,14 +917,14 @@ function get_next_value($db, $mask, $table, $field, $where = '', $objsoc = '', $
 
 	if (!is_object($objsoc)) {
 		$valueforccc = (string) $objsoc;
-	} elseif ($table == "order_fournisseur" || $table == "facture_fourn" || $table == "paiementfourn") {
+	} elseif ($table == "order_fournisseur" || $table == "invoice_fourn" || $table == "paiementfourn") {
 		$valueforccc = dol_string_unaccent($objsoc->code_fournisseur);
 	} else {
 		$valueforccc = dol_string_unaccent($objsoc->code_client);
 	}
 
 	$sharetable = $table;
-	if ($table == 'facture' || $table == 'invoice') {
+	if ($table == 'invoice' || $table == 'invoice') {
 		$sharetable = 'invoicenumber'; // for getEntity function
 	}
 
@@ -2140,11 +2140,11 @@ function dolGetElementUrl($objectid, $objecttype, $withPicture = 0, $option = ''
 	$classpath = $module . '/class';
 
 	// Special cases, to work with non standard path
-	if ($objecttype == 'facture' || $objecttype == 'invoice') {
+	if ($objecttype == 'invoice' || $objecttype == 'invoice') {
 		$langs->load('bills');
-		$classpath = 'compta/facture/class';
-		$module = 'facture';
-		$myobject = 'facture';
+		$classpath = 'compta/invoice/class';
+		$module = 'invoice';
+		$myobject = 'invoice';
 	} elseif ($objecttype == 'order' || $objecttype == 'order') {
 		$langs->load('orders');
 		$classpath = 'order/class';
@@ -2218,8 +2218,8 @@ function dolGetElementUrl($objectid, $objecttype, $withPicture = 0, $option = ''
 	//print "objecttype=".$objecttype." module=".$module." subelement=".$subelement." classfile=".$classfile." classname=".$classname." classpath=".$classpath;
 
 	if ($objecttype == 'invoice_supplier') {
-		$classfile = 'fournisseur.facture';
-		$classname = 'FactureFournisseur';
+		$classfile = 'fournisseur.invoice';
+		$classname = 'InvoiceSupplier';
 		$classpath = 'fourn/class';
 		$module = 'fournisseur';
 	} elseif ($objecttype == 'order_supplier') {
@@ -2236,11 +2236,11 @@ function dolGetElementUrl($objectid, $objecttype, $withPicture = 0, $option = ''
 		$classpath = 'product/stock/class';
 		$classfile = 'entrepot';
 		$classname = 'Entrepot';
-	} elseif ($objecttype == 'facturerec') {
-		$classpath = 'compta/facture/class';
-		$classfile = 'facture-rec';
-		$classname = 'FactureRec';
-		$module = 'facture';
+	} elseif ($objecttype == 'invoicerec') {
+		$classpath = 'compta/invoice/class';
+		$classfile = 'invoice-rec';
+		$classname = 'InvoiceRec';
+		$module = 'invoice';
 	} elseif ($objecttype == 'mailing') {
 		$classpath = 'comm/mailing/class';
 		$classfile = 'mailing';
@@ -2713,8 +2713,8 @@ function getModuleDirForApiClass($moduleobject)
 		$moduledirforclass = 'expedition';
 	} elseif ($moduleobject == 'multicurrencies') {
 		$moduledirforclass = 'multicurrency';
-	} elseif ($moduleobject == 'facture' || $moduleobject == 'invoice' || $moduleobject == 'invoices') {
-		$moduledirforclass = 'compta/facture';
+	} elseif ($moduleobject == 'invoice' || $moduleobject == 'invoice' || $moduleobject == 'invoices') {
+		$moduledirforclass = 'compta/invoice';
 	} elseif ($moduleobject == 'project' || $moduleobject == 'projects' || $moduleobject == 'task' || $moduleobject == 'tasks') {
 		$moduledirforclass = 'projet';
 	} elseif ($moduleobject == 'stock' || $moduleobject == 'stockmovements' || $moduleobject == 'warehouses') {

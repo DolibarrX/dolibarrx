@@ -43,7 +43,7 @@ if (!defined('NOREQUIREAJAX')) {
 // Load Dolibarr environment
 require '../main.inc.php'; // Load $user and permissions
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 
 global $mysoc;
@@ -70,7 +70,7 @@ if (!$user->hasRight('takepos', 'run')) {
 }
 
 // get invoice
-$invoice = new Facture($db);
+$invoice = new Invoice($db);
 if ($invoiceid > 0) {
 	$invoice->fetch($invoiceid);
 } else {

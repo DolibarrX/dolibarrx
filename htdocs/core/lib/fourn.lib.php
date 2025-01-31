@@ -31,24 +31,24 @@
 /**
  * Prepare array with list of tabs
  *
- * @param   FactureFournisseur	$object		Object related to tabs
+ * @param   InvoiceSupplier	$object		Object related to tabs
  * @return	array<array{0:string,1:string,2:string}>	Array of tabs to show
  */
-function facturefourn_prepare_head(FactureFournisseur $object)
+function invoicefourn_prepare_head(InvoiceSupplier $object)
 {
 	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = [];
 
-	$head[$h][0] = DOL_URL_ROOT . '/fourn/facture/card.php?facid=' . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/fourn/invoice/card.php?facid=' . $object->id;
 	$head[$h][1] = $langs->trans('SupplierInvoice');
 	$head[$h][2] = 'card';
 	$h++;
 
 	if (!getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
 		$nbContact = count($object->liste_contact(-1, 'internal')) + count($object->liste_contact(-1, 'external'));
-		$head[$h][0] = DOL_URL_ROOT . '/fourn/facture/contact.php?facid=' . $object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/fourn/invoice/contact.php?facid=' . $object->id;
 		$head[$h][1] = $langs->trans('ContactsAddresses');
 		if ($nbContact > 0) {
 			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbContact . '</span>';
@@ -62,7 +62,7 @@ function facturefourn_prepare_head(FactureFournisseur $object)
 		$nbStandingOrders = 0;
 		$sql = "SELECT COUNT(pfd.rowid) as nb";
 		$sql .= " FROM " . MAIN_DB_PREFIX . "prelevement_demande as pfd";
-		$sql .= " WHERE pfd.fk_facture_fourn = " . ((int) $object->id);
+		$sql .= " WHERE pfd.fk_invoice_fourn = " . ((int) $object->id);
 		$sql .= " AND type = 'ban'";
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -74,7 +74,7 @@ function facturefourn_prepare_head(FactureFournisseur $object)
 			dol_print_error($db);
 		}
 		$langs->load("banks");
-		$head[$h][0] = DOL_URL_ROOT . '/compta/facture/prelevement.php?facid=' . $object->id . '&type=bank-transfer';
+		$head[$h][0] = DOL_URL_ROOT . '/compta/invoice/prelevement.php?facid=' . $object->id . '&type=bank-transfer';
 		$head[$h][1] = $langs->trans('BankTransfer');
 		if ($nbStandingOrders > 0) {
 			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbStandingOrders . '</span>';
@@ -97,7 +97,7 @@ function facturefourn_prepare_head(FactureFournisseur $object)
 		if (!empty($object->note_public)) {
 			$nbNote++;
 		}
-		$head[$h][0] = DOL_URL_ROOT . '/fourn/facture/note.php?facid=' . $object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/fourn/invoice/note.php?facid=' . $object->id;
 		$head[$h][1] = $langs->trans('Notes');
 		if ($nbNote > 0) {
 			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbNote . '</span>';
@@ -108,10 +108,10 @@ function facturefourn_prepare_head(FactureFournisseur $object)
 
 	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
-	$upload_dir = $config->fournisseur->facture->dir_output . '/' . get_exdir($object->id, 2, 0, 0, $object, 'invoice_supplier') . $object->ref;
+	$upload_dir = $config->fournisseur->invoice->dir_output . '/' . get_exdir($object->id, 2, 0, 0, $object, 'invoice_supplier') . $object->ref;
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
-	$head[$h][0] = DOL_URL_ROOT . '/fourn/facture/document.php?facid=' . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/fourn/invoice/document.php?facid=' . $object->id;
 	$head[$h][1] = $langs->trans('Documents');
 	if (($nbFiles + $nbLinks) > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . ($nbFiles + $nbLinks) . '</span>';
@@ -119,18 +119,18 @@ function facturefourn_prepare_head(FactureFournisseur $object)
 	$head[$h][2] = 'documents';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT . '/fourn/facture/info.php?facid=' . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/fourn/invoice/info.php?facid=' . $object->id;
 	$head[$h][1] = $langs->trans('Info');
 	$head[$h][2] = 'info';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT . '/fourn/facture/agenda.php?id=' . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/fourn/invoice/agenda.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Events");
 	if (isModEnabled('agenda') && ($user->hasRight('agenda', 'myactions', 'read') || $user->hasRight('agenda', 'allactions', 'read'))) {
 		$nbEvent = 0;
 		// Enable caching of thirdparty count actioncomm
 		require_once DOL_DOCUMENT_ROOT . '/core/lib/memory.lib.php';
-		$cachekey = 'count_events_facture_' . $object->id;
+		$cachekey = 'count_events_invoice_' . $object->id;
 		$dataretrieved = dol_getcache($cachekey);
 		if (!is_null($dataretrieved)) {
 			$nbEvent = $dataretrieved;
@@ -292,10 +292,10 @@ function supplierorder_admin_prepare_head()
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('order_fournisseur');
 	$extrafields->fetch_name_optionals_label('order_fournisseurdet');
-	$extrafields->fetch_name_optionals_label('facture_fourn');
-	$extrafields->fetch_name_optionals_label('facture_fourn_det');
-	$extrafields->fetch_name_optionals_label('facture_fourn_rec');
-	$extrafields->fetch_name_optionals_label('facture_fourn_det_rec');
+	$extrafields->fetch_name_optionals_label('invoice_fourn');
+	$extrafields->fetch_name_optionals_label('invoice_fourn_det');
+	$extrafields->fetch_name_optionals_label('invoice_fourn_rec');
+	$extrafields->fetch_name_optionals_label('invoice_fourn_det_rec');
 
 	$h = 0;
 	$head = [];
@@ -337,7 +337,7 @@ function supplierorder_admin_prepare_head()
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/supplierinvoice_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsSupplierInvoices");
-	$nbExtrafields = $extrafields->attributes['facture_fourn']['count'];
+	$nbExtrafields = $extrafields->attributes['invoice_fourn']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
@@ -346,7 +346,7 @@ function supplierorder_admin_prepare_head()
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/supplierinvoicedet_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsSupplierInvoicesLines");
-	$nbExtrafields = $extrafields->attributes['facture_fourn_det']['count'];
+	$nbExtrafields = $extrafields->attributes['invoice_fourn_det']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
@@ -355,7 +355,7 @@ function supplierorder_admin_prepare_head()
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/supplierinvoice_rec_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsSupplierInvoicesRec");
-	$nbExtrafields = $extrafields->attributes['facture_fourn_rec']['count'];
+	$nbExtrafields = $extrafields->attributes['invoice_fourn_rec']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
@@ -364,7 +364,7 @@ function supplierorder_admin_prepare_head()
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/supplierinvoicedet_rec_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsSupplierInvoicesLinesRec");
-	$nbExtrafields = $extrafields->attributes['facture_fourn_det_rec']['count'];
+	$nbExtrafields = $extrafields->attributes['invoice_fourn_det_rec']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}

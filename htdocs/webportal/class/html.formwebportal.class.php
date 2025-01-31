@@ -248,7 +248,7 @@ class FormWebPortal extends Form
 	 * You may want to call this into a div like this:
 	 * print '<div class="inline-block valignmiddle">'.$formfile->getDocumentsLink($element_doc, $filename, $filedir).'</div>';
 	 *
-	 * @param string $modulePart 'propal', 'facture', 'facture_fourn', ...
+	 * @param string $modulePart 'propal', 'invoice', 'invoice_fourn', ...
 	 * @param string $modulesubdir Sub-directory to scan (Example: '0/1/10', 'FA/DD/MM/YY/9999'). Use '' if file is not into subdir of module.
 	 * @param string $filedir Full path to directory to scan
 	 * @param string $filter Filter filenames on this regex string (Example: '\.pdf$')
@@ -305,7 +305,7 @@ class FormWebPortal extends Form
 				// Define relative path for download link (depends on module)
 				$relativepath = $file["name"]; // Cas general
 				if ($modulesubdir) {
-					$relativepath = $modulesubdir . "/" . $file["name"]; // Cas propal, facture...
+					$relativepath = $modulesubdir . "/" . $file["name"]; // Case proposal, invoice...
 				}
 				// Autre cas
 				if ($modulePart == 'donation') {
@@ -351,7 +351,7 @@ class FormWebPortal extends Form
 	 * You may want to call this into a div like this:
 	 * print '<div class="inline-block valignmiddle">'.$formfile->getDocumentsLink($element_doc, $filename, $filedir).'</div>';
 	 *
-	 * @param string $modulePart 'proposal', 'facture', 'facture_fourn', ...
+	 * @param string $modulePart 'proposal', 'invoice', 'invoice_fourn', ...
 	 * @param Object $object Object linked to the document to be signed
 	 * @param string $morecss Add more css to the download picture
 	 * @return    string                Output string with HTML link of signature (might be empty string).

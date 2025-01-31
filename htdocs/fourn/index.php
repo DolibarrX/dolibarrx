@@ -27,7 +27,7 @@
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 /**
@@ -53,10 +53,10 @@ $result = restrictedArea($user, 'societe', $socid, '');
  */
 
 $orderstatic = new OrderFournisseur($db);
-$facturestatic = new FactureFournisseur($db);
+$invoicestatic = new InvoiceSupplier($db);
 $companystatic = new Societe($db);
 
-llxHeader("", $langs->trans("SuppliersArea"), '', '', 0, 0, '', '', '', 'mod-fourn-facture page-index');
+llxHeader("", $langs->trans("SuppliersArea"), '', '', 0, 0, '', '', '', 'mod-fourn-invoice page-index');
 
 print load_fiche_titre($langs->trans("SuppliersArea"));
 
@@ -167,10 +167,10 @@ if (isModEnabled("supplier_order")) {
 }
 
 // Draft invoices
-if (isModEnabled("supplier_invoice") && ($user->hasRight('fournisseur', 'facture', 'lire') || $user->hasRight('supplier_invoice', 'read'))) {
+if (isModEnabled("supplier_invoice") && ($user->hasRight('fournisseur', 'invoice', 'lire') || $user->hasRight('supplier_invoice', 'read'))) {
 	$sql = "SELECT ff.ref_supplier, ff.rowid, ff.total_ttc, ff.type";
 	$sql .= ", s.nom as name, s.rowid as socid";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as ff";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as ff";
 	$sql .= ", ".MAIN_DB_PREFIX."societe as s";
 	if (!$user->hasRight("societe", "client", "voir") && !$socid) {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON s.rowid = sc.fk_soc";
@@ -200,10 +200,10 @@ if (isModEnabled("supplier_invoice") && ($user->hasRight('fournisseur', 'facture
 				$obj = $db->fetch_object($resql);
 
 				print '<tr class="oddeven"><td class="nowrap">';
-				$facturestatic->ref = $obj->ref;
-				$facturestatic->id = $obj->rowid;
-				$facturestatic->type = $obj->type;
-				print $facturestatic->getNomUrl(1, '');
+				$invoicestatic->ref = $obj->ref;
+				$invoicestatic->id = $obj->rowid;
+				$invoicestatic->type = $obj->type;
+				print $invoicestatic->getNomUrl(1, '');
 				print '</td>';
 				print '<td class="nowrap">';
 				$companystatic->id = $obj->socid;

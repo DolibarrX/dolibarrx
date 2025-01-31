@@ -170,7 +170,7 @@ class modGravatar extends DolibarrModules
 		// Example:
 		// $this->export_code[$r]=$this->rightsClass.'_'.$r;
 		// $this->export_label[$r]='CustomersInvoicesAndInvoiceLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
-		// $this->export_permission[$r]=array(array("facture","facture","export"));
+		// $this->export_permission[$r]=array(array("invoice","invoice","export"));
 		// $this->export_fields_array[$r]=array(
 		//	's.rowid'=>"IdCompany",'s.nom'=>'CompanyName','s.address'=>'Address','s.zip'=>'Zip','s.town'=>'Town','s.fk_pays'=>'Country','s.phone'=>'Phone',
 		//	's.siren'=>'ProfId1','s.siret'=>'ProfId2','s.ape'=>'ProfId3','s.idprof4'=>'ProfId4','s.code_compta'=>'CustomerAccountancyCode',
@@ -189,9 +189,9 @@ class modGravatar extends DolibarrModules
 		//	'fd.date_start'=>"invoice_line",'fd.date_end'=>"invoice_line",'fd.fk_product'=>'product','p.ref'=>'product'
 		//);
 		// $this->export_sql_start[$r]='SELECT DISTINCT ';
-		// $this->export_sql_end[$r]  =' FROM ('.MAIN_DB_PREFIX.'facture as f, '.MAIN_DB_PREFIX.'facturedet as fd, '.MAIN_DB_PREFIX.'societe as s)';
+		// $this->export_sql_end[$r]  =' FROM ('.MAIN_DB_PREFIX.'invoice as f, '.MAIN_DB_PREFIX.'invoicedet as fd, '.MAIN_DB_PREFIX.'societe as s)';
 		// $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'product as p on (fd.fk_product = p.rowid)';
-		// $this->export_sql_end[$r] .=' WHERE f.fk_soc = s.rowid AND f.rowid = fd.fk_facture';
+		// $this->export_sql_end[$r] .=' WHERE f.fk_soc = s.rowid AND f.rowid = fd.fk_invoice';
 		// $r++;
 	}
 }

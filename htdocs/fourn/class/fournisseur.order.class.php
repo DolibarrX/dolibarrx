@@ -509,7 +509,7 @@ class OrderFournisseur extends CommonOrder
 		$sql .= " c.note_private, c.note_public, c.model_pdf, c.extraparams, c.billed,";
 		$sql .= " c.fk_multicurrency, c.multicurrency_code, c.multicurrency_tx, c.multicurrency_total_ht, c.multicurrency_total_tva, c.multicurrency_total_ttc,";
 		$sql .= " cm.libelle as methode_order,";
-		$sql .= " cr.code as cond_reglement_code, cr.libelle as cond_reglement_label, cr.libelle_facture as cond_reglement_doc,";
+		$sql .= " cr.code as cond_reglement_code, cr.libelle as cond_reglement_label, cr.libelle_invoice as cond_reglement_doc,";
 		$sql .= " p.code as mode_reglement_code, p.libelle as mode_reglement_libelle";
 		$sql .= ', c.fk_incoterms, c.location_incoterms';
 		$sql .= ', i.libelle as label_incoterms';
@@ -2943,7 +2943,7 @@ class OrderFournisseur extends CommonOrder
 	/**
 	 *	Update line
 	 *
-	 *	@param     	int			$rowid           	ID de la ligne de facture
+	 *	@param     	int			$rowid           	ID from the invoice line
 	 *	@param     	string		$desc            	Line description
 	 *	@param     	int|float	$pu              	Unit price
 	 *	@param     	int|float	$qty             	Quantity
@@ -3126,7 +3126,7 @@ class OrderFournisseur extends CommonOrder
 			$result = $this->line->update($notrigger);
 
 
-			// Mise a jour info denormalisees au niveau facture
+			// Update of denormalized information at invoice level
 			if ($result >= 0) {
 				$this->update_price('1', 'auto');
 				$this->db->commit();
@@ -3232,9 +3232,9 @@ class OrderFournisseur extends CommonOrder
 	}
 
 	/**
-	 *	Charge les information d'ordre info dans l'objet facture
+	 *	Loads the order information into the invoice object
 	 *
-	 *	@param  int		$id       	Id de la facture a charger
+	 *	@param  int		$id       	Id de la invoice a charger
 	 *	@return	void
 	 */
 	public function info($id)

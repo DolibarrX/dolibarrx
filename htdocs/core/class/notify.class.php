@@ -755,21 +755,21 @@ class Notify
 
 						switch ($notifcode) {
 							case 'BILL_CANCEL':
-								$link = '<a href="'.$urlwithroot.'/compta/facture/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $config->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
-								$object_type = 'facture';
+								$link = '<a href="'.$urlwithroot.'/compta/invoice/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
+								$dir_output = $config->invoice->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
+								$object_type = 'invoice';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextInvoiceCanceled", $link);
 								break;
 							case 'BILL_VALIDATE':
-								$link = '<a href="'.$urlwithroot.'/compta/facture/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $config->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
-								$object_type = 'facture';
+								$link = '<a href="'.$urlwithroot.'/compta/invoice/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
+								$dir_output = $config->invoice->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
+								$object_type = 'invoice';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextInvoiceValidated", $link);
 								break;
 							case 'BILL_PAYED':
-								$link = '<a href="'.$urlwithroot.'/compta/facture/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $config->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
-								$object_type = 'facture';
+								$link = '<a href="'.$urlwithroot.'/compta/invoice/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
+								$dir_output = $config->invoice->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
+								$object_type = 'invoice';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextInvoicePayed", $link);
 								break;
 							case 'ORDER_CANCEL':
@@ -1099,15 +1099,15 @@ class Notify
 
 				switch ($notifcode) {
 					case 'BILL_VALIDATE':
-						$link = '<a href="'.$urlwithroot.'/compta/facture/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $config->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
-						$object_type = 'facture';
+						$link = '<a href="'.$urlwithroot.'/compta/invoice/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
+						$dir_output = $config->invoice->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
+						$object_type = 'invoice';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextInvoiceValidated", $link);
 						break;
 					case 'BILL_PAYED':
-						$link = '<a href="'.$urlwithroot.'/compta/facture/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $config->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
-						$object_type = 'facture';
+						$link = '<a href="'.$urlwithroot.'/compta/invoice/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
+						$dir_output = $config->invoice->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
+						$object_type = 'invoice';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextInvoicePayed", $link);
 						break;
 					case 'ORDER_VALIDATE':
@@ -1142,7 +1142,7 @@ class Notify
 						break;
 					case 'FICHINTER_VALIDATE':
 						$link = '<a href="'.$urlwithroot.'/fichinter/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $config->facture->dir_output;
+						$dir_output = $config->invoice->dir_output;
 						$object_type = 'ficheinter';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextInterventionValidated", $link);
 						break;
@@ -1155,7 +1155,7 @@ class Notify
 						break;
 					case 'FICHINTER_CLOSE':
 						$link = '<a href="'.$urlwithroot.'/fichinter/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $config->facture->dir_output;
+						$dir_output = $config->invoice->dir_output;
 						$object_type = 'ficheinter';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextInterventionClosed", $link);
 						break;

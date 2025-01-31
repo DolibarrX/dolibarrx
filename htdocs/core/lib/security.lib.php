@@ -463,12 +463,12 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 	if ($features == 'bank') {
 		$features = 'bank';
 	}
-	if ($features == 'facturerec') {
-		$features = 'facture';
+	if ($features == 'invoicerec') {
+		$features = 'invoice';
 	}
 	if ($features == 'supplier_invoicerec') {
 		$features = 'fournisseur';
-		$feature2 = 'facture';
+		$feature2 = 'invoice';
 	}
 	if ($features == 'mo') {
 		$features = 'mrp';
@@ -501,7 +501,7 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 	if ($features == 'fournisseur') {	// When vendor invoice and purchase order are into module 'fournisseur'
 		$features = 'fournisseur';
 		if (is_object($object) && $object->element == 'invoice_supplier') {
-			$feature2 = 'facture';
+			$feature2 = 'invoice';
 		} elseif (is_object($object) && $object->element == 'order_supplier') {
 			$feature2 = 'order';
 		}
@@ -512,9 +512,9 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 	}
 	// if commonObjectLine : Using many2one related commonObject
 	// @see commonObjectLine::parentElement
-	if (in_array($features, ['orderdet', 'propaldet', 'facturedet', 'supplier_proposaldet', 'evaluationdet', 'skilldet', 'deliverydet', 'contractdet'])) {
+	if (in_array($features, ['orderdet', 'propaldet', 'invoicedet', 'supplier_proposaldet', 'evaluationdet', 'skilldet', 'deliverydet', 'contractdet'])) {
 		$features = substr($features, 0, -3);
-	} elseif (in_array($features, ['stocktransferline', 'inventoryline', 'bomline', 'expensereport_det', 'facture_fourn_det'])) {
+	} elseif (in_array($features, ['stocktransferline', 'inventoryline', 'bomline', 'expensereport_det', 'invoice_fourn_det'])) {
 		$features = substr($features, 0, -4);
 	} elseif ($features == 'orderfournisseurdispatch') {
 		$features = 'orderfournisseur';
@@ -613,12 +613,12 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 				$nbko++;
 			}
 		} elseif ($feature == 'payment') {
-			if (!$user->hasRight('facture', 'lire')) {
+			if (!$user->hasRight('invoice', 'lire')) {
 				$readok = 0;
 				$nbko++;
 			}
 		} elseif ($feature == 'payment_supplier') {
-			if (!$user->hasRight('fournisseur', 'facture', 'lire')) {
+			if (!$user->hasRight('fournisseur', 'invoice', 'lire')) {
 				$readok = 0;
 				$nbko++;
 			}
@@ -824,11 +824,11 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 					$deleteok = 0;
 				}
 			} elseif ($feature == 'payment_supplier') {	// Permission to delete a payment of an invoice is permission to edit an invoice.
-				if (!$user->hasRight('fournisseur', 'facture', 'creer')) {
+				if (!$user->hasRight('fournisseur', 'invoice', 'creer')) {
 					$deleteok = 0;
 				}
 			} elseif ($feature == 'payment') {
-				if (!$user->hasRight('facture', 'paiement')) {
+				if (!$user->hasRight('invoice', 'paiement')) {
 					$deleteok = 0;
 				}
 			} elseif ($feature == 'payment_sc') {

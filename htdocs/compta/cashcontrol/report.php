@@ -44,7 +44,7 @@ $optioncss = "print";
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/cashcontrol/class/cashcontrol.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/cashcontrol/class/cashcontrol.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
@@ -121,12 +121,12 @@ $sql.= " FROM ";
 $sql.= " ".MAIN_DB_PREFIX."bank_account as ba,";
 $sql.= " ".MAIN_DB_PREFIX."bank as b";
 $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu ON bu.fk_bank = b.rowid AND type = 'payment'";
-$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."facture as f ON bu.url_id = f.rowid";
+$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."invoice as f ON bu.url_id = f.rowid";
 $sql.= " WHERE b.fk_account = ba.rowid";
 // Define filter on invoice
 $sql.= " AND f.module_source = '".$db->escape($object->posmodule)."'";
 $sql.= " AND f.pos_source = '".$db->escape($object->posnumber)."'";
-$sql.= " AND f.entity IN (".getEntity('facture').")";
+$sql.= " AND f.entity IN (".getEntity('invoice').")";
 // Define filter on data
 if ($syear && ! $smonth)              $sql.= " AND dateo BETWEEN '".$db->idate(dol_get_first_day($syear, 1))."' AND '".$db->idate(dol_get_last_day($syear, 12))."'";
 elseif ($syear && $smonth && ! $sday) $sql.= " AND dateo BETWEEN '".$db->idate(dol_get_first_day($syear, $smonth))."' AND '".$db->idate(dol_get_last_day($syear, $smonth))."'";
@@ -139,8 +139,8 @@ $sql.=" OR b.fk_account = ".((int) $config->global->CASHDESK_ID_BANKACCOUNT_CHEQ
 $sql.=")";
 */
 $sql = "SELECT f.rowid as facid, f.ref, f.datef as do, pf.amount as amount, b.fk_account as bankid, cp.code";
-$sql .= " FROM ".MAIN_DB_PREFIX."paiement_facture as pf, ".MAIN_DB_PREFIX."facture as f, ".MAIN_DB_PREFIX."paiement as p, ".MAIN_DB_PREFIX."c_paiement as cp, ".MAIN_DB_PREFIX."bank as b";
-$sql .= " WHERE pf.fk_facture = f.rowid AND p.rowid = pf.fk_paiement AND cp.id = p.fk_paiement AND p.fk_bank = b.rowid";
+$sql .= " FROM ".MAIN_DB_PREFIX."paiement_invoice as pf, ".MAIN_DB_PREFIX."invoice as f, ".MAIN_DB_PREFIX."paiement as p, ".MAIN_DB_PREFIX."c_paiement as cp, ".MAIN_DB_PREFIX."bank as b";
+$sql .= " WHERE pf.fk_invoice = f.rowid AND p.rowid = pf.fk_paiement AND cp.id = p.fk_paiement AND p.fk_bank = b.rowid";
 $sql .= " AND f.module_source = '".$db->escape($posmodule)."'";
 $sql .= " AND f.pos_source = '".$db->escape($terminalid)."'";
 //$sql .= " AND f.paye = 1";
@@ -193,7 +193,7 @@ if ($resql) {
 	print '<br>'.$langs->trans("Period").': '.$object->year_close.($object->month_close ? '-'.$object->month_close : '').($object->day_close ? '-'.$object->day_close : '');
 	print '</center>';
 
-	$invoicetmp = new Facture($db);
+	$invoicetmp = new Invoice($db);
 
 	if (!$summaryonly) {
 		print "<div style='text-align: right'><h2>";

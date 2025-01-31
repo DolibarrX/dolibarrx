@@ -30,7 +30,7 @@
 
 /**
  *	\file		htdocs/fourn/paiement/list.php
-*	\ingroup	fournisseur,facture
+*	\ingroup	fournisseur,invoice
  *	\brief		Payment list for supplier invoices
  */
 
@@ -140,7 +140,7 @@ if ($user->socid) {
 if (!isModEnabled('supplier_invoice')) {
 	accessforbidden();
 }
-if ((!$user->hasRight("fournisseur", "facture", "lire") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD'))
+if ((!$user->hasRight("fournisseur", "invoice", "lire") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD'))
 	|| (!$user->hasRight("supplier_invoice", "lire") && getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD'))) {
 	accessforbidden();
 }
@@ -209,14 +209,14 @@ $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_paiement AS c ON p.fk_paiement = c.id';
 $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'bank as b ON p.fk_bank = b.rowid';
 $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'bank_account as ba ON b.fk_account = ba.rowid';
 
-$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiementfourn_facturefourn AS pf ON p.rowid = pf.fk_paiementfourn';
-$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'facture_fourn AS f ON f.rowid = pf.fk_facturefourn';
+$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiementfourn_invoicefourn AS pf ON p.rowid = pf.fk_paiementfourn';
+$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'invoice_fourn AS f ON f.rowid = pf.fk_invoicefourn';
 $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'societe AS s ON s.rowid = f.fk_soc';
 
 $sql .= ' WHERE f.entity IN ('.getEntity('supplier_invoice').')';		// TODO We should use p.entity that does not exists yet in this table
 if ($socid > 0) {
-	$sql .= " AND EXISTS (SELECT f.fk_soc FROM ".MAIN_DB_PREFIX."facture_fourn as f, ".MAIN_DB_PREFIX."paiementfourn_facturefourn as pf";
-	$sql .= " WHERE p.rowid = pf.fk_paiementfourn AND pf.fk_facturefourn = f.rowid AND f.fk_soc = ".((int) $socid).")";
+	$sql .= " AND EXISTS (SELECT f.fk_soc FROM ".MAIN_DB_PREFIX."invoice_fourn as f, ".MAIN_DB_PREFIX."paiementfourn_invoicefourn as pf";
+	$sql .= " WHERE p.rowid = pf.fk_paiementfourn AND pf.fk_invoicefourn = f.rowid AND f.fk_soc = ".((int) $socid).")";
 }
 
 // Search criteria

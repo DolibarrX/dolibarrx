@@ -32,11 +32,11 @@ require_once DOL_DOCUMENT_ROOT .'/core/lib/functions2.lib.php';
 
 require_once DOL_DOCUMENT_ROOT .'/comm/propal/class/propal.class.php';                   // Customer Proposal
 require_once DOL_DOCUMENT_ROOT .'/order/class/order.class.php';                    // Sale Order
-require_once DOL_DOCUMENT_ROOT .'/compta/facture/class/facture.class.php';               // Customer Invoice
+require_once DOL_DOCUMENT_ROOT .'/compta/invoice/class/invoice.class.php';               // Customer Invoice
 require_once DOL_DOCUMENT_ROOT .'/contact/class/contact.class.php';                      // Contact / Address
 require_once DOL_DOCUMENT_ROOT .'/expedition/class/expedition.class.php';                // Shipping / Delivery
 require_once DOL_DOCUMENT_ROOT .'/fourn/class/fournisseur.order.class.php';           // Purchase Order
-require_once DOL_DOCUMENT_ROOT .'/fourn/class/fournisseur.facture.class.php';            // Purchase Invoice
+require_once DOL_DOCUMENT_ROOT .'/fourn/class/fournisseur.invoice.class.php';            // Purchase Invoice
 require_once DOL_DOCUMENT_ROOT .'/projet/class/project.class.php';                       // Project
 require_once DOL_DOCUMENT_ROOT .'/reception/class/reception.class.php';                  // Reception
 require_once DOL_DOCUMENT_ROOT .'/recruitment/class/recruitmentcandidature.class.php';   // Recruiting
@@ -2185,10 +2185,10 @@ class EmailCollector extends CommonObject
 							$objectemail = new Contact($this->db);
 						}
 						if ($reg[1] == 'inv') {   // Customer Invoice
-							$objectemail = new Facture($this->db);
+							$objectemail = new Invoice($this->db);
 						}
 						if ($reg[1] == 'sinv') {   // Supplier Invoice
-							$objectemail = new FactureFournisseur($this->db);
+							$objectemail = new InvoiceSupplier($this->db);
 						}
 						if ($reg[1] == 'pro') {   // Customer Proposal
 							$objectemail = new Propal($this->db);
@@ -2294,7 +2294,7 @@ class EmailCollector extends CommonObject
 							$fk_element_id = $objectemail->id;
 							$fk_element_type = $objectemail->element;
 							// Fix fk_element_type
-							if ($fk_element_type == 'facture') {
+							if ($fk_element_type == 'invoice') {
 								$fk_element_type = 'invoice';
 							}
 
@@ -3053,14 +3053,14 @@ class EmailCollector extends CommonObject
 										'fields' => array('ref', 'ref_supplier'),
 										'class' => 'fourn/class/fournisseur.order.class.php',
 										'object' => 'SupplierProposal'),
-									'facture' => array('table' => 'facture',
+									'invoice' => array('table' => 'invoice',
 										'fields' => array('ref'),
-										'class' => 'compta/facture/class/facture.class.php',
-										'object' => 'Facture'),
-									'fournisseur/facture' => array('table' => 'facture_fourn',
+										'class' => 'compta/invoice/class/invoice.class.php',
+										'object' => 'Invoice'),
+									'fournisseur/invoice' => array('table' => 'invoice_fourn',
 										'fields' => array('ref', 'ref_client'),
-										'class' => 'fourn/class/fournisseur.facture.class.php',
-										'object' => 'FactureFournisseur'),
+										'class' => 'fourn/class/fournisseur.invoice.class.php',
+										'object' => 'InvoiceSupplier'),
 									'produit' => array('table' => 'product',
 										'fields' => array('ref'),
 										'class' => 'product/class/product.class.php',

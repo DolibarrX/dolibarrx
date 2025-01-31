@@ -987,7 +987,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 			print ' <span class="error">('.$langs->trans("WrongCustomerCode").')</span>';
 		}
 		print '</td></tr>';
-		$sql = "SELECT count(*) as nb from ".MAIN_DB_PREFIX."facture where fk_soc = ".((int) $socid);
+		$sql = "SELECT count(*) as nb from ".MAIN_DB_PREFIX."invoice where fk_soc = ".((int) $socid);
 		$resql = $db->query($sql);
 		if (!$resql) {
 			dol_print_error($db);
@@ -1004,7 +1004,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 			$elementTypeArray['order'] = $langs->transnoentitiesnoconv('Orders');
 		}
-		if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
+		if (isModEnabled('invoice') && $user->hasRight('invoice', 'lire')) {
 			$elementTypeArray['invoice'] = $langs->transnoentitiesnoconv('Invoices');
 		}
 		if (isModEnabled('contract') && $user->hasRight('contract', 'lire')) {
@@ -1086,7 +1086,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 			print ' <span class="error">('.$langs->trans("WrongSupplierCode").')</span>';
 		}
 		print '</td></tr>';
-		$sql = "SELECT count(*) as nb from ".MAIN_DB_PREFIX."facture where fk_soc = ".((int) $socid);
+		$sql = "SELECT count(*) as nb from ".MAIN_DB_PREFIX."invoice where fk_soc = ".((int) $socid);
 		$resql = $db->query($sql);
 		if (!$resql) {
 			dol_print_error($db);
@@ -1100,7 +1100,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 			$elementTypeArray['order'] = $langs->transnoentitiesnoconv('Orders');
 		}
-		if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
+		if (isModEnabled('invoice') && $user->hasRight('invoice', 'lire')) {
 			$elementTypeArray['invoice'] = $langs->transnoentitiesnoconv('Invoices');
 		}
 		if (isModEnabled('contract') && $user->hasRight('contract', 'lire')) {

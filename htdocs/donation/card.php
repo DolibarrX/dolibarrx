@@ -956,7 +956,7 @@ if (!empty($id) && $action != 'edit') {
 	$validpaymentmethod = getValidOnlinePaymentMethods('');
 	$useonlinepayment = count($validpaymentmethod);
 
-	if ($useonlinepayment) { //$object->statut != Facture::STATUS_DRAFT &&
+	if ($useonlinepayment) { //$object->statut != Invoice::STATUS_DRAFT &&
 		print '<br><!-- Link to pay -->'."\n";
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
 		print showOnlinePaymentUrl('donation', $object->ref).'<br>';

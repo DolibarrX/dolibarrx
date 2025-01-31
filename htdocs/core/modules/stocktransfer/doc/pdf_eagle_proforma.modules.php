@@ -271,7 +271,7 @@ class pdf_eagle_proforma extends ModelePDFStockTransfer
 				global $action;
 				$resHook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
-				// Set nblines with the new facture lines content after hook
+				// Set nblines with the new invoice lines content after hook
 				$nblines = is_array($object->lines) ? count($object->lines) : 0;
 
 				// Create pdf instance
@@ -848,7 +848,7 @@ class pdf_eagle_proforma extends ModelePDFStockTransfer
 	protected function drawInfoTable(&$pdf, $object, $posy, $outputlangs)
 	{
 		global $config, $mysoc;
-		'@phan-var-force Order|Propal|Facture $object';  // availability_code,... does not exist on Facture.
+		'@phan-var-force Order|Propal|Invoice $object';  // availability_code,... does not exist on Invoice.
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 

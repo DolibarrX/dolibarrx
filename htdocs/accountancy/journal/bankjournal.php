@@ -49,9 +49,9 @@ require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 require_once DOL_DOCUMENT_ROOT.'/donation/class/paymentdonation.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/tva/class/tva.class.php';
 require_once DOL_DOCUMENT_ROOT.'/salaries/class/paymentsalary.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/paiementfourn.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/bookkeeping.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/client.class.php';
@@ -211,7 +211,7 @@ $accountLinestatic = new AccountLine($db);
 $paymentsubscriptionstatic = new Subscription($db);
 
 $tmppayment = new Paiement($db);
-$tmpinvoice = new Facture($db);
+$tmpinvoice = new Invoice($db);
 
 $accountingaccount = new AccountingAccount($db);
 $account_transfer = 'NotDefined'; // For static analysis, NotDefined is a reserved word
@@ -1114,8 +1114,8 @@ if ($action == 'exportcsv' && $user->hasRight('accounting', 'bind', 'write')) {	
 $form = new Form($db);
 
 if (empty($action) || $action == 'view') {
-	$invoicestatic = new Facture($db);
-	$invoicesupplierstatic = new FactureFournisseur($db);
+	$invoicestatic = new Invoice($db);
+	$invoicesupplierstatic = new InvoiceSupplier($db);
 	$expensereportstatic = new ExpenseReport($db);
 	$vatstatic = new Tva($db);
 	$donationstatic = new Don($db);
@@ -1542,23 +1542,23 @@ function getSourceDocRef($val, $typerecord)
 	$sqlmid = '';
 	if ($typerecord == 'payment') {
 		if (getDolGlobalInt('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
-			$sqlmid = "SELECT payfac.fk_facture as id, ".$db->ifsql('f1.rowid IS NULL', 'f.ref', 'f1.ref')." as ref";
-			$sqlmid .= " FROM ".$db->prefix()."paiement_facture as payfac";
-			$sqlmid .= " LEFT JOIN ".$db->prefix()."facture as f ON f.rowid = payfac.fk_facture";
-			$sqlmid .= " LEFT JOIN ".$db->prefix()."societe_remise_except as sre ON sre.fk_facture_source = payfac.fk_facture";
-			$sqlmid .= " LEFT JOIN ".$db->prefix()."facture as f1 ON f1.rowid = sre.fk_facture";
+			$sqlmid = "SELECT payfac.fk_invoice as id, ".$db->ifsql('f1.rowid IS NULL', 'f.ref', 'f1.ref')." as ref";
+			$sqlmid .= " FROM ".$db->prefix()."paiement_invoice as payfac";
+			$sqlmid .= " LEFT JOIN ".$db->prefix()."invoice as f ON f.rowid = payfac.fk_invoice";
+			$sqlmid .= " LEFT JOIN ".$db->prefix()."societe_remise_except as sre ON sre.fk_invoice_source = payfac.fk_invoice";
+			$sqlmid .= " LEFT JOIN ".$db->prefix()."invoice as f1 ON f1.rowid = sre.fk_invoice";
 			$sqlmid .= " WHERE payfac.fk_paiement=".((int) $val['paymentid']);
 		} else {
-			$sqlmid = "SELECT payfac.fk_facture as id, f.ref as ref";
-			$sqlmid .= " FROM ".$db->prefix()."paiement_facture as payfac";
-			$sqlmid .= " INNER JOIN ".$db->prefix()."facture as f ON f.rowid = payfac.fk_facture";
+			$sqlmid = "SELECT payfac.fk_invoice as id, f.ref as ref";
+			$sqlmid .= " FROM ".$db->prefix()."paiement_invoice as payfac";
+			$sqlmid .= " INNER JOIN ".$db->prefix()."invoice as f ON f.rowid = payfac.fk_invoice";
 			$sqlmid .= " WHERE payfac.fk_paiement=".((int) $val['paymentid']);
 		}
 		$ref = $langs->transnoentitiesnoconv("Invoice");
 	} elseif ($typerecord == 'payment_supplier') {
-		$sqlmid = 'SELECT payfac.fk_facturefourn as id, f.ref';
-		$sqlmid .= " FROM ".MAIN_DB_PREFIX."paiementfourn_facturefourn as payfac, ".MAIN_DB_PREFIX."facture_fourn as f";
-		$sqlmid .= " WHERE payfac.fk_facturefourn = f.rowid AND payfac.fk_paiementfourn=".((int) $val["paymentsupplierid"]);
+		$sqlmid = 'SELECT payfac.fk_invoicefourn as id, f.ref';
+		$sqlmid .= " FROM ".MAIN_DB_PREFIX."paiementfourn_invoicefourn as payfac, ".MAIN_DB_PREFIX."invoice_fourn as f";
+		$sqlmid .= " WHERE payfac.fk_invoicefourn = f.rowid AND payfac.fk_paiementfourn=".((int) $val["paymentsupplierid"]);
 		$ref = $langs->transnoentitiesnoconv("SupplierInvoice");
 	} elseif ($typerecord == 'payment_expensereport') {
 		$sqlmid = 'SELECT e.rowid as id, e.ref';

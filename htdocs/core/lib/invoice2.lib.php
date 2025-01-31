@@ -54,11 +54,11 @@ require_once DOL_DOCUMENT_ROOT . '/core/lib/pdf.lib.php';
 function rebuild_merge_pdf($db, $langs, $config, $diroutputpdf, $newlangid, $filter, $dateafterdate, $datebeforedate, $paymentdateafter, $paymentdatebefore, $usestdout, $regenerate = '', $filesuffix = '', $paymentbankid = '', $thirdpartiesid = [], $fileprefix = 'mergedpdf', $donotmerge = 0, $mode = 'invoice')
 {
 	if ($mode == 'invoice') {
-		require_once DOL_DOCUMENT_ROOT . "/compta/facture/class/facture.class.php";
-		require_once DOL_DOCUMENT_ROOT . "/core/modules/facture/modules_facture.php";
+		require_once DOL_DOCUMENT_ROOT . "/compta/invoice/class/invoice.class.php";
+		require_once DOL_DOCUMENT_ROOT . "/core/modules/invoice/modules_invoice.php";
 
-		$table = "facture";
-		$dir_output = $config->facture->dir_output;
+		$table = "invoice";
+		$dir_output = $config->invoice->dir_output;
 		$date = "datef";
 
 		if ($diroutputpdf == 'auto') {
@@ -122,7 +122,7 @@ function rebuild_merge_pdf($db, $langs, $config, $diroutputpdf, $newlangid, $fil
 	}
 	// Filter for invoices only
 	if (in_array('nopayment', $filter)) {
-		$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "paiement_facture as pf ON f.rowid = pf.fk_facture";
+		$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "paiement_invoice as pf ON f.rowid = pf.fk_invoice";
 		if (empty($sqlwhere)) {
 			$sqlwhere = ' WHERE ';
 		} else {
@@ -133,7 +133,7 @@ function rebuild_merge_pdf($db, $langs, $config, $diroutputpdf, $newlangid, $fil
 	}
 	// Filter for invoices only
 	if (in_array('payments', $filter) || in_array('bank', $filter)) {
-		$sql .= ", " . MAIN_DB_PREFIX . "paiement_facture as pf, " . MAIN_DB_PREFIX . "paiement as p";
+		$sql .= ", " . MAIN_DB_PREFIX . "paiement_invoice as pf, " . MAIN_DB_PREFIX . "paiement as p";
 		if (in_array('bank', $filter)) {
 			$sql .= ", " . MAIN_DB_PREFIX . "bank as b";
 		}
@@ -143,7 +143,7 @@ function rebuild_merge_pdf($db, $langs, $config, $diroutputpdf, $newlangid, $fil
 			$sqlwhere .= " AND";
 		}
 		$sqlwhere .= " f.fk_statut > 0";
-		$sqlwhere .= " AND f.rowid = pf.fk_facture";
+		$sqlwhere .= " AND f.rowid = pf.fk_invoice";
 		$sqlwhere .= " AND pf.fk_paiement = p.rowid";
 		if (in_array('payments', $filter)) {
 			$sqlwhere .= " AND p.datep >= '" . $db->idate($paymentdateafter) . "'";
@@ -233,7 +233,7 @@ function rebuild_merge_pdf($db, $langs, $config, $diroutputpdf, $newlangid, $fil
 
 				$fac = null;
 				if ($mode == 'invoice') {
-					$fac = new Facture($db);
+					$fac = new Invoice($db);
 				} elseif ($mode == 'order') {
 					$fac = new Order($db);
 				} elseif ($mode == 'proposal') {

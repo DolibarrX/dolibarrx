@@ -279,9 +279,9 @@ class modMultiCurrency extends DolibarrModules
 		//);
 		// $this->export_dependencies_array[$r]=array('invoice_line'=>'fd.rowid','product'=>'fd.rowid'); // To add unique key if we ask a field of a child to avoid the DISTINCT to discard them
 		// $this->export_sql_start[$r]='SELECT DISTINCT ';
-		// $this->export_sql_end[$r]  =' FROM ('.MAIN_DB_PREFIX.'facture as f, '.MAIN_DB_PREFIX.'facturedet as fd, '.MAIN_DB_PREFIX.'societe as s)';
+		// $this->export_sql_end[$r]  =' FROM ('.MAIN_DB_PREFIX.'invoice as f, '.MAIN_DB_PREFIX.'invoicedet as fd, '.MAIN_DB_PREFIX.'societe as s)';
 		// $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'product as p on (fd.fk_product = p.rowid)';
-		// $this->export_sql_end[$r] .=' WHERE f.fk_soc = s.rowid AND f.rowid = fd.fk_facture';
+		// $this->export_sql_end[$r] .=' WHERE f.fk_soc = s.rowid AND f.rowid = fd.fk_invoice';
 		// $this->export_sql_order[$r] .=' ORDER BY s.nom';
 		// $r++;
 	}

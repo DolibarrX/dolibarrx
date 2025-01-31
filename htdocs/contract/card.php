@@ -44,8 +44,8 @@ require_once DOL_DOCUMENT_ROOT.'/core/modules/contract/modules_contract.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 if (isModEnabled("propal")) {
 	require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 }
@@ -312,9 +312,9 @@ if (empty($resHook)) {
 					$element = 'comm/propal';
 					$subelement = 'propal';
 				}
-				if ($element == 'invoice' || $element == 'facture') {
-					$element = 'compta/facture';
-					$subelement = 'facture';
+				if ($element == 'invoice' || $element == 'invoice') {
+					$element = 'compta/invoice';
+					$subelement = 'invoice';
 				}
 
 				$object->origin    = $origin;
@@ -332,7 +332,7 @@ if (empty($resHook)) {
 
 					$classname = ucfirst($subelement);
 					$srcobject = new $classname($db);
-					'@phan-var-force Order|Propal|Facture $srcobject';  // Can be other class, but CommonObject is too Generic
+					'@phan-var-force Order|Propal|Invoice $srcobject';  // Can be other class, but CommonObject is too Generic
 
 					dol_syslog("Try to find source object origin=".$object->origin." originid=".$object->origin_id." to add lines");
 					$result = $srcobject->fetch($object->origin_id);
@@ -1172,16 +1172,16 @@ if ($action == 'create') {
 				$element = 'comm/propal';
 				$subelement = 'propal';
 			}
-			if ($element == 'invoice' || $element == 'facture') {
-				$element = 'compta/facture';
-				$subelement = 'facture';
+			if ($element == 'invoice' || $element == 'invoice') {
+				$element = 'compta/invoice';
+				$subelement = 'invoice';
 			}
 
 			dol_include_once('/'.$element.'/class/'.$subelement.'.class.php');
 
 			$classname = ucfirst($subelement);
 			$objectsrc = new $classname($db);
-			'@phan-var-force Order|Propal|Facture $objectsrc';
+			'@phan-var-force Order|Propal|Invoice $objectsrc';
 			$objectsrc->fetch($originid);
 			if (empty($objectsrc->lines) && method_exists($objectsrc, 'fetch_lines')) {
 				$objectsrc->fetch_lines();
@@ -1580,7 +1580,7 @@ if ($action == 'create') {
 		$productstatic = new Product($db);
 
 		$usemargins = 0;
-		if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('facture', 'propal', 'order'))) {
+		if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('invoice', 'propal', 'order'))) {
 			$usemargins = 1;
 		}
 
@@ -2263,20 +2263,20 @@ if ($action == 'create') {
 				}
 				if (isModEnabled('invoice') && $object->status > 0 && $soc->client > 0) {
 					$arrayofcreatebutton[] = array(
-						'url' => '/compta/facture/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->thirdparty->id,
+						'url' => '/compta/invoice/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->thirdparty->id,
 						'label' => $langs->trans('CreateBill'),
 						'lang' => 'bills',
-						'perm' => $user->hasRight('facture', 'creer') ? true : false,
+						'perm' => $user->hasRight('invoice', 'creer') ? true : false,
 						'enabled' => true,
 					);
 				}
 				if (isModEnabled('supplier_invoice') && $object->status > 0 && $soc->fournisseur == 1) {
 					$langs->load("suppliers");
 					$arrayofcreatebutton[] = array(
-						'url' => '/fourn/facture/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->thirdparty->id,
+						'url' => '/fourn/invoice/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->thirdparty->id,
 						'label' => $langs->trans('AddSupplierInvoice'),
 						'lang' => 'bills',
-						'perm' => $user->hasRight('fournisseur', 'facture', 'creer') ? true : false,
+						'perm' => $user->hasRight('fournisseur', 'invoice', 'creer') ? true : false,
 						'enabled' => true,
 					);
 				}

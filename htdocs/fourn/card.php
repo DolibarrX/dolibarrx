@@ -27,15 +27,15 @@
 
 /**
  *	\file       htdocs/fourn/card.php
- *	\ingroup    fournisseur, facture
+ *	\ingroup    fournisseur, invoice
  *	\brief      Page for supplier third party card (view, edit)
  */
 
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture-rec.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice-rec.class.php';
 require_once DOL_DOCUMENT_ROOT.'/supplier_proposal/class/supplier_proposal.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
@@ -545,7 +545,7 @@ if ($object->id > 0) {
 		}
 	}
 
-	if (isModEnabled("supplier_invoice") && ($user->hasRight('fournisseur', 'facture', 'lire') || $user->hasRight('supplier_invoice', 'read'))) {
+	if (isModEnabled("supplier_invoice") && ($user->hasRight('fournisseur', 'invoice', 'lire') || $user->hasRight('supplier_invoice', 'read'))) {
 		$warn = '';
 		$tmp = $object->getOutstandingBills('supplier');
 		$outstandingOpened = $tmp['opened'];
@@ -553,7 +553,7 @@ if ($object->id > 0) {
 		$outstandingTotalIncTax = $tmp['total_ttc'];
 
 		$text = $langs->trans("OverAllInvoices");
-		$link = DOL_URL_ROOT.'/fourn/facture/list.php?socid='.$object->id;
+		$link = DOL_URL_ROOT.'/fourn/invoice/list.php?socid='.$object->id;
 		$icon = 'bill';
 		if ($link) {
 			$boxstat .= '<a href="'.$link.'" class="boxstatsindicator thumbstat nobold nounderline">';
@@ -865,7 +865,7 @@ if ($object->id > 0) {
 	/*
 	 * Latest invoices templates
 	 */
-	if (isModEnabled("supplier_invoice") && ($user->hasRight('fournisseur', 'facture', 'lire') || $user->hasRight('supplier_invoice', 'read'))) {
+	if (isModEnabled("supplier_invoice") && ($user->hasRight('fournisseur', 'invoice', 'lire') || $user->hasRight('supplier_invoice', 'read'))) {
 		$sql = 'SELECT f.rowid as id, f.titre as ref';
 		$sql .= ', f.total_ht';
 		$sql .= ', f.total_tva';
@@ -876,7 +876,7 @@ if ($object->id > 0) {
 		$sql .= ', f.unit_frequency';
 		$sql .= ', f.suspended as suspended';
 		$sql .= ', s.nom, s.rowid as socid';
-		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."facture_fourn_rec as f";
+		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."invoice_fourn_rec as f";
 		$sql .= " WHERE f.fk_soc = s.rowid AND s.rowid = ".((int) $object->id);
 		$sql .= " AND f.entity IN (".getEntity('invoice').")";
 		$sql .= ' GROUP BY f.rowid, f.titre, f.total_ht, f.total_tva, f.total_ttc,';
@@ -887,7 +887,7 @@ if ($object->id > 0) {
 
 		$resql = $db->query($sql);
 		if ($resql) {
-			$invoicetemplate = new FactureFournisseurRec($db);
+			$invoicetemplate = new InvoiceSupplierRec($db);
 
 			$num = $db->num_rows($resql);
 			if ($num > 0) {
@@ -902,7 +902,7 @@ if ($object->id > 0) {
 				print '<table class="centpercent nobordernopadding"><tr>';
 				print '<td>'.$langs->trans("LatestSupplierTemplateInvoices", ($num <= $MAXLIST ? "" : $MAXLIST)).'</td>';
 				print '<td class="right">';
-				print '<a class="notasortlink" href="'.DOL_URL_ROOT.'/fourn/facture/list-rec.php?socid='.$object->id.'">';
+				print '<a class="notasortlink" href="'.DOL_URL_ROOT.'/fourn/invoice/list-rec.php?socid='.$object->id.'">';
 				print '<span class="hideonsmartphone">'.$langs->trans("AllSupplierTemplateInvoices").'</span><span class="badge marginleftonlyshort">'.$num.'</span></a></td>';
 				print '</tr></table>';
 				print '</td>';
@@ -972,16 +972,16 @@ if ($object->id > 0) {
 	 */
 
 	$langs->load('bills');
-	$facturestatic = new FactureFournisseur($db);
+	$invoicestatic = new InvoiceSupplier($db);
 
-	if ($user->hasRight('fournisseur', 'facture', 'lire')) {
+	if ($user->hasRight('fournisseur', 'invoice', 'lire')) {
 		// TODO move to DAO class
 		$sql = 'SELECT f.rowid, f.libelle as label, f.ref, f.ref_supplier, f.fk_statut, f.datef as df, f.total_ht, f.total_tva, f.total_ttc, f.paye,';
 		$sql .= ' SUM(pf.amount) as am';
-		$sql .= ' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
-		$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiementfourn_facturefourn as pf ON f.rowid=pf.fk_facturefourn';
+		$sql .= ' FROM '.MAIN_DB_PREFIX.'invoice_fourn as f';
+		$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiementfourn_invoicefourn as pf ON f.rowid=pf.fk_invoicefourn';
 		$sql .= ' WHERE f.fk_soc = '.((int) $object->id);
-		$sql .= " AND f.entity IN (".getEntity('facture_fourn').")";
+		$sql .= " AND f.entity IN (".getEntity('invoice_fourn').")";
 		$sql .= ' GROUP BY f.rowid,f.libelle,f.ref,f.ref_supplier,f.fk_statut,f.datef,f.total_ht,f.total_tva,f.total_ttc,f.paye';
 		$sql .= ' ORDER BY f.datef DESC';
 		$resql = $db->query($sql);
@@ -995,8 +995,8 @@ if ($object->id > 0) {
 				print '<tr class="liste_titre">';
 				print '<td colspan="4">';
 				print '<table class="nobordernopadding" width="100%"><tr><td>'.$langs->trans('LastSuppliersBills', ($num <= $MAXLIST ? "" : $MAXLIST)).'</td>';
-				print '<td class="right"><a class="notasortlink" href="'.DOL_URL_ROOT.'/fourn/facture/list.php?socid='.$object->id.'"><span class="hideonsmartphone">'.$langs->trans('AllBills').'</span><span class="badge marginleftonlyshort">'.$num.'</span></td>';
-				print '<td width="20px" class="right"><a href="'.DOL_URL_ROOT.'/compta/facture/stats/index.php?mode=supplier&socid='.$object->id.'">'.img_picture($langs->trans("Statistics"), 'stats').'</a></td>';
+				print '<td class="right"><a class="notasortlink" href="'.DOL_URL_ROOT.'/fourn/invoice/list.php?socid='.$object->id.'"><span class="hideonsmartphone">'.$langs->trans('AllBills').'</span><span class="badge marginleftonlyshort">'.$num.'</span></td>';
+				print '<td width="20px" class="right"><a href="'.DOL_URL_ROOT.'/compta/invoice/stats/index.php?mode=supplier&socid='.$object->id.'">'.img_picture($langs->trans("Statistics"), 'stats').'</a></td>';
 				print '</tr></table>';
 				print '</td></tr>';
 			}
@@ -1004,26 +1004,26 @@ if ($object->id > 0) {
 			while ($i < min($num, $MAXLIST)) {
 				$obj = $db->fetch_object($resql);
 
-				$facturestatic->id = $obj->rowid;
-				$facturestatic->ref = ($obj->ref ? $obj->ref : $obj->rowid);
-				$facturestatic->ref_supplier = $obj->ref_supplier;
-				$facturestatic->libelle = $obj->label; // deprecated
-				$facturestatic->label = $obj->label;
-				$facturestatic->total_ht = $obj->total_ht;
-				$facturestatic->total_tva = $obj->total_tva;
-				$facturestatic->total_ttc = $obj->total_ttc;
-				$facturestatic->date = $db->jdate($obj->df);
+				$invoicestatic->id = $obj->rowid;
+				$invoicestatic->ref = ($obj->ref ? $obj->ref : $obj->rowid);
+				$invoicestatic->ref_supplier = $obj->ref_supplier;
+				$invoicestatic->libelle = $obj->label; // deprecated
+				$invoicestatic->label = $obj->label;
+				$invoicestatic->total_ht = $obj->total_ht;
+				$invoicestatic->total_tva = $obj->total_tva;
+				$invoicestatic->total_ttc = $obj->total_ttc;
+				$invoicestatic->date = $db->jdate($obj->df);
 
 				print '<tr class="oddeven">';
 				print '<td class="tdoverflowmax200">';
-				print '<span class="nowraponall">'.$facturestatic->getNomUrl(1).'</span>';
+				print '<span class="nowraponall">'.$invoicestatic->getNomUrl(1).'</span>';
 				print $obj->ref_supplier ? ' - '.$obj->ref_supplier : '';
 				print($obj->label ? ' - ' : '').dol_trunc($obj->label, 14);
 				print '</td>';
-				print '<td class="center nowrap">'.dol_print_date($facturestatic->date, 'day').'</td>';
-				print '<td class="right nowrap"><span class="amount">'.price($facturestatic->total_ttc).'</span></td>';
+				print '<td class="center nowrap">'.dol_print_date($invoicestatic->date, 'day').'</td>';
+				print '<td class="right nowrap"><span class="amount">'.price($invoicestatic->total_ttc).'</span></td>';
 				print '<td class="right nowrap">';
-				print $facturestatic->LibStatut($obj->paye, $obj->fk_statut, 5, $obj->am);
+				print $invoicestatic->LibStatut($obj->paye, $obj->fk_statut, 5, $obj->am);
 				print '</td>';
 				print '</tr>';
 				$i++;
@@ -1083,7 +1083,7 @@ if ($object->id > 0) {
 			}
 		}
 
-		if ($user->hasRight('fournisseur', 'facture', 'creer') || $user->hasRight('supplier_invoice', 'creer')) {
+		if ($user->hasRight('fournisseur', 'invoice', 'creer') || $user->hasRight('supplier_invoice', 'creer')) {
 			if (!empty($orders2invoice) && $orders2invoice > 0) {
 				if ($object->status == 1) {
 					// Company is open
@@ -1096,10 +1096,10 @@ if ($object->id > 0) {
 			}
 		}
 
-		if ($user->hasRight('fournisseur', 'facture', 'creer') || $user->hasRight('supplier_invoice', 'creer')) {
+		if ($user->hasRight('fournisseur', 'invoice', 'creer') || $user->hasRight('supplier_invoice', 'creer')) {
 			$langs->load("bills");
 			if ($object->status == 1) {
-				print dolGetButtonAction('', $langs->trans('AddBill'), 'default', DOL_URL_ROOT.'/fourn/facture/card.php?action=create&amp;socid='.$object->id, '');
+				print dolGetButtonAction('', $langs->trans('AddBill'), 'default', DOL_URL_ROOT.'/fourn/invoice/card.php?action=create&amp;socid='.$object->id, '');
 			} else {
 				print dolGetButtonAction($langs->trans('ThirdPartyIsClosed'), $langs->trans('AddBill'), 'default', $_SERVER['PHP_SELF'].'#', '', false);
 			}

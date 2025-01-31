@@ -19,7 +19,7 @@ $permission = $user->hasRight('expensereport', 'creer');
 $savingdocmask = '';
 if (!getDolGlobalString('MAIN_DISABLE_SUGGEST_REF_AS_PREFIX')) {
 	//var_dump($modulePart);
-	if (in_array($modulePart, array('facture_fournisseur', 'order_fournisseur', 'facture', 'order', 'propal', 'supplier_proposal', 'ficheinter', 'contract', 'expedition', 'project', 'project_task', 'expensereport', 'tax', 'produit', 'product_batch'))) {
+	if (in_array($modulePart, array('invoice_fournisseur', 'order_fournisseur', 'invoice', 'order', 'propal', 'supplier_proposal', 'ficheinter', 'contract', 'expedition', 'project', 'project_task', 'expensereport', 'tax', 'produit', 'product_batch'))) {
 		$savingdocmask = dol_sanitizeFileName($object->ref).'-__file__';
 	}
 }

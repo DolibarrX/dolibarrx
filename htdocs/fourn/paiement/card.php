@@ -33,7 +33,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/paiementfourn.class.php';
 
 
@@ -77,9 +77,9 @@ if ($socid && $socid != $object->thirdparty->id) {
 	accessforbidden();
 }
 
-$permissionToAdd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "write"));
-$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "write"))) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight("fournisseur", "supplier_invoice_advance", "validate")));
-$permissiontodelete = ($user->hasRight("fournisseur", "facture", "supprimer") || $user->hasRight("supplier_invoice", "delete"));
+$permissionToAdd = ($user->hasRight("fournisseur", "invoice", "creer") || $user->hasRight("supplier_invoice", "write"));
+$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && ($user->hasRight("fournisseur", "invoice", "creer") || $user->hasRight("supplier_invoice", "write"))) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight("fournisseur", "supplier_invoice_advance", "validate")));
+$permissiontodelete = ($user->hasRight("fournisseur", "invoice", "supprimer") || $user->hasRight("supplier_invoice", "delete"));
 
 
 /*
@@ -208,9 +208,9 @@ if ($result > 0) {
 	print '</td></tr>';*/
 
 	// Date of payment
-	print '<tr><td class="titlefield">'.$form->editfieldkey("Date", 'datep', $object->date, $object, $object->statut == 0 && ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"))).'</td>';
+	print '<tr><td class="titlefield">'.$form->editfieldkey("Date", 'datep', $object->date, $object, $object->statut == 0 && ($user->hasRight("fournisseur", "invoice", "creer") || $user->hasRight("supplier_invoice", "creer"))).'</td>';
 	print '<td>';
-	print $form->editfieldval("Date", 'datep', $object->date, $object, $object->statut == 0 && ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")), 'datehourpicker', '', null, $langs->trans('PaymentDateUpdateSucceeded'));
+	print $form->editfieldval("Date", 'datep', $object->date, $object, $object->statut == 0 && ($user->hasRight("fournisseur", "invoice", "creer") || $user->hasRight("supplier_invoice", "creer")), 'datehourpicker', '', null, $langs->trans('PaymentDateUpdateSucceeded'));
 	print '</td></tr>';
 
 	// Payment mode
@@ -222,9 +222,9 @@ if ($result > 0) {
 
 	// Payment number
 	/* TODO Add field num_payment into payment table and save it
-	print '<tr><td>'.$form->editfieldkey("Numero",'num_paiement',$object->num_paiement,$object,$object->statut == 0 && $user->hasRight("fournisseur", "facture", "creer")).'</td>';
+	print '<tr><td>'.$form->editfieldkey("Numero",'num_paiement',$object->num_paiement,$object,$object->statut == 0 && $user->hasRight("fournisseur", "invoice", "creer")).'</td>';
 	print '<td>';
-	print $form->editfieldval("Numero",'num_paiement',$object->num_paiement,$object,$object->statut == 0 && $user->hasRight("fournisseur", "facture", "creer"),'string','',null,$langs->trans('PaymentNumberUpdateSucceeded'));
+	print $form->editfieldval("Numero",'num_paiement',$object->num_paiement,$object,$object->statut == 0 && $user->hasRight("fournisseur", "invoice", "creer"),'string','',null,$langs->trans('PaymentNumberUpdateSucceeded'));
 	print '</td></tr>';
 	*/
 
@@ -268,9 +268,9 @@ if ($result > 0) {
 	}
 
 	// Note
-	print '<tr><td>'.$form->editfieldkey("Comments", 'note', $object->note_private, $object, ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"))).'</td>';
+	print '<tr><td>'.$form->editfieldkey("Comments", 'note', $object->note_private, $object, ($user->hasRight("fournisseur", "invoice", "creer") || $user->hasRight("supplier_invoice", "creer"))).'</td>';
 	print '<td>';
-	print $form->editfieldval("Note", 'note', $object->note_private, $object, ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")), 'textarea');
+	print $form->editfieldval("Note", 'note', $object->note_private, $object, ($user->hasRight("fournisseur", "invoice", "creer") || $user->hasRight("supplier_invoice", "creer")), 'textarea');
 	print '</td></tr>';
 
 	print '</table>';
@@ -284,8 +284,8 @@ if ($result > 0) {
 	 */
 	$sql = 'SELECT f.rowid, f.rowid as facid, f.ref, f.ref_supplier, f.type, f.paye, f.total_ht, f.total_tva, f.total_ttc, f.datef as date, f.fk_statut as status,';
 	$sql .= ' pf.amount, s.nom as name, s.rowid as socid';
-	$sql .= ' FROM '.MAIN_DB_PREFIX.'paiementfourn_facturefourn as pf,'.MAIN_DB_PREFIX.'facture_fourn as f,'.MAIN_DB_PREFIX.'societe as s';
-	$sql .= ' WHERE pf.fk_facturefourn = f.rowid AND f.fk_soc = s.rowid';
+	$sql .= ' FROM '.MAIN_DB_PREFIX.'paiementfourn_invoicefourn as pf,'.MAIN_DB_PREFIX.'invoice_fourn as f,'.MAIN_DB_PREFIX.'societe as s';
+	$sql .= ' WHERE pf.fk_invoicefourn = f.rowid AND f.fk_soc = s.rowid';
 	$sql .= ' AND pf.fk_paiementfourn = '.((int) $object->id);
 	$resql = $db->query($sql);
 	if ($resql) {
@@ -305,26 +305,26 @@ if ($result > 0) {
 		print "</tr>\n";
 
 		if ($num > 0) {
-			$facturestatic = new FactureFournisseur($db);
+			$invoicestatic = new InvoiceSupplier($db);
 
 			while ($i < $num) {
 				$objp = $db->fetch_object($resql);
 
-				$facturestatic->id = $objp->facid;
-				$facturestatic->ref = ($objp->ref ? $objp->ref : $objp->rowid);
-				$facturestatic->date = $db->jdate($objp->date);
-				$facturestatic->type = $objp->type;
-				$facturestatic->total_ht = $objp->total_ht;
-				$facturestatic->total_tva = $objp->total_tva;
-				$facturestatic->total_ttc = $objp->total_ttc;
-				$facturestatic->statut = $objp->status;
-				$facturestatic->status = $objp->status;
-				$facturestatic->alreadypaid = -1; // unknown
+				$invoicestatic->id = $objp->facid;
+				$invoicestatic->ref = ($objp->ref ? $objp->ref : $objp->rowid);
+				$invoicestatic->date = $db->jdate($objp->date);
+				$invoicestatic->type = $objp->type;
+				$invoicestatic->total_ht = $objp->total_ht;
+				$invoicestatic->total_tva = $objp->total_tva;
+				$invoicestatic->total_ttc = $objp->total_ttc;
+				$invoicestatic->statut = $objp->status;
+				$invoicestatic->status = $objp->status;
+				$invoicestatic->alreadypaid = -1; // unknown
 
 				print '<tr class="oddeven">';
 				// Ref
 				print '<td>';
-				print $facturestatic->getNomUrl(1);
+				print $invoicestatic->getNomUrl(1);
 				print "</td>\n";
 				// Ref supplier
 				print '<td>'.$objp->ref_supplier."</td>\n";
@@ -335,7 +335,7 @@ if ($result > 0) {
 				// Paid
 				print '<td class="right">'.price($objp->amount).'</td>';
 				// Status
-				print '<td class="right">'.$facturestatic->LibStatut($objp->paye, $objp->status, 6, 1).'</td>';
+				print '<td class="right">'.$invoicestatic->LibStatut($objp->paye, $objp->status, 6, 1).'</td>';
 				print "</tr>\n";
 
 				if ($objp->paye == 1) {
@@ -376,7 +376,7 @@ if ($result > 0) {
 	// Payment validation
 	if (getDolGlobalString('BILL_ADD_PAYMENT_VALIDATION')) {
 		if ($user->socid == 0 && $object->statut == 0 && $action == '') {
-			if ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")))
+			if ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && ($user->hasRight("fournisseur", "invoice", "creer") || $user->hasRight("supplier_invoice", "creer")))
 			|| (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight("fournisseur", "supplier_invoice_advance", "validate"))) {
 				print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'&amp;action=validate&token='.newToken().'">'.$langs->trans('Valid').'</a>';
 			}
@@ -385,7 +385,7 @@ if ($result > 0) {
 
 	// Delete payment
 	if ($user->socid == 0 && $action != 'presend') {
-		if ($user->hasRight('fournisseur', 'facture', 'supprimer')) {
+		if ($user->hasRight('fournisseur', 'invoice', 'supprimer')) {
 			if ($allow_delete) {
 				print dolGetButtonAction($langs->trans("Delete"), '', 'delete', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken(), 'delete', 1);
 			} else {
@@ -405,8 +405,8 @@ if ($result > 0) {
 			$ref = dol_sanitizeFileName($object->ref);
 			$filedir = $config->fournisseur->payment->dir_output.'/'.dol_sanitizeFileName($object->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$object->id;
-			$genallowed = ($user->hasRight("fournisseur", "facture", "lire") || $user->hasRight("supplier_invoice", "lire"));
-			$delallowed = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
+			$genallowed = ($user->hasRight("fournisseur", "invoice", "lire") || $user->hasRight("supplier_invoice", "lire"));
+			$delallowed = ($user->hasRight("fournisseur", "invoice", "creer") || $user->hasRight("supplier_invoice", "creer"));
 			$modelpdf = (!empty($object->model_pdf) ? $object->model_pdf : (!getDolGlobalString('SUPPLIER_PAYMENT_ADDON_PDF') ? '' : $config->global->SUPPLIER_PAYMENT_ADDON_PDF));
 
 			print $formfile->showdocuments('supplier_payment', $ref, $filedir, $urlsource, $genallowed, $delallowed, $modelpdf, 1, 0, 0, 40, 0, '', '', '', $object->thirdparty->default_lang);

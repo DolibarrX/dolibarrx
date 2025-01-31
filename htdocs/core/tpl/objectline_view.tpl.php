@@ -67,9 +67,9 @@ if (empty($object) || !is_object($object)) {
 }
 
 '
-@phan-var-force PropaleLigne|ContractLine|CommonObjectLine|CommonInvoiceLine|CommonOrderLine|ExpeditionLigne|DeliveryLine|FactureFournisseurLigneRec|SupplierInvoiceLine|SupplierProposalLine $line
+@phan-var-force PropaleLigne|ContractLine|CommonObjectLine|CommonInvoiceLine|CommonOrderLine|ExpeditionLigne|DeliveryLine|InvoiceSupplierLigneRec|SupplierInvoiceLine|SupplierProposalLine $line
 @phan-var-force CommonObject $this
-@phan-var-force Propal|Contract|Order|Facture|Expedition|Delivery|FactureFournisseur|FactureFournisseur|SupplierProposal $object
+@phan-var-force Propal|Contract|Order|Invoice|Expedition|Delivery|InvoiceSupplier|InvoiceSupplier|SupplierProposal $object
 @phan-var-force 0|1 $forceall
 @phan-var-force int $num
 @phan-var-force ?Product $product_static
@@ -81,7 +81,7 @@ global $mysoc;
 global $forceall, $senderissupplier, $inputalsopricewithtax, $outputalsopricetotalwithtax;
 
 $usemargins = 0;
-if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('facture', 'facturerec', 'propal', 'order'))) {
+if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('invoice', 'invoicerec', 'propal', 'order'))) {
 	$usemargins = 1;
 }
 
@@ -108,7 +108,7 @@ $domData .= ' data-qty="'.$line->qty.'"';
 $domData .= ' data-product_type="'.$line->product_type.'"';
 
 $sign = 1;
-if (getDolGlobalString('INVOICE_POSITIVE_CREDIT_NOTE_SCREEN') && in_array($object->element, array('facture', 'invoice_supplier'))) {
+if (getDolGlobalString('INVOICE_POSITIVE_CREDIT_NOTE_SCREEN') && in_array($object->element, array('invoice', 'invoice_supplier'))) {
 	/** @var CommonInvoice $object */
 	// @phan-suppress-next-line PhanUndeclaredConstantOfClass
 	if ($object->type == $object::TYPE_CREDIT_NOTE) {
@@ -212,13 +212,13 @@ if (($line->info_bits & 2) == 2) {
 	}
 
 	// Show date range
-	if ($line->element == 'facturedetrec' || $line->element == 'invoice_supplier_det_rec') {
+	if ($line->element == 'invoicedetrec' || $line->element == 'invoice_supplier_det_rec') {
 		if ($line->element == 'invoice_supplier_det_rec' && $line->product_type != Product::TYPE_PRODUCT) {
 			$line->date_start_fill = $line->date_start;
 			$line->date_end_fill = $line->date_end;
 		}
 		if ($line->date_start_fill || $line->date_end_fill) {
-			print '<div class="clearboth nowraponall daterangeofline-facturedetrec">';
+			print '<div class="clearboth nowraponall daterangeofline-invoicedetrec">';
 		}
 		if ($line->date_start_fill) {
 			print '<span class="opacitymedium" title="'.dol_escape_htmltag($langs->trans("AutoFillDateFrom")).'">'.$langs->trans('AutoFillDateFromShort').':</span> '.yn($line->date_start_fill);
@@ -240,7 +240,7 @@ if (($line->info_bits & 2) == 2) {
 		if (!$line->date_start || !$line->date_end) {
 			// show warning under line
 			// we need to fetch product associated to line for some test
-			if ($object->element == 'propal' || $object->element == 'order' || $object->element == 'facture' || $object->element == 'propal_supplier' || $object->element == 'supplier_proposal' || $object->element == 'order') {
+			if ($object->element == 'propal' || $object->element == 'order' || $object->element == 'invoice' || $object->element == 'propal_supplier' || $object->element == 'supplier_proposal' || $object->element == 'order') {
 				$res = $line->fetch_product();
 				if ($res  > 0) {
 					if ($line->product->isService() && $line->product->isMandatoryPeriod()) {
@@ -254,7 +254,7 @@ if (($line->info_bits & 2) == 2) {
 		if (basename($_SERVER["PHP_SELF"]) == 'card-rec.php') {
 			$default_start_fill = getDolGlobalInt('INVOICEREC_SET_AUTOFILL_DATE_START');
 			$default_end_fill = getDolGlobalInt('INVOICEREC_SET_AUTOFILL_DATE_END');
-			print '<div class="clearboth nowraponall daterangeofline-facturedetrec">';
+			print '<div class="clearboth nowraponall daterangeofline-invoicedetrec">';
 			print '<span class="opacitymedium" title="'.dol_escape_htmltag($langs->trans("AutoFillDateFrom")).'">'.$langs->trans('AutoFillDateFromShort').':</span> '.yn($default_start_fill);
 			print ' - ';
 			print '<span class="opacitymedium" title="'.dol_escape_htmltag($langs->trans("AutoFillDateTo")).'">'.$langs->trans('AutoFillDateToShort').':</span> '.yn($default_end_fill);
@@ -264,7 +264,7 @@ if (($line->info_bits & 2) == 2) {
 
 	// Add description in form
 	if ($line->fk_product > 0 && getDolGlobalInt('PRODUIT_DESC_IN_FORM_ACCORDING_TO_DEVICE')) {
-		if ($line->element == 'facturedetrec') {
+		if ($line->element == 'invoicedetrec') {
 			print (!empty($line->description) && $line->description != $line->product_label) ? (($line->date_start_fill || $line->date_end_fill) ? '' : '<br>').'<br>'.dol_htmlentitiesbr($line->description) : '';
 		} elseif ($line->element == 'invoice_supplier_det_rec') {
 			print (!empty($line->description) && $line->description != $line->label) ? (($line->date_start || $line->date_end) ? '' : '<br>').'<br>'.dol_htmlentitiesbr($line->description) : '';
@@ -526,7 +526,7 @@ $tmppermtoedit = $objectRights->creer;
 
 if ($this->status == 0 && $tmppermtoedit && $action != 'selectlines') {
 	$situationinvoicelinewithparent = 0;
-	if (isset($line->fk_prev_id) && in_array($object->element, array('facture', 'facturedet'))) {
+	if (isset($line->fk_prev_id) && in_array($object->element, array('invoice', 'invoicedet'))) {
 		/** @var CommonInvoice $object */
 		// @phan-suppress-next-line PhanUndeclaredConstantOfClass
 		if ($object->type == $object::TYPE_SITUATION) {	// The constant TYPE_SITUATION exists only for object invoice

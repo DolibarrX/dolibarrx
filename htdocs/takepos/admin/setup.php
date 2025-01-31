@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT."/core/lib/takepos.lib.php";
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
 // If socid provided by ajax company selector
 if (GETPOST('CASHDESK_ID_THIRDPARTY_id', 'alpha')) {
@@ -220,7 +220,7 @@ foreach ($dirmodels as $reldir) {
 						print '</td>';
 
 						// example for next value
-						$invoice = new Facture($db);
+						$invoice = new Invoice($db);
 						$invoice->date = $now;
 						$invoice->module_source = 'takepos';
 						$invoice->pos_source = '1';
@@ -360,7 +360,7 @@ print $langs->trans('EmailTemplate');
 print '<td>';
 include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
 $formmail = new FormMail($db);
-$nboftemplates = $formmail->fetchAllEMailTemplate('facture_send', $user, null, -1); // We set lang=null to get in priority record with no lang
+$nboftemplates = $formmail->fetchAllEMailTemplate('invoice_send', $user, null, -1); // We set lang=null to get in priority record with no lang
 //$arraydefaultmessage = $formmail->getEMailTemplate($db, $tmp[1], $user, null, 0, 1, '');
 $arrayofmessagename = [];
 if (is_array($formmail->lines_model)) {
@@ -430,7 +430,7 @@ if (isModEnabled('barcode')) {
 //$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 //foreach ($dirmodels as $reldir)
 //{
-//	$dir = dol_buildpath($reldir."core/modules/facture/");
+//	$dir = dol_buildpath($reldir."core/modules/invoice/");
 //    if (is_dir($dir))
 //    {
 //        $handle = opendir($dir);
@@ -446,7 +446,7 @@ if (isModEnabled('barcode')) {
 //                    if (!is_file($dir.$filebis))
 //                    {
 //                        $filebis = $file."/".$file.".modules.php";
-//                        $classname = "mod_facture_".$file;
+//                        $classname = "mod_invoice_".$file;
 //                    }
 //                    // Check if there is a filter on country
 //                    preg_match('/\-(.*)_(.*)$/', $classname, $reg);
@@ -466,7 +466,7 @@ if (isModEnabled('barcode')) {
 //
 //                        if ($module->isEnabled())
 //                        {
-//							$array[preg_replace('/\-.*$/', '', preg_replace('/\.php$/', '', $file))] = preg_replace('/\-.*$/', '', preg_replace('/mod_facture_/', '', preg_replace('/\.php$/', '', $file)));
+//							$array[preg_replace('/\-.*$/', '', preg_replace('/\.php$/', '', $file))] = preg_replace('/\-.*$/', '', preg_replace('/mod_invoice_/', '', preg_replace('/\.php$/', '', $file)));
 //                        }
 //                    }
 //                }

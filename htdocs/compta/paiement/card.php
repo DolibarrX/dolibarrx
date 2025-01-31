@@ -32,8 +32,8 @@
 // Load Dolibarr environment
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/invoice/modules_invoice.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
 if (isModEnabled("bank")) {
 	require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
@@ -117,7 +117,7 @@ if ($resHook < 0) {
 }
 
 if (empty($resHook)) {
-	if ($action == 'setnote' && $user->hasRight('facture', 'paiement')) {
+	if ($action == 'setnote' && $user->hasRight('invoice', 'paiement')) {
 		$db->begin();
 
 		$result = $object->update_note(GETPOST('note', 'restricthtml'));
@@ -130,7 +130,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->hasRight('facture', 'paiement')) {
+	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->hasRight('invoice', 'paiement')) {
 		$db->begin();
 
 		$result = $object->delete($user);
@@ -151,7 +151,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'confirm_validate' && $confirm == 'yes' && $user->hasRight('facture', 'paiement')) {
+	if ($action == 'confirm_validate' && $confirm == 'yes' && $user->hasRight('invoice', 'paiement')) {
 		$db->begin();
 
 		if ($object->validate($user) > 0) {
@@ -170,8 +170,8 @@ if (empty($resHook)) {
 				$hideref = getDolGlobalString('MAIN_GENERATE_DOCUMENTS_HIDE_REF') ? 1 : 0;
 
 				$sql = 'SELECT f.rowid as facid';
-				$sql .= ' FROM '.MAIN_DB_PREFIX.'paiement_facture as pf,'.MAIN_DB_PREFIX.'facture as f,'.MAIN_DB_PREFIX.'societe as s';
-				$sql .= ' WHERE pf.fk_facture = f.rowid';
+				$sql .= ' FROM '.MAIN_DB_PREFIX.'paiement_invoice as pf,'.MAIN_DB_PREFIX.'invoice as f,'.MAIN_DB_PREFIX.'societe as s';
+				$sql .= ' WHERE pf.fk_invoice = f.rowid';
 				$sql .= ' AND f.fk_soc = s.rowid';
 				$sql .= ' AND f.entity IN ('.getEntity('invoice').')';
 				$sql .= ' AND pf.fk_paiement = '.((int) $object->id);
@@ -184,7 +184,7 @@ if (empty($resHook)) {
 						while ($i < $num) {
 							$objp = $db->fetch_object($resql);
 
-							$invoice = new Facture($db);
+							$invoice = new Invoice($db);
 
 							if ($invoice->fetch($objp->facid) <= 0) {
 								$error++;
@@ -221,7 +221,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setnum_paiement' && GETPOST('num_paiement') && $user->hasRight('facture', 'paiement')) {
+	if ($action == 'setnum_paiement' && GETPOST('num_paiement') && $user->hasRight('invoice', 'paiement')) {
 		$res = $object->update_num(GETPOST('num_paiement'));
 		if ($res === 0) {
 			setEventMessages($langs->trans('PaymentNumberUpdateSucceeded'), null, 'mesgs');
@@ -230,7 +230,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'setdatep' && GETPOST('datepday') && $user->hasRight('facture', 'paiement')) {
+	if ($action == 'setdatep' && GETPOST('datepday') && $user->hasRight('invoice', 'paiement')) {
 		$datepaye = dol_mktime(GETPOSTINT('datephour'), GETPOSTINT('datepmin'), GETPOSTINT('datepsec'), GETPOSTINT('datepmonth'), GETPOSTINT('datepday'), GETPOSTINT('datepyear'));
 		$res = $object->update_date($datepaye);
 		if ($res === 0) {
@@ -240,13 +240,13 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'createbankpayment' && $user->hasRight('facture', 'paiement')) {
+	if ($action == 'createbankpayment' && $user->hasRight('invoice', 'paiement')) {
 		$db->begin();
 
 		// Create the record into bank for the amount of payment $object
 		if (!$error) {
 			$label = '(CustomerInvoicePayment)';
-			if (GETPOST('type') == Facture::TYPE_CREDIT_NOTE) {
+			if (GETPOST('type') == Invoice::TYPE_CREDIT_NOTE) {
 				$label = '(CustomerInvoicePaymentBack)'; // Refund of a credit note
 			}
 
@@ -316,8 +316,8 @@ print '<div class="underbanner clearboth"></div>';
 print '<table class="border centpercent">'."\n";
 
 // Date payment
-print '<tr><td class="titlefield">'.$form->editfieldkey("Date", 'datep', $object->date, $object, $user->hasRight('facture', 'paiement')).'</td><td>';
-print $form->editfieldval("Date", 'datep', $object->date, $object, $user->hasRight('facture', 'paiement'), 'datehourpicker', '', null, $langs->trans('PaymentDateUpdateSucceeded'), '', 0, '', 'id', 'tzuser');
+print '<tr><td class="titlefield">'.$form->editfieldkey("Date", 'datep', $object->date, $object, $user->hasRight('invoice', 'paiement')).'</td><td>';
+print $form->editfieldval("Date", 'datep', $object->date, $object, $user->hasRight('invoice', 'paiement'), 'datehourpicker', '', null, $langs->trans('PaymentDateUpdateSucceeded'), '', 0, '', 'id', 'tzuser');
 print '</td></tr>';
 
 // Payment type (VIR, LIQ, ...)
@@ -357,20 +357,20 @@ if (isModEnabled("bank")) {
 // Payment number
 /*
 $titlefield=$langs->trans('Numero').' <em>('.$langs->trans("ChequeOrTransferNumber").')</em>';
-print '<tr><td>'.$form->editfieldkey($titlefield,'num_paiement',$object->num_paiement,$object,$object->statut == 0 && $user->rights->fournisseur->facture->creer).'</td><td>';
-print $form->editfieldval($titlefield,'num_paiement',$object->num_paiement,$object,$object->statut == 0 && $user->rights->fournisseur->facture->creer,'string','',null,$langs->trans('PaymentNumberUpdateSucceeded'));
+print '<tr><td>'.$form->editfieldkey($titlefield,'num_paiement',$object->num_paiement,$object,$object->statut == 0 && $user->rights->fournisseur->invoice->creer).'</td><td>';
+print $form->editfieldval($titlefield,'num_paiement',$object->num_paiement,$object,$object->statut == 0 && $user->rights->fournisseur->invoice->creer,'string','',null,$langs->trans('PaymentNumberUpdateSucceeded'));
 print '</td></tr>';
 
 // Check transmitter
 $titlefield=$langs->trans('CheckTransmitter').' <em>('.$langs->trans("ChequeMaker").')</em>';
-print '<tr><td>'.$form->editfieldkey($titlefield,'chqemetteur',$object->,$object,$object->statut == 0 && $user->rights->fournisseur->facture->creer).'</td><td>';
-print $form->editfieldval($titlefield,'chqemetteur',$object->aaa,$object,$object->statut == 0 && $user->rights->fournisseur->facture->creer,'string','',null,$langs->trans('ChequeMakeUpdateSucceeded'));
+print '<tr><td>'.$form->editfieldkey($titlefield,'chqemetteur',$object->,$object,$object->statut == 0 && $user->rights->fournisseur->invoice->creer).'</td><td>';
+print $form->editfieldval($titlefield,'chqemetteur',$object->aaa,$object,$object->statut == 0 && $user->rights->fournisseur->invoice->creer,'string','',null,$langs->trans('ChequeMakeUpdateSucceeded'));
 print '</td></tr>';
 
 // Bank name
 $titlefield=$langs->trans('Bank').' <em>('.$langs->trans("ChequeBank").')</em>';
-print '<tr><td>'.$form->editfieldkey($titlefield,'chqbank',$object->aaa,$object,$object->statut == 0 && $user->rights->fournisseur->facture->creer).'</td><td>';
-print $form->editfieldval($titlefield,'chqbank',$object->aaa,$object,$object->statut == 0 && $user->rights->fournisseur->facture->creer,'string','',null,$langs->trans('ChequeBankUpdateSucceeded'));
+print '<tr><td>'.$form->editfieldkey($titlefield,'chqbank',$object->aaa,$object,$object->statut == 0 && $user->rights->fournisseur->invoice->creer).'</td><td>';
+print $form->editfieldval($titlefield,'chqbank',$object->aaa,$object,$object->statut == 0 && $user->rights->fournisseur->invoice->creer,'string','',null,$langs->trans('ChequeBankUpdateSucceeded'));
 print '</td></tr>';
 */
 
@@ -401,13 +401,13 @@ if (isModEnabled("bank")) {
 		print '<span class="opacitymedium">';
 		print $langs->trans("NoRecordFoundIBankcAccount", $langs->transnoentitiesnoconv("Module85Name"));
 		print '</span>';
-		if ($user->hasRight('facture', 'paiement')) {
+		if ($user->hasRight('invoice', 'paiement')) {
 			// Try to guess $bankaccountidofinvoices that is ID of bank account defined on invoice.
 			// Return null if not found, return 0 if it has different value for at least 2 invoices, return the value if same on all invoices where a bank is defined.
 			$amountofpayments = $object->getAmountsArray();
 			$bankaccountidofinvoices = null;
 			foreach ($amountofpayments as $idinvoice => $amountofpayment) {
-				$tmpinvoice = new Facture($db);
+				$tmpinvoice = new Invoice($db);
 				$tmpinvoice->fetch($idinvoice);
 				if ($tmpinvoice->fk_account > 0 && $bankaccountidofinvoices !== 0) {
 					if (is_null($bankaccountidofinvoices)) {
@@ -435,8 +435,8 @@ if (isModEnabled("bank")) {
 }
 
 // Comments
-print '<tr><td class="tdtop">'.$form->editfieldkey("Comments", 'note', $object->note_private, $object, $user->hasRight('facture', 'paiement')).'</td><td class="wordbreak">';
-print $form->editfieldval("Note", 'note', $object->note_private, $object, $user->hasRight('facture', 'paiement'), 'textarea:'.ROWS_3.':90%');
+print '<tr><td class="tdtop">'.$form->editfieldkey("Comments", 'note', $object->note_private, $object, $user->hasRight('invoice', 'paiement')).'</td><td class="wordbreak">';
+print $form->editfieldval("Note", 'note', $object->note_private, $object, $user->hasRight('invoice', 'paiement'), 'textarea:'.ROWS_3.':90%');
 print '</td></tr>';
 
 if (!empty($object->ext_payment_id)) {
@@ -482,8 +482,8 @@ print dol_get_fiche_end();
  */
 
 $sql = 'SELECT f.rowid as facid, f.ref, f.type, f.total_ttc, f.paye, f.entity, f.fk_statut, pf.amount, s.nom as name, s.rowid as socid';
-$sql .= ' FROM '.MAIN_DB_PREFIX.'paiement_facture as pf,'.MAIN_DB_PREFIX.'facture as f,'.MAIN_DB_PREFIX.'societe as s';
-$sql .= ' WHERE pf.fk_facture = f.rowid';
+$sql .= ' FROM '.MAIN_DB_PREFIX.'paiement_invoice as pf,'.MAIN_DB_PREFIX.'invoice as f,'.MAIN_DB_PREFIX.'societe as s';
+$sql .= ' WHERE pf.fk_invoice = f.rowid';
 $sql .= ' AND f.fk_soc = s.rowid';
 $sql .= ' AND f.entity IN ('.getEntity('invoice').')';
 $sql .= ' AND pf.fk_paiement = '.((int) $object->id);
@@ -525,7 +525,7 @@ if ($resql) {
 
 			$thirdpartystatic->fetch($objp->socid);
 
-			$invoice = new Facture($db);
+			$invoice = new Invoice($db);
 			$invoice->fetch($objp->facid);
 
 			// Add Margin
@@ -614,7 +614,7 @@ print '<div class="tabsAction">';
 
 if (getDolGlobalString('BILL_ADD_PAYMENT_VALIDATION')) {
 	if ($user->socid == 0 && $object->statut == 0 && $action == '') {
-		if ($user->hasRight('facture', 'paiement')) {
+		if ($user->hasRight('invoice', 'paiement')) {
 			print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?id='.$id.'&action=valide&token='.newToken().'">'.$langs->trans('Valid').'</a>';
 		}
 	}
@@ -626,7 +626,7 @@ if (! empty($title_button)) {
 }
 
 if ($user->socid == 0 && $action == '') {
-	print dolGetButtonAction($langs->trans("Delete"), '', 'delete', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken(), 'delete', $user->hasRight('facture', 'paiement') && !$disable_delete, $params);
+	print dolGetButtonAction($langs->trans("Delete"), '', 'delete', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken(), 'delete', $user->hasRight('invoice', 'paiement') && !$disable_delete, $params);
 }
 
 print '</div>';

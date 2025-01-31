@@ -27,7 +27,7 @@
 
 /**
  *		\file       htdocs/fourn/class/paiementfourn.class.php
- *		\ingroup    fournisseur, facture
+ *		\ingroup    fournisseur, invoice
  *		\brief      File of class to manage payments of suppliers invoices
  */
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
@@ -59,7 +59,7 @@ class PaiementFourn extends Paiement
 	 */
 	public $statut;
 	// fk_paiement dans llx_paiement est l'id du type de paiement (7 pour CHQ, ...)
-	// fk_paiement dans llx_paiement_facture est le rowid du paiement
+	// fk_paiement dans llx_paiement_invoice est le rowid du paiement
 
 	/**
 	 * Label of payment type
@@ -112,7 +112,7 @@ class PaiementFourn extends Paiement
 		$sql .= ' FROM '.MAIN_DB_PREFIX.'paiementfourn as p';
 		$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_paiement as c ON p.fk_paiement = c.id';
 		$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'bank as b ON p.fk_bank = b.rowid';
-		$sql .= ' WHERE p.entity IN ('.getEntity('facture_fourn').')';
+		$sql .= ' WHERE p.entity IN ('.getEntity('invoice_fourn').')';
 		if ($id > 0) {
 			$sql .= ' AND p.rowid = '.((int) $id);
 		} elseif ($ref) {
@@ -197,7 +197,7 @@ class PaiementFourn extends Paiement
 				continue;
 			}
 			// $key is id of invoice, $value is amount, $way is a 'dolibarr' if amount is in main currency, 'customer' if in foreign currency
-			$value_converted = MultiCurrency::getAmountConversionFromInvoiceRate($key, $value ? $value : 0, $way, 'facture_fourn');
+			$value_converted = MultiCurrency::getAmountConversionFromInvoiceRate($key, $value ? $value : 0, $way, 'invoice_fourn');
 			// Add controls of input validity
 			if ($value_converted === false) {
 				// We failed to find the conversion for one invoice
@@ -269,16 +269,16 @@ class PaiementFourn extends Paiement
 			if ($resql) {
 				$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX.'paiementfourn');
 
-				// Insere tableau des montants / factures
+				// Insere tableau des montants / invoices
 				foreach ($this->amounts as $key => $amount) {
 					$facid = $key;
 					if (is_numeric($amount) && $amount != 0) {
 						$amount = price2num($amount);
-						$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'paiementfourn_facturefourn (fk_facturefourn, fk_paiementfourn, amount, multicurrency_amount, multicurrency_code, multicurrency_tx)';
+						$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'paiementfourn_invoicefourn (fk_invoicefourn, fk_paiementfourn, amount, multicurrency_amount, multicurrency_code, multicurrency_tx)';
 						$sql .= " VALUES (".((int) $facid).", ".((int) $this->id).", ".((float) $amount).', '.((float) $this->multicurrency_amounts[$key]).', '.($currencyofpayment ? "'".$this->db->escape($currencyofpayment)."'" : 'NULL').', '.(!empty($currencytxofpayment) ? (float) $currencytxofpayment : 1).')';
 						$resql = $this->db->query($sql);
 						if ($resql) {
-							$invoice = new FactureFournisseur($this->db);
+							$invoice = new InvoiceSupplier($this->db);
 							$invoice->fetch($facid);
 
 							// If we want to closed paid invoices
@@ -292,7 +292,7 @@ class PaiementFourn extends Paiement
 								$remaintopay = price2num($invoice->total_ttc - $paiement - $creditnotes - $deposits, 'MT');
 								if ($remaintopay == 0) {
 									// If invoice is a down payment, we also convert down payment to discount
-									if ($invoice->type == FactureFournisseur::TYPE_DEPOSIT) {
+									if ($invoice->type == InvoiceSupplier::TYPE_DEPOSIT) {
 										$amount_ht = $amount_tva = $amount_ttc = [];
 										$multicurrency_amount_ht = $multicurrency_amount_tva = $multicurrency_amount_ttc = [];
 										'
@@ -447,7 +447,7 @@ class PaiementFourn extends Paiement
 	/**
 	 *	Delete a payment and lines generated into accounts
 	 *	Si le paiement porte sur un ecriture compte qui est rapprochee, on refuse
-	 *	Si le paiement porte sur au moins une facture a "payee", on refuse
+	 *	Si le paiement porte sur au moins une invoice a "payee", on refuse
 	 *	@TODO Add User $user as first param
 	 *  @param		User	$user			User making the deletion
 	 *	@param		int		$notrigger		No trigger
@@ -463,7 +463,7 @@ class PaiementFourn extends Paiement
 
 		$this->db->begin();
 
-		// Verifier si paiement porte pas sur une facture a l'etat payee
+		// Verifier si paiement porte pas sur une invoice a l'etat payee
 		// Si c'est le cas, on refuse la suppression
 		$billsarray = $this->getBillsArray('paye=1');
 		if (is_array($billsarray)) {
@@ -489,8 +489,8 @@ class PaiementFourn extends Paiement
 			}
 		}
 
-		// Efface la ligne de paiement (dans paiement_facture et paiement)
-		$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'paiementfourn_facturefourn';
+		// Efface la ligne de paiement (dans paiement_invoice et paiement)
+		$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'paiementfourn_invoicefourn';
 		$sql .= ' WHERE fk_paiementfourn = '.((int) $this->id);
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -574,9 +574,9 @@ class PaiementFourn extends Paiement
 	 */
 	public function getBillsArray($filter = '')
 	{
-		$sql = 'SELECT fk_facturefourn';
-		$sql .= ' FROM '.MAIN_DB_PREFIX.'paiementfourn_facturefourn as pf, '.MAIN_DB_PREFIX.'facture_fourn as f';
-		$sql .= ' WHERE pf.fk_facturefourn = f.rowid AND fk_paiementfourn = '.((int) $this->id);
+		$sql = 'SELECT fk_invoicefourn';
+		$sql .= ' FROM '.MAIN_DB_PREFIX.'paiementfourn_invoicefourn as pf, '.MAIN_DB_PREFIX.'invoice_fourn as f';
+		$sql .= ' WHERE pf.fk_invoicefourn = f.rowid AND fk_paiementfourn = '.((int) $this->id);
 		if ($filter) {
 			$sql .= " AND ".$filter;
 		}
@@ -590,7 +590,7 @@ class PaiementFourn extends Paiement
 
 			while ($i < $num) {
 				$obj = $this->db->fetch_object($resql);
-				$billsarray[$i] = $obj->fk_facturefourn;
+				$billsarray[$i] = $obj->fk_invoicefourn;
 				$i++;
 			}
 
@@ -920,12 +920,12 @@ class PaiementFourn extends Paiement
 	public function fetch_thirdparty($force_thirdparty_id = 0)
 	{
 		// phpcs:enable
-		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 
 		if (empty($force_thirdparty_id)) {
 			$billsarray = $this->getBillsArray(); // From payment, the fk_soc isn't available, we should load the first supplier invoice to get him
 			if (!empty($billsarray)) {
-				$supplier_invoice = new FactureFournisseur($this->db);
+				$supplier_invoice = new InvoiceSupplier($this->db);
 				if ($supplier_invoice->fetch($billsarray[0]) > 0) {
 					$force_thirdparty_id = $supplier_invoice->socid;
 				}

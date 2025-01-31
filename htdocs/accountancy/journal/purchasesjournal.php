@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingjournal.class.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingaccount.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/bookkeeping.class.php';
 
@@ -163,13 +163,13 @@ $sql .= " aa.rowid as fk_compte, aa.account_number as compte, aa.label as label_
 $parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
-$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn_det as fd";
+$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn_det as fd";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = fd.fk_product";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON aa.rowid = fd.fk_code_ventilation";
-$sql .= " JOIN ".MAIN_DB_PREFIX."facture_fourn as f ON f.rowid = fd.fk_facture_fourn";
+$sql .= " JOIN ".MAIN_DB_PREFIX."invoice_fourn as f ON f.rowid = fd.fk_invoice_fourn";
 $sql .= " JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co ON co.rowid = s.fk_pays ";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
@@ -180,11 +180,11 @@ $resHook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Not
 $sql .= $hookManager->resPrint;
 $sql .= " WHERE f.fk_statut > 0";
 $sql .= " AND fd.fk_code_ventilation > 0";
-$sql .= " AND f.entity IN (".getEntity('facture_fourn', 0).")"; // We do not share object for accountancy
+$sql .= " AND f.entity IN (".getEntity('invoice_fourn', 0).")"; // We do not share object for accountancy
 if (getDolGlobalString('FACTURE_SUPPLIER_DEPOSITS_ARE_JUST_PAYMENTS')) {
-	$sql .= " AND f.type IN (".FactureFournisseur::TYPE_STANDARD.",".FactureFournisseur::TYPE_REPLACEMENT.",".FactureFournisseur::TYPE_CREDIT_NOTE.",".FactureFournisseur::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".InvoiceSupplier::TYPE_STANDARD.",".InvoiceSupplier::TYPE_REPLACEMENT.",".InvoiceSupplier::TYPE_CREDIT_NOTE.",".InvoiceSupplier::TYPE_SITUATION.")";
 } else {
-	$sql .= " AND f.type IN (".FactureFournisseur::TYPE_STANDARD.",".FactureFournisseur::TYPE_REPLACEMENT.",".FactureFournisseur::TYPE_CREDIT_NOTE.",".FactureFournisseur::TYPE_DEPOSIT.",".FactureFournisseur::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".InvoiceSupplier::TYPE_STANDARD.",".InvoiceSupplier::TYPE_REPLACEMENT.",".InvoiceSupplier::TYPE_CREDIT_NOTE.",".InvoiceSupplier::TYPE_DEPOSIT.",".InvoiceSupplier::TYPE_SITUATION.")";
 }
 if ($date_start && $date_end) {
 	$sql .= " AND f.datef >= '".$db->idate($date_start)."' AND f.datef <= '".$db->idate($date_end)."'";
@@ -277,7 +277,7 @@ if ($result) {
 		$tabfac[$obj->rowid]["type"] = $obj->type;
 		$tabfac[$obj->rowid]["description"] = $obj->description;
 		$tabfac[$obj->rowid]["close_code"] = $obj->close_code; // close_code = 'replaced' for replacement invoices (not used in most european countries)
-		//$tabfac[$obj->rowid]["fk_facturefourndet"] = $obj->fdid;
+		//$tabfac[$obj->rowid]["fk_invoicefourndet"] = $obj->fdid;
 
 		// Avoid warnings
 		if (!isset($tabttc[$obj->rowid][$compta_soc])) {
@@ -385,9 +385,9 @@ $errorforinvoice = [];
 // Loop in invoices to detect lines with not binding lines
 foreach ($tabfac as $key => $val) {		// Loop on each invoice
 	$sql = "SELECT COUNT(fd.rowid) as nb";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn_det as fd";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn_det as fd";
 	$sql .= " WHERE fd.product_type <= 2 AND fd.fk_code_ventilation <= 0";
-	$sql .= " AND fd.total_ttc <> 0 AND fk_facture_fourn = ".((int) $key);
+	$sql .= " AND fd.total_ttc <> 0 AND fk_invoice_fourn = ".((int) $key);
 	$resql = $db->query($sql);
 	if ($resql) {
 		$obj = $db->fetch_object($resql);
@@ -404,16 +404,16 @@ foreach ($tabfac as $key => $val) {		// Loop on each invoice
 if (!empty($tabfac)) {
 	$sql = "
 	SELECT
-    	fk_facture_fourn,
+    	fk_invoice_fourn,
     	COUNT(fd.rowid) as nb
 	FROM
-    	" . MAIN_DB_PREFIX . "facture_fourn_det as fd
+    	" . MAIN_DB_PREFIX . "invoice_fourn_det as fd
 	WHERE
     	fd.product_type <= 2
     	AND fd.fk_code_ventilation <= 0
     	AND fd.total_ttc <> 0
-		AND fk_facture_fourn IN (".$db->sanitize(implode(",", array_keys($tabfac))).")
-	GROUP BY fk_facture_fourn
+		AND fk_invoice_fourn IN (".$db->sanitize(implode(",", array_keys($tabfac))).")
+	GROUP BY fk_invoice_fourn
 	";
 	$resql = $db->query($sql);
 
@@ -422,7 +422,7 @@ if (!empty($tabfac)) {
 	while ($i < $num) {
 		$obj = $db->fetch_object($resql);
 		if ($obj->nb > 0) {
-			$errorforinvoice[$obj->fk_facture_fourn] = 'somelinesarenotbound';
+			$errorforinvoice[$obj->fk_invoice_fourn] = 'somelinesarenotbound';
 		}
 		$i++;
 	}
@@ -434,7 +434,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 	$error = 0;
 
 	$companystatic = new Societe($db);
-	$invoicestatic = new FactureFournisseur($db);
+	$invoicestatic = new InvoiceSupplier($db);
 	$accountingaccountsupplier = new AccountingAccount($db);
 	$bookkeepingstatic = new BookKeeping($db);
 
@@ -466,7 +466,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 
 		// Is it a replaced invoice? 0=not a replaced invoice, 1=replaced invoice not yet dispatched, 2=replaced invoice dispatched
 		$replacedinvoice = 0;
-		if ($invoicestatic->close_code == FactureFournisseur::CLOSECODE_REPLACED) {
+		if ($invoicestatic->close_code == InvoiceSupplier::CLOSECODE_REPLACED) {
 			$replacedinvoice = 1;
 			$alreadydispatched = $invoicestatic->getVentilExportCompta(); // Test if replaced invoice already into bookkeeping.
 			if ($alreadydispatched) {
@@ -821,7 +821,7 @@ if ($action == 'exportcsv' && !$error) {		// ISO and not UTF8 !
 	include DOL_DOCUMENT_ROOT.'/accountancy/tpl/export_journal.tpl.php';
 
 	$companystatic = new Fournisseur($db);
-	$invoicestatic = new FactureFournisseur($db);
+	$invoicestatic = new InvoiceSupplier($db);
 	$bookkeepingstatic = new BookKeeping($db);
 
 	foreach ($tabfac as $key => $val) {
@@ -843,7 +843,7 @@ if ($action == 'exportcsv' && !$error) {		// ISO and not UTF8 !
 
 		// Is it a replaced invoice? 0=not a replaced invoice, 1=replaced invoice not yet dispatched, 2=replaced invoice dispatched
 		$replacedinvoice = 0;
-		if ($invoicestatic->close_code == FactureFournisseur::CLOSECODE_REPLACED) {
+		if ($invoicestatic->close_code == InvoiceSupplier::CLOSECODE_REPLACED) {
 			$replacedinvoice = 1;
 			$alreadydispatched = $invoicestatic->getVentilExportCompta(); // Test if replaced invoice already into bookkeeping.
 			if ($alreadydispatched) {
@@ -1075,7 +1075,7 @@ if (empty($action) || $action == 'view') {
 
 	$i = 0;
 
-	$invoicestatic = new FactureFournisseur($db);
+	$invoicestatic = new InvoiceSupplier($db);
 	$companystatic = new Fournisseur($db);
 	$bookkeepingstatic = new BookKeeping($db);
 
@@ -1098,7 +1098,7 @@ if (empty($action) || $action == 'view') {
 
 		// Is it a replaced invoice? 0=not a replaced invoice, 1=replaced invoice not yet dispatched, 2=replaced invoice dispatched
 		$replacedinvoice = 0;
-		if ($invoicestatic->close_code == FactureFournisseur::CLOSECODE_REPLACED) {
+		if ($invoicestatic->close_code == InvoiceSupplier::CLOSECODE_REPLACED) {
 			$replacedinvoice = 1;
 			$alreadydispatched = $invoicestatic->getVentilExportCompta(); // Test if replaced invoice already into bookkeeping.
 			if ($alreadydispatched) {

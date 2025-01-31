@@ -138,7 +138,7 @@ $usercansend = (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') || (getDolGlobalS
 
 $usermustrespectpricemin = ((getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !$user->hasRight('produit', 'ignore_price_min_advance')) || !getDolGlobalString('MAIN_USE_ADVANCED_PERMS'));
 $usercancreateorder = ($user->hasRight('order', 'creer') == 1);
-$usercancreateinvoice = ($user->hasRight('facture', 'creer') == 1);
+$usercancreateinvoice = ($user->hasRight('invoice', 'creer') == 1);
 $usercancreatecontract = ($user->hasRight('contract', 'creer') == 1);
 $usercancreateintervention = ($user->hasRight('ficheinter', 'creer') == 1);
 $usercancreatepurchaseorder = ($user->hasRight('fournisseur', 'order', 'creer') || $user->hasRight('supplier_order', 'creer'));
@@ -775,9 +775,9 @@ if (empty($resHook)) {
 
 				if (
 					!$error && GETPOSTINT('statut') == $object::STATUS_SIGNED && GETPOST('generate_deposit') == 'on'
-					&& !empty($deposit_percent_from_payment_terms) && isModEnabled('invoice') && $user->hasRight('facture', 'creer')
+					&& !empty($deposit_percent_from_payment_terms) && isModEnabled('invoice') && $user->hasRight('invoice', 'creer')
 				) {
-					require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
+					require_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
 
 					$date = dol_mktime(0, 0, 0, GETPOSTINT('datefmonth'), GETPOSTINT('datefday'), GETPOSTINT('datefyear'));
 					$forceFields = [];
@@ -786,11 +786,11 @@ if (empty($resHook)) {
 						$forceFields['date_pointoftax'] = dol_mktime(0, 0, 0, GETPOSTINT('date_pointoftaxmonth'), GETPOSTINT('date_pointoftaxday'), GETPOSTINT('date_pointoftaxyear'));
 					}
 
-					$deposit = Facture::createDepositFromOrigin($object, $date, GETPOSTINT('cond_reglement_id'), $user, 0, GETPOSTINT('validate_generated_deposit') == 'on', $forceFields);
+					$deposit = Invoice::createDepositFromOrigin($object, $date, GETPOSTINT('cond_reglement_id'), $user, 0, GETPOSTINT('validate_generated_deposit') == 'on', $forceFields);
 
 					if ($deposit) {
 						setEventMessage('DepositGenerated');
-						$locationTarget = DOL_URL_ROOT . '/compta/facture/card.php?id=' . $deposit->id;
+						$locationTarget = DOL_URL_ROOT . '/compta/invoice/card.php?id=' . $deposit->id;
 					} else {
 						$error++;
 						setEventMessages("Failed to create down payment - ".$object->error, $object->errors, 'errors');
@@ -865,9 +865,9 @@ if (empty($resHook)) {
 			} elseif ($fromElement == 'propal') {
 				dol_include_once('/comm/'.$fromElement.'/class/'.$fromElement.'.class.php');
 				$lineClassName = 'PropaleLigne';
-			} elseif ($fromElement == 'facture') {
+			} elseif ($fromElement == 'invoice') {
 				dol_include_once('/compta/'.$fromElement.'/class/'.$fromElement.'.class.php');
-				$lineClassName = 'FactureLigne';
+				$lineClassName = 'InvoiceLine';
 			} else {
 				$lineClassName = null;
 			}
@@ -2405,17 +2405,17 @@ if ($action == 'create') {
 			// It may also break step of creating an order when invoicing must be done from orders and not from proposal
 			$deposit_percent_from_payment_terms = getDictionaryValue('c_payment_term', 'deposit_percent', $object->cond_reglement_id);
 
-			if (!empty($deposit_percent_from_payment_terms) && isModEnabled('invoice') && $user->hasRight('facture', 'creer')) {
-				require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
+			if (!empty($deposit_percent_from_payment_terms) && isModEnabled('invoice') && $user->hasRight('invoice', 'creer')) {
+				require_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
 
 				$object->fetchObjectLinked();
 
 				$eligibleForDepositGeneration = true;
 
-				if (array_key_exists('facture', $object->linkedObjects)) {
-					foreach ($object->linkedObjects['facture'] as $invoice) {
-						'@phan-var-force Facture $invoice';
-						if ($invoice->type == Facture::TYPE_DEPOSIT) {
+				if (array_key_exists('invoice', $object->linkedObjects)) {
+					foreach ($object->linkedObjects['invoice'] as $invoice) {
+						'@phan-var-force Invoice $invoice';
+						if ($invoice->type == Invoice::TYPE_DEPOSIT) {
 							$eligibleForDepositGeneration = false;
 							break;
 						}
@@ -2426,10 +2426,10 @@ if ($action == 'create') {
 					foreach ($object->linkedObjects['order'] as $order) {
 						$order->fetchObjectLinked();
 
-						if (array_key_exists('facture', $order->linkedObjects)) {
-							foreach ($order->linkedObjects['facture'] as $invoice) {
-								'@phan-var-force Facture $invoice';
-								if ($invoice->type == Facture::TYPE_DEPOSIT) {
+						if (array_key_exists('invoice', $order->linkedObjects)) {
+							foreach ($order->linkedObjects['invoice'] as $invoice) {
+								'@phan-var-force Invoice $invoice';
+								if ($invoice->type == Invoice::TYPE_DEPOSIT) {
 									$eligibleForDepositGeneration = false;
 									break 2;
 								}
@@ -2668,11 +2668,11 @@ if ($action == 'create') {
 
 		// Link for thirdparty discounts
 		if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
-			$filterabsolutediscount = "fk_facture_source IS NULL"; // If we want deposit to be subtracted to payments only and not to total of final invoice
-			$filtercreditnote = "fk_facture_source IS NOT NULL"; // If we want deposit to be subtracted to payments only and not to total of final invoice
+			$filterabsolutediscount = "fk_invoice_source IS NULL"; // If we want deposit to be subtracted to payments only and not to total of final invoice
+			$filtercreditnote = "fk_invoice_source IS NOT NULL"; // If we want deposit to be subtracted to payments only and not to total of final invoice
 		} else {
-			$filterabsolutediscount = "fk_facture_source IS NULL OR (description LIKE '(DEPOSIT)%' AND description NOT LIKE '(EXCESS RECEIVED)%')";
-			$filtercreditnote = "fk_facture_source IS NOT NULL AND (description NOT LIKE '(DEPOSIT)%' OR description LIKE '(EXCESS RECEIVED)%')";
+			$filterabsolutediscount = "fk_invoice_source IS NULL OR (description LIKE '(DEPOSIT)%' AND description NOT LIKE '(EXCESS RECEIVED)%')";
+			$filtercreditnote = "fk_invoice_source IS NOT NULL AND (description NOT LIKE '(DEPOSIT)%' OR description LIKE '(EXCESS RECEIVED)%')";
 		}
 
 		print '<tr><td class="titlefieldmax45">'.$langs->trans('Discounts').'</td><td>';
@@ -3213,10 +3213,10 @@ if ($action == 'create') {
 						'enabled' => isModEnabled('invoice'),
 						'perm' => $usercancreateinvoice,
 						'label' => 'CreateBill',
-						'url' => '/compta/facture/card.php?action=create&origin='.urlencode($object->element).'&originid='.((int) $object->id).'&socid='.((int) $object->socid),
+						'url' => '/compta/invoice/card.php?action=create&origin='.urlencode($object->element).'&originid='.((int) $object->id).'&socid='.((int) $object->socid),
 					];
 					/*if (isModEnabled('invoice') && $usercancreateinvoice) {
-						print '<a class="butAction" href="'.DOL_URL_ROOT.'/compta/facture/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->socid.'">'.$langs->trans("CreateBill").'</a>';
+						print '<a class="butAction" href="'.DOL_URL_ROOT.'/compta/invoice/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->socid.'">'.$langs->trans("CreateBill").'</a>';
 					}*/
 				}
 
@@ -3306,7 +3306,7 @@ if ($action == 'create') {
 
 		$compatibleImportElementsList = false;
 		if ($user->hasRight('propal', 'creer') && $object->status == Propal::STATUS_DRAFT) {
-			$compatibleImportElementsList = array('order', 'propal', 'facture'); // import from linked elements
+			$compatibleImportElementsList = array('order', 'propal', 'invoice'); // import from linked elements
 		}
 		$somethingshown = $form->showLinkedObjectBlock($object, $linktoelem, $compatibleImportElementsList);
 

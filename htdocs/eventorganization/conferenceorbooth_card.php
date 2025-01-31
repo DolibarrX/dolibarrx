@@ -655,8 +655,8 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 		$object->fetchObjectLinked();
 
-		if (is_array($object->linkedObjects) && count($object->linkedObjects) > 0 && array_key_exists("facture", $object->linkedObjects)) {
-			foreach ($object->linkedObjects["facture"] as $fac) {
+		if (is_array($object->linkedObjects) && count($object->linkedObjects) > 0 && array_key_exists("invoice", $object->linkedObjects)) {
+			foreach ($object->linkedObjects["invoice"] as $fac) {
 				if (empty($fac->paye)) {
 					$key = 'paymentlink_'.$fac->id;
 

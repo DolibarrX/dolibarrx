@@ -44,7 +44,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/stock/stocktransfer/lib/stocktransfer_s
  */
 
 // Load translation files required by the page
-$langs->loadLangs(array('facture', 'orders', 'sendings', 'companies', 'stocks'));
+$langs->loadLangs(array('invoice', 'orders', 'sendings', 'companies', 'stocks'));
 
 $id = GETPOSTINT('id');
 $ref = GETPOST('ref', 'alpha');

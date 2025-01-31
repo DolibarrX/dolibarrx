@@ -35,7 +35,7 @@
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT . '/projet/class/project.class.php';
 require_once DOL_DOCUMENT_ROOT . '/projet/class/task.class.php';
-require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/lib/project.lib.php';
 require_once DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/html.formother.class.php';
@@ -418,11 +418,11 @@ if ($action == 'confirm_generateinvoice') {
 	if (!($projectstatic->thirdparty->id > 0)) {
 		setEventMessages($langs->trans("ThirdPartyRequiredToGenerateInvoice"), null, 'errors');
 	} else {
-		include_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
 		include_once DOL_DOCUMENT_ROOT . '/projet/class/project.class.php';
 		include_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
 
-		$tmpinvoice = new Facture($db);
+		$tmpinvoice = new Invoice($db);
 		$tmptimespent = new Task($db);
 		$tmpproduct = new Product($db);
 		$fuser = new User($db);
@@ -802,7 +802,7 @@ if ($action == 'confirm_generateinter') {
 	if (!($projectstatic->thirdparty->id > 0)) {
 		setEventMessages($langs->trans("ThirdPartyRequiredToGenerateIntervention"), null, 'errors');
 	} else {
-		include_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
 		include_once DOL_DOCUMENT_ROOT . '/projet/class/project.class.php';
 		include_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
 
@@ -1401,7 +1401,7 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 			print '<input type="hidden" name="action" value="updatesplitline">';
 		} elseif ($action == 'createtime' && $user->hasRight('projet', 'time')) {
 			print '<input type="hidden" name="action" value="addtimespent">';
-		} elseif ($massaction == 'generateinvoice' && $user->hasRight('facture', 'creer')) {
+		} elseif ($massaction == 'generateinvoice' && $user->hasRight('invoice', 'creer')) {
 			print '<input type="hidden" name="action" value="confirm_generateinvoice">';
 		} elseif ($massaction == 'generateinter' && $user->hasRight('ficheinter', 'creer')) {
 			print '<input type="hidden" name="action" value="confirm_generateinter">';
@@ -1577,7 +1577,7 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 		$sql .= " t.fk_product,";
 		$sql .= " pt.ref, pt.label, pt.fk_projet,";
 		$sql .= " u.lastname, u.firstname, u.login, u.photo, u.gender, u.statut as user_status,";
-		$sql .= " il.fk_facture as invoice_id, inv.fk_statut,";
+		$sql .= " il.fk_invoice as invoice_id, inv.fk_statut,";
 		$sql .= " p.fk_soc,s.name_alias,";
 		$sql .= " t.invoice_line_id,";
 		$sql .= " pt.billable";
@@ -1590,8 +1590,8 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 		$sqlfields = $sql; // $sql fields to remove for count total
 
 		$sql .= " FROM ".MAIN_DB_PREFIX."element_time as t";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facturedet as il ON il.rowid = t.invoice_line_id";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture as inv ON inv.rowid = il.fk_facture";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoicedet as il ON il.rowid = t.invoice_line_id";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice as inv ON inv.rowid = il.fk_invoice";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as prod ON prod.rowid = t.fk_product";
 		$sql .= " INNER JOIN ".MAIN_DB_PREFIX."projet_task as pt ON pt.rowid = t.fk_element";
 		$sql .= " INNER JOIN ".MAIN_DB_PREFIX."projet as p ON p.rowid = pt.fk_projet";
@@ -2101,7 +2101,7 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 		print "</tr>\n";
 
 		$tasktmp = new Task($db);
-		$tmpinvoice = new Facture($db);
+		$tmpinvoice = new Invoice($db);
 
 		if ($page) {
 			$param .= '&page='.((int) $page);
@@ -2452,7 +2452,7 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 								} else {
 									print $tmpinvoice->getNomUrl(1);
 									if (!empty($task_time->invoice_line_id)) {
-										$invoiceLine = new FactureLigne($db);
+										$invoiceLine = new InvoiceLine($db);
 										$invoiceLine->fetch($task_time->invoice_line_id);
 										if (!empty($invoiceLine->id)) {
 											print '<br>'.$langs->trans('Qty').':'.$invoiceLine->qty;

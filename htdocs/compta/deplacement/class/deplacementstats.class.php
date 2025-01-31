@@ -92,7 +92,7 @@ class DeplacementStats extends Stats
 
 
 	/**
-	 * 	Renvoie le nombre de facture par annee
+	 * 	Renvoie le nombre de invoice par annee
 	 *
 	 * @return	array<array{0:int,1:int}>				Array of nb each year
 	 */
@@ -108,7 +108,7 @@ class DeplacementStats extends Stats
 
 
 	/**
-	 * 	Renvoie le nombre de facture par mois pour une annee donnee
+	 * 	Renvoie le nombre de invoice par mois pour une annee donnee
 	 *
 	 *	@param	int		$year		Year to scan
 	 *	@param	int		$format		0=Label of abscissa is a translated text, 1=Label of abscissa is month number, 2=Label of abscissa is first letter of month
@@ -130,7 +130,7 @@ class DeplacementStats extends Stats
 
 
 	/**
-	 * 	Renvoie le montant de facture par mois pour une annee donnee
+	 * 	Renvoie le montant de invoice par mois pour une annee donnee
 	 *
 	 *	@param	int		$year		Year to scan
 	 *	@param	int		$format		0=Label of abscissa is a translated text, 1=Label of abscissa is month number, 2=Label of abscissa is first letter of month

@@ -49,7 +49,7 @@ $htmlname = GETPOST('htmlname', 'alpha');
 
 
 // Security check
-restrictedArea($user, 'facture', $invoice_id, '', '', 'fk_soc', 'rowid');
+restrictedArea($user, 'invoice', $invoice_id, '', '', 'fk_soc', 'rowid');
 
 
 /*

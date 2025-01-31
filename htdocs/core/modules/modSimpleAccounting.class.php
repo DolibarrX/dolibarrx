@@ -63,7 +63,7 @@ class modSimpleAccounting extends DolibarrModules
 		$this->configPageUrl = array("compta.php");
 
 		// Dependencies
-		$this->depends = array("modFacture", "modBank");
+		$this->depends = array("modInvoice", "modBank");
 		$this->requiredBy = [];
 		$this->conflictWith = array("modAccounting");
 		$this->langFiles = array("compta");

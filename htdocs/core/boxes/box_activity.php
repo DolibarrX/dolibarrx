@@ -34,7 +34,7 @@ class box_activity extends ModeleBoxes
 	public $boxcode = "activity";
 	public $boximg = "object_bill";
 	public $boxlabel = 'BoxGlobalActivity';
-	public $depends = array("facture");
+	public $depends = array("invoice");
 
 	public $enabled = 1;
 
@@ -54,7 +54,7 @@ class box_activity extends ModeleBoxes
 		$this->enabled = getDolGlobalInt('MAIN_FEATURES_LEVEL'); // Not enabled by default due to bugs (see previous comments)
 
 		$this->hidden = !(
-			(isModEnabled('invoice') && $user->hasRight('facture', 'read'))
+			(isModEnabled('invoice') && $user->hasRight('invoice', 'read'))
 			|| (isModEnabled('order') && $user->hasRight('order', 'read'))
 			|| (isModEnabled('propal') && $user->hasRight('propal', 'read'))
 		);
@@ -271,14 +271,14 @@ class box_activity extends ModeleBoxes
 
 
 		// list the summary of the bills
-		if (isModEnabled('invoice') && $user->hasRight("facture", "lire")) {
-			include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-			$facturestatic = new Facture($this->db);
+		if (isModEnabled('invoice') && $user->hasRight("invoice", "lire")) {
+			include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+			$invoicestatic = new Invoice($this->db);
 
 			// part 1
 			$data = [];
 			$sql = "SELECT f.fk_statut, SUM(f.total_ttc) as Mnttot, COUNT(*) as nb";
-			$sql .= " FROM (".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."facture as f";
+			$sql .= " FROM (".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."invoice as f";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 			}
@@ -315,21 +315,21 @@ class box_activity extends ModeleBoxes
 					$billurl = "search_status=2&paye=1";
 					$this->info_box_contents[$line][0] = array(
 						'td' => 'class="left" width="16"',
-						'tooltip' => $langs->trans('Bills').'&nbsp;'.$facturestatic->LibStatut(1, $data[$j]->fk_statut, 0),
-						'url' => DOL_URL_ROOT."/compta/facture/list.php?".$billurl."&mainmenu=accountancy&leftmenu=customers_bills",
+						'tooltip' => $langs->trans('Bills').'&nbsp;'.$invoicestatic->LibStatut(1, $data[$j]->fk_statut, 0),
+						'url' => DOL_URL_ROOT."/compta/invoice/list.php?".$billurl."&mainmenu=accountancy&leftmenu=customers_bills",
 						'logo' => 'bill',
 					);
 
 					$this->info_box_contents[$line][1] = array(
 						'td' => '',
-						'text' => $langs->trans("Bills")."&nbsp;".$facturestatic->LibStatut(1, $data[$j]->fk_statut, 0),
+						'text' => $langs->trans("Bills")."&nbsp;".$invoicestatic->LibStatut(1, $data[$j]->fk_statut, 0),
 					);
 
 					$this->info_box_contents[$line][2] = array(
 						'td' => 'class="right"',
-						'tooltip' => $langs->trans('Bills').'&nbsp;'.$facturestatic->LibStatut(1, $data[$j]->fk_statut, 0),
+						'tooltip' => $langs->trans('Bills').'&nbsp;'.$invoicestatic->LibStatut(1, $data[$j]->fk_statut, 0),
 						'text' => $data[$j]->nb,
-						'url' => DOL_URL_ROOT."/compta/facture/list.php?".$billurl."&mainmenu=accountancy&leftmenu=customers_bills",
+						'url' => DOL_URL_ROOT."/compta/invoice/list.php?".$billurl."&mainmenu=accountancy&leftmenu=customers_bills",
 					);
 
 					$this->info_box_contents[$line][3] = array(
@@ -342,7 +342,7 @@ class box_activity extends ModeleBoxes
 
 					$this->info_box_contents[$line][4] = array(
 						'td' => 'class="right" width="18"',
-						'text' => $facturestatic->LibStatut(1, $data[$j]->fk_statut, 3),
+						'text' => $invoicestatic->LibStatut(1, $data[$j]->fk_statut, 3),
 					);
 					$line++;
 					$j++;
@@ -359,7 +359,7 @@ class box_activity extends ModeleBoxes
 			// part 2
 			$data = [];
 			$sql = "SELECT f.fk_statut, SUM(f.total_ttc) as Mnttot, COUNT(*) as nb";
-			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."facture as f";
+			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."invoice as f";
 			$sql .= " WHERE f.entity IN (".getEntity('invoice').')';
 			$sql .= " AND f.fk_soc = s.rowid";
 			$sql .= " AND f.datef >= '".$this->db->idate($tmpdate)."' AND f.paye=0";
@@ -388,21 +388,21 @@ class box_activity extends ModeleBoxes
 					$billurl = "search_status=".$data[$j]->fk_statut."&paye=0";
 					$this->info_box_contents[$line][0] = array(
 						'td' => 'class="left" width="16"',
-						'tooltip' => $langs->trans('Bills').'&nbsp;'.$facturestatic->LibStatut(0, $data[$j]->fk_statut, 0),
-						'url' => DOL_URL_ROOT."/compta/facture/list.php?".$billurl."&mainmenu=accountancy&leftmenu=customers_bills",
+						'tooltip' => $langs->trans('Bills').'&nbsp;'.$invoicestatic->LibStatut(0, $data[$j]->fk_statut, 0),
+						'url' => DOL_URL_ROOT."/compta/invoice/list.php?".$billurl."&mainmenu=accountancy&leftmenu=customers_bills",
 						'logo' => 'bill',
 					);
 
 					$this->info_box_contents[$line][1] = array(
 						'td' => '',
-						'text' => $langs->trans("Bills")."&nbsp;".$facturestatic->LibStatut(0, $data[$j]->fk_statut, 0),
+						'text' => $langs->trans("Bills")."&nbsp;".$invoicestatic->LibStatut(0, $data[$j]->fk_statut, 0),
 					);
 
 					$this->info_box_contents[$line][2] = array(
 						'td' => 'class="right"',
 						'text' => $data[$j]->nb,
-						'tooltip' => $langs->trans('Bills').'&nbsp;'.$facturestatic->LibStatut(0, $data[$j]->fk_statut, 0),
-						'url' => DOL_URL_ROOT."/compta/facture/list.php?".$billurl."&amp;mainmenu=accountancy&amp;leftmenu=customers_bills",
+						'tooltip' => $langs->trans('Bills').'&nbsp;'.$invoicestatic->LibStatut(0, $data[$j]->fk_statut, 0),
+						'url' => DOL_URL_ROOT."/compta/invoice/list.php?".$billurl."&amp;mainmenu=accountancy&amp;leftmenu=customers_bills",
 					);
 					$totalnb += $data[$j]->nb;
 					$this->info_box_contents[$line][3] = array(
@@ -411,7 +411,7 @@ class box_activity extends ModeleBoxes
 					);
 					$this->info_box_contents[$line][4] = array(
 						'td' => 'class="right" width="18"',
-						'text' => $facturestatic->LibStatut(0, $data[$j]->fk_statut, 3, $alreadypaid),
+						'text' => $invoicestatic->LibStatut(0, $data[$j]->fk_statut, 3, $alreadypaid),
 					);
 					$line++;
 					$j++;

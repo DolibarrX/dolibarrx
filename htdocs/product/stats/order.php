@@ -156,7 +156,7 @@ if ($id > 0 || !empty($ref)) {
 		if ($user->hasRight('order', 'lire')) {
 			$sql = "SELECT DISTINCT s.nom as name, s.rowid as socid, s.code_client, c.rowid, d.total_ht as total_ht, c.ref,";
 			$sql .= " c.ref_client,";
-			$sql .= " c.date_order, c.fk_statut as statut, c.facture, c.rowid as orderid, d.rowid, d.qty,";
+			$sql .= " c.date_order, c.fk_statut as statut, c.invoice, c.rowid as orderid, d.rowid, d.qty,";
 			$sql .= " c.date_livraison as delivery_date";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= ", sc.fk_soc, sc.fk_user ";
@@ -293,7 +293,7 @@ if ($id > 0 || !empty($ref)) {
 						print '</td>';
 						print  '<td class="center">'.$objp->qty."</td>\n";
 						print '<td align="right">'.price($objp->total_ht)."</td>\n";
-						print '<td align="right">'.$orderstatic->LibStatut($objp->statut, $objp->facture, 5).'</td>';
+						print '<td align="right">'.$orderstatic->LibStatut($objp->statut, $objp->invoice, 5).'</td>';
 						print "</tr>\n";
 						$i++;
 					}

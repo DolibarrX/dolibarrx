@@ -108,9 +108,9 @@ if ($modulePart == 'produit' || $modulePart == 'product' || $modulePart == 'serv
 		accessforbidden();
 	}
 	$accessallowed = 1;
-} elseif ($modulePart == 'facture_fourn' || $modulePart == 'facture_fournisseur') {
-	$result = restrictedArea($user, 'fournisseur', $id, 'facture_fourn', 'facture');
-	if (!$user->hasRight('fournisseur', 'facture', 'lire')) {
+} elseif ($modulePart == 'invoice_fourn' || $modulePart == 'invoice_fournisseur') {
+	$result = restrictedArea($user, 'fournisseur', $id, 'invoice_fourn', 'invoice');
+	if (!$user->hasRight('fournisseur', 'invoice', 'lire')) {
 		accessforbidden();
 	}
 	$accessallowed = 1;
@@ -267,9 +267,9 @@ if ($modulePart == 'produit' || $modulePart == 'product' || $modulePart == 'serv
 		}
 		$dir = $config->bank->dir_output; // By default
 	}
-} elseif ($modulePart == 'facture') {
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-	$object = new Facture($db);
+} elseif ($modulePart == 'invoice') {
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+	$object = new Invoice($db);
 	if ($id > 0) {
 		$result = $object->fetch($id);
 		if ($result <= 0) {
@@ -277,15 +277,15 @@ if ($modulePart == 'produit' || $modulePart == 'product' || $modulePart == 'serv
 		}
 		$dir = $config->$modulePart->dir_output; // By default
 	}
-} elseif ($modulePart == 'facture_fourn' || $modulePart == 'facture_fournisseur') {
-	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-	$object = new FactureFournisseur($db);
+} elseif ($modulePart == 'invoice_fourn' || $modulePart == 'invoice_fournisseur') {
+	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
+	$object = new InvoiceSupplier($db);
 	if ($id > 0) {
 		$result = $object->fetch($id);
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $config->fournisseur->dir_output.'/facture'; // By default
+		$dir = $config->fournisseur->dir_output.'/invoice'; // By default
 	}
 } elseif ($modulePart == 'medias') {
 	$dir = $dolibarr_main_data_root.'/'.$modulePart;
@@ -316,10 +316,10 @@ if (empty($backtourl)) {
 		$backtourl = DOL_URL_ROOT."/ticket/document.php?id=".((int) $id).'&file='.urlencode($file);
 	} elseif (in_array($modulePart, array('user'))) {
 		$backtourl = DOL_URL_ROOT."/user/document.php?id=".((int) $id).'&file='.urlencode($file);
-	} elseif (in_array($modulePart, array('facture'))) {
-		$backtourl = DOL_URL_ROOT."/compta/facture/document.php?id=".((int) $id).'&file='.urlencode($file);
-	} elseif (in_array($modulePart, array('facture_fourn', 'facture_fournisseur'))) {
-		$backtourl = DOL_URL_ROOT."/fourn/facture/document.php?id=".((int) $id).'&file='.urlencode($file);
+	} elseif (in_array($modulePart, array('invoice'))) {
+		$backtourl = DOL_URL_ROOT."/compta/invoice/document.php?id=".((int) $id).'&file='.urlencode($file);
+	} elseif (in_array($modulePart, array('invoice_fourn', 'invoice_fournisseur'))) {
+		$backtourl = DOL_URL_ROOT."/fourn/invoice/document.php?id=".((int) $id).'&file='.urlencode($file);
 	} elseif (in_array($modulePart, array('bank')) && preg_match('/\/statement\/([^\/]+)\//', $file, $regs)) {
 		$num = $regs[1];
 		$backtourl = DOL_URL_ROOT."/compta/bank/account_statement_document.php?id=".((int) $id).'&num='.urlencode($num).'&file='.urlencode($file);

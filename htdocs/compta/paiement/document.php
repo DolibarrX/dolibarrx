@@ -25,7 +25,7 @@
 
 /**
  *	\file       htdocs/compta/paiement/document.php
- *	\ingroup    facture, comptaisseur
+ *	\ingroup    invoice, comptaisseur
  *	\brief      Management page of attached documents to a payment
  */
 
@@ -92,7 +92,7 @@ if ($object->fetch($id, $ref)) {
 }
 
 
-$permissionToAdd = ($user->hasRight('facture', 'creer')); // Used by the include of actions_setnotes.inc.php
+$permissionToAdd = ($user->hasRight('invoice', 'creer')); // Used by the include of actions_setnotes.inc.php
 
 /*
  * Actions
@@ -120,8 +120,8 @@ if ($object->id > 0) {
 	$morehtmlref = '<div class="refidno">';
 
 	// Date of payment
-	$morehtmlref .= $form->editfieldkey("Date", 'datep', $object->date, $object, $object->statut == 0 && ($user->hasRight('facture', 'creer')), 'datehourpicker', '', 0, 3).': ';
-	$morehtmlref .= $form->editfieldval("Date", 'datep', $object->date, $object, $object->statut == 0 && ($user->hasRight('facture', 'creer')), 'datehourpicker', '', null, $langs->trans('PaymentDateUpdateSucceeded'));
+	$morehtmlref .= $form->editfieldkey("Date", 'datep', $object->date, $object, $object->statut == 0 && ($user->hasRight('invoice', 'creer')), 'datehourpicker', '', 0, 3).': ';
+	$morehtmlref .= $form->editfieldval("Date", 'datep', $object->date, $object, $object->statut == 0 && ($user->hasRight('invoice', 'creer')), 'datehourpicker', '', null, $langs->trans('PaymentDateUpdateSucceeded'));
 
 	// Payment mode
 	$morehtmlref .= '<br>'.$langs->trans('PaymentMode').' : ';

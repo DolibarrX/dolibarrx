@@ -28,7 +28,7 @@
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 
 /**
  * @var Config $config
@@ -74,7 +74,7 @@ if ($socid > 0) {
 	dol_banner_tab($societe, 'socid', '', ($user->socid ? 0 : 1), 'rowid', 'nom');
 	print dol_get_fiche_end();
 
-	if ((isModEnabled("fournisseur") && $user->hasRight("fournisseur", "facture", "lire") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) || (isModEnabled("supplier_invoice") && $user->hasRight("supplier_invoice", "lire"))) {
+	if ((isModEnabled("fournisseur") && $user->hasRight("fournisseur", "invoice", "lire") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) || (isModEnabled("supplier_invoice") && $user->hasRight("supplier_invoice", "lire"))) {
 		// Invoice list
 		print load_fiche_titre($langs->trans("SupplierPreview"));
 
@@ -83,9 +83,9 @@ if ($socid > 0) {
 		$sql = "SELECT s.nom, s.rowid as socid, f.ref_supplier, f.datef as df,";
 		$sql .= " f.paye as paye, f.fk_statut as statut, f.rowid as facid,";
 		$sql .= " u.login, u.rowid as userid";
-		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."facture_fourn as f,".MAIN_DB_PREFIX."user as u";
+		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."invoice_fourn as f,".MAIN_DB_PREFIX."user as u";
 		$sql .= " WHERE f.fk_soc = s.rowid AND s.rowid = ".((int) $societe->id);
-		$sql .= " AND f.entity IN (".getEntity("facture_fourn").")"; // Recognition of the entity attributed to this invoice for Multicompany
+		$sql .= " AND f.entity IN (".getEntity("invoice_fourn").")"; // Recognition of the entity attributed to this invoice for Multicompany
 		$sql .= " AND f.fk_user_valid = u.rowid";
 		$sql .= " ORDER BY f.datef DESC";
 
@@ -109,11 +109,11 @@ if ($socid > 0) {
 
 			$solde = 0;
 
-			// Boucle sur chaque facture
+			// Loop on every bill
 			for ($i = 0; $i < $num; $i++) {
 				$objf = $db->fetch_object($resql);
 
-				$fac = new FactureFournisseur($db);
+				$fac = new InvoiceSupplier($db);
 				$ret = $fac->fetch($objf->facid);
 				if ($ret < 0) {
 					print $fac->error."<br>";
@@ -124,7 +124,7 @@ if ($socid > 0) {
 				print '<tr class="oddeven">';
 
 				print '<td class="center">'.dol_print_date($fac->date)."</td>\n";
-				print "<td><a href=\"facture/card.php?facid=$fac->id\">".img_object($langs->trans("ShowBill"), "bill")." ".$fac->ref."</a></td>\n";
+				print "<td><a href=\"invoice/card.php?facid=$fac->id\">".img_object($langs->trans("ShowBill"), "bill")." ".$fac->ref."</a></td>\n";
 
 				print '<td class="left">'.$fac->getLibStatut(2, $totalpaid).'</td>';
 				print '<td class="right">'.price($fac->total_ttc)."</td>\n";
@@ -141,11 +141,11 @@ if ($socid > 0) {
 				// Payments
 				$sql = "SELECT p.rowid, p.datep as dp, pf.amount, p.statut,";
 				$sql .= " p.fk_user_author, u.login, u.rowid as userid";
-				$sql .= " FROM ".MAIN_DB_PREFIX."paiementfourn_facturefourn as pf,";
+				$sql .= " FROM ".MAIN_DB_PREFIX."paiementfourn_invoicefourn as pf,";
 				$sql .= " ".MAIN_DB_PREFIX."paiementfourn as p";
 				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON p.fk_user_author = u.rowid";
 				$sql .= " WHERE pf.fk_paiementfourn = p.rowid";
-				$sql .= " AND pf.fk_facturefourn = ".((int) $fac->id);
+				$sql .= " AND pf.fk_invoicefourn = ".((int) $fac->id);
 
 				$resqlp = $db->query($sql);
 				if ($resqlp) {

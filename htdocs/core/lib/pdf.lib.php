@@ -1603,7 +1603,7 @@ function pdf_getlinedesc($object, $i, $outputlangs, $hideref = 0, $hidedesc = 0,
 				$note = $prodser->multilangs[$outputlangs->defaultlang]["other"];
 			}
 		}
-	} elseif (($object->element == 'facture' || $object->element == 'facturefourn') && preg_match('/^\(DEPOSIT\).+/', $desc)) { // We must not replace '(DEPOSIT)' when it is alone, it will be translated and detailed later
+	} elseif (($object->element == 'invoice' || $object->element == 'invoicefourn') && preg_match('/^\(DEPOSIT\).+/', $desc)) { // We must not replace '(DEPOSIT)' when it is alone, it will be translated and detailed later
 		$desc = str_replace('(DEPOSIT)', $outputlangs->trans('Deposit'), $desc);
 	}
 
@@ -1667,12 +1667,12 @@ function pdf_getlinedesc($object, $i, $outputlangs, $hideref = 0, $hidedesc = 0,
 		if ($desc == '(CREDIT_NOTE)' && $object->lines[$i]->fk_remise_except) {
 			$discount = new DiscountAbsolute($db);
 			$discount->fetch($object->lines[$i]->fk_remise_except);
-			$sourceref = !empty($discount->discount_type) ? $discount->ref_invoice_supplier_source : $discount->ref_facture_source;
+			$sourceref = !empty($discount->discount_type) ? $discount->ref_invoice_supplier_source : $discount->ref_invoice_source;
 			$libelleproduitservice = $outputlangs->transnoentitiesnoconv("DiscountFromCreditNote", $sourceref);
 		} elseif ($desc == '(DEPOSIT)' && $object->lines[$i]->fk_remise_except) {
 			$discount = new DiscountAbsolute($db);
 			$discount->fetch($object->lines[$i]->fk_remise_except);
-			$sourceref = !empty($discount->discount_type) ? $discount->ref_invoice_supplier_source : $discount->ref_facture_source;
+			$sourceref = !empty($discount->discount_type) ? $discount->ref_invoice_supplier_source : $discount->ref_invoice_source;
 			$libelleproduitservice = $outputlangs->transnoentitiesnoconv("DiscountFromDeposit", $sourceref);
 			// Add date of deposit
 			if (getDolGlobalString('INVOICE_ADD_DEPOSIT_DATE')) {
@@ -1681,7 +1681,7 @@ function pdf_getlinedesc($object, $i, $outputlangs, $hideref = 0, $hidedesc = 0,
 		} elseif ($desc == '(EXCESS RECEIVED)' && $object->lines[$i]->fk_remise_except) {
 			$discount = new DiscountAbsolute($db);
 			$discount->fetch($object->lines[$i]->fk_remise_except);
-			$libelleproduitservice = $outputlangs->transnoentitiesnoconv("DiscountFromExcessReceived", $discount->ref_facture_source);
+			$libelleproduitservice = $outputlangs->transnoentitiesnoconv("DiscountFromExcessReceived", $discount->ref_invoice_source);
 		} elseif ($desc == '(EXCESS PAID)' && $object->lines[$i]->fk_remise_except) {
 			$discount = new DiscountAbsolute($db);
 			$discount->fetch($object->lines[$i]->fk_remise_except);
@@ -1943,7 +1943,7 @@ function pdf_getlineref($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line ref_supplier
  *
- *	@param	Contract|OrderFournisseur|FactureFournisseur|Facture|Product|Reception|SupplierProposal	$object	Object
+ *	@param	Contract|OrderFournisseur|InvoiceSupplier|Invoice|Product|Reception|SupplierProposal	$object	Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -1975,7 +1975,7 @@ function pdf_getlineref_supplier($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line vat rate
  *
- *	@param	SupplierProposal|OrderFournisseur|FactureFournisseur|Propal|Facture|Order|ExpenseReport|StockTransfer	$object	Object
+ *	@param	SupplierProposal|OrderFournisseur|InvoiceSupplier|Propal|Invoice|Order|ExpenseReport|StockTransfer	$object	Object
  *	@param	int				$i					Current line number
  *  @param  Translate		$outputlangs		Object langs for output
  *  @param	int<0,2>		$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2037,7 +2037,7 @@ function pdf_getlinevatrate($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line unit price excluding tax
  *
- *	@param	SupplierProposal|OrderFournisseur|Propal|Facture|FactureFournisseur|Order|StockTransfer	$object	Object
+ *	@param	SupplierProposal|OrderFournisseur|Propal|Invoice|InvoiceSupplier|Order|StockTransfer	$object	Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2080,7 +2080,7 @@ function pdf_getlineupexcltax($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line unit price including tax
  *
- *	@param	SupplierProposal|OrderFournisseur|Propal|Facture|Order	$object	Object
+ *	@param	SupplierProposal|OrderFournisseur|Propal|Invoice|Order	$object	Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide value (0 = no,	1 = yes, 2 = just special lines)
@@ -2122,7 +2122,7 @@ function pdf_getlineupwithtax($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line quantity
  *
- *	@param	Delivery|Asset|Order|Facture|OrderFournisseur|FactureFournisseur|SupplierProposal|Propal|StockTransfer|MyObject	$object				Object
+ *	@param	Delivery|Asset|Order|Invoice|OrderFournisseur|InvoiceSupplier|SupplierProposal|Propal|StockTransfer|MyObject	$object				Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2242,7 +2242,7 @@ function pdf_getlineqty_shipped($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line keep to ship quantity
  *
- *	@param	Delivery|Asset|Order|Facture|OrderFournisseur|FactureFournisseur|SupplierProposal|Propal|StockTransfer|MyObject	$object		Object
+ *	@param	Delivery|Asset|Order|Invoice|OrderFournisseur|InvoiceSupplier|SupplierProposal|Propal|StockTransfer|MyObject	$object		Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2282,7 +2282,7 @@ function pdf_getlineqty_keeptoship($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line unit
  *
- *	@param	SupplierProposal|OrderFournisseur|Propal|Facture|FactureFournisseur|Order|StockTransfer	$object	Object
+ *	@param	SupplierProposal|OrderFournisseur|Propal|Invoice|InvoiceSupplier|Order|StockTransfer	$object	Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2325,7 +2325,7 @@ function pdf_getlineunit($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line remise percent
  *
- *	@param	SupplierProposal|OrderFournisseur|Propal|Facture|FactureFournisseur|Order|StockTransfer	$object	Object
+ *	@param	SupplierProposal|OrderFournisseur|Propal|Invoice|InvoiceSupplier|Order|StockTransfer	$object	Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2367,7 +2367,7 @@ function pdf_getlineremisepercent($object, $i, $outputlangs, $hidedetails = 0)
 /**
  * Return line percent
  *
- * @param Facture		$object             Object
+ * @param Invoice		$object             Object
  * @param int			$i                  Current line number
  * @param Translate		$outputlangs        Object langs for output
  * @param int<0,2>		$hidedetails        Hide details (0=no, 1=yes, 2=just special lines)
@@ -2419,7 +2419,7 @@ function pdf_getlineprogress($object, $i, $outputlangs, $hidedetails = 0, $hookM
 /**
  *	Return line total excluding tax
  *
- *	@param	Order|Facture|Propal|FactureFournisseur|OrderFournisseur|SupplierProposal	$object				Object
+ *	@param	Order|Invoice|Propal|InvoiceSupplier|OrderFournisseur|SupplierProposal	$object				Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2475,7 +2475,7 @@ function pdf_getlinetotalexcltax($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line total including tax
  *
- *	@param	Order|Facture|Propal|FactureFournisseur|OrderFournisseur|SupplierProposal	$object				Object
+ *	@param	Order|Invoice|Propal|InvoiceSupplier|OrderFournisseur|SupplierProposal	$object				Object
  *	@param	int			$i					Current line number
  *  @param 	Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide value (0 = no, 1 = yes, 2 = just special lines)
@@ -2545,7 +2545,7 @@ function pdf_getLinkedObjects(&$object, $outputlangs)
 	$object->fetchObjectLinked();
 
 	foreach ($object->linkedObjects as $objecttype => $objects) {
-		if ($objecttype == 'facture') {
+		if ($objecttype == 'invoice') {
 			// For invoice, we do not want to have a reference line on document. Image we are using recurring invoice, we will have a line longer than document width.
 		} elseif ($objecttype == 'propal' || $objecttype == 'supplier_proposal') {
 			'@phan-var-force array<Propal|SupplierProposal> $objects';
@@ -2718,7 +2718,7 @@ function pdf_getSizeForImage($realpath)
 /**
  *	Return line total amount discount
  *
- *	@param	Order|Facture|Propal			$object				Object
+ *	@param	Order|Invoice|Propal			$object				Object
  *	@param	int								$i					Current line number
  *  @param  Translate						$outputlangs		Object langs for output
  *  @param	int<0,2>						$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)

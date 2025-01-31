@@ -41,24 +41,24 @@ class Lettering extends BookKeeping
 		'customer_invoice' => array(
 			'payment_table' => 'paiement',
 			'payment_table_fk_bank' => 'fk_bank',
-			'doc_payment_table' => 'paiement_facture',
+			'doc_payment_table' => 'paiement_invoice',
 			'doc_payment_table_fk_payment' => 'fk_paiement',
-			'doc_payment_table_fk_doc' => 'fk_facture',
+			'doc_payment_table_fk_doc' => 'fk_invoice',
 			'linked_info' => array(
 				array(
-					'table' => 'paiement_facture',
-					'fk_doc' => 'fk_facture',
+					'table' => 'paiement_invoice',
+					'fk_doc' => 'fk_invoice',
 					'fk_link' => 'fk_paiement',
 					'prefix' => 'p',
 				),
 				array(
 					'table' => 'societe_remise_except',
-					'fk_doc' => 'fk_facture_source',
-					'fk_link' => 'fk_facture',
-					'fk_line_link' => 'fk_facture_line',
-					'table_link_line' => 'facturedet',
+					'fk_doc' => 'fk_invoice_source',
+					'fk_link' => 'fk_invoice',
+					'fk_line_link' => 'fk_invoice_line',
+					'table_link_line' => 'invoicedet',
 					'fk_table_link_line' => 'rowid',
-					'fk_table_link_line_parent' => 'fk_facture',
+					'fk_table_link_line_parent' => 'fk_invoice',
 					'prefix' => 'a',
 					'is_fk_link_is_also_fk_doc' => true,
 				),
@@ -67,13 +67,13 @@ class Lettering extends BookKeeping
 		'supplier_invoice' => array(
 			'payment_table' => 'paiementfourn',
 			'payment_table_fk_bank' => 'fk_bank',
-			'doc_payment_table' => 'paiementfourn_facturefourn',
+			'doc_payment_table' => 'paiementfourn_invoicefourn',
 			'doc_payment_table_fk_payment' => 'fk_paiementfourn',
-			'doc_payment_table_fk_doc' => 'fk_facturefourn',
+			'doc_payment_table_fk_doc' => 'fk_invoicefourn',
 			'linked_info' => array(
 				array(
-					'table' => 'paiementfourn_facturefourn',
-					'fk_doc' => 'fk_facturefourn',
+					'table' => 'paiementfourn_invoicefourn',
+					'fk_doc' => 'fk_invoicefourn',
 					'fk_link' => 'fk_paiementfourn',
 					'prefix' => 'p',
 				),
@@ -82,9 +82,9 @@ class Lettering extends BookKeeping
 					'fk_doc' => 'fk_invoice_supplier_source',
 					'fk_link' => 'fk_invoice_supplier',
 					'fk_line_link' => 'fk_invoice_supplier_line',
-					'table_link_line' => 'facture_fourn_det',
+					'table_link_line' => 'invoice_fourn_det',
 					'fk_table_link_line' => 'rowid',
-					'fk_table_link_line_parent' => 'fk_facture_fourn',
+					'fk_table_link_line_parent' => 'fk_invoice_fourn',
 					'prefix' => 'a',
 					'is_fk_link_is_also_fk_doc' => true,
 				),
@@ -153,8 +153,8 @@ class Lettering extends BookKeeping
 
 				if ($obj->type == 'payment_supplier') {
 					$sql = 'SELECT DISTINCT bk.rowid, facf.ref, facf.ref_supplier, payf.fk_bank, facf.rowid as fact_id';
-					$sql .= " FROM " . MAIN_DB_PREFIX . "facture_fourn facf ";
-					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "paiementfourn_facturefourn as payfacf ON  payfacf.fk_facturefourn=facf.rowid";
+					$sql .= " FROM " . MAIN_DB_PREFIX . "invoice_fourn facf ";
+					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "paiementfourn_invoicefourn as payfacf ON  payfacf.fk_invoicefourn=facf.rowid";
 					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "paiementfourn as payf ON  payfacf.fk_paiementfourn=payf.rowid";
 					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "accounting_bookkeeping as bk ON (bk.fk_doc = payf.fk_bank AND bk.code_journal='" . $this->db->escape($obj->code_journal) . "')";
 					$sql .= " WHERE payfacf.fk_paiementfourn = '" . $this->db->escape($obj->url_id) . "' ";
@@ -185,7 +185,7 @@ class Lettering extends BookKeeping
 					}
 					if (count($ids_fact)) {
 						$sql = 'SELECT bk.rowid, facf.ref, facf.ref_supplier ';
-						$sql .= " FROM " . MAIN_DB_PREFIX . "facture_fourn facf ";
+						$sql .= " FROM " . MAIN_DB_PREFIX . "invoice_fourn facf ";
 						$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "accounting_bookkeeping as bk ON(  bk.fk_doc = facf.rowid AND facf.rowid IN (" . $this->db->sanitize(implode(',', $ids_fact)) . "))";
 						$sql .= " WHERE bk.code_journal IN (SELECT code FROM " . MAIN_DB_PREFIX . "accounting_journal WHERE nature=3 AND entity=" . $config->entity . ") ";
 						$sql .= " AND facf.entity = " . $config->entity;
@@ -214,8 +214,8 @@ class Lettering extends BookKeeping
 					}
 				} elseif ($obj->type == 'payment') {
 					$sql = 'SELECT DISTINCT bk.rowid, fac.ref, fac.ref, pay.fk_bank, fac.rowid as fact_id';
-					$sql .= " FROM " . MAIN_DB_PREFIX . "facture fac ";
-					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "paiement_facture as payfac ON  payfac.fk_facture=fac.rowid";
+					$sql .= " FROM " . MAIN_DB_PREFIX . "invoice fac ";
+					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "paiement_invoice as payfac ON  payfac.fk_invoice=fac.rowid";
 					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "paiement as pay ON  payfac.fk_paiement=pay.rowid";
 					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "accounting_bookkeeping as bk ON (bk.fk_doc = pay.fk_bank AND bk.code_journal='" . $this->db->escape($obj->code_journal) . "')";
 					$sql .= " WHERE payfac.fk_paiement = '" . $this->db->escape($obj->url_id) . "' ";
@@ -245,7 +245,7 @@ class Lettering extends BookKeeping
 					}
 					if (count($ids_fact)) {
 						$sql = 'SELECT bk.rowid, fac.ref, fac.ref_supplier ';
-						$sql .= " FROM " . MAIN_DB_PREFIX . "facture fac ";
+						$sql .= " FROM " . MAIN_DB_PREFIX . "invoice fac ";
 						$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "accounting_bookkeeping as bk ON(  bk.fk_doc = fac.rowid AND fac.rowid IN (" . $this->db->sanitize(implode(',', $ids_fact)) . "))";
 						$sql .= " WHERE code_journal IN (SELECT code FROM " . MAIN_DB_PREFIX . "accounting_journal WHERE nature=2 AND entity=" . $config->entity . ") ";
 						$sql .= " AND fac.entity IN (" . getEntity('invoice', 0) . ")"; // We do not share object for accountancy

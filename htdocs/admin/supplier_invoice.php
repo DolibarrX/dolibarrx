@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 
 /**
  * @var Config $config
@@ -107,9 +107,9 @@ if ($action == 'updateMask') {
 if ($action == 'specimen') {  // For invoices
 	$modele = GETPOST('module', 'alpha');
 
-	$facture = new FactureFournisseur($db);
-	$facture->initAsSpecimen();
-	$facture->thirdparty = $specimenthirdparty; // Define who should has build the invoice (so the supplier)
+	$invoice = new InvoiceSupplier($db);
+	$invoice->initAsSpecimen();
+	$invoice->thirdparty = $specimenthirdparty; // Define who should has build the invoice (so the supplier)
 
 	// Search template files
 	$file = '';
@@ -126,11 +126,11 @@ if ($action == 'specimen') {  // For invoices
 	if ($classname !== '') {
 		require_once $file;
 
-		$module = new $classname($db, $facture);
+		$module = new $classname($db, $invoice);
 		'@phan-var-force ModelePDFSuppliersInvoices $module';
 
-		if ($module->write_file($facture, $langs) > 0) {
-			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=facture_fournisseur&file=SPECIMEN.pdf");
+		if ($module->write_file($invoice, $langs) > 0) {
+			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=invoice_fournisseur&file=SPECIMEN.pdf");
 			return;
 		} else {
 			setEventMessages($module->error, $module->errors, 'errors');
@@ -239,7 +239,7 @@ foreach ($dirmodels as $reldir) {
 		$handle = opendir($dir);
 		if (is_resource($handle)) {
 			while (($file = readdir($handle)) !== false) {
-				if (substr($file, 0, 24) == 'mod_facture_fournisseur_' && substr($file, dol_strlen($file) - 3, 3) == 'php') {
+				if (substr($file, 0, 24) == 'mod_invoice_fournisseur_' && substr($file, dol_strlen($file) - 3, 3) == 'php') {
 					$file = substr($file, 0, dol_strlen($file) - 4);
 
 					require_once $dir.'/'.$file.'.php';
@@ -283,7 +283,7 @@ foreach ($dirmodels as $reldir) {
 						}
 						print '</td>';
 
-						$invoice = new FactureFournisseur($db);
+						$invoice = new InvoiceSupplier($db);
 						$invoice->initAsSpecimen();
 
 						// Info
@@ -377,7 +377,7 @@ foreach ($dirmodels as $reldir) {
 					$classname = substr($file, 0, dol_strlen($file) - 12);
 
 					require_once $dir.'/'.$file;
-					$module = new $classname($db, new FactureFournisseur($db));
+					$module = new $classname($db, new InvoiceSupplier($db));
 
 					'@phan-var-force ModelePDFSuppliersInvoices $module';
 

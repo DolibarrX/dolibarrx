@@ -95,7 +95,7 @@ $title = $object->ref.' - '.$langs->trans("IOMonthlyReporting");
 $helpurl = "";
 llxHeader('', $title, $helpurl);
 
-// Ce rapport de tresorerie est base sur llx_bank (car doit inclure les transactions sans facture)
+// This cash flow report is based on llx_bank (because it must include transactions without invoice)
 // plutot que sur llx_paiement + llx_paiementfourn
 
 $sql = "SELECT SUM(b.amount)";

@@ -24,7 +24,7 @@
 
 /**
  *   	\file       htdocs/compta/journal/purchasesjournal.php
- *		\ingroup    societe, fournisseur, facture
+ *		\ingroup    societe, fournisseur, invoice
  *		\brief      Page with purchases journal
  */
 global $mysoc;
@@ -33,7 +33,7 @@ global $mysoc;
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/report.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
 
 /**
@@ -127,10 +127,10 @@ $sql .= " fd.total_ttc, fd.tva_tx, fd.total_ht, fd.tva as total_tva, fd.product_
 $sql .= " s.rowid as socid, s.nom as name, s.code_compta_fournisseur,";
 $sql .= " p.rowid as pid, p.ref as ref, p.accountancy_code_buy,";
 $sql .= " ct.accountancy_code_buy as account_tva, ct.recuperableonly";
-$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn_det as fd";
+$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn_det as fd";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_tva as ct ON fd.tva_tx = ct.taux AND fd.info_bits = ct.recuperableonly AND ct.fk_pays = ".((int) $idpays);
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = fd.fk_product";
-$sql .= " JOIN ".MAIN_DB_PREFIX."facture_fourn as f ON f.rowid = fd.fk_facture_fourn";
+$sql .= " JOIN ".MAIN_DB_PREFIX."invoice_fourn as f ON f.rowid = fd.fk_invoice_fourn";
 $sql .= " JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
 $sql .= " WHERE f.fk_statut > 0 AND f.entity IN (".getEntity('invoice').")";
 if (getDolGlobalString('FACTURE_SUPPLIER_DEPOSITS_ARE_JUST_PAYMENTS')) {
@@ -219,7 +219,7 @@ print "<td class='right'>".$langs->trans("AccountingCredit")."</td>";
 print "</tr>\n";
 
 
-$invoicestatic = new FactureFournisseur($db);
+$invoicestatic = new InvoiceSupplier($db);
 $companystatic = new Fournisseur($db);
 
 foreach ($tabfac as $key => $val) {

@@ -1808,10 +1808,10 @@ if ($action == 'create') {
 					$langs->load("bills");
 					if ($object->statut < Fichinter::STATUS_BILLED) {
 						$arrayofcreatebutton[] = array(
-							'url' => '/compta/facture/card.php?action=create&amp;origin='.$object->element.'&amp;originid='.$object->id.'&amp;socid='.$object->socid,
+							'url' => '/compta/invoice/card.php?action=create&amp;origin='.$object->element.'&amp;originid='.$object->id.'&amp;socid='.$object->socid,
 							'label' => $langs->trans('AddBill'),
 							'lang' => 'bills',
-							'perm' => $user->hasRight('facture', 'creer') ? true : false,
+							'perm' => $user->hasRight('invoice', 'creer') ? true : false,
 							'enabled' => true,
 						);
 					}

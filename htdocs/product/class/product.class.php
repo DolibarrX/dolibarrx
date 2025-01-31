@@ -78,9 +78,9 @@ class Product extends CommonObject
 		'supplier_proposaldet' => array('name' => 'SupplierProposal', 'parent' => 'supplier_proposal', 'parentkey' => 'fk_supplier_proposal'),
 		'propaldet' => array('name' => 'Proposal', 'parent' => 'propal', 'parentkey' => 'fk_propal'),
 		'orderdet' => array('name' => 'Order', 'parent' => 'order', 'parentkey' => 'fk_order'),
-		'facturedet' => array('name' => 'Invoice', 'parent' => 'facture', 'parentkey' => 'fk_facture'),
+		'invoicedet' => array('name' => 'Invoice', 'parent' => 'invoice', 'parentkey' => 'fk_invoice'),
 		'contractdet' => array('name' => 'Contract', 'parent' => 'contract', 'parentkey' => 'fk_contract'),
-		'facture_fourn_det' => array('name' => 'SupplierInvoice', 'parent' => 'facture_fourn', 'parentkey' => 'fk_facture_fourn'),
+		'invoice_fourn_det' => array('name' => 'SupplierInvoice', 'parent' => 'invoice_fourn', 'parentkey' => 'fk_invoice_fourn'),
 		'order_fournisseurdet' => array('name' => 'SupplierOrder', 'parent' => 'order_fournisseur', 'parentkey' => 'fk_order'),
 		'mrp_production' => array('name' => 'Mo', 'parent' => 'mrp_mo', 'parentkey' => 'fk_mo', 'enabled' => 'isModEnabled("mrp")'),
 		'bom_bom' => array('name' => 'BOM', 'enabled' => 'isModEnabled("bom")'),
@@ -620,7 +620,7 @@ class Product extends CommonObject
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats invoices
 	 */
-	public $stats_facture = [];
+	public $stats_invoice = [];
 
 	/**
 	 * @var array{}|array{suppliers:int,nb:int,rows:int,qty:float} stats supplier propales
@@ -663,14 +663,14 @@ class Product extends CommonObject
 	public $stats_mrptoproduce = [];
 
 	/**
-	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats facture rec
+	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats invoice rec
 	 */
-	public $stats_facturerec = [];
+	public $stats_invoicerec = [];
 
 	/**
 	 * @var array{}|array{suppliers:int,nb:int,rows:int,qty:float} stats supplier invoices
 	 */
-	public $stats_facture_fournisseur = [];
+	public $stats_invoice_fournisseur = [];
 
 	/**
 	 * @var int|string Size of image / height
@@ -3614,11 +3614,11 @@ class Product extends CommonObject
 				if (getDolGlobalString('DECREASE_ONLY_UNINVOICEDPRODUCTS')) {
 					// If option DECREASE_ONLY_UNINVOICEDPRODUCTS is on, we make a compensation but only if order not yet invoice.
 					$adeduire = 0;
-					$sql = "SELECT SUM(".$this->db->ifsql('f.type=2', -1, 1)." * fd.qty) as count FROM ".$this->db->prefix()."facturedet as fd ";
-					$sql .= " JOIN ".$this->db->prefix()."facture as f ON fd.fk_facture = f.rowid";
-					$sql .= " JOIN ".$this->db->prefix()."element_element as el ON ((el.fk_target = f.rowid AND el.targettype = 'facture' AND sourcetype = 'order') OR (el.fk_source = f.rowid AND el.targettype = 'order' AND sourcetype = 'facture'))";
+					$sql = "SELECT SUM(".$this->db->ifsql('f.type=2', -1, 1)." * fd.qty) as count FROM ".$this->db->prefix()."invoicedet as fd ";
+					$sql .= " JOIN ".$this->db->prefix()."invoice as f ON fd.fk_invoice = f.rowid";
+					$sql .= " JOIN ".$this->db->prefix()."element_element as el ON ((el.fk_target = f.rowid AND el.targettype = 'invoice' AND sourcetype = 'order') OR (el.fk_source = f.rowid AND el.targettype = 'order' AND sourcetype = 'invoice'))";
 					$sql .= " JOIN ".$this->db->prefix()."order as c ON el.fk_source = c.rowid";
-					$sql .= " WHERE c.fk_statut IN (".$this->db->sanitize($filtrestatut).") AND c.facture = 0 AND fd.fk_product = ".((int) $this->id);
+					$sql .= " WHERE c.fk_statut IN (".$this->db->sanitize($filtrestatut).") AND c.invoice = 0 AND fd.fk_product = ".((int) $this->id);
 
 					dol_syslog(__METHOD__.":: sql $sql", LOG_NOTICE);
 					$resql = $this->db->query($sql);
@@ -3632,15 +3632,15 @@ class Product extends CommonObject
 					$this->stats_order['qty'] -= $adeduire;
 				} else {
 					// If option DECREASE_ONLY_UNINVOICEDPRODUCTS is off, we make a compensation with lines of invoices linked to the order
-					include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+					include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
 					// For every order having invoice already validated we need to decrease stock cause it's in physical stock
 					$adeduire = 0;
-					$sql = "SELECT sum(".$this->db->ifsql('f.type=2', -1, 1)." * fd.qty) as count FROM ".MAIN_DB_PREFIX."facturedet as fd ";
-					$sql .= " JOIN ".MAIN_DB_PREFIX."facture as f ON fd.fk_facture = f.rowid";
-					$sql .= " JOIN ".MAIN_DB_PREFIX."element_element as el ON ((el.fk_target = f.rowid AND el.targettype = 'facture' AND sourcetype = 'order') OR (el.fk_source = f.rowid AND el.targettype = 'order' AND sourcetype = 'facture'))";
+					$sql = "SELECT sum(".$this->db->ifsql('f.type=2', -1, 1)." * fd.qty) as count FROM ".MAIN_DB_PREFIX."invoicedet as fd ";
+					$sql .= " JOIN ".MAIN_DB_PREFIX."invoice as f ON fd.fk_invoice = f.rowid";
+					$sql .= " JOIN ".MAIN_DB_PREFIX."element_element as el ON ((el.fk_target = f.rowid AND el.targettype = 'invoice' AND sourcetype = 'order') OR (el.fk_source = f.rowid AND el.targettype = 'order' AND sourcetype = 'invoice'))";
 					$sql .= " JOIN ".MAIN_DB_PREFIX."order as c ON el.fk_source = c.rowid";
-					$sql .= " WHERE c.fk_statut IN (".$this->db->sanitize($filtrestatut).") AND f.fk_statut > ".Facture::STATUS_DRAFT." AND fd.fk_product = ".((int) $this->id);
+					$sql .= " WHERE c.fk_statut IN (".$this->db->sanitize($filtrestatut).") AND f.fk_statut > ".Invoice::STATUS_DRAFT." AND fd.fk_product = ".((int) $this->id);
 
 					dol_syslog(__METHOD__.":: sql $sql", LOG_NOTICE);
 					$resql = $this->db->query($sql);
@@ -4081,25 +4081,25 @@ class Product extends CommonObject
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *  Charge tableau des stats facture pour le produit/service
+	 *  Charge tableau des stats invoice pour le produit/service
 	 *
 	 * @param  int $socid Id societe
-	 * @return int                     Array of stats in $this->stats_facture, <0 if ko or >0 if ok
+	 * @return int                     Array of stats in $this->stats_invoice, <0 if ko or >0 if ok
 	 */
-	public function load_stats_facture($socid = 0)
+	public function load_stats_invoice($socid = 0)
 	{
 		// phpcs:enable
 		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT f.fk_soc) as nb_customers, COUNT(DISTINCT f.rowid) as nb,";
 		$sql .= " COUNT(fd.rowid) as nb_rows, SUM(".$this->db->ifsql('f.type != 2', 'fd.qty', 'fd.qty * -1').") as qty";
-		$sql .= " FROM ".$this->db->prefix()."facturedet as fd";
-		$sql .= ", ".$this->db->prefix()."facture as f";
+		$sql .= " FROM ".$this->db->prefix()."invoicedet as fd";
+		$sql .= ", ".$this->db->prefix()."invoice as f";
 		$sql .= ", ".$this->db->prefix()."societe as s";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";
 		}
-		$sql .= " WHERE f.rowid = fd.fk_facture";
+		$sql .= " WHERE f.rowid = fd.fk_invoice";
 		$sql .= " AND f.fk_soc = s.rowid";
 		$sql .= " AND f.entity IN (".getEntity('invoice').")";
 		$sql .= " AND fd.fk_product = ".((int) $this->id);
@@ -4114,10 +4114,10 @@ class Product extends CommonObject
 		$result = $this->db->query($sql);
 		if ($result) {
 			$obj = $this->db->fetch_object($result);
-			$this->stats_facture['customers'] = $obj->nb_customers;
-			$this->stats_facture['nb'] = $obj->nb;
-			$this->stats_facture['rows'] = $obj->nb_rows;
-			$this->stats_facture['qty'] = $obj->qty ? $obj->qty : 0;
+			$this->stats_invoice['customers'] = $obj->nb_customers;
+			$this->stats_invoice['nb'] = $obj->nb;
+			$this->stats_invoice['rows'] = $obj->nb_rows;
+			$this->stats_invoice['qty'] = $obj->qty ? $obj->qty : 0;
 
 			// if it's a virtual product, maybe it is in invoice by extension
 			if (getDolGlobalString('PRODUCT_STATS_WITH_PARENT_PROD_IF_INCDEC')) {
@@ -4129,12 +4129,12 @@ class Product extends CommonObject
 						$qtyCoef = $fatherData['qty'];
 
 						if ($fatherData['incdec']) {
-							$pFather->load_stats_facture($socid);
+							$pFather->load_stats_invoice($socid);
 
-							$this->stats_facture['customers'] += $pFather->stats_facture['customers'];
-							$this->stats_facture['nb'] += $pFather->stats_facture['nb'];
-							$this->stats_facture['rows'] += $pFather->stats_facture['rows'];
-							$this->stats_facture['qty'] += $pFather->stats_facture['qty'] * $qtyCoef;
+							$this->stats_invoice['customers'] += $pFather->stats_invoice['customers'];
+							$this->stats_invoice['nb'] += $pFather->stats_invoice['nb'];
+							$this->stats_invoice['rows'] += $pFather->stats_invoice['rows'];
+							$this->stats_invoice['qty'] += $pFather->stats_invoice['qty'] * $qtyCoef;
 						}
 					}
 				}
@@ -4143,7 +4143,7 @@ class Product extends CommonObject
 			$parameters = array('socid' => $socid);
 			$resHook = $hookManager->executeHooks('loadStatsCustomerInvoice', $parameters, $this, $action);
 			if ($resHook > 0) {
-				$this->stats_facture = $hookManager->resArray['stats_facture'];
+				$this->stats_invoice = $hookManager->resArray['stats_invoice'];
 			}
 
 			return 1;
@@ -4156,25 +4156,25 @@ class Product extends CommonObject
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *  Charge tableau des stats facture recurrentes pour le produit/service
+	 *  Charge tableau des stats invoice recurrentes pour le produit/service
 	 *
 	 * @param	int	$socid 	Id societe
-	 * @return	int			Array of stats in $this->stats_facture, <0 if ko or >0 if ok
+	 * @return	int			Array of stats in $this->stats_invoice, <0 if ko or >0 if ok
 	 */
-	public function load_stats_facturerec($socid = 0)
+	public function load_stats_invoicerec($socid = 0)
 	{
 		// phpcs:enable
 		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT f.fk_soc) as nb_customers, COUNT(DISTINCT f.rowid) as nb,";
 		$sql .= " COUNT(fd.rowid) as nb_rows, SUM(fd.qty) as qty";
-		$sql .= " FROM ".MAIN_DB_PREFIX."facturedet_rec as fd";
-		$sql .= ", ".MAIN_DB_PREFIX."facture_rec as f";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoicedet_rec as fd";
+		$sql .= ", ".MAIN_DB_PREFIX."invoice_rec as f";
 		$sql .= ", ".MAIN_DB_PREFIX."societe as s";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 		}
-		$sql .= " WHERE f.rowid = fd.fk_facture";
+		$sql .= " WHERE f.rowid = fd.fk_invoice";
 		$sql .= " AND f.fk_soc = s.rowid";
 		$sql .= " AND f.entity IN (".getEntity('invoice').")";
 		$sql .= " AND fd.fk_product = ".((int) $this->id);
@@ -4189,10 +4189,10 @@ class Product extends CommonObject
 		$result = $this->db->query($sql);
 		if ($result) {
 			$obj = $this->db->fetch_object($result);
-			$this->stats_facturerec['customers'] = (int) $obj->nb_customers;
-			$this->stats_facturerec['nb'] = (int) $obj->nb;
-			$this->stats_facturerec['rows'] = (int) $obj->nb_rows;
-			$this->stats_facturerec['qty'] = $obj->qty ? (float) $obj->qty : 0.0;
+			$this->stats_invoicerec['customers'] = (int) $obj->nb_customers;
+			$this->stats_invoicerec['nb'] = (int) $obj->nb;
+			$this->stats_invoicerec['rows'] = (int) $obj->nb_rows;
+			$this->stats_invoicerec['qty'] = $obj->qty ? (float) $obj->qty : 0.0;
 
 			// if it's a virtual product, maybe it is in invoice by extension
 			if (getDolGlobalString('PRODUCT_STATS_WITH_PARENT_PROD_IF_INCDEC')) {
@@ -4204,12 +4204,12 @@ class Product extends CommonObject
 						$qtyCoef = $fatherData['qty'];
 
 						if ($fatherData['incdec']) {
-							$pFather->load_stats_facture($socid);
+							$pFather->load_stats_invoice($socid);
 
-							$this->stats_facturerec['customers'] += $pFather->stats_facturerec['customers'];
-							$this->stats_facturerec['nb'] += $pFather->stats_facturerec['nb'];
-							$this->stats_facturerec['rows'] += $pFather->stats_facturerec['rows'];
-							$this->stats_facturerec['qty'] += $pFather->stats_facturerec['qty'] * $qtyCoef;
+							$this->stats_invoicerec['customers'] += $pFather->stats_invoicerec['customers'];
+							$this->stats_invoicerec['nb'] += $pFather->stats_invoicerec['nb'];
+							$this->stats_invoicerec['rows'] += $pFather->stats_invoicerec['rows'];
+							$this->stats_invoicerec['qty'] += $pFather->stats_invoicerec['qty'] * $qtyCoef;
 						}
 					}
 				}
@@ -4218,7 +4218,7 @@ class Product extends CommonObject
 			$parameters = array('socid' => $socid);
 			$resHook = $hookManager->executeHooks('loadStatsCustomerInvoiceRec', $parameters, $this, $action);
 			if ($resHook > 0) {
-				$this->stats_facturerec = $hookManager->resArray['stats_facturerec'];
+				$this->stats_invoicerec = $hookManager->resArray['stats_invoicerec'];
 			}
 
 			return 1;
@@ -4230,27 +4230,27 @@ class Product extends CommonObject
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *  Charge tableau des stats facture pour le produit/service
+	 *  Charge tableau des stats invoice pour le produit/service
 	 *
 	 * @param  int $socid Id societe
-	 * @return int                     Array of stats in $this->stats_facture_fournisseur, <0 if ko or >0 if ok
+	 * @return int                     Array of stats in $this->stats_invoice_fournisseur, <0 if ko or >0 if ok
 	 */
-	public function load_stats_facture_fournisseur($socid = 0)
+	public function load_stats_invoice_fournisseur($socid = 0)
 	{
 		// phpcs:enable
 		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT f.fk_soc) as nb_suppliers, COUNT(DISTINCT f.rowid) as nb,";
 		$sql .= " COUNT(fd.rowid) as nb_rows, SUM(fd.qty) as qty";
-		$sql .= " FROM ".$this->db->prefix()."facture_fourn_det as fd";
-		$sql .= ", ".$this->db->prefix()."facture_fourn as f";
+		$sql .= " FROM ".$this->db->prefix()."invoice_fourn_det as fd";
+		$sql .= ", ".$this->db->prefix()."invoice_fourn as f";
 		$sql .= ", ".$this->db->prefix()."societe as s";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";
 		}
-		$sql .= " WHERE f.rowid = fd.fk_facture_fourn";
+		$sql .= " WHERE f.rowid = fd.fk_invoice_fourn";
 		$sql .= " AND f.fk_soc = s.rowid";
-		$sql .= " AND f.entity IN (".getEntity('facture_fourn').")";
+		$sql .= " AND f.entity IN (".getEntity('invoice_fourn').")";
 		$sql .= " AND fd.fk_product = ".((int) $this->id);
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= " AND f.fk_soc = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
@@ -4263,15 +4263,15 @@ class Product extends CommonObject
 		$result = $this->db->query($sql);
 		if ($result) {
 			$obj = $this->db->fetch_object($result);
-			$this->stats_facture_fournisseur['suppliers'] = (int) $obj->nb_suppliers;
-			$this->stats_facture_fournisseur['nb'] = (int) $obj->nb;
-			$this->stats_facture_fournisseur['rows'] = (int) $obj->nb_rows;
-			$this->stats_facture_fournisseur['qty'] = $obj->qty ? (float) $obj->qty : 0.0;
+			$this->stats_invoice_fournisseur['suppliers'] = (int) $obj->nb_suppliers;
+			$this->stats_invoice_fournisseur['nb'] = (int) $obj->nb;
+			$this->stats_invoice_fournisseur['rows'] = (int) $obj->nb_rows;
+			$this->stats_invoice_fournisseur['qty'] = $obj->qty ? (float) $obj->qty : 0.0;
 
 			$parameters = array('socid' => $socid);
 			$resHook = $hookManager->executeHooks('loadStatsSupplierInvoice', $parameters, $this, $action);
 			if ($resHook > 0) {
-				$this->stats_facture_fournisseur = $hookManager->resArray['stats_facture_fournisseur'];
+				$this->stats_invoice_fournisseur = $hookManager->resArray['stats_invoice_fournisseur'];
 			}
 
 			return 1;
@@ -4380,14 +4380,14 @@ class Product extends CommonObject
 			$sql .= ", count(DISTINCT f.rowid)";
 		}
 		$sql .= ", sum(d.total_ht) as total_ht";
-		$sql .= " FROM ".$this->db->prefix()."facturedet as d, ".$this->db->prefix()."facture as f, ".$this->db->prefix()."societe as s";
+		$sql .= " FROM ".$this->db->prefix()."invoicedet as d, ".$this->db->prefix()."invoice as f, ".$this->db->prefix()."societe as s";
 		if ($filteronproducttype >= 0) {
 			$sql .= ", ".$this->db->prefix()."product as p";
 		}
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";
 		}
-		$sql .= " WHERE f.rowid = d.fk_facture";
+		$sql .= " WHERE f.rowid = d.fk_invoice";
 		if ($this->id > 0) {
 			$sql .= " AND d.fk_product = ".((int) $this->id);
 		} else {
@@ -4433,14 +4433,14 @@ class Product extends CommonObject
 			$sql .= ", count(DISTINCT f.rowid)";
 		}
 		$sql .= ", sum(d.total_ht) as total_ht";
-		$sql .= " FROM ".$this->db->prefix()."facture_fourn_det as d, ".$this->db->prefix()."facture_fourn as f, ".$this->db->prefix()."societe as s";
+		$sql .= " FROM ".$this->db->prefix()."invoice_fourn_det as d, ".$this->db->prefix()."invoice_fourn as f, ".$this->db->prefix()."societe as s";
 		if ($filteronproducttype >= 0) {
 			$sql .= ", ".$this->db->prefix()."product as p";
 		}
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";
 		}
-		$sql .= " WHERE f.rowid = d.fk_facture_fourn";
+		$sql .= " WHERE f.rowid = d.fk_invoice_fourn";
 		if ($this->id > 0) {
 			$sql .= " AND d.fk_product = ".((int) $this->id);
 		} else {
@@ -4450,7 +4450,7 @@ class Product extends CommonObject
 			$sql .= " AND p.rowid = d.fk_product AND p.fk_product_type = ".((int) $filteronproducttype);
 		}
 		$sql .= " AND f.fk_soc = s.rowid";
-		$sql .= " AND f.entity IN (".getEntity('facture_fourn').")";
+		$sql .= " AND f.entity IN (".getEntity('invoice_fourn').")";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= " AND f.fk_soc = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 		}

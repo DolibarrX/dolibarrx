@@ -910,7 +910,7 @@ class Salary extends CommonObject
 	 *	@param      User	$fuser      				User asking the direct debit transfer
 	 *  @param		float	$amount						Amount we request direct debit for
 	 *  @param		string	$type						'direct-debit' or 'bank-transfer'
-	 *  @param		string	$sourcetype					Source ('facture' or 'supplier_invoice')
+	 *  @param		string	$sourcetype					Source ('invoice' or 'supplier_invoice')
 	 *  @param		int		$checkduplicateamongall		0=Default (check among open requests only to find if request already exists). 1=Check also among requests completely processed and cancel if at least 1 request exists whatever is its status.
 	 *	@return     int         						Return integer <0 if KO, 0 if a request already exists, >0 if OK
 	 */
@@ -933,7 +933,7 @@ class Salary extends CommonObject
 			if ($type == 'salaire') {
 				$sql .= " WHERE fk_salary = ".((int) $this->id);
 			} else {
-				$sql .= " WHERE fk_facture = ".((int) $this->id);
+				$sql .= " WHERE fk_invoice = ".((int) $this->id);
 			}
 			$sql .= " AND type = 'ban'"; // To exclude record done for some online payments
 			if (empty($checkduplicateamongall)) {
@@ -966,7 +966,7 @@ class Salary extends CommonObject
 						if ($type == 'salaire') {
 							$sql .= 'fk_salary, ';
 						} else {
-							$sql .= 'fk_facture, ';
+							$sql .= 'fk_invoice, ';
 						}
 						$sql .= ' amount, date_demande, fk_user_demande, code_bank, code_guichet, number, cle_rib, sourcetype, type, entity)';
 						$sql .= " VALUES (".((int) $this->id);

@@ -85,7 +85,7 @@ class DataPolicyCron
                         SELECT id FROM ".MAIN_DB_PREFIX."actioncomm as a WHERE a.fk_soc = s.rowid AND a.tms > DATE_SUB('".$this->db->idate(dol_now())."', INTERVAL %d MONTH)
                     )
 					AND NOT EXISTS (
-                        SELECT rowid FROM ".MAIN_DB_PREFIX."facture as f WHERE f.fk_soc = s.rowid
+                        SELECT rowid FROM ".MAIN_DB_PREFIX."invoice as f WHERE f.fk_soc = s.rowid
                     )
                 ",
 				"class" => "Societe",
@@ -119,7 +119,7 @@ class DataPolicyCron
                         SELECT id FROM ".MAIN_DB_PREFIX."actioncomm as a WHERE a.fk_soc = s.rowid AND a.tms > DATE_SUB('".$this->db->idate(dol_now())."', INTERVAL %d MONTH)
                     )
 					AND NOT EXISTS (
-                        SELECT rowid FROM ".MAIN_DB_PREFIX."facture as f WHERE f.fk_soc = s.rowid
+                        SELECT rowid FROM ".MAIN_DB_PREFIX."invoice as f WHERE f.fk_soc = s.rowid
                     )
                 ",
 				"class" => "Societe",
@@ -153,7 +153,7 @@ class DataPolicyCron
                         SELECT id FROM ".MAIN_DB_PREFIX."actioncomm as a WHERE a.fk_soc = s.rowid AND a.tms > DATE_SUB('".$this->db->idate(dol_now())."', INTERVAL %d MONTH)
                     )
 					AND NOT EXISTS (
-                        SELECT rowid FROM ".MAIN_DB_PREFIX."facture as f WHERE f.fk_soc = s.rowid
+                        SELECT rowid FROM ".MAIN_DB_PREFIX."invoice as f WHERE f.fk_soc = s.rowid
                     )
                 ",
 				"class" => "Societe",
@@ -187,7 +187,7 @@ class DataPolicyCron
                         SELECT id FROM ".MAIN_DB_PREFIX."actioncomm as a WHERE a.fk_soc = s.rowid AND a.tms > DATE_SUB('".$this->db->idate(dol_now())."', INTERVAL %d MONTH)
                     )
 					AND NOT EXISTS (
-                        SELECT rowid FROM ".MAIN_DB_PREFIX."facture as f WHERE f.fk_soc = s.rowid
+                        SELECT rowid FROM ".MAIN_DB_PREFIX."invoice as f WHERE f.fk_soc = s.rowid
                     )
                 ",
 				"class" => "Societe",
@@ -220,7 +220,7 @@ class DataPolicyCron
                         SELECT id FROM ".MAIN_DB_PREFIX."actioncomm as a WHERE a.fk_soc = s.rowid AND a.tms > DATE_SUB('".$this->db->idate(dol_now())."', INTERVAL %d MONTH)
                     )
 					AND NOT EXISTS (
-                        SELECT rowid FROM ".MAIN_DB_PREFIX."facture as f WHERE f.fk_soc = s.rowid
+                        SELECT rowid FROM ".MAIN_DB_PREFIX."invoice as f WHERE f.fk_soc = s.rowid
                     )
                 ",
 				"class" => "Societe",
@@ -255,7 +255,7 @@ class DataPolicyCron
                         SELECT id FROM ".MAIN_DB_PREFIX."actioncomm as a WHERE a.fk_contact = c.rowid AND a.tms > DATE_SUB('".$this->db->idate(dol_now())."', INTERVAL %d MONTH)
                     )
 					AND NOT EXISTS (
-                        SELECT rowid FROM ".MAIN_DB_PREFIX."facture as f WHERE f.fk_soc = s.rowid
+                        SELECT rowid FROM ".MAIN_DB_PREFIX."invoice as f WHERE f.fk_soc = s.rowid
                     )
                 ",
 				"class" => "Contact",
@@ -293,7 +293,7 @@ class DataPolicyCron
                         SELECT id FROM ".MAIN_DB_PREFIX."actioncomm as a WHERE a.fk_contact = c.rowid AND a.tms > DATE_SUB('".$this->db->idate(dol_now())."', INTERVAL %d MONTH)
                     )
 					AND NOT EXISTS (
-                        SELECT rowid FROM ".MAIN_DB_PREFIX."facture as f WHERE f.fk_soc = s.rowid
+                        SELECT rowid FROM ".MAIN_DB_PREFIX."invoice as f WHERE f.fk_soc = s.rowid
                     )
                 ",
 				"class" => "Contact",
@@ -331,7 +331,7 @@ class DataPolicyCron
                         SELECT id FROM ".MAIN_DB_PREFIX."actioncomm as a WHERE a.fk_contact = c.rowid AND a.tms > DATE_SUB('".$this->db->idate(dol_now())."', INTERVAL %d MONTH)
                     )
 					AND NOT EXISTS (
-                        SELECT rowid FROM ".MAIN_DB_PREFIX."facture as f WHERE f.fk_soc = s.rowid
+                        SELECT rowid FROM ".MAIN_DB_PREFIX."invoice as f WHERE f.fk_soc = s.rowid
                     )
                 ",
 				"class" => "Contact",
@@ -369,7 +369,7 @@ class DataPolicyCron
                         SELECT id FROM ".MAIN_DB_PREFIX."actioncomm as a WHERE a.fk_contact = c.rowid AND a.tms > DATE_SUB('".$this->db->idate(dol_now())."', INTERVAL %d MONTH)
                     )
 					AND NOT EXISTS (
-                        SELECT rowid FROM ".MAIN_DB_PREFIX."facture as f WHERE f.fk_soc = s.rowid
+                        SELECT rowid FROM ".MAIN_DB_PREFIX."invoice as f WHERE f.fk_soc = s.rowid
                     )
                 ",
 				"class" => "Contact",
@@ -406,7 +406,7 @@ class DataPolicyCron
                         SELECT id FROM ".MAIN_DB_PREFIX."actioncomm as a WHERE a.fk_contact = c.rowid AND a.tms > DATE_SUB('".$this->db->idate(dol_now())."', INTERVAL %d MONTH)
                     )
 					AND NOT EXISTS (
-                        SELECT rowid FROM ".MAIN_DB_PREFIX."facture as f WHERE f.fk_soc = s.rowid
+                        SELECT rowid FROM ".MAIN_DB_PREFIX."invoice as f WHERE f.fk_soc = s.rowid
                     )
                 ",
 				"class" => "Contact",

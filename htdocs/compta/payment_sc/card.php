@@ -32,8 +32,8 @@
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/paymentsocialcontribution.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/invoice/modules_invoice.php';
 if (isModEnabled("bank")) {
 	require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 }
@@ -256,7 +256,7 @@ print '<div class="tabsAction">';
 if (getDolGlobalString('BILL_ADD_PAYMENT_VALIDATION')) {
 	if ($user->socid == 0 && $object->statut == 0 && $action == '')
 	{
-		if ($user->hasRight('facture', 'paiement')){
+		if ($user->hasRight('invoice', 'paiement')){
 			print '<a class="butAction" href="card.php?id='.GETPOST('id', 'int').'&amp;facid='.$objp->facid.'&amp;action=valide">'.$langs->trans('Valid').'</a>';
 		}
 	}

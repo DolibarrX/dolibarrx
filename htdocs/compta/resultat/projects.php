@@ -298,7 +298,7 @@ if ($modecompta == 'BOOKKEEPING') {
 	if ($modecompta == 'CREANCES-DETTES') {
 		$sql = "SELECT p.rowid as rowid, p.ref as project_name, sum(f.total_ht) as amount_ht, sum(f.total_ttc) as amount_ttc";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-		$sql .= ", ".MAIN_DB_PREFIX."facture as f";
+		$sql .= ", ".MAIN_DB_PREFIX."invoice as f";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as p ON f.fk_projet = p.rowid";
 		$sql .= " WHERE f.fk_soc = s.rowid";
 		$sql .= " AND f.entity IN (".getEntity('invoice').")";
@@ -319,12 +319,12 @@ if ($modecompta == 'BOOKKEEPING') {
 	} elseif ($modecompta == 'RECETTES-DEPENSES') {
 		$sql = "SELECT p.rowid as rowid, p.ref as project_name, sum(pf.amount) as amount_ttc";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-		$sql .= ", ".MAIN_DB_PREFIX."facture as f";
+		$sql .= ", ".MAIN_DB_PREFIX."invoice as f";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as p ON f.fk_projet = p.rowid";
-		$sql .= ", ".MAIN_DB_PREFIX."paiement_facture as pf";
+		$sql .= ", ".MAIN_DB_PREFIX."paiement_invoice as pf";
 		$sql .= ", ".MAIN_DB_PREFIX."paiement as pa";
 		$sql .= " WHERE pa.rowid = pf.fk_paiement";
-		$sql .= " AND pf.fk_facture = f.rowid";
+		$sql .= " AND pf.fk_invoice = f.rowid";
 		$sql .= " AND f.fk_soc = s.rowid";
 		$sql .= " AND f.entity IN (".getEntity('invoice').")";
 		if (!empty($date_start) && !empty($date_end)) {
@@ -356,7 +356,7 @@ if ($modecompta == 'BOOKKEEPING') {
 			//$detailed_list_url .= '?search_project_ref='.urlencode($search_project_ref);
 			$detailed_list_url .= empty($objp->project_name)? "!*": $objp->project_name;
 			$detailed_list_url .= $search_date_url;
-			echo ' (<a href="'.DOL_URL_ROOT.'/compta/facture/list.php'.$detailed_list_url.'">'.$langs->trans("DetailedListLowercase")."</a>)\n";
+			echo ' (<a href="'.DOL_URL_ROOT.'/compta/invoice/list.php'.$detailed_list_url.'">'.$langs->trans("DetailedListLowercase")."</a>)\n";
 			echo "</td>\n";
 			echo '<td class="right">';
 			if ($modecompta == 'CREANCES-DETTES') {
@@ -496,7 +496,7 @@ if ($modecompta == 'BOOKKEEPING') {
 	if ($modecompta == 'CREANCES-DETTES') {
 		$sql = "SELECT p.rowid as rowid, p.ref as project_name, sum(f.total_ht) as amount_ht, sum(f.total_ttc) as amount_ttc";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-		$sql .= ", ".MAIN_DB_PREFIX."facture_fourn as f";
+		$sql .= ", ".MAIN_DB_PREFIX."invoice_fourn as f";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as p ON f.fk_projet = p.rowid";
 		$sql .= " WHERE f.fk_soc = s.rowid";
 		$sql .= " AND f.fk_statut IN (1,2)";
@@ -511,8 +511,8 @@ if ($modecompta == 'BOOKKEEPING') {
 	} elseif ($modecompta == 'RECETTES-DEPENSES') {
 		$sql = "SELECT pr.rowid as rowid, pr.ref as project_name, sum(pf.amount) as amount_ttc";
 		$sql .= " FROM ".MAIN_DB_PREFIX."paiementfourn as p";
-		$sql .= ", ".MAIN_DB_PREFIX."paiementfourn_facturefourn as pf";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture_fourn as f ON pf.fk_facturefourn = f.rowid";
+		$sql .= ", ".MAIN_DB_PREFIX."paiementfourn_invoicefourn as pf";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice_fourn as f ON pf.fk_invoicefourn = f.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as pr ON f.fk_projet = pr.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON f.fk_soc = s.rowid";
 		$sql .= " WHERE p.rowid = pf.fk_paiementfourn ";
@@ -554,7 +554,7 @@ if ($modecompta == 'BOOKKEEPING') {
 				//$detailed_list_url .= '?search_project='.urlencode($search_project_ref);
 				$detailed_list_url .= empty($objp->project_name)? "!*": $objp->project_name;
 				$detailed_list_url .= $search_date_url;
-				echo ' (<a href="'.DOL_URL_ROOT.'/fourn/facture/list.php'.$detailed_list_url.'">'.$langs->trans("DetailedListLowercase")."</a>)\n";
+				echo ' (<a href="'.DOL_URL_ROOT.'/fourn/invoice/list.php'.$detailed_list_url.'">'.$langs->trans("DetailedListLowercase")."</a>)\n";
 				echo "</td>\n";
 
 				echo '<td class="right">';

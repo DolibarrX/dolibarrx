@@ -147,7 +147,7 @@ class RejetPrelevement
 		$sql .= ", motif";
 		$sql .= ", fk_user_creation";
 		$sql .= ", date_creation";
-		$sql .= ", afacturer";
+		$sql .= ", ainvoicer";
 		$sql .= ") VALUES (";
 		$sql .= ((int) $id);
 		$sql .= ", '".$this->db->idate($date_rejet)."'";
@@ -177,10 +177,10 @@ class RejetPrelevement
 		$num = count($facs);
 		for ($i = 0; $i < $num; $i++) {
 			if ($this->type == 'bank-transfer') {
-				$fac = new FactureFournisseur($this->db);
+				$fac = new InvoiceSupplier($this->db);
 				$pai = new PaiementFourn($this->db);
 			} else {
-				$fac = new Facture($this->db);
+				$fac = new Invoice($this->db);
 				$pai = new Paiement($this->db);
 			}
 
@@ -249,7 +249,7 @@ class RejetPrelevement
 	/**
 	 *  Send email to all users that has asked the withdraw request
 	 *
-	 * 	@param	Facture		$fac			Invoice object
+	 * 	@param	Invoice		$fac			Invoice object
 	 * 	@return	void
 	 */
 	private function _send_email($fac)
@@ -262,7 +262,7 @@ class RejetPrelevement
 		$sql = "SELECT fk_user_demande";
 		$sql .= " FROM ".MAIN_DB_PREFIX."prelevement_demande as pfd";
 		$sql .= " WHERE pfd.fk_prelevement_bons = ".((int) $this->bon_id);
-		$sql .= " AND pfd.fk_facture".($this->type == 'bank-transfer' ? '_fourn' : '').' = '.((int) $fac->id);
+		$sql .= " AND pfd.fk_invoice".($this->type == 'bank-transfer' ? '_fourn' : '').' = '.((int) $fac->id);
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -331,9 +331,9 @@ class RejetPrelevement
 		$sql = "SELECT f.rowid as facid, pl.amount";
 		$sql .= " FROM ".MAIN_DB_PREFIX."prelevement as pf";
 		if ($this->type == 'bank-transfer') {
-			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture_fourn as f ON (pf.fk_facture_fourn = f.rowid)";
+			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice_fourn as f ON (pf.fk_invoice_fourn = f.rowid)";
 		} else {
-			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture as f ON (pf.fk_facture = f.rowid)";
+			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice as f ON (pf.fk_invoice = f.rowid)";
 		}
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."prelevement_lignes as pl ON (pf.fk_prelevement_lignes = pl.rowid)";
 		$sql .= " WHERE pf.fk_prelevement_lignes = ".((int) $this->id);
@@ -374,7 +374,7 @@ class RejetPrelevement
 	 */
 	public function fetch($rowid)
 	{
-		$sql = "SELECT pr.date_rejet as dr, motif, afacturer";
+		$sql = "SELECT pr.date_rejet as dr, motif, ainvoicer";
 		$sql .= " FROM ".MAIN_DB_PREFIX."prelevement_rejet as pr";
 		$sql .= " WHERE pr.fk_prelevement_lignes =".((int) $rowid);
 
@@ -386,7 +386,7 @@ class RejetPrelevement
 				$this->id = $rowid;
 				$this->date_rejet = $this->db->jdate($obj->dr);
 				$this->motif = $this->motifs[$obj->motif];
-				$this->invoicing = $this->labelsofinvoicing[$obj->afacturer];
+				$this->invoicing = $this->labelsofinvoicing[$obj->ainvoicer];
 
 				$this->db->free($resql);
 

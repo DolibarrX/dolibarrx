@@ -185,8 +185,8 @@ if (!empty($triggers)) {
 		if ($module == 'contact') {
 			$module = 'societe';
 		}
-		if ($module == 'facturerec') {
-			$module = 'facture';
+		if ($module == 'invoicerec') {
+			$module = 'invoice';
 		}
 
 		// If 'element' value is myobject@mymodule instead of mymodule

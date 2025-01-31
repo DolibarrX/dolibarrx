@@ -85,7 +85,7 @@ class OrderFournisseurLigne extends CommonOrderLine
 	/**
 	 * @var int ID
 	 */
-	public $fk_facture;
+	public $fk_invoice;
 
 	/**
 	 * @var int rank

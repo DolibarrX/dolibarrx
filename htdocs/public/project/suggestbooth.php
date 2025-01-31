@@ -53,8 +53,8 @@ require_once DOL_DOCUMENT_ROOT.'/eventorganization/class/conferenceorbooth.class
 require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/paymentterm.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/paymentterm.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
@@ -430,7 +430,7 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 					$errmsg .= $conforbooth->error;
 				} else {
 					// If this is a paying booth, we have to redirect to payment page and create an invoice
-					$facture = null;
+					$invoice = null;
 					if (!empty((float) $project->price_booth)) {
 						$productforinvoicerow = new Product($db);
 						$resultprod = $productforinvoicerow->fetch(getDolGlobalString('SERVICE_BOOTH_LOCATION'));
@@ -438,47 +438,47 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 							$error++;
 							$errmsg .= $productforinvoicerow->error;
 						} else {
-							$facture = new Facture($db);
-							$facture->type = Facture::TYPE_STANDARD;
-							$facture->socid = $thirdparty->id;
-							$facture->paye = 0;
-							$facture->date = dol_now();
-							$facture->cond_reglement_id = $contact->cond_reglement_id;
-							$facture->fk_project = $project->id;
+							$invoice = new Invoice($db);
+							$invoice->type = Invoice::TYPE_STANDARD;
+							$invoice->socid = $thirdparty->id;
+							$invoice->paye = 0;
+							$invoice->date = dol_now();
+							$invoice->cond_reglement_id = $contact->cond_reglement_id;
+							$invoice->fk_project = $project->id;
 
-							if (empty($facture->cond_reglement_id)) {
+							if (empty($invoice->cond_reglement_id)) {
 								$paymenttermstatic = new PaymentTerm($contact->db);
-								$facture->cond_reglement_id = $paymenttermstatic->getDefaultId();
-								if (empty($facture->cond_reglement_id)) {
+								$invoice->cond_reglement_id = $paymenttermstatic->getDefaultId();
+								if (empty($invoice->cond_reglement_id)) {
 									$error++;
 									$contact->error = 'ErrorNoPaymentTermRECEPFound';
 									$contact->errors[] = $contact->error;
 								}
 							}
-							$resultfacture = $facture->create($user);
-							if ($resultfacture <= 0) {
-								$contact->error = $facture->error;
-								$contact->errors = $facture->errors;
+							$resultinvoice = $invoice->create($user);
+							if ($resultinvoice <= 0) {
+								$contact->error = $invoice->error;
+								$contact->errors = $invoice->errors;
 								$error++;
 							} else {
 								$db->commit();
-								$facture->add_object_linked($conforbooth->element, $conforbooth->id);
+								$invoice->add_object_linked($conforbooth->element, $conforbooth->id);
 							}
 						}
 
-						if (!$error && is_object($facture)) {
+						if (!$error && is_object($invoice)) {
 							// Add line to draft invoice
 							$vattouse = get_default_tva($mysoc, $thirdparty, $productforinvoicerow->id);
-							$result = $facture->addline($langs->trans("BoothLocationFee", $conforbooth->label, dol_print_date($conforbooth->datep, '%d/%m/%y %H:%M:%S'), dol_print_date($conforbooth->datep2, '%d/%m/%y %H:%M:%S')), (float) $project->price_booth, 1, $vattouse, 0, 0, $productforinvoicerow->id, 0, dol_now(), '', 0, 0, 0, 'HT', 0, 1);
+							$result = $invoice->addline($langs->trans("BoothLocationFee", $conforbooth->label, dol_print_date($conforbooth->datep, '%d/%m/%y %H:%M:%S'), dol_print_date($conforbooth->datep2, '%d/%m/%y %H:%M:%S')), (float) $project->price_booth, 1, $vattouse, 0, 0, $productforinvoicerow->id, 0, dol_now(), '', 0, 0, 0, 'HT', 0, 1);
 							if ($result <= 0) {
-								$contact->error = $facture->error;
-								$contact->errors = $facture->errors;
+								$contact->error = $invoice->error;
+								$contact->errors = $invoice->errors;
 								$error++;
 							}
 							/*if (!$error) {
 								$valid = true;
 								$sourcetouse = 'boothlocation';
-								$reftouse = $facture->id;
+								$reftouse = $invoice->id;
 								$redirection = $dolibarr_main_url_root.'/public/payment/newpayment.php?source='.$sourcetouse.'&ref='.$reftouse.'&booth='.$conforbooth->id;
 								if (getDolGlobalString('PAYMENT_SECURITY_TOKEN')) {
 									if (getDolGlobalString('PAYMENT_SECURITY_TOKEN_UNIQUE')) {

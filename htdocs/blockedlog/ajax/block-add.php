@@ -50,8 +50,8 @@ $id = GETPOSTINT('id');
 $element = GETPOST('element', 'alpha');
 $action = GETPOST('action', 'aZ09');
 
-if ($element === 'facture') {
-	$result = restrictedArea($user, 'facture', $id, '', '', 'fk_soc', 'rowid', 0);
+if ($element === 'invoice') {
+	$result = restrictedArea($user, 'invoice', $id, '', '', 'fk_soc', 'rowid', 0);
 } else {
 	accessforbidden('Bad value for element');
 }
@@ -68,13 +68,13 @@ if (empty($action)) {
 	exit;
 }
 
-if ($element === 'facture') {	// Test on permission done in top of page
+if ($element === 'invoice') {	// Test on permission done in top of page
 	require_once DOL_DOCUMENT_ROOT.'/blockedlog/class/blockedlog.class.php';
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
-	$facture = new Facture($db);
-	if ($facture->fetch($id) > 0) {
-		$facture->call_trigger($action, $user);
+	$invoice = new Invoice($db);
+	if ($invoice->fetch($id) > 0) {
+		$invoice->call_trigger($action, $user);
 	}
 
 	print 'Object '.$element.' logged with action code = '.$action;

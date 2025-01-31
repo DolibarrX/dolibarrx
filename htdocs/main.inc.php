@@ -3040,11 +3040,11 @@ function printDropdownQuickadd($mode = 0)
 				"position" => 40,
 			),
 			array(
-				"url" => "/compta/facture/card.php?action=create&amp;mainmenu=billing",
+				"url" => "/compta/invoice/card.php?action=create&amp;mainmenu=billing",
 				"title" => "NewBill@bills",
 				"name" => "Bill@bills",
 				"picture" => "object_bill",
-				"activation" => isModEnabled('invoice') && $user->hasRight("facture", "write"), // vs hooking
+				"activation" => isModEnabled('invoice') && $user->hasRight("invoice", "write"), // vs hooking
 				"position" => 50,
 			),
 			array(
@@ -3072,11 +3072,11 @@ function printDropdownQuickadd($mode = 0)
 				"position" => 80,
 			),
 			array(
-				"url" => "/fourn/facture/card.php?action=create&amp;mainmenu=billing",
+				"url" => "/fourn/invoice/card.php?action=create&amp;mainmenu=billing",
 				"title" => "NewBill@bills",
 				"name" => "SupplierBill@bills",
 				"picture" => "supplier_invoice",
-				"activation" => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight("fournisseur", "facture", "write")) || (isModEnabled("supplier_invoice") && $user->hasRight("supplier_invoice", "write")), // vs hooking
+				"activation" => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight("fournisseur", "invoice", "write")) || (isModEnabled("supplier_invoice") && $user->hasRight("supplier_invoice", "write")), // vs hooking
 				"position" => 90,
 			),
 			array(
@@ -3999,7 +3999,7 @@ if (!function_exists("llxFooter")) {
 
 		// JS wrapper to add log when clicking on download or preview
 		if (isModEnabled('blockedlog') && is_object($object) && !empty($object->id) && $object->id > 0) {
-			if (in_array($object->element, array('facture')) && $object->statut > 0) {       // Restrict for the moment to element 'facture'
+			if (in_array($object->element, array('invoice')) && $object->statut > 0) {       // Restrict for the moment to element 'invoice'
 				print "\n<!-- JS CODE TO ENABLE log when making a download or a preview of a document -->\n";
 				?>
 				<script>

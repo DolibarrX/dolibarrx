@@ -1414,7 +1414,7 @@ class Expedition extends CommonObject
 						if (!empty($this->origin) && $this->origin_id > 0) {
 							$this->fetch_origin();
 							$origin_object = $this->origin_object;
-							'@phan-var-force Facture|Order $origin_object';
+							'@phan-var-force Invoice|Order $origin_object';
 							if ($origin_object->statut == Order::STATUS_SHIPMENTONPROCESS) {     // If order source of shipment is "shipment in progress"
 								// Check if there is no more shipment. If not, we can move back status of order to "validated" instead of "shipment in progress"
 								$origin_object->loadExpeditions();
@@ -1617,7 +1617,7 @@ class Expedition extends CommonObject
 						if (!empty($this->origin) && $this->origin_id > 0) {
 							$this->fetch_origin();
 							$origin_object = $this->origin_object;
-							'@phan-var-force Facture|Order $origin_object';
+							'@phan-var-force Invoice|Order $origin_object';
 							if ($origin_object->statut == Order::STATUS_SHIPMENTONPROCESS) {     // If order source of shipment is "shipment in progress"
 								// Check if there is no more shipment. If not, we can move back status of order to "validated" instead of "shipment in progress"
 								$origin_object->loadExpeditions();

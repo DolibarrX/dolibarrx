@@ -45,7 +45,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 
@@ -392,7 +392,7 @@ if (empty($resHook)) {
 		$validate_invoices = GETPOSTINT('validate_invoices');
 
 		$TFact = [];
-		/** @var FactureFournisseur[] $TFactThird */
+		/** @var InvoiceSupplier[] $TFactThird */
 		$TFactThird = [];
 
 		$nb_bills_created = 0;
@@ -409,7 +409,7 @@ if (empty($resHook)) {
 				continue;
 			}
 
-			$objecttmp = new FactureFournisseur($db);
+			$objecttmp = new InvoiceSupplier($db);
 			if (!empty($createbills_onebythird) && !empty($TFactThird[$cmd->socid])) {
 				$currentIndex++;
 				$objecttmp = $TFactThird[$cmd->socid]; // If option "one bill per third" is set, we use already created supplier invoice.
@@ -430,12 +430,12 @@ if (empty($resHook)) {
 				$objecttmp->ref_supplier = !empty($cmd->ref_supplier) ? $cmd->ref_supplier : $default_ref_supplier;
 				$default_ref_supplier += 1;
 
-				$datefacture = dol_mktime(12, 0, 0, GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'));
-				if (empty($datefacture)) {
-					$datefacture = dol_now();
+				$dateinvoice = dol_mktime(12, 0, 0, GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'));
+				if (empty($dateinvoice)) {
+					$dateinvoice = dol_now();
 				}
 
-				$objecttmp->date = $datefacture;
+				$objecttmp->date = $dateinvoice;
 				$objecttmp->origin    = 'order_supplier';
 				$objecttmp->origin_id = $id_order;
 
@@ -614,8 +614,8 @@ if (empty($resHook)) {
 
 				// Fac builddoc
 				$donotredirect = 1;
-				$upload_dir = $config->fournisseur->facture->dir_output;
-				$permissionToAdd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
+				$upload_dir = $config->fournisseur->invoice->dir_output;
+				$permissionToAdd = ($user->hasRight("fournisseur", "invoice", "creer") || $user->hasRight("supplier_invoice", "creer"));
 				//include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 			}
 
@@ -627,7 +627,7 @@ if (empty($resHook)) {
 
 			if ($nb_bills_created == 1) {
 				$textToShow = $langs->trans('BillXCreated', '{s1}');
-				$textToShow = str_replace('{s1}', '<a href="'.DOL_URL_ROOT.'/fourn/facture/card.php?id='.urlencode((string) ($lastid)).'">'.$lastref.'</a>', $textToShow);
+				$textToShow = str_replace('{s1}', '<a href="'.DOL_URL_ROOT.'/fourn/invoice/card.php?id='.urlencode((string) ($lastid)).'">'.$lastref.'</a>', $textToShow);
 				setEventMessages($textToShow, null, 'mesgs');
 			} else {
 				setEventMessages($langs->trans('BillCreated', $nb_bills_created), null, 'mesgs');
@@ -1236,7 +1236,7 @@ if ($resql) {
 		}
 	}
 
-	if ($user->hasRight('fournisseur', 'facture', 'creer') || $user->hasRight("supplier_invoice", "creer")) {
+	if ($user->hasRight('fournisseur', 'invoice', 'creer') || $user->hasRight("supplier_invoice", "creer")) {
 		$arrayofmassactions['createbills'] = img_picture('', 'supplier_invoice', 'class="picturefixedwidth"').$langs->trans("CreateInvoiceForThisSupplier");
 	}
 	if ($permissiontodelete) {

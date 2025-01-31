@@ -1277,7 +1277,7 @@ class Contact extends CommonObject
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
 				if ($obj->nb) {
-					if ($obj->element == 'facture') {
+					if ($obj->element == 'invoice') {
 						$this->ref_facturation = $obj->nb;
 					} elseif ($obj->element == 'contract') {
 						$this->ref_contract = $obj->nb;

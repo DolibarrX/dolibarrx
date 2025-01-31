@@ -93,7 +93,7 @@ if ($object->fetch($id, $ref)) {
 	$upload_dir = $config->fournisseur->payment->dir_output.'/'.dol_sanitizeFileName($object->ref);
 }
 
-$permissionToAdd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")); // Used by the include of actions_setnotes.inc.php
+$permissionToAdd = ($user->hasRight("fournisseur", "invoice", "creer") || $user->hasRight("supplier_invoice", "creer")); // Used by the include of actions_setnotes.inc.php
 
 
 /*
@@ -122,8 +122,8 @@ if ($object->id > 0) {
 	$morehtmlref = '<div class="refidno">';
 
 	// Date of payment
-	$morehtmlref .= $form->editfieldkey("Date", 'datep', $object->date, $object, $object->statut == 0 && ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")), 'datehourpicker', '', null, 3).': ';
-	$morehtmlref .= $form->editfieldval("Date", 'datep', $object->date, $object, $object->statut == 0 && ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")), 'datehourpicker', '', null, $langs->trans('PaymentDateUpdateSucceeded'));
+	$morehtmlref .= $form->editfieldkey("Date", 'datep', $object->date, $object, $object->statut == 0 && ($user->hasRight("fournisseur", "invoice", "creer") || $user->hasRight("supplier_invoice", "creer")), 'datehourpicker', '', null, 3).': ';
+	$morehtmlref .= $form->editfieldval("Date", 'datep', $object->date, $object, $object->statut == 0 && ($user->hasRight("fournisseur", "invoice", "creer") || $user->hasRight("supplier_invoice", "creer")), 'datehourpicker', '', null, $langs->trans('PaymentDateUpdateSucceeded'));
 
 	// Payment mode
 	$morehtmlref .= '<br>'.$langs->trans('PaymentMode').' : ';

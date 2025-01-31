@@ -24,7 +24,7 @@
 
 /**
  * \file       htdocs/product/popuprop.php
- * \ingroup    propal, order, facture, produit
+ * \ingroup    propal, order, invoice, produit
  * \brief      List of products or services by popularity
  */
 
@@ -142,8 +142,8 @@ $infoprod = [];
 // Add lines for object
 $sql = "SELECT p.rowid, p.label, p.ref, p.fk_product_type as type, p.tobuy, p.tosell, p.tobatch, p.barcode, SUM(pd.qty) as c";
 $textforqty = 'Qty';
-if ($mode == 'facture') {
-	$sql .= " FROM ".MAIN_DB_PREFIX."facturedet as pd";
+if ($mode == 'invoice') {
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoicedet as pd";
 } elseif ($mode == 'order') {
 	$textforqty = 'NbOfQtyInOrders';
 	$sql .= " FROM ".MAIN_DB_PREFIX."orderdet as pd";
@@ -195,7 +195,7 @@ if (!empty($mode) && $mode != '-1') {
 $arrayofmode = array(
 	'propal' => 'Proposals',
 	'order' => 'Orders',
-	'facture' => 'Facture'
+	'invoice' => 'Invoice'
 	);
 $title .= ' '.$form->selectarray('mode', $arrayofmode, $mode, 1, 0, 0, '', 1);
 $title .= ' <input type="submit" class="button small" name="refresh" value="'.$langs->trans("Refresh").'">';

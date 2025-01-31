@@ -62,7 +62,7 @@ if (!$sortfield) {
 }
 
 // Security check
-if (!$user->hasRight('facture', 'lire')) {
+if (!$user->hasRight('invoice', 'lire')) {
 	accessforbidden();
 }
 
@@ -83,8 +83,8 @@ $sql = "SELECT p.rowid, p.datep as dp, p.amount, p.statut";
 $sql .= ", c.libelle as paiement_type, p.num_paiement as num_payment";
 $sql .= " FROM ".MAIN_DB_PREFIX."paiement as p LEFT JOIN ".MAIN_DB_PREFIX."c_paiement as c ON p.fk_paiement = c.id";
 if ($socid) {
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON p.rowid = pf.fk_paiement";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture as f ON pf.fk_facture = f.rowid";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON p.rowid = pf.fk_paiement";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice as f ON pf.fk_invoice = f.rowid";
 }
 $sql .= " WHERE p.entity IN (".getEntity('invoice').')';
 if ($socid) {

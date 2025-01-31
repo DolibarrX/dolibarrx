@@ -1454,9 +1454,9 @@ if (empty($resHook)) {
 
 				if (
 					GETPOST('generate_deposit', 'alpha') == 'on' && !empty($deposit_percent_from_payment_terms)
-					&& isModEnabled('invoice') && $user->hasRight('facture', 'creer')
+					&& isModEnabled('invoice') && $user->hasRight('invoice', 'creer')
 				) {
-					require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
+					require_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
 
 					$date = dol_mktime(0, 0, 0, GETPOSTINT('datefmonth'), GETPOSTINT('datefday'), GETPOSTINT('datefyear'));
 					$forceFields = [];
@@ -1465,11 +1465,11 @@ if (empty($resHook)) {
 						$forceFields['date_pointoftax'] = dol_mktime(0, 0, 0, GETPOSTINT('date_pointoftaxmonth'), GETPOSTINT('date_pointoftaxday'), GETPOSTINT('date_pointoftaxyear'));
 					}
 
-					$deposit = Facture::createDepositFromOrigin($object, $date, GETPOSTINT('cond_reglement_id'), $user, 0, GETPOSTINT('validate_generated_deposit') == 'on', $forceFields);
+					$deposit = Invoice::createDepositFromOrigin($object, $date, GETPOSTINT('cond_reglement_id'), $user, 0, GETPOSTINT('validate_generated_deposit') == 'on', $forceFields);
 
 					if ($deposit) {
 						setEventMessage('DepositGenerated');
-						$locationTarget = DOL_URL_ROOT . '/compta/facture/card.php?id=' . $deposit->id;
+						$locationTarget = DOL_URL_ROOT . '/compta/invoice/card.php?id=' . $deposit->id;
 					} else {
 						$error++;
 						setEventMessages($object->error, $object->errors, 'errors');
@@ -1635,9 +1635,9 @@ if (empty($resHook)) {
 			} elseif ($fromElement == 'propal') {
 				dol_include_once('/comm/'.$fromElement.'/class/'.$fromElement.'.class.php');
 				$lineClassName = 'PropaleLigne';
-			} elseif ($fromElement == 'facture') {
+			} elseif ($fromElement == 'invoice') {
 				dol_include_once('/compta/'.$fromElement.'/class/'.$fromElement.'.class.php');
-				$lineClassName = 'FactureLigne';
+				$lineClassName = 'InvoiceLine';
 			}
 			$nextRang = count($object->lines) + 1;
 			$importCount = 0;
@@ -2349,17 +2349,17 @@ if ($action == 'create' && $usercancreate) {
 				// It may also break step of creating an order when invoicing must be done from proposals and not from orders
 				$deposit_percent_from_payment_terms = (float) getDictionaryValue('c_payment_term', 'deposit_percent', $object->cond_reglement_id);
 
-				if (!empty($deposit_percent_from_payment_terms) && isModEnabled('invoice') && $user->hasRight('facture', 'creer')) {
-					require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
+				if (!empty($deposit_percent_from_payment_terms) && isModEnabled('invoice') && $user->hasRight('invoice', 'creer')) {
+					require_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
 
 					$object->fetchObjectLinked();
 
 					$eligibleForDepositGeneration = true;
 
-					if (array_key_exists('facture', $object->linkedObjects)) {
-						foreach ($object->linkedObjects['facture'] as $invoice) {
-							'@phan-var-force Facture $invoice';
-							if ($invoice->type == Facture::TYPE_DEPOSIT) {
+					if (array_key_exists('invoice', $object->linkedObjects)) {
+						foreach ($object->linkedObjects['invoice'] as $invoice) {
+							'@phan-var-force Invoice $invoice';
+							if ($invoice->type == Invoice::TYPE_DEPOSIT) {
 								$eligibleForDepositGeneration = false;
 								break;
 							}
@@ -2370,10 +2370,10 @@ if ($action == 'create' && $usercancreate) {
 						foreach ($object->linkedObjects['propal'] as $proposal) {
 							$proposal->fetchObjectLinked();
 
-							if (array_key_exists('facture', $proposal->linkedObjects)) {
-								foreach ($proposal->linkedObjects['facture'] as $invoice) {
-									'@phan-var-force Facture $invoice';
-									if ($invoice->type == Facture::TYPE_DEPOSIT) {
+							if (array_key_exists('invoice', $proposal->linkedObjects)) {
+								foreach ($proposal->linkedObjects['invoice'] as $invoice) {
+									'@phan-var-force Invoice $invoice';
+									if ($invoice->type == Invoice::TYPE_DEPOSIT) {
 										$eligibleForDepositGeneration = false;
 										break 2;
 									}
@@ -2620,16 +2620,16 @@ if ($action == 'create' && $usercancreate) {
 
 			// Relative and absolute discounts
 			if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
-				$filterabsolutediscount = "fk_facture_source IS NULL"; // If we want deposit to be subtracted to payments only and not to total of final invoice
-				$filtercreditnote = "fk_facture_source IS NOT NULL"; // If we want deposit to be subtracted to payments only and not to total of final invoice
+				$filterabsolutediscount = "fk_invoice_source IS NULL"; // If we want deposit to be subtracted to payments only and not to total of final invoice
+				$filtercreditnote = "fk_invoice_source IS NOT NULL"; // If we want deposit to be subtracted to payments only and not to total of final invoice
 			} else {
-				$filterabsolutediscount = "fk_facture_source IS NULL OR (description LIKE '(DEPOSIT)%' AND description NOT LIKE '(EXCESS RECEIVED)%')";
-				$filtercreditnote = "fk_facture_source IS NOT NULL AND (description NOT LIKE '(DEPOSIT)%' OR description LIKE '(EXCESS RECEIVED)%')";
+				$filterabsolutediscount = "fk_invoice_source IS NULL OR (description LIKE '(DEPOSIT)%' AND description NOT LIKE '(EXCESS RECEIVED)%')";
+				$filtercreditnote = "fk_invoice_source IS NOT NULL AND (description NOT LIKE '(DEPOSIT)%' OR description LIKE '(EXCESS RECEIVED)%')";
 			}
 
 			$addrelativediscount = '<a href="'.DOL_URL_ROOT.'/comm/remise.php?id='.$soc->id.'&backtopage='.urlencode($_SERVER["PHP_SELF"]).'?facid='.$object->id.'">'.$langs->trans("EditRelativeDiscounts").'</a>';
 			$addabsolutediscount = '<a href="'.DOL_URL_ROOT.'/comm/remx.php?id='.$soc->id.'&backtopage='.urlencode($_SERVER["PHP_SELF"]).'?facid='.$object->id.'">'.$langs->trans("EditGlobalDiscounts").'</a>';
-			$addcreditnote = '<a href="'.DOL_URL_ROOT.'/compta/facture/card.php?action=create&socid='.$soc->id.'&type=2&backtopage='.urlencode($_SERVER["PHP_SELF"]).'?facid='.$object->id.'">'.$langs->trans("AddCreditNote").'</a>';
+			$addcreditnote = '<a href="'.DOL_URL_ROOT.'/compta/invoice/card.php?action=create&socid='.$soc->id.'&type=2&backtopage='.urlencode($_SERVER["PHP_SELF"]).'?facid='.$object->id.'">'.$langs->trans("AddCreditNote").'</a>';
 
 			print '<tr><td class="titlefield">'.$langs->trans('Discounts').'</td><td class="valuefield">';
 
@@ -3122,14 +3122,14 @@ if ($action == 'create' && $usercancreate) {
 				$arrayforbutaction[] = array(
 					'lang' => 'bills',
 					'enabled' => (isModEnabled('invoice') && $object->statut > Order::STATUS_DRAFT && !$object->billed && $object->total_ttc >= 0),
-					'perm' => ($user->hasRight('facture', 'creer') && !getDolGlobalInt('WORKFLOW_DISABLE_CREATE_INVOICE_FROM_ORDER')),
+					'perm' => ($user->hasRight('invoice', 'creer') && !getDolGlobalInt('WORKFLOW_DISABLE_CREATE_INVOICE_FROM_ORDER')),
 					'label' => 'CreateBill',
-					'url' => '/compta/facture/card.php?action=create&amp;token=' . newToken() . '&amp;origin=' . urlencode($object->element) . '&amp;originid=' . $object->id . '&amp;socid=' . $object->socid
+					'url' => '/compta/invoice/card.php?action=create&amp;token=' . newToken() . '&amp;origin=' . urlencode($object->element) . '&amp;originid=' . $object->id . '&amp;socid=' . $object->socid
 				);
 				/*
-				 if (isModEnabled('facture') && $object->statut > Order::STATUS_DRAFT && !$object->billed && $object->total_ttc >= 0) {
-				 if (isModEnabled('facture') && $user->hasRight('facture', 'creer') && empty($config->global->WORKFLOW_DISABLE_CREATE_INVOICE_FROM_ORDER)) {
-				 print dolGetButtonAction('', $langs->trans('CreateBill'), 'default', DOL_URL_ROOT.'/compta/facture/card.php?action=create&amp;token='.newToken().'&amp;origin='.urlencode($object->element).'&amp;originid='.$object->id.'&amp;socid='.$object->socid, '');
+				 if (isModEnabled('invoice') && $object->statut > Order::STATUS_DRAFT && !$object->billed && $object->total_ttc >= 0) {
+				 if (isModEnabled('invoice') && $user->hasRight('invoice', 'creer') && empty($config->global->WORKFLOW_DISABLE_CREATE_INVOICE_FROM_ORDER)) {
+				 print dolGetButtonAction('', $langs->trans('CreateBill'), 'default', DOL_URL_ROOT.'/compta/invoice/card.php?action=create&amp;token='.newToken().'&amp;origin='.urlencode($object->element).'&amp;originid='.$object->id.'&amp;socid='.$object->socid, '');
 				 }
 				 }*/
 
@@ -3210,7 +3210,7 @@ if ($action == 'create' && $usercancreate) {
 			$compatibleImportElementsList = false;
 			if ($usercancreate
 				&& $object->statut == Order::STATUS_DRAFT) {
-				$compatibleImportElementsList = array('order', 'propal', 'facture'); // import from linked elements
+				$compatibleImportElementsList = array('order', 'propal', 'invoice'); // import from linked elements
 			}
 			$somethingshown = $form->showLinkedObjectBlock($object, $linktoelem, $compatibleImportElementsList);
 

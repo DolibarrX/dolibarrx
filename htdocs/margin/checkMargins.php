@@ -27,7 +27,7 @@
 
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/margin/lib/margins.lib.php';
 
@@ -86,7 +86,7 @@ if (GETPOST("button_search_x") || GETPOST("button_search")) {
 	$action = 'update';
 }
 
-$permissiontocreate = $user->hasRight('facture', 'creer');
+$permissiontocreate = $user->hasRight('invoice', 'creer');
 
 
 /*
@@ -120,7 +120,7 @@ if (empty($resHook)) {
 				if (count($tmp_array) > 0) {
 					$invoicedet_id = $tmp_array[1];
 					if (!empty($invoicedet_id)) {
-						$sql = 'UPDATE '.MAIN_DB_PREFIX.'facturedet';
+						$sql = 'UPDATE '.MAIN_DB_PREFIX.'invoicedet';
 						$sql .= " SET buy_price_ht = ".((float) price2num($value));
 						$sql .= ' WHERE rowid = '.((int) $invoicedet_id);
 						$result = $db->query($sql);
@@ -159,7 +159,7 @@ if (empty($resHook)) {
 
 $userstatic = new User($db);
 $companystatic = new Societe($db);
-$invoicestatic = new Facture($db);
+$invoicestatic = new Invoice($db);
 $productstatic = new Product($db);
 
 $form = new Form($db);
@@ -222,13 +222,13 @@ print dol_get_fiche_end();
 $arrayfields = [];
 $massactionbutton = '';
 
-$invoice_status_except_list = array(Facture::STATUS_DRAFT, Facture::STATUS_ABANDONED);
+$invoice_status_except_list = array(Invoice::STATUS_DRAFT, Invoice::STATUS_ABANDONED);
 
 $sql = "SELECT";
 $sql .= " f.ref, f.rowid as invoiceid,";
 $sql .= " d.rowid as invoicedetid, d.product_type, d.buy_price_ht, d.total_ht, d.subprice, d.label, d.description, d.qty, d.fk_product";
-$sql .= " FROM ".MAIN_DB_PREFIX."facture as f ";
-$sql .= " INNER JOIN ".MAIN_DB_PREFIX."facturedet as d ON d.fk_facture = f.rowid";
+$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f ";
+$sql .= " INNER JOIN ".MAIN_DB_PREFIX."invoicedet as d ON d.fk_invoice = f.rowid";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON d.fk_product = p.rowid";
 $sql .= " WHERE f.fk_statut NOT IN (".$db->sanitize(implode(', ', $invoice_status_except_list)).")";
 $sql .= " AND f.entity IN (".getEntity('invoice').") ";

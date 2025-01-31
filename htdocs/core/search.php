@@ -84,11 +84,11 @@ if (GETPOST('search_contract') != '') {
 	exit;
 }
 if (GETPOST('search_invoice') != '') {
-	header("Location: ".DOL_URL_ROOT.'/compta/facture/list.php?sall='.urlencode(GETPOST('search_invoice')));
+	header("Location: ".DOL_URL_ROOT.'/compta/invoice/list.php?sall='.urlencode(GETPOST('search_invoice')));
 	exit;
 }
 if (GETPOST('search_supplier_invoice') != '') {
-	header("Location: ".DOL_URL_ROOT.'/fourn/facture/list.php?sall='.urlencode(GETPOST('search_supplier_invoice')));
+	header("Location: ".DOL_URL_ROOT.'/fourn/invoice/list.php?sall='.urlencode(GETPOST('search_supplier_invoice')));
 	exit;
 }
 if (GETPOST('search_supplier_proposal') != '') {

@@ -662,12 +662,12 @@ abstract class CommonDocGenerator
 		$sumpayed = $sumdeposit = $sumcreditnote = '';
 		$already_payed_all = 0;
 
-		if ($object->element == 'facture') {
-			/** @var Facture $object */
-			'@phan-var-force Facture $object';
-			$invoice_source = new Facture($this->db);
-			if ($object->fk_facture_source > 0) {
-				$invoice_source->fetch($object->fk_facture_source);
+		if ($object->element == 'invoice') {
+			/** @var Invoice $object */
+			'@phan-var-force Invoice $object';
+			$invoice_source = new Invoice($this->db);
+			if ($object->fk_invoice_source > 0) {
+				$invoice_source->fetch($object->fk_invoice_source);
 			}
 			$sumpayed = $object->getSommePaiement();
 			$sumdeposit = $object->getSumDepositsUsed();
@@ -752,7 +752,7 @@ abstract class CommonDocGenerator
 			$array_key.'_remain_to_pay' => price2num($object->total_ttc - $already_payed_all, 'MT')
 		);
 
-		if (in_array($object->element, array('facture', 'invoice', 'supplier_invoice', 'facture_fournisseur'))) {
+		if (in_array($object->element, array('invoice', 'invoice', 'supplier_invoice', 'invoice_fournisseur'))) {
 			$bank_account = null;
 
 			if (property_exists($object, 'fk_account') && $object->fk_account > 0) {
@@ -771,7 +771,7 @@ abstract class CommonDocGenerator
 			$resarray[$array_key.'_bank_country'] = (empty($bank_account) ? '' : $bank_account->country);
 		}
 
-		if (method_exists($object, 'getTotalDiscount') && in_array(get_class($object), array('Propal', 'Proposal', 'Order', 'Facture', 'SupplierProposal', 'OrderFournisseur', 'FactureFournisseur'))) {
+		if (method_exists($object, 'getTotalDiscount') && in_array(get_class($object), array('Propal', 'Proposal', 'Order', 'Invoice', 'SupplierProposal', 'OrderFournisseur', 'InvoiceSupplier'))) {
 			$resarray[$array_key.'_total_discount_ht_locale'] = price($object->getTotalDiscount(), 0, $outputlangs);
 			$resarray[$array_key.'_total_discount_ht'] = price2num($object->getTotalDiscount());
 		} else {
@@ -779,7 +779,7 @@ abstract class CommonDocGenerator
 			$resarray[$array_key.'_total_discount_ht'] = '';
 		}
 
-		if ($object->element == 'facture' || $object->element == 'invoice_supplier') {
+		if ($object->element == 'invoice' || $object->element == 'invoice_supplier') {
 			if ($object->type == 0) {
 				$resarray[$array_key.'_type_label'] = $outputlangs->transnoentities("PdfInvoiceTitle");
 			} else {
@@ -832,7 +832,7 @@ abstract class CommonDocGenerator
 			// Note that this added fields does not match a field into database in Dolibarr (Dolibarr manage discount on lines not as a global property of object)
 			$resarray['object_total_up'] = $totalUp;
 			$resarray['object_total_up_locale'] = price($resarray['object_total_up'], 0, $outputlangs);
-			if (method_exists($object, 'getTotalDiscount') && in_array(get_class($object), array('Propal', 'Proposal', 'Order', 'Facture', 'SupplierProposal', 'OrderFournisseur', 'FactureFournisseur'))) {
+			if (method_exists($object, 'getTotalDiscount') && in_array(get_class($object), array('Propal', 'Proposal', 'Order', 'Invoice', 'SupplierProposal', 'OrderFournisseur', 'InvoiceSupplier'))) {
 				$totalDiscount = $object->getTotalDiscount();
 			} else {
 				$totalDiscount = 0;

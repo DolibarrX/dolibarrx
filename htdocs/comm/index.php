@@ -838,7 +838,7 @@ if (isModEnabled('propal') && is_object($propalstatic)) {
 if (isModEnabled('order')) {
 	$orderstatic = new Order($db);
 
-	$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.facture, c.date_cloture as datec, c.tms as datem,";
+	$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.invoice, c.date_cloture as datec, c.tms as datem,";
 	$sql .= " s.nom as name, s.rowid as socid";
 	$sql .= ", s.client";
 	$sql .= ", s.code_client";
@@ -910,7 +910,7 @@ if (isModEnabled('order')) {
 				print dol_print_date($datem, 'day', 'tzuserrel');
 				print '</td>';
 
-				print '<td class="right">'.$orderstatic->LibStatut($obj->status, $obj->facture, 3).'</td>';
+				print '<td class="right">'.$orderstatic->LibStatut($obj->status, $obj->invoice, 3).'</td>';
 				print '</tr>';
 				$i++;
 			}
@@ -1237,7 +1237,7 @@ if (isModEnabled("propal") && $user->hasRight("propal", "lire")) {
  * Opened (validated) order
  */
 if (isModEnabled('order') && $user->hasRight('order', 'lire') && is_object($orderstatic)) {
-	$sql = "SELECT c.rowid as orderid, c.total_ttc, c.total_ht, c.total_tva, c.ref, c.ref_client, c.fk_statut, c.date_valid as dv, c.facture as billed";
+	$sql = "SELECT c.rowid as orderid, c.total_ttc, c.total_ht, c.total_tva, c.ref, c.ref_client, c.fk_statut, c.date_valid as dv, c.invoice as billed";
 	$sql .= ", s.rowid as socid, s.nom as name, s.name_alias";
 	$sql .= ", s.code_client, s.code_compta as code_compta_client, s.client";
 	$sql .= ", s.code_fournisseur, s.code_compta_fournisseur, s.fournisseur";

@@ -91,11 +91,11 @@ class Societe extends CommonObject
 		'supplier_proposal' => array('name' => 'SupplierProposal'),
 		'propal' => array('name' => 'Proposal'),
 		'order' => array('name' => 'Order'),
-		'facture' => array('name' => 'Invoice'),
-		'facture_rec' => array('name' => 'RecurringInvoiceTemplate'),
+		'invoice' => array('name' => 'Invoice'),
+		'invoice_rec' => array('name' => 'RecurringInvoiceTemplate'),
 		'contract' => array('name' => 'Contract'),
 		'fichinter' => array('name' => 'Fichinter'),
-		'facture_fourn' => array('name' => 'SupplierInvoice'),
+		'invoice_fourn' => array('name' => 'SupplierInvoice'),
 		'order_fournisseur' => array('name' => 'SupplierOrder'),
 		'projet' => array('name' => 'Project'),
 		'expedition' => array('name' => 'Shipment'),
@@ -5002,9 +5002,9 @@ class Societe extends CommonObject
 	 */
 	public function getOutstandingBills($mode = 'customer', $late = 0)
 	{
-		$table = 'facture';
+		$table = 'invoice';
 		if ($mode == 'supplier') {
-			$table = 'facture_fourn';
+			$table = 'invoice_fourn';
 		}
 
 		/* Accurate value of remain to pay is to sum remaintopay for each invoice
@@ -5020,7 +5020,7 @@ class Societe extends CommonObject
 			$sql .= " AND date_lim_reglement < '".$this->db->idate(dol_now())."'";
 		}
 		if ($mode == 'supplier') {
-			$sql .= " AND entity IN (".getEntity('facture_fourn').")";
+			$sql .= " AND entity IN (".getEntity('invoice_fourn').")";
 		} else {
 			$sql .= " AND entity IN (".getEntity('invoice').")";
 		}
@@ -5034,11 +5034,11 @@ class Societe extends CommonObject
 			$arrayofref = [];
 			$arrayofrefopened = [];
 			if ($mode == 'supplier') {
-				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-				$tmpobject = new FactureFournisseur($this->db);
+				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
+				$tmpobject = new InvoiceSupplier($this->db);
 			} else {
-				require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-				$tmpobject = new Facture($this->db);
+				require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+				$tmpobject = new Invoice($this->db);
 			}
 			while ($obj = $this->db->fetch_object($resql)) {
 				$arrayofref[$obj->rowid] = $obj->ref;
@@ -5068,7 +5068,7 @@ class Societe extends CommonObject
 
 				//if credit note is converted but not used
 				// TODO Do this also for customer ?
-				if ($mode == 'supplier' && $obj->type == FactureFournisseur::TYPE_CREDIT_NOTE && $tmpobject->isCreditNoteUsed()) {
+				if ($mode == 'supplier' && $obj->type == InvoiceSupplier::TYPE_CREDIT_NOTE && $tmpobject->isCreditNoteUsed()) {
 					$remainingcreditnote = $tmpobject->getSumFromThisCreditNotesNotUsed();
 					$remaintopay -= $remainingcreditnote;
 					$outstandingOpened -= $remainingcreditnote;
@@ -5441,7 +5441,7 @@ class Societe extends CommonObject
 	 *
 	 *    @param	int         $list       0:Return array contains all properties, 1:Return array contains just id
 	 *    @param    string      $code       Filter on this code of contact type ('SHIPPING', 'BILLING', ...)
-	 *	  @param    string      $element    Filter on this element of default contact type ('facture', 'propal', 'order' ...)
+	 *	  @param    string      $element    Filter on this element of default contact type ('invoice', 'propal', 'order' ...)
 	 *    @return	array|int		        Array of contacts, -1 if error
 	 *
 	 */
@@ -5628,15 +5628,15 @@ class Societe extends CommonObject
 					'ActionComm' => '/comm/action/class/actioncomm.class.php',
 					'Propal' => '/comm/propal/class/propal.class.php',
 					'Order' => '/order/class/order.class.php',
-					'Facture' => '/compta/facture/class/facture.class.php',
-					'FactureRec' => '/compta/facture/class/facture-rec.class.php',
+					'Invoice' => '/compta/invoice/class/invoice.class.php',
+					'InvoiceRec' => '/compta/invoice/class/invoice-rec.class.php',
 					'LignePrelevement' => '/compta/prelevement/class/ligneprelevement.class.php',
 					'Contact' => '/contact/class/contact.class.php',
 					'Contract' => '/contract/class/contract.class.php',
 					'Expedition' => '/expedition/class/expedition.class.php',
 					'OrderFournisseur' => '/fourn/class/fournisseur.order.class.php',
-					'FactureFournisseur' => '/fourn/class/fournisseur.facture.class.php',
-					'FactureFournisseurRec' => '/fourn/class/fournisseur.facture-rec.class.php',
+					'InvoiceSupplier' => '/fourn/class/fournisseur.invoice.class.php',
+					'InvoiceSupplierRec' => '/fourn/class/fournisseur.invoice-rec.class.php',
 					'Reception' => '/reception/class/reception.class.php',
 					'SupplierProposal' => '/supplier_proposal/class/supplier_proposal.class.php',
 					'ProductFournisseur' => '/fourn/class/fournisseur.product.class.php',

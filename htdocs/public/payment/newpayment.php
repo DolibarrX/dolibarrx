@@ -71,7 +71,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/eventorganization/class/conferenceorboothattendee.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societeaccount.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 
 /**
@@ -142,7 +142,7 @@ if ($source == 'organizedeventregistration') {		// Test on permission not requir
 	$attendee = new ConferenceOrBoothAttendee($db);
 
 	$invoiceid = GETPOSTINT('ref');
-	$invoice = new Facture($db);
+	$invoice = new Invoice($db);
 
 	$resultinvoice = $invoice->fetch($invoiceid);
 
@@ -192,7 +192,7 @@ if ($source == 'organizedeventregistration') {		// Test on permission not requir
 } elseif ($source == 'boothlocation') {			// Test on permission not required here (anonymous action protected by mitigation of /public/... urls)
 	// Getting the amount to pay, the invoice, finding the thirdparty
 	$invoiceid = GETPOST('ref');
-	$invoice = new Facture($db);
+	$invoice = new Invoice($db);
 	$resultinvoice = $invoice->fetch($invoiceid);
 	if ($resultinvoice <= 0) {
 		setEventMessages(null, $invoice->errors, "errors");
@@ -1224,9 +1224,9 @@ if ($source == 'invoice') {
 	$langs->load("bills");
 	$form->load_cache_types_paiements();
 
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
-	$invoice = new Facture($db);
+	$invoice = new Invoice($db);
 	$result = $invoice->fetch(0, $ref);
 	if ($result <= 0) {
 		$mesg = $invoice->error;
@@ -1280,7 +1280,7 @@ if ($source == 'invoice') {
 	print '<input type="hidden" name="s" value="'.dol_escape_htmltag($source).'">';
 	print '<input type="hidden" name="ref" value="'.dol_escape_htmltag($invoice->ref).'">';
 	print '<input type="hidden" name="dol_id" value="'.dol_escape_htmltag((string) $invoice->id).'">';
-	$directdownloadlink = $invoice->getLastMainDocLink('facture');
+	$directdownloadlink = $invoice->getLastMainDocLink('invoice');
 	if ($directdownloadlink) {
 		print '<br><a href="'.$directdownloadlink.'">';
 		print img_mime($invoice->last_main_doc, '');

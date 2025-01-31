@@ -84,7 +84,7 @@ $modules = array(
 			'img' => 'order'
 		)
 	),
-	'facture' => array(
+	'invoice' => array(
 		array(
 			'code' => 'MAIN_DELAY_CUSTOMER_BILLS_UNPAYED',
 			'img' => 'bill'

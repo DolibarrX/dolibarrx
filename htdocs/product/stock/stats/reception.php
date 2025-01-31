@@ -23,7 +23,7 @@
 
 /**
  *	\file       htdocs/product/stock/stats/reception.php
- *	\ingroup    product service facture
+ *	\ingroup    product service invoice
  *	\brief      Page of reception statistics for a batch
  */
 

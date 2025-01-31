@@ -453,7 +453,7 @@ if (!$error && $db->connected && $action == "set") {	// Test on permission not r
 			$dir[] = $main_data_dir."/mycompany";
 			$dir[] = $main_data_dir."/medias";
 			$dir[] = $main_data_dir."/users";
-			$dir[] = $main_data_dir."/facture";
+			$dir[] = $main_data_dir."/invoice";
 			$dir[] = $main_data_dir."/propale";
 			$dir[] = $main_data_dir."/ficheinter";
 			$dir[] = $main_data_dir."/produit";

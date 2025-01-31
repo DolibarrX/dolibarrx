@@ -164,7 +164,7 @@ print '</div><div class="fichetwothirdright">';
  * Latest modified orders
  */
 
-$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.facture, c.date_cloture as datec, c.tms as datem,";
+$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.invoice, c.date_cloture as datec, c.tms as datem,";
 $sql .= " s.nom as name, s.rowid as socid";
 $sql .= ", s.client";
 $sql .= ", s.code_client";
@@ -236,7 +236,7 @@ if ($resql) {
 			print dol_print_date($datem, 'day', 'tzuserrel');
 			print '</td>';
 
-			print '<td class="right">'.$orderstatic->LibStatut($obj->status, $obj->facture, 3).'</td>';
+			print '<td class="right">'.$orderstatic->LibStatut($obj->status, $obj->invoice, 3).'</td>';
 			print '</tr>';
 			$i++;
 		}
@@ -251,7 +251,7 @@ if ($resql) {
  * Orders to process
  */
 if (isModEnabled('order')) {
-	$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.facture, c.date_order as date, s.nom as name, s.rowid as socid";
+	$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.invoice, c.date_order as date, s.nom as name, s.rowid as socid";
 	$sql .= ", s.client";
 	$sql .= ", s.code_client";
 	$sql .= ", s.canvas";
@@ -320,7 +320,7 @@ if (isModEnabled('order')) {
 
 				print '<td class="right">'.dol_print_date($db->jdate($obj->date), 'day').'</td>'."\n";
 
-				print '<td class="right">'.$orderstatic->LibStatut($obj->status, $obj->facture, 3).'</td>';
+				print '<td class="right">'.$orderstatic->LibStatut($obj->status, $obj->invoice, 3).'</td>';
 
 				print '</tr>';
 				$i++;
@@ -340,7 +340,7 @@ if (isModEnabled('order')) {
  * Orders that are in process
  */
 if (isModEnabled('order')) {
-	$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.facture, c.date_order as date, s.nom as name, s.rowid as socid";
+	$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.invoice, c.date_order as date, s.nom as name, s.rowid as socid";
 	$sql .= ", s.client";
 	$sql .= ", s.code_client";
 	$sql .= ", s.canvas";
@@ -409,7 +409,7 @@ if (isModEnabled('order')) {
 
 				print '<td class="right">'.dol_print_date($db->jdate($obj->date), 'day').'</td>'."\n";
 
-				print '<td class="right">'.$orderstatic->LibStatut($obj->status, $obj->facture, 3).'</td>';
+				print '<td class="right">'.$orderstatic->LibStatut($obj->status, $obj->invoice, 3).'</td>';
 
 				print '</tr>';
 				$i++;

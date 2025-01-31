@@ -1290,25 +1290,25 @@ while ($i < min($num, $limit)) {
 		if ($line->doc_type == 'customer_invoice') {
 			$langs->loadLangs(array('bills'));
 
-			require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-			$objectstatic = new Facture($db);
+			require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+			$objectstatic = new Invoice($db);
 			$objectstatic->fetch($line->fk_doc);
-			//$modulePart = 'facture';
+			//$modulePart = 'invoice';
 
 			$filename = dol_sanitizeFileName($line->doc_ref);
-			$filedir = $config->facture->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
+			$filedir = $config->invoice->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$objectstatic->id;
 			$documentlink = $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 		} elseif ($line->doc_type == 'supplier_invoice') {
 			$langs->loadLangs(array('bills'));
 
-			require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-			$objectstatic = new FactureFournisseur($db);
+			require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
+			$objectstatic = new InvoiceSupplier($db);
 			$objectstatic->fetch($line->fk_doc);
 
 			$modulePart = 'invoice_supplier';
 			$filename = dol_sanitizeFileName($line->doc_ref);
-			$filedir = $config->fournisseur->facture->dir_output.'/'.get_exdir($line->fk_doc, 2, 0, 0, $objectstatic, $modulePart).dol_sanitizeFileName($line->doc_ref);
+			$filedir = $config->fournisseur->invoice->dir_output.'/'.get_exdir($line->fk_doc, 2, 0, 0, $objectstatic, $modulePart).dol_sanitizeFileName($line->doc_ref);
 			$subdir = get_exdir($objectstatic->id, 2, 0, 0, $objectstatic, $modulePart).dol_sanitizeFileName($line->doc_ref);
 			$documentlink = $formfile->getDocumentsLink($objectstatic->element, $subdir, $filedir);
 		} elseif ($line->doc_type == 'expense_report') {

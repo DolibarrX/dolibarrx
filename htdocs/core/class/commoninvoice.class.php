@@ -308,11 +308,11 @@ abstract class CommonInvoice extends CommonObject
 	 */
 	public function getSommePaiement($multicurrency = 0)
 	{
-		$table = 'paiement_facture';
-		$field = 'fk_facture';
-		if ($this->element == 'facture_fourn' || $this->element == 'invoice_supplier') {
-			$table = 'paiementfourn_facturefourn';
-			$field = 'fk_facturefourn';
+		$table = 'paiement_invoice';
+		$field = 'fk_invoice';
+		if ($this->element == 'invoice_fourn' || $this->element == 'invoice_supplier') {
+			$table = 'paiementfourn_invoicefourn';
+			$field = 'fk_invoicefourn';
 		}
 
 		$sql = "SELECT sum(amount) as amount, sum(multicurrency_amount) as multicurrency_amount";
@@ -359,7 +359,7 @@ abstract class CommonInvoice extends CommonObject
 	 */
 	public function getSumDepositsUsed($multicurrency = 0)
 	{
-		/*if ($this->element == 'facture_fourn' || $this->element == 'invoice_supplier') {
+		/*if ($this->element == 'invoice_fourn' || $this->element == 'invoice_supplier') {
 			// FACTURE_SUPPLIER_DEPOSITS_ARE_JUST_PAYMENTS was never supported for purchase invoice, so we can return 0 with no need of SQL for this case.
 			return 0.0;
 		}*/
@@ -441,7 +441,7 @@ abstract class CommonInvoice extends CommonObject
 
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".$this->db->prefix().$this->table_element;
-		$sql .= " WHERE fk_facture_source = ".((int) $this->id);
+		$sql .= " WHERE fk_invoice_source = ".((int) $this->id);
 		$sql .= " AND type = 2";
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -471,7 +471,7 @@ abstract class CommonInvoice extends CommonObject
 	{
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".$this->db->prefix().$this->table_element;
-		$sql .= " WHERE fk_facture_source = ".((int) $this->id);
+		$sql .= " WHERE fk_invoice_source = ".((int) $this->id);
 		$sql .= " AND type < 2";
 		if ($option == 'validated') {
 			$sql .= ' AND fk_statut = 1';
@@ -513,9 +513,9 @@ abstract class CommonInvoice extends CommonObject
 		$sql = "SELECT pfd.rowid, pfd.traite, pfd.date_demande as date_demande, pfd.date_traite as date_traite, pfd.amount";
 		$sql .= " FROM ".MAIN_DB_PREFIX."prelevement_demande as pfd";
 		if ($type == 'bank-transfer') {
-			$sql .= " WHERE fk_facture_fourn = ".((int) $this->id);
+			$sql .= " WHERE fk_invoice_fourn = ".((int) $this->id);
 		} else {
-			$sql .= " WHERE fk_facture = ".((int) $this->id);
+			$sql .= " WHERE fk_invoice = ".((int) $this->id);
 		}
 		$sql .= " AND pfd.traite = 0";
 		$sql .= " AND pfd.type = 'ban'";
@@ -563,20 +563,20 @@ abstract class CommonInvoice extends CommonObject
 		$retarray = [];
 		$this->error = '';	// By default no error, list can be empty.
 
-		$table = 'paiement_facture';
+		$table = 'paiement_invoice';
 		$table2 = 'paiement';
-		$field = 'fk_facture';
+		$field = 'fk_invoice';
 		$field2 = 'fk_paiement';
 		$field3 = ', p.ref_ext';
 		$field4 = ', p.fk_bank'; // Bank line id
-		$sharedentity = 'facture';
-		if ($this->element == 'facture_fourn' || $this->element == 'invoice_supplier') {
-			$table = 'paiementfourn_facturefourn';
+		$sharedentity = 'invoice';
+		if ($this->element == 'invoice_fourn' || $this->element == 'invoice_supplier') {
+			$table = 'paiementfourn_invoicefourn';
 			$table2 = 'paiementfourn';
-			$field = 'fk_facturefourn';
+			$field = 'fk_invoicefourn';
 			$field2 = 'fk_paiementfourn';
 			$field3 = '';
-			$sharedentity = 'facture_fourn';
+			$sharedentity = 'invoice_fourn';
 		}
 
 		// List of payments
@@ -624,14 +624,14 @@ abstract class CommonInvoice extends CommonObject
 		// Look for credit notes and discounts and deposits
 		if (empty($mode) || $mode == 2) {
 			$sql = '';
-			if ($this->element == 'facture' || $this->element == 'invoice') {
+			if ($this->element == 'invoice' || $this->element == 'invoice') {
 				$sql = "SELECT rc.amount_ttc as amount, rc.multicurrency_amount_ttc as multicurrency_amount, rc.datec as date, f.ref as ref, rc.description as type";
-				$sql .= ' FROM '.$this->db->prefix().'societe_remise_except as rc, '.$this->db->prefix().'facture as f';
-				$sql .= ' WHERE rc.fk_facture_source=f.rowid AND rc.fk_facture = '.((int) $this->id);
+				$sql .= ' FROM '.$this->db->prefix().'societe_remise_except as rc, '.$this->db->prefix().'invoice as f';
+				$sql .= ' WHERE rc.fk_invoice_source=f.rowid AND rc.fk_invoice = '.((int) $this->id);
 				$sql .= ' AND (f.type = 2 OR f.type = 0 OR f.type = 3)'; // Find discount coming from credit note or excess received or deposits (payments from deposits are always null except if FACTURE_DEPOSITS_ARE_JUST_PAYMENTS is set)
-			} elseif ($this->element == 'facture_fourn' || $this->element == 'invoice_supplier') {
+			} elseif ($this->element == 'invoice_fourn' || $this->element == 'invoice_supplier') {
 				$sql = "SELECT rc.amount_ttc as amount, rc.multicurrency_amount_ttc as multicurrency_amount, rc.datec as date, f.ref as ref, rc.description as type";
-				$sql .= ' FROM '.$this->db->prefix().'societe_remise_except as rc, '.$this->db->prefix().'facture_fourn as f';
+				$sql .= ' FROM '.$this->db->prefix().'societe_remise_except as rc, '.$this->db->prefix().'invoice_fourn as f';
 				$sql .= ' WHERE rc.fk_invoice_supplier_source=f.rowid AND rc.fk_invoice_supplier = '.((int) $this->id);
 				$sql .= ' AND (f.type = 2 OR f.type = 0 OR f.type = 3)'; // Find discount coming from credit note or excess received or deposits (payments from deposits are always null except if FACTURE_SUPPLIER_DEPOSITS_ARE_JUST_PAYMENTS is set)
 			}
@@ -836,11 +836,11 @@ abstract class CommonInvoice extends CommonObject
 	public function getSubtypeLabel($table = '')
 	{
 		$subtypeLabel = '';
-		if ($table === 'facture' || $table === 'facture_fourn') {
+		if ($table === 'invoice' || $table === 'invoice_fourn') {
 			$sql = "SELECT s.label FROM " . $this->db->prefix() . $table . " AS f";
 			$sql .= " INNER JOIN " . $this->db->prefix() . "c_invoice_subtype AS s ON f.subtype = s.rowid";
 			$sql .= " WHERE f.ref = '".$this->db->escape($this->ref)."'";
-		} elseif ($table === 'facture_rec' || $table === 'facture_fourn_rec') {
+		} elseif ($table === 'invoice_rec' || $table === 'invoice_fourn_rec') {
 			$sql = "SELECT s.label FROM " . $this->db->prefix() . $table . " AS f";
 			$sql .= " INNER JOIN " . $this->db->prefix() . "c_invoice_subtype AS s ON f.subtype = s.rowid";
 			$sql .= " WHERE f.titre = '".$this->db->escape($this->title)."'";
@@ -1100,12 +1100,12 @@ abstract class CommonInvoice extends CommonObject
 	 *	@param	User	$fuser      				User asking the direct debit transfer
 	 *  @param	float	$amount						Amount we request direct debit for
 	 *  @param	string	$type						'direct-debit' or 'bank-transfer'
-	 *  @param	string	$sourcetype					Source ('facture' or 'supplier_invoice')
+	 *  @param	string	$sourcetype					Source ('invoice' or 'supplier_invoice')
 	 *  @param	int	    $checkduplicateamongall		0=Default (check among open requests only to find if request already exists). 1=Check also among requests completely processed and cancel if at least 1 request exists whatever is its status.
 	 *  @param  int     $ribId						If defined, will use this ID to get the RIB. Otherwise, the default RIB will be taken.
 	 *  @return int         						Return integer <0 if KO, 0 if a request already exists, >0 if OK
 	 */
-	public function demande_prelevement(User $fuser, float $amount = 0, string $type = 'direct-debit', string $sourcetype = 'facture', int $checkduplicateamongall = 0, int $ribId = 0)
+	public function demande_prelevement(User $fuser, float $amount = 0, string $type = 'direct-debit', string $sourcetype = 'invoice', int $checkduplicateamongall = 0, int $ribId = 0)
 	{
 		// phpcs:enable
 		global $config;
@@ -1122,9 +1122,9 @@ abstract class CommonInvoice extends CommonObject
 			$sql = "SELECT count(rowid) as nb";
 			$sql .= " FROM ".$this->db->prefix()."prelevement_demande";
 			if ($type == 'bank-transfer') {
-				$sql .= " WHERE fk_facture_fourn = ".((int) $this->id);
+				$sql .= " WHERE fk_invoice_fourn = ".((int) $this->id);
 			} else {
-				$sql .= " WHERE fk_facture = ".((int) $this->id);
+				$sql .= " WHERE fk_invoice = ".((int) $this->id);
 			}
 			$sql .= " AND type = 'ban'"; // To exclude record done for some online payments
 			if (empty($checkduplicateamongall)) {
@@ -1155,9 +1155,9 @@ abstract class CommonInvoice extends CommonObject
 					if (is_numeric($amount) && $amount != 0) {
 						$sql = 'INSERT INTO '.$this->db->prefix().'prelevement_demande(';
 						if ($type == 'bank-transfer') {
-							$sql .= 'fk_facture_fourn, ';
+							$sql .= 'fk_invoice_fourn, ';
 						} else {
-							$sql .= 'fk_facture, ';
+							$sql .= 'fk_invoice, ';
 						}
 						$sql .= ' amount, date_demande, fk_user_demande, code_bank, code_guichet, number, cle_rib, sourcetype, type, entity';
 						if (empty($bac->id)) {
@@ -1232,10 +1232,10 @@ abstract class CommonInvoice extends CommonObject
 	 *
 	 *	@param      User	$fuser      	User asking the direct debit transfer
 	 *  @param		int		$id				Invoice ID with remain to pay
-	 *  @param		string	$sourcetype		Source ('facture' or 'supplier_invoice')
+	 *  @param		string	$sourcetype		Source ('invoice' or 'supplier_invoice')
 	 *	@return     int         			Return integer <0 if KO, >0 if OK
 	 */
-	public function makeStripeCardRequest($fuser, $id, $sourcetype = 'facture')
+	public function makeStripeCardRequest($fuser, $id, $sourcetype = 'invoice')
 	{
 		// TODO See in sellyoursaas
 		return 0;
@@ -1248,12 +1248,12 @@ abstract class CommonInvoice extends CommonObject
 	 *	@param      User	$fuser      	User asking the direct debit transfer
 	 *  @param		int		$did			ID of unitary payment request to pay
 	 *  @param		string	$type			'direct-debit' or 'bank-transfer'
-	 *  @param		string	$sourcetype		Source ('facture' or 'supplier_invoice')
+	 *  @param		string	$sourcetype		Source ('invoice' or 'supplier_invoice')
 	 *  @param		string	$service		'StripeTest', 'StripeLive', ...
 	 *  @param		string	$forcestripe	To force another stripe env: 'cus_account@pk_...:sk_...'
 	 *	@return     int         			Return integer <0 if KO, >0 if OK
 	 */
-	public function makeStripeSepaRequest($fuser, $did, $type = 'direct-debit', $sourcetype = 'facture', $service = '', $forcestripe = '')
+	public function makeStripeSepaRequest($fuser, $did, $type = 'direct-debit', $sourcetype = 'invoice', $service = '', $forcestripe = '')
 	{
 		global $config, $user, $langs;
 
@@ -1288,17 +1288,17 @@ abstract class CommonInvoice extends CommonObject
 			}
 
 			// Load the pending payment request to process (with rowid=$did)
-			$sql = "SELECT rowid, date_demande, amount, fk_facture, fk_facture_fourn, fk_salary, fk_prelevement_bons";
+			$sql = "SELECT rowid, date_demande, amount, fk_invoice, fk_invoice_fourn, fk_salary, fk_prelevement_bons";
 			$sql .= " FROM ".$this->db->prefix()."prelevement_demande";
 			$sql .= " WHERE rowid = ".((int) $did);
 			if ($type != 'bank-transfer' && $type != 'credit-transfer') {
-				$sql .= " AND fk_facture = ".((int) $this->id);				// Add a protection to not pay another invoice than current one
+				$sql .= " AND fk_invoice = ".((int) $this->id);				// Add a protection to not pay another invoice than current one
 			}
 			if ($type != 'direct-debit') {
 				if ($sourcetype == 'salary') {
 					$sql .= " AND fk_salary = ".((int) $this->id);			// Add a protection to not pay another salary than current one
 				} else {
-					$sql .= " AND fk_facture_fourn = ".((int) $this->id);	// Add a protection to not pay another invoice than current one
+					$sql .= " AND fk_invoice_fourn = ".((int) $this->id);	// Add a protection to not pay another invoice than current one
 				}
 			}
 			$sql .= " AND traite = 0";	// To not process payment request that were already converted into a direct debit or credit transfer order (Note: fk_prelevement_bons is also empty when traite = 0)
@@ -1936,12 +1936,12 @@ abstract class CommonInvoice extends CommonObject
 		$complementaryinfo = '';
 		/*
 		 Example: //S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30
-		 /10/ Numéro de facture – 10201409
-		 /11/ Date de facture – 12.05.2019
+		 /10/ Numéro de invoice – 10201409
+		 /11/ Date de invoice – 12.05.2019
 		 /20/ Référence client – 1400.000-53
 		 /30/ Numéro IDE pour la TVA – CHE-106.017.086 TVA
 		 /31/ Date de la prestation pour la comptabilisation de la TVA – 08.05.2018
-		 /32/ Taux de TVA sur le montant total de la facture – 7.7%
+		 /32/ Taux de TVA sur le montant total de la invoice – 7.7%
 		 /40/ Conditions – 2% d’escompte à 10 jours, paiement net à 30 jours
 		 */
 		$datestring = dol_print_date($this->date, '%y%m%d');

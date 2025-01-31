@@ -27,7 +27,7 @@ require_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
 //require_once DOL_DOCUMENT_ROOT.'/core/lib/stripe.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 if (isModEnabled('accounting')) {
 	require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingjournal.class.php';
 }
@@ -268,11 +268,11 @@ if (!$rowid) {
 				} else {
 					print $FULLTAG;
 				}
-			} elseif ($charge->metadata->dol_type == "invoice" || $charge->metadata->dol_type == "facture") {
-				$object = new Facture($db);
+			} elseif ($charge->metadata->dol_type == "invoice" || $charge->metadata->dol_type == "invoice") {
+				$object = new Invoice($db);
 				$object->fetch($charge->metadata->dol_id);
 				if ($object->id > 0) {
-					print "<a href='".DOL_URL_ROOT."/compta/facture/card.php?facid=".$charge->metadata->dol_id."'>".img_picture('', 'bill')." ".$object->ref."</a>";
+					print "<a href='".DOL_URL_ROOT."/compta/invoice/card.php?facid=".$charge->metadata->dol_id."'>".img_picture('', 'bill')." ".$object->ref."</a>";
 				} else {
 					print $FULLTAG;
 				}

@@ -41,7 +41,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
 /**
  * @var Config $config
@@ -265,7 +265,7 @@ if (empty($resHook)) {
 			}
 			$expd->fetch_thirdparty();
 
-			$objecttmp = new Facture($db);
+			$objecttmp = new Invoice($db);
 
 			dol_include_once('/order/class/order.class.php');
 			$expdCmdSrc = new Order($db);
@@ -289,12 +289,12 @@ if (empty($resHook)) {
 					$objecttmp->ref_customer = $expd->ref_customer;
 				}
 
-				$datefacture = dol_mktime(12, 0, 0, GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'));
-				if (empty($datefacture)) {
-					$datefacture = dol_now();
+				$dateinvoice = dol_mktime(12, 0, 0, GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'));
+				if (empty($dateinvoice)) {
+					$dateinvoice = dol_now();
 				}
 
-				$objecttmp->date = $datefacture;
+				$objecttmp->date = $dateinvoice;
 				$objecttmp->origin_type    = 'shipping';
 				$objecttmp->origin_id = $id_sending;
 
@@ -326,7 +326,7 @@ if (empty($resHook)) {
 
 				$expd->fetchObjectLinked();
 				foreach ($expd->linkedObjectsIds as $sourcetype => $TIds) {
-					if ($sourcetype == 'facture') {
+					if ($sourcetype == 'invoice') {
 						continue;
 					}
 					if (!empty($createbills_onebythird) && !empty($TFactThird[$expd->socid])) {
@@ -504,8 +504,8 @@ if (empty($resHook)) {
 
 				// Builddoc
 				$donotredirect = 1;
-				$upload_dir = $config->facture->dir_output;
-				$permissionToAdd = $user->hasRight('facture', 'creer');
+				$upload_dir = $config->invoice->dir_output;
+				$permissionToAdd = $user->hasRight('invoice', 'creer');
 
 				// Call action to build doc
 				$savobject = $object;
@@ -522,7 +522,7 @@ if (empty($resHook)) {
 
 			if ($nb_bills_created == 1) {
 				$textToShow = $langs->trans('BillXCreated', '{s1}');
-				$textToShow = str_replace('{s1}', '<a href="'.DOL_URL_ROOT.'/compta/facture/card.php?id='.urlencode(strval($lastid)).'">'.$lastref.'</a>', $textToShow);
+				$textToShow = str_replace('{s1}', '<a href="'.DOL_URL_ROOT.'/compta/invoice/card.php?id='.urlencode(strval($lastid)).'">'.$lastref.'</a>', $textToShow);
 				setEventMessages($textToShow, null, 'mesgs');
 			} else {
 				setEventMessages($langs->trans('BillCreated', $nb_bills_created), null, 'mesgs');
@@ -1040,7 +1040,7 @@ $arrayofmassactions = array(
 	'classifyclose' => img_picture('', 'stop-circle', 'class="picturefixedwidth"').$langs->trans("Close"),
 	'presend'  => img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
 );
-if ($user->hasRight('facture', 'creer')) {
+if ($user->hasRight('invoice', 'creer')) {
 	$arrayofmassactions['createbills'] = img_picture('', 'bill', 'class="picturefixedwidth"').$langs->trans("CreateInvoiceForThisCustomerFromSendings");
 }
 if (in_array($massaction, array('presend', 'createbills'))) {

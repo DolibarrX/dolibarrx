@@ -51,7 +51,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/ws.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 
 /**
@@ -337,8 +337,8 @@ function getInvoice($authentication, $id = 0, $ref = '', $ref_ext = '')
 	if (!$error) {
 		$fuser->loadRights();
 
-		if ($fuser->hasRight('facture', 'lire')) {
-			$invoice = new Facture($db);
+		if ($fuser->hasRight('invoice', 'lire')) {
+			$invoice = new Invoice($db);
 			$result = $invoice->fetch($id, $ref, $ref_ext);
 			if ($result > 0) {
 				$linesresp = [];
@@ -453,7 +453,7 @@ function getInvoicesForThirdParty($authentication, $idthirdparty)
 		$linesinvoice = [];
 
 		$sql = 'SELECT f.rowid as facid, ref as ref, ref_ext, type, fk_statut as status, total_ttc, total, tva';
-		$sql .= ' FROM '.MAIN_DB_PREFIX.'facture as f';
+		$sql .= ' FROM '.MAIN_DB_PREFIX.'invoice as f';
 		$sql .= " WHERE f.entity IN (".getEntity('invoice').")";
 		if ($idthirdparty != 'all') {
 			$sql .= " AND f.fk_soc = ".((int) $idthirdparty);
@@ -467,7 +467,7 @@ function getInvoicesForThirdParty($authentication, $idthirdparty)
 				// En attendant remplissage par boucle
 				$obj = $db->fetch_object($resql);
 
-				$invoice = new Facture($db);
+				$invoice = new Invoice($db);
 				$invoice->fetch($obj->facid);
 
 				// Sécurité pour utilisateur externe
@@ -582,14 +582,14 @@ function createInvoice($authentication, $invoice)
 	}
 
 	if (!$error) {
-		$new_invoice = new Facture($db);
+		$new_invoice = new Invoice($db);
 		$new_invoice->socid = $invoice['thirdparty_id'];
 		$new_invoice->type = $invoice['type'];
 		$new_invoice->ref_ext = $invoice['ref_ext'];
 		$new_invoice->date = dol_stringtotime($invoice['date'], 'dayrfc');
 		$new_invoice->note_private = $invoice['note_private'];
 		$new_invoice->note_public = $invoice['note_public'];
-		$new_invoice->statut = Facture::STATUS_DRAFT; // We start with status draft
+		$new_invoice->statut = Invoice::STATUS_DRAFT; // We start with status draft
 		$new_invoice->fk_project = (int) $invoice['project_id'];
 		$new_invoice->date_creation = $now;
 
@@ -616,7 +616,7 @@ function createInvoice($authentication, $invoice)
 
 		foreach ($arrayoflines as $line) {
 			// $key can be 'line' or '0','1',...
-			$newline = new FactureLigne($db);
+			$newline = new InvoiceLine($db);
 			$newline->product_type = $line['type'];
 			$newline->desc = $line['desc'];
 			$newline->fk_product = $line['product_id'];
@@ -641,7 +641,7 @@ function createInvoice($authentication, $invoice)
 			$error++;
 		}
 
-		if (!$error && $invoice['status'] == Facture::STATUS_VALIDATED) {   // We want invoice to have status validated
+		if (!$error && $invoice['status'] == Invoice::STATUS_VALIDATED) {   // We want invoice to have status validated
 			$result = $new_invoice->validate($fuser);
 			if ($result < 0) {
 				$error++;
@@ -722,7 +722,7 @@ function createInvoiceFromOrder($authentication, $id_order = '', $ref_order = ''
 				}
 
 				if (!$error) {
-					$newobject = new Facture($db);
+					$newobject = new Invoice($db);
 					$result = $newobject->createFromOrder($order, $fuser);
 
 					if ($result < 0) {
@@ -786,7 +786,7 @@ function updateInvoice($authentication, $invoice)
 	if (!$error) {
 		$objectfound = false;
 
-		$object = new Facture($db);
+		$object = new Invoice($db);
 		$result = $object->fetch($invoice['id'], $invoice['ref'], $invoice['ref_ext'], 0);
 
 		if (!empty($object->id)) {
@@ -795,10 +795,10 @@ function updateInvoice($authentication, $invoice)
 			$db->begin();
 
 			if (isset($invoice['status'])) {
-				if ($invoice['status'] == Facture::STATUS_DRAFT) {
+				if ($invoice['status'] == Invoice::STATUS_DRAFT) {
 					$result = $object->setDraft($fuser);
 				}
-				if ($invoice['status'] == Facture::STATUS_VALIDATED) {
+				if ($invoice['status'] == Invoice::STATUS_VALIDATED) {
 					$result = $object->validate($fuser);
 
 					if ($result >= 0) {
@@ -807,10 +807,10 @@ function updateInvoice($authentication, $invoice)
 						$object->generateDocument($object->model_pdf, $outputlangs);
 					}
 				}
-				if ($invoice['status'] == Facture::STATUS_CLOSED) {
+				if ($invoice['status'] == Invoice::STATUS_CLOSED) {
 					$result = $object->setPaid($fuser, $invoice['close_code'], $invoice['close_note']);
 				}
-				if ($invoice['status'] == Facture::STATUS_ABANDONED) {
+				if ($invoice['status'] == Invoice::STATUS_ABANDONED) {
 					$result = $object->setCanceled($fuser, $invoice['close_code'], $invoice['close_note']);
 				}
 			}

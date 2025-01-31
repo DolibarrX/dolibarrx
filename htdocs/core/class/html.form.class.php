@@ -2028,7 +2028,7 @@ class Form
 
 		// On recherche les remises
 		$sql = "SELECT re.rowid, re.amount_ht, re.amount_tva, re.amount_ttc,";
-		$sql .= " re.description, re.fk_facture_source";
+		$sql .= " re.description, re.fk_invoice_source";
 		$sql .= " FROM " . $this->db->prefix() . "societe_remise_except as re";
 		$sql .= " WHERE re.fk_soc = " . (int) $socid;
 		$sql .= " AND re.entity = " . $config->entity;
@@ -2075,9 +2075,9 @@ class Form
 						$disabled = ' disabled';
 					}
 
-					if (getDolGlobalString('MAIN_SHOW_FACNUMBER_IN_DISCOUNT_LIST') && !empty($obj->fk_facture_source)) {
-						$tmpfac = new Facture($this->db);
-						if ($tmpfac->fetch($obj->fk_facture_source) > 0) {
+					if (getDolGlobalString('MAIN_SHOW_FACNUMBER_IN_DISCOUNT_LIST') && !empty($obj->fk_invoice_source)) {
+						$tmpfac = new Invoice($this->db);
+						if ($tmpfac->fetch($obj->fk_invoice_source) > 0) {
 							$desc = $desc . ' - ' . $tmpfac->ref;
 						}
 					}
@@ -5074,7 +5074,7 @@ class Form
 
 		$opt = '<option value="" selected></option>';
 		$sql = "SELECT rowid, ref, situation_cycle_ref, situation_counter, situation_final, fk_soc";
-		$sql .= ' FROM ' . $this->db->prefix() . 'facture';
+		$sql .= ' FROM ' . $this->db->prefix() . 'invoice';
 		$sql .= ' WHERE entity IN (' . getEntity('invoice') . ')';
 		$sql .= ' AND situation_counter >= 1';
 		$sql .= ' AND fk_soc = ' . (int) $socid;
@@ -6514,13 +6514,13 @@ class Form
 				}
 			} else {
 				if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
-					if (!$filter || $filter == "fk_facture_source IS NULL") {
+					if (!$filter || $filter == "fk_invoice_source IS NULL") {
 						$translationKey = 'CompanyHasAbsoluteDiscount'; // If we want deposit to be subtracted to payments only and not to total of final invoice
 					} else {
 						$translationKey = 'CompanyHasCreditNote';
 					}
 				} else {
-					if (!$filter || $filter == "fk_facture_source IS NULL OR (description LIKE '(DEPOSIT)%' AND description NOT LIKE '(EXCESS RECEIVED)%')") {
+					if (!$filter || $filter == "fk_invoice_source IS NULL OR (description LIKE '(DEPOSIT)%' AND description NOT LIKE '(EXCESS RECEIVED)%')") {
 						$translationKey = 'CompanyHasAbsoluteDiscount';
 					} else {
 						$translationKey = 'CompanyHasCreditNote';
@@ -6538,7 +6538,7 @@ class Form
 				if (!empty($discount_type)) {
 					$newfilter .= ' AND fk_invoice_supplier IS NULL AND fk_invoice_supplier_line IS NULL'; // Supplier discounts available
 				} else {
-					$newfilter .= ' AND fk_facture IS NULL AND fk_facture_line IS NULL'; // Customer discounts available
+					$newfilter .= ' AND fk_invoice IS NULL AND fk_invoice_line IS NULL'; // Customer discounts available
 				}
 				if ($filter) {
 					$newfilter .= ' AND (' . $filter . ')';
@@ -6550,7 +6550,7 @@ class Form
 					if (!empty($discount_type) && $filter && $filter != "fk_invoice_supplier_source IS NULL OR (description LIKE '(DEPOSIT)%' AND description NOT LIKE '(EXCESS PAID)%')") {
 						print ' title="' . $langs->trans("UseCreditNoteInInvoicePayment") . '"';
 					}
-					if (empty($discount_type) && $filter && $filter != "fk_facture_source IS NULL OR (description LIKE '(DEPOSIT)%' AND description NOT LIKE '(EXCESS RECEIVED)%')") {
+					if (empty($discount_type) && $filter && $filter != "fk_invoice_source IS NULL OR (description LIKE '(DEPOSIT)%' AND description NOT LIKE '(EXCESS RECEIVED)%')") {
 						print ' title="' . $langs->trans("UseCreditNoteInInvoicePayment") . '"';
 					}
 
@@ -8721,7 +8721,7 @@ class Form
 				if (empty($sortfield)) {
 					$sortfield = 'o.ref';
 				}
-				if (in_array($objecttmp->element, ['orderdet', 'propaldet', 'facturedet', 'expeditiondet'])) {
+				if (in_array($objecttmp->element, ['orderdet', 'propaldet', 'invoicedet', 'expeditiondet'])) {
 					$fieldstoshow .= ',p.ref AS p_ref,p.label,t.description';
 					$sortfield .= ', p.ref';
 				}
@@ -8749,7 +8749,7 @@ class Form
 			$parent_properties = getElementProperties($objecttmp->parent_element);
 			$sql .= " INNER JOIN " . $this->db->prefix() . $this->db->sanitize($parent_properties['table_element']) . " as o ON o.rowid = t.".$objecttmp->fk_parent_attribute;
 		}
-		if (in_array($objecttmp->parent_element, ['order', 'propal', 'facture', 'expedition'])) {
+		if (in_array($objecttmp->parent_element, ['order', 'propal', 'invoice', 'expedition'])) {
 			$sql .= " LEFT JOIN " . $this->db->prefix() . "product as p ON p.rowid = t.fk_product";
 		}
 		if (isset($objecttmp->ismultientitymanaged)) {
@@ -9662,13 +9662,13 @@ class Form
 				$tplname = 'linkedobjectblock';
 
 				// To work with non standard path
-				if ($objecttype == 'facture') {
+				if ($objecttype == 'invoice') {
 					$tplpath = 'compta/' . $element;
 					if (!isModEnabled('invoice')) {
 						continue; // Do not show if module disabled
 					}
-				} elseif ($objecttype == 'facturerec') {
-					$tplpath = 'compta/facture';
+				} elseif ($objecttype == 'invoicerec') {
+					$tplpath = 'compta/invoice';
 					$tplname = 'linkedobjectblockForRec';
 					if (!isModEnabled('invoice')) {
 						continue; // Do not show if module disabled
@@ -9703,7 +9703,7 @@ class Form
 						continue; // Do not show if module disabled
 					}
 				} elseif ($objecttype == 'invoice_supplier') {
-					$tplpath = 'fourn/facture';
+					$tplpath = 'fourn/invoice';
 				} elseif ($objecttype == 'order_supplier') {
 					$tplpath = 'fourn/order';
 				} elseif ($objecttype == 'expensereport') {
@@ -9821,21 +9821,21 @@ class Form
 					'enabled' => isModEnabled('order'),
 					'perms' => 1,
 					'label' => 'LinkToOrder',
-					'sql' => "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_client, t.total_ht FROM " . $this->db->prefix() . "societe as s, " . $this->db->prefix() . "order as t WHERE t.fk_soc = s.rowid AND t.fk_soc IN (" . $this->db->sanitize($listofidcompanytoscan) . ') AND t.entity IN (' . getEntity('order') . ')'.($dontIncludeCompletedItems ? ' AND t.facture < 1' : ''),
+					'sql' => "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_client, t.total_ht FROM " . $this->db->prefix() . "societe as s, " . $this->db->prefix() . "order as t WHERE t.fk_soc = s.rowid AND t.fk_soc IN (" . $this->db->sanitize($listofidcompanytoscan) . ') AND t.entity IN (' . getEntity('order') . ')'.($dontIncludeCompletedItems ? ' AND t.invoice < 1' : ''),
 					'linkname' => 'order',
 				),
 				'invoice' => array(
 					'enabled' => isModEnabled('invoice'),
 					'perms' => 1,
 					'label' => 'LinkToInvoice',
-					'sql' => "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_client, t.total_ht FROM " . $this->db->prefix() . "societe as s, " . $this->db->prefix() . "facture as t WHERE t.fk_soc = s.rowid AND t.fk_soc IN (" . $this->db->sanitize($listofidcompanytoscan) . ') AND t.entity IN (' . getEntity('invoice') . ')'.($dontIncludeCompletedItems ? ' AND t.paye < 1' : ''),
-					'linkname' => 'facture',
+					'sql' => "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_client, t.total_ht FROM " . $this->db->prefix() . "societe as s, " . $this->db->prefix() . "invoice as t WHERE t.fk_soc = s.rowid AND t.fk_soc IN (" . $this->db->sanitize($listofidcompanytoscan) . ') AND t.entity IN (' . getEntity('invoice') . ')'.($dontIncludeCompletedItems ? ' AND t.paye < 1' : ''),
+					'linkname' => 'invoice',
 				),
 				'invoice_template' => array(
 					'enabled' => isModEnabled('invoice'),
 					'perms' => 1,
 					'label' => 'LinkToTemplateInvoice',
-					'sql' => "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.titre as ref, t.total_ht FROM " . $this->db->prefix() . "societe as s, " . $this->db->prefix() . "facture_rec as t WHERE t.fk_soc = s.rowid AND t.fk_soc IN (" . $this->db->sanitize($listofidcompanytoscan) . ') AND t.entity IN (' . getEntity('invoice') . ')'.($dontIncludeCompletedItems ? ' AND t.paye < 1' : ''),
+					'sql' => "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.titre as ref, t.total_ht FROM " . $this->db->prefix() . "societe as s, " . $this->db->prefix() . "invoice_rec as t WHERE t.fk_soc = s.rowid AND t.fk_soc IN (" . $this->db->sanitize($listofidcompanytoscan) . ') AND t.entity IN (' . getEntity('invoice') . ')'.($dontIncludeCompletedItems ? ' AND t.paye < 1' : ''),
 				),
 				'contract' => array(
 					'enabled' => isModEnabled('contract'),
@@ -9865,7 +9865,7 @@ class Form
 				'invoice_supplier' => array(
 					'enabled' => isModEnabled("supplier_invoice"),
 					'perms' => 1, 'label' => 'LinkToSupplierInvoice',
-					'sql' => "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_supplier, t.total_ht FROM " . $this->db->prefix() . "societe as s, " . $this->db->prefix() . "facture_fourn as t WHERE t.fk_soc = s.rowid AND t.fk_soc IN (" . $this->db->sanitize($listofidcompanytoscan) . ') AND t.entity IN (' . getEntity('facture_fourn') . ')'.($dontIncludeCompletedItems ? ' AND t.paye < 1' : ''),
+					'sql' => "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_supplier, t.total_ht FROM " . $this->db->prefix() . "societe as s, " . $this->db->prefix() . "invoice_fourn as t WHERE t.fk_soc = s.rowid AND t.fk_soc IN (" . $this->db->sanitize($listofidcompanytoscan) . ') AND t.entity IN (' . getEntity('invoice_fourn') . ')'.($dontIncludeCompletedItems ? ' AND t.paye < 1' : ''),
 				),
 				'ticket' => array(
 					'enabled' => isModEnabled('ticket'),
@@ -11029,7 +11029,7 @@ class Form
 		$sql .= ' s.nom as name';
 		$sql .= ' FROM ' . $this->db->prefix() . 'projet as p';
 		$sql .= ' LEFT JOIN ' . $this->db->prefix() . 'societe as s ON s.rowid = p.fk_soc,';
-		$sql .= ' ' . $this->db->prefix() . 'facture as f';
+		$sql .= ' ' . $this->db->prefix() . 'invoice as f';
 		$sql .= " WHERE p.entity IN (" . getEntity('project') . ")";
 		$sql .= " AND f.fk_projet = p.rowid AND f.fk_statut=0"; //Brouillons seulement
 		//if ($projectsListId) $sql.= " AND p.rowid IN (".$this->db->sanitize($projectsListId).")";
@@ -11152,11 +11152,11 @@ class Form
 
 		$out = '';
 
-		dol_syslog('FactureRec::fetch', LOG_DEBUG);
+		dol_syslog('InvoiceRec::fetch', LOG_DEBUG);
 
 		$sql = 'SELECT f.rowid, f.entity, f.titre as title, f.suspended, f.fk_soc';
 		//$sql.= ', el.fk_source';
-		$sql .= ' FROM ' . MAIN_DB_PREFIX . 'facture_rec as f';
+		$sql .= ' FROM ' . MAIN_DB_PREFIX . 'invoice_rec as f';
 		$sql .= " WHERE f.entity IN (" . getEntity('invoice') . ")";
 		$sql .= " ORDER BY f.titre ASC";
 

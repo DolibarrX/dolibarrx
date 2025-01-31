@@ -32,8 +32,8 @@
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/tva/class/tva.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/tva/class/paymentvat.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/invoice/modules_invoice.php';
 if (isModEnabled("bank")) {
 	require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 }
@@ -57,7 +57,7 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 // TODO ajouter regle pour restreindre access paiement
-//$result = restrictedArea($user, 'facture', $id,'');
+//$result = restrictedArea($user, 'invoice', $id,'');
 
 $object = new PaymentVAT($db);
 if ($id > 0) {
@@ -101,10 +101,10 @@ if ($action == 'confirm_valide' && $confirm == 'yes' && $user->rights->tax->char
 	{
 		$db->commit();
 
-		$factures=[];	// TODO Get all id of invoices linked to this payment
-		foreach($factures as $id)
+		$invoices=[];	// TODO Get all id of invoices linked to this payment
+		foreach($invoices as $id)
 		{
-			$fac = new Facture($db);
+			$fac = new Invoice($db);
 			$fac->fetch($id);
 
 			$outputlangs = $langs;

@@ -208,7 +208,7 @@ class Paiement extends CommonObject
 	public $bank_line;
 
 	// fk_paiement dans llx_paiement est l'id du type de paiement (7 pour CHQ, ...)
-	// fk_paiement dans llx_paiement_facture est le rowid du paiement
+	// fk_paiement dans llx_paiement_invoice est le rowid du paiement
 	/**
 	 * @var int payment id
 	 */
@@ -335,7 +335,7 @@ class Paiement extends CommonObject
 				continue;
 			}
 			$value_converted = false;
-			$tmparray = MultiCurrency::getInvoiceRate($key, 'facture');
+			$tmparray = MultiCurrency::getInvoiceRate($key, 'invoice');
 			$invoice_multicurrency_tx = $tmparray['invoice_multicurrency_tx'];
 			$invoice_multicurrency_code = $tmparray['invoice_multicurrency_code'];
 
@@ -470,13 +470,13 @@ class Paiement extends CommonObject
 				$facid = $key;
 				if (is_numeric($amount) && $amount != 0) {
 					$amount = price2num($amount);
-					$sql = "INSERT INTO ".MAIN_DB_PREFIX."paiement_facture (fk_facture, fk_paiement, amount, multicurrency_amount, multicurrency_code, multicurrency_tx)";
+					$sql = "INSERT INTO ".MAIN_DB_PREFIX."paiement_invoice (fk_invoice, fk_paiement, amount, multicurrency_amount, multicurrency_code, multicurrency_tx)";
 					$sql .= " VALUES (".((int) $facid).", ".((int) $this->id).", ".((float) $amount).", ".((float) $this->multicurrency_amounts[$key]).", ".($currencyofpayment ? "'".$this->db->escape($currencyofpayment)."'" : 'NULL').", ".(!empty($this->multicurrency_tx) ? (float) $currencytxofpayment : 1).")";
 
-					dol_syslog(get_class($this).'::create Amount line '.$key.' insert paiement_facture', LOG_DEBUG);
+					dol_syslog(get_class($this).'::create Amount line '.$key.' insert paiement_invoice', LOG_DEBUG);
 					$resql = $this->db->query($sql);
 					if ($resql) {
-						$invoice = new Facture($this->db);
+						$invoice = new Invoice($this->db);
 						$invoice->fetch($facid);
 
 						// If we want to closed paid invoices
@@ -491,11 +491,11 @@ class Paiement extends CommonObject
 
 							//Invoice types that are eligible for changing status to paid
 							$affected_types = array(
-								Facture::TYPE_STANDARD,
-								Facture::TYPE_REPLACEMENT,
-								Facture::TYPE_CREDIT_NOTE,
-								Facture::TYPE_DEPOSIT,
-								Facture::TYPE_SITUATION
+								Invoice::TYPE_STANDARD,
+								Invoice::TYPE_REPLACEMENT,
+								Invoice::TYPE_CREDIT_NOTE,
+								Invoice::TYPE_DEPOSIT,
+								Invoice::TYPE_SITUATION
 							);
 
 							if (!in_array($invoice->type, $affected_types)) {
@@ -517,7 +517,7 @@ class Paiement extends CommonObject
 								// } else if ($mustwait) dol_syslog("There is ".$mustwait." differed payment to process, we do nothing more.");
 							} else {
 								// If invoice is a down payment, we also convert down payment to discount
-								if ($invoice->type == Facture::TYPE_DEPOSIT) {
+								if ($invoice->type == Invoice::TYPE_DEPOSIT) {
 									$amount_ht = $amount_tva = $amount_ttc = [];
 									$multicurrency_amount_ht = $multicurrency_amount_tva = $multicurrency_amount_ttc = [];
 									'
@@ -536,7 +536,7 @@ class Paiement extends CommonObject
 										$discount->description = '(DEPOSIT)';
 										$discount->fk_soc = $invoice->socid;
 										$discount->socid = $invoice->socid;
-										$discount->fk_facture_source = $invoice->id;
+										$discount->fk_invoice_source = $invoice->id;
 
 										// Loop on each vat rate
 										$i = 0;
@@ -672,7 +672,7 @@ class Paiement extends CommonObject
 	/**
 	 * Delete a payment and generated links into account
 	 *  - Si le paiement porte sur un ecriture compte qui est rapprochee, on refuse
-	 *  - Si le paiement porte sur au moins une facture a "payee", on refuse
+	 *  - Si le paiement porte sur au moins une invoice a "payee", on refuse
 	 *
 	 * @param	User	$user			User making the deletion
 	 * @param	int		$notrigger		No trigger
@@ -684,7 +684,7 @@ class Paiement extends CommonObject
 
 		$this->db->begin();
 
-		// Verifier si paiement porte pas sur une facture classee
+		// Verifier si paiement porte pas sur une invoice classee
 		// Si c'est le cas, on refuse la suppression
 		$billsarray = $this->getBillsArray('f.fk_statut > 1');
 		if (is_array($billsarray)) {
@@ -734,8 +734,8 @@ class Paiement extends CommonObject
 			// End call triggers
 		}
 
-		// Delete payment (into paiement_facture and paiement)
-		$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'paiement_facture';
+		// Delete payment (into paiement_invoice and paiement)
+		$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'paiement_invoice';
 		$sql .= ' WHERE fk_paiement = '.((int) $this->id);
 		dol_syslog($sql);
 		$result = $this->db->query($sql);
@@ -887,7 +887,7 @@ class Paiement extends CommonObject
 					$linkaddedforthirdparty = [];
 					foreach ($this->amounts as $key => $value) {  // We should have invoices always for same third party but we loop in case of.
 						if ($mode == 'payment') {
-							$fac = new Facture($this->db);
+							$fac = new Invoice($this->db);
 							$fac->fetch($key);
 							$fac->fetch_thirdparty();
 							if (!in_array($fac->thirdparty->id, $linkaddedforthirdparty)) { // Not yet done for this thirdparty  @phan-suppress-current-line PhanPossiblyUndeclaredVariable
@@ -905,7 +905,7 @@ class Paiement extends CommonObject
 							}
 						}
 						if ($mode == 'payment_supplier') {
-							$fac = new FactureFournisseur($this->db);
+							$fac = new InvoiceSupplier($this->db);
 							$fac->fetch($key);
 							$fac->fetch_thirdparty();
 							if (!in_array($fac->thirdparty->id, $linkaddedforthirdparty)) { // Not yet done for this thirdparty
@@ -1177,9 +1177,9 @@ class Paiement extends CommonObject
 	 */
 	public function getBillsArray($filter = '')
 	{
-		$sql = 'SELECT pf.fk_facture';
-		$sql .= ' FROM '.MAIN_DB_PREFIX.'paiement_facture as pf, '.MAIN_DB_PREFIX.'facture as f'; // We keep link on invoice to allow use of some filters on invoice
-		$sql .= ' WHERE pf.fk_facture = f.rowid AND pf.fk_paiement = '.((int) $this->id);
+		$sql = 'SELECT pf.fk_invoice';
+		$sql .= ' FROM '.MAIN_DB_PREFIX.'paiement_invoice as pf, '.MAIN_DB_PREFIX.'invoice as f'; // We keep link on invoice to allow use of some filters on invoice
+		$sql .= ' WHERE pf.fk_invoice = f.rowid AND pf.fk_paiement = '.((int) $this->id);
 		if ($filter) {
 			$sql .= ' AND '.$filter;
 		}
@@ -1191,7 +1191,7 @@ class Paiement extends CommonObject
 
 			while ($i < $num) {
 				$obj = $this->db->fetch_object($resql);
-				$billsarray[$i] = $obj->fk_facture;
+				$billsarray[$i] = $obj->fk_invoice;
 				$i++;
 			}
 
@@ -1211,8 +1211,8 @@ class Paiement extends CommonObject
 	 */
 	public function getAmountsArray()
 	{
-		$sql = 'SELECT pf.fk_facture, pf.amount';
-		$sql .= ' FROM '.MAIN_DB_PREFIX.'paiement_facture as pf';
+		$sql = 'SELECT pf.fk_invoice, pf.amount';
+		$sql .= ' FROM '.MAIN_DB_PREFIX.'paiement_invoice as pf';
 		$sql .= ' WHERE pf.fk_paiement = '.((int) $this->id);
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -1222,7 +1222,7 @@ class Paiement extends CommonObject
 
 			while ($i < $num) {
 				$obj = $this->db->fetch_object($resql);
-				$amounts[$obj->fk_facture] = $obj->amount;
+				$amounts[$obj->fk_invoice] = $obj->amount;
 				$i++;
 			}
 
@@ -1402,11 +1402,11 @@ class Paiement extends CommonObject
 		if ($mode == 'withlistofinvoices') {
 			$arraybill = $this->getBillsArray();
 			if (is_array($arraybill) && count($arraybill) > 0) {
-				include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-				$facturestatic = new Facture($this->db);
+				include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+				$invoicestatic = new Invoice($this->db);
 				foreach ($arraybill as $billid) {
-					$facturestatic->fetch($billid);
-					$label .= '<br> '.$facturestatic->getNomUrl(1, '', 0, 0, '', 1).' '.$facturestatic->getLibStatut(2, -1);
+					$invoicestatic->fetch($billid);
+					$label .= '<br> '.$invoicestatic->getNomUrl(1, '', 0, 0, '', 1).' '.$invoicestatic->getLibStatut(2, -1);
 				}
 			}
 		}
@@ -1523,12 +1523,12 @@ class Paiement extends CommonObject
 	public function fetch_thirdparty($force_thirdparty_id = 0)
 	{
 		// phpcs:enable
-		include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
 		if (empty($force_thirdparty_id)) {
 			$billsarray = $this->getBillsArray(); // From payment, the fk_soc isn't available, we should load the first supplier invoice to get him
 			if (!empty($billsarray)) {
-				$invoice = new Facture($this->db);
+				$invoice = new Invoice($this->db);
 				if ($invoice->fetch($billsarray[0]) > 0) {
 					$force_thirdparty_id = $invoice->socid;
 				}

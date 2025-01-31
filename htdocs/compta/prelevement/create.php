@@ -31,7 +31,7 @@
 // Load Dolibarr environment
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/bonprelevement.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/salaries/class/salary.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/bank.lib.php';
@@ -211,9 +211,9 @@ $form = new Form($db);
 
 $thirdpartystatic = new Societe($db);
 if ($type != 'bank-transfer') {
-	$invoicestatic = new Facture($db);
+	$invoicestatic = new Invoice($db);
 } else {
-	$invoicestatic = new FactureFournisseur($db);
+	$invoicestatic = new InvoiceSupplier($db);
 }
 $bprev = new BonPrelevement($db);
 $arrayofselected = is_array($toselect) ? $toselect : [];
@@ -401,25 +401,25 @@ if ($sourcetype != 'salary') {
 	}
 	$sql .= " pd.rowid as request_row_id, pd.date_demande, pd.amount, pd.fk_societe_rib as soc_rib_id";
 	if ($type == 'bank-transfer') {
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f,";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f,";
 	} else {
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture as f,";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f,";
 	}
 	$sql .= " ".MAIN_DB_PREFIX."societe as s,";
 	$sql .= " ".MAIN_DB_PREFIX."prelevement_demande as pd";
 	$sql .= " WHERE s.rowid = f.fk_soc";
 	$sql .= " AND f.entity IN (".getEntity('invoice').")";
 	if (!getDolGlobalString('WITHDRAWAL_ALLOW_ANY_INVOICE_STATUS')) {
-		$sql .= " AND f.fk_statut = ".Facture::STATUS_VALIDATED;
+		$sql .= " AND f.fk_statut = ".Invoice::STATUS_VALIDATED;
 	}
 	//$sql .= " AND pd.amount > 0";
 	$sql .= " AND f.total_ttc > 0"; // Avoid credit notes
 	$sql .= " AND pd.traite = 0";
 	$sql .= " AND pd.ext_payment_id IS NULL";
 	if ($type == 'bank-transfer') {
-		$sql .= " AND pd.fk_facture_fourn = f.rowid";
+		$sql .= " AND pd.fk_invoice_fourn = f.rowid";
 	} else {
-		$sql .= " AND pd.fk_facture = f.rowid";
+		$sql .= " AND pd.fk_invoice = f.rowid";
 	}
 	if ($socid > 0) {
 		$sql .= " AND f.fk_soc = ".((int) $socid);
@@ -433,7 +433,7 @@ if ($sourcetype != 'salary') {
 	$sql .= " WHERE s.fk_user = u.rowid";
 	$sql .= " AND s.entity IN (".getEntity('salary').")";
 	/*if (empty($config->global->WITHDRAWAL_ALLOW_ANY_INVOICE_STATUS)) {
-		$sql .= " AND s.fk_statut = ".Facture::STATUS_VALIDATED;
+		$sql .= " AND s.fk_statut = ".Invoice::STATUS_VALIDATED;
 	}*/
 	$sql .= " AND s.amount > 0";
 	$sql .= " AND pd.traite = 0";

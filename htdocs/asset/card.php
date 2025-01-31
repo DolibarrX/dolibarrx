@@ -197,7 +197,7 @@ if ($action == 'create') {
 		print '<input type="hidden" name="backtopageforcancel" value="'.$backtopageforcancel.'">';
 	}
 	if (GETPOSTISSET('supplier_invoice_id')) {
-		$object->fields['supplier_invoice_id'] = array('type' => 'integer:FactureFournisseur:fourn/class/fournisseur.facture.class.php:1:entity IN (__SHARED_ENTITIES__)', 'label' => 'SupplierInvoice', 'enabled' => '1', 'noteditable' => 1, 'position' => 280, 'notnull' => 0, 'visible' => 1, 'index' => 1, 'validate' => '1',);
+		$object->fields['supplier_invoice_id'] = array('type' => 'integer:InvoiceSupplier:fourn/class/fournisseur.invoice.class.php:1:entity IN (__SHARED_ENTITIES__)', 'label' => 'SupplierInvoice', 'enabled' => '1', 'noteditable' => 1, 'position' => 280, 'notnull' => 0, 'visible' => 1, 'index' => 1, 'validate' => '1',);
 		print '<input type="hidden" name="supplier_invoice_id" value="' . GETPOSTINT('supplier_invoice_id') . '">';
 	}
 
@@ -286,7 +286,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$disposal_type_form = $object->showInputField(null, 'fk_disposal_type', $fk_disposal_type, '', '', '', 0);
 		$object->fields['fk_disposal_type']['visible'] = -2;
 
-		$object->fields['disposal_invoice_id'] = array('type' => 'integer:Facture:compta/facture/class/facture.class.php::entity IN (__SHARED_ENTITIES__)', 'enabled' => '1', 'notnull' => 1, 'visible' => 1, 'index' => 1, 'validate' => '1',);
+		$object->fields['disposal_invoice_id'] = array('type' => 'integer:Invoice:compta/invoice/class/invoice.class.php::entity IN (__SHARED_ENTITIES__)', 'enabled' => '1', 'notnull' => 1, 'visible' => 1, 'index' => 1, 'validate' => '1',);
 		$disposal_invoice_form = $object->showInputField(null, 'disposal_invoice_id', $disposal_invoice_id, '', '', '', 0);
 		unset($object->fields['disposal_invoice_id']);
 

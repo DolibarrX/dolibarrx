@@ -52,15 +52,15 @@ if (empty($object) || !is_object($object)) {
 }
 
 '
-@phan-var-force Propal|Contract|Order|Facture|Expedition|Delivery|FactureFournisseur|FactureFournisseur|SupplierProposal $object
-@phan-var-force PropaleLigne|ContractLine|CommonObjectLine|CommonInvoiceLine|CommonOrderLine|ExpeditionLigne|DeliveryLine|FactureFournisseurLigneRec|SupplierInvoiceLine|SupplierProposalLine $line
+@phan-var-force Propal|Contract|Order|Invoice|Expedition|Delivery|InvoiceSupplier|InvoiceSupplier|SupplierProposal $object
+@phan-var-force PropaleLigne|ContractLine|CommonObjectLine|CommonInvoiceLine|CommonOrderLine|ExpeditionLigne|DeliveryLine|InvoiceSupplierLigneRec|SupplierInvoiceLine|SupplierProposalLine $line
 @phan-var-force ThirdParty $seller
 @phan-var-force ThirdParty $buyer
 @phan-var-force string $var
 ';
 
 $usemargins = 0;
-if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('facture', 'facturerec', 'propal', 'order'))) {
+if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('invoice', 'invoicerec', 'propal', 'order'))) {
 	$usemargins = 1;
 }
 
@@ -86,7 +86,7 @@ $colspan = 3; // Col total ht + col edit + col delete
 if (!empty($inputalsopricewithtax)) {
 	$colspan++; // We add 1 if col total ttc
 }
-if (in_array($object->element, array('propal', 'supplier_proposal', 'facture', 'facturerec', 'invoice', 'order', 'order', 'order_supplier', 'invoice_supplier', 'invoice_supplier_rec'))) {
+if (in_array($object->element, array('propal', 'supplier_proposal', 'invoice', 'invoicerec', 'invoice', 'order', 'order', 'order_supplier', 'invoice_supplier', 'invoice_supplier_rec'))) {
 	$colspan++; // With this, there is a column move button
 }
 if (isModEnabled("multicurrency") && $object->multicurrency_code != $config->currency) {
@@ -154,7 +154,7 @@ $coldisplay++;
 	}
 
 	$situationinvoicelinewithparent = 0;
-	if ($line->fk_prev_id != null && in_array($object->element, array('facture', 'facturedet'))) {
+	if ($line->fk_prev_id != null && in_array($object->element, array('invoice', 'invoicedet'))) {
 		/** @var CommonInvoice $object */
 		// @phan-suppress-next-line PhanUndeclaredConstantOfClass
 		if ($object->type == $object::TYPE_SITUATION) {	// The constant TYPE_SITUATION exists only for object invoice
@@ -200,7 +200,7 @@ $coldisplay++;
 	}
 
 	// Show autofill date for recurring invoices
-	if (isModEnabled("service") && $line->product_type == 1 && ($line->element == 'facturedetrec' || $line->element == 'invoice_supplier_det_rec')) {
+	if (isModEnabled("service") && $line->product_type == 1 && ($line->element == 'invoicedetrec' || $line->element == 'invoice_supplier_det_rec')) {
 		if ($line->element == 'invoice_supplier_det_rec') {
 			$line->date_start_fill = $line->date_start;
 			$line->date_end_fill = $line->date_end;
@@ -227,7 +227,7 @@ $coldisplay++;
 	// VAT Rate
 	$coldisplay++;
 	$type_tva = null;
-	if ($object->element == 'propal' || $object->element == 'order' || $object->element == 'facture' || $object->element == 'facturerec') {
+	if ($object->element == 'propal' || $object->element == 'order' || $object->element == 'invoice' || $object->element == 'invoicerec') {
 		$type_tva = 1;
 	} elseif ($object->element == 'supplier_proposal' || $object->element == 'order_supplier' || $object->element == 'invoice_supplier' || $object->element == 'invoice_supplier_rec') {
 		$type_tva = 2;
@@ -323,7 +323,7 @@ $coldisplay++;
 		$coldisplay++;
 		if (getDolGlobalInt('INVOICE_USE_SITUATION') == 2) {
 			$tmp_fieldv = (GETPOSTISSET('progress') ? GETPOST('progress') : $line->situation_percent);
-			$old_fieldv = $line->getAllPrevProgress($line->fk_facture);
+			$old_fieldv = $line->getAllPrevProgress($line->fk_invoice);
 			$fieldv = $tmp_fieldv + $old_fieldv;
 
 			print '<td class="nowrap right linecolcycleref"><input class="right" type="text" size="1" value="'.$fieldv.'" name="progress">%</td>';
@@ -571,7 +571,7 @@ jQuery(document).ready(function()
 		}
 	});
 
-	<?php if (in_array($object->table_element_line, array('propaldet', 'orderdet', 'facturedet'))) { ?>
+	<?php if (in_array($object->table_element_line, array('propaldet', 'orderdet', 'invoicedet'))) { ?>
 	$("#date_start, #date_end").focusout(function() {
 		if ( $(this).val() == ''  && !$(this).hasClass('inputmandatory') ) {
 			$(this).addClass('inputmandatory');

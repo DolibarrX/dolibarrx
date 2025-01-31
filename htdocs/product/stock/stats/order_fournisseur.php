@@ -23,7 +23,7 @@
 
 /**
  *	\file       htdocs/product/stock/stats/order_fournisseur.php
- *	\ingroup    product service facture
+ *	\ingroup    product service invoice
  *	\brief      Page of supplier order statistics for a batch
  */
 
@@ -326,7 +326,7 @@ if ($id > 0 || !empty($ref)) {
 					while ($i < min($num, $limit)) {
 						$objp = $db->fetch_object($result);
 
-						if ($objp->type == Facture::TYPE_CREDIT_NOTE) {
+						if ($objp->type == Invoice::TYPE_CREDIT_NOTE) {
 							$objp->qty = -($objp->qty);
 						}
 

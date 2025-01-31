@@ -389,7 +389,7 @@ if ($action == 'update') {
 					}
 				}
 
-				// $params['options'][$key] can be 'Facture:/compta/facture/class/facture.class.php' => '/custom'
+				// $params['options'][$key] can be 'Invoice:/compta/invoice/class/invoice.class.php' => '/custom'
 
 				// Visibility: -1=not visible by default in list, 1=visible, 0=hidden
 				$visibility = GETPOST('list', 'alpha');

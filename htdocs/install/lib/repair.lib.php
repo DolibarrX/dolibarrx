@@ -80,9 +80,9 @@ function checkLinkedElements($sourcetype, $targettype)
 		$targettable = 'order_fournisseur';
 	}
 	if ($sourcetype == 'invoice_supplier') {
-		$sourcetable = 'facture_fourn';
+		$sourcetable = 'invoice_fourn';
 	} elseif ($targettype == 'invoice_supplier') {
-		$targettable = 'facture_fourn';
+		$targettable = 'invoice_fourn';
 	}
 
 	$out = $langs->trans('SourceType').': '.$sourcetype.' => '.$langs->trans('TargetType').': '.$targettype.' ';

@@ -29,7 +29,7 @@
  */
 
 require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_payment/modules_supplier_payment.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/paiementfourn.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
@@ -74,8 +74,8 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 	public $version = 'dolibarr';
 
 	public $posxdate;
-	public $posxreffacturefourn;
-	public $posxreffacture;
+	public $posxrefinvoicefourn;
+	public $posxrefinvoice;
 	public $posxtype;
 	public $posxtotalht;
 	public $posxtva;
@@ -115,16 +115,16 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 
 		// Define column position
 		$this->posxdate = $this->marge_gauche + 1;
-		$this->posxreffacturefourn = 30;
-		$this->posxreffacture = 65;
+		$this->posxrefinvoicefourn = 30;
+		$this->posxrefinvoice = 65;
 		$this->posxtype = 100;
 		$this->posxtotalht = 80;
 		$this->posxtva = 90;
 		$this->posxtotalttc = 180;
 
 		if ($this->page_largeur < 210) { // To work with US executive format
-			$this->posxreffacturefourn -= 20;
-			$this->posxreffacture -= 20;
+			$this->posxrefinvoicefourn -= 20;
+			$this->posxrefinvoice -= 20;
 			$this->posxtype -= 20;
 			$this->posxtotalht -= 20;
 			$this->posxtva -= 20;
@@ -179,7 +179,7 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "suppliers", "companies", "bills", "dict", "products"));
 
-		$object->factures = [];
+		$object->invoices = [];
 
 		if ($config->fournisseur->payment->dir_output) {
 			$object->fetch_thirdparty();
@@ -188,8 +188,8 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 			 */
 			$sql = 'SELECT f.rowid, f.ref, f.datef, f.ref_supplier, f.total_ht, f.total_tva, f.total_ttc, pf.amount, f.rowid as facid, f.paye';
 			$sql .= ', f.fk_statut, s.nom as name, s.rowid as socid';
-			$sql .= ' FROM '.MAIN_DB_PREFIX.'paiementfourn_facturefourn as pf,'.MAIN_DB_PREFIX.'facture_fourn as f,'.MAIN_DB_PREFIX.'societe as s';
-			$sql .= ' WHERE pf.fk_facturefourn = f.rowid AND f.fk_soc = s.rowid';
+			$sql .= ' FROM '.MAIN_DB_PREFIX.'paiementfourn_invoicefourn as pf,'.MAIN_DB_PREFIX.'invoice_fourn as f,'.MAIN_DB_PREFIX.'societe as s';
+			$sql .= ' WHERE pf.fk_invoicefourn = f.rowid AND f.fk_soc = s.rowid';
 			$sql .= ' AND pf.fk_paiementfourn = '.((int) $object->id);
 			$resql = $this->db->query($sql);
 			if ($resql) {
@@ -365,12 +365,12 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 					$pdf->SetFont('', '', $default_font_size - 1); // On repositionne la police par default
 
 					// ref fourn
-					$pdf->SetXY($this->posxreffacturefourn, $curY);
-					$pdf->MultiCell($this->posxreffacturefourn - 0.8, 3, $object->lines[$i]->ref_supplier, 0, 'L', 0);
+					$pdf->SetXY($this->posxrefinvoicefourn, $curY);
+					$pdf->MultiCell($this->posxrefinvoicefourn - 0.8, 3, $object->lines[$i]->ref_supplier, 0, 'L', 0);
 
-					// ref facture fourn
-					$pdf->SetXY($this->posxreffacture, $curY);
-					$pdf->MultiCell($this->posxreffacture - 0.8, 3, $object->lines[$i]->ref, 0, 'L', 0);
+					// ref invoice fourn
+					$pdf->SetXY($this->posxrefinvoice, $curY);
+					$pdf->MultiCell($this->posxrefinvoice - 0.8, 3, $object->lines[$i]->ref, 0, 'L', 0);
 
 					// type
 					$pdf->SetXY($this->posxtype, $curY);

@@ -495,13 +495,13 @@ if ($result || !($id > 0)) {
 			if ($graphfiles == 'order' && !$user->hasRight('order', 'lire')) {
 				continue;
 			}
-			if ($graphfiles == 'invoices' && !$user->hasRight('facture', 'lire')) {
+			if ($graphfiles == 'invoices' && !$user->hasRight('invoice', 'lire')) {
 				continue;
 			}
 			if ($graphfiles == 'proposals_suppliers' && !$user->hasRight('supplier_proposal', 'lire')) {
 				continue;
 			}
-			if ($graphfiles == 'invoices_suppliers' && !$user->hasRight('fournisseur', 'facture', 'lire')) {
+			if ($graphfiles == 'invoices_suppliers' && !$user->hasRight('fournisseur', 'invoice', 'lire')) {
 				continue;
 			}
 			if ($graphfiles == 'orders_suppliers' && !$user->hasRight('fournisseur', 'order', 'lire')) {

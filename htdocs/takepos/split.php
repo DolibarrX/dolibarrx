@@ -41,7 +41,7 @@ if (!defined('NOREQUIREAJAX')) {
 
 // Load Dolibarr environment
 require '../main.inc.php'; // Load $user and permissions
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 /**
  * @var Config $config
  * @var DoliDB $db
@@ -66,7 +66,7 @@ if ($action == "split" && $user->hasRight('takepos', 'run')) {
 	$line = GETPOSTINT('line');
 	$split = GETPOSTINT('split');
 	if ($split==1) { // Split line
-		$invoice = new Facture($db);
+		$invoice = new Invoice($db);
 		$ret = $invoice->fetch('', '(PROV-POS'.$_SESSION["takeposterminal"].'-SPLIT)');
 		if ($ret > 0) {
 			$placeid = $invoice->id;
@@ -85,15 +85,15 @@ if ($action == "split" && $user->hasRight('takepos', 'run')) {
 				if ($placeid < 0) {
 					dol_htmloutput_errors($invoice->error, $invoice->errors, 1);
 				}
-				$sql = "UPDATE ".MAIN_DB_PREFIX."facture SET ref='(PROV-POS".$_SESSION["takeposterminal"]."-SPLIT)'";
+				$sql = "UPDATE ".MAIN_DB_PREFIX."invoice SET ref='(PROV-POS".$_SESSION["takeposterminal"]."-SPLIT)'";
 				$sql .= " WHERE rowid = ".((int) $placeid);
 				$db->query($sql);
 			}
 		}
-		$sql = "UPDATE ".MAIN_DB_PREFIX."facturedet SET fk_facture = ".((int) $placeid)." WHERE rowid = ".((int) $line);
+		$sql = "UPDATE ".MAIN_DB_PREFIX."invoicedet SET fk_invoice = ".((int) $placeid)." WHERE rowid = ".((int) $line);
 		$db->query($sql);
 	} elseif ($split==0) { // Unsplit line
-		$invoice = new Facture($db);
+		$invoice = new Invoice($db);
 		if ($place == "SPLIT") {
 			$place = "0";
 		} // Avoid move line to the same place (from SPLIT to SPLIT place)
@@ -116,12 +116,12 @@ if ($action == "split" && $user->hasRight('takepos', 'run')) {
 					dol_htmloutput_errors($invoice->error, $invoice->errors, 1);
 				}
 
-				$sql = "UPDATE ".MAIN_DB_PREFIX."facture SET ref='(PROV-POS".$_SESSION["takeposterminal"]."-".$place.")'";
+				$sql = "UPDATE ".MAIN_DB_PREFIX."invoice SET ref='(PROV-POS".$_SESSION["takeposterminal"]."-".$place.")'";
 				$sql .= " WHERE rowid = ".((int) $placeid);
 				$db->query($sql);
 			}
 		}
-		$sql = "UPDATE ".MAIN_DB_PREFIX."facturedet set fk_facture=".$placeid." where rowid=".$line;
+		$sql = "UPDATE ".MAIN_DB_PREFIX."invoicedet set fk_invoice=".$placeid." where rowid=".$line;
 		$db->query($sql);
 	}
 	$invoice->fetch('', '(PROV-POS'.$_SESSION["takeposterminal"].'-SPLIT)');
@@ -136,11 +136,11 @@ if ($action == "split" && $user->hasRight('takepos', 'run')) {
  * View
  */
 
-$invoice = new Facture($db);
+$invoice = new Invoice($db);
 if (isset($invoiceid) && $invoiceid > 0) {
 	$invoice->fetch($invoiceid);
 } else {
-	$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."facture where ref='(PROV-POS".$_SESSION["takeposterminal"]."-".$place.")'";
+	$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."invoice where ref='(PROV-POS".$_SESSION["takeposterminal"]."-".$place.")'";
 	$resql = $db->query($sql);
 	$obj = $db->fetch_object($resql);
 	if ($obj) {

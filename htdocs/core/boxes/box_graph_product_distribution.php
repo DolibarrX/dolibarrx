@@ -33,7 +33,7 @@ class box_graph_product_distribution extends ModeleBoxes
 	public $boxcode = "productdistribution";
 	public $boximg = "object_product";
 	public $boxlabel = "BoxProductDistribution";
-	public $depends = array("product|service", "facture|propal|order");
+	public $depends = array("product|service", "invoice|propal|order");
 
 	public $widgettype = 'graph';
 
@@ -50,7 +50,7 @@ class box_graph_product_distribution extends ModeleBoxes
 		$this->db = $db;
 
 		$this->hidden = !(
-			(isModEnabled('invoice') && $user->hasRight('facture', 'lire'))
+			(isModEnabled('invoice') && $user->hasRight('invoice', 'lire'))
 			|| (isModEnabled('order') && $user->hasRight('order', 'lire'))
 			|| (isModEnabled('propal') && $user->hasRight('propal', 'lire'))
 		);
@@ -71,7 +71,7 @@ class box_graph_product_distribution extends ModeleBoxes
 
 		$refreshaction = 'refresh_'.$this->boxcode;
 
-		include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 		include_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 		include_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 
@@ -97,7 +97,7 @@ class box_graph_product_distribution extends ModeleBoxes
 			$showinvoicenb = 1;
 			$showordernb = 1;
 		}
-		if (!isModEnabled('invoice') || !$user->hasRight('facture', 'lire')) {
+		if (!isModEnabled('invoice') || !$user->hasRight('invoice', 'lire')) {
 			$showinvoicenb = 0;
 		}
 		if (isModEnabled('propal') || !$user->hasRight('propal', 'lire')) {
@@ -273,16 +273,16 @@ class box_graph_product_distribution extends ModeleBoxes
 		}
 
 
-		if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
+		if (isModEnabled('invoice') && $user->hasRight('invoice', 'lire')) {
 			// Build graphic number of object. $data = array(array('Lib',val1,val2,val3),...)
 			if ($showinvoicenb) {
 				$langs->load("bills");
-				include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facturestats.class.php';
+				include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoicestats.class.php';
 
 				$showpointvalue = 1;
 				$nocolor = 0;
 				$mode = 'customer';
-				$stats_invoice = new FactureStats($this->db, $socid, $mode, ($userId > 0 ? $userId : 0));
+				$stats_invoice = new InvoiceStats($this->db, $socid, $mode, ($userId > 0 ? $userId : 0));
 				$data1 = $stats_invoice->getAllByProductEntry($year, (GETPOST('action', 'aZ09') == $refreshaction ? -1 : (3600 * 24)), $max);
 
 				if (empty($data1)) {
@@ -367,7 +367,7 @@ class box_graph_product_distribution extends ModeleBoxes
 			if (isModEnabled('order') || $user->hasRight('order', 'lire')) {
 				$stringtoshow .= '<input type="checkbox" name="'.$param_showordernb.'"'.($showordernb ? ' checked' : '').'> '.$langs->trans("ForCustomersOrders");
 			}
-			if (isModEnabled('invoice') || $user->hasRight('facture', 'lire')) {
+			if (isModEnabled('invoice') || $user->hasRight('invoice', 'lire')) {
 				$stringtoshow .= '<input type="checkbox" name="'.$param_showinvoicenb.'"'.($showinvoicenb ? ' checked' : '').'> '.$langs->trans("ForCustomersInvoices");
 				$stringtoshow .= ' &nbsp; ';
 			}

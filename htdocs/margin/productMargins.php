@@ -27,7 +27,7 @@
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/margin/lib/margins.lib.php';
 
@@ -101,7 +101,7 @@ if (!$user->hasRight('margins', 'liretous')) {
  */
 
 $product_static = new Product($db);
-$invoicestatic = new Facture($db);
+$invoicestatic = new Invoice($db);
 
 $form = new Form($db);
 
@@ -184,7 +184,7 @@ print dol_get_fiche_end();
 
 print '</form>';
 
-$invoice_status_except_list = array(Facture::STATUS_DRAFT, Facture::STATUS_ABANDONED);
+$invoice_status_except_list = array(Invoice::STATUS_DRAFT, Invoice::STATUS_ABANDONED);
 
 $sql = "SELECT p.label, p.rowid, p.fk_product_type, p.ref, p.entity as pentity,";
 if ($id > 0) {
@@ -201,8 +201,8 @@ $sql .= " SUM(".$db->ifsql('(d.total_ht < 0 OR (d.total_ht = 0 AND f.type = 2))'
 $sql .= " SUM(".$db->ifsql('(d.total_ht < 0 OR (d.total_ht = 0 AND f.type = 2))', '-1 * (abs(d.total_ht) - (d.buy_price_ht * d.qty * (d.situation_percent / 100)))', 'd.total_ht - (d.buy_price_ht * d.qty * (d.situation_percent / 100))').") as marge";
 
 $sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-$sql .= ", ".MAIN_DB_PREFIX."facture as f";
-$sql .= ", ".MAIN_DB_PREFIX."facturedet as d";
+$sql .= ", ".MAIN_DB_PREFIX."invoice as f";
+$sql .= ", ".MAIN_DB_PREFIX."invoicedet as d";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = d.fk_product";
 if (!empty($TSelectedCats)) {
 	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'category_product as cp ON cp.fk_product=p.rowid';
@@ -210,7 +210,7 @@ if (!empty($TSelectedCats)) {
 $sql .= " WHERE f.fk_soc = s.rowid";
 $sql .= ' AND f.entity IN ('.getEntity('invoice').')';
 $sql .= " AND f.fk_statut NOT IN (".$db->sanitize(implode(', ', $invoice_status_except_list)).")";
-$sql .= " AND d.fk_facture = f.rowid";
+$sql .= " AND d.fk_invoice = f.rowid";
 if ($id > 0) {
 	$sql .= " AND d.fk_product =".((int) $id);
 }

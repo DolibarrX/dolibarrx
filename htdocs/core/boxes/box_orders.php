@@ -92,7 +92,7 @@ class box_orders extends ModeleBoxes
 			$sql .= ", c.ref_client";
 			$sql .= ", c.fk_statut";
 			$sql .= ", c.fk_user_valid";
-			$sql .= ", c.facture";
+			$sql .= ", c.invoice";
 			$sql .= ", c.total_ht";
 			$sql .= ", c.total_tva";
 			$sql .= ", c.total_ttc";
@@ -184,7 +184,7 @@ class box_orders extends ModeleBoxes
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="right" width="18"',
-						'text' => $orderstatic->LibStatut($objp->fk_statut, $objp->facture, 3),
+						'text' => $orderstatic->LibStatut($objp->fk_statut, $objp->invoice, 3),
 					);
 
 					$line++;

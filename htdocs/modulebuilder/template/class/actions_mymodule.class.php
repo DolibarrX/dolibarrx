@@ -354,7 +354,7 @@ class ActionsMyModule extends CommonHookActions
 			$element = $parameters['object']->element;
 			$id = $parameters['object']->id;
 			// verifier le type d'onglet comme member_stats où ça ne doit pas apparaitre
-			// if (in_array($element, ['societe', 'member', 'contract', 'fichinter', 'project', 'propal', 'order', 'facture', 'order_supplier', 'invoice_supplier'])) {
+			// if (in_array($element, ['societe', 'member', 'contract', 'fichinter', 'project', 'propal', 'order', 'invoice', 'order_supplier', 'invoice_supplier'])) {
 			if (in_array($element, ['context1', 'context2'])) {
 				$datacount = 0;
 

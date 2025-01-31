@@ -419,7 +419,7 @@ if ($modecompta == 'BOOKKEEPING') {
 	if ($modecompta == 'CREANCES-DETTES') {
 		$sql = "SELECT s.nom as name, s.rowid as socid, sum(f.total_ht) as amount_ht, sum(f.total_ttc) as amount_ttc";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-		$sql .= ", ".MAIN_DB_PREFIX."facture as f";
+		$sql .= ", ".MAIN_DB_PREFIX."invoice as f";
 		$sql .= " WHERE f.fk_soc = s.rowid";
 		$sql .= " AND f.fk_statut IN (1,2)";
 		if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
@@ -437,11 +437,11 @@ if ($modecompta == 'BOOKKEEPING') {
 		 */
 		$sql = "SELECT s.nom as name, s.rowid as socid, sum(pf.amount) as amount_ttc";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-		$sql .= ", ".MAIN_DB_PREFIX."facture as f";
-		$sql .= ", ".MAIN_DB_PREFIX."paiement_facture as pf";
+		$sql .= ", ".MAIN_DB_PREFIX."invoice as f";
+		$sql .= ", ".MAIN_DB_PREFIX."paiement_invoice as pf";
 		$sql .= ", ".MAIN_DB_PREFIX."paiement as p";
 		$sql .= " WHERE p.rowid = pf.fk_paiement";
-		$sql .= " AND pf.fk_facture = f.rowid";
+		$sql .= " AND pf.fk_invoice = f.rowid";
 		$sql .= " AND f.fk_soc = s.rowid";
 		if (!empty($date_start) && !empty($date_end)) {
 			$sql .= " AND p.datep >= '".$db->idate($date_start)."' AND p.datep <= '".$db->idate($date_end)."'";
@@ -464,7 +464,7 @@ if ($modecompta == 'BOOKKEEPING') {
 
 			print '<tr class="oddeven">';
 			print '<td>&nbsp;</td>';
-			print "<td>".$langs->trans("Bills").' <a href="'.DOL_URL_ROOT.'/compta/facture/list.php?socid='.$objp->socid.'">'.$objp->name."</td>\n";
+			print "<td>".$langs->trans("Bills").' <a href="'.DOL_URL_ROOT.'/compta/invoice/list.php?socid='.$objp->socid.'">'.$objp->name."</td>\n";
 
 			print '<td class="right">';
 			if ($modecompta == 'CREANCES-DETTES') {
@@ -489,7 +489,7 @@ if ($modecompta == 'BOOKKEEPING') {
 		$sql .= " FROM ".MAIN_DB_PREFIX."bank as b";
 		$sql .= ", ".MAIN_DB_PREFIX."bank_account as ba";
 		$sql .= ", ".MAIN_DB_PREFIX."paiement as p";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON p.rowid = pf.fk_paiement";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON p.rowid = pf.fk_paiement";
 		$sql .= " WHERE pf.rowid IS NULL";
 		$sql .= " AND p.fk_bank = b.rowid";
 		$sql .= " AND b.fk_account = ba.rowid";
@@ -653,7 +653,7 @@ if ($modecompta == 'BOOKKEEPING') {
 	if ($modecompta == 'CREANCES-DETTES') {
 		$sql = "SELECT s.nom as name, s.rowid as socid, sum(f.total_ht) as amount_ht, sum(f.total_ttc) as amount_ttc";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-		$sql .= ", ".MAIN_DB_PREFIX."facture_fourn as f";
+		$sql .= ", ".MAIN_DB_PREFIX."invoice_fourn as f";
 		$sql .= " WHERE f.fk_soc = s.rowid";
 		$sql .= " AND f.fk_statut IN (1,2)";
 		if (getDolGlobalString('FACTURE_SUPPLIER_DEPOSITS_ARE_JUST_PAYMENTS')) {
@@ -667,9 +667,9 @@ if ($modecompta == 'BOOKKEEPING') {
 	} elseif ($modecompta == 'RECETTES-DEPENSES') {
 		$sql = "SELECT s.nom as name, s.rowid as socid, sum(pf.amount) as amount_ttc";
 		$sql .= " FROM ".MAIN_DB_PREFIX."paiementfourn as p";
-		$sql .= ", ".MAIN_DB_PREFIX."paiementfourn_facturefourn as pf";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture_fourn as f";
-		$sql .= " ON pf.fk_facturefourn = f.rowid";
+		$sql .= ", ".MAIN_DB_PREFIX."paiementfourn_invoicefourn as pf";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice_fourn as f";
+		$sql .= " ON pf.fk_invoicefourn = f.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s";
 		$sql .= " ON f.fk_soc = s.rowid";
 		$sql .= " WHERE p.rowid = pf.fk_paiementfourn ";
@@ -700,7 +700,7 @@ if ($modecompta == 'BOOKKEEPING') {
 
 				print '<tr class="oddeven">';
 				print '<td>&nbsp;</td>';
-				print "<td>".$langs->trans("Bills").' <a href="'.DOL_URL_ROOT."/fourn/facture/list.php?socid=".$objp->socid.'">'.$objp->name.'</a></td>'."\n";
+				print "<td>".$langs->trans("Bills").' <a href="'.DOL_URL_ROOT."/fourn/invoice/list.php?socid=".$objp->socid.'">'.$objp->name.'</a></td>'."\n";
 
 				print '<td class="right">';
 				if ($modecompta == 'CREANCES-DETTES') {
@@ -1300,7 +1300,7 @@ if ($modecompta == 'BOOKKEEPING') {
 			// VAT to pay
 			$amount = 0;
 			$sql = "SELECT date_format(f.datef,'%Y-%m') as dm, sum(f.total_tva) as amount";
-			$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
+			$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f";
 			$sql .= " WHERE f.fk_statut IN (1,2)";
 			if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
 				$sql .= " AND f.type IN (0,1,2,5)";
@@ -1358,7 +1358,7 @@ if ($modecompta == 'BOOKKEEPING') {
 			// VAT to retrieve
 			$amount = 0;
 			$sql = "SELECT date_format(f.datef,'%Y-%m') as dm, sum(f.total_tva) as amount";
-			$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
+			$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f";
 			$sql .= " WHERE f.fk_statut IN (1,2)";
 			if (getDolGlobalString('FACTURE_SUPPLIER_DEPOSITS_ARE_JUST_PAYMENTS')) {
 				$sql .= " AND f.type IN (0,1,2)";

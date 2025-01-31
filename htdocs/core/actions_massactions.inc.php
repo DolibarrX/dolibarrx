@@ -89,7 +89,7 @@ $error = 0;
 
 // Note: list of strings for objectclass could be extended to accepted/expected classes
 '
-@phan-var-force "CommonObject"|"OrderFournisseur"|"ConferenceOrBoothAttendee"|"Contract"|"Contact"|"Expedition"|"ExpenseReport"|"Facture"|"FactureFournisseur"|"Fichinter"|"Holiday"|"Partnership"|"Project"|"Propal"|"Societe"|"SupplierProposal" $objectclass
+@phan-var-force "CommonObject"|"OrderFournisseur"|"ConferenceOrBoothAttendee"|"Contract"|"Contact"|"Expedition"|"ExpenseReport"|"Invoice"|"InvoiceSupplier"|"Fichinter"|"Holiday"|"Partnership"|"Project"|"Propal"|"Societe"|"SupplierProposal" $objectclass
 @phan-var-force string $massaction
 @phan-var-force string $uploaddir
 ';
@@ -194,9 +194,9 @@ if (!$error && $massaction == 'confirm_presend') {
 					$tmpobjectid = 0;
 				}
 
-				if ($objectclass == 'Facture') {
-					'@phan-var-force Facture $objecttmp';
-					/** @var Facture $objecttmp */
+				if ($objectclass == 'Invoice') {
+					'@phan-var-force Invoice $objecttmp';
+					/** @var Invoice $objecttmp */
 					$tmparraycontact = [];
 					$tmparraycontact = $objecttmp->liste_contact(-1, 'external', 0, 'BILLING');
 					if (is_array($tmparraycontact) && count($tmparraycontact) > 0) {
@@ -327,7 +327,7 @@ if (!$error && $massaction == 'confirm_presend') {
 					$resaction .= '<div class="error">'.$langs->trans('ErrorOnlyOrderNotDraftCanBeSentInMassAction', $objectobj->ref).'</div><br>';
 					continue;
 				}
-				if ($objectclass == 'Facture' && $objectobj->status == Facture::STATUS_DRAFT) {
+				if ($objectclass == 'Invoice' && $objectobj->status == Invoice::STATUS_DRAFT) {
 					$langs->load("errors");
 					$nbignored++;
 					$resaction .= '<div class="error">'.$langs->trans('ErrorOnlyInvoiceValidatedCanBeSentInMassAction', $objectobj->ref).'</div><br>';
@@ -354,7 +354,7 @@ if (!$error && $massaction == 'confirm_presend') {
 						$fuser = new User($db);
 						$fuser->fetch($objectobj->fk_user);
 						$sendto = $fuser->email;
-					} elseif ($objectobj->element == 'facture' && !empty($listofobjectcontacts[$objectid])) {
+					} elseif ($objectobj->element == 'invoice' && !empty($listofobjectcontacts[$objectid])) {
 						$emails_to_sends = [];
 						$objectobj->fetch_thirdparty();
 						$contactidtosend = [];
@@ -506,7 +506,7 @@ if (!$error && $massaction == 'confirm_presend') {
 				if ($objectclass == 'Order') {
 					$sendtobcc .= (!getDolGlobalString('MAIN_MAIL_AUTOCOPY_ORDER_TO') ? '' : (($sendtobcc ? ", " : "") . getDolGlobalString('MAIN_MAIL_AUTOCOPY_ORDER_TO')));
 				}
-				if ($objectclass == 'Facture') {
+				if ($objectclass == 'Invoice') {
 					$sendtobcc .= (!getDolGlobalString('MAIN_MAIL_AUTOCOPY_INVOICE_TO') ? '' : (($sendtobcc ? ", " : "") . getDolGlobalString('MAIN_MAIL_AUTOCOPY_INVOICE_TO')));
 				}
 				if ($objectclass == 'SupplierProposal') {
@@ -515,7 +515,7 @@ if (!$error && $massaction == 'confirm_presend') {
 				if ($objectclass == 'OrderFournisseur') {
 					$sendtobcc .= (!getDolGlobalString('MAIN_MAIL_AUTOCOPY_SUPPLIER_ORDER_TO') ? '' : (($sendtobcc ? ", " : "") . getDolGlobalString('MAIN_MAIL_AUTOCOPY_SUPPLIER_ORDER_TO')));
 				}
-				if ($objectclass == 'FactureFournisseur') {
+				if ($objectclass == 'InvoiceSupplier') {
 					$sendtobcc .= (!getDolGlobalString('MAIN_MAIL_AUTOCOPY_SUPPLIER_INVOICE_TO') ? '' : (($sendtobcc ? ", " : "") . getDolGlobalString('MAIN_MAIL_AUTOCOPY_SUPPLIER_INVOICE_TO')));
 				}
 				if ($objectclass == 'Project') {
@@ -611,13 +611,13 @@ if (!$error && $massaction == 'confirm_presend') {
 							$trackid = 'pro';
 						} elseif (get_class($objecttmp) == 'Order') {
 							$trackid = 'ord';
-						} elseif (get_class($objecttmp) == 'Facture') {
+						} elseif (get_class($objecttmp) == 'Invoice') {
 							$trackid = 'inv';
 						} elseif (get_class($objecttmp) == 'SupplierProposal') {
 							$trackid = 'spr';
 						} elseif (get_class($objecttmp) == 'OrderFournisseur') {
 							$trackid = 'sor';
-						} elseif (get_class($objecttmp) == 'FactureFournisseur') {
+						} elseif (get_class($objecttmp) == 'InvoiceSupplier') {
 							$trackid = 'sin';
 						}
 
@@ -657,10 +657,10 @@ if (!$error && $massaction == 'confirm_presend') {
 
 								/*if ($objectclass == 'Propale') $actiontypecode='AC_PROP';
 								if ($objectclass == 'Order') $actiontypecode='AC_COM';
-								if ($objectclass == 'Facture') $actiontypecode='AC_FAC';
+								if ($objectclass == 'Invoice') $actiontypecode='AC_FAC';
 								if ($objectclass == 'SupplierProposal') $actiontypecode='AC_SUP_PRO';
 								if ($objectclass == 'OrderFournisseur') $actiontypecode='AC_SUP_ORD';
-								if ($objectclass == 'FactureFournisseur') $actiontypecode='AC_SUP_INV';*/
+								if ($objectclass == 'InvoiceSupplier') $actiontypecode='AC_SUP_INV';*/
 
 								$actionmsg = $langs->transnoentities('MailSentByTo', $from, $sendto);
 								if ($message) {
@@ -875,7 +875,7 @@ if (!$error && $massaction == "builddoc" && $permissiontoread && !GETPOST('butto
 		$filename = preg_replace('/\s/', '_', $filename);
 
 		// Save merged file
-		if (in_array($objecttmp->element, array('facture', 'invoice_supplier')) && $search_status == Facture::STATUS_VALIDATED) {
+		if (in_array($objecttmp->element, array('invoice', 'invoice_supplier')) && $search_status == Invoice::STATUS_VALIDATED) {
 			if ($option == 'late') {
 				$filename .= '_'.strtolower(dol_sanitizeFileName($langs->transnoentities("Unpaid"))).'_'.strtolower(dol_sanitizeFileName($langs->transnoentities("Late")));
 			} else {
@@ -954,7 +954,7 @@ if (!$error && $massaction == "builddoc" && $permissiontoread && !GETPOST('butto
 
 
 		// Save merged file
-		if (in_array($objecttmp->element, array('facture', 'invoice_supplier')) && $search_status == Facture::STATUS_VALIDATED) {
+		if (in_array($objecttmp->element, array('invoice', 'invoice_supplier')) && $search_status == Invoice::STATUS_VALIDATED) {
 			if ($option == 'late') {
 				$filename .= '_'.strtolower(dol_sanitizeFileName($langs->transnoentities("Unpaid"))).'_'.strtolower(dol_sanitizeFileName($langs->transnoentities("Late")));
 			} else {
@@ -1002,7 +1002,7 @@ if ($action == 'remove_file') {
 if (!$error && $massaction == 'validate' && $permissionToAdd) {
 	$objecttmp = new $objectclass($db);
 
-	if (($objecttmp->element == 'facture' || $objecttmp->element == 'invoice') && isModEnabled('stock') && getDolGlobalString('STOCK_CALCULATE_ON_BILL')) {
+	if (($objecttmp->element == 'invoice' || $objecttmp->element == 'invoice') && isModEnabled('stock') && getDolGlobalString('STOCK_CALCULATE_ON_BILL')) {
 		$langs->load("errors");
 		setEventMessages($langs->trans('ErrorMassValidationNotAllowedWhenStockIncreaseOnAction'), null, 'errors');
 		$error++;
@@ -1012,10 +1012,10 @@ if (!$error && $massaction == 'validate' && $permissionToAdd) {
 		setEventMessages($langs->trans('ErrorMassValidationNotAllowedWhenStockIncreaseOnAction'), null, 'errors');
 		$error++;
 	}
-	if ($objecttmp->element == 'facture') {
+	if ($objecttmp->element == 'invoice') {
 		if (!empty($toselect) && getDolGlobalString('INVOICE_CHECK_POSTERIOR_DATE')) {
 			// order $toselect by date
-			$sql  = "SELECT rowid FROM ".MAIN_DB_PREFIX."facture";
+			$sql  = "SELECT rowid FROM ".MAIN_DB_PREFIX."invoice";
 			$sql .= " WHERE rowid IN (".$db->sanitize(implode(",", $toselect)).")";
 			$sql .= " ORDER BY datef";
 
@@ -1128,7 +1128,7 @@ if (!$error && ($massaction == 'delete' || ($action == 'delete' && $confirm == '
 		$result = $objecttmp->fetch($toselectid);
 		if ($result > 0) {
 			// Refuse deletion for some objects/status
-			if ($objectclass == 'Facture' && !getDolGlobalString('INVOICE_CAN_ALWAYS_BE_REMOVED') && $objecttmp->status != Facture::STATUS_DRAFT) {
+			if ($objectclass == 'Invoice' && !getDolGlobalString('INVOICE_CAN_ALWAYS_BE_REMOVED') && $objecttmp->status != Invoice::STATUS_DRAFT) {
 				$langs->load("errors");
 				$nbignored++;
 				$TMsg[] = '<div class="error">'.$langs->trans('ErrorOnlyDraftStatusCanBeDeletedInMassAction', $objecttmp->ref).'</div><br>';
@@ -1213,7 +1213,7 @@ if (!$error && ($massaction == 'delete' || ($action == 'delete' && $confirm == '
 if (!$error && $massaction == 'generate_doc' && $permissiontoread) {
 	// Complete with classes that use this massaction
 	<<<'EOPHAN'
-@phan-var-force 'Order'|'OrderFournisseur'|'Contract'|'Expedition'|'ExpenseReport'|'Facture'|'FactureFournisseur'|'Fichinter'|'Project'|'Propal'|'SupplierProposal' $objectclass
+@phan-var-force 'Order'|'OrderFournisseur'|'Contract'|'Expedition'|'ExpenseReport'|'Invoice'|'InvoiceSupplier'|'Fichinter'|'Project'|'Propal'|'SupplierProposal' $objectclass
 EOPHAN;
 
 	$db->begin();

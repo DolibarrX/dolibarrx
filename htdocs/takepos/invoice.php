@@ -50,7 +50,7 @@ if (!defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')) {
 }
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 /**
@@ -141,7 +141,7 @@ if ($paycode) {
 	}
 }
 
-$invoice = new Facture($db);
+$invoice = new Invoice($db);
 if ($invoiceid > 0) {
 	$ret = $invoice->fetch($invoiceid);
 } else {
@@ -187,7 +187,7 @@ if ($resHook < 0) {
 
 if (empty($resHook)) {
 	// Action to record a payment on a TakePOS invoice
-	if ($action == 'valid' && $user->hasRight('facture', 'creer')) {
+	if ($action == 'valid' && $user->hasRight('invoice', 'creer')) {
 		$bankaccount = 0;
 		$error = 0;
 
@@ -212,7 +212,7 @@ if (empty($resHook)) {
 		$now = dol_now();
 		$res = 0;
 
-		$invoice = new Facture($db);
+		$invoice = new Invoice($db);
 		$invoice->fetch($placeid);
 
 		$db->begin();
@@ -220,10 +220,10 @@ if (empty($resHook)) {
 		if ($invoice->total_ttc < 0) {
 			$invoice->type = $invoice::TYPE_CREDIT_NOTE;
 
-			$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."facture";
+			$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."invoice";
 			$sql .= " WHERE entity IN (".getEntity('invoice').")";
 			$sql .= " AND fk_soc = ".((int) $invoice->socid);
-			$sql .= " AND type <> ".Facture::TYPE_CREDIT_NOTE;
+			$sql .= " AND type <> ".Invoice::TYPE_CREDIT_NOTE;
 			$sql .= " AND fk_statut >= ".$invoice::STATUS_VALIDATED;
 			$sql .= " ORDER BY rowid DESC";
 
@@ -237,7 +237,7 @@ if (empty($resHook)) {
 			} else {
 				fail($langs->transnoentitiesnoconv("NoPreviousBillForCustomer"));
 			}
-			$invoice->fk_facture_source = $fk_source;
+			$invoice->fk_invoice_source = $fk_source;
 			$invoice->update($user);
 		}
 
@@ -246,7 +246,7 @@ if (empty($resHook)) {
 
 		if ($error) {
 			dol_htmloutput_errors($errormsg, [], 1);
-		} elseif ($invoice->status != Facture::STATUS_DRAFT) {
+		} elseif ($invoice->status != Invoice::STATUS_DRAFT) {
 			//If invoice is validated but it is not fully paid is not error and make the payment
 			if ($invoice->getRemainToPay() > 0) {
 				$res = 1;
@@ -392,16 +392,16 @@ if (empty($resHook)) {
 			$db->rollback();
 		}
 	}
-	if ($action == 'creditnote' && $user->hasRight('facture', 'creer')) {
+	if ($action == 'creditnote' && $user->hasRight('invoice', 'creer')) {
 		$db->begin();
 
-		$creditnote = new Facture($db);
+		$creditnote = new Invoice($db);
 		$creditnote->socid = $invoice->socid;
 		$creditnote->date = dol_now();
 		$creditnote->module_source = 'takepos';
 		$creditnote->pos_source =  isset($_SESSION["takeposterminal"]) ? $_SESSION["takeposterminal"] : '' ;
-		$creditnote->type = Facture::TYPE_CREDIT_NOTE;
-		$creditnote->fk_facture_source = $placeid;
+		$creditnote->type = Invoice::TYPE_CREDIT_NOTE;
+		$creditnote->fk_invoice_source = $placeid;
 		//$creditnote->remise_absolue = $invoice->remise_absolue;
 		//$creditnote->remise_percent = $invoice->remise_percent;
 		$creditnote->create($user);
@@ -429,7 +429,7 @@ if (empty($resHook)) {
 								$searchPreviousInvoice = false; // find, exit;
 								break;
 							} else {
-								if ($invoice->tab_previous_situation_invoice[$lineIndex]->type == Facture::TYPE_CREDIT_NOTE) {
+								if ($invoice->tab_previous_situation_invoice[$lineIndex]->type == Invoice::TYPE_CREDIT_NOTE) {
 									$tab_jumped_credit_notes[$lineIndex] = $invoice->tab_previous_situation_invoice[$lineIndex]->id;
 								}
 								$lineIndex--; // go to previous invoice in cycle
@@ -490,7 +490,7 @@ if (empty($resHook)) {
 			}
 
 			// We update field for credit notes
-			$line->fk_facture = $creditnote->id;
+			$line->fk_invoice = $creditnote->id;
 			$line->fk_parent_line = $fk_parent_line;
 
 			$line->subprice = -$line->subprice; // invert price for object
@@ -606,7 +606,7 @@ if (empty($resHook)) {
 			$placeid = GETPOSTINT('placeid');
 		}
 
-		$invoice = new Facture($db);
+		$invoice = new Invoice($db);
 		$invoice->fetch($placeid);
 	}
 
@@ -632,7 +632,7 @@ if (empty($resHook)) {
 			if ($placeid < 0) {
 				dol_htmloutput_errors($invoice->error, $invoice->errors, 1);
 			}
-			$sql = "UPDATE ".MAIN_DB_PREFIX."facture";
+			$sql = "UPDATE ".MAIN_DB_PREFIX."invoice";
 			$sql .= " SET ref='(PROV-POS".$_SESSION["takeposterminal"]."-".$place.")'";
 			$sql .= " WHERE rowid = ".((int) $placeid);
 			$resql = $db->query($sql);
@@ -763,7 +763,7 @@ if (empty($resHook)) {
 			$categories = $cat->containing($idproduct, 'product');
 			$found = (array_search(getDolGlobalInt('TAKEPOS_SUPPLEMENTS_CATEGORY'), array_column($categories, 'id')));
 			if ($found !== false) { // If this product is a supplement
-				$sql = "SELECT fk_parent_line FROM ".MAIN_DB_PREFIX."facturedet where rowid = ".((int) $selectedline);
+				$sql = "SELECT fk_parent_line FROM ".MAIN_DB_PREFIX."invoicedet where rowid = ".((int) $selectedline);
 				$resql = $db->query($sql);
 				$row = $db->fetch_array($resql);
 				if ($row[0] == null) {
@@ -916,7 +916,7 @@ if (empty($resHook)) {
 			$invoice->deleteLine($idline);
 			$invoice->fetch($placeid);
 		} elseif ($placeid > 0) {             // If invoice exists but no line selected, proceed to delete last line.
-			$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."facturedet where fk_facture = ".((int) $placeid)." ORDER BY rowid DESC";
+			$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."invoicedet where fk_invoice = ".((int) $placeid)." ORDER BY rowid DESC";
 			$resql = $db->query($sql);
 			$row = $db->fetch_array($resql);
 			$deletelineid = $row[0];
@@ -943,7 +943,7 @@ if (empty($resHook)) {
 		if ($placeid > 0) {
 			$result = $invoice->fetch($placeid);
 
-			if ($result > 0 && $invoice->status == Facture::STATUS_DRAFT) {
+			if ($result > 0 && $invoice->status == Invoice::STATUS_DRAFT) {
 				$db->begin();
 
 				// We delete the lines
@@ -957,7 +957,7 @@ if (empty($resHook)) {
 					}
 				}
 
-				$sql = "UPDATE ".MAIN_DB_PREFIX."facture";
+				$sql = "UPDATE ".MAIN_DB_PREFIX."invoice";
 				$varforconst = 'CASHDESK_ID_THIRDPARTY'.$_SESSION["takeposterminal"];
 				$sql .= " SET fk_soc = ".((int) getDolGlobalString($varforconst)).", ";
 				$sql .= " datec = '".$db->idate(dol_now())."'";
@@ -1118,7 +1118,7 @@ if (empty($resHook)) {
 	if ($action == "setbatch" && ($user->hasRight('takepos', 'run') || defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE'))) {
 		$constantforkey = 'CASHDESK_ID_WAREHOUSE'.$_SESSION["takeposterminal"];
 		$warehouseid = (GETPOSTINT('warehouseid') > 0 ? GETPOSTINT('warehouseid') : getDolGlobalInt($constantforkey));	// Get the warehouse id from GETPOSTINT('warehouseid'), otherwise use default setup.
-		$sql = "UPDATE ".MAIN_DB_PREFIX."facturedet SET batch = '".$db->escape($batch)."', fk_warehouse = ".((int) $warehouseid);
+		$sql = "UPDATE ".MAIN_DB_PREFIX."invoicedet SET batch = '".$db->escape($batch)."', fk_warehouse = ".((int) $warehouseid);
 		$sql .= " WHERE rowid=".((int) $idoflineadded);
 		$db->query($sql);
 	}
@@ -1155,7 +1155,7 @@ if (empty($resHook)) {
 			}
 			if ($count > 0) {
 				$linestoprint++;
-				$sql = "UPDATE ".MAIN_DB_PREFIX."facturedet set special_code='1' where rowid=".$line->id; //Set to print on printer 1
+				$sql = "UPDATE ".MAIN_DB_PREFIX."invoicedet set special_code='1' where rowid=".$line->id; //Set to print on printer 1
 				$db->query($sql);
 				$order_receipt_printer1 .= '<tr><td class="left">';
 				if ($line->fk_product) {
@@ -1178,7 +1178,7 @@ if (empty($resHook)) {
 			$ret = $printer->sendToPrinter($invoice, getDolGlobalInt('TAKEPOS_TEMPLATE_TO_USE_FOR_ORDERS'.$_SESSION["takeposterminal"]), getDolGlobalInt('TAKEPOS_ORDER_PRINTER1_TO_USE'.$_SESSION["takeposterminal"])); // PRINT TO PRINTER 1
 			echo "';</script>";
 		}
-		$sql = "UPDATE ".MAIN_DB_PREFIX."facturedet set special_code='4' where special_code='1' and fk_facture=".$invoice->id; // Set as printed
+		$sql = "UPDATE ".MAIN_DB_PREFIX."invoicedet set special_code='4' where special_code='1' and fk_invoice=".$invoice->id; // Set as printed
 		$db->query($sql);
 		$invoice->fetch($placeid); //Reload object after set lines as printed
 		$linestoprint = 0;
@@ -1193,7 +1193,7 @@ if (empty($resHook)) {
 			$count = count($result);
 			if ($count > 0) {
 				$linestoprint++;
-				$sql = "UPDATE ".MAIN_DB_PREFIX."facturedet set special_code='2' where rowid=".$line->id; //Set to print on printer 2
+				$sql = "UPDATE ".MAIN_DB_PREFIX."invoicedet set special_code='2' where rowid=".$line->id; //Set to print on printer 2
 				$db->query($sql);
 				$order_receipt_printer2 .= '<tr>'.$line->product_label.'<td class="right">'.$line->qty;
 				if (!empty($line->array_options['options_order_notes'])) {
@@ -1210,7 +1210,7 @@ if (empty($resHook)) {
 			$ret = $printer->sendToPrinter($invoice, getDolGlobalInt('TAKEPOS_TEMPLATE_TO_USE_FOR_ORDERS'.$_SESSION["takeposterminal"]), getDolGlobalInt('TAKEPOS_ORDER_PRINTER2_TO_USE'.$_SESSION["takeposterminal"])); // PRINT TO PRINTER 2
 			echo "';</script>";
 		}
-		$sql = "UPDATE ".MAIN_DB_PREFIX."facturedet set special_code='4' where special_code='2' and fk_facture=".$invoice->id; // Set as printed
+		$sql = "UPDATE ".MAIN_DB_PREFIX."invoicedet set special_code='4' where special_code='2' and fk_invoice=".$invoice->id; // Set as printed
 		$db->query($sql);
 		$invoice->fetch($placeid); //Reload object after set lines as printed
 		$linestoprint = 0;
@@ -1225,7 +1225,7 @@ if (empty($resHook)) {
 			$count = count($result);
 			if ($count > 0) {
 				$linestoprint++;
-				$sql = "UPDATE ".MAIN_DB_PREFIX."facturedet set special_code='3' where rowid=".$line->id; //Set to print on printer 3
+				$sql = "UPDATE ".MAIN_DB_PREFIX."invoicedet set special_code='3' where rowid=".$line->id; //Set to print on printer 3
 				$db->query($sql);
 				$order_receipt_printer3 .= '<tr>'.$line->product_label.'<td class="right">'.$line->qty;
 				if (!empty($line->array_options['options_order_notes'])) {
@@ -1242,7 +1242,7 @@ if (empty($resHook)) {
 			$ret = $printer->sendToPrinter($invoice, getDolGlobalInt('TAKEPOS_TEMPLATE_TO_USE_FOR_ORDERS'.$_SESSION["takeposterminal"]), getDolGlobalInt('TAKEPOS_ORDER_PRINTER3_TO_USE'.$_SESSION["takeposterminal"])); // PRINT TO PRINTER 3
 			echo "';</script>";
 		}
-		$sql = "UPDATE ".MAIN_DB_PREFIX."facturedet set special_code='4' where special_code='3' and fk_facture=".$invoice->id; // Set as printed
+		$sql = "UPDATE ".MAIN_DB_PREFIX."invoicedet set special_code='4' where special_code='3' and fk_invoice=".$invoice->id; // Set as printed
 		$db->query($sql);
 		$invoice->fetch($placeid); //Reload object after set lines as printed
 	}
@@ -1265,7 +1265,7 @@ if (empty($resHook)) {
 
 		$sectionwithinvoicelink .= '</span><br>';
 		if (getDolGlobalInt('TAKEPOS_PRINT_INVOICE_DOC_INSTEAD_OF_RECEIPT')) {
-			$sectionwithinvoicelink .= ' <a target="_blank" class="button" href="' . DOL_URL_ROOT . '/document.php?token=' . newToken() . '&modulepart=facture&file=' . $invoice->ref . '/' . $invoice->ref . '.pdf">Invoice</a>';
+			$sectionwithinvoicelink .= ' <a target="_blank" class="button" href="' . DOL_URL_ROOT . '/document.php?token=' . newToken() . '&modulepart=invoice&file=' . $invoice->ref . '/' . $invoice->ref . '.pdf">Invoice</a>';
 		} elseif (getDolGlobalString('TAKEPOS_PRINT_METHOD') == "takeposconnector") {
 			if (getDolGlobalString('TAKEPOS_PRINT_SERVER') && filter_var(getDolGlobalString('TAKEPOS_PRINT_SERVER'), FILTER_VALIDATE_URL) == true) {
 				$sectionwithinvoicelink .= ' <button id="buttonprint" type="button" onclick="TakeposConnector('.$placeid.')">'.$langs->trans('PrintTicket').'</button>';
@@ -1549,7 +1549,7 @@ $( document ).ready(function() {
 	<?php } ?>
 
 	<?php
-	$sql = "SELECT rowid, datec, ref FROM ".MAIN_DB_PREFIX."facture";
+	$sql = "SELECT rowid, datec, ref FROM ".MAIN_DB_PREFIX."invoice";
 	$sql .= " WHERE entity IN (".getEntity('invoice').")";
 	if (!getDolGlobalString('TAKEPOS_CAN_EDIT_IF_ALREADY_VALIDATED')) {
 		// By default, only invoices with a ref not already defined can in list of open invoice we can edit.
@@ -2133,10 +2133,10 @@ if ($usediv) {
 	print '</table>';
 }
 
-if (($action == "valid" || $action == "history") && $invoice->type != Facture::TYPE_CREDIT_NOTE && !getDolGlobalString('TAKEPOS_NO_CREDITNOTE')) {
+if (($action == "valid" || $action == "history") && $invoice->type != Invoice::TYPE_CREDIT_NOTE && !getDolGlobalString('TAKEPOS_NO_CREDITNOTE')) {
 	print '<button id="buttonprint" type="button" onclick="ModalBox(\'ModalCreditNote\')">'.$langs->trans('CreateCreditNote').'</button>';
 	if (getDolGlobalInt('TAKEPOS_PRINT_INVOICE_DOC_INSTEAD_OF_RECEIPT')) {
-		print ' <a target="_blank" class="button" href="' . DOL_URL_ROOT . '/document.php?token=' . newToken() . '&modulepart=facture&file=' . $invoice->ref . '/' . $invoice->ref . '.pdf">Invoice</a>';
+		print ' <a target="_blank" class="button" href="' . DOL_URL_ROOT . '/document.php?token=' . newToken() . '&modulepart=invoice&file=' . $invoice->ref . '/' . $invoice->ref . '.pdf">Invoice</a>';
 	}
 }
 

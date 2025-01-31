@@ -30,7 +30,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formaccounting.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingaccount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
@@ -154,7 +154,7 @@ if (is_array($changeaccount) && count($changeaccount) > 0 && $user->hasRight('ac
 	if (!$error) {
 		$db->begin();
 
-		$sql1 = "UPDATE ".MAIN_DB_PREFIX."facture_fourn_det";
+		$sql1 = "UPDATE ".MAIN_DB_PREFIX."invoice_fourn_det";
 		$sql1 .= " SET fk_code_ventilation=".(GETPOSTINT('account_parent') > 0 ? GETPOSTINT('account_parent') : '0');
 		$sql1 .= ' WHERE rowid IN ('.$db->sanitize(implode(',', $changeaccount)).')';
 
@@ -235,19 +235,19 @@ if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 $parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
-$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn_det as l";
+$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn_det as l";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = l.fk_product";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 }
 $sql .= " INNER JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON aa.rowid = l.fk_code_ventilation";
-$sql .= " INNER JOIN ".MAIN_DB_PREFIX."facture_fourn as f ON f.rowid = l.fk_facture_fourn";
+$sql .= " INNER JOIN ".MAIN_DB_PREFIX."invoice_fourn as f ON f.rowid = l.fk_invoice_fourn";
 $sql .= " INNER JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co ON co.rowid = s.fk_pays ";
-$sql .= " WHERE f.rowid = l.fk_facture_fourn and f.fk_statut >= 1 AND l.fk_code_ventilation <> 0 ";
+$sql .= " WHERE f.rowid = l.fk_invoice_fourn and f.fk_statut >= 1 AND l.fk_code_ventilation <> 0 ";
 // Add search filter like
 if ($search_societe) {
 	$sql .= natural_search('s.nom', $search_societe);
@@ -309,7 +309,7 @@ if (strlen(trim($search_country))) {
 if (strlen(trim($search_tvaintra))) {
 	$sql .= natural_search("s.tva_intra", $search_tvaintra);
 }
-$sql .= " AND f.entity IN (".getEntity('facture_fourn', 0).")"; // We do not share object for accountancy
+$sql .= " AND f.entity IN (".getEntity('invoice_fourn', 0).")"; // We do not share object for accountancy
 
 // Add where from hooks
 $parameters = [];
@@ -466,7 +466,7 @@ if ($result) {
 	print "</tr>\n";
 
 	$thirdpartystatic = new Societe($db);
-	$facturefournisseur_static = new FactureFournisseur($db);
+	$invoicefournisseur_static = new InvoiceSupplier($db);
 	$productstatic = new ProductFournisseur($db);
 	$accountingaccountstatic = new AccountingAccount($db);
 
@@ -474,11 +474,11 @@ if ($result) {
 	while ($i < min($num_lines, $limit)) {
 		$objp = $db->fetch_object($result);
 
-		$facturefournisseur_static->ref = $objp->ref;
-		$facturefournisseur_static->id = $objp->facid;
-		$facturefournisseur_static->type = $objp->ftype;
-		$facturefournisseur_static->ref_supplier = $objp->ref_supplier;
-		$facturefournisseur_static->label = $objp->invoice_label;
+		$invoicefournisseur_static->ref = $objp->ref;
+		$invoicefournisseur_static->id = $objp->facid;
+		$invoicefournisseur_static->type = $objp->ftype;
+		$invoicefournisseur_static->ref_supplier = $objp->ref_supplier;
+		$invoicefournisseur_static->label = $objp->invoice_label;
 
 		$thirdpartystatic->id = $objp->socid;
 		$thirdpartystatic->name = $objp->name;
@@ -513,7 +513,7 @@ if ($result) {
 
 		// Ref Invoice
 		print '<td class="nowraponall tdoverflowmax125">';
-		print $facturefournisseur_static->getNomUrl(1);
+		print $invoicefournisseur_static->getNomUrl(1);
 		if ($objp->ref_supplier) {
 			print '<br><span class="opacitymedium small">'.dol_escape_htmltag($objp->ref_supplier).'</span>';
 		}

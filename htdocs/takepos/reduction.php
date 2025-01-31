@@ -42,7 +42,7 @@ if (!defined('NOREQUIREAJAX')) {
 
 // Load Dolibarr environment
 require '../main.inc.php'; // Load $user and permissions
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 /**
  * @var Config $config
  * @var DoliDB $db
@@ -65,11 +65,11 @@ if (!$user->hasRight('takepos', 'run')) {
  * View
  */
 
-$invoice = new Facture($db);
+$invoice = new Invoice($db);
 if ($invoiceid > 0) {
 	$invoice->fetch($invoiceid);
 } else {
-	$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."facture";
+	$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."invoice";
 	$sql .= " WHERE ref = '(PROV-POS".$_SESSION["takeposterminal"]."-".$place.")'";
 	$sql .= " AND entity IN (".getEntity('invoice').")";
 

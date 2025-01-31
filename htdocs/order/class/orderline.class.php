@@ -82,7 +82,7 @@ class OrderLine extends CommonOrderLine
 	/**
 	 * @var int Id of invoice
 	 */
-	public $fk_facture;
+	public $fk_invoice;
 
 	/**
 	 * @var string External ref

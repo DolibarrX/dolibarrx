@@ -629,7 +629,7 @@ class dolReceiptPrinter extends Printer
 	/**
 	 *  Function to Print Receipt Ticket
 	 *
-	 *  @param   Facture|Order   $object         Order or invoice object
+	 *  @param   Invoice|Order   $object         Order or invoice object
 	 *  @param   int       			$templateid     Template id
 	 *  @param   int       			$printerid      Printer id
 	 *  @return  int                				0 if OK; >0 if KO
@@ -926,9 +926,9 @@ class dolReceiptPrinter extends Printer
 					case 'DOL_PRINT_PAYMENT':
 						$sql = "SELECT p.pos_change as pos_change, p.datep as date, p.fk_paiement, p.num_paiement as num, pf.amount as amount, pf.multicurrency_amount,";
 						$sql .= " cp.code";
-						$sql .= " FROM ".$this->db->prefix()."paiement_facture as pf, ".$this->db->prefix()."paiement as p";
+						$sql .= " FROM ".$this->db->prefix()."paiement_invoice as pf, ".$this->db->prefix()."paiement as p";
 						$sql .= " LEFT JOIN ".$this->db->prefix()."c_paiement as cp ON p.fk_paiement = cp.id";
-						$sql .= " WHERE pf.fk_paiement = p.rowid AND pf.fk_facture = ".((int) $object->id);
+						$sql .= " WHERE pf.fk_paiement = p.rowid AND pf.fk_invoice = ".((int) $object->id);
 						$sql .= " ORDER BY p.datep";
 						$resql = $this->db->query($sql);
 						if ($resql) {

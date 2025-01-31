@@ -36,7 +36,7 @@ require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/invoice.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
 /**
  * @var Config $config
@@ -106,15 +106,15 @@ if ($action == 'updateMask') {
 } elseif ($action == 'specimen') {
 	$modele = GETPOST('module', 'alpha');
 
-	$facture = new Facture($db);
-	$facture->initAsSpecimen();
+	$invoice = new Invoice($db);
+	$invoice->initAsSpecimen();
 
 	// Search template files
 	$file = '';
 	$classname = '';
 	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
-		$file = dol_buildpath($reldir."core/modules/facture/doc/pdf_".$modele.".modules.php", 0);
+		$file = dol_buildpath($reldir."core/modules/invoice/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
 			$classname = "pdf_".$modele;
 			break;
@@ -125,10 +125,10 @@ if ($action == 'updateMask') {
 		require_once $file;
 
 		$module = new $classname($db);
-		'@phan-var-force ModelePDFFactures $module';
+		'@phan-var-force ModelePDFInvoices $module';
 
-		if ($module->write_file($facture, $langs) > 0) {
-			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=facture&file=SPECIMEN.pdf");
+		if ($module->write_file($invoice, $langs) > 0) {
+			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=invoice&file=SPECIMEN.pdf");
 			return;
 		} else {
 			setEventMessages($module->error, $module->errors, 'errors');
@@ -318,7 +318,7 @@ print '</tr>'."\n";
 clearstatcache();
 
 foreach ($dirmodels as $reldir) {
-	$dir = dol_buildpath($reldir."core/modules/facture/");
+	$dir = dol_buildpath($reldir."core/modules/invoice/");
 	if (is_dir($dir)) {
 		$handle = opendir($dir);
 		if (is_resource($handle)) {
@@ -329,7 +329,7 @@ foreach ($dirmodels as $reldir) {
 					// For compatibility
 					if (!is_file($dir.$filebis)) {
 						$filebis = $file."/".$file.".modules.php";
-						$classname = "mod_facture_".$file;
+						$classname = "mod_invoice_".$file;
 					}
 					// Check if there is a filter on country
 					preg_match('/\-(.*)_(.*)$/', $classname, $reg);
@@ -344,7 +344,7 @@ foreach ($dirmodels as $reldir) {
 
 						$module = new $classname($db);
 
-						'@phan-var-force ModeleNumRefFactures $module';
+						'@phan-var-force ModeleNumRefInvoices $module';
 
 						// Show modules according to features level
 						if ($module->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2) {
@@ -356,7 +356,7 @@ foreach ($dirmodels as $reldir) {
 
 						if ($module->isEnabled()) {
 							print '<tr class="oddeven"><td width="100">';
-							echo preg_replace('/\-.*$/', '', preg_replace('/mod_facture_/', '', preg_replace('/\.php$/', '', $file)));
+							echo preg_replace('/\-.*$/', '', preg_replace('/mod_invoice_/', '', preg_replace('/\.php$/', '', $file)));
 							print "</td><td>\n";
 
 							print $module->info($langs);
@@ -385,15 +385,15 @@ foreach ($dirmodels as $reldir) {
 							}
 							print '</td>';
 
-							$facture = new Facture($db);
-							$facture->initAsSpecimen();
+							$invoice = new Invoice($db);
+							$invoice->initAsSpecimen();
 
 							$htmltooltip = '';
 
 							// Example for standard invoice
 							$htmltooltip .= ''.$langs->trans("Version").': <b>'.$module->getVersion().'</b><br>';
-							$facture->type = 0;
-							$nextval = $module->getNextValue($mysoc, $facture);
+							$invoice->type = 0;
+							$nextval = $module->getNextValue($mysoc, $invoice);
 							if ("$nextval" != $langs->trans("NotAvailable")) {  // Keep " on nextval
 								$htmltooltip .= $langs->trans("NextValueForInvoices").': ';
 								if ($nextval) {
@@ -407,8 +407,8 @@ foreach ($dirmodels as $reldir) {
 							}
 							// Example for replacement invoice
 							if (!getDolGlobalString('INVOICE_DISABLE_REPLACEMENT')) {
-								$facture->type = 1;
-								$nextval = $module->getNextValue($mysoc, $facture);
+								$invoice->type = 1;
+								$nextval = $module->getNextValue($mysoc, $invoice);
 								if ("$nextval" != $langs->trans("NotAvailable")) {  // Keep " on nextval
 									$htmltooltip .= $langs->trans("NextValueForReplacements").': ';
 									if ($nextval) {
@@ -422,8 +422,8 @@ foreach ($dirmodels as $reldir) {
 								}
 							}
 							// Example for credit invoice
-							$facture->type = 2;
-							$nextval = $module->getNextValue($mysoc, $facture);
+							$invoice->type = 2;
+							$nextval = $module->getNextValue($mysoc, $invoice);
 							if ("$nextval" != $langs->trans("NotAvailable")) {  // Keep " on nextval
 								$htmltooltip .= $langs->trans("NextValueForCreditNotes").': ';
 								if ($nextval) {
@@ -436,8 +436,8 @@ foreach ($dirmodels as $reldir) {
 								}
 							}
 							// Example for deposit invoice
-							$facture->type = 3;
-							$nextval = $module->getNextValue($mysoc, $facture);
+							$invoice->type = 3;
+							$nextval = $module->getNextValue($mysoc, $invoice);
 							if ("$nextval" != $langs->trans("NotAvailable")) {  // Keep " on nextval
 								$htmltooltip .= $langs->trans("NextValueForDeposit").': ';
 								if ($nextval) {
@@ -521,7 +521,7 @@ $activatedModels = [];
 
 foreach ($dirmodels as $reldir) {
 	foreach (array('', '/doc') as $valdir) {
-		$realpath = $reldir."core/modules/facture".$valdir;
+		$realpath = $reldir."core/modules/invoice".$valdir;
 		$dir = dol_buildpath($realpath);
 
 		if (is_dir($dir)) {
@@ -543,7 +543,7 @@ foreach ($dirmodels as $reldir) {
 							require_once $dir.'/'.$file;
 							$module = new $classname($db);
 
-							'@phan-var-force ModelePDFFactures $module';
+							'@phan-var-force ModelePDFInvoices $module';
 
 							$modulequalified = 1;
 							if ($module->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2) {
@@ -653,13 +653,13 @@ if (getDolGlobalString('INVOICE_USE_DEFAULT_DOCUMENT')) { // Hidden conf
 	print "</tr>\n";
 
 	$listtype = array(
-		Facture::TYPE_STANDARD => $langs->trans("InvoiceStandard"),
-		Facture::TYPE_REPLACEMENT => $langs->trans("InvoiceReplacement"),
-		Facture::TYPE_CREDIT_NOTE => $langs->trans("InvoiceAvoir"),
-		Facture::TYPE_DEPOSIT => $langs->trans("InvoiceDeposit"),
+		Invoice::TYPE_STANDARD => $langs->trans("InvoiceStandard"),
+		Invoice::TYPE_REPLACEMENT => $langs->trans("InvoiceReplacement"),
+		Invoice::TYPE_CREDIT_NOTE => $langs->trans("InvoiceAvoir"),
+		Invoice::TYPE_DEPOSIT => $langs->trans("InvoiceDeposit"),
 	);
 	if (getDolGlobalInt('INVOICE_USE_SITUATION')) {
-		$listtype[Facture::TYPE_SITUATION] = $langs->trans("InvoiceSituation");
+		$listtype[Invoice::TYPE_SITUATION] = $langs->trans("InvoiceSituation");
 	}
 
 	foreach ($listtype as $type => $trans) {
@@ -667,7 +667,7 @@ if (getDolGlobalString('INVOICE_USE_DEFAULT_DOCUMENT')) { // Hidden conf
 		$current = getDolGlobalString($thisTypeConfName, getDolGlobalString('FACTURE_ADDON_PDF'));
 		print '<tr >';
 		print '<td>'.$trans.'</td>';
-		print '<td colspan="2" >'.$form->selectarray('invoicetypemodels['.$type.']', ModelePDFFactures::liste_modeles($db), $current, 0, 0, 0).'</td>';
+		print '<td colspan="2" >'.$form->selectarray('invoicetypemodels['.$type.']', ModelePDFInvoices::liste_modeles($db), $current, 0, 0, 0).'</td>';
 		print "</tr>\n";
 	}
 
@@ -883,7 +883,7 @@ print '<td>'.$langs->trans("Value").'</td>'."\n";
 print "</tr>\n";
 print '<tr class="oddeven">'."\n";
 print '<td width="140">'.$langs->trans("PathDirectory").'</td>'."\n";
-print '<td>'.$config->facture->dir_output.'</td>'."\n";
+print '<td>'.$config->invoice->dir_output.'</td>'."\n";
 print '</tr>'."\n";
 print "</table>\n";
 print "</div>\n";

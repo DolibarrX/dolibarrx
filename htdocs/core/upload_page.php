@@ -86,7 +86,7 @@ if ($action == 'uploadfile') {	// Test on permission not required here. Done lat
 
 	$permlevel1 = $element;
 	if ($module == 'fournisseur') {
-		$permlevel1 = 'facture';
+		$permlevel1 = 'invoice';
 	}
 
 	$permissionToAdd = $user->hasRight($module, $permlevel1, 'read');

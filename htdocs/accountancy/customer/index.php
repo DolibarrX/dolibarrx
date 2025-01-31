@@ -31,7 +31,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingaccount.class.php';
 
 /**
@@ -95,14 +95,14 @@ if (($action == 'clean' || $action == 'validatehistory') && $user->hasRight('acc
 	$error = 0;
 	// Clean database by removing binding done on non existing or no more existing accounts
 	$db->begin();
-	$sql1 = "UPDATE ".$db->prefix()."facturedet as fd";
+	$sql1 = "UPDATE ".$db->prefix()."invoicedet as fd";
 	$sql1 .= " SET fk_code_ventilation = 0";
 	$sql1 .= ' WHERE fd.fk_code_ventilation NOT IN';
 	$sql1 .= '	(SELECT accnt.rowid ';
 	$sql1 .= '	FROM '.$db->prefix().'accounting_account as accnt';
 	$sql1 .= '	INNER JOIN '.$db->prefix().'accounting_system as syst';
 	$sql1 .= "	ON accnt.fk_pcg_version = syst.pcg_version AND syst.rowid = ".((int) getDolGlobalInt('CHARTOFACCOUNTS'))." AND accnt.entity = ".((int) $config->entity).")";
-	$sql1 .= " AND fd.fk_facture IN (SELECT rowid FROM ".$db->prefix()."facture WHERE entity = ".((int) $config->entity).")";
+	$sql1 .= " AND fd.fk_invoice IN (SELECT rowid FROM ".$db->prefix()."invoice WHERE entity = ".((int) $config->entity).")";
 	$sql1 .= " AND fk_code_ventilation <> 0";
 
 	dol_syslog("htdocs/accountancy/customer/index.php fixaccountancycode", LOG_DEBUG);
@@ -127,7 +127,7 @@ if ($action == 'validatehistory' && $user->hasRight('accounting', 'bind', 'write
 
 	// Now make the binding. Bind automatically only for product with a dedicated account that exists into chart of account, others need a manual bind
 	// Customer Invoice lines (must be same request than into page list.php for manual binding)
-	$sql = "SELECT f.rowid as facid, f.ref as ref, f.datef, f.type as ftype, f.situation_cycle_ref, f.fk_facture_source,";
+	$sql = "SELECT f.rowid as facid, f.ref as ref, f.datef, f.type as ftype, f.situation_cycle_ref, f.fk_invoice_source,";
 	$sql .= " l.rowid, l.fk_product, l.description, l.total_ht, l.fk_code_ventilation, l.product_type as type_l, l.situation_percent, l.tva_tx as tva_tx_line, l.vat_src_code,";
 	$sql .= " p.rowid as product_id, p.ref as product_ref, p.label as product_label, p.fk_product_type as type, p.tva_tx as tva_tx_prod,";
 	if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
@@ -143,13 +143,13 @@ if ($action == 'validatehistory' && $user->hasRight('accounting', 'bind', 'write
 	} else {
 		$sql .= " s.accountancy_code_sell as company_code_sell";	// accounting code for product but stored on thirdparty
 	}
-	$sql .= " FROM ".$db->prefix()."facture as f";
+	$sql .= " FROM ".$db->prefix()."invoice as f";
 	$sql .= " INNER JOIN ".$db->prefix()."societe as s ON s.rowid = f.fk_soc";
 	if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 		$sql .= " LEFT JOIN " . $db->prefix() . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 	}
 	$sql .= " LEFT JOIN ".$db->prefix()."c_country as co ON co.rowid = s.fk_pays ";
-	$sql .= " INNER JOIN ".$db->prefix()."facturedet as l ON f.rowid = l.fk_facture";	// the main table
+	$sql .= " INNER JOIN ".$db->prefix()."invoicedet as l ON f.rowid = l.fk_invoice";	// the main table
 	$sql .= " LEFT JOIN ".$db->prefix()."product as p ON p.rowid = l.fk_product";
 	if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 		$sql .= " LEFT JOIN " . $db->prefix() . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
@@ -179,13 +179,13 @@ if ($action == 'validatehistory' && $user->hasRight('accounting', 'bind', 'write
 	} else {
 		$num_lines = $db->num_rows($result);
 
-		$facture_static = new Facture($db);
+		$invoice_static = new Invoice($db);
 
 		$isSellerInEEC = isInEEC($mysoc);
 
 		$thirdpartystatic = new Societe($db);
-		$facture_static = new Facture($db);
-		$facture_static_det = new FactureLigne($db);
+		$invoice_static = new Invoice($db);
+		$invoice_static_det = new InvoiceLine($db);
 		$product_static = new Product($db);
 
 		$i = 0;
@@ -219,18 +219,18 @@ if ($action == 'validatehistory' && $user->hasRight('accounting', 'bind', 'write
 			$product_static->accountancy_code_buy_export = !empty($objp->code_buy_export) ? $objp->code_buy_export : "";
 			$product_static->tva_tx = $objp->tva_tx_prod;
 
-			$facture_static->ref = $objp->ref;
-			$facture_static->id = $objp->facid;
-			$facture_static->type = $objp->ftype;
-			$facture_static->date = $db->jdate($objp->datef);
-			$facture_static->fk_facture_source = $objp->fk_facture_source;
+			$invoice_static->ref = $objp->ref;
+			$invoice_static->id = $objp->facid;
+			$invoice_static->type = $objp->ftype;
+			$invoice_static->date = $db->jdate($objp->datef);
+			$invoice_static->fk_invoice_source = $objp->fk_invoice_source;
 
-			$facture_static_det->id = $objp->rowid;
-			$facture_static_det->total_ht = $objp->total_ht;
-			$facture_static_det->tva_tx = $objp->tva_tx_line;
-			$facture_static_det->vat_src_code = $objp->vat_src_code;
-			$facture_static_det->product_type = $objp->type_l;
-			$facture_static_det->desc = $objp->description;
+			$invoice_static_det->id = $objp->rowid;
+			$invoice_static_det->total_ht = $objp->total_ht;
+			$invoice_static_det->tva_tx = $objp->tva_tx_line;
+			$invoice_static_det->vat_src_code = $objp->vat_src_code;
+			$invoice_static_det->product_type = $objp->type_l;
+			$invoice_static_det->desc = $objp->description;
 
 			$accountingAccountArray = array(
 				'dom' => $objp->aarowid,
@@ -243,7 +243,7 @@ if ($action == 'validatehistory' && $user->hasRight('accounting', 'bind', 'write
 
 			$suggestedid = 0;
 
-			$return = $accountingAccount->getAccountingCodeToBind($thirdpartystatic, $mysoc, $product_static, $facture_static, $facture_static_det, $accountingAccountArray, 'customer');
+			$return = $accountingAccount->getAccountingCodeToBind($thirdpartystatic, $mysoc, $product_static, $invoice_static, $invoice_static_det, $accountingAccountArray, 'customer');
 			if (!is_array($return) && $return < 0) {
 				setEventMessage($accountingAccount->error, 'errors');
 			} else {
@@ -258,9 +258,9 @@ if ($action == 'validatehistory' && $user->hasRight('accounting', 'bind', 'write
 			}
 
 			if ($suggestedid > 0) {
-				$sqlupdate = "UPDATE ".$db->prefix()."facturedet";
+				$sqlupdate = "UPDATE ".$db->prefix()."invoicedet";
 				$sqlupdate .= " SET fk_code_ventilation = ".((int) $suggestedid);
-				$sqlupdate .= " WHERE fk_code_ventilation <= 0 AND product_type <= 2 AND rowid = ".((int) $facture_static_det->id);
+				$sqlupdate .= " WHERE fk_code_ventilation <= 0 AND product_type <= 2 AND rowid = ".((int) $invoice_static_det->id);
 
 				$resqlupdate = $db->query($sqlupdate);
 				if (!$resqlupdate) {
@@ -364,8 +364,8 @@ for ($i = 1; $i <= 12; $i++) {
 	$sql .= "  SUM(".$db->ifsql("MONTH(f.datef) = ".((string) $j), "1", "0").") AS nbmonth".str_pad((string) $j, 2, "0", STR_PAD_LEFT).",";
 }
 $sql .= "  SUM(fd.total_ht) as total, COUNT(fd.rowid) as nb";
-$sql .= " FROM ".MAIN_DB_PREFIX."facturedet as fd";
-$sql .= "  LEFT JOIN ".MAIN_DB_PREFIX."facture as f ON f.rowid = fd.fk_facture";
+$sql .= " FROM ".MAIN_DB_PREFIX."invoicedet as fd";
+$sql .= "  LEFT JOIN ".MAIN_DB_PREFIX."invoice as f ON f.rowid = fd.fk_invoice";
 $sql .= "  LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON aa.rowid = fd.fk_code_ventilation";
 $sql .= " WHERE f.datef >= '".$db->idate($search_date_start)."'";
 $sql .= "  AND f.datef <= '".$db->idate($search_date_end)."'";
@@ -378,9 +378,9 @@ $sql .= " AND fd.product_type <= 2";
 $sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share object for accountancy
 $sql .= " AND aa.account_number IS NULL";
 if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
-	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.",".Facture::TYPE_REPLACEMENT.",".Facture::TYPE_CREDIT_NOTE.",".Facture::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.",".Invoice::TYPE_REPLACEMENT.",".Invoice::TYPE_CREDIT_NOTE.",".Invoice::TYPE_SITUATION.")";
 } else {
-	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.",".Facture::TYPE_REPLACEMENT.",".Facture::TYPE_CREDIT_NOTE.",".Facture::TYPE_DEPOSIT.",".Facture::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.",".Invoice::TYPE_REPLACEMENT.",".Invoice::TYPE_CREDIT_NOTE.",".Invoice::TYPE_DEPOSIT.",".Invoice::TYPE_SITUATION.")";
 }
 $sql .= " GROUP BY fd.fk_code_ventilation,aa.account_number,aa.label";
 
@@ -503,8 +503,8 @@ for ($i = 1; $i <= 12; $i++) {
 	$sql .= "  SUM(".$db->ifsql("MONTH(f.datef) = ".((int) $j), "fd.total_ht", "0").") AS month".str_pad((string) $j, 2, "0", STR_PAD_LEFT).",";
 }
 $sql .= "  SUM(fd.total_ht) as total";
-$sql .= " FROM ".MAIN_DB_PREFIX."facturedet as fd";
-$sql .= "  LEFT JOIN ".MAIN_DB_PREFIX."facture as f ON f.rowid = fd.fk_facture";
+$sql .= " FROM ".MAIN_DB_PREFIX."invoicedet as fd";
+$sql .= "  LEFT JOIN ".MAIN_DB_PREFIX."invoice as f ON f.rowid = fd.fk_invoice";
 $sql .= "  LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON aa.rowid = fd.fk_code_ventilation";
 $sql .= " WHERE f.datef >= '".$db->idate($search_date_start)."'";
 $sql .= "  AND f.datef <= '".$db->idate($search_date_end)."'";
@@ -516,9 +516,9 @@ $sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share obj
 $sql .= " AND f.fk_statut > 0";
 $sql .= " AND fd.product_type <= 2";
 if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
-	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.", ".Facture::TYPE_REPLACEMENT.", ".Facture::TYPE_CREDIT_NOTE.", ".Facture::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.", ".Invoice::TYPE_REPLACEMENT.", ".Invoice::TYPE_CREDIT_NOTE.", ".Invoice::TYPE_SITUATION.")";
 } else {
-	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.", ".Facture::TYPE_REPLACEMENT.", ".Facture::TYPE_CREDIT_NOTE.", ".Facture::TYPE_DEPOSIT.", ".Facture::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.", ".Invoice::TYPE_REPLACEMENT.", ".Invoice::TYPE_CREDIT_NOTE.", ".Invoice::TYPE_DEPOSIT.", ".Invoice::TYPE_SITUATION.")";
 }
 $sql .= " AND aa.account_number IS NOT NULL";
 $sql .= " GROUP BY fd.fk_code_ventilation,aa.account_number,aa.label";
@@ -606,8 +606,8 @@ if (getDolGlobalString('SHOW_TOTAL_OF_PREVIOUS_LISTS_IN_LIN_PAGE')) { // This pa
 		$sql .= "  SUM(".$db->ifsql("MONTH(f.datef) = ".((int) $j), "fd.total_ht", "0").") AS month".str_pad((string) $j, 2, "0", STR_PAD_LEFT).",";
 	}
 	$sql .= "  SUM(fd.total_ht) as total";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facturedet as fd";
-	$sql .= "  LEFT JOIN ".MAIN_DB_PREFIX."facture as f ON f.rowid = fd.fk_facture";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoicedet as fd";
+	$sql .= "  LEFT JOIN ".MAIN_DB_PREFIX."invoice as f ON f.rowid = fd.fk_invoice";
 	$sql .= " WHERE f.datef >= '".$db->idate($search_date_start)."'";
 	$sql .= "  AND f.datef <= '".$db->idate($search_date_end)."'";
 	// Define begin binding date
@@ -618,9 +618,9 @@ if (getDolGlobalString('SHOW_TOTAL_OF_PREVIOUS_LISTS_IN_LIN_PAGE')) { // This pa
 	$sql .= " AND f.fk_statut > 0";
 	$sql .= " AND fd.product_type <= 2";
 	if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
-		$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.", ".Facture::TYPE_REPLACEMENT.", ".Facture::TYPE_CREDIT_NOTE.", ".Facture::TYPE_SITUATION.")";
+		$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.", ".Invoice::TYPE_REPLACEMENT.", ".Invoice::TYPE_CREDIT_NOTE.", ".Invoice::TYPE_SITUATION.")";
 	} else {
-		$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.", ".Facture::TYPE_REPLACEMENT.", ".Facture::TYPE_CREDIT_NOTE.", ".Facture::TYPE_DEPOSIT.", ".Facture::TYPE_SITUATION.")";
+		$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.", ".Invoice::TYPE_REPLACEMENT.", ".Invoice::TYPE_CREDIT_NOTE.", ".Invoice::TYPE_DEPOSIT.", ".Invoice::TYPE_SITUATION.")";
 	}
 
 	dol_syslog('htdocs/accountancy/customer/index.php');
@@ -703,8 +703,8 @@ if (getDolGlobalString('SHOW_TOTAL_OF_PREVIOUS_LISTS_IN_LIN_PAGE')) { // This pa
 				"  (fd.total_ht - (fd.buy_price_ht * fd.qty))"
 			).") as total";
 		}
-		$sql .= " FROM ".MAIN_DB_PREFIX."facturedet as fd";
-		$sql .= "  LEFT JOIN ".MAIN_DB_PREFIX."facture as f ON f.rowid = fd.fk_facture";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoicedet as fd";
+		$sql .= "  LEFT JOIN ".MAIN_DB_PREFIX."invoice as f ON f.rowid = fd.fk_invoice";
 		$sql .= " WHERE f.datef >= '".$db->idate($search_date_start)."'";
 		$sql .= "  AND f.datef <= '".$db->idate($search_date_end)."'";
 		// Define begin binding date
@@ -715,9 +715,9 @@ if (getDolGlobalString('SHOW_TOTAL_OF_PREVIOUS_LISTS_IN_LIN_PAGE')) { // This pa
 		$sql .= " AND f.fk_statut > 0";
 		$sql .= " AND fd.product_type <= 2";
 		if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
-			$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.", ".Facture::TYPE_REPLACEMENT.", ".Facture::TYPE_CREDIT_NOTE.", ".Facture::TYPE_SITUATION.")";
+			$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.", ".Invoice::TYPE_REPLACEMENT.", ".Invoice::TYPE_CREDIT_NOTE.", ".Invoice::TYPE_SITUATION.")";
 		} else {
-			$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.", ".Facture::TYPE_REPLACEMENT.", ".Facture::TYPE_CREDIT_NOTE.", ".Facture::TYPE_DEPOSIT.", ".Facture::TYPE_SITUATION.")";
+			$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.", ".Invoice::TYPE_REPLACEMENT.", ".Invoice::TYPE_CREDIT_NOTE.", ".Invoice::TYPE_DEPOSIT.", ".Invoice::TYPE_SITUATION.")";
 		}
 		dol_syslog('htdocs/accountancy/customer/index.php');
 		$resql = $db->query($sql);

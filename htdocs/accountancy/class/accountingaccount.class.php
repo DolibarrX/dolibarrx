@@ -29,7 +29,7 @@
 
 require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
-require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
 
 /**
  * Class to manage accounting accounts
@@ -397,10 +397,10 @@ class AccountingAccount extends CommonObject
 		global $langs;
 
 		// TODO Looks a stupid check
-		$sql = "(SELECT fk_code_ventilation FROM " . $this->db->prefix() . "facturedet";
+		$sql = "(SELECT fk_code_ventilation FROM " . $this->db->prefix() . "invoicedet";
 		$sql .= " WHERE fk_code_ventilation=" . ((int) $this->id) . ")";
 		$sql .= "UNION";
-		$sql .= " (SELECT fk_code_ventilation FROM " . $this->db->prefix() . "facture_fourn_det";
+		$sql .= " (SELECT fk_code_ventilation FROM " . $this->db->prefix() . "invoice_fourn_det";
 		$sql .= " WHERE fk_code_ventilation=" . ((int) $this->id) . ")";
 
 		dol_syslog(get_class($this) . "::checkUsage", LOG_DEBUG);
@@ -727,22 +727,22 @@ class AccountingAccount extends CommonObject
 	 * @param 	Societe 							$buyer 				Object buyer
 	 * @param 	Societe 							$seller 			Object seller
 	 * @param 	Product 							$product 			Product object sell or buy
-	 * @param 	Facture|FactureFournisseur 			$facture 			Facture
-	 * @param 	FactureLigne|SupplierInvoiceLine	$factureDet 		Facture Det
+	 * @param 	Invoice|InvoiceSupplier 			$invoice 			Invoice
+	 * @param 	InvoiceLine|SupplierInvoiceLine	$invoiceDet 		Invoice Det
 	 * @param 	array<string,int>					$accountingAccount 	Array of Accounting account
 	 * @param 	string 								$type 				Customer / Supplier
 	 * @return	array{suggestedaccountingaccountbydefaultfor:string,suggestedaccountingaccountfor:string,suggestedid:?int,code_l:string,code_p:string,code_t:string}|int<-1,-1>	Array of accounting accounts suggested or < 0 if technical error.
 	 * 																	'suggestedaccountingaccountbydefaultfor'=>Will be used for the label to show on tooltip for account by default on any product
 	 * 																	'suggestedaccountingaccountfor'=>Is the account suggested for this product
 	 */
-	public function getAccountingCodeToBind(Societe $buyer, Societe $seller, Product $product, $facture, $factureDet, $accountingAccount = [], $type = '')
+	public function getAccountingCodeToBind(Societe $buyer, Societe $seller, Product $product, $invoice, $invoiceDet, $accountingAccount = [], $type = '')
 	{
 		global $hookManager;
 		// Instantiate hooks for external modules
 		$hookManager->initHooks(array('accountancyBindingCalculation'));
 
 		// Execute hook accountancyBindingCalculation
-		$parameters = array('buyer' => $buyer, 'seller' => $seller, 'product' => $product, 'facture' => $facture, 'factureDet' => $factureDet, 'accountingAccount' => $accountingAccount, 0 => $type);
+		$parameters = array('buyer' => $buyer, 'seller' => $seller, 'product' => $product, 'invoice' => $invoice, 'invoiceDet' => $invoiceDet, 'accountingAccount' => $accountingAccount, 0 => $type);
 		$resHook = $hookManager->executeHooks('accountancyBindingCalculation', $parameters); // Note that $action and $object may have been modified by some hooks
 
 		$result = -1;  // Init for static analysis
@@ -764,12 +764,12 @@ class AccountingAccount extends CommonObject
 
 			// Level 1 (define $code_l): Search suggested default account for product/service
 			$suggestedaccountingaccountbydefaultfor = '';
-			if ($factureDet->product_type == 1) {
+			if ($invoiceDet->product_type == 1) {
 				if ($buyer->country_code == $seller->country_code || empty($buyer->country_code)) {  // If buyer in same country than seller (if not defined, we assume it is same country)
 					$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $constName . '_ACCOUNT');
 					$suggestedaccountingaccountbydefaultfor = '';
 				} else {
-					if ($isSellerInEEC && $isBuyerInEEC && $factureDet->tva_tx != 0) {    // European intravat sale, but with a VAT
+					if ($isSellerInEEC && $isBuyerInEEC && $invoiceDet->tva_tx != 0) {    // European intravat sale, but with a VAT
 						$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $constName . '_ACCOUNT');
 					} elseif ($isSellerInEEC && $isBuyerInEEC && empty($buyer->tva_intra)) {    // European intravat sale, without VAT intra community number
 						$code_l = getDolGlobalString('ACCOUNTING_SERVICE_' . $constName . '_ACCOUNT');
@@ -782,12 +782,12 @@ class AccountingAccount extends CommonObject
 						$suggestedaccountingaccountbydefaultfor = 'export';
 					}
 				}
-			} elseif ($factureDet->product_type == 0) {
+			} elseif ($invoiceDet->product_type == 0) {
 				if ($buyer->country_code == $seller->country_code || empty($buyer->country_code)) {  // If buyer in same country than seller (if not defined, we assume it is same country)
 					$code_l = getDolGlobalString('ACCOUNTING_PRODUCT_' . $constName . '_ACCOUNT');
 					$suggestedaccountingaccountbydefaultfor = '';
 				} else {
-					if ($isSellerInEEC && $isBuyerInEEC && $factureDet->tva_tx != 0) {    // European intravat sale, but with a VAT
+					if ($isSellerInEEC && $isBuyerInEEC && $invoiceDet->tva_tx != 0) {    // European intravat sale, but with a VAT
 						$code_l = getDolGlobalString('ACCOUNTING_PRODUCT_' . $constName . '_ACCOUNT');
 						$suggestedaccountingaccountbydefaultfor = 'eecwithvat';
 					} elseif ($isSellerInEEC && $isBuyerInEEC && empty($buyer->tva_intra)) {    // European intravat sale, without VAT intra community number
@@ -818,7 +818,7 @@ class AccountingAccount extends CommonObject
 				$suggestedid = $accountingAccount['dom'];
 				$suggestedaccountingaccountfor = 'prodserv';
 			} else {
-				if ($isSellerInEEC && $isBuyerInEEC && $factureDet->tva_tx != 0) {
+				if ($isSellerInEEC && $isBuyerInEEC && $invoiceDet->tva_tx != 0) {
 					// European intravat sale, but with VAT
 					if ($type == 'customer' && !empty($product->accountancy_code_sell)) {
 						$code_p = $product->accountancy_code_sell;
@@ -872,7 +872,7 @@ class AccountingAccount extends CommonObject
 
 			// Manage Deposit
 			if (getDolGlobalString('ACCOUNTING_ACCOUNT_' . strtoupper($type) . '_DEPOSIT')) {
-				if ($factureDet->desc == "(DEPOSIT)" || $facture->type == $facture::TYPE_DEPOSIT) {
+				if ($invoiceDet->desc == "(DEPOSIT)" || $invoice->type == $invoice::TYPE_DEPOSIT) {
 					$accountdeposittoventilated = new self($this->db);
 					if ($type == 'customer') {
 						$result = $accountdeposittoventilated->fetch(0, getDolGlobalString('ACCOUNTING_ACCOUNT_CUSTOMER_DEPOSIT'), 1);
@@ -891,11 +891,11 @@ class AccountingAccount extends CommonObject
 				}
 
 				// For credit note invoice, if origin invoice is a deposit invoice, force also on specific customer/supplier deposit account
-				if (!empty($facture->fk_facture_source)) {
-					$invoiceSource = new $facture($this->db);
-					$invoiceSource->fetch($facture->fk_facture_source);
+				if (!empty($invoice->fk_invoice_source)) {
+					$invoiceSource = new $invoice($this->db);
+					$invoiceSource->fetch($invoice->fk_invoice_source);
 
-					if ($facture->type == $facture::TYPE_CREDIT_NOTE && $invoiceSource->type == $facture::TYPE_DEPOSIT) {
+					if ($invoice->type == $invoice::TYPE_CREDIT_NOTE && $invoiceSource->type == $invoice::TYPE_DEPOSIT) {
 						$accountdeposittoventilated = new self($this->db);
 						if ($type == 'customer') {
 							$accountdeposittoventilated->fetch(0, getDolGlobalString('ACCOUNTING_ACCOUNT_CUSTOMER_DEPOSIT'), 1);

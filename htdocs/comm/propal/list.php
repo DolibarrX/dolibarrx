@@ -1815,10 +1815,10 @@ while ($i < $imaxinloop) {
 
 	if (!empty($TInvoiceData)) {
 		foreach ($TInvoiceData as $invoiceData) {
-			$invoice = new Facture($db);
+			$invoice = new Invoice($db);
 			$invoice->fetch($invoiceData->facid);
 
-			if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS') && $invoice->type == Facture::TYPE_DEPOSIT) {
+			if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS') && $invoice->type == Invoice::TYPE_DEPOSIT) {
 				continue;
 			}
 

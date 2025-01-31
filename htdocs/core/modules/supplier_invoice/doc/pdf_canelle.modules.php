@@ -27,8 +27,8 @@
  *	\brief      Class file to generate the supplier invoices with the canelle model
  */
 
-require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_invoice/modules_facturefournisseur.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_invoice/modules_invoicefournisseur.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
@@ -150,7 +150,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 	/**
 	 *  Function to build a document on disk using the generic odt module.
 	 *
-	 *  @param		FactureFournisseur	$object				Object to generate
+	 *  @param		InvoiceSupplier	$object				Object to generate
 	 *  @param		Translate			$outputlangs		Lang output object
 	 *  @param		string				$srctemplatepath	Full path of source filename for generator using a template file
 	 *  @param		int<0,1>			$hidedetails		Do not show line details
@@ -189,19 +189,19 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 
 		$nblines = count($object->lines);
 
-		if ($config->fournisseur->facture->dir_output) {
+		if ($config->fournisseur->invoice->dir_output) {
 			$deja_regle = $object->getSommePaiement((isModEnabled("multicurrency") && $object->multicurrency_tx != 1) ? 1 : 0);
 			$amount_credit_notes_included = $object->getSumCreditNotesUsed((isModEnabled("multicurrency") && $object->multicurrency_tx != 1) ? 1 : 0);
 			$amount_deposits_included = $object->getSumDepositsUsed((isModEnabled("multicurrency") && $object->multicurrency_tx != 1) ? 1 : 0);
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $config->fournisseur->facture->dir_output;
+				$dir = $config->fournisseur->invoice->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
 				$objectrefsupplier = dol_sanitizeFileName($object->ref_supplier);
-				$dir = $config->fournisseur->facture->dir_output.'/'.get_exdir($object->id, 2, 0, 0, $object, 'invoice_supplier').$objectref;
+				$dir = $config->fournisseur->invoice->dir_output.'/'.get_exdir($object->id, 2, 0, 0, $object, 'invoice_supplier').$objectref;
 				$file = $dir."/".$objectref.".pdf";
 				if (getDolGlobalString('SUPPLIER_REF_IN_NAME')) {
 					$file = $dir."/".$objectref.($objectrefsupplier ? "_".$objectrefsupplier : "").".pdf";
@@ -226,7 +226,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 				global $action;
 				$resHook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
-				// Set nblines with the new facture lines content after hook
+				// Set nblines with the new invoice lines content after hook
 				$nblines = count($object->lines);
 				$nbpayments = count($object->getListOfPayments());
 
@@ -614,7 +614,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 	 *	Show total to pay
 	 *
 	 *	@param	TCPDF				$pdf            Object PDF
-	 *	@param  FactureFournisseur	$object         Object invoice
+	 *	@param  InvoiceSupplier	$object         Object invoice
 	 *	@param  int					$deja_regle     Amount already paid (in the currency of invoice)
 	 *	@param	int					$posy			Position depart
 	 *	@param	Translate			$outputlangs	Object langs
@@ -798,7 +798,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 			}
 
 			// Escompte
-			if ($object->close_code == FactureFournisseur::CLOSECODE_DISCOUNTVAT) {
+			if ($object->close_code == InvoiceSupplier::CLOSECODE_DISCOUNTVAT) {
 				$index++;
 				$pdf->SetFillColor(255, 255, 255);
 
@@ -998,9 +998,9 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 		// Loop on each payment
 		$sql = "SELECT p.datep as date, p.fk_paiement as type, p.num_paiement as num_payment, pf.amount as amount, pf.multicurrency_amount,";
 		$sql .= " cp.code";
-		$sql .= " FROM ".MAIN_DB_PREFIX."paiementfourn_facturefourn as pf, ".MAIN_DB_PREFIX."paiementfourn as p";
+		$sql .= " FROM ".MAIN_DB_PREFIX."paiementfourn_invoicefourn as pf, ".MAIN_DB_PREFIX."paiementfourn as p";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_paiement as cp ON p.fk_paiement = cp.id";
-		$sql .= " WHERE pf.fk_paiementfourn = p.rowid and pf.fk_facturefourn = ".((int) $object->id);
+		$sql .= " WHERE pf.fk_paiementfourn = p.rowid and pf.fk_invoicefourn = ".((int) $object->id);
 		$sql .= " ORDER BY p.datep";
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -1037,7 +1037,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 	 *  Show top header of page.
 	 *
 	 *  @param  TCPDF               $pdf            Object PDF
-	 *  @param  FactureFournisseur  $object         Object to show
+	 *  @param  InvoiceSupplier  $object         Object to show
 	 *  @param  int                 $showaddress    0=no, 1=yes
 	 *  @param  Translate           $outputlangs    Object lang for output
 	 *  @return	float|int                   		Return topshift value
@@ -1275,7 +1275,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 	 *  Show footer of page. Need this->emetteur object
 	 *
 	 *  @param  TCPDF               $pdf                PDF
-	 *  @param  FactureFournisseur  $object             Object to show
+	 *  @param  InvoiceSupplier  $object             Object to show
 	 *  @param  Translate           $outputlangs        Object lang for output
 	 *  @param  int                 $hidefreetext       1=Hide free text
 	 *  @return int                                     Return height of bottom margin including footer text

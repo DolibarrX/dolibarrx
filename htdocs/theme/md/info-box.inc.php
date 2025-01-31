@@ -99,7 +99,7 @@ if (GETPOSTISSET('THEME_SATURATE_RATIO')) {
 .bg-infobox-action{
 	<?php echo $prefix; ?>color: #a47080  !important;
 }
-.bg-infobox-propal, .bg-infobox-facture, .bg-infobox-order {
+.bg-infobox-propal, .bg-infobox-invoice, .bg-infobox-order {
 	<?php echo $prefix; ?>color: #65953d !important;
 }
 .bg-infobox-supplier_proposal, .bg-infobox-invoice_supplier, .bg-infobox-order_supplier {
@@ -141,7 +141,7 @@ div.login_block_other a {
 }
 /* Color for customer object */
 .infobox-propal:not(.picturetitle):not(.error),
-.infobox-facture:not(.picturetitle):not(.error),
+.infobox-invoice:not(.picturetitle):not(.error),
 .infobox-order:not(.picturetitle):not(.error) {
 	color: #65953d;
 }
@@ -472,7 +472,7 @@ if (GETPOSTISSET('THEME_SATURATE_RATIO')) {
 	color: #d84b80  !important;
 }
 .bg-infobox-propal i.fa,
-.bg-infobox-facture i.fa,
+.bg-infobox-invoice i.fa,
 .bg-infobox-order i.fa{
 	color: #abb87b  !important;
 }
@@ -505,7 +505,7 @@ if (GETPOSTISSET('THEME_SATURATE_RATIO')) {
 .fa-dol-supplier_proposal:before {
 	content: "\f573";
 }
-.fa-dol-facture:before,
+.fa-dol-invoice:before,
 .fa-dol-invoice_supplier:before {
 	content: "\f571";
 }

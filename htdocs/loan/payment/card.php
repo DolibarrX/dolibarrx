@@ -50,7 +50,7 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 // TODO ajouter regle pour restreindre access paiement
-//$result = restrictedArea($user, 'facture', $id,'');
+//$result = restrictedArea($user, 'invoice', $id,'');
 
 $payment = new PaymentLoan($db);
 if ($id > 0) {

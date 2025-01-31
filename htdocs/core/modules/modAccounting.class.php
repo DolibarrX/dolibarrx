@@ -61,7 +61,7 @@ class modAccounting extends DolibarrModules
 		$this->configPageUrl = array('accounting.php?mainmenu=accountancy&leftmenu=accountancy_admin');
 
 		// Dependencies
-		$this->depends = array("modFacture", "modBank", "modTax"); // List of modules id that must be enabled if this module is enabled
+		$this->depends = array("modInvoice", "modBank", "modTax"); // List of modules id that must be enabled if this module is enabled
 		$this->requiredBy = []; // List of modules id to disable if this one is disabled
 		$this->conflictWith = array("modSimpleAccounting"); // List of modules are in conflict with this module
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module

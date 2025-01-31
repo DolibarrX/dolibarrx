@@ -294,7 +294,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 		$elementLabel = $langs->trans('SupplierOrder');
 	} elseif ($notifiedevent['elementtype'] == 'propal') {
 		$elementLabel = $langs->trans('Proposal');
-	} elseif ($notifiedevent['elementtype'] == 'facture') {
+	} elseif ($notifiedevent['elementtype'] == 'invoice') {
 		$elementLabel = $langs->trans('Bill');
 	} elseif ($notifiedevent['elementtype'] == 'order') {
 		$elementLabel = $langs->trans('Order');
@@ -312,8 +312,8 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 		$model = 'propal_send';
 	} elseif ($notifiedevent['elementtype'] == 'order') {
 		$model = 'order_send';
-	} elseif ($notifiedevent['elementtype'] == 'facture') {
-		$model = 'facture_send';
+	} elseif ($notifiedevent['elementtype'] == 'invoice') {
+		$model = 'invoice_send';
 	} elseif ($notifiedevent['elementtype'] == 'shipping') {
 		$model = 'shipping_send';
 	} elseif ($notifiedevent['elementtype'] == 'ficheinter') {
@@ -358,7 +358,7 @@ print $form->buttonsSaveCancel("Save", '');
 			$elementLabel = $langs->trans('SupplierOrder');
 		} elseif ($notifiedevent['elementtype'] == 'propal') {
 			$elementLabel = $langs->trans('Proposal');
-		} elseif ($notifiedevent['elementtype'] == 'facture') {
+		} elseif ($notifiedevent['elementtype'] == 'invoice') {
 			$elementLabel = $langs->trans('Bill');
 		} elseif ($notifiedevent['elementtype'] == 'order') {
 			$elementLabel = $langs->trans('Order');
@@ -433,7 +433,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 		$elementLabel = $langs->trans('SupplierOrder');
 	} elseif ($notifiedevent['elementtype'] == 'propal') {
 		$elementLabel = $langs->trans('Proposal');
-	} elseif ($notifiedevent['elementtype'] == 'facture') {
+	} elseif ($notifiedevent['elementtype'] == 'invoice') {
 		$elementPicto = 'bill';
 		$elementLabel = $langs->trans('Bill');
 	} elseif ($notifiedevent['elementtype'] == 'order') {

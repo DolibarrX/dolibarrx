@@ -115,13 +115,13 @@ if (!empty($field) && !empty($element) && !empty($table_element) && !empty($fk_e
 		$subelement = 'order';
 	} elseif ($element == 'invoice_supplier') {
 		$element = 'fournisseur';
-		$subelement = 'facture';
+		$subelement = 'invoice';
 	}
 
 	if ($user->hasRight($element, 'lire') || $user->hasRight($element, 'read')
 	|| (isset($subelement) && ($user->hasRight($element, $subelement, 'lire') || $user->hasRight($element, $subelement, 'read')))
-	|| ($element == 'payment' && $user->hasRight('facture', 'lire'))
-	|| ($element == 'payment_supplier' && $user->hasRight('fournisseur', 'facture', 'lire'))) {
+	|| ($element == 'payment' && $user->hasRight('invoice', 'lire'))
+	|| ($element == 'payment_supplier' && $user->hasRight('fournisseur', 'invoice', 'lire'))) {
 		if ($type == 'select') {
 			$methodname = 'load_cache_'.$loadmethod;
 			$cachename = 'cache_'.GETPOST('loadmethod', 'alpha');

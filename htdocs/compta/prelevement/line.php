@@ -118,7 +118,7 @@ if ($action == 'confirm_rejet' && $permissionToAdd) {
 			if ($lipre->fetch($id) == 0) {
 				$rej = new RejetPrelevement($db, $user, $type);
 
-				$result = $rej->create($user, $id, GETPOSTINT('motif'), $daterej, $lipre->bon_rowid, GETPOSTINT('facturer'));
+				$result = $rej->create($user, $id, GETPOSTINT('motif'), $daterej, $lipre->bon_rowid, GETPOSTINT('invoicer'));
 
 				if ($result > 0) {
 					header("Location: line.php?id=".urlencode((string) ($id)).'&type='.urlencode((string) ($type)));
@@ -142,11 +142,11 @@ if ($action == 'confirm_rejet' && $permissionToAdd) {
 $form = new Form($db);
 
 if ($type == 'bank-transfer') {
-	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-	$invoicestatic = new FactureFournisseur($db);
+	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
+	$invoicestatic = new InvoiceSupplier($db);
 } else {
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-	$invoicestatic = new Facture($db);
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+	$invoicestatic = new Invoice($db);
 }
 
 $title = $langs->trans("WithdrawalsLine");
@@ -253,12 +253,12 @@ if ($id) {
 		print $form->selectarray("motif", $rej->motifs, GETPOSTISSET('motif') ? GETPOSTINT('motif') : '');
 		print '</td></tr>';
 
-		//Facturer
+		//To Invoice
 		print '<tr><td class="fieldrequired valid">';
 		print $form->textWithPicture($langs->trans("RefusedInvoicing"), $langs->trans("DirectDebitRefusedInvoicingDesc"));
 		print '</td>';
 		print '<td class="valid">';
-		print $form->selectarray("facturer", $rej->labelsofinvoicing, GETPOSTISSET('facturer') ? GETPOSTINT('facturer') : '', 0);
+		print $form->selectarray("invoicer", $rej->labelsofinvoicing, GETPOSTISSET('invoicer') ? GETPOSTINT('invoicer') : '', 0);
 		print '</td></tr>';
 
 		print '</table>';
@@ -303,18 +303,18 @@ if ($id) {
 	$sql .= " , ".MAIN_DB_PREFIX."prelevement_lignes as pl";
 	$sql .= " , ".MAIN_DB_PREFIX."prelevement as pf";
 	if ($type == 'bank-transfer') {
-		$sql .= " , ".MAIN_DB_PREFIX."facture_fourn as f";
+		$sql .= " , ".MAIN_DB_PREFIX."invoice_fourn as f";
 	} else {
-		$sql .= " , ".MAIN_DB_PREFIX."facture as f";
+		$sql .= " , ".MAIN_DB_PREFIX."invoice as f";
 	}
 	$sql .= " , ".MAIN_DB_PREFIX."societe as s";
 	$sql .= " WHERE pf.fk_prelevement_lignes = pl.rowid";
 	$sql .= " AND pl.fk_prelevement_bons = p.rowid";
 	$sql .= " AND f.fk_soc = s.rowid";
 	if ($type == 'bank-transfer') {
-		$sql .= " AND pf.fk_facture_fourn = f.rowid";
+		$sql .= " AND pf.fk_invoice_fourn = f.rowid";
 	} else {
-		$sql .= " AND pf.fk_facture = f.rowid";
+		$sql .= " AND pf.fk_invoice = f.rowid";
 	}
 	$sql .= " AND f.entity IN (".getEntity('invoice').")";
 	$sql .= " AND pl.rowid = ".((int) $id);
@@ -360,7 +360,7 @@ if ($id) {
 			$title = $langs->trans("SupplierInvoices");
 		}
 
-		print_barre_liste($title, $page, "factures.php", $urladd, $sortfield, $sortorder, '', $num, $nbtotalofrecords, '');
+		print_barre_liste($title, $page, "invoices.php", $urladd, $sortfield, $sortorder, '', $num, $nbtotalofrecords, '');
 
 		print"\n<!-- debut table -->\n";
 		print '<table class="noborder" width="100%" cellpadding="4">';
@@ -377,14 +377,14 @@ if ($id) {
 
 			print '<tr class="oddeven"><td>';
 
-			print '<a href="'.DOL_URL_ROOT.'/compta/facture/card.php?facid='.$obj->facid.'">';
+			print '<a href="'.DOL_URL_ROOT.'/compta/invoice/card.php?facid='.$obj->facid.'">';
 			print img_object($langs->trans("ShowBill"), "bill");
 			print '</a>&nbsp;';
 
 			if ($type == 'bank-transfer') {
-				print '<a href="'.DOL_URL_ROOT.'/fourn/facture/card.php?facid='.$obj->facid.'">'.$obj->ref."</a></td>\n";
+				print '<a href="'.DOL_URL_ROOT.'/fourn/invoice/card.php?facid='.$obj->facid.'">'.$obj->ref."</a></td>\n";
 			} else {
-				print '<a href="'.DOL_URL_ROOT.'/compta/facture/card.php?facid='.$obj->facid.'">'.$obj->ref."</a></td>\n";
+				print '<a href="'.DOL_URL_ROOT.'/compta/invoice/card.php?facid='.$obj->facid.'">'.$obj->ref."</a></td>\n";
 			}
 
 			if ($type == 'bank-transfer') {

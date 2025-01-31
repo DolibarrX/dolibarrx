@@ -26,7 +26,7 @@
 
 /**
  *   	\file       htdocs/compta/journal/sellsjournal.php
- *		\ingroup    societe, facture
+ *		\ingroup    societe, invoice
  *		\brief      Page with sells journal
  */
 global $mysoc;
@@ -35,7 +35,7 @@ global $mysoc;
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/report.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/client.class.php';
 
 /**
@@ -134,20 +134,20 @@ if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 	$sql .= " p.accountancy_code_sell,";
 }
 $sql .= " ct.accountancy_code_sell as account_tva, ct.recuperableonly";
-$sql .= " FROM ".MAIN_DB_PREFIX."facturedet as fd";
+$sql .= " FROM ".MAIN_DB_PREFIX."invoicedet as fd";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = fd.fk_product";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 }
-$sql .= " JOIN ".MAIN_DB_PREFIX."facture as f ON f.rowid = fd.fk_facture";
+$sql .= " JOIN ".MAIN_DB_PREFIX."invoice as f ON f.rowid = fd.fk_invoice";
 $sql .= " JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_tva ct ON fd.tva_tx = ct.taux AND fd.info_bits = ct.recuperableonly AND ct.fk_pays = ".((int) $idpays);
 $sql .= " WHERE f.entity IN (".getEntity('invoice').")";
 $sql .= " AND f.fk_statut > 0";
 if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
-	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.",".Facture::TYPE_REPLACEMENT.",".Facture::TYPE_CREDIT_NOTE.",".Facture::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.",".Invoice::TYPE_REPLACEMENT.",".Invoice::TYPE_CREDIT_NOTE.",".Invoice::TYPE_SITUATION.")";
 } else {
-	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.",".Facture::TYPE_STANDARD.",".Facture::TYPE_CREDIT_NOTE.",".Facture::TYPE_DEPOSIT.",".Facture::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.",".Invoice::TYPE_STANDARD.",".Invoice::TYPE_CREDIT_NOTE.",".Invoice::TYPE_DEPOSIT.",".Invoice::TYPE_SITUATION.")";
 }
 
 $sql .= " AND fd.product_type IN (0,1)";
@@ -199,10 +199,10 @@ if ($result) {
 		$compta_localtax2 = (!empty($account_localtax2[3]) ? $account_localtax2[3] : $langs->trans("CodeNotDef"));
 
 		// Situation invoices handling
-		$line = new FactureLigne($db);
+		$line = new InvoiceLine($db);
 		$line->fetch($obj->id); // id of line
 		$prev_progress = 0;
-		if ($obj->type == Facture::TYPE_SITUATION) {
+		if ($obj->type == Invoice::TYPE_SITUATION) {
 			// Avoid divide by 0
 			if ($obj->situation_percent == 0) {
 				$situation_ratio = 0;
@@ -214,7 +214,7 @@ if ($result) {
 			$situation_ratio = 1;
 		}
 
-		//la ligne facture
+		//the invoice line
 		$tabfac[$obj->rowid]["date"] = $obj->datef;
 		$tabfac[$obj->rowid]["ref"] = $obj->ref;
 		$tabfac[$obj->rowid]["type"] = $obj->type;
@@ -264,7 +264,7 @@ print '<td class="right">'.$langs->trans('AccountingCredit').'</td>';
 print "</tr>\n";
 
 
-$invoicestatic = new Facture($db);
+$invoicestatic = new Invoice($db);
 $companystatic = new Client($db);
 
 foreach ($tabfac as $key => $val) {

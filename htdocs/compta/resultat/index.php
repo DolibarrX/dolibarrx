@@ -223,7 +223,7 @@ if (isModEnabled('accounting') && $modecompta != 'BOOKKEEPING') {
 
 
 /*
- * Factures clients
+ * Invoices clients
  */
 
 $subtotal_ht = 0;
@@ -232,7 +232,7 @@ if (isModEnabled('invoice') && ($modecompta == 'CREANCES-DETTES' || $modecompta 
 	if ($modecompta == 'CREANCES-DETTES') {
 		$sql = "SELECT sum(f.total_ht) as amount_ht, sum(f.total_ttc) as amount_ttc, date_format(f.datef,'%Y-%m') as dm";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-		$sql .= ", ".MAIN_DB_PREFIX."facture as f";
+		$sql .= ", ".MAIN_DB_PREFIX."invoice as f";
 		$sql .= " WHERE f.fk_soc = s.rowid";
 		$sql .= " AND f.fk_statut IN (1,2)";
 		if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
@@ -246,14 +246,14 @@ if (isModEnabled('invoice') && ($modecompta == 'CREANCES-DETTES' || $modecompta 
 	} elseif ($modecompta == "RECETTES-DEPENSES") {
 		/*
 		 * Liste des paiements (les anciens paiements ne sont pas vus par cette requete car, sur les
-		 * vieilles versions, ils n'etaient pas lies via paiement_facture. On les ajoute plus loin)
+		 * vieilles versions, ils n'etaient pas lies via paiement_invoice. On les ajoute plus loin)
 		 */
 		$sql = "SELECT sum(pf.amount) as amount_ttc, date_format(p.datep,'%Y-%m') as dm";
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
-		$sql .= ", ".MAIN_DB_PREFIX."paiement_facture as pf";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f";
+		$sql .= ", ".MAIN_DB_PREFIX."paiement_invoice as pf";
 		$sql .= ", ".MAIN_DB_PREFIX."paiement as p";
 		$sql .= " WHERE p.rowid = pf.fk_paiement";
-		$sql .= " AND pf.fk_facture = f.rowid";
+		$sql .= " AND pf.fk_invoice = f.rowid";
 		if (!empty($date_start) && !empty($date_end)) {
 			$sql .= " AND p.datep >= '".$db->idate($date_start)."' AND p.datep <= '".$db->idate($date_end)."'";
 		}
@@ -286,13 +286,13 @@ if (isModEnabled('invoice') && ($modecompta == 'CREANCES-DETTES' || $modecompta 
 //}
 
 if (isModEnabled('invoice') && ($modecompta == 'CREANCES-DETTES' || $modecompta == "RECETTES-DEPENSES")) {
-	// On ajoute les paiements clients anciennes version, non lies par paiement_facture
+	// We add old version customer payments, not linked by payment_invoice
 	if ($modecompta != 'CREANCES-DETTES') {
 		$sql = "SELECT sum(p.amount) as amount_ttc, date_format(p.datep,'%Y-%m') as dm";
 		$sql .= " FROM ".MAIN_DB_PREFIX."bank as b";
 		$sql .= ", ".MAIN_DB_PREFIX."bank_account as ba";
 		$sql .= ", ".MAIN_DB_PREFIX."paiement as p";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON p.rowid = pf.fk_paiement";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON p.rowid = pf.fk_paiement";
 		$sql .= " WHERE pf.rowid IS NULL";
 		$sql .= " AND p.fk_bank = b.rowid";
 		$sql .= " AND b.fk_account = ba.rowid";
@@ -335,7 +335,7 @@ if (isModEnabled('invoice') && ($modecompta == 'CREANCES-DETTES' || $modecompta 
 
 
 /*
- * Frais, factures fournisseurs.
+ * Frais, invoices fournisseurs.
  */
 $subtotal_ht = 0;
 $subtotal_ttc = 0;
@@ -343,7 +343,7 @@ $subtotal_ttc = 0;
 if (isModEnabled('invoice') && ($modecompta == 'CREANCES-DETTES' || $modecompta == "RECETTES-DEPENSES")) {
 	if ($modecompta == 'CREANCES-DETTES') {
 		$sql = "SELECT sum(f.total_ht) as amount_ht, sum(f.total_ttc) as amount_ttc, date_format(f.datef,'%Y-%m') as dm";
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f";
 		$sql .= " WHERE f.fk_statut IN (1,2)";
 		if (getDolGlobalString('FACTURE_SUPPLIER_DEPOSITS_ARE_JUST_PAYMENTS')) {
 			$sql .= " AND f.type IN (0,1,2)";
@@ -356,9 +356,9 @@ if (isModEnabled('invoice') && ($modecompta == 'CREANCES-DETTES' || $modecompta 
 	} elseif ($modecompta == "RECETTES-DEPENSES") {
 		$sql = "SELECT sum(pf.amount) as amount_ttc, date_format(p.datep,'%Y-%m') as dm";
 		$sql .= " FROM ".MAIN_DB_PREFIX."paiementfourn as p";
-		$sql .= ", ".MAIN_DB_PREFIX."facture_fourn as f";
-		$sql .= ", ".MAIN_DB_PREFIX."paiementfourn_facturefourn as pf";
-		$sql .= " WHERE f.rowid = pf.fk_facturefourn";
+		$sql .= ", ".MAIN_DB_PREFIX."invoice_fourn as f";
+		$sql .= ", ".MAIN_DB_PREFIX."paiementfourn_invoicefourn as pf";
+		$sql .= " WHERE f.rowid = pf.fk_invoicefourn";
 		$sql .= " AND p.rowid = pf.fk_paiementfourn";
 		if (!empty($date_start) && !empty($date_end)) {
 			$sql .= " AND p.datep >= '".$db->idate($date_start)."' AND p.datep <= '".$db->idate($date_end)."'";
@@ -411,7 +411,7 @@ if (isModEnabled('tax') && ($modecompta == 'CREANCES-DETTES' || $modecompta == "
 	if ($modecompta == 'CREANCES-DETTES') {
 		// TVA collected to pay
 		$sql = "SELECT sum(f.total_tva) as amount, date_format(f.datef,'%Y-%m') as dm";
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f";
 		$sql .= " WHERE f.fk_statut IN (1,2)";
 		if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
 			$sql .= " AND f.type IN (0,1,2,5)";
@@ -451,7 +451,7 @@ if (isModEnabled('tax') && ($modecompta == 'CREANCES-DETTES' || $modecompta == "
 		}
 		// TVA paid to get
 		$sql = "SELECT sum(f.total_tva) as amount, date_format(f.datef,'%Y-%m') as dm";
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f";
 		$sql .= " WHERE f.fk_statut IN (1,2)";
 		if (getDolGlobalString('FACTURE_SUPPLIER_DEPOSITS_ARE_JUST_PAYMENTS')) {
 			$sql .= " AND f.type IN (0,1,2)";

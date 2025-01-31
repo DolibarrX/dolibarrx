@@ -28,7 +28,7 @@ include '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/margin/lib/margins.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
-require_once DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php";
+require_once DOL_DOCUMENT_ROOT."/compta/invoice/class/invoice.class.php";
 
 /**
  * @var Config $config
@@ -238,8 +238,8 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("AgentContactType").'</td>';
 print '<td class="left">';
 $formcompany = new FormCompany($db);
-$facture = new Facture($db);
-print $formcompany->selectTypeContact($facture, getDolGlobalString('AGENT_CONTACT_TYPE'), "AGENT_CONTACT_TYPE", "internal", "code", 1, "maxwidth250");
+$invoice = new Invoice($db);
+print $formcompany->selectTypeContact($invoice, getDolGlobalString('AGENT_CONTACT_TYPE'), "AGENT_CONTACT_TYPE", "internal", "code", 1, "maxwidth250");
 print '</td>';
 print '<td>';
 print '<input type="submit" class="button button-edit" value="'.$langs->trans("Modify").'">';

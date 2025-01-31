@@ -265,7 +265,7 @@ $catotal_ht = 0;
 if ($modecompta == 'CREANCES-DETTES') {
 	$sql = "SELECT u.rowid as rowid, u.lastname as name, u.firstname as firstname, sum(f.total_ht) as amount, sum(f.total_ttc) as amount_ttc";
 	$sql .= " FROM ".MAIN_DB_PREFIX."user as u";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture as f ON f.fk_user_author = u.rowid";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice as f ON f.fk_user_author = u.rowid";
 	$sql .= " WHERE f.fk_statut in (1,2)";
 	if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
 		$sql .= " AND f.type IN (0,1,2,5)";
@@ -278,12 +278,12 @@ if ($modecompta == 'CREANCES-DETTES') {
 } elseif ($modecompta == "RECETTES-DEPENSES") {
 	/*
 	 * List of payments (old payments are not seen by this query because on older versions,
-	 * they were not linked via the table llx_paiement_facture. They are added later)
+	 * they were not linked via the table llx_paiement_invoice. They are added later)
 	 */
 	$sql = "SELECT u.rowid as rowid, u.lastname as name, u.firstname as firstname, sum(pf.amount) as amount_ttc";
 	$sql .= " FROM ".MAIN_DB_PREFIX."user as u";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture as f ON f.fk_user_author = u.rowid ";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON pf.fk_facture = f.rowid";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice as f ON f.fk_user_author = u.rowid ";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON pf.fk_invoice = f.rowid";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement as p ON p.rowid = pf.fk_paiement";
 	$sql .= " WHERE 1=1";
 	if ($date_start && $date_end) {
@@ -322,13 +322,13 @@ if ($result) {
 	dol_print_error($db);
 }
 
-// Adding old-version payments, non-bound by table llx_paiement_facture then without User
+// Adding old-version payments, non-bound by table llx_paiement_invoice then without User
 if ($modecompta == 'RECETTES-DEPENSES') {
 	$sql = "SELECT -1 as rowidx, '' as name, '' as firstname, sum(DISTINCT p.amount) as amount_ttc";
 	$sql .= " FROM ".MAIN_DB_PREFIX."bank as b";
 	$sql .= ", ".MAIN_DB_PREFIX."bank_account as ba";
 	$sql .= ", ".MAIN_DB_PREFIX."paiement as p";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON p.rowid = pf.fk_paiement";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON p.rowid = pf.fk_paiement";
 	$sql .= " WHERE pf.rowid IS NULL";
 	$sql .= " AND p.fk_bank = b.rowid";
 	$sql .= " AND b.fk_account = ba.rowid";
@@ -468,7 +468,7 @@ if (count($amount)) {
 			}
 		} elseif ($modecompta == 'CREANCES-DETTES') {
 			if ($key > 0) {
-				print '<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?userid='.$key.'">';
+				print '<a href="'.DOL_URL_ROOT.'/compta/invoice/list.php?userid='.$key.'">';
 			} else {
 				//print '<a href="#">';
 			}
@@ -489,7 +489,7 @@ if (count($amount)) {
 			}
 		} elseif ($modecompta == 'CREANCES-DETTES') {
 			if ($key > 0) {
-				print '<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?userid='.$key.'">';
+				print '<a href="'.DOL_URL_ROOT.'/compta/invoice/list.php?userid='.$key.'">';
 			} else {
 				//print '<a href="#">';
 			}
@@ -520,7 +520,7 @@ if (count($amount)) {
 			print '&nbsp;<a href="'.DOL_URL_ROOT.'/order/stats/index.php?userid='.$key.'">'.img_picture($langs->trans("OrderStats"), "stats").'</a>&nbsp;';
 		}
 		if (isModEnabled('invoice') && $key > 0) {
-			print '&nbsp;<a href="'.DOL_URL_ROOT.'/compta/facture/stats/index.php?userid='.$key.'">'.img_picture($langs->trans("InvoiceStats"), "stats").'</a>&nbsp;';
+			print '&nbsp;<a href="'.DOL_URL_ROOT.'/compta/invoice/stats/index.php?userid='.$key.'">'.img_picture($langs->trans("InvoiceStats"), "stats").'</a>&nbsp;';
 		}
 		print '</td>';
 		print "</tr>\n";

@@ -179,7 +179,7 @@ if (empty($resHook) && !empty($object->table_element) && isset($extrafields->att
 			}
 			if ($object->element == 'invoice_supplier') {
 				if (!getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) {
-					$permok = $user->hasRight('fournisseur', 'facture', 'creer');
+					$permok = $user->hasRight('fournisseur', 'invoice', 'creer');
 				} else {
 					$permok = $user->hasRight('supplier_invoice', 'creer');
 				}
@@ -193,8 +193,8 @@ if (empty($resHook) && !empty($object->table_element) && isset($extrafields->att
 			if ($object->element == 'productlot') {
 				$permok = $user->hasRight('stock', 'creer');
 			}
-			if ($object->element == 'facturerec') {
-				$permok = $user->hasRight('facture', 'creer');
+			if ($object->element == 'invoicerec') {
+				$permok = $user->hasRight('invoice', 'creer');
 			}
 			if ($object->element == 'mo') {
 				$permok = $user->hasRight('mrp', 'write');

@@ -293,7 +293,7 @@ $address_pays = [];
 if ($modecompta == 'CREANCES-DETTES') {
 	$sql = "SELECT DISTINCT s.rowid as socid, s.nom as name, s.zip, s.town, s.fk_pays,";
 	$sql .= " sum(f.total_ht) as amount, sum(f.total_ttc) as amount_ttc";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f, ".MAIN_DB_PREFIX."societe as s";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f, ".MAIN_DB_PREFIX."societe as s";
 	if ($selected_cat === -2) {	// Without any category
 		$sql .= " LEFT OUTER JOIN ".MAIN_DB_PREFIX."category_fournisseur as cs ON s.rowid = cs.fk_soc";
 	} elseif ($selected_cat) { 	// Into a specific category
@@ -317,8 +317,8 @@ if ($modecompta == 'CREANCES-DETTES') {
 	}
 } elseif ($modecompta == "RECETTES-DEPENSES") {
 	$sql = "SELECT s.rowid as socid, s.nom as name, s.zip, s.town, s.fk_pays, sum(pf.amount) as amount_ttc";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
-	$sql .= ", ".MAIN_DB_PREFIX."paiementfourn_facturefourn as pf";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f";
+	$sql .= ", ".MAIN_DB_PREFIX."paiementfourn_invoicefourn as pf";
 	$sql .= ", ".MAIN_DB_PREFIX."paiementfourn as p";
 	$sql .= ", ".MAIN_DB_PREFIX."societe as s";
 	if ($selected_cat === -2) {	// Without any category
@@ -327,7 +327,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 		$sql .= ", ".MAIN_DB_PREFIX."category as c, ".MAIN_DB_PREFIX."category_fournisseur as cs";
 	}
 	$sql .= " WHERE p.rowid = pf.fk_paiementfourn";
-	$sql .= " AND pf.fk_facturefourn = f.rowid";
+	$sql .= " AND pf.fk_invoicefourn = f.rowid";
 	$sql .= " AND f.fk_soc = s.rowid";
 	if ($date_start && $date_end) {
 		$sql .= " AND p.datep >= '".$db->idate($date_start)."' AND p.datep <= '".$db->idate($date_end)."'";
@@ -612,13 +612,13 @@ if (count($amount)) {
 		print '<td class="right">';
 		if ($modecompta != 'CREANCES-DETTES') {
 			if ($key > 0) {
-				print '<a href="'.DOL_URL_ROOT.'/fourn/facture/paiement/list.php?socid='.$key.'">';
+				print '<a href="'.DOL_URL_ROOT.'/fourn/invoice/paiement/list.php?socid='.$key.'">';
 			} else {
-				print '<a href="'.DOL_URL_ROOT.'/fourn/facture/paiement/list.php?socid=-1">';
+				print '<a href="'.DOL_URL_ROOT.'/fourn/invoice/paiement/list.php?socid=-1">';
 			}
 		} else {
 			if ($key > 0) {
-				print '<a href="'.DOL_URL_ROOT.'/fourn/facture/list.php?socid='.$key.'">';
+				print '<a href="'.DOL_URL_ROOT.'/fourn/invoice/list.php?socid='.$key.'">';
 			} else {
 				print '<a href="#">';
 			}
@@ -630,13 +630,13 @@ if (count($amount)) {
 		print '<td class="right">';
 		if ($modecompta != 'CREANCES-DETTES') {
 			if ($key > 0) {
-				print '<a href="'.DOL_URL_ROOT.'/fourn/facture/paiement/list.php?socid='.$key.'">';
+				print '<a href="'.DOL_URL_ROOT.'/fourn/invoice/paiement/list.php?socid='.$key.'">';
 			} else {
-				print '<a href="'.DOL_URL_ROOT.'/fourn/facture/paiement/list.php?orphelins=1">';
+				print '<a href="'.DOL_URL_ROOT.'/fourn/invoice/paiement/list.php?orphelins=1">';
 			}
 		} else {
 			if ($key > 0) {
-				print '<a href="'.DOL_URL_ROOT.'/fourn/facture/list.php?socid='.$key.'">';
+				print '<a href="'.DOL_URL_ROOT.'/fourn/invoice/list.php?socid='.$key.'">';
 			} else {
 				print '<a href="#">';
 			}
@@ -657,7 +657,7 @@ if (count($amount)) {
 			print '&nbsp;<a href="'.DOL_URL_ROOT.'/order/stats/index.php?mode=supplier&socid='.$key.'">'.img_picture($langs->trans("OrderStats"), "stats").'</a>&nbsp;';
 		}
 		if (isModEnabled("supplier_invoice") && $key > 0) {
-			print '&nbsp;<a href="'.DOL_URL_ROOT.'/compta/facture/stats/index.php?mode=supplier&socid='.$key.'">'.img_picture($langs->trans("InvoiceStats"), "stats").'</a>&nbsp;';
+			print '&nbsp;<a href="'.DOL_URL_ROOT.'/compta/invoice/stats/index.php?mode=supplier&socid='.$key.'">'.img_picture($langs->trans("InvoiceStats"), "stats").'</a>&nbsp;';
 		}
 		print '</td>';
 		print "</tr>\n";

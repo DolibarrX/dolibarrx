@@ -46,7 +46,7 @@ if (isModEnabled('margin')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formmargin.class.php';
 }
 require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 
@@ -233,7 +233,7 @@ $arrayfields = array(
 	'c.note_public' => array('label' => 'NotePublic', 'checked' => 0, 'enabled' => (!getDolGlobalString('MAIN_LIST_ALLOW_PUBLIC_NOTES')), 'position' => 135),
 	'c.note_private' => array('label' => 'NotePrivate', 'checked' => 0, 'enabled' => (!getDolGlobalString('MAIN_LIST_ALLOW_PRIVATE_NOTES')), 'position' => 140),
 	'shippable' => array('label' => "Shippable", 'checked' => 1,'enabled' => (isModEnabled('shipping')), 'position' => 990),
-	'c.facture' => array('label' => "Billed", 'checked' => 1, 'enabled' => (!getDolGlobalString('WORKFLOW_BILL_ON_SHIPMENT')), 'position' => 995),
+	'c.invoice' => array('label' => "Billed", 'checked' => 1, 'enabled' => (!getDolGlobalString('WORKFLOW_BILL_ON_SHIPMENT')), 'position' => 995),
 	'c.import_key' => array('type' => 'varchar(14)', 'label' => 'ImportId', 'enabled' => 1, 'visible' => -2, 'position' => 999),
 	'c.fk_statut' => array('label' => "Status", 'checked' => 1, 'position' => 1000)
 );
@@ -396,7 +396,7 @@ $sql .= " country.code as country_code,";
 $sql .= ' c.rowid as c_rowid, c.ref, c.ref_client, c.fk_user_author,';
 $sql .= ' c.fk_multicurrency, c.multicurrency_code, c.multicurrency_tx, c.multicurrency_total_ht, c.multicurrency_total_tva as multicurrency_total_vat, c.multicurrency_total_ttc,';
 $sql .= ' c.total_ht as c_total_ht, c.total_tva as c_total_tva, c.total_ttc as c_total_ttc, c.fk_warehouse as warehouse,';
-$sql .= ' c.date_valid, c.date_order, c.note_public, c.note_private, c.date_livraison as delivery_date, c.fk_statut, c.facture as billed,';
+$sql .= ' c.date_valid, c.date_order, c.note_public, c.note_private, c.date_livraison as delivery_date, c.fk_statut, c.invoice as billed,';
 $sql .= ' c.date_creation as date_creation, c.tms as date_modification, c.date_cloture as date_cloture,';
 $sql .= ' p.rowid as project_id, p.ref as project_ref, p.title as project_label,';
 $sql .= ' u.login, u.lastname, u.firstname, u.email as user_email, u.statut as user_statut, u.entity, u.photo, u.office_phone, u.office_fax, u.user_mobile, u.job, u.gender,';
@@ -481,7 +481,7 @@ if ($search_all) {
 	$sql .= natural_search(array_keys($fieldstosearchall), $search_all);
 }
 if ($search_billed != '' && $search_billed >= 0) {
-	$sql .= ' AND c.facture = '.((int) $search_billed);
+	$sql .= ' AND c.invoice = '.((int) $search_billed);
 }
 if ($search_status != '') {
 	if ($search_status <= 3 && $search_status >= -1) {	// status from -1 to 3 are real status (other are virtual combination)
@@ -492,13 +492,13 @@ if ($search_status != '') {
 		}
 	}
 	if ($search_status == -2) {	// To process
-		//$sql.= ' AND c.fk_statut IN (1,2,3) AND c.facture = 0';
-		$sql .= " AND ((c.fk_statut IN (1,2)) OR (c.fk_statut = 3 AND c.facture = 0))"; // If status is 2 and facture=1, it must be selected
+		//$sql.= ' AND c.fk_statut IN (1,2,3) AND c.invoice = 0';
+		$sql .= " AND ((c.fk_statut IN (1,2)) OR (c.fk_statut = 3 AND c.invoice = 0))"; // If status is 2 and invoice=1, it must be selected
 	}
 	if ($search_status == -3) {	// To bill
 		//$sql.= ' AND c.fk_statut in (1,2,3)';
-		//$sql.= ' AND c.facture = 0'; // invoice not created
-		$sql .= ' AND ((c.fk_statut IN (1,2)) OR (c.fk_statut = 3 AND c.facture = 0))'; // validated, in process or closed but not billed
+		//$sql.= ' AND c.invoice = 0'; // invoice not created
+		$sql .= ' AND ((c.fk_statut IN (1,2)) OR (c.fk_statut = 3 AND c.invoice = 0))'; // validated, in process or closed but not billed
 	}
 	if ($search_status == -4) {	//  "validate and in progress"
 		$sql .= ' AND (c.fk_statut IN (1,2))'; // validated, in process
@@ -1264,7 +1264,7 @@ if ($resql) {
 		print '</td>';
 	}
 	// Status billed
-	if (!empty($arrayfields['c.facture']['checked'])) {
+	if (!empty($arrayfields['c.invoice']['checked'])) {
 		print '<td class="liste_titre maxwidthonsmartphone" align="center">';
 		print $form->selectyesno('search_billed', $search_billed, 1, 0, 1, 1);
 		print '</td>';
@@ -1458,8 +1458,8 @@ if ($resql) {
 	if (!empty($arrayfields['shippable']['checked'])) {
 		print_liste_field_titre($arrayfields['shippable']['label'], $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'center ');
 	}
-	if (!empty($arrayfields['c.facture']['checked'])) {
-		print_liste_field_titre($arrayfields['c.facture']['label'], $_SERVER["PHP_SELF"], 'c.facture', '', $param, '', $sortfield, $sortorder, 'center ');
+	if (!empty($arrayfields['c.invoice']['checked'])) {
+		print_liste_field_titre($arrayfields['c.invoice']['label'], $_SERVER["PHP_SELF"], 'c.invoice', '', $param, '', $sortfield, $sortorder, 'center ');
 	}
 	if (!empty($arrayfields['c.import_key']['checked'])) {
 		print_liste_field_titre($arrayfields['c.import_key']['label'], $_SERVER["PHP_SELF"], "c.import_key", "", $param, '', $sortfield, $sortorder, 'center ');
@@ -1698,7 +1698,7 @@ if ($resql) {
 
 			// If module invoices enabled and user with invoice creation permissions
 			if (isModEnabled('invoice') && getDolGlobalString('ORDER_BILLING_ALL_CUSTOMER')) {
-				if ($user->hasRight('facture', 'creer')) {
+				if ($user->hasRight('invoice', 'creer')) {
 					if (($obj->fk_statut > 0 && $obj->fk_statut < 3) || ($obj->fk_statut == 3 && $obj->billed == 0)) {
 						print '&nbsp;<a href="'.DOL_URL_ROOT.'/order/list.php?socid='.$companystatic->id.'&search_billed=0&autoselectall=1">';
 						print img_picture($langs->trans("CreateInvoiceForThisCustomer").' : '.$companystatic->name, 'object_bill', 'hideonsmartphone').'</a>';
@@ -2204,7 +2204,7 @@ if ($resql) {
 		}
 
 		// Billed
-		if (!empty($arrayfields['c.facture']['checked'])) {
+		if (!empty($arrayfields['c.invoice']['checked'])) {
 			print '<td class="center">';
 			if ($obj->billed) {
 				print yn($obj->billed, $langs->trans("Billed"));

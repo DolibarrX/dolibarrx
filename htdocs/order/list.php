@@ -51,7 +51,7 @@ if (isModEnabled('margin')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formmargin.class.php';
 }
 require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 
@@ -240,7 +240,7 @@ $arrayfields = array(
 	'c.note_public' => array('label' => 'NotePublic', 'checked' => 0, 'enabled' => (!getDolGlobalInt('MAIN_LIST_HIDE_PUBLIC_NOTES')), 'position' => 135, 'searchall' => 1),
 	'c.note_private' => array('label' => 'NotePrivate', 'checked' => 0, 'enabled' => (!getDolGlobalInt('MAIN_LIST_HIDE_PRIVATE_NOTES')), 'position' => 140),
 	'shippable' => array('label' => "Shippable", 'checked' => 1,'enabled' => (isModEnabled("shipping")), 'position' => 990),
-	'c.facture' => array('label' => "Billed", 'checked' => 1, 'enabled' => (!getDolGlobalString('WORKFLOW_BILL_ON_SHIPMENT')), 'position' => 995),
+	'c.invoice' => array('label' => "Billed", 'checked' => 1, 'enabled' => (!getDolGlobalString('WORKFLOW_BILL_ON_SHIPMENT')), 'position' => 995),
 	'c.import_key' => array('type' => 'varchar(14)', 'label' => 'ImportId', 'enabled' => 1, 'visible' => -2, 'position' => 999),
 	'c.fk_statut' => array('label' => "Status", 'checked' => 1, 'position' => 1000)
 );
@@ -409,7 +409,7 @@ if (empty($resHook)) {
 			}
 			$cmd->fetch_thirdparty();
 
-			$objecttmp = new Facture($db);
+			$objecttmp = new Invoice($db);
 			if (!empty($createbills_onebythird) && !empty($TFactThird[$cmd->socid])) {
 				// If option "one bill per third" is set, and an invoice for this thirdparty was already created, we reuse it.
 				$currentIndex++;
@@ -433,12 +433,12 @@ if (empty($resHook)) {
 					$objecttmp->note_public =  $langs->transnoentities("Orders");
 				}
 
-				$datefacture = dol_mktime(12, 0, 0, GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'));
-				if (empty($datefacture)) {
-					$datefacture = dol_now();
+				$dateinvoice = dol_mktime(12, 0, 0, GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'));
+				if (empty($dateinvoice)) {
+					$dateinvoice = dol_now();
 				}
 
-				$objecttmp->date = $datefacture;
+				$objecttmp->date = $dateinvoice;
 				$objecttmp->origin    = 'order';
 				$objecttmp->origin_id = $id_order;
 
@@ -631,8 +631,8 @@ if (empty($resHook)) {
 
 				// Builddoc
 				$donotredirect = 1;
-				$upload_dir = $config->facture->dir_output;
-				$permissionToAdd = $user->hasRight('facture', 'creer');
+				$upload_dir = $config->invoice->dir_output;
+				$permissionToAdd = $user->hasRight('invoice', 'creer');
 
 				// Call action to build doc
 				$savobject = $object;
@@ -650,16 +650,16 @@ if (empty($resHook)) {
 			if ($nb_bills_created == 1) {
 				if (getDolGlobalInt('MAIN_MASSACTION_CREATEBILLS_REDIRECT_IF_ONE') == 1) {
 					// Redirect to generated invoice if unique
-					header('Location: '.DOL_URL_ROOT.'/compta/facture/card.php?id='.urlencode((string) $lastid));
+					header('Location: '.DOL_URL_ROOT.'/compta/invoice/card.php?id='.urlencode((string) $lastid));
 					exit;
 				}
 				$textToShow = $langs->trans('BillXCreated', '{s1}');
-				$textToShow = str_replace('{s1}', '<a href="'.DOL_URL_ROOT.'/compta/facture/card.php?id='.urlencode((string) ($lastid)).'">'.$lastref.'</a>', $textToShow);
+				$textToShow = str_replace('{s1}', '<a href="'.DOL_URL_ROOT.'/compta/invoice/card.php?id='.urlencode((string) ($lastid)).'">'.$lastref.'</a>', $textToShow);
 				setEventMessages($textToShow, null, 'mesgs');
 			} else {
 				if (getDolGlobalInt('MAIN_MASSACTION_CREATEBILLS_REDIRECT_IF_MANY') == 1) {
 					// Redirect to invoice list
-					header("Location: ".DOL_URL_ROOT.'/compta/facture/list.php?mainmenu=billing&leftmenu=customers_bills');
+					header("Location: ".DOL_URL_ROOT.'/compta/invoice/list.php?mainmenu=billing&leftmenu=customers_bills');
 					exit;
 				}
 				setEventMessages($langs->trans('BillCreated', $nb_bills_created), null, 'mesgs');
@@ -905,7 +905,7 @@ $sql .= " state.code_departement as state_code, state.nom as state_name,";
 $sql .= " country.code as country_code,";
 $sql .= ' c.rowid, c.ref, c.ref_ext, c.total_ht, c.total_tva, c.total_ttc, c.ref_client, c.fk_user_author,';
 $sql .= ' c.fk_multicurrency, c.multicurrency_code, c.multicurrency_tx, c.multicurrency_total_ht, c.multicurrency_total_tva as multicurrency_total_vat, c.multicurrency_total_ttc,';
-$sql .= ' c.date_valid, c.date_order, c.note_public, c.note_private, c.date_livraison as delivery_date, c.fk_statut, c.facture as billed,';
+$sql .= ' c.date_valid, c.date_order, c.note_public, c.note_private, c.date_livraison as delivery_date, c.fk_statut, c.invoice as billed,';
 $sql .= ' c.date_creation as date_creation, c.tms as date_modification, c.date_cloture as date_cloture,';
 $sql .= ' p.rowid as project_id, p.ref as project_ref, p.title as project_label,';
 $sql .= ' u.login, u.lastname, u.firstname, u.email as user_email, u.statut as user_statut, u.entity, u.photo, u.office_phone, u.office_fax, u.user_mobile, u.job, u.gender,';
@@ -977,7 +977,7 @@ if ($search_all) {
 	$sql .= natural_search(array_keys($fieldstosearchall), $search_all);
 }
 if ($search_billed != '' && $search_billed >= 0) {
-	$sql .= ' AND c.facture = '.((int) $search_billed);
+	$sql .= ' AND c.invoice = '.((int) $search_billed);
 }
 if ($search_status != '') {
 	if ($search_status <= 3 && $search_status >= -1) {	// status from -1 to 3 are real status (other are virtual combination)
@@ -988,12 +988,12 @@ if ($search_status != '') {
 		}
 	}
 	if ($search_status == -2) {	// "validated + in progress"
-		//$sql.= ' AND c.fk_statut IN (1,2,3) AND c.facture = 0';
+		//$sql.= ' AND c.fk_statut IN (1,2,3) AND c.invoice = 0';
 		$sql .= " AND (c.fk_statut IN (1,2))";
 	}
 	if ($search_status == -3) {	// "validated + in progress + shipped"
 		//$sql.= ' AND c.fk_statut in (1,2,3)';
-		//$sql.= ' AND c.facture = 0'; // invoice not created
+		//$sql.= ' AND c.invoice = 0'; // invoice not created
 		$sql .= ' AND (c.fk_statut IN (1,2,3))'; // validated, in process or closed
 	}
 }
@@ -1438,7 +1438,7 @@ if ($permissiontovalidate) {
 if ($permissiontoclose) {
 	$arrayofmassactions['preshipped'] = img_picture('', 'dolly', 'class="picturefixedwidth"').$langs->trans("ClassifyShipped");
 }
-if (isModEnabled('invoice') && $user->hasRight("facture", "creer")) {
+if (isModEnabled('invoice') && $user->hasRight("invoice", "creer")) {
 	$arrayofmassactions['createbills'] = img_picture('', 'bill', 'class="picturefixedwidth"').$langs->trans("CreateInvoiceForThisCustomer");
 }
 if ($permissiontoclose) {
@@ -1896,7 +1896,7 @@ $resHook = $hookManager->executeHooks('printFieldListOption', $parameters, $obje
 print $hookManager->resPrint;
 
 // Status billed
-if (!empty($arrayfields['c.facture']['checked'])) {
+if (!empty($arrayfields['c.invoice']['checked'])) {
 	print '<td class="liste_titre maxwidthonsmartphone center">';
 	print $form->selectyesno('search_billed', $search_billed, 1, 0, 1, 1);
 	print '</td>';
@@ -2125,8 +2125,8 @@ $resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $objec
 print $hookManager->resPrint;
 
 // Status billed
-if (!empty($arrayfields['c.facture']['checked'])) {
-	print_liste_field_titre($arrayfields['c.facture']['label'], $_SERVER["PHP_SELF"], 'c.facture', '', $param, '', $sortfield, $sortorder, 'center ');
+if (!empty($arrayfields['c.invoice']['checked'])) {
+	print_liste_field_titre($arrayfields['c.invoice']['label'], $_SERVER["PHP_SELF"], 'c.invoice', '', $param, '', $sortfield, $sortorder, 'center ');
 	$totalarray['nbfield']++;
 }
 // Import key
@@ -2360,7 +2360,7 @@ while ($i < $imaxinloop) {
 
 			// If module invoices enabled and user with invoice creation permissions
 			if (isModEnabled('invoice') && getDolGlobalString('ORDER_BILLING_ALL_CUSTOMER')) {
-				if ($user->hasRight('facture', 'creer')) {
+				if ($user->hasRight('invoice', 'creer')) {
 					if (($obj->fk_statut > 0 && $obj->fk_statut < 3) || ($obj->fk_statut == 3 && $obj->billed == 0)) {
 						print '&nbsp;<a href="'.DOL_URL_ROOT.'/order/list.php?socid='.$companystatic->id.'&search_billed=0&autoselectall=1">';
 						print img_picture($langs->trans("CreateInvoiceForThisCustomer").' : '.$companystatic->name, 'object_bill', 'hideonsmartphone').'</a>';
@@ -2904,7 +2904,7 @@ while ($i < $imaxinloop) {
 		print $hookManager->resPrint;
 
 		// Billed
-		if (!empty($arrayfields['c.facture']['checked'])) {
+		if (!empty($arrayfields['c.invoice']['checked'])) {
 			print '<td class="center">';
 			if ($obj->billed) {
 				print yn($obj->billed, $langs->trans("Billed"));

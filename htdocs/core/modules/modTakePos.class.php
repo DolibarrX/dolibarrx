@@ -101,7 +101,7 @@ class modTakePos extends DolibarrModules
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
 		// List of module class names as string that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR'...))
-		$this->depends = array('always'=>array("modBank", "modFacture", "modProduct", "modCategory"), 'FR'=>array('modBlockedLog'));
+		$this->depends = array('always'=>array("modBank", "modInvoice", "modProduct", "modCategory"), 'FR'=>array('modBlockedLog'));
 		$this->requiredBy = []; // List of module ids to disable if this one is disabled
 		$this->conflictWith = []; // List of module class names as string this module is in conflict with
 		$this->langFiles = array("cashdesk");

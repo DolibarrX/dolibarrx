@@ -685,15 +685,15 @@ class AccountancyExport
 			$refInvoice = '';
 			if ($line->doc_type == 'customer_invoice') {
 				// Customer invoice
-				require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
-				$invoice = new Facture($this->db);
+				require_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
+				$invoice = new Invoice($this->db);
 				$invoice->fetch($line->fk_doc);
 
 				$refInvoice = $invoice->ref;
 			} elseif ($line->doc_type == 'supplier_invoice') {
 				// Supplier invoice
-				require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.facture.class.php';
-				$invoice = new FactureFournisseur($this->db);
+				require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.invoice.class.php';
+				$invoice = new InvoiceSupplier($this->db);
 				$invoice->fetch($line->fk_doc);
 
 				$refInvoice = $invoice->ref_supplier;
@@ -1036,10 +1036,10 @@ class AccountancyExport
 					} elseif ($line->doc_type == 'expense_report') {
 						$objectDirPath = !empty($config->expensereport->multidir_output[$config->entity]) ? $config->expensereport->multidir_output[$config->entity] : $config->expensereport->dir_output;
 					} elseif ($line->doc_type == 'supplier_invoice') {
-						require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.facture.class.php';
-						$invoice = new FactureFournisseur($this->db);
+						require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.invoice.class.php';
+						$invoice = new InvoiceSupplier($this->db);
 						$invoice->fetch($line->fk_doc);
-						$objectDirPath = !empty($config->fournisseur->facture->multidir_output[$config->entity]) ? $config->fournisseur->facture->multidir_output[$config->entity] : $config->fournisseur->facture->dir_output;
+						$objectDirPath = !empty($config->fournisseur->invoice->multidir_output[$config->entity]) ? $config->fournisseur->invoice->multidir_output[$config->entity] : $config->fournisseur->invoice->dir_output;
 						$objectDirPath .= '/' . rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
 					}
 					$arrayofinclusion = [];
@@ -1380,8 +1380,8 @@ class AccountancyExport
 		$tab[] = "Montantdevise";
 		$tab[] = "Idevise";
 		$tab[] = "DateLimitReglmt";
-		$tab[] = "NumFacture";
-		$tab[] = "FichierFacture";
+		$tab[] = "NumberInvoice";
+		$tab[] = "FileInvoice";
 
 		$output = implode($separator, $tab) . $end_line;
 		if ($exportFile) {
@@ -1404,15 +1404,15 @@ class AccountancyExport
 				$refInvoice = '';
 				if ($line->doc_type == 'customer_invoice') {
 					// Customer invoice
-					require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
-					$invoice = new Facture($this->db);
+					require_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
+					$invoice = new Invoice($this->db);
 					$invoice->fetch($line->fk_doc);
 
 					$refInvoice = $invoice->ref;
 				} elseif ($line->doc_type == 'supplier_invoice') {
 					// Supplier invoice
-					require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.facture.class.php';
-					$invoice = new FactureFournisseur($this->db);
+					require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.invoice.class.php';
+					$invoice = new InvoiceSupplier($this->db);
 					$invoice->fetch($line->fk_doc);
 
 					$refInvoice = $invoice->ref_supplier;
@@ -1482,12 +1482,12 @@ class AccountancyExport
 				// FEC_suppl:DateLimitReglmt
 				$tab[] = $date_limit_payment;
 
-				// FEC_suppl:NumFacture
+				// FEC_suppl:NumberInvoice
 				// Clean ref invoice to prevent problem on export with tab separator & other character
 				$refInvoice = str_replace(array("\t", "\n", "\r"), " ", $refInvoice);
 				$tab[] = dol_trunc(self::toAnsi($refInvoice), 17, 'right', 'UTF-8', 1);
 
-				// FEC_suppl:FichierFacture
+				// FEC_suppl:FileInvoice
 				// get document file
 				$attachmentFileName = '';
 				if ($withAttachment == 1) {
@@ -1501,9 +1501,9 @@ class AccountancyExport
 						} elseif ($line->doc_type == 'expense_report') {
 							$objectDirPath = !empty($config->expensereport->multidir_output[$config->entity]) ? $config->expensereport->multidir_output[$config->entity] : $config->expensereport->dir_output;
 						} elseif ($line->doc_type == 'supplier_invoice') {
-							'@phan-var-force FactureFournisseur $invoice';
-							/** @var FactureFournisseur $invoice */
-							$objectDirPath = !empty($config->fournisseur->facture->multidir_output[$config->entity]) ? $config->fournisseur->facture->multidir_output[$config->entity] : $config->fournisseur->facture->dir_output;
+							'@phan-var-force InvoiceSupplier $invoice';
+							/** @var InvoiceSupplier $invoice */
+							$objectDirPath = !empty($config->fournisseur->invoice->multidir_output[$config->entity]) ? $config->fournisseur->invoice->multidir_output[$config->entity] : $config->fournisseur->invoice->dir_output;
 							$objectDirPath .= '/' . rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
 						}
 						$arrayofinclusion = [];
@@ -1595,8 +1595,8 @@ class AccountancyExport
 		$tab[] = "Montantdevise";
 		$tab[] = "Idevise";
 		$tab[] = "DateLimitReglmt";
-		$tab[] = "NumFacture";
-		$tab[] = "FichierFacture";
+		$tab[] = "NumberInvoice";
+		$tab[] = "FileInvoice";
 
 		$output = implode($separator, $tab) . $end_line;
 		if ($exportFile) {
@@ -1618,15 +1618,15 @@ class AccountancyExport
 				$refInvoice = '';
 				if ($line->doc_type == 'customer_invoice') {
 					// Customer invoice
-					require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
-					$invoice = new Facture($this->db);
+					require_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
+					$invoice = new Invoice($this->db);
 					$invoice->fetch($line->fk_doc);
 
 					$refInvoice = $invoice->ref;
 				} elseif ($line->doc_type == 'supplier_invoice') {
 					// Supplier invoice
-					require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.facture.class.php';
-					$invoice = new FactureFournisseur($this->db);
+					require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.invoice.class.php';
+					$invoice = new InvoiceSupplier($this->db);
 					$invoice->fetch($line->fk_doc);
 
 					$refInvoice = $invoice->ref_supplier;
@@ -1696,12 +1696,12 @@ class AccountancyExport
 				// FEC_suppl:DateLimitReglmt
 				$tab[] = $date_limit_payment;
 
-				// FEC_suppl:NumFacture
+				// FEC_suppl:NumberInvoice
 				// Clean ref invoice to prevent problem on export with tab separator & other character
 				$refInvoice = str_replace(array("\t", "\n", "\r"), " ", $refInvoice);
 				$tab[] = dol_trunc(self::toAnsi($refInvoice), 17, 'right', 'UTF-8', 1);
 
-				// FEC_suppl:FichierFacture
+				// FEC_suppl:FileInvoice
 				// get document file
 				$attachmentFileName = '';
 				if ($withAttachment == 1) {
@@ -1715,9 +1715,9 @@ class AccountancyExport
 						} elseif ($line->doc_type == 'expense_report') {
 							$objectDirPath = !empty($config->expensereport->multidir_output[$config->entity]) ? $config->expensereport->multidir_output[$config->entity] : $config->expensereport->dir_output;
 						} elseif ($line->doc_type == 'supplier_invoice') {
-							'@phan-var-force FactureFournisseur $invoice';
-							/** @var FactureFournisseur $invoice */
-							$objectDirPath = !empty($config->fournisseur->facture->multidir_output[$config->entity]) ? $config->fournisseur->facture->multidir_output[$config->entity] : $config->fournisseur->facture->dir_output;
+							'@phan-var-force InvoiceSupplier $invoice';
+							/** @var InvoiceSupplier $invoice */
+							$objectDirPath = !empty($config->fournisseur->invoice->multidir_output[$config->entity]) ? $config->fournisseur->invoice->multidir_output[$config->entity] : $config->fournisseur->invoice->dir_output;
 							$objectDirPath .= '/' . rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
 						}
 						$arrayofinclusion = [];
@@ -2457,7 +2457,7 @@ class AccountancyExport
 					) {
 						if ($line->doc_type == 'customer_invoice') {
 							// Get new customer invoice ref and company name
-							$sql = 'SELECT f.ref, s.nom FROM ' . MAIN_DB_PREFIX . 'facture as f';
+							$sql = 'SELECT f.ref, s.nom FROM ' . MAIN_DB_PREFIX . 'invoice as f';
 							$sql .= ' LEFT JOIN ' . MAIN_DB_PREFIX . 'societe AS s ON f.fk_soc = s.rowid';
 							$sql .= ' WHERE f.rowid = ' . ((int) $line->fk_doc);
 							$resql = $this->db->query($sql);
@@ -2471,7 +2471,7 @@ class AccountancyExport
 							}
 						} else {
 							// Get new supplier invoice ref and company name
-							$sql = 'SELECT ff.ref, s.nom FROM ' . MAIN_DB_PREFIX . 'facture_fourn as ff';
+							$sql = 'SELECT ff.ref, s.nom FROM ' . MAIN_DB_PREFIX . 'invoice_fourn as ff';
 							$sql .= ' LEFT JOIN ' . MAIN_DB_PREFIX . 'societe AS s ON ff.fk_soc = s.rowid';
 							$sql .= ' WHERE ff.rowid = ' . ((int) $line->fk_doc);
 							$resql = $this->db->query($sql);

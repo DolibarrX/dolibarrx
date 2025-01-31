@@ -32,8 +32,8 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/bank.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
 require_once DOL_DOCUMENT_ROOT.'/salaries/class/salary.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/tva/class/tva.class.php';
@@ -72,8 +72,8 @@ $page = GETPOSTISSET("page") ? GETPOST("page") : 0;
  */
 $societestatic = new Societe($db);
 $userstatic = new User($db);
-$facturestatic = new Facture($db);
-$facturefournstatic = new FactureFournisseur($db);
+$invoicestatic = new Invoice($db);
+$invoicefournstatic = new InvoiceSupplier($db);
 $socialcontribstatic = new ChargeSociales($db);
 $salarystatic = new Salary($db);
 $vatstatic = new Tva($db);
@@ -119,7 +119,7 @@ if (GETPOST("account") || GETPOST("ref")) {
 	// Customer invoices
 	$sql = "SELECT 'invoice' as family, f.rowid as objid, f.ref as ref, f.total_ttc, f.type, f.date_lim_reglement as dlr,";
 	$sql .= " s.rowid as socid, s.nom as name, s.fournisseur";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON f.fk_soc = s.rowid";
 	$sql .= " WHERE f.entity IN  (".getEntity('invoice').")";
 	$sql .= " AND f.paye = 0 AND f.fk_statut = 1"; // Not paid
@@ -130,7 +130,7 @@ if (GETPOST("account") || GETPOST("ref")) {
 	// Supplier invoices
 	$sql = " SELECT 'invoice_supplier' as family, ff.rowid as objid, ff.ref as ref, ff.ref_supplier as ref_supplier, (-1*ff.total_ttc) as total_ttc, ff.type, ff.date_lim_reglement as dlr,";
 	$sql .= " s.rowid as socid, s.nom as name, s.fournisseur";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as ff";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as ff";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON ff.fk_soc = s.rowid";
 	$sql .= " WHERE ff.entity = ".$config->entity;
 	$sql .= " AND ff.paye = 0 AND fk_statut = 1"; // Not paid
@@ -269,31 +269,31 @@ if (GETPOST("account") || GETPOST("ref")) {
 				//$showline=(($tmpobj->total_ttc < 0 && $tmpobj->type != 2) || ($tmpobj->total_ttc > 0 && $tmpobj->type == 2))
 				if ($showline) {
 					$ref = $tmpobj->ref;
-					$facturefournstatic->ref = $ref;
-					$facturefournstatic->id = $tmpobj->objid;
-					$facturefournstatic->type = $tmpobj->type;
-					$ref = $facturefournstatic->getNomUrl(1, '');
+					$invoicefournstatic->ref = $ref;
+					$invoicefournstatic->id = $tmpobj->objid;
+					$invoicefournstatic->type = $tmpobj->type;
+					$ref = $invoicefournstatic->getNomUrl(1, '');
 
 					$societestatic->id = $tmpobj->socid;
 					$societestatic->name = $tmpobj->name;
 					$refcomp = $societestatic->getNomUrl(1, '', 24);
 
-					$totalpayment = -1 * $facturefournstatic->getSommePaiement(); // Payment already done
+					$totalpayment = -1 * $invoicefournstatic->getSommePaiement(); // Payment already done
 				}
 			}
 			if ($tmpobj->family == 'invoice') {
-				$facturestatic->ref = $tmpobj->ref;
-				$facturestatic->id = $tmpobj->objid;
-				$facturestatic->type = (int) $tmpobj->type;
-				$ref = $facturestatic->getNomUrl(1, '');
+				$invoicestatic->ref = $tmpobj->ref;
+				$invoicestatic->id = $tmpobj->objid;
+				$invoicestatic->type = (int) $tmpobj->type;
+				$ref = $invoicestatic->getNomUrl(1, '');
 
 				$societestatic->id = $tmpobj->socid;
 				$societestatic->name = $tmpobj->name;
 				$refcomp = $societestatic->getNomUrl(1, '', 24);
 
-				$totalpayment = $facturestatic->getSommePaiement(); // Payment already done
-				$totalpayment += $facturestatic->getSumDepositsUsed();
-				$totalpayment += $facturestatic->getSumCreditNotesUsed();
+				$totalpayment = $invoicestatic->getSommePaiement(); // Payment already done
+				$totalpayment += $invoicestatic->getSumDepositsUsed();
+				$totalpayment += $invoicestatic->getSumCreditNotesUsed();
 			}
 			if ($tmpobj->family == 'social_contribution') {
 				$socialcontribstatic->ref = $tmpobj->ref;

@@ -41,7 +41,7 @@ if (!defined('NOREQUIREHTML')) {
 
 // Load Dolibarr environment
 require '../main.inc.php'; // Load $user and permissions
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
 
 
@@ -110,8 +110,8 @@ if (isModEnabled('stripe')) {
 	$stripe = new Stripe($db);
 	$stripeacc = $stripe->getStripeAccount($service); // Get Stripe OAuth connect account (no remote access to Stripe here)
 
-	include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-	$invoicetmp = new Facture($db);
+	include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+	$invoicetmp = new Invoice($db);
 	$invoicetmp->fetch($invoiceid);
 	$stripecu = $stripe->getStripeCustomerAccount($invoicetmp->socid, $servicestatus, $site_account); // Get remote Stripe customer 'cus_...' (no remote access to Stripe here)
 	$keyforstripeterminalbank = "CASHDESK_ID_BANKACCOUNT_STRIPETERMINAL".(empty($_SESSION['takeposterminal']) ? '' : $_SESSION['takeposterminal']);
@@ -161,11 +161,11 @@ if (isModEnabled('stripe') && isset($keyforstripeterminalbank) && (!getDolGlobal
 	dol_htmloutput_mesg($langs->trans('YouAreCurrentlyInSandboxMode', 'Stripe'), [], 'warning', 1);
 }
 
-$invoice = new Facture($db);
+$invoice = new Invoice($db);
 if ($invoiceid > 0) {
 	$invoice->fetch($invoiceid);
 } else {
-	$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."facture";
+	$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."invoice";
 	$sql .= " WHERE entity IN (".getEntity('invoice').")";
 	$sql .= " AND ref = '(PROV-POS".$_SESSION["takeposterminal"]."-".$place.")'";
 	$resql = $db->query($sql);

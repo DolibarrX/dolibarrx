@@ -311,7 +311,7 @@ class Member extends CommonObject
 	public $partnerships = [];
 
 	/**
-	 * @var ?Facture	To store the created invoice into subscriptionComplementaryActions()
+	 * @var ?Invoice	To store the created invoice into subscriptionComplementaryActions()
 	 */
 	public $invoice;
 
@@ -1785,10 +1785,10 @@ class Member extends CommonObject
 
 		// If option chosen, we create invoice
 		if (($option == 'bankviainvoice' && $accountid) || $option == 'invoiceonly') {
-			require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-			require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/paymentterm.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/paymentterm.class.php';
 
-			$invoice = new Facture($this->db);
+			$invoice = new Invoice($this->db);
 			$customer = new Societe($this->db);
 
 			if (!$error) {
@@ -1837,7 +1837,7 @@ class Member extends CommonObject
 
 			if (!$error) {
 				// Create draft invoice
-				$invoice->type = Facture::TYPE_STANDARD;
+				$invoice->type = Invoice::TYPE_STANDARD;
 				$invoice->cond_reglement_id = $customer->cond_reglement_id;
 				if (empty($invoice->cond_reglement_id)) {
 					$paymenttermstatic = new PaymentTerm($this->db);

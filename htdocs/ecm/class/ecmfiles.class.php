@@ -1008,8 +1008,8 @@ class EcmFiles extends CommonObject
 		}
 
 		if ($option) {
-			if ($option == 'facture_fournisseur') {
-				$tmppath = preg_replace('/^fournisseur\/facture\//', '', $this->filepath);
+			if ($option == 'invoice_fournisseur') {
+				$tmppath = preg_replace('/^fournisseur\/invoice\//', '', $this->filepath);
 			} elseif ($option == 'order_fournisseur') {
 				$tmppath = preg_replace('/^fournisseur\/order\//', '', $this->filepath);
 			} else {

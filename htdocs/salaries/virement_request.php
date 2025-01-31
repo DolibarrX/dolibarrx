@@ -41,17 +41,17 @@ require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/bonprelevement.class.p
 
 require_once DOL_DOCUMENT_ROOT.'/societe/class/companybankaccount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/invoice.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/bonprelevement.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/discount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/companybankaccount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formprojet.class.php';
@@ -118,16 +118,16 @@ $permissiontodelete = $user->hasRight('salaries', 'delete') || ($permissionToAdd
 
 $moreparam = '';
 if ($type == 'bank-transfer') {
-	$obj = new FactureFournisseur($db);
+	$obj = new InvoiceSupplier($db);
 	$moreparam = '&type='.$type;
 } else {
-	$obj = new Facture($db);
+	$obj = new Invoice($db);
 }
 
 // Load object
 if ($id > 0 || !empty($ref)) {
 	$ret = $object->fetch($id, $ref);
-	$isdraft = (($obj->status == FactureFournisseur::STATUS_DRAFT) ? 1 : 0);
+	$isdraft = (($obj->status == InvoiceSupplier::STATUS_DRAFT) ? 1 : 0);
 	if ($ret > 0) {
 		$object->fetch_thirdparty();
 	}
@@ -467,7 +467,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."prelevement_bons as pb ON pb.rowid = pfd.f
 if ($type == 'salaire') {
 	$sql .= " WHERE pfd.fk_salary = ".((int) $object->id);
 } else {
-	$sql .= " WHERE fk_facture = ".((int) $object->id);
+	$sql .= " WHERE fk_invoice = ".((int) $object->id);
 }
 $sql .= " AND pfd.traite = 0";
 $sql .= " AND pfd.type = 'ban'";
@@ -667,7 +667,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."prelevement_bons as pb ON pb.rowid = pfd.f
 if ($type == 'salaire') {
 	$sql .= " WHERE pfd.fk_salary = ".((int) $object->id);
 } else {
-	$sql .= " WHERE fk_facture = ".((int) $object->id);
+	$sql .= " WHERE fk_invoice = ".((int) $object->id);
 }
 $sql .= " AND pfd.traite = 1";
 $sql .= " AND pfd.type = 'ban'";

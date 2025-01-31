@@ -390,7 +390,7 @@ class FormFile
 	/**
 	 *      Show the box with list of available documents for object
 	 *
-	 *      @param      string				$modulePart         propal, facture, facture_fourn, ...
+	 *      @param      string				$modulePart         propal, invoice, invoice_fourn, ...
 	 *      @param      string				$modulesubdir       Sub-directory to scan (Example: '0/1/10', 'FA/DD/MM/YY/9999'). Use '' if file is not into subdir of module.
 	 *      @param      string				$filedir            Directory to scan
 	 *      @param      string				$urlsource          Url of origin page (for return)
@@ -421,9 +421,9 @@ class FormFile
 	 *      Return a string to show the box with list of available documents for object.
 	 *      This also set the property $this->numoffiles
 	 *
-	 *      @param      string				$modulePart         Module the files are related to ('propal', 'facture', 'facture_fourn', 'mymodule', 'mymodule:MyObject', 'mymodule_temp', ...)
+	 *      @param      string				$modulePart         Module the files are related to ('propal', 'invoice', 'invoice_fourn', 'mymodule', 'mymodule:MyObject', 'mymodule_temp', ...)
 	 *      @param      string				$modulesubdir       Existing (so sanitized) sub-directory to scan (Example: '0/1/10', 'FA/DD/MM/YY/9999'). Use '' if file is not into a subdir of module.
-	 *      @param      string				$filedir            Directory to scan (must not end with a /). Example: '/mydolibarrdocuments/facture/FAYYMM-1234'
+	 *      @param      string				$filedir            Directory to scan (must not end with a /). Example: '/mydolibarrdocuments/invoice/FAYYMM-1234'
 	 *      @param      string				$urlsource          Url of origin page (for return)
 	 *      @param      int|string[]        $genallowed         Generation is allowed (1/0 or array list of templates)
 	 *      @param      int					$delallowed         Remove is allowed (1/0)
@@ -506,7 +506,7 @@ class FormFile
 
 		$printer = 0;
 		// The direct print feature is implemented only for such elements
-		if (in_array($modulePart, array('contract', 'facture', 'supplier_proposal', 'propal', 'proposal', 'order', 'order', 'expedition', 'order_fournisseur', 'expensereport', 'delivery', 'ticket'))) {
+		if (in_array($modulePart, array('contract', 'invoice', 'supplier_proposal', 'propal', 'proposal', 'order', 'order', 'expedition', 'order_fournisseur', 'expensereport', 'delivery', 'ticket'))) {
 			$printer = ($user->hasRight('printing', 'read') && isModEnabled('printing'));
 		}
 
@@ -633,12 +633,12 @@ class FormFile
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/fichinter/modules_fichinter.php';
 					$modellist = ModelePDFFicheinter::liste_modeles($this->db);
 				}
-			} elseif ($modulePart == 'facture') {
+			} elseif ($modulePart == 'invoice') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
-					include_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
-					$modellist = ModelePDFFactures::liste_modeles($this->db);
+					include_once DOL_DOCUMENT_ROOT.'/core/modules/invoice/modules_invoice.php';
+					$modellist = ModelePDFInvoices::liste_modeles($this->db);
 				}
 			} elseif ($modulePart == 'contract') {
 				$showempty = 1; // can have no template active
@@ -712,12 +712,12 @@ class FormFile
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_orderfournisseur.php';
 					$modellist = ModelePDFSuppliersOrders::liste_modeles($this->db);
 				}
-			} elseif ($modulePart == 'facture_fournisseur' || $modulePart == 'supplier_invoice') {
+			} elseif ($modulePart == 'invoice_fournisseur' || $modulePart == 'supplier_invoice') {
 				$showempty = 1; // can have no template active
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
-					include_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_invoice/modules_facturefournisseur.php';
+					include_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_invoice/modules_invoicefournisseur.php';
 					$modellist = ModelePDFSuppliersInvoices::liste_modeles($this->db);
 				}
 			} elseif ($modulePart == 'supplier_payment') {
@@ -961,7 +961,7 @@ class FormFile
 					// Define relative path for download link (depends on module)
 					$relativepath = (string) $file["name"]; // Cas general
 					if ($modulesubdir) {
-						$relativepath = (string) $modulesubdir."/".$file["name"]; // Cas propal, facture...
+						$relativepath = (string) $modulesubdir."/".$file["name"]; // Cas propal, invoice...
 					}
 					if ($modulePart == 'export') {
 						$relativepath = (string) $file["name"]; // Other case
@@ -1143,7 +1143,7 @@ class FormFile
 	 *  You may want to call this into a div like this:
 	 *  print '<div class="inline-block valignmiddle">'.$formfile->getDocumentsLink($element_doc, $filename, $filedir).'</div>';
 	 *
-	 *	@param	string	$modulePart		'propal', 'facture', 'facture_fourn', ...
+	 *	@param	string	$modulePart		'propal', 'invoice', 'invoice_fourn', ...
 	 *	@param	string	$modulesubdir	Sub-directory to scan (Example: '0/1/10', 'FA/DD/MM/YY/9999'). Use '' if file is not into subdir of module.
 	 *	@param	string	$filedir		Full path to directory to scan
 	 *  @param	string	$filter			Filter filenames on this regex string (Example: '\.pdf$')
@@ -1199,7 +1199,7 @@ class FormFile
 				// Define relative path for download link (depends on module)
 				$relativepath = $file["name"]; // Cas general
 				if ($modulesubdir) {
-					$relativepath = (string) $modulesubdir."/".$file["name"]; // Cas propal, facture...
+					$relativepath = (string) $modulesubdir."/".$file["name"]; // Cas propal, invoice...
 				}
 				// Autre cas
 				if ($modulePart == 'donation') {
@@ -1304,7 +1304,7 @@ class FormFile
 		if ($disablecrop == -1) {
 			$disablecrop = 1;
 			// Values here must be supported by the photos_resize.php page.
-			if (in_array($modulePart, array('bank', 'bom', 'expensereport', 'facture', 'facture_fournisseur', 'holiday', 'medias', 'member', 'mrp', 'project', 'product', 'produit', 'propal', 'service', 'societe', 'tax', 'tax-vat', 'ticket', 'user'))) {
+			if (in_array($modulePart, array('bank', 'bom', 'expensereport', 'invoice', 'invoice_fournisseur', 'holiday', 'medias', 'member', 'mrp', 'project', 'product', 'produit', 'propal', 'service', 'societe', 'tax', 'tax-vat', 'ticket', 'user'))) {
 				$disablecrop = 0;
 			}
 		}
@@ -1332,7 +1332,7 @@ class FormFile
 		}
 		// For example here $upload_dir = '/pathtodocuments/order/SO2001-123/'
 		// For example here $upload_dir = '/pathtodocuments/tax/vat/1'
-		// For example here $upload_dir = '/home/ldestailleur/git/dolibarr_dev/documents/fournisseur/facture/6/1/SI2210-0013' and relativedir='fournisseur/facture/6/1/SI2210-0013'
+		// For example here $upload_dir = '/home/ldestailleur/git/dolibarr_dev/documents/fournisseur/invoice/6/1/SI2210-0013' and relativedir='fournisseur/invoice/6/1/SI2210-0013'
 
 		$hookManager->initHooks(array('formfile'));
 		$parameters = array(
@@ -1485,7 +1485,7 @@ class FormFile
 					$permtoeditline = ($file['permtoedit'] ?? $parametersByDefault['permtoedit']);
 					$permonobject = ($file['permonobject'] ?? $parametersByDefault['permonobject']);
 
-					// Note: for supplier invoice, $modulePart may be already 'facture_fournisseur' and $relativepath may be already '6/1/SI2210-0013/'
+					// Note: for supplier invoice, $modulePart may be already 'invoice_fournisseur' and $relativepath may be already '6/1/SI2210-0013/'
 					if (empty($relativepath) || empty($modulePart)) {
 						$filepath = $file['level1name'].'/'.$file['name'];
 					} else {
@@ -1868,11 +1868,11 @@ class FormFile
 			include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 			$object_instance = new Societe($this->db);
 		} elseif ($modulePart == 'invoice') {
-			include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-			$object_instance = new Facture($this->db);
+			include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+			$object_instance = new Invoice($this->db);
 		} elseif ($modulePart == 'invoice_supplier') {
-			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-			$object_instance = new FactureFournisseur($this->db);
+			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
+			$object_instance = new InvoiceSupplier($this->db);
 		} elseif ($modulePart == 'propal') {
 			include_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 			$object_instance = new Propal($this->db);
@@ -2346,7 +2346,7 @@ class FormFile
 	 * Show detail icon with link for preview
 	 *
 	 * @param   array{name:string,path:string,level1name:string,relativename:string,fullname:string,date:string,size:int,perm:int,type:string}     $file           Array with data of file. Example: array('name'=>...)
-	 * @param   string    $modulePart     propal, facture, facture_fourn, ...
+	 * @param   string    $modulePart     propal, invoice, invoice_fourn, ...
 	 * @param   string    $relativepath   Relative path of docs
 	 * @param   integer   $ruleforPicture   Rule for picture: 0=Use the generic preview picture, 1=Use the picture of mime type of file). Use a negative value to show a generic picture even if preview not available.
 	 * @param	string	  $param		  More param on http links

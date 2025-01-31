@@ -48,7 +48,7 @@ require '../main.inc.php';
 require_once NUSOAP_PATH.'/nusoap.php'; // Include SOAP
 require_once DOL_DOCUMENT_ROOT.'/core/lib/ws.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 
 /**
  * @var DoliDB $db
@@ -274,8 +274,8 @@ function getSupplierInvoice($authentication, $id = 0, $ref = '', $ref_ext = '')
 	if (!$error) {
 		$fuser->loadRights();
 
-		if ($fuser->hasRight('fournisseur', 'facture', 'lire')) {
-			$invoice = new FactureFournisseur($db);
+		if ($fuser->hasRight('fournisseur', 'invoice', 'lire')) {
+			$invoice = new InvoiceSupplier($db);
 			$result = $invoice->fetch($id, $ref, $ref_ext);
 			if ($result > 0) {
 				$linesresp = [];
@@ -381,7 +381,7 @@ function getSupplierInvoicesForThirdParty($authentication, $idthirdparty)
 		$linesinvoice = [];
 
 		$sql = "SELECT f.rowid as facid";
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f";
 		$sql .= " WHERE f.entity = ".((int) $config->entity);
 		if ($idthirdparty != 'all') {
 			$sql .= " AND f.fk_soc = ".((int) $idthirdparty);
@@ -395,7 +395,7 @@ function getSupplierInvoicesForThirdParty($authentication, $idthirdparty)
 				// En attendant remplissage par boucle
 				$obj = $db->fetch_object($resql);
 
-				$invoice = new FactureFournisseur($db);
+				$invoice = new InvoiceSupplier($db);
 				$result = $invoice->fetch($obj->facid);
 				if ($result < 0) {
 					$error++;

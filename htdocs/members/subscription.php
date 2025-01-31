@@ -400,7 +400,7 @@ if (empty($resHook) && $user->hasRight('member', 'cotisation', 'creer') && $acti
 					$listofnames = [];
 					$listofmimes = [];
 					if (is_object($object->invoice) && (!is_object($arraydefaultmessage) || intval($arraydefaultmessage->joinfiles))) {
-						$invoicediroutput = $config->facture->dir_output;
+						$invoicediroutput = $config->invoice->dir_output;
 						$fileparams = dol_most_recent_file($invoicediroutput.'/'.$object->invoice->ref, preg_quote($object->invoice->ref, '/').'[^\-]+');
 						$file = $fileparams['fullname'];
 
@@ -644,7 +644,7 @@ if (isModEnabled('societe')) {
 			// Show link to invoices
 			$tmparray = $company->getOutstandingBills('customer');
 			if (!empty($tmparray['refs'])) {
-				print ' - '.img_picture($langs->trans("Invoices"), 'bill', 'class="paddingright"').'<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?socid='.$object->socid.'">'.$langs->trans("Invoices").' ('.count($tmparray['refs']).')';
+				print ' - '.img_picture($langs->trans("Invoices"), 'bill', 'class="paddingright"').'<a href="'.DOL_URL_ROOT.'/compta/invoice/list.php?socid='.$object->socid.'">'.$langs->trans("Invoices").' ('.count($tmparray['refs']).')';
 				// TODO Add alert if warning on at least one invoice late
 				print '</a>';
 			}

@@ -216,7 +216,7 @@ if ($resql) {
 /*
  * Open orders
  */
-$sql = "SELECT c.rowid, c.ref, c.ref_client as ref_customer, c.fk_statut as status, c.facture as billed, s.nom as name, s.rowid as socid";
+$sql = "SELECT c.rowid, c.ref, c.ref_client as ref_customer, c.fk_statut as status, c.invoice as billed, s.nom as name, s.rowid as socid";
 $sql .= " FROM ".MAIN_DB_PREFIX."order as c,";
 $sql .= " ".MAIN_DB_PREFIX."societe as s";
 if (!$user->hasRight('societe', 'client', 'voir')) {

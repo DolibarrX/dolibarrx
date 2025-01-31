@@ -404,7 +404,7 @@ if (GETPOSTISSET('THEME_SATURATE_RATIO')) {
 .bg-infobox-action{
 	<?php echo $prefix; ?>color: #b06080 !important;
 }
-.bg-infobox-propal, .bg-infobox-facture, .bg-infobox-order {
+.bg-infobox-propal, .bg-infobox-invoice, .bg-infobox-order {
 	<?php echo $prefix; ?>color: #65953d !important;
 }
 .bg-infobox-supplier_proposal, .bg-infobox-invoice_supplier, .bg-infobox-order_supplier {
@@ -443,7 +443,7 @@ a.vmenu span, span.vmenu, span.vmenu span {
 }
 /* Color for customer object */
 .infobox-propal:not(.error),
-.infobox-facture:not(.error),
+.infobox-invoice:not(.error),
 .infobox-order:not(.error) {
 	color: #65953d;
 }
@@ -477,7 +477,7 @@ a.vmenu span, span.vmenu, span.vmenu span {
 .fa-dol-supplier_proposal:before {
 	content: "\f573";
 }
-.fa-dol-facture:before,
+.fa-dol-invoice:before,
 .fa-dol-invoice_supplier:before {
 	content: "\f571";
 }

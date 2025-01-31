@@ -269,16 +269,16 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	}
 
 	// Number of invoices customers (paid)
-	if (isModEnabled('invoice') && !getDolGlobalString('MAIN_DISABLE_BLOCK_CUSTOMER') && $user->hasRight('facture', 'lire')) {
-		include_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
-		$board = new Facture($db);
+	if (isModEnabled('invoice') && !getDolGlobalString('MAIN_DISABLE_BLOCK_CUSTOMER') && $user->hasRight('invoice', 'lire')) {
+		include_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
+		$board = new Invoice($db);
 		$dashboardLines[$board->element] = $board->load_board($user);
 	}
 
 	// Number of supplier invoices (paid)
-	if (isModEnabled('supplier_invoice') && !getDolGlobalString('MAIN_DISABLE_BLOCK_SUPPLIER') && $user->hasRight('fournisseur', 'facture', 'lire')) {
-		include_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.facture.class.php';
-		$board = new FactureFournisseur($db);
+	if (isModEnabled('supplier_invoice') && !getDolGlobalString('MAIN_DISABLE_BLOCK_SUPPLIER') && $user->hasRight('fournisseur', 'invoice', 'lire')) {
+		include_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.invoice.class.php';
+		$board = new InvoiceSupplier($db);
 		$dashboardLines[$board->element] = $board->load_board($user);
 	}
 
@@ -381,12 +381,12 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 			'stats' =>
 			array('order_toship', 'order_tobill', 'order_shippedtobill'),
 		),
-		'facture' =>
+		'invoice' =>
 		array(
 			'groupName' => 'Invoices',
 			'globalStatsKey' => 'invoices',
 			'stats' =>
-			array('facture'),
+			array('invoice'),
 		),
 		'supplier_proposal' =>
 		array(

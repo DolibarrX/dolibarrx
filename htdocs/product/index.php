@@ -674,7 +674,7 @@ if (isModEnabled('stock') && $user->hasRight('stock', 'mouvement', 'read')) {
 // Also method used for counting must provide the 2 possible methods like done by all other reports into menu "accountancy - report - turnover":
 // "commitment engagement" method and "cash accounting" method
 $activity = '';
-if (isModEnabled("invoice") && $user->hasRight('facture', 'lire') && getDolGlobalString('MAIN_SHOW_PRODUCT_ACTIVITY_TRIM')) {
+if (isModEnabled("invoice") && $user->hasRight('invoice', 'lire') && getDolGlobalString('MAIN_SHOW_PRODUCT_ACTIVITY_TRIM')) {
 	if (isModEnabled("product")) {
 		$activity .= activitytrim(0);
 	}
@@ -736,11 +736,11 @@ function activitytrim($product_type)
 	$out = '';
 	// breakdown by quarter
 	$sql = "SELECT DATE_FORMAT(p.datep,'%Y') as annee, DATE_FORMAT(p.datep,'%m') as mois, SUM(fd.total_ht) as Mnttot";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture as f, ".MAIN_DB_PREFIX."facturedet as fd";
-	$sql .= " , ".MAIN_DB_PREFIX."paiement as p,".MAIN_DB_PREFIX."paiement_facture as pf";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f, ".MAIN_DB_PREFIX."invoicedet as fd";
+	$sql .= " , ".MAIN_DB_PREFIX."paiement as p,".MAIN_DB_PREFIX."paiement_invoice as pf";
 	$sql .= " WHERE f.entity IN (".getEntity('invoice').")";
-	$sql .= " AND f.rowid = fd.fk_facture";
-	$sql .= " AND pf.fk_facture = f.rowid";
+	$sql .= " AND f.rowid = fd.fk_invoice";
+	$sql .= " AND pf.fk_invoice = f.rowid";
 	$sql .= " AND pf.fk_paiement = p.rowid";
 	$sql .= " AND fd.product_type = ".((int) $product_type);
 	$sql .= " AND p.datep >= '".$db->idate(dol_get_first_day($yearofbegindate), 1)."'";

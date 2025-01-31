@@ -27,7 +27,7 @@
  *	\brief      File with class to manage cheque delivery receipts
  */
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
 
 /**
@@ -791,8 +791,8 @@ class RemiseCheque extends CommonObject
 		$bankaccount = $payment->fk_account;
 
 		// Get invoices list to reopen them
-		$sql = 'SELECT pf.fk_facture, pf.amount';
-		$sql .= ' FROM '.MAIN_DB_PREFIX.'paiement_facture as pf';
+		$sql = 'SELECT pf.fk_invoice, pf.amount';
+		$sql .= ' FROM '.MAIN_DB_PREFIX.'paiement_invoice as pf';
 		$sql .= ' WHERE pf.fk_paiement = '.((int) $payment->id);
 
 		$resql = $this->db->query($sql);
@@ -804,11 +804,11 @@ class RemiseCheque extends CommonObject
 			$rejectedPayment->num_payment = $payment->num_payment;
 
 			while ($obj = $this->db->fetch_object($resql)) {
-				$invoice = new Facture($this->db);
-				$invoice->fetch($obj->fk_facture);
+				$invoice = new Invoice($this->db);
+				$invoice->fetch($obj->fk_invoice);
 				$invoice->setUnpaid($user);
 
-				$rejectedPayment->amounts[$obj->fk_facture] = (float) price2num($obj->amount) * -1;
+				$rejectedPayment->amounts[$obj->fk_invoice] = (float) price2num($obj->amount) * -1;
 			}
 
 			$result = $rejectedPayment->create($user);

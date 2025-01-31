@@ -430,17 +430,17 @@ if ($ispaymentok) {
 	if (empty($user->rights->societe)) {
 		$user->rights->societe = new stdClass();
 	}
-	if (empty($user->rights->facture)) {
-		$user->rights->facture = new stdClass();
-		$user->rights->facture->invoice_advance = new stdClass();
+	if (empty($user->rights->invoice)) {
+		$user->rights->invoice = new stdClass();
+		$user->rights->invoice->invoice_advance = new stdClass();
 	}
 	if (empty($user->rights->member)) {
 		$user->rights->member = new stdClass();
 		$user->rights->member->cotisation = new stdClass();
 	}
 	$user->rights->societe->creer = 1;
-	$user->rights->facture->creer = 1;
-	$user->rights->facture->invoice_advance->validate = 1;
+	$user->rights->invoice->creer = 1;
+	$user->rights->invoice->invoice_advance->validate = 1;
 	$user->rights->member->cotisation->creer = 1;
 
 	if (array_key_exists('MEM', $tmptag) && $tmptag['MEM'] > 0) {
@@ -859,7 +859,7 @@ if ($ispaymentok) {
 						$listofnames = [];
 						$listofmimes = [];
 						if (is_object($object->invoice)) {
-							$invoicediroutput = $config->facture->dir_output;
+							$invoicediroutput = $config->invoice->dir_output;
 							$fileparams = dol_most_recent_file($invoicediroutput.'/'.$object->invoice->ref, preg_quote($object->invoice->ref, '/').'[^\-]+');
 							$file = $fileparams['fullname'];
 
@@ -897,8 +897,8 @@ if ($ispaymentok) {
 		}
 	} elseif (array_key_exists('INV', $tmptag) && $tmptag['INV'] > 0) {
 		// Record payment
-		include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-		$object = new Facture($db);
+		include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+		$object = new Invoice($db);
 		$result = $object->fetch((int) $tmptag['INV']);
 		if ($result) {
 			$FinalPaymentAmt = $_SESSION["FinalPaymentAmt"];
@@ -990,7 +990,7 @@ if ($ispaymentok) {
 					}
 					if ($bankaccountid > 0) {
 						$label = '(CustomerInvoicePayment)';
-						if ($object->type == Facture::TYPE_CREDIT_NOTE) {
+						if ($object->type == Invoice::TYPE_CREDIT_NOTE) {
 							$label = '(CustomerInvoicePaymentBack)'; // Refund of a credit note
 						}
 						$result = $paiement->addPaymentToBank($user, 'payment', $label, $bankaccountid, '', '');
@@ -1062,8 +1062,8 @@ if ($ispaymentok) {
 			// Do action only if $FinalPaymentAmt is set (session variable is cleaned after this page to avoid duplicate actions when page is POST a second time)
 			if (isModEnabled('invoice')) {
 				if (!empty($FinalPaymentAmt) && $paymentTypeId > 0) {
-					include_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
-					$invoice = new Facture($db);
+					include_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
+					$invoice = new Invoice($db);
 					$result = $invoice->createFromOrder($object, $user);
 					if ($result > 0) {
 						$object->classifyBilled($user);
@@ -1122,7 +1122,7 @@ if ($ispaymentok) {
 							}
 							if ($bankaccountid > 0) {
 								$label = '(CustomerInvoicePayment)';
-								if ($object->type == Facture::TYPE_CREDIT_NOTE) {
+								if ($object->type == Invoice::TYPE_CREDIT_NOTE) {
 									$label = '(CustomerInvoicePaymentBack)'; // Refund of a credit note
 								}
 								$result = $paiement->addPaymentToBank($user, 'payment', $label, $bankaccountid, '', '');
@@ -1295,8 +1295,8 @@ if ($ispaymentok) {
 		// Record payment for registration to an event for an attendee
 		require_once DOL_DOCUMENT_ROOT.'/eventorganization/class/conferenceorboothattendee.class.php';
 		require_once DOL_DOCUMENT_ROOT.'/eventorganization/class/conferenceorbooth.class.php';
-		include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-		$object = new Facture($db);
+		include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+		$object = new Invoice($db);
 		$result = $object->fetch($ref);
 		if ($result) {
 			$paymentTypeId = 0;
@@ -1389,7 +1389,7 @@ if ($ispaymentok) {
 						}
 						if ($bankaccountid > 0) {
 							$label = '(CustomerInvoicePayment)';
-							if ($object->type == Facture::TYPE_CREDIT_NOTE) {
+							if ($object->type == Invoice::TYPE_CREDIT_NOTE) {
 								$label = '(CustomerInvoicePaymentBack)'; // Refund of a credit note
 							}
 							$result = $paiement->addPaymentToBank($user, 'payment', $label, $bankaccountid, '', '');
@@ -1492,7 +1492,7 @@ if ($ispaymentok) {
 							$listofnames = [];
 							$listofmimes = [];
 							if (is_object($object)) {
-								$invoicediroutput = $config->facture->dir_output;
+								$invoicediroutput = $config->invoice->dir_output;
 								$fileparams = dol_most_recent_file($invoicediroutput.'/'.$object->ref, preg_quote($object->ref, '/').'[^\-]+');
 								$file = $fileparams['fullname'];
 
@@ -1526,8 +1526,8 @@ if ($ispaymentok) {
 		// Record payment for booth or conference
 		require_once DOL_DOCUMENT_ROOT.'/eventorganization/class/conferenceorboothattendee.class.php';
 		require_once DOL_DOCUMENT_ROOT.'/eventorganization/class/conferenceorbooth.class.php';
-		include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-		$object = new Facture($db);
+		include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+		$object = new Invoice($db);
 		$result = $object->fetch($ref);
 		if ($result) {
 			$FinalPaymentAmt = $_SESSION["FinalPaymentAmt"];
@@ -1622,7 +1622,7 @@ if ($ispaymentok) {
 						}
 						if ($bankaccountid > 0) {
 							$label = '(CustomerInvoicePayment)';
-							if ($object->type == Facture::TYPE_CREDIT_NOTE) {
+							if ($object->type == Invoice::TYPE_CREDIT_NOTE) {
 								$label = '(CustomerInvoicePaymentBack)'; // Refund of a credit note
 							}
 							$result = $paiement->addPaymentToBank($user, 'payment', $label, $bankaccountid, '', '');
@@ -1655,7 +1655,7 @@ if ($ispaymentok) {
 							$resultboothupdate = $booth->update($user);
 							if ($resultboothupdate<0) {
 								// Finding the thirdparty by getting the invoice
-								$invoice = new Facture($db);
+								$invoice = new Invoice($db);
 								$resultinvoice = $invoice->fetch($ref);
 								if ($resultinvoice<0) {
 									$postactionmessages[] = 'Could not find the associated invoice.';
@@ -1774,8 +1774,8 @@ if ($ispaymentok) {
 			// Do action only if $FinalPaymentAmt is set (session variable is cleaned after this page to avoid duplicate actions when page is POST a second time)
 			if (isModEnabled('invoice')) {
 				if (!empty($FinalPaymentAmt) && $paymentTypeId > 0) {
-					include_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
-					$invoice = new Facture($db);
+					include_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
+					$invoice = new Invoice($db);
 					$result = $invoice->createFromContract($object, $user, array((int) $contract_lines));
 					if ($result > 0) {
 						// $object->classifyBilled($user);
@@ -1834,7 +1834,7 @@ if ($ispaymentok) {
 							}
 							if ($bankaccountid > 0) {
 								$label = '(CustomerInvoicePayment)';
-								if ($object->type == Facture::TYPE_CREDIT_NOTE) {
+								if ($object->type == Invoice::TYPE_CREDIT_NOTE) {
 									$label = '(CustomerInvoicePaymentBack)'; // Refund of a credit note
 								}
 								$result = $paiement->addPaymentToBank($user, 'payment', $label, $bankaccountid, '', '');
@@ -1987,7 +1987,7 @@ if ($ispaymentok) {
 			$content .= $companylangs->trans("MemberId").': <strong>'.$tmptag['MEM']."</strong><br>\n";
 			$content .= $companylangs->trans("Link").': <a href="'.$url.'">'.$url.'</a>'."<br>\n";
 		} elseif (array_key_exists('INV', $tmptag)) {
-			$url = $urlwithroot."/compta/facture/card.php?id=".((int) $tmptag['INV']);
+			$url = $urlwithroot."/compta/invoice/card.php?id=".((int) $tmptag['INV']);
 			$content .= '<strong>'.$companylangs->trans("Payment")."</strong><br><br>\n";
 			$content .= $companylangs->trans("InvoiceId").': <strong>'.$tmptag['INV']."</strong><br>\n";
 			//$content.=$companylangs->trans("ThirdPartyId").': '.$tmptag['CUS']."<br>\n";

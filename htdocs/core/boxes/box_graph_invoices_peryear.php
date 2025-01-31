@@ -33,7 +33,7 @@ class box_graph_invoices_peryear extends ModeleBoxes
 	public $boxcode  = "invoicesperyear";
 	public $boximg   = "object_bill";
 	public $boxlabel = "BoxCustomersInvoicesPerYear";
-	public $depends  = array("facture");
+	public $depends  = array("invoice");
 
 	/**
 	 *  Constructor
@@ -47,7 +47,7 @@ class box_graph_invoices_peryear extends ModeleBoxes
 
 		$this->db = $db;
 
-		$this->hidden = !$user->hasRight('facture', 'lire');
+		$this->hidden = !$user->hasRight('invoice', 'lire');
 	}
 
 	/**
@@ -64,8 +64,8 @@ class box_graph_invoices_peryear extends ModeleBoxes
 
 		$refreshaction = 'refresh_'.$this->boxcode;
 
-		//include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-		//$facturestatic=new Facture($this->db);
+		//include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+		//$invoicestatic=new Invoice($this->db);
 
 		$startmonth = getDolGlobalInt('SOCIETE_FISCAL_MONTH_START', 1);
 		if (!getDolGlobalString('GRAPH_USE_FISCAL_YEAR')) {
@@ -94,14 +94,14 @@ class box_graph_invoices_peryear extends ModeleBoxes
 			$prefix .= 'private-'.$user->id.'-';
 		} // If user has no permission to see all, output dir is specific to user
 
-		if ($user->hasRight('facture', 'lire')) {
+		if ($user->hasRight('invoice', 'lire')) {
 			$mesg = '';
 
 			$param_year = 'DOLUSER_box_'.$this->boxcode.'_year';
 			$param_showtot = 'DOLUSER_box_'.$this->boxcode.'_showtot';
 
 			include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
-			include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facturestats.class.php';
+			include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoicestats.class.php';
 			$autosetarray = preg_split("/[,;:]+/", GETPOST('DOL_AUTOSET_COOKIE'));
 			if (in_array('DOLUSER_box_'.$this->boxcode, $autosetarray)) {
 				$endyear = GETPOSTINT($param_year);
@@ -125,7 +125,7 @@ class box_graph_invoices_peryear extends ModeleBoxes
 			$WIDTH = (($showtot) || !empty($config->dol_optimize_smallscreen)) ? '256' : '320';
 			$HEIGHT = '192';
 
-			$stats = new FactureStats($this->db, $socid, $mode, 0);
+			$stats = new InvoiceStats($this->db, $socid, $mode, 0);
 			$stats->where = "f.fk_statut > 0";
 
 			// Build graphic amount of object. $data = array(array('Lib',val1,val2,val3),...)

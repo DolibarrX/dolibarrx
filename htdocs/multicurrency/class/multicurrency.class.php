@@ -560,19 +560,19 @@ class MultiCurrency extends CommonObject
 	/**
 	 * Get the conversion of amount with invoice rate
 	 *
-	 * @param	int				$fk_facture				Id of invoice
+	 * @param	int				$fk_invoice				Id of invoice
 	 * @param	double			$amount					amount to convert
 	 * @param	string			$way					'dolibarr' mean the amount is in dolibarr currency
-	 * @param	string			$table					'facture' or 'facture_fourn'
+	 * @param	string			$table					'invoice' or 'invoice_fourn'
 	 * @param	float|null		$invoice_rate			Invoice rate if known (to avoid to make the getInvoiceRate call)
 	 * @return	float|false 							amount converted or false if conversion fails
 	 */
-	public static function getAmountConversionFromInvoiceRate($fk_facture, $amount, $way = 'dolibarr', $table = 'facture', $invoice_rate = null)
+	public static function getAmountConversionFromInvoiceRate($fk_invoice, $amount, $way = 'dolibarr', $table = 'invoice', $invoice_rate = null)
 	{
 		if (!is_null($invoice_rate)) {
 			$multicurrency_tx = $invoice_rate;
 		} else {
-			$tmparray = self::getInvoiceRate($fk_facture, $table);
+			$tmparray = self::getInvoiceRate($fk_invoice, $table);
 			$multicurrency_tx = $tmparray['invoice_multicurrency_tx'];
 		}
 
@@ -590,17 +590,17 @@ class MultiCurrency extends CommonObject
 	/**
 	 *  Get current invoite rate
 	 *
-	 *  @param	int 		$fk_facture 	id of facture
-	 *  @param 	string 		$table 			facture or facture_fourn
+	 *  @param	int 		$fk_invoice 	id of invoice
+	 *  @param 	string 		$table 			invoice or invoice_fourn
 	 *  @return array{invoice_multicurrency_tx: float,invoice_multicurrency_code: string}|bool	Rate and code of currency or false if error
 	 */
-	public static function getInvoiceRate($fk_facture, $table = 'facture')
+	public static function getInvoiceRate($fk_invoice, $table = 'invoice')
 	{
 		global $db;
 
 		$sql = "SELECT multicurrency_tx, multicurrency_code";
 		$sql .= " FROM ".MAIN_DB_PREFIX.$db->sanitize($table);
-		$sql .= " WHERE rowid = ".((int) $fk_facture);
+		$sql .= " WHERE rowid = ".((int) $fk_invoice);
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 		$resql = $db->query($sql);

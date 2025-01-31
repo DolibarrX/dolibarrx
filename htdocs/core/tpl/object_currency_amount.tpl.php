@@ -56,7 +56,7 @@ if (isModEnabled('multicurrency')) {
 	if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 		$colspan = 2;
 	}
-	if ($object instanceof FactureFournisseurRec || $object instanceof FactureRec) {
+	if ($object instanceof InvoiceSupplierRec || $object instanceof InvoiceRec) {
 		$currencyIsEditable = ($object->suspended == $object::STATUS_SUSPENDED);
 		$colspan = 1;
 	} else {

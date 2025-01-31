@@ -70,7 +70,7 @@ if ($module == 'propal') {
 	}
 } elseif ($module == 'invoice_supplier' && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) {
 	if (!getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) {
-		$permission = $user->hasRight('fournisseur', 'facture', 'creer');
+		$permission = $user->hasRight('fournisseur', 'invoice', 'creer');
 	} else {
 		$permission = $user->hasRight('supplier_invoice', 'creer');
 	}
@@ -198,7 +198,7 @@ if ($permission) {
 			<?php
 			$tmpobject = $object;
 			if (($object->element == 'shipping' || $object->element == 'reception') && is_object($objectsrc)) {
-				'@phan-var-force Order|Facture $objectsrc';
+				'@phan-var-force Order|Invoice $objectsrc';
 				$tmpobject = $objectsrc;
 			}
 			$formcompany->selectTypeContact($tmpobject, $preselectedtypeofcontact, 'typecontact', 'external', 'position', 0, 'minwidth150imp widthcentpercentminusx maxwidth200'); ?>
@@ -227,7 +227,7 @@ if ($permission) {
 $list = [];
 foreach (array('internal', 'external') as $source) {
 	if (($object->element == 'shipping' || $object->element == 'reception') && is_object($objectsrc)) {
-		'@phan-var-force Order|Facture $objectsrc';
+		'@phan-var-force Order|Invoice $objectsrc';
 		$contactlist = $objectsrc->liste_contact(-1, $source);
 	} else {
 		$contactlist = $object->liste_contact(-1, $source);

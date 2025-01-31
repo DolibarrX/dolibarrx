@@ -54,7 +54,7 @@ if (empty($object) || !is_object($object)) {
  @phan-var-force CommonObject $object';
 
 $usemargins = 0;
-if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('facture', 'facturerec', 'propal', 'order'))) {
+if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('invoice', 'invoicerec', 'propal', 'order'))) {
 	$usemargins = 1;
 }
 if (!isset($dateSelector)) {
@@ -82,7 +82,7 @@ $colspan = 3; // Columns: total ht + col edit + col delete
 if (isModEnabled("multicurrency") && $this->multicurrency_code != $config->currency) {
 	$colspan++; //Add column for Total (currency) if required
 }
-if (in_array($object->element, array('propal', 'order', 'order', 'facture', 'facturerec', 'invoice', 'supplier_proposal', 'order_supplier', 'invoice_supplier', 'invoice_supplier_rec'))) {
+if (in_array($object->element, array('propal', 'order', 'order', 'invoice', 'invoicerec', 'invoice', 'supplier_proposal', 'order_supplier', 'invoice_supplier', 'invoice_supplier_rec'))) {
 	$colspan++; // With this, there is a column move button
 }
 if (isModEnabled('asset') && $object->element == 'invoice_supplier') {
@@ -99,18 +99,18 @@ if (!empty($extrafields)) {
 		$objectline = new PropaleLigne($this->db);
 	} elseif ($this->table_element_line == 'supplier_proposaldet') {
 		$objectline = new SupplierProposalLine($this->db);
-	} elseif ($this->table_element_line == 'facturedet') {
-		$objectline = new FactureLigne($this->db);
+	} elseif ($this->table_element_line == 'invoicedet') {
+		$objectline = new InvoiceLine($this->db);
 	} elseif ($this->table_element_line == 'contractdet') {
 		$objectline = new ContractLine($this->db);
 	} elseif ($this->table_element_line == 'order_fournisseurdet') {
 		$objectline = new OrderFournisseurLigne($this->db);
-	} elseif ($this->table_element_line == 'facture_fourn_det') {
+	} elseif ($this->table_element_line == 'invoice_fourn_det') {
 		$objectline = new SupplierInvoiceLine($this->db);
-	} elseif ($this->table_element_line == 'facturedet_rec') {
-		$objectline = new FactureLigneRec($this->db);
-	} elseif ($this->table_element_line == 'facture_fourn_det_rec') {
-		$objectline = new FactureFournisseurLigneRec($this->db);
+	} elseif ($this->table_element_line == 'invoicedet_rec') {
+		$objectline = new InvoiceLineRec($this->db);
+	} elseif ($this->table_element_line == 'invoice_fourn_det_rec') {
+		$objectline = new InvoiceSupplierLigneRec($this->db);
 	}
 }
 print "<!-- BEGIN PHP TEMPLATE objectline_create.tpl.php -->\n";
@@ -427,7 +427,7 @@ if ($nolinesbefore) {
 		$doleditor = new DolEditor('dp_desc', GETPOST('dp_desc', 'restricthtml'), '', getDolGlobalInt('MAIN_DOLEDITOR_HEIGHT', 100), $toolbarname, '', false, true, $enabled, $nbrows, '98%');
 		$doleditor->Create();
 		// Show autofill date for recurring invoices
-		if (isModEnabled("service") && ($object->element == 'facturerec' || $object->element == 'invoice_supplier_rec')) {
+		if (isModEnabled("service") && ($object->element == 'invoicerec' || $object->element == 'invoice_supplier_rec')) {
 			echo '<div class="divlinefordates"><br>';
 			echo $langs->trans('AutoFillDateFrom').' ';
 			if (getDolGlobalString('INVOICE_REC_DATE_TO_YES')) {
@@ -457,7 +457,7 @@ if ($nolinesbefore) {
 		}
 		print '<td class="nobottom linecolvat right">';
 		$coldisplay++;
-		if ($object->element == 'propal' || $object->element == 'order' || $object->element == 'facture' || $object->element == 'facturerec') {
+		if ($object->element == 'propal' || $object->element == 'order' || $object->element == 'invoice' || $object->element == 'invoicerec') {
 			$type_tva = 1;
 		} elseif ($object->element == 'supplier_proposal' || $object->element == 'order_supplier' || $object->element == 'invoice_supplier' || $object->element == 'invoice_supplier_rec') {
 			$type_tva = 2;
@@ -802,7 +802,7 @@ if (!empty($usemargins) && $user->hasRight('margins', 'creer')) {
 			<?php
 		}
 
-		if (in_array($this->table_element_line, array('propaldet', 'orderdet', 'facturedet'))) { ?>
+		if (in_array($this->table_element_line, array('propaldet', 'orderdet', 'invoicedet'))) { ?>
 		$("#date_start, #date_end").focusout(function() {
 			console.log("focusout of date");
 			let type = $(this).attr('type');

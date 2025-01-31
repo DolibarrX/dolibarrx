@@ -476,7 +476,7 @@ class ActionComm extends CommonObject
 			$this->fk_task = 0;
 		}
 		// For backward compatibility
-		if ($this->elementtype == 'facture') {
+		if ($this->elementtype == 'invoice') {
 			$this->elementtype = 'invoice';
 		}
 		if ($this->elementtype == 'order') {
@@ -1490,9 +1490,9 @@ class ActionComm extends CommonObject
 
 
 	/**
-	 *  Charge les information d'ordre info dans l'objet facture
+	 *  Loads the order information into the invoice object
 	 *
-	 *  @param	int		$id       	Id de la facture a charger
+	 *  @param	int		$id       	Id de la invoice a charger
 	 *  @return	void
 	 */
 	public function info($id)

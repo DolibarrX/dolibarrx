@@ -120,7 +120,7 @@ class mod_takepos_ref_universal extends ModeleNumRefTakepos
 	 * Return next free value
 	 *
 	 * @param	?Societe	$objsoc		Object third party
-	 * @param	?Facture	$invoice	Object invoice
+	 * @param	?Invoice	$invoice	Object invoice
 	 * @param	string		$mode		'next' for next value or 'last' for last value
 	 * @return	string|int<-1,0>		Next ref value or last ref if $mode is 'last'
 	 */
@@ -144,7 +144,7 @@ class mod_takepos_ref_universal extends ModeleNumRefTakepos
 		$date = (empty($invoice->date) ? dol_now() : $invoice->date);
 		$pos_source = is_object($invoice) && $invoice->pos_source > 0 ? $invoice->pos_source : 0;
 		$mask = str_replace('{TN}', (string) $pos_source, $mask);
-		$numFinal = get_next_value($db, $mask, 'facture', 'ref', '', $objsoc, $date, $mode, false, null, $entity);
+		$numFinal = get_next_value($db, $mask, 'invoice', 'ref', '', $objsoc, $date, $mode, false, null, $entity);
 
 		return $numFinal;
 	}
@@ -154,7 +154,7 @@ class mod_takepos_ref_universal extends ModeleNumRefTakepos
 	 * Return next free value
 	 *
 	 * @param   Societe     $objsoc         Object third party
-	 * @param   Facture     $objforref      Object for number to search
+	 * @param   Invoice     $objforref      Object for number to search
 	 * @return  string      Next free value
 	 * @deprecated see getNextValue
 	 */

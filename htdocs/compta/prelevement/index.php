@@ -30,7 +30,7 @@
 // Load Dolibarr environment
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/bonprelevement.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/prelevement.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
@@ -86,7 +86,7 @@ print '<div class="fichecenter"><div class="fichethirdleft">';
 
 
 $thirdpartystatic = new Societe($db);
-$invoicestatic = new Facture($db);
+$invoicestatic = new Invoice($db);
 $bprev = new BonPrelevement($db);
 
 print '<div class="div-table-responsive-no-min">';
@@ -113,7 +113,7 @@ print '</span></td></tr></table></div><br>';
 $sql = "SELECT f.ref, f.rowid, f.total_ttc, f.fk_statut as status, f.paye, f.type,";
 $sql .= " pfd.date_demande, pfd.amount,";
 $sql .= " s.nom as name, s.email, s.rowid as socid, s.tva_intra, s.siren as idprof1, s.siret as idprof2, s.ape as idprof3, s.idprof4, s.idprof5, s.idprof6";
-$sql .= " FROM ".MAIN_DB_PREFIX."facture as f,";
+$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f,";
 $sql .= " ".MAIN_DB_PREFIX."societe as s";
 if (!$user->hasRight('societe', 'client', 'voir')) {
 	$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
@@ -123,11 +123,11 @@ $sql .= " WHERE s.rowid = f.fk_soc";
 $sql .= " AND f.entity IN (".getEntity('invoice').")";
 $sql .= " AND f.total_ttc > 0";
 if (!getDolGlobalString('WITHDRAWAL_ALLOW_ANY_INVOICE_STATUS')) {
-	$sql .= " AND f.fk_statut = ".Facture::STATUS_VALIDATED;
+	$sql .= " AND f.fk_statut = ".Invoice::STATUS_VALIDATED;
 }
 $sql .= " AND pfd.traite = 0";
 $sql .= " AND pfd.ext_payment_id IS NULL";
-$sql .= " AND pfd.fk_facture = f.rowid";
+$sql .= " AND pfd.fk_invoice = f.rowid";
 if (!$user->hasRight('societe', 'client', 'voir')) {
 	$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 }

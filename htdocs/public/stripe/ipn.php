@@ -49,7 +49,7 @@ require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/ccountry.class.php';
 require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/bonprelevement.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
@@ -357,7 +357,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 
 	dol_syslog("Try to find a payment in database for the payment_intent id = ".$TRANSACTIONID);
 
-	$sql = "SELECT pi.rowid, pi.fk_facture, pi.fk_prelevement_bons, pi.amount, pi.type, pi.traite";
+	$sql = "SELECT pi.rowid, pi.fk_invoice, pi.fk_prelevement_bons, pi.amount, pi.type, pi.traite";
 	$sql .= " FROM ".MAIN_DB_PREFIX."prelevement_demande as pi";
 	$sql .= " WHERE pi.ext_payment_id = '".$db->escape($TRANSACTIONID)."'";
 	$sql .= " AND pi.ext_payment_site = '".$db->escape($service)."'";
@@ -371,7 +371,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 					// This is a direct-debit with an order (llx_bon_prelevement) ALREADY generated, so
 					// it means we received here the confirmation that payment request is finished.
 					$pdid = $obj->rowid;
-					$invoice_id = $obj->fk_facture;
+					$invoice_id = $obj->fk_invoice;
 					$directdebitorcreditransfer_id = $obj->fk_prelevement_bons;
 					$payment_amountInDolibarr = $obj->amount;
 					$paymentTypeCodeInDolibarr = $obj->type;
@@ -385,7 +385,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 				if ($obj->traite == 0) {
 					// This is a card payment not already flagged as sent to Stripe.
 					$pdid = $obj->rowid;
-					$invoice_id = $obj->fk_facture;
+					$invoice_id = $obj->fk_invoice;
 					$payment_amountInDolibarr = $obj->amount;
 					$paymentTypeCodeInDolibarr = empty($obj->type) ? 'card' : $obj->type;
 
@@ -550,8 +550,8 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 				$sql .= " FROM ".MAIN_DB_PREFIX."prelevement_demande as dp";
 				$sql .= " JOIN ".MAIN_DB_PREFIX."prelevement_bons as pb"; // Here we join to prevent modification of a prelevement bon already credited
 				$sql .= " ON pb.rowid = dp.fk_prelevement_bons";
-				$sql .= " WHERE dp.fk_facture = ".((int) $invoice_id);
-				$sql .= " AND dp.sourcetype = 'facture'";
+				$sql .= " WHERE dp.fk_invoice = ".((int) $invoice_id);
+				$sql .= " AND dp.sourcetype = 'invoice'";
 				$sql .= " AND dp.ext_payment_id = '".$db->escape($TRANSACTIONID)."'";
 				$sql .= " AND dp.traite = 1";
 				$sql .= " AND statut = ".((int) $bon::STATUS_TRANSFERED); // To be sure that it's not already credited
@@ -638,7 +638,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 			$objpayid = $chargesdata->id;
 			$objpaydesc = $chargesdata->description;
 			$objinvoiceid = 0;
-			if ($chargesdata->metadata->dol_type == 'facture') {
+			if ($chargesdata->metadata->dol_type == 'invoice') {
 				$objinvoiceid = $chargesdata->metadata->dol_id;
 			}
 			$objerrcode = $chargesdata->outcome->reason;
@@ -653,7 +653,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 		$objpayid = $object->latest_charge;
 		$objpaydesc = $object->description;
 		$objinvoiceid = 0;
-		if ($object->metadata->dol_type == 'facture') {
+		if ($object->metadata->dol_type == 'invoice') {
 			$objinvoiceid = $object->metadata->dol_id;
 		}
 		$objerrcode = empty($object->last_payment_error->code) ? $object->last_payment_error->decline_code : $object->last_payment_error->code;
@@ -672,8 +672,8 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 		$actioncomm = new ActionComm($db);
 
 		if ($objinvoiceid > 0) {
-			require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-			$invoice = new Facture($db);
+			require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+			$invoice = new Invoice($db);
 			$invoice->fetch($objinvoiceid);
 
 			$actioncomm->userownerid = 0;
@@ -835,7 +835,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 
 	dol_syslog("Try to find the payment in database for the payment_intent id = ".$TRANSACTIONID);
 
-	$sql = "SELECT pi.rowid, pi.fk_facture, pi.fk_prelevement_bons, pi.amount, pi.type, pi.traite";
+	$sql = "SELECT pi.rowid, pi.fk_invoice, pi.fk_prelevement_bons, pi.amount, pi.type, pi.traite";
 	$sql .= " FROM ".MAIN_DB_PREFIX."prelevement_demande as pi";
 	$sql .= " WHERE pi.ext_payment_id = '".$db->escape($TRANSACTIONID)."'";
 	$sql .= " AND pi.ext_payment_site = '".$db->escape($service)."'";
@@ -847,7 +847,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 			if ($obj->type == 'ban') {
 				// This is a direct-debit with an order (llx_bon_prelevement).
 				$pdid = $obj->rowid;
-				$invoice_id = $obj->fk_facture;
+				$invoice_id = $obj->fk_invoice;
 				$directdebitorcreditransfer_id = $obj->fk_prelevement_bons;
 				$payment_amountInDolibarr = $obj->amount;
 				$paymentTypeCodeInDolibarr = $obj->type;
@@ -857,7 +857,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 			if ($obj->type == 'card' || empty($obj->type)) {
 				// This is a card payment.
 				$pdid = $obj->rowid;
-				$invoice_id = $obj->fk_facture;
+				$invoice_id = $obj->fk_invoice;
 				$payment_amountInDolibarr = $obj->amount;
 				$paymentTypeCodeInDolibarr = empty($obj->type) ? 'card' : $obj->type;
 
@@ -876,7 +876,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 	}
 
 	dol_syslog("objinvoiceid=".$invoice_id);
-	$tmpinvoice = new Facture($db);
+	$tmpinvoice = new Invoice($db);
 	$tmpinvoice->fetch($invoice_id);
 	$tmpinvoice->fetch_thirdparty();
 
@@ -920,9 +920,9 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 		$error++;
 	}
 
-	if (! $error && $tmpinvoice->status == Facture::STATUS_CLOSED) {
+	if (! $error && $tmpinvoice->status == Invoice::STATUS_CLOSED) {
 		// Switch back the invoice to status validated
-		$result = $tmpinvoice->setStatut(Facture::STATUS_VALIDATED);
+		$result = $tmpinvoice->setStatut(Invoice::STATUS_VALIDATED);
 		if ($result < 0) {
 			$errormsg = $tmpinvoice->error.implode(', ', $tmpinvoice->errors);
 			$error++;

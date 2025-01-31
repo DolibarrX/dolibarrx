@@ -167,7 +167,7 @@ if ($object->client) {
 		print ' <span class="error">('.$langs->trans("WrongCustomerCode").')</span>';
 	}
 	print '</td></tr>';
-	$sql = "SELECT count(*) as nb from ".MAIN_DB_PREFIX."facture where fk_soc = ".((int) $socid);
+	$sql = "SELECT count(*) as nb from ".MAIN_DB_PREFIX."invoice where fk_soc = ".((int) $socid);
 	$resql = $db->query($sql);
 	if (!$resql) {
 		dol_print_error($db);
@@ -183,7 +183,7 @@ if ($object->client) {
 	if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 		$elementTypeArray['order'] = $langs->transnoentitiesnoconv('Orders');
 	}
-	if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
+	if (isModEnabled('invoice') && $user->hasRight('invoice', 'lire')) {
 		$elementTypeArray['invoice'] = $langs->transnoentitiesnoconv('Invoices');
 	}
 	if (isModEnabled('shipping') && $user->hasRight('expedition', 'lire')) {
@@ -217,7 +217,7 @@ if ($object->fournisseur) {
 	$obj = $db->fetch_object($resql);
 	$nbCmdsFourn = $obj->nb;
 	$thirdTypeArray['supplier'] = $langs->trans("supplier");
-	if ((isModEnabled('fournisseur') && $user->hasRight('fournisseur', 'facture', 'lire') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire'))) {
+	if ((isModEnabled('fournisseur') && $user->hasRight('fournisseur', 'invoice', 'lire') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire'))) {
 		$elementTypeArray['supplier_invoice'] = $langs->transnoentitiesnoconv('SuppliersInvoices');
 	}
 	if ((isModEnabled('fournisseur') && $user->hasRight('fournisseur', 'order', 'lire') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire'))) {
@@ -266,12 +266,12 @@ if ($type_element == 'fichinter') { 	// Customer : show products from invoices
 	$doc_number = 'f.ref';
 }
 if ($type_element == 'invoice') { 	// Customer : show products from invoices
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-	$documentstatic = new Facture($db);
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+	$documentstatic = new Invoice($db);
 	$sql_select = 'SELECT f.rowid as doc_id, f.ref as doc_number, f.type as doc_type, f.datef as dateprint, f.fk_statut as status, f.paye as paid, d.fk_remise_except, ';
-	$tables_from = MAIN_DB_PREFIX."facture as f,".MAIN_DB_PREFIX."facturedet as d";
+	$tables_from = MAIN_DB_PREFIX."invoice as f,".MAIN_DB_PREFIX."invoicedet as d";
 	$where = " WHERE f.fk_soc = s.rowid AND s.rowid = ".((int) $socid);
-	$where .= " AND d.fk_facture = f.rowid";
+	$where .= " AND d.fk_invoice = f.rowid";
 	$where .= " AND f.entity IN (".getEntity('invoice').")";
 	$dateprint = 'f.datef';
 	$doc_number = 'f.ref';
@@ -317,12 +317,12 @@ if ($type_element == 'shipment') {
 	$thirdTypeSelect = 'customer';
 }
 if ($type_element == 'supplier_invoice') { 	// Supplier : Show products from invoices.
-	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-	$documentstatic = new FactureFournisseur($db);
+	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
+	$documentstatic = new InvoiceSupplier($db);
 	$sql_select = 'SELECT f.rowid as doc_id, f.ref as doc_number, \'1\' as doc_type, f.datef as dateprint, f.fk_statut as status, f.paye as paid, ';
-	$tables_from = MAIN_DB_PREFIX."facture_fourn as f,".MAIN_DB_PREFIX."facture_fourn_det as d";
+	$tables_from = MAIN_DB_PREFIX."invoice_fourn as f,".MAIN_DB_PREFIX."invoice_fourn_det as d";
 	$where = " WHERE f.fk_soc = s.rowid AND s.rowid = ".((int) $socid);
-	$where .= " AND d.fk_facture_fourn = f.rowid";
+	$where .= " AND d.fk_invoice_fourn = f.rowid";
 	$where .= " AND f.entity = ".$config->entity;
 	$dateprint = 'f.datef';
 	$doc_number = 'f.ref';
@@ -721,7 +721,7 @@ if ($sql_select) {
 		print '</td>';
 
 		//print '<td class="left">'.$prodreftxt.'</td>';
-		if ($type_element == 'invoice' && $objp->doc_type == Facture::TYPE_CREDIT_NOTE) {
+		if ($type_element == 'invoice' && $objp->doc_type == Invoice::TYPE_CREDIT_NOTE) {
 			$objp->prod_qty = -($objp->prod_qty);
 		}
 		print '<td class="right"><span class="amount">'.$objp->prod_qty.'</span></td>';

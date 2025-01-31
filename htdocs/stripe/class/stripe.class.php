@@ -21,7 +21,7 @@
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/stripe/config.php'; // This set stripe global env
 
 
@@ -413,9 +413,9 @@ class Stripe extends CommonObject
 			// automatically return the existing payment intent if idempotency is provided when we try to create the new one.
 			// That's why we can comment the part of code to retrieve a payment intent with object id (never mind if we cumulate payment intent with old ones that will not be used)
 
-			$sql = "SELECT pi.ext_payment_id, pi.entity, pi.fk_facture, pi.sourcetype, pi.ext_payment_site";
+			$sql = "SELECT pi.ext_payment_id, pi.entity, pi.fk_invoice, pi.sourcetype, pi.ext_payment_site";
 			$sql .= " FROM ".MAIN_DB_PREFIX."prelevement_demande as pi";
-			$sql .= " WHERE pi.fk_facture = ".((int) $object->id);
+			$sql .= " WHERE pi.fk_invoice = ".((int) $object->id);
 			$sql .= " AND pi.sourcetype = '".$this->db->escape($object->element)."'";
 			$sql .= " AND pi.entity IN (".getEntity('societe').")";
 			$sql .= " AND pi.ext_payment_site = '".$this->db->escape($service)."'";
@@ -615,7 +615,7 @@ class Stripe extends CommonObject
 					// If not, we create it.
 					if (!$error && !$paymentintentalreadyexists) {
 						$now = dol_now();
-						$sql = "INSERT INTO ".MAIN_DB_PREFIX."prelevement_demande (date_demande, fk_user_demande, ext_payment_id, fk_facture, sourcetype, entity, ext_payment_site, amount)";
+						$sql = "INSERT INTO ".MAIN_DB_PREFIX."prelevement_demande (date_demande, fk_user_demande, ext_payment_id, fk_invoice, sourcetype, entity, ext_payment_site, amount)";
 						$sql .= " VALUES ('".$this->db->idate($now)."', ".((int) $user->id).", '".$this->db->escape($paymentintent->id)."', ".((int) $object->id).", '".$this->db->escape($object->element)."', ".((int) $config->entity).", '".$this->db->escape($service)."', ".((float) $amount).")";
 						$resql = $this->db->query($sql);
 						if (!$resql) {
@@ -794,7 +794,7 @@ class Stripe extends CommonObject
 					if (! $setupintentalreadyexists)
 					{
 						$now=dol_now();
-						$sql = "INSERT INTO " . MAIN_DB_PREFIX . "prelevement_demande (date_demande, fk_user_demande, ext_payment_id, fk_facture, sourcetype, entity, ext_payment_site)";
+						$sql = "INSERT INTO " . MAIN_DB_PREFIX . "prelevement_demande (date_demande, fk_user_demande, ext_payment_id, fk_invoice, sourcetype, entity, ext_payment_site)";
 						$sql .= " VALUES ('".$this->db->idate($now)."', ".((int) $user->id).", '".$this->db->escape($setupintent->id)."', ".((int) $object->id).", '".$this->db->escape($object->element)."', " . ((int) $config->entity) . ", '" . $this->db->escape($service) . "', ".((float) $amount).")";
 						$resql = $this->db->query($sql);
 						if (! $resql)
@@ -1226,7 +1226,7 @@ class Stripe extends CommonObject
 			$ref = $order->ref;
 			$description = "ORD=".$ref.".CUS=".$societe->id.".PM=stripe";
 		} elseif ($origin == 'invoice') {
-			$invoice = new Facture($this->db);
+			$invoice = new Invoice($this->db);
 			$invoice->fetch($item);
 			$ref = $invoice->ref;
 			$description = "INV=".$ref.".CUS=".$societe->id.".PM=stripe";

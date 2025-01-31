@@ -23,9 +23,9 @@
  */
 
 /**
- * 		\defgroup   facture     Module customer invoices
+ * 		\defgroup   invoice     Module customer invoices
  *      \brief      Module to manage customer invoices
- *      \file       htdocs/core/modules/modFacture.class.php
+ *      \file       htdocs/core/modules/modInvoice.class.php
  *		\ingroup    invoice
  *		\brief      Description and activation file for the module customer invoices
  */
@@ -35,7 +35,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/modules/DolibarrModules.class.php';
 /**
  *  Class to describe module customer invoices
  */
-class modFacture extends DolibarrModules
+class modInvoice extends DolibarrModules
 {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
@@ -53,7 +53,7 @@ class modFacture extends DolibarrModules
 		$this->modulePosition = '11';
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
-		$this->description = "Gestion des factures";
+		$this->description = "Gestion des invoices";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
@@ -62,7 +62,7 @@ class modFacture extends DolibarrModules
 		$this->picture = 'bill';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array("/facture/temp");
+		$this->dirs = array("/invoice/temp");
 
 		// Dependencies
 		$this->depends = array('always' => "modSociete");
@@ -81,7 +81,7 @@ class modFacture extends DolibarrModules
 
 		$this->const[$r][0] = "FACTURE_ADDON";
 		$this->const[$r][1] = "chaine";
-		$this->const[$r][2] = "mod_facture_terre";
+		$this->const[$r][2] = "mod_invoice_terre";
 		$this->const[$r][3] = 'Name of numbering numbertation rules of invoice';
 		$this->const[$r][4] = 0;
 		$r++;
@@ -101,10 +101,10 @@ class modFacture extends DolibarrModules
 		$r++;
 
 		// Boxes
-		//$this->boxes = array(0=>array(1=>'box_factures_imp.php'),1=>array(1=>'box_factures.php'));
+		//$this->boxes = array(0=>array(1=>'box_invoices_imp.php'),1=>array(1=>'box_invoices.php'));
 		$this->boxes = array(
-				0 => array('file' => 'box_factures_imp.php', 'enabledbydefaulton' => 'Home'),
-				1 => array('file' => 'box_factures.php', 'enabledbydefaulton' => 'Home'),
+				0 => array('file' => 'box_invoices_imp.php', 'enabledbydefaulton' => 'Home'),
+				1 => array('file' => 'box_invoices.php', 'enabledbydefaulton' => 'Home'),
 				2 => array('file' => 'box_graph_invoices_permonth.php', 'enabledbydefaulton' => 'Home'),
 				3 => array('file' => 'box_customers_outstanding_bill_reached.php', 'enabledbydefaulton' => 'Home')
 		);
@@ -116,8 +116,8 @@ class modFacture extends DolibarrModules
 			0 => array(
 				'label' => 'RecurringInvoicesJob',
 				'jobtype' => 'method',
-				'class' => 'compta/facture/class/facture-rec.class.php',
-				'objectname' => 'FactureRec',
+				'class' => 'compta/invoice/class/invoice-rec.class.php',
+				'objectname' => 'InvoiceRec',
 				'method' => 'createRecurringInvoices',
 				'parameters' => '',
 				'comment' => 'Generate recurring invoices',
@@ -125,14 +125,14 @@ class modFacture extends DolibarrModules
 				'unitfrequency' => 3600 * 24,
 				'priority' => 51,
 				'status' => 1,
-				'test' => '$config->facture->enabled',
+				'test' => '$config->invoice->enabled',
 				'datestart' => $datestart
 			),
 			1 => array(
 				'label' => 'SendEmailsRemindersOnInvoiceDueDate',
 				'jobtype' => 'method',
-				'class' => 'compta/facture/class/facture.class.php',
-				'objectname' => 'Facture',
+				'class' => 'compta/invoice/class/invoice.class.php',
+				'objectname' => 'Invoice',
 				'method' => 'sendEmailsRemindersOnInvoiceDueDate',
 				'parameters' => "10,all,EmailTemplateCode,duedate",
 				'comment' => 'Send an email when we reach the invoice due date (or invoice date) - n days. First param is n, the number of days before due date (or invoice date) to send the remind (or after if value is negative), second parameter is "all" or a payment mode code, third parameter is the code of the email template to use (an email template with the EmailTemplateCode must exists. The version of the email template in the language of the thirdparty will be used in priority. Language of the thirdparty will be also used to update the PDF of the sent invoice). The fourth parameter is the string "duedate" (default) or "invoicedate" to define which date of the invoice to use.',
@@ -140,14 +140,14 @@ class modFacture extends DolibarrModules
 				'unitfrequency' => 3600 * 24,
 				'priority' => 50,
 				'status' => 0,
-				'test' => '$config->facture->enabled',
+				'test' => '$config->invoice->enabled',
 				'datestart' => $datestart
 			),
 		);
 
 		// Permissions
 		$this->rights = [];
-		$this->rightsClass = 'facture';
+		$this->rightsClass = 'invoice';
 		$r = 0;
 
 		$r++;
@@ -208,7 +208,7 @@ class modFacture extends DolibarrModules
 		$this->rights[$r][1] = 'Export customer invoices, attributes and payments';
 		$this->rights[$r][2] = 'r';
 		$this->rights[$r][3] = 0;
-		$this->rights[$r][4] = 'facture';
+		$this->rights[$r][4] = 'invoice';
 		$this->rights[$r][5] = 'export';
 
 		$r++;
@@ -234,7 +234,7 @@ class modFacture extends DolibarrModules
 		$this->import_label[$r] = "Invoices"; // Translation key
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
-		$this->import_tables_array[$r] = array('f' => MAIN_DB_PREFIX.'facture', 'extra' => MAIN_DB_PREFIX.'facture_extrafields');
+		$this->import_tables_array[$r] = array('f' => MAIN_DB_PREFIX.'invoice', 'extra' => MAIN_DB_PREFIX.'invoice_extrafields');
 		$this->import_tables_creator_array[$r] = array('f' => 'fk_user_author'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(
 			'f.ref' => 'InvoiceRef*',
@@ -253,7 +253,7 @@ class modFacture extends DolibarrModules
 			'f.fk_user_modif' => 'Modifier Id',
 			'f.fk_user_valid' => 'Validator Id',
 			'f.fk_user_closing' => 'Closer Id',
-			'f.fk_facture_source' => 'Invoice Source Id',
+			'f.fk_invoice_source' => 'Invoice Source Id',
 			'f.fk_projet' => 'Project Id',
 			'f.fk_account' => 'Bank Account',
 			'f.fk_currency' => 'Currency*',
@@ -273,7 +273,7 @@ class modFacture extends DolibarrModules
 		}
 		// Add extra fields
 		$import_extrafield_sample = [];
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'facture' AND entity IN (0, ".$config->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'invoice' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -284,7 +284,7 @@ class modFacture extends DolibarrModules
 			}
 		}
 		// End add extra fields
-		$this->import_fieldshidden_array[$r] = array('extra.fk_object' => 'lastrowid-'.MAIN_DB_PREFIX.'facture');
+		$this->import_fieldshidden_array[$r] = array('extra.fk_object' => 'lastrowid-'.MAIN_DB_PREFIX.'invoice');
 		$this->import_regex_array[$r] = array('f.multicurrency_code' => 'code@'.MAIN_DB_PREFIX.'multicurrency');
 		$import_sample = array(
 			'f.ref' => '(PROV0001)',
@@ -303,7 +303,7 @@ class modFacture extends DolibarrModules
 			'f.fk_user_modif' => '',
 			'f.fk_user_valid' => '',
 			'f.fk_user_closing' => '',
-			'f.fk_facture_source' => '',
+			'f.fk_invoice_source' => '',
 			'f.fk_projet' => '',
 			'f.fk_account' => '',
 			'f.fk_currency' => 'EUR',
@@ -334,11 +334,11 @@ class modFacture extends DolibarrModules
 				'file' => '/projet/class/project.class.php',
 				'class' => 'Project',
 				'method' => 'fetch',
-				'element' => 'facture'
+				'element' => 'invoice'
 			),
 			'f.fk_cond_reglement' => array(
 				'rule' => 'fetchidfromcodeorlabel',
-				'file' => '/compta/facture/class/paymentterm.class.php',
+				'file' => '/compta/invoice/class/paymentterm.class.php',
 				'class' => 'PaymentTerm',
 				'method' => 'fetch',
 				'element' => 'c_payment_term'
@@ -351,9 +351,9 @@ class modFacture extends DolibarrModules
 		$this->import_label[$r] = "InvoiceLine"; // Translation key
 		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = []; // We define here only fields that use another icon that the one defined into import_icon
-		$this->import_tables_array[$r] = array('fd' => MAIN_DB_PREFIX.'facturedet', 'extra' => MAIN_DB_PREFIX.'facturedet_extrafields');
+		$this->import_tables_array[$r] = array('fd' => MAIN_DB_PREFIX.'invoicedet', 'extra' => MAIN_DB_PREFIX.'invoicedet_extrafields');
 		$this->import_fields_array[$r] = array(
-			'fd.fk_facture' => 'InvoiceRef*',
+			'fd.fk_invoice' => 'InvoiceRef*',
 			'fd.fk_parent_line' => 'FacParentLine',
 			'fd.fk_product' => 'ProductOrService',
 			'fd.label' => 'Label',
@@ -401,7 +401,7 @@ class modFacture extends DolibarrModules
 		}
 		// Add extra fields
 		$import_extrafield_sample = [];
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'facture_det' AND entity IN (0, ".$config->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'invoice_det' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -412,12 +412,12 @@ class modFacture extends DolibarrModules
 			}
 		}
 		// End add extra fields
-		$this->import_fieldshidden_array[$r] = array('extra.fk_object' => 'lastrowid-'.MAIN_DB_PREFIX.'facturedet');
+		$this->import_fieldshidden_array[$r] = array('extra.fk_object' => 'lastrowid-'.MAIN_DB_PREFIX.'invoicedet');
 		$this->import_regex_array[$r] = array(
 			'fd.multicurrency_code' => 'code@'.MAIN_DB_PREFIX.'multicurrency'
 		);
 		$import_sample = array(
-			'fd.fk_facture' => '(PROV00001)',
+			'fd.fk_invoice' => '(PROV00001)',
 			'fd.fk_parent_line' => '',
 			'fd.fk_product' => 'ref:PRODUCT_REF or id:123456',
 			'fd.label' => '',
@@ -464,16 +464,16 @@ class modFacture extends DolibarrModules
 		$this->import_examplevalues_array[$r] = array_merge($import_sample, $import_extrafield_sample);
 		$this->import_updatekeys_array[$r] = array(
 			'fd.rowid' => 'Row Id',
-			'fd.fk_facture' => 'Invoice Id',
+			'fd.fk_invoice' => 'Invoice Id',
 			'fd.fk_product'=> 'ProductRef'
 		);
 		$this->import_convertvalue_array[$r] = array(
-			'fd.fk_facture' => array(
+			'fd.fk_invoice' => array(
 				'rule' => 'fetchidfromref',
-				'file' => '/compta/facture/class/facture.class.php',
-				'class' => 'Facture',
+				'file' => '/compta/invoice/class/invoice.class.php',
+				'class' => 'Invoice',
 				'method' => 'fetch',
-				'element' => 'facture'
+				'element' => 'invoice'
 			),
 			'fd.fk_product' => array(
 				'rule'=>'fetchidfromref',
@@ -487,7 +487,7 @@ class modFacture extends DolibarrModules
 				'file' => '/projet/class/project.class.php',
 				'class' => 'Project',
 				'method' => 'fetch',
-				'element' => 'facture'
+				'element' => 'invoice'
 			),
 		);
 
@@ -510,7 +510,7 @@ class modFacture extends DolibarrModules
 		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'CustomersInvoicesAndInvoiceLines'; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = 'invoice';
-		$this->export_permission[$r] = array(array("facture", "facture", "export", "other"));
+		$this->export_permission[$r] = array(array("invoice", "invoice", "export", "other"));
 
 		$this->export_fields_array[$r] = array(
 			's.rowid' => "IdCompany", 's.nom' => 'CompanyName', 's.name_alias' => 'AliasNameShort', 'ps.nom' => 'ParentCompany', 's.code_client' => 'CustomerCode', 's.address' => 'Address', 's.zip' => 'Zip', 's.town' => 'Town', 'c.code' => 'CountryCode', 'cd.nom' => 'State',
@@ -520,7 +520,7 @@ class modFacture extends DolibarrModules
 			's.code_compta_fournisseur' => 'SupplierAccountancyCode',
 			's.tva_intra' => 'VATIntra',
 			't.libelle' => "ThirdPartyType", // 'ce.code'=>"Staff", "cfj.libelle"=>"JuridicalStatus",
-			'f.rowid' => "InvoiceId", 'f.ref' => "InvoiceRef", 'f.ref_client' => 'RefCustomer', 'f.fk_facture_source' => 'SourceInvoiceId',
+			'f.rowid' => "InvoiceId", 'f.ref' => "InvoiceRef", 'f.ref_client' => 'RefCustomer', 'f.fk_invoice_source' => 'SourceInvoiceId',
 			'f.type' => "Type", 'f.datec' => "InvoiceDateCreation", 'f.datef' => "DateInvoice", 'f.date_lim_reglement' => "DateDue",
 			'f.fk_cond_reglement' => 'IdPaymentTerm', 'f.fk_mode_reglement' => 'IdPaymentMode',
 			'f.total_ht' => "TotalHT", 'f.total_ttc' => "TotalTTC", 'f.total_tva' => "TotalVAT",
@@ -588,7 +588,7 @@ class modFacture extends DolibarrModules
 			's.rowid' => 'Numeric', 's.nom' => 'Text', 's.name_alias' => 'Text', 'ps.nom' => 'Text', 's.code_client' => 'Text', 's.address' => 'Text', 's.zip' => 'Text', 's.town' => 'Text', 'c.code' => 'Text', 'cd.nom' => 'Text', 's.phone' => 'Text', 's.siren' => 'Text',
 			's.siret' => 'Text', 's.ape' => 'Text', 's.idprof4' => 'Text', 's.code_compta' => 'Text', 's.code_compta_fournisseur' => 'Text', 's.tva_intra' => 'Text',
 			't.libelle' => "Text", // 'ce.code'=>"List:c_effectif:libelle:code", "cfj.libelle"=>"Text",
-			'f.rowid' => 'Numeric', 'f.ref' => "Text", 'f.ref_client' => 'Text', 'f.fk_facture_source' => 'Numeric', 'f.type' => "Numeric", 'f.datec' => "Date", 'f.datef' => "Date", 'f.date_lim_reglement' => "Date",
+			'f.rowid' => 'Numeric', 'f.ref' => "Text", 'f.ref_client' => 'Text', 'f.fk_invoice_source' => 'Numeric', 'f.type' => "Numeric", 'f.datec' => "Date", 'f.datef' => "Date", 'f.date_lim_reglement' => "Date",
 			'f.fk_cond_reglement' => 'Numeric', 'f.fk_mode_reglement' => 'Numeric',
 			'f.total_ht' => "Numeric", 'f.total_ttc' => "Numeric", 'f.total_tva' => "Numeric", 'f.localtax1' => 'Numeric', 'f.localtax2' => 'Numeric', 'f.paye' => "Boolean", 'f.fk_statut' => 'Numeric', 'f.close_code' => 'Text', 'f.close_note' => 'Text',
 			'none.rest' => "NumericCompute",
@@ -623,11 +623,11 @@ class modFacture extends DolibarrModules
 		$this->export_help_array[$r] = array('fd.buy_price_ht' => 'CostPriceUsage');
 		$this->export_special_array[$r] = array('none.rest' => 'getRemainToPay');
 		$this->export_dependencies_array[$r] = array('invoice_line' => 'fd.rowid', 'product' => 'fd.rowid', 'none.rest' => array('f.rowid', 'f.total_ttc', 'f.close_code')); // To add unique key if we ask a field of a child to avoid the DISTINCT to discard them
-		$keyforselect = 'facture';
+		$keyforselect = 'invoice';
 		$keyforelement = 'invoice';
 		$keyforaliasextra = 'extra';
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
-		$keyforselect = 'facturedet';
+		$keyforselect = 'invoicedet';
 		$keyforelement = 'invoice_line';
 		$keyforaliasextra = 'extra2';
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
@@ -649,20 +649,20 @@ class modFacture extends DolibarrModules
 		}
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_country as c on s.fk_pays = c.rowid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_departements as cd on s.fk_departement = cd.rowid,';
-		$this->export_sql_end[$r] .= ' '.MAIN_DB_PREFIX.'facture as f';
+		$this->export_sql_end[$r] .= ' '.MAIN_DB_PREFIX.'invoice as f';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'projet as pj ON f.fk_projet = pj.rowid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'user as uc ON f.fk_user_author = uc.rowid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'user as uv ON f.fk_user_valid = uv.rowid';
-		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'facture_extrafields as extra ON f.rowid = extra.fk_object';
-		$this->export_sql_end[$r] .= ' , '.MAIN_DB_PREFIX.'facturedet as fd';
-		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'facturedet_extrafields as extra2 on fd.rowid = extra2.fk_object';
+		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'invoice_extrafields as extra ON f.rowid = extra.fk_object';
+		$this->export_sql_end[$r] .= ' , '.MAIN_DB_PREFIX.'invoicedet as fd';
+		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'invoicedet_extrafields as extra2 on fd.rowid = extra2.fk_object';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product as p on (fd.fk_product = p.rowid)';
 		if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 			$this->export_sql_end[$r] .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 		}
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_extrafields as extra3 on p.rowid = extra3.fk_object';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'accounting_account as aa on fd.fk_code_ventilation = aa.rowid';
-		$this->export_sql_end[$r] .= ' WHERE f.fk_soc = s.rowid AND f.rowid = fd.fk_facture';
+		$this->export_sql_end[$r] .= ' WHERE f.fk_soc = s.rowid AND f.rowid = fd.fk_invoice';
 		$this->export_sql_end[$r] .= ' AND f.entity IN ('.getEntity('invoice').')';
 		if (!empty($user) && !$user->hasRight('societe', 'client', 'voir')) {
 			$this->export_sql_end[$r] .= ' AND sc.fk_user = '.(empty($user) ? 0 : $user->id);
@@ -673,13 +673,13 @@ class modFacture extends DolibarrModules
 		$this->export_code[$r] = $this->rightsClass.'_'.$r;
 		$this->export_label[$r] = 'CustomersInvoicesAndPayments'; // Translation key (used only if key ExportDataset_xxx_z not found)
 		$this->export_icon[$r] = 'invoice';
-		$this->export_permission[$r] = array(array("facture", "facture", "export"));
+		$this->export_permission[$r] = array(array("invoice", "invoice", "export"));
 		$this->export_fields_array[$r] = array(
 			's.rowid' => "IdCompany", 's.nom' => 'CompanyName', 's.name_alias' => 'AliasNameShort', 's.code_client' => 'CustomerCode', 's.address' => 'Address', 's.zip' => 'Zip', 's.town' => 'Town', 'c.code' => 'CountryCode', 'cd.nom' => 'State',
 			's.phone' => 'Phone',
 			's.siren' => 'ProfId1', 's.siret' => 'ProfId2', 's.ape' => 'ProfId3', 's.idprof4' => 'ProfId4', 's.code_compta' => 'CustomerAccountancyCode',
 			's.code_compta_fournisseur' => 'SupplierAccountancyCode', 's.tva_intra' => 'VATIntra',
-			'f.rowid' => "InvoiceId", 'f.ref' => "InvoiceRef", 'f.ref_client' => 'RefCustomer', 'f.fk_facture_source' => 'SourceInvoiceId',
+			'f.rowid' => "InvoiceId", 'f.ref' => "InvoiceRef", 'f.ref_client' => 'RefCustomer', 'f.fk_invoice_source' => 'SourceInvoiceId',
 			'f.type' => "Type", 'f.datec' => "InvoiceDateCreation", 'f.datef' => "DateInvoice", 'f.date_lim_reglement' => "DateDue",
 			'f.fk_cond_reglement' => 'IdPaymentTerm', 'f.fk_mode_reglement' => 'IdPaymentMode',
 			'f.total_ht' => "TotalHT", 'f.total_ttc' => "TotalTTC", 'f.total_tva' => "TotalVAT", 'f.localtax1' => 'LT1', 'f.localtax2' => 'LT2', 'f.paye' => "InvoicePaidCompletely", 'f.fk_statut' => 'InvoiceStatus', 'f.close_code' => 'EarlyClosingReason', 'f.close_note' => 'EarlyClosingComment',
@@ -712,7 +712,7 @@ class modFacture extends DolibarrModules
 		$this->export_TypeFields_array[$r] = array(
 			's.rowid' => 'Numeric', 's.nom' => 'Text', 's.name_alias' => 'Text', 's.code_client' => 'Text', 's.address' => 'Text', 's.zip' => 'Text', 's.town' => 'Text', 'c.code' => 'Text', 'cd.nom' => 'Text', 's.phone' => 'Text', 's.siren' => 'Text',
 			's.siret' => 'Text', 's.ape' => 'Text', 's.idprof4' => 'Text', 's.code_compta' => 'Text', 's.code_compta_fournisseur' => 'Text', 's.tva_intra' => 'Text',
-			'f.rowid' => "Numeric", 'f.ref' => "Text", 'f.ref_client' => 'Text', 'f.fk_facture_source' => 'Numeric', 'f.type' => "Numeric", 'f.datec' => "Date", 'f.datef' => "Date", 'f.date_lim_reglement' => "Date",
+			'f.rowid' => "Numeric", 'f.ref' => "Text", 'f.ref_client' => 'Text', 'f.fk_invoice_source' => 'Numeric', 'f.type' => "Numeric", 'f.datec' => "Date", 'f.datef' => "Date", 'f.date_lim_reglement' => "Date",
 			'f.fk_cond_reglement' => 'Numeric', 'f.fk_mode_reglement' => 'Numeric',
 			'f.total_ht' => "Numeric", 'f.total_ttc' => "Numeric", 'f.total_tva' => "Numeric", 'f.localtax1' => 'Numeric', 'f.localtax2' => 'Numeric', 'f.paye' => "Boolean", 'f.fk_statut' => 'Status', 'f.close_code' => 'Text', 'f.close_note' => 'Text',
 			'none.rest' => 'NumericCompute',
@@ -733,7 +733,7 @@ class modFacture extends DolibarrModules
 		);
 		$this->export_special_array[$r] = array('none.rest' => 'getRemainToPay');
 		$this->export_dependencies_array[$r] = array('payment' => 'p.rowid', 'none.rest' => array('f.rowid', 'f.total_ttc', 'f.close_code')); // To add unique key if we ask a field of a child to avoid the DISTINCT to discard them, or just to have field we need
-		$keyforselect = 'facture';
+		$keyforselect = 'invoice';
 		$keyforelement = 'invoice';
 		$keyforaliasextra = 'extra';
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
@@ -744,12 +744,12 @@ class modFacture extends DolibarrModules
 		}
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_country as c on s.fk_pays = c.rowid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_departements as cd on s.fk_departement = cd.rowid,';
-		$this->export_sql_end[$r] .= ' '.MAIN_DB_PREFIX.'facture as f';
+		$this->export_sql_end[$r] .= ' '.MAIN_DB_PREFIX.'invoice as f';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'projet as pj ON f.fk_projet = pj.rowid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'user as uc ON f.fk_user_author = uc.rowid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'user as uv ON f.fk_user_valid = uv.rowid';
-		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'facture_extrafields as extra ON f.rowid = extra.fk_object';
-		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiement_facture as pf ON pf.fk_facture = f.rowid';
+		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'invoice_extrafields as extra ON f.rowid = extra.fk_object';
+		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiement_invoice as pf ON pf.fk_invoice = f.rowid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiement as p ON pf.fk_paiement = p.rowid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_paiement as pt ON pt.id = p.fk_paiement';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'bank as b ON b.rowid = p.fk_bank';

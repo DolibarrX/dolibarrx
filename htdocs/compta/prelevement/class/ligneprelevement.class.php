@@ -97,7 +97,7 @@ class LignePrelevement
 	/**
 	 *  Recupere l'objet prelevement
 	 *
-	 *  @param	int		$rowid      Id de la facture a recuperer
+	 *  @param	int		$rowid      Id de la invoice a recuperer
 	 *  @return	integer				Return integer <0 if KO, >=0 if OK
 	 */
 	public function fetch($rowid)

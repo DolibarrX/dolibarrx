@@ -51,7 +51,7 @@ if ($action == 'setnote_public' && !empty($permissionnote) && !GETPOST('cancel',
 
 	if ($result_update < 0) {
 		setEventMessages($object->error, $object->errors, 'errors');
-	} elseif (in_array($object->table_element, array('supplier_proposal', 'propal', 'order_fournisseur', 'order', 'facture_fourn', 'facture'))) {
+	} elseif (in_array($object->table_element, array('supplier_proposal', 'propal', 'order_fournisseur', 'order', 'invoice_fourn', 'invoice'))) {
 		// Define output language
 		if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {
 			$outputlangs = $langs;

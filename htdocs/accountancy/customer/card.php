@@ -25,7 +25,7 @@
  */
 require '../../main.inc.php';
 
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formaccounting.class.php';
 
 /**
@@ -69,7 +69,7 @@ if ($action == 'ventil' && $user->hasRight('accounting', 'bind', 'write')) {
 			$codeventil = 0;
 		}
 
-		$sql = " UPDATE ".MAIN_DB_PREFIX."facturedet";
+		$sql = " UPDATE ".MAIN_DB_PREFIX."invoicedet";
 		$sql .= " SET fk_code_ventilation = ".((int) $codeventil);
 		$sql .= " WHERE rowid = ".((int) $id);
 
@@ -105,7 +105,7 @@ if ($cancel == $langs->trans("Cancel")) {
  * Create
  */
 $form = new Form($db);
-$facture_static = new Facture($db);
+$invoice_static = new Invoice($db);
 $formaccounting = new FormAccounting($db);
 
 if (!empty($id)) {
@@ -118,13 +118,13 @@ if (!empty($id)) {
 		$sql .= " p.accountancy_code_sell as code_sell,";
 	}
 	$sql .= " aa.account_number, aa.label";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facturedet as l";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoicedet as l";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = l.fk_product";
 	if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 		$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 	}
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON l.fk_code_ventilation = aa.rowid";
-	$sql .= " INNER JOIN ".MAIN_DB_PREFIX."facture as f ON f.rowid = l.fk_facture";
+	$sql .= " INNER JOIN ".MAIN_DB_PREFIX."invoice as f ON f.rowid = l.fk_invoice";
 	$sql .= " WHERE f.fk_statut > 0 AND l.rowid = ".((int) $id);
 	$sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share object for accountancy
 
@@ -151,9 +151,9 @@ if (!empty($id)) {
 
 			// Ref invoice
 			print '<tr><td>'.$langs->trans("Invoice").'</td>';
-			$facture_static->ref = $objp->ref;
-			$facture_static->id = $objp->facid;
-			print '<td>'.$facture_static->getNomUrl(1).'</td>';
+			$invoice_static->ref = $objp->ref;
+			$invoice_static->id = $objp->facid;
+			print '<td>'.$invoice_static->getNomUrl(1).'</td>';
 			print '</tr>';
 
 			print '<tr><td>'.$langs->trans("Description").'</td>';

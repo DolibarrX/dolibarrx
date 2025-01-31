@@ -71,7 +71,7 @@ $hidepriceinlabel = GETPOSTINT('hidepriceinlabel');
 $warehouseId = GETPOST('warehouseid', 'int');
 
 // Security check
-restrictedArea($user, 'produit|service|order|propal|facture', 0, 'product&product');
+restrictedArea($user, 'produit|service|order|propal|invoice', 0, 'product&product');
 
 /*
  * Actions

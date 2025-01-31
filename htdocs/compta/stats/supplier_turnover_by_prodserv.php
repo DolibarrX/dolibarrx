@@ -318,18 +318,18 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$sql = "SELECT DISTINCT p.rowid as rowid, p.ref as ref, p.label as label, p.fk_product_type as product_type,";
 	$sql .= " SUM(l.total_ht) as amount, SUM(l.total_ttc) as amount_ttc,";
 	$sql .= " SUM(CASE WHEN f.type = 2 THEN -l.qty ELSE l.qty END) as qty";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f";
 	if ($selected_soc > 0) {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as soc ON (soc.rowid = f.fk_soc)";
 	}
-	$sql .= ",".MAIN_DB_PREFIX."facture_fourn_det as l";
+	$sql .= ",".MAIN_DB_PREFIX."invoice_fourn_det as l";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON l.fk_product = p.rowid";
 	if ($selected_cat === -2) {	// Without any category
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."category_product as cp ON p.rowid = cp.fk_product";
 	} elseif ($selected_cat) { 	// Into a specific category
 		$sql .= ", ".MAIN_DB_PREFIX."category as c, ".MAIN_DB_PREFIX."category_product as cp";
 	}
-	$sql .= " WHERE l.fk_facture_fourn = f.rowid";
+	$sql .= " WHERE l.fk_invoice_fourn = f.rowid";
 	$sql .= " AND f.fk_statut in (1,2)";
 	$sql .= " AND f.type IN (0,2)";
 

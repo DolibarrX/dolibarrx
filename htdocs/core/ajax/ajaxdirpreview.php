@@ -248,9 +248,9 @@ if ($type == 'directory') {
 		$upload_dir = $config->societe->dir_output;
 		$excludefiles[] = '^contact$'; // The subdir 'contact' contains files of contacts.
 	} elseif ($module == 'invoice') {
-		$upload_dir = $config->facture->dir_output;
+		$upload_dir = $config->invoice->dir_output;
 	} elseif ($module == 'invoice_supplier') {
-		$upload_dir = $config->fournisseur->facture->dir_output;
+		$upload_dir = $config->fournisseur->invoice->dir_output;
 	} elseif ($module == 'propal') {
 		$upload_dir = $config->propal->dir_output;
 	} elseif ($module == 'supplier_proposal') {

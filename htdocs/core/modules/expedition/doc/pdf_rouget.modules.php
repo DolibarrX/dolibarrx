@@ -284,7 +284,7 @@ class pdf_rouget extends ModelePdfExpedition
 				global $action;
 				$resHook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
-				// Set nblines with the new facture lines content after hook
+				// Set nblines with the new invoice lines content after hook
 				$nblines = is_array($object->lines) ? count($object->lines) : 0;
 
 				$pdf = pdf_getInstance($this->format);
@@ -1021,7 +1021,7 @@ class pdf_rouget extends ModelePdfExpedition
 
 			$classname = ucfirst($origin);
 			$linkedobject = new $classname($this->db);
-			'@phan-var-force Order|Facture $linkedobject';
+			'@phan-var-force Order|Invoice $linkedobject';
 			$result = $linkedobject->fetch($origin_id);
 			if ($result >= 0) {
 				//$linkedobject->fetchObjectLinked()   Get all linked object to the $linkedobject (commonly order) into $linkedobject->linkedObjects

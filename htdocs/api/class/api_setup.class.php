@@ -61,7 +61,7 @@ class Setup extends DolibarrApi
 	 * @param string	$sortorder	Sort order
 	 * @param int       $limit      Number of items per page
 	 * @param int       $page       Page number {@min 0}
-	 * @param string    $elementtype       Type of element ('member', 'order', 'thirdparty', 'facture', 'propal', 'product', ...)
+	 * @param string    $elementtype       Type of element ('member', 'order', 'thirdparty', 'invoice', 'propal', 'product', ...)
 	 * @param string    $lang       Code of the language the label of the type must be translated to
 	 * @param string    $sqlfilters Other criteria to filter answers separated by a comma. Syntax example "(t.label:like:'SO-%')"
 	 * @return array				List of extra fields
@@ -275,7 +275,7 @@ class Setup extends DolibarrApi
 	{
 		$list = [];
 
-		if (!DolibarrApiAccess::$user->hasRight('propal', 'lire') && !DolibarrApiAccess::$user->hasRight('order', 'lire') && !DolibarrApiAccess::$user->hasRight('facture', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('propal', 'lire') && !DolibarrApiAccess::$user->hasRight('order', 'lire') && !DolibarrApiAccess::$user->hasRight('invoice', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -1190,7 +1190,7 @@ class Setup extends DolibarrApi
 	 *
 	 * @param string	$sortfield	Sort field
 	 * @param string	$sortorder	Sort order
-	 * @param string    $elementtype       Type of element ('member', 'order', 'thirdparty', 'facture', 'propal', 'product', ...)
+	 * @param string    $elementtype       Type of element ('member', 'order', 'thirdparty', 'invoice', 'propal', 'product', ...)
 	 * @param string    $sqlfilters Other criteria to filter answers separated by a comma. Syntax example "(t.label:like:'SO-%')"
 	 * @return array				List of extra fields
 	 *
@@ -1648,11 +1648,11 @@ class Setup extends DolibarrApi
 	{
 		$list = [];
 
-		if (!DolibarrApiAccess::$user->hasRight('propal', 'lire') && !DolibarrApiAccess::$user->hasRight('order', 'lire') && !DolibarrApiAccess::$user->hasRight('facture', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('propal', 'lire') && !DolibarrApiAccess::$user->hasRight('order', 'lire') && !DolibarrApiAccess::$user->hasRight('invoice', 'lire')) {
 			throw new RestException(403);
 		}
 
-		$sql = "SELECT rowid as id, code, sortorder, libelle as label, libelle_facture as descr, type_cdr, nbjour, decalage, module";
+		$sql = "SELECT rowid as id, code, sortorder, libelle as label, libelle_invoice as descr, type_cdr, nbjour, decalage, module";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_payment_term as t";
 		$sql .= " WHERE t.entity IN (".getEntity('c_payment_term').")";
 		$sql .= " AND t.active = ".((int) $active);

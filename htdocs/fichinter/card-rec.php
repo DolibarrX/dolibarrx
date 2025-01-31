@@ -652,13 +652,13 @@ if ($action == 'create') {
 			// Date when
 			print '<tr><td>';
 			if ($user->hasRight('ficheinter', 'creer') && ($action == 'date_when' || $object->frequency > 0)) {
-				print $form->editfieldkey($langs->trans("NextDateToExecution"), 'date_when', $object->date_when, $object, $user->hasRight('facture', 'creer'), 'day');
+				print $form->editfieldkey($langs->trans("NextDateToExecution"), 'date_when', $object->date_when, $object, $user->hasRight('invoice', 'creer'), 'day');
 			} else {
 				print $langs->trans("NextDateToExecution");
 			}
 			print '</td><td>';
 			if ($action == 'date_when' || $object->frequency > 0) {
-				print $form->editfieldval($langs->trans("NextDateToExecution"), 'date_when', $object->date_when, $object, $user->hasRight('facture', 'creer'), 'day');
+				print $form->editfieldval($langs->trans("NextDateToExecution"), 'date_when', $object->date_when, $object, $user->hasRight('invoice', 'creer'), 'day');
 			}
 			print '</td>';
 			print '</tr>';
@@ -666,14 +666,14 @@ if ($action == 'create') {
 			// Max period / Rest period
 			print '<tr><td>';
 			if ($user->hasRight('ficheinter', 'creer') && ($action == 'nb_gen_max' || $object->frequency > 0)) {
-				print $form->editfieldkey($langs->trans("MaxPeriodNumber"), 'nb_gen_max', $object->nb_gen_max, $object, $user->hasRight('facture', 'creer'));
+				print $form->editfieldkey($langs->trans("MaxPeriodNumber"), 'nb_gen_max', $object->nb_gen_max, $object, $user->hasRight('invoice', 'creer'));
 			} else {
 				print $langs->trans("MaxPeriodNumber");
 			}
 
 			print '</td><td>';
 			if ($action == 'nb_gen_max' || $object->frequency > 0) {
-				print $form->editfieldval($langs->trans("MaxPeriodNumber"), 'nb_gen_max', $object->nb_gen_max ? $object->nb_gen_max : '', $object, $user->hasRight('facture', 'creer'));
+				print $form->editfieldval($langs->trans("MaxPeriodNumber"), 'nb_gen_max', $object->nb_gen_max ? $object->nb_gen_max : '', $object, $user->hasRight('invoice', 'creer'));
 			} else {
 				print '';
 			}

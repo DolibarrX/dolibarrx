@@ -49,7 +49,7 @@ class Documents extends DolibarrApi
 	 * Note that, this API is similar to using the wrapper link "documents.php" to download a file (used for
 	 * internal HTML links of documents into application), but with no need to have a session cookie (the token is used instead).
 	 *
-	 * @param   string  $modulePart     Name of module or area concerned by file download ('facture', ...)
+	 * @param   string  $modulePart     Name of module or area concerned by file download ('invoice', ...)
 	 * @param   string  $original_file  Relative path with filename, relative to modulepart (for example: IN201701-999/IN201701-999.pdf)
 	 * @return  array                   List of documents
 	 *
@@ -180,9 +180,9 @@ class Documents extends DolibarrApi
 
 		$templateused = '';
 
-		if ($modulePart == 'facture' || $modulePart == 'invoice') {
-			require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-			$tmpobject = new Facture($this->db);
+		if ($modulePart == 'invoice' || $modulePart == 'invoice') {
+			require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+			$tmpobject = new Invoice($this->db);
 			$result = $tmpobject->fetch(0, preg_replace('/\.[^\.]+$/', '', basename($original_file)));
 			if (!$result) {
 				throw new RestException(404, 'Invoice not found');
@@ -193,9 +193,9 @@ class Documents extends DolibarrApi
 			if ($result <= 0) {
 				throw new RestException(500, 'Error generating document');
 			}
-		} elseif ($modulePart == 'facture_fournisseur' || $modulePart == 'invoice_supplier') {
-			require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.facture.class.php';
-			$tmpobject = new FactureFournisseur($this->db);
+		} elseif ($modulePart == 'invoice_fournisseur' || $modulePart == 'invoice_supplier') {
+			require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.invoice.class.php';
+			$tmpobject = new InvoiceSupplier($this->db);
 			$result = $tmpobject->fetch(0, preg_replace('/\.[^\.]+$/', '', basename($original_file)));
 			if (!$result) {
 				throw new RestException(404, 'Supplier invoice not found');
@@ -444,36 +444,36 @@ class Documents extends DolibarrApi
 			}
 
 			$upload_dir = $config->expedition->dir_output."/sending/".get_exdir(0, 0, 0, 1, $object, 'shipment');
-		} elseif ($modulePart == 'facture' || $modulePart == 'invoice') {
-			require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+		} elseif ($modulePart == 'invoice' || $modulePart == 'invoice') {
+			require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
-			if (!DolibarrApiAccess::$user->hasRight('facture', 'lire')) {
+			if (!DolibarrApiAccess::$user->hasRight('invoice', 'lire')) {
 				throw new RestException(403);
 			}
 
-			$object = new Facture($this->db);
+			$object = new Invoice($this->db);
 			$result = $object->fetch($id, $ref);
 			if (!$result) {
 				throw new RestException(404, 'Invoice not found');
 			}
 
-			$upload_dir = $config->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
-		} elseif ($modulePart == 'facture_fournisseur' || $modulePart == 'supplier_invoice') {
+			$upload_dir = $config->invoice->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
+		} elseif ($modulePart == 'invoice_fournisseur' || $modulePart == 'supplier_invoice') {
 			$modulePart = 'supplier_invoice';
 
-			require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 
-			if (!DolibarrApiAccess::$user->hasRight('fournisseur', 'facture', 'lire') && !DolibarrApiAccess::$user->hasRight('supplier_invoice', 'lire')) {
+			if (!DolibarrApiAccess::$user->hasRight('fournisseur', 'invoice', 'lire') && !DolibarrApiAccess::$user->hasRight('supplier_invoice', 'lire')) {
 				throw new RestException(403);
 			}
 
-			$object = new FactureFournisseur($this->db);
+			$object = new InvoiceSupplier($this->db);
 			$result = $object->fetch($id, $ref);
 			if (!$result) {
 				throw new RestException(404, 'Invoice not found');
 			}
 
-			$upload_dir = $config->fournisseur->dir_output."/facture/".get_exdir($object->id, 2, 0, 0, $object, 'invoice_supplier').dol_sanitizeFileName($object->ref);
+			$upload_dir = $config->fournisseur->dir_output."/invoice/".get_exdir($object->id, 2, 0, 0, $object, 'invoice_supplier').dol_sanitizeFileName($object->ref);
 		} elseif ($modulePart == 'produit' || $modulePart == 'product') {
 			require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
@@ -705,16 +705,16 @@ class Documents extends DolibarrApi
 			$tmpreldir = '';
 			$fetchbyid = false;
 
-			if ($modulePart == 'facture' || $modulePart == 'invoice') {
-				$modulePart = 'facture';
+			if ($modulePart == 'invoice' || $modulePart == 'invoice') {
+				$modulePart = 'invoice';
 
-				require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-				$object = new Facture($this->db);
-			} elseif ($modulePart == 'facture_fournisseur' || $modulePart == 'supplier_invoice') {
+				require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+				$object = new Invoice($this->db);
+			} elseif ($modulePart == 'invoice_fournisseur' || $modulePart == 'supplier_invoice') {
 				$modulePart = 'supplier_invoice';
 
-				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-				$object = new FactureFournisseur($this->db);
+				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
+				$object = new InvoiceSupplier($this->db);
 			} elseif ($modulePart == 'order' || $modulePart == 'order') {
 				$modulePart = 'order';
 
@@ -827,7 +827,7 @@ class Documents extends DolibarrApi
 			}
 		} else {
 			if ($modulePart == 'invoice') {
-				$modulePart = 'facture';
+				$modulePart = 'invoice';
 			}
 			if ($modulePart == 'member') {
 				$modulePart = 'member';

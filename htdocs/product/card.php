@@ -70,7 +70,7 @@ if (isModEnabled('propal')) {
 	require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 }
 if (isModEnabled('invoice')) {
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 }
 if (isModEnabled('order')) {
 	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
@@ -351,9 +351,9 @@ if (empty($resHook)) {
 						'OrderFournisseur' => '/fourn/class/fournisseur.order.class.php',
 						'Contract' => '/contract/class/contract.class.php',
 						'Delivery' => '/delivery/class/delivery.class.php',
-						'Facture' => '/compta/facture/class/facture.class.php',
-						'FactureFournisseur' => '/fourn/class/fournisseur.facture.class.php',
-						'FactureRec' => '/compta/facture/class/facture-rec.class.php',
+						'Invoice' => '/compta/invoice/class/invoice.class.php',
+						'InvoiceSupplier' => '/fourn/class/fournisseur.invoice.class.php',
+						'InvoiceRec' => '/compta/invoice/class/invoice-rec.class.php',
 						'FichinterRec' => '/fichinter/class/fichinterrec.class.php',
 						'ProductFournisseur' => '/fourn/class/fournisseur.product.class.php',
 						'Propal' => '/comm/propal/class/propal.class.php',
@@ -1069,7 +1069,7 @@ if (empty($resHook)) {
 		$thirdpartyid = 0;
 		$permissionToAddline = false;
 		$propal = null;
-		$facture = null;
+		$invoice = null;
 		$order = null;
 
 		// Get object and test permission
@@ -1091,15 +1091,15 @@ if (empty($resHook)) {
 			}
 			$thirdpartyid = $order->socid;
 			$permissionToAddline = $user->hasRight('order', 'creer');
-		} elseif (GETPOST('factureid') > 0) {
-			$facture = new Facture($db);
-			$result = $facture->fetch(GETPOST('factureid'));
+		} elseif (GETPOST('invoiceid') > 0) {
+			$invoice = new Invoice($db);
+			$result = $invoice->fetch(GETPOST('invoiceid'));
 			if ($result <= 0) {
-				dol_print_error($db, $facture->error);
+				dol_print_error($db, $invoice->error);
 				exit;
 			}
-			$thirdpartyid = $facture->socid;
-			$permissionToAddline = $user->hasRight('facture', 'creer');
+			$thirdpartyid = $invoice->socid;
+			$permissionToAddline = $user->hasRight('invoice', 'creer');
 		}
 
 		if ($thirdpartyid > 0) {
@@ -1242,17 +1242,17 @@ if (empty($resHook)) {
 				}
 
 				setEventMessages($langs->trans("ErrorUnknown").": $result", null, 'errors');
-			} elseif (GETPOST('factureid') > 0 && $permissionToAddline && is_object($facture)) {
+			} elseif (GETPOST('invoiceid') > 0 && $permissionToAddline && is_object($invoice)) {
 				// Define cost price for margin calculation
 				$buyprice = 0;
-				if (($result = $facture->defineBuyPrice($pu_ht, price2num(GETPOST('remise_percent'), '', 2), $object->id)) < 0) {
+				if (($result = $invoice->defineBuyPrice($pu_ht, price2num(GETPOST('remise_percent'), '', 2), $object->id)) < 0) {
 					dol_syslog($langs->trans('FailedToGetCostPrice'));
 					setEventMessages($langs->trans('FailedToGetCostPrice'), null, 'errors');
 				} else {
 					$buyprice = $result;
 				}
 
-				$result = $facture->addline(
+				$result = $invoice->addline(
 					$desc,
 					$pu_ht,
 					price2num(GETPOST('qty'), 'MS'),
@@ -1268,7 +1268,7 @@ if (empty($resHook)) {
 					0,
 					$price_base_type,
 					$pu_ttc,
-					Facture::TYPE_STANDARD,
+					Invoice::TYPE_STANDARD,
 					-1,
 					0,
 					'',
@@ -1284,7 +1284,7 @@ if (empty($resHook)) {
 				);
 
 				if ($result > 0) {
-					header("Location: ".DOL_URL_ROOT."/compta/facture/card.php?facid=".$facture->id);
+					header("Location: ".DOL_URL_ROOT."/compta/invoice/card.php?facid=".$invoice->id);
 					exit;
 				}
 
@@ -3111,9 +3111,9 @@ if (getDolGlobalString('PRODUCT_ADD_FORM_ADD_TO') && $object->id && ($action == 
 		}
 	}
 
-	// Factures
-	if (isModEnabled('invoice') && $user->hasRight('facture', 'creer')) {
-		$invoice = new Facture($db);
+	// Invoices
+	if (isModEnabled('invoice') && $user->hasRight('invoice', 'creer')) {
+		$invoice = new Invoice($db);
 
 		$langs->load("bills");
 
@@ -3121,7 +3121,7 @@ if (getDolGlobalString('PRODUCT_ADD_FORM_ADD_TO') && $object->id && ($action == 
 		if (is_array($otherinvoice) && count($otherinvoice)) {
 			$html .= '<tr><td style="width: 200px;">';
 			$html .= $langs->trans("AddToDraftInvoices").'</td><td>';
-			$html .= $form->selectarray("factureid", $otherinvoice, 0, 1);
+			$html .= $form->selectarray('invoice', $otherinvoice, 0, 1);
 			$html .= '</td></tr>';
 		} else {
 			$html .= '<tr><td style="width: 200px;">';

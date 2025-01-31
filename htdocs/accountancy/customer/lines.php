@@ -30,7 +30,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formaccounting.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingaccount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
@@ -149,7 +149,7 @@ if (is_array($changeaccount) && count($changeaccount) > 0 && $user->hasRight('ac
 	if (!$error) {
 		$db->begin();
 
-		$sql1 = "UPDATE ".MAIN_DB_PREFIX."facturedet";
+		$sql1 = "UPDATE ".MAIN_DB_PREFIX."invoicedet";
 		$sql1 .= " SET fk_code_ventilation = ".(GETPOSTINT('account_parent') > 0 ? GETPOSTINT('account_parent') : 0);
 		$sql1 .= ' WHERE rowid IN ('.$db->sanitize(implode(',', $changeaccount)).')';
 
@@ -232,13 +232,13 @@ $sql .= " s.rowid as socid, s.nom as name, s.tva_intra, s.email, s.town, s.zip, 
 $parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
-$sql .= " FROM ".MAIN_DB_PREFIX."facturedet as fd";
+$sql .= " FROM ".MAIN_DB_PREFIX."invoicedet as fd";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = fd.fk_product";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 }
 $sql .= " INNER JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON aa.rowid = fd.fk_code_ventilation";
-$sql .= " INNER JOIN ".MAIN_DB_PREFIX."facture as f ON f.rowid = fd.fk_facture";
+$sql .= " INNER JOIN ".MAIN_DB_PREFIX."invoice as f ON f.rowid = fd.fk_invoice";
 $sql .= " INNER JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
@@ -248,9 +248,9 @@ $sql .= " WHERE fd.fk_code_ventilation > 0";
 $sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share object for accountancy
 $sql .= " AND f.fk_statut > 0";
 if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
-	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.",".Facture::TYPE_REPLACEMENT.",".Facture::TYPE_CREDIT_NOTE.",".Facture::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.",".Invoice::TYPE_REPLACEMENT.",".Invoice::TYPE_CREDIT_NOTE.",".Invoice::TYPE_SITUATION.")";
 } else {
-	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.",".Facture::TYPE_REPLACEMENT.",".Facture::TYPE_CREDIT_NOTE.",".Facture::TYPE_DEPOSIT.",".Facture::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.",".Invoice::TYPE_REPLACEMENT.",".Invoice::TYPE_CREDIT_NOTE.",".Invoice::TYPE_DEPOSIT.",".Invoice::TYPE_SITUATION.")";
 }
 // Add search filter like
 if ($search_societe) {
@@ -454,7 +454,7 @@ if ($result) {
 	print "</tr>\n";
 
 	$thirdpartystatic = new Societe($db);
-	$facturestatic = new Facture($db);
+	$invoicestatic = new Invoice($db);
 	$productstatic = new Product($db);
 	$accountingaccountstatic = new AccountingAccount($db);
 
@@ -462,9 +462,9 @@ if ($result) {
 	while ($i < min($num_lines, $limit)) {
 		$objp = $db->fetch_object($result);
 
-		$facturestatic->ref = $objp->ref;
-		$facturestatic->id = $objp->facid;
-		$facturestatic->type = $objp->ftype;
+		$invoicestatic->ref = $objp->ref;
+		$invoicestatic->id = $objp->facid;
+		$invoicestatic->type = $objp->ftype;
 
 		$thirdpartystatic->id = $objp->socid;
 		$thirdpartystatic->name = $objp->name;
@@ -498,7 +498,7 @@ if ($result) {
 		print '<td>'.$objp->rowid.'</td>';
 
 		// Ref Invoice
-		print '<td class="nowraponall tdoverflowmax125">'.$facturestatic->getNomUrl(1).'</td>';
+		print '<td class="nowraponall tdoverflowmax125">'.$invoicestatic->getNomUrl(1).'</td>';
 
 		// Date invoice
 		print '<td class="center">'.dol_print_date($db->jdate($objp->datef), 'day').'</td>';
@@ -537,7 +537,7 @@ if ($result) {
 				if ($objp->situation_percent == 0) {
 					$situation_ratio = 0;
 				} else {
-					$line = new FactureLigne($db);
+					$line = new InvoiceLine($db);
 					$line->fetch($objp->rowid);
 
 					// Situation invoices handling

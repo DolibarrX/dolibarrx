@@ -28,7 +28,7 @@
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
 
 /**
@@ -131,7 +131,7 @@ if ($id > 0) {
 	dol_banner_tab($object, 'socid', '', ($user->socid ? 0 : 1), 'rowid', 'nom', '', '', 0, '', '', 1);
 	print dol_get_fiche_end();
 
-	if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
+	if (isModEnabled('invoice') && $user->hasRight('invoice', 'lire')) {
 		// Invoice list
 		print load_fiche_titre($langs->trans("CustomerPreview"));
 
@@ -153,7 +153,7 @@ if ($id > 0) {
 		$sql = "SELECT s.nom, s.rowid as socid, f.ref, f.total_ttc, f.datef as df,";
 		$sql .= " f.paye as paye, f.fk_statut as statut, f.rowid as facid,";
 		$sql .= " u.login, u.rowid as userid";
-		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."facture as f,".MAIN_DB_PREFIX."user as u";
+		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."invoice as f,".MAIN_DB_PREFIX."user as u";
 		$sql .= " WHERE f.fk_soc = s.rowid AND s.rowid = ".((int) $object->id);
 		$sql .= " AND f.entity IN (".getEntity('invoice').")";
 		$sql .= " AND f.fk_user_valid = u.rowid";
@@ -163,11 +163,11 @@ if ($id > 0) {
 		if ($resql) {
 			$num = $db->num_rows($resql);
 
-			// Boucle sur chaque facture
+			// Loop on every bill
 			for ($i = 0; $i < $num; $i++) {
 				$objf = $db->fetch_object($resql);
 
-				$fac = new Facture($db);
+				$fac = new Invoice($db);
 				$ret = $fac->fetch($objf->facid);
 				if ($ret < 0) {
 					print $fac->error."<br>";
@@ -182,7 +182,7 @@ if ($id > 0) {
 				$userstatic->login = $objf->login;
 
 				$values = array(
-					'fk_facture' => $objf->facid,
+					'fk_invoice' => $objf->facid,
 					'date' => $fac->date,
 					'datefieldforsort' => $fac->date.'-'.$fac->ref,
 					'link' => $fac->getNomUrl(1),
@@ -202,12 +202,12 @@ if ($id > 0) {
 				// Paiements
 				$sql = "SELECT p.rowid, p.datep as dp, pf.amount, p.statut,";
 				$sql .= " p.fk_user_creat, u.login, u.rowid as userid";
-				$sql .= " FROM ".MAIN_DB_PREFIX."paiement_facture as pf,";
+				$sql .= " FROM ".MAIN_DB_PREFIX."paiement_invoice as pf,";
 				$sql .= " ".MAIN_DB_PREFIX."paiement as p";
 				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON p.fk_user_creat = u.rowid";
 				$sql .= " WHERE pf.fk_paiement = p.rowid";
 				$sql .= " AND p.entity = ".$config->entity;
-				$sql .= " AND pf.fk_facture = ".((int) $fac->id);
+				$sql .= " AND pf.fk_invoice = ".((int) $fac->id);
 				$sql .= " ORDER BY p.datep ASC, p.rowid ASC";
 
 				$resqlp = $db->query($sql);
@@ -279,8 +279,8 @@ if ($id > 0) {
 			// Display array
 			foreach ($TData as $data) {
 				$html_class = '';
-				if (!empty($data['fk_facture'])) {
-					$html_class = 'facid-'.$data['fk_facture'];
+				if (!empty($data['fk_invoice'])) {
+					$html_class = 'facid-'.$data['fk_invoice'];
 				} elseif (!empty($data['fk_paiement'])) {
 					$html_class = 'payid-'.$data['fk_paiement'];
 				}
@@ -288,7 +288,7 @@ if ($id > 0) {
 				print '<tr class="oddeven '.$html_class.'">';
 
 				$datedetail = dol_print_date($data['date'], 'dayhour');
-				if (!empty($data['fk_facture'])) {
+				if (!empty($data['fk_invoice'])) {
 					$datedetail = dol_print_date($data['date'], 'day');
 				}
 				print '<td class="center" title="'.dol_escape_htmltag($datedetail).'">';

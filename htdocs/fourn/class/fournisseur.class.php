@@ -236,7 +236,7 @@ class Fournisseur extends Societe
 	public static function replaceThirdparty(DoliDB $dbs, $origin_id, $dest_id)
 	{
 		$tables = array(
-			'facture_fourn'
+			'invoice_fourn'
 		);
 
 		return CommonObject::commonReplaceThirdparty($dbs, $origin_id, $dest_id, $tables);

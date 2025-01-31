@@ -264,9 +264,9 @@ if ($ok && GETPOST('standard', 'alpha')) {
 	// List of tables that has an extrafield table
 	$listofmodulesextra = array('societe' => 'societe', 'member' => 'member', 'product' => 'product',
 				'socpeople' => 'socpeople', 'propal' => 'propal', 'order' => 'order',
-				'facture' => 'facture', 'facturedet' => 'facturedet', 'facture_rec' => 'facture_rec', 'facturedet_rec' => 'facturedet_rec',
+				'invoice' => 'invoice', 'invoicedet' => 'invoicedet', 'invoice_rec' => 'invoice_rec', 'invoicedet_rec' => 'invoicedet_rec',
 				'supplier_proposal' => 'supplier_proposal', 'order_fournisseur' => 'order_fournisseur',
-				'facture_fourn' => 'facture_fourn', 'facture_fourn_rec' => 'facture_fourn_rec', 'facture_fourn_det' => 'facture_fourn_det', 'facture_fourn_det_rec' => 'facture_fourn_det_rec',
+				'invoice_fourn' => 'invoice_fourn', 'invoice_fourn_rec' => 'invoice_fourn_rec', 'invoice_fourn_det' => 'invoice_fourn_det', 'invoice_fourn_det_rec' => 'invoice_fourn_det_rec',
 				'fichinter' => 'fichinter', 'fichinterdet' => 'fichinterdet',
 				'inventory' => 'inventory',
 				'actioncomm' => 'actioncomm', 'bom_bom' => 'bom_bom', 'mrp_mo' => 'mrp_mo',
@@ -724,10 +724,10 @@ if ($ok && GETPOST('clean_linked_elements', 'alpha')) {
 	print '<tr><td colspan="2">'.checkLinkedElements('propal', 'order')."</td></tr>\n";
 
 	// propal => invoice
-	print '<tr><td colspan="2">'.checkLinkedElements('propal', 'facture')."</td></tr>\n";
+	print '<tr><td colspan="2">'.checkLinkedElements('propal', 'invoice')."</td></tr>\n";
 
 	// order => invoice
-	print '<tr><td colspan="2">'.checkLinkedElements('order', 'facture')."</td></tr>\n";
+	print '<tr><td colspan="2">'.checkLinkedElements('order', 'invoice')."</td></tr>\n";
 
 	// order => shipping
 	print '<tr><td colspan="2">'.checkLinkedElements('order', 'shipping')."</td></tr>\n";
@@ -834,10 +834,10 @@ if ($ok && GETPOST('clean_orphelin_dir', 'alpha')) {
 			$upload_dir = $config->societe->dir_output; // TODO change for multicompany sharing
 		}
 		if ($modulePart == 'invoice') {
-			$upload_dir = $config->facture->dir_output;
+			$upload_dir = $config->invoice->dir_output;
 		}
 		if ($modulePart == 'invoice_supplier') {
-			$upload_dir = $config->fournisseur->facture->dir_output;
+			$upload_dir = $config->fournisseur->invoice->dir_output;
 		}
 		if ($modulePart == 'order') {
 			$upload_dir = $config->order->dir_output;
@@ -863,11 +863,11 @@ if ($ok && GETPOST('clean_orphelin_dir', 'alpha')) {
 			$object_instance = new Societe($db);
 		}
 		if ($modulePart == 'invoice') {
-			include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-			$object_instance = new Facture($db);
+			include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+			$object_instance = new Invoice($db);
 		} elseif ($modulePart == 'invoice_supplier') {
-			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-			$object_instance = new FactureFournisseur($db);
+			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
+			$object_instance = new InvoiceSupplier($db);
 		} elseif ($modulePart == 'propal') {
 			include_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 			$object_instance = new Propal($db);
@@ -1825,16 +1825,16 @@ if ($ok && GETPOST('recalculateinvoicetotal') == 'confirmed') {
 	$err = 0;
 	$db->begin();
 	$sql = "SELECT f.rowid, SUM(fd.total_ht) as total_ht";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture f";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facturedet fd ON fd.fk_facture = f.rowid";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice f";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoicedet fd ON fd.fk_invoice = f.rowid";
 	$sql .= " WHERE f.total_ht = 0";
-	$sql .= " GROUP BY fd.fk_facture HAVING SUM(fd.total_ht) <> 0";
+	$sql .= " GROUP BY fd.fk_invoice HAVING SUM(fd.total_ht) <> 0";
 
 	$resql = $db->query($sql);
 	if ($resql) {
 		$num = $db->num_rows($resql);
-		print "We found ".$num." factures qualified that will have their total recalculated because they are at zero and line items not at zero\n";
-		dol_syslog("We found ".$num." factures qualified that will have their total recalculated because they are at zero and line items not at zero");
+		print "We found ".$num." invoices qualified that will have their total recalculated because they are at zero and line items not at zero\n";
+		dol_syslog("We found ".$num." invoices qualified that will have their total recalculated because they are at zero and line items not at zero");
 
 		if ($num) {
 			$i = 0;
@@ -1848,13 +1848,13 @@ if ($ok && GETPOST('recalculateinvoicetotal') == 'confirmed') {
 						SUM(fd.total_localtax2) as 'localtax2',
 						SUM(fd.total_ttc) as 'total_ttc'
 					FROM
-						".MAIN_DB_PREFIX."facturedet fd
+						".MAIN_DB_PREFIX."invoicedet fd
 					WHERE
-						fd.fk_facture = $obj->rowid";
+						fd.fk_invoice = $obj->rowid";
 				$ressql_calculs = $db->query($sql_calculs);
 				while ($obj_calcul = $db->fetch_object($ressql_calculs)) {
 					$sql_maj = "
-						UPDATE ".MAIN_DB_PREFIX."facture
+						UPDATE ".MAIN_DB_PREFIX."invoice
 						SET
 							total_ht = ".($obj_calcul->total_ht ? price2num($obj_calcul->total_ht, 'MT') : 0).",
 							total_tva = ".($obj_calcul->total_tva ? price2num($obj_calcul->total_tva, 'MT') : 0).",
@@ -1868,7 +1868,7 @@ if ($ok && GETPOST('recalculateinvoicetotal') == 'confirmed') {
 				$i++;
 			}
 		} else {
-			print "Pas de factures à traiter\n";
+			print "Pas de invoices à traiter\n";
 		}
 	} else {
 		dol_print_error($db);

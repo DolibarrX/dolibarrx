@@ -212,8 +212,8 @@ if ($action == 'testtemplate' && $user->admin) {
 
 	// if (! $error) {
 	// test
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-	$object = new Facture($db);
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+	$object = new Invoice($db);
 	$object->initAsSpecimen();
 	//$object->fetch(18);
 	//var_dump($object->lines);

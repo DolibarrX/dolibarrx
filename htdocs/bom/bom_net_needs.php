@@ -200,13 +200,13 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	// Find sell price of generated product. We suppose we sell it to a company like ours (same country...).
 	$object->fetch_product();
-	$manufacturedvalued = '';
+	$manuinvoicedvalued = '';
 	if (!empty($object->product)) {
 		global $mysoc;
 		$tmparray = $object->product->getSellPrice($mysoc, $mysoc);
-		$manufacturedvalued = $tmparray['pu_ht'] * $object->qty;
+		$manuinvoicedvalued = $tmparray['pu_ht'] * $object->qty;
 	}
-	print '<tr><td>'.$langs->trans("ManufacturingGeneratedValue").'</td><td>'.price($manufacturedvalued).'</td></tr>';
+	print '<tr><td>'.$langs->trans("ManufacturingGeneratedValue").'</td><td>'.price($manuinvoicedvalued).'</td></tr>';
 
 	// Other attributes
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_view.tpl.php';

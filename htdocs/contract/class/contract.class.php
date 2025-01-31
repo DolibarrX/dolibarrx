@@ -1686,7 +1686,7 @@ class Contract extends CommonObject
 	/**
 	 *  Mets a jour une ligne de contract
 	 *
-	 *  @param	int			$rowid            	Id de la ligne de facture
+	 *  @param	int			$rowid            	Id from the invoice line
 	 *  @param  string		$desc             	Description de la ligne
 	 *  @param  float		$pu               	Prix unitaire
 	 *  @param  float		$qty              	Quantite
@@ -2803,14 +2803,14 @@ class Contract extends CommonObject
 					$object->fetchObjectLinked(null, '', null, '', 'OR', 1, 'sourcetype', 1);
 
 					// Test if there is at least 1 open invoice
-					if (isset($object->linkedObjects['facture']) && is_array($object->linkedObjects['facture']) && count($object->linkedObjects['facture']) > 0) {
+					if (isset($object->linkedObjects['invoice']) && is_array($object->linkedObjects['invoice']) && count($object->linkedObjects['invoice']) > 0) {
 						// Sort array of linked invoices by ascending date
-						usort($object->linkedObjects['facture'], array('Contract', 'contractCmpDate'));
-						//dol_sort_array($object->linkedObjects['facture'], 'date');
+						usort($object->linkedObjects['invoice'], array('Contract', 'contractCmpDate'));
+						//dol_sort_array($object->linkedObjects['invoice'], 'date');
 
 						$someinvoicenotpaid = 0;
-						foreach ($object->linkedObjects['facture'] as $idinvoice => $invoice) {
-							if ($invoice->statut == Facture::STATUS_DRAFT) {
+						foreach ($object->linkedObjects['invoice'] as $idinvoice => $invoice) {
+							if ($invoice->statut == Invoice::STATUS_DRAFT) {
 								continue;
 							}	// Draft invoice are not invoice not paid
 

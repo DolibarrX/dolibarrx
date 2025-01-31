@@ -47,7 +47,7 @@ if (!defined('NOBROWSERNOTIF')) {
 require '../../main.inc.php'; // Load $user and permissions
 require_once DOL_DOCUMENT_ROOT.'/includes/stripe/stripe-php/init.php';
 require_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
 /**
  * @var Config $config
@@ -108,7 +108,7 @@ if ($action == 'getConnexionToken') {
 
 		// For Terminal payments, the 'payment_method_types' parameter must include
 		// 'card_present' and the 'capture_method' must be set to 'manual'
-		$object = new Facture($db);
+		$object = new Invoice($db);
 		$object->fetch($json_obj->invoiceid);
 		$object->fetch_thirdparty();
 

@@ -162,7 +162,7 @@ function product_prepare_head($object)
 		}
 	}
 
-	$head[$h][0] = DOL_URL_ROOT . "/product/stats/facture.php?showmessage=1&id=" . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . "/product/stats/invoice.php?showmessage=1&id=" . $object->id;
 	$head[$h][1] = $langs->trans('Referers');
 	$head[$h][2] = 'referers';
 	$h++;
@@ -543,59 +543,59 @@ function show_stats_for_company($product, $socid)
 		print '</tr>';
 	}
 	// Customer invoices
-	if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
+	if (isModEnabled('invoice') && $user->hasRight('invoice', 'lire')) {
 		$nblines++;
-		$ret = $product->load_stats_facture($socid);
+		$ret = $product->load_stats_invoice($socid);
 		if ($ret < 0) {
 			dol_print_error($db);
 		}
 		$langs->load("bills");
 		print '<tr><td>';
-		print '<a href="' . DOL_URL_ROOT . '/product/stats/facture.php?id=' . $product->id . '">' . img_object('', 'bill', 'class="picturefixedwidth"') . $langs->trans("CustomersInvoices") . '</a>';
+		print '<a href="' . DOL_URL_ROOT . '/product/stats/invoice.php?id=' . $product->id . '">' . img_object('', 'bill', 'class="picturefixedwidth"') . $langs->trans("CustomersInvoices") . '</a>';
 		print '</td><td class="right">';
-		print $product->stats_facture['customers'];
+		print $product->stats_invoice['customers'];
 		print '</td><td class="right">';
-		print $product->stats_facture['nb'];
+		print $product->stats_invoice['nb'];
 		print '</td><td class="right">';
-		print price($product->stats_facture['qty'], 1, $langs, 0, 0);
+		print price($product->stats_invoice['qty'], 1, $langs, 0, 0);
 		print '</td>';
 		print '</tr>';
 	}
 	// Customer template invoices
-	if (isModEnabled("invoice") && $user->hasRight('facture', 'lire')) {
+	if (isModEnabled("invoice") && $user->hasRight('invoice', 'lire')) {
 		$nblines++;
-		$ret = $product->load_stats_facturerec($socid);
+		$ret = $product->load_stats_invoicerec($socid);
 		if ($ret < 0) {
 			dol_print_error($db);
 		}
 		$langs->load("bills");
 		print '<tr><td>';
-		print '<a href="' . DOL_URL_ROOT . '/product/stats/facturerec.php?id=' . $product->id . '">' . img_object('', 'bill', 'class="picturefixedwidth"') . $langs->trans("RecurringInvoiceTemplate") . '</a>';
+		print '<a href="' . DOL_URL_ROOT . '/product/stats/invoicerec.php?id=' . $product->id . '">' . img_object('', 'bill', 'class="picturefixedwidth"') . $langs->trans("RecurringInvoiceTemplate") . '</a>';
 		print '</td><td class="right">';
-		print $product->stats_facture['customers'];
+		print $product->stats_invoice['customers'];
 		print '</td><td class="right">';
-		print $product->stats_facturerec['nb'];
+		print $product->stats_invoicerec['nb'];
 		print '</td><td class="right">';
-		print $product->stats_facturerec['qty'];
+		print $product->stats_invoicerec['qty'];
 		print '</td>';
 		print '</tr>';
 	}
 	// Supplier invoices
-	if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'facture', 'lire')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire'))) {
+	if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'invoice', 'lire')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire'))) {
 		$nblines++;
-		$ret = $product->load_stats_facture_fournisseur($socid);
+		$ret = $product->load_stats_invoice_fournisseur($socid);
 		if ($ret < 0) {
 			dol_print_error($db);
 		}
 		$langs->load("bills");
 		print '<tr><td>';
-		print '<a href="' . DOL_URL_ROOT . '/product/stats/facture_fournisseur.php?id=' . $product->id . '">' . img_object('', 'supplier_invoice', 'class="picturefixedwidth"') . $langs->trans("SuppliersInvoices") . '</a>';
+		print '<a href="' . DOL_URL_ROOT . '/product/stats/invoice_fournisseur.php?id=' . $product->id . '">' . img_object('', 'supplier_invoice', 'class="picturefixedwidth"') . $langs->trans("SuppliersInvoices") . '</a>';
 		print '</td><td class="right">';
-		print $product->stats_facture_fournisseur['suppliers'];
+		print $product->stats_invoice_fournisseur['suppliers'];
 		print '</td><td class="right">';
-		print $product->stats_facture_fournisseur['nb'];
+		print $product->stats_invoice_fournisseur['nb'];
 		print '</td><td class="right">';
-		print price($product->stats_facture_fournisseur['qty'], 1, $langs, 0, 0);
+		print price($product->stats_invoice_fournisseur['qty'], 1, $langs, 0, 0);
 		print '</td>';
 		print '</tr>';
 	}

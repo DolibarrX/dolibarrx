@@ -68,8 +68,8 @@ if (isModEnabled('expensereport')) {
 	require_once DOL_DOCUMENT_ROOT.'/expensereport/class/expensereport.class.php';
 }
 if (isModEnabled('invoice')) {
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice-rec.class.php';
 }
 if (isModEnabled('intervention')) {
 	require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
@@ -92,7 +92,7 @@ if (isModEnabled('stock')) {
 	require_once DOL_DOCUMENT_ROOT.'/product/stock/class/mouvementstock.class.php';
 }
 if (isModEnabled('supplier_invoice')) {
-	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 }
 if (isModEnabled('supplier_order')) {
 	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
@@ -448,27 +448,27 @@ $listofreferent = array(
 	'invoice' => array(
 		'name' => "CustomersInvoices",
 		'title' => "ListInvoicesAssociatedProject",
-		'class' => 'Facture',
+		'class' => 'Invoice',
 		'margin' => 'add',
-		'table' => 'facture',
+		'table' => 'invoice',
 		'datefieldname' => 'datef',
-		'urlnew' => DOL_URL_ROOT.'/compta/facture/card.php?action=create&projectid='.$id.'&socid='.$socid.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id),
+		'urlnew' => DOL_URL_ROOT.'/compta/invoice/card.php?action=create&projectid='.$id.'&socid='.$socid.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id),
 		'lang' => 'bills',
 		'buttonnew' => 'CreateBill',
-		'testnew' => $user->hasRight('facture', 'creer'),
-		'test' => isModEnabled('invoice') && $user->hasRight('facture', 'lire')
+		'testnew' => $user->hasRight('invoice', 'creer'),
+		'test' => isModEnabled('invoice') && $user->hasRight('invoice', 'lire')
 	),
 	'invoice_predefined' => array(
 		'name' => "PredefinedInvoices",
 		'title' => "ListPredefinedInvoicesAssociatedProject",
-		'class' => 'FactureRec',
-		'table' => 'facture_rec',
+		'class' => 'InvoiceRec',
+		'table' => 'invoice_rec',
 		'datefieldname' => 'datec',
-		'urlnew' => DOL_URL_ROOT.'/compta/facture/card.php?action=create&projectid='.$id.'&socid='.$socid.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id),
+		'urlnew' => DOL_URL_ROOT.'/compta/invoice/card.php?action=create&projectid='.$id.'&socid='.$socid.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id),
 		'lang' => 'bills',
 		'buttonnew' => 'CreateBill',
-		'testnew' => $user->hasRight('facture', 'creer'),
-		'test' => isModEnabled('invoice') && $user->hasRight('facture', 'lire')
+		'testnew' => $user->hasRight('invoice', 'creer'),
+		'test' => isModEnabled('invoice') && $user->hasRight('invoice', 'lire')
 	),
 	'proposal_supplier' => array(
 		'name' => "SupplierProposals",
@@ -497,15 +497,15 @@ $listofreferent = array(
 	'invoice_supplier' => array(
 		'name' => "BillsSuppliers",
 		'title' => "ListSupplierInvoicesAssociatedProject",
-		'class' => 'FactureFournisseur',
+		'class' => 'InvoiceSupplier',
 		'margin' => 'minus',
-		'table' => 'facture_fourn',
+		'table' => 'invoice_fourn',
 		'datefieldname' => 'datef',
-		'urlnew' => DOL_URL_ROOT.'/fourn/facture/card.php?action=create&projectid='.$id.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id), // No socid parameter here, the socid is often the customer and we create a supplier object
+		'urlnew' => DOL_URL_ROOT.'/fourn/invoice/card.php?action=create&projectid='.$id.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id), // No socid parameter here, the socid is often the customer and we create a supplier object
 		'lang' => 'suppliers',
 		'buttonnew' => 'AddSupplierInvoice',
-		'testnew' => $user->hasRight('fournisseur', 'facture', 'creer') || $user->hasRight('supplier_invoice', 'creer'),
-		'test' => isModEnabled('supplier_invoice') && $user->hasRight('fournisseur', 'facture', 'lire') || $user->hasRight('supplier_invoice', 'lire')
+		'testnew' => $user->hasRight('fournisseur', 'invoice', 'creer') || $user->hasRight('supplier_invoice', 'creer'),
+		'test' => isModEnabled('supplier_invoice') && $user->hasRight('fournisseur', 'invoice', 'lire') || $user->hasRight('supplier_invoice', 'lire')
 	),
 	'contract' => array(
 		'name' => "Contracts",
@@ -876,7 +876,7 @@ foreach ($listofreferent as $key => $value) {
 					if (!empty($element->close_code) && $element->close_code == 'replaced') {
 						$qualifiedfortotal = false; // Replacement invoice, do not include into total
 					}
-					if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS') && $element->type == Facture::TYPE_DEPOSIT) {
+					if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS') && $element->type == Invoice::TYPE_DEPOSIT) {
 						$qualifiedfortotal = false; // If hidden option to use deposits as payment (deprecated, not recommended to use this), deposits are not included
 					}
 				}
@@ -1106,7 +1106,7 @@ foreach ($listofreferent as $key => $value) {
 		$addform = '';
 
 		$idtofilterthirdparty = 0;
-		$array_of_element_linkable_with_different_thirdparty = array('facture_fourn', 'order_fournisseur');
+		$array_of_element_linkable_with_different_thirdparty = array('invoice_fourn', 'order_fournisseur');
 		if (!in_array($tablename, $array_of_element_linkable_with_different_thirdparty)) {
 			$idtofilterthirdparty = empty($object->thirdparty->id) ? 0 : $object->thirdparty->id;
 			if (getDolGlobalString('PROJECT_OTHER_THIRDPARTY_ID_TO_ADD_ELEMENTS')) {
@@ -1353,9 +1353,9 @@ foreach ($listofreferent as $key => $value) {
 						$element_doc = 'order_fournisseur';
 						$filedir = $config->fournisseur->order->multidir_output[$element->entity].'/'.dol_sanitizeFileName($element->ref);
 					} elseif ($element_doc === 'invoice_supplier') {
-						$element_doc = 'facture_fournisseur';
+						$element_doc = 'invoice_fournisseur';
 						$filename = get_exdir($element->id, 2, 0, 0, $element, 'invoice_supplier').dol_sanitizeFileName($element->ref);
-						$filedir = $config->fournisseur->facture->multidir_output[$element->entity].'/'.$filename;
+						$filedir = $config->fournisseur->invoice->multidir_output[$element->entity].'/'.$filename;
 					}
 
 					print '<div class="inline-block valignmiddle">';
@@ -1594,7 +1594,7 @@ foreach ($listofreferent as $key => $value) {
 				if ($tablename == 'expensereport_det') {
 					print $expensereport->getLibStatut(5);
 				} elseif ($element instanceof CommonInvoice) {
-					//This applies for Facture and FactureFournisseur
+					//This applies for Invoice and InvoiceSupplier
 					print $element->getLibStatut(5, $element->getSommePaiement());
 				} elseif ($element instanceof Task) {
 					if ($element->progress != '') {
@@ -1736,7 +1736,7 @@ function canApplySubtotalOn($tablename)
 	if (!getDolGlobalString('PROJECT_ADD_SUBTOTAL_LINES')) {
 		return false;
 	}
-	return in_array($tablename, array('facture_fourn', 'order_fournisseur'));
+	return in_array($tablename, array('invoice_fourn', 'order_fournisseur'));
 }
 
 /**

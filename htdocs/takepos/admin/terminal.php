@@ -436,7 +436,7 @@ if (getDolGlobalString('TAKEPOS_ADDON') == "terminal") {
 	$array = array(0 => $langs->trans("Default"));
 	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
-		$dir = dol_buildpath($reldir."core/modules/facture/");
+		$dir = dol_buildpath($reldir."core/modules/invoice/");
 		if (is_dir($dir)) {
 			$handle = opendir($dir);
 			if (is_resource($handle)) {
@@ -447,7 +447,7 @@ if (getDolGlobalString('TAKEPOS_ADDON') == "terminal") {
 						// For compatibility
 						if (!is_file($dir.$filebis)) {
 							$filebis = $file."/".$file.".modules.php";
-							$classname = "mod_facture_".$file;
+							$classname = "mod_invoice_".$file;
 						}
 						// Check if there is a filter on country
 						preg_match('/\-(.*)_(.*)$/', $classname, $reg);
@@ -461,7 +461,7 @@ if (getDolGlobalString('TAKEPOS_ADDON') == "terminal") {
 							require_once $dir.$filebis;
 
 							$module = new $classname($db);
-							'@phan-var-force ModeleNumRefFactures $module';
+							'@phan-var-force ModeleNumRefInvoices $module';
 
 							// Show modules according to features level
 							if ($module->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2) {
@@ -472,7 +472,7 @@ if (getDolGlobalString('TAKEPOS_ADDON') == "terminal") {
 							}
 
 							if ($module->isEnabled()) {
-								$array[preg_replace('/\-.*$/', '', preg_replace('/\.php$/', '', $file))] = preg_replace('/\-.*$/', '', preg_replace('/mod_facture_/', '', preg_replace('/\.php$/', '', $file)));
+								$array[preg_replace('/\-.*$/', '', preg_replace('/\.php$/', '', $file))] = preg_replace('/\-.*$/', '', preg_replace('/mod_invoice_/', '', preg_replace('/\.php$/', '', $file)));
 							}
 						}
 					}

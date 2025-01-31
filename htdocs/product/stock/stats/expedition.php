@@ -23,7 +23,7 @@
 
 /**
  *	\file       htdocs/product/stock/stats/expedition.php
- *	\ingroup    product service facture
+ *	\ingroup    product service invoice
  *	\brief      Page of expedition statistics for a batch
  */
 

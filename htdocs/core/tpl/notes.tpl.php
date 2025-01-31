@@ -83,7 +83,7 @@ if ($module == 'propal') {
 	$permission = $user->hasRight("projet", "creer");
 } elseif ($module == 'invoice_supplier') {
 	if (!getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) {
-		$permission = $user->hasRight("fournisseur", "facture", "creer");
+		$permission = $user->hasRight("fournisseur", "invoice", "creer");
 	} else {
 		$permission = $user->hasRight("supplier_invoice", "creer");
 	}

@@ -31,8 +31,8 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/bookkeeping.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formaccounting.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingjournal.class.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingaccount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/lettering.class.php';
@@ -732,13 +732,13 @@ if ($action == 'create') {
 		if ($object->doc_type == 'customer_invoice')
 		{
 		$sqlmid = 'SELECT rowid as ref';
-			$sqlmid .= " FROM ".MAIN_DB_PREFIX."facture as fac";
+			$sqlmid .= " FROM ".MAIN_DB_PREFIX."invoice as fac";
 			$sqlmid .= " WHERE fac.rowid=" . ((int) $object->fk_doc);
 			dol_syslog("accountancy/bookkeeping/card.php::sqlmid=" . $sqlmid, LOG_DEBUG);
 			$resultmid = $db->query($sqlmid);
 			if ($resultmid) {
 				$objmid = $db->fetch_object($resultmid);
-				$invoicestatic = new Facture($db);
+				$invoicestatic = new Invoice($db);
 				$invoicestatic->fetch($objmid->ref);
 				$ref=$langs->trans("Invoice").' '.$invoicestatic->getNomUrl(1);
 			}

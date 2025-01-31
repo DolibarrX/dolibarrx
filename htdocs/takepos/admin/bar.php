@@ -81,7 +81,7 @@ if (GETPOST('action', 'alpha') == 'set') {
 
 if (getDolGlobalInt('TAKEPOS_ORDER_NOTES') == 1) {
 	$extrafields = new ExtraFields($db);
-	$extrafields->addExtraField('order_notes', 'Order notes', 'varchar', 0, 255, 'facturedet', 0, 0, '', '', 0, '', 0, 1);
+	$extrafields->addExtraField('order_notes', 'Order notes', 'varchar', 0, 255, 'invoicedet', 0, 0, '', '', 0, '', 0, 1);
 }
 
 /*

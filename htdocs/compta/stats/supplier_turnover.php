@@ -247,7 +247,7 @@ if (isModEnabled('accounting')) {
 
 if ($modecompta == 'CREANCES-DETTES') {
 	$sql = "SELECT date_format(f.datef,'%Y-%m') as dm, sum(f.total_ht) as amount, sum(f.total_ttc) as amount_ttc";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f";
 	$sql .= " WHERE f.fk_statut in (1,2)";
 	$sql .= " AND f.type IN (0,2)";
 	$sql .= " AND f.entity IN (".getEntity('supplier_invoice').")";
@@ -256,11 +256,11 @@ if ($modecompta == 'CREANCES-DETTES') {
 	}
 } elseif ($modecompta == "RECETTES-DEPENSES") {
 	$sql = "SELECT date_format(p.datep,'%Y-%m') as dm, sum(pf.amount) as amount_ttc";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
-	$sql .= ", ".MAIN_DB_PREFIX."paiementfourn_facturefourn as pf";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f";
+	$sql .= ", ".MAIN_DB_PREFIX."paiementfourn_invoicefourn as pf";
 	$sql .= ", ".MAIN_DB_PREFIX."paiementfourn as p";
 	$sql .= " WHERE p.rowid = pf.fk_paiementfourn";
-	$sql .= " AND pf.fk_facturefourn = f.rowid";
+	$sql .= " AND pf.fk_invoicefourn = f.rowid";
 	$sql .= " AND f.entity IN (".getEntity('supplier_invoice').")";
 	if ($socid) {
 		$sql .= " AND f.fk_soc = ".((int) $socid);

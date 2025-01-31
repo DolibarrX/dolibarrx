@@ -1256,7 +1256,7 @@ class Asset extends CommonObject
 		}
 		if ($result > 0) {
 			if ($disposal_invoice_id > 0) {
-				$this->add_object_linked('facture', $disposal_invoice_id);
+				$this->add_object_linked('invoice', $disposal_invoice_id);
 			}
 			$result = $this->setStatusCommon($user, self::STATUS_DISPOSED, $notrigger, 'ASSET_DISPOSED');
 		}
@@ -1322,7 +1322,7 @@ class Asset extends CommonObject
 		$this->disposal_subject_to_vat = 0;
 		$result = $this->update($user, 1);
 		if ($result > 0) {
-			$this->deleteObjectLinked(null, 'facture');
+			$this->deleteObjectLinked(null, 'invoice');
 			$result = $this->setStatusCommon($user, self::STATUS_DRAFT, $notrigger, 'ASSET_REOPEN');
 		}
 		if ($result > 0) {

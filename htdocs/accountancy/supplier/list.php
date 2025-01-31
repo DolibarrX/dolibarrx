@@ -34,7 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formaccounting.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingaccount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
@@ -205,7 +205,7 @@ if ($massaction == 'ventil' && $user->hasRight('accounting', 'bind', 'write')) {
 				$msg .= '<div><span class="error">'.$langs->trans("Lineofinvoice").' '.$monId.' - '.$langs->trans("NoAccountSelected").'</span></div>';
 				$ko++;
 			} else {
-				$sql = " UPDATE ".MAIN_DB_PREFIX."facture_fourn_det";
+				$sql = " UPDATE ".MAIN_DB_PREFIX."invoice_fourn_det";
 				$sql .= " SET fk_code_ventilation = ".((int) $monCompte);
 				$sql .= " WHERE rowid = ".((int) $monId);
 
@@ -256,7 +256,7 @@ if (empty($chartaccountcode)) {
 }
 
 // Supplier Invoice Lines
-$sql = "SELECT f.rowid as facid, f.ref, f.ref_supplier, f.libelle as invoice_label, f.datef, f.type as ftype, f.fk_facture_source,";
+$sql = "SELECT f.rowid as facid, f.ref, f.ref_supplier, f.libelle as invoice_label, f.datef, f.type as ftype, f.fk_invoice_source,";
 $sql .= " l.rowid, l.fk_product, l.description, l.total_ht, l.fk_code_ventilation, l.product_type as type_l, l.tva_tx as tva_tx_line, l.vat_src_code,";
 $sql .= " p.rowid as product_id, p.ref as product_ref, p.label as product_label, p.fk_product_type as type, p.tva_tx as tva_tx_prod,";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
@@ -282,13 +282,13 @@ if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 $parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
-$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
+$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f";
 $sql .= " INNER JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co ON co.rowid = s.fk_pays ";
-$sql .= " INNER JOIN ".MAIN_DB_PREFIX."facture_fourn_det as l ON f.rowid = l.fk_facture_fourn";
+$sql .= " INNER JOIN ".MAIN_DB_PREFIX."invoice_fourn_det as l ON f.rowid = l.fk_invoice_fourn";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = l.fk_product";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
@@ -363,11 +363,11 @@ if (strlen(trim($search_tvaintra))) {
 	$sql .= natural_search("s.tva_intra", $search_tvaintra);
 }
 if (getDolGlobalString('FACTURE_SUPPLIER_DEPOSITS_ARE_JUST_PAYMENTS')) {
-	$sql .= " AND f.type IN (".FactureFournisseur::TYPE_STANDARD.",".FactureFournisseur::TYPE_REPLACEMENT.",".FactureFournisseur::TYPE_CREDIT_NOTE.",".FactureFournisseur::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".InvoiceSupplier::TYPE_STANDARD.",".InvoiceSupplier::TYPE_REPLACEMENT.",".InvoiceSupplier::TYPE_CREDIT_NOTE.",".InvoiceSupplier::TYPE_SITUATION.")";
 } else {
-	$sql .= " AND f.type IN (".FactureFournisseur::TYPE_STANDARD.",".FactureFournisseur::TYPE_REPLACEMENT.",".FactureFournisseur::TYPE_CREDIT_NOTE.",".FactureFournisseur::TYPE_DEPOSIT.",".FactureFournisseur::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".InvoiceSupplier::TYPE_STANDARD.",".InvoiceSupplier::TYPE_REPLACEMENT.",".InvoiceSupplier::TYPE_CREDIT_NOTE.",".InvoiceSupplier::TYPE_DEPOSIT.",".InvoiceSupplier::TYPE_SITUATION.")";
 }
-$sql .= " AND f.entity IN (".getEntity('facture_fourn', 0).")"; // We do not share object for accountancy
+$sql .= " AND f.entity IN (".getEntity('invoice_fourn', 0).")"; // We do not share object for accountancy
 
 // Add where from hooks
 $parameters = [];
@@ -563,8 +563,8 @@ if ($result) {
 	print "</tr>\n";
 
 	$thirdpartystatic = new Societe($db);
-	$facturefourn_static = new FactureFournisseur($db);
-	$facturefourn_static_det = new SupplierInvoiceLine($db);
+	$invoicefourn_static = new InvoiceSupplier($db);
+	$invoicefourn_static_det = new SupplierInvoiceLine($db);
 	$product_static = new Product($db);
 
 
@@ -576,8 +576,8 @@ if ($result) {
 		$objp = $db->fetch_object($result);
 
 		// product_type: 0 = service, 1 = product
-		// if product does not exist we use the value of product_type provided in facturedet to define if this is a product or service
-		// issue : if we change product_type value in product DB it should differ from the value stored in facturedet DB !
+		// if product does not exist we use the value of product_type provided in invoicedet to define if this is a product or service
+		// issue : if we change product_type value in product DB it should differ from the value stored in invoicedet DB !
 		$code_buy_l = '';
 		$code_buy_p = '';
 		$code_buy_t = '';
@@ -609,20 +609,20 @@ if ($result) {
 		$product_static->accountancy_code_buy_export = $objp->code_buy_export;
 		$product_static->tva_tx = $objp->tva_tx_prod;
 
-		$facturefourn_static->ref = $objp->ref;
-		$facturefourn_static->id = $objp->facid;
-		$facturefourn_static->type = $objp->ftype;
-		$facturefourn_static->ref_supplier = $objp->ref_supplier;
-		$facturefourn_static->label = $objp->invoice_label;
-		$facturefourn_static->date = $db->jdate($objp->datef);
-		$facturefourn_static->fk_facture_source = $objp->fk_facture_source;
+		$invoicefourn_static->ref = $objp->ref;
+		$invoicefourn_static->id = $objp->facid;
+		$invoicefourn_static->type = $objp->ftype;
+		$invoicefourn_static->ref_supplier = $objp->ref_supplier;
+		$invoicefourn_static->label = $objp->invoice_label;
+		$invoicefourn_static->date = $db->jdate($objp->datef);
+		$invoicefourn_static->fk_invoice_source = $objp->fk_invoice_source;
 
-		$facturefourn_static_det->id = $objp->rowid;
-		$facturefourn_static_det->total_ht = $objp->total_ht;
-		$facturefourn_static_det->tva_tx = $objp->tva_tx_line;
-		$facturefourn_static_det->vat_src_code = $objp->vat_src_code;
-		$facturefourn_static_det->product_type = $objp->type_l;
-		$facturefourn_static_det->desc = $objp->description;
+		$invoicefourn_static_det->id = $objp->rowid;
+		$invoicefourn_static_det->total_ht = $objp->total_ht;
+		$invoicefourn_static_det->tva_tx = $objp->tva_tx_line;
+		$invoicefourn_static_det->vat_src_code = $objp->vat_src_code;
+		$invoicefourn_static_det->product_type = $objp->type_l;
+		$invoicefourn_static_det->desc = $objp->description;
 
 		$accountingAccountArray = array(
 			'dom' => $objp->aarowid,
@@ -635,7 +635,7 @@ if ($result) {
 
 		$suggestedid = 0;
 
-		$return = $accountingAccount->getAccountingCodeToBind($mysoc, $thirdpartystatic, $product_static, $facturefourn_static, $facturefourn_static_det, $accountingAccountArray, 'supplier');
+		$return = $accountingAccount->getAccountingCodeToBind($mysoc, $thirdpartystatic, $product_static, $invoicefourn_static, $invoicefourn_static_det, $accountingAccountArray, 'supplier');
 		if (!is_array($return) && $return < 0) {
 			setEventMessage($accountingAccount->error, 'errors');
 		} else {
@@ -668,10 +668,10 @@ if ($result) {
 		print '<tr class="oddeven">';
 
 		// Line id
-		print '<td>'.$facturefourn_static_det->id.'</td>';
+		print '<td>'.$invoicefourn_static_det->id.'</td>';
 
 		// Ref Invoice
-		print '<td class="nowraponall">'.$facturefourn_static->getNomUrl(1);
+		print '<td class="nowraponall">'.$invoicefourn_static->getNomUrl(1);
 		if ($objp->ref_supplier) {
 			print '<br><span class="opacitymedium small">'.dol_escape_htmltag($objp->ref_supplier).'</span>';
 		}
@@ -688,7 +688,7 @@ if ($result) {
 		print '</td>';
 
 		// Date
-		print '<td class="center">'.dol_print_date($facturefourn_static->date, 'day').'</td>';
+		print '<td class="center">'.dol_print_date($invoicefourn_static->date, 'day').'</td>';
 
 		// Ref Product
 		print '<td class="tdoverflowmax100">';
@@ -701,7 +701,7 @@ if ($result) {
 		print '</td>';
 
 		// Description of line
-		$text = dolGetFirstLineOfText(dol_string_nohtmltag($facturefourn_static_det->desc, 1));
+		$text = dolGetFirstLineOfText(dol_string_nohtmltag($invoicefourn_static_det->desc, 1));
 		print '<td class="tdoverflowmax150 small classfortooltip" title="'.dol_escape_htmltag($text).'">';
 		$trunclength = getDolGlobalInt('ACCOUNTING_LENGTH_DESCRIPTION');
 		print dol_trunc($text, $trunclength);
@@ -717,7 +717,7 @@ if ($result) {
 		//	$code_vat_differ = 'warning bold';
 		//}
 		print '<td class="right'.($code_vat_differ ? ' '.$code_vat_differ : '').'">';
-		print vatrate($facturefourn_static_det->tva_tx.($facturefourn_static_det->vat_src_code ? ' ('.$facturefourn_static_det->vat_src_code.')' : ''), false, 0, 0, 1);
+		print vatrate($invoicefourn_static_det->tva_tx.($invoicefourn_static_det->vat_src_code ? ' ('.$invoicefourn_static_det->vat_src_code.')' : ''), false, 0, 0, 1);
 		print '</td>';
 
 		// Thirdparty
@@ -734,7 +734,7 @@ if ($result) {
 
 		// Found accounts
 		print '<td class="small">';
-		$s = '1. '.(($facturefourn_static_det->product_type == 1) ? $langs->trans("DefaultForService") : $langs->trans("DefaultForProduct")).': ';
+		$s = '1. '.(($invoicefourn_static_det->product_type == 1) ? $langs->trans("DefaultForService") : $langs->trans("DefaultForProduct")).': ';
 		$shelp = '';
 		$ttype = 'help';
 		if ($suggestedaccountingaccountbydefaultfor == 'eec') {
@@ -751,7 +751,7 @@ if ($result) {
 		print $form->textWithPicture($s, $shelp, 1, $ttype, '', 0, 2, '', 1);
 		if ($product_static->id > 0) {
 			print '<br>';
-			$s = '2. '.(($facturefourn_static_det->product_type == 1) ? $langs->trans("ThisService") : $langs->trans("ThisProduct")).': ';
+			$s = '2. '.(($invoicefourn_static_det->product_type == 1) ? $langs->trans("ThisService") : $langs->trans("ThisProduct")).': ';
 			$shelp = '';
 			$ttype = 'help';
 			if ($suggestedaccountingaccountfor == 'eec') {
@@ -775,7 +775,7 @@ if ($result) {
 		}
 		if (getDolGlobalString('ACCOUNTANCY_USE_PRODUCT_ACCOUNT_ON_THIRDPARTY')) {
 			print '<br>';
-			$s = '3. '.(($facturefourn_static_det->product_type == 1) ? $langs->trans("ServiceForThisThirdparty") : $langs->trans("ProductForThisThirdparty")).': ';
+			$s = '3. '.(($invoicefourn_static_det->product_type == 1) ? $langs->trans("ServiceForThisThirdparty") : $langs->trans("ProductForThisThirdparty")).': ';
 			$shelp = '';
 			$s .= ($code_buy_t > 0 ? length_accountg($code_buy_t) : '<span style="'.$code_buy_t_notset.'">'.$langs->trans("NotDefined").'</span>');
 			print $form->textWithPicture($s, $shelp, 1, 'help', '', 0, 2, '', 1);
@@ -784,7 +784,7 @@ if ($result) {
 
 		// Suggested accounting account
 		print '<td>';
-		print $formaccounting->select_account(($default_account > 0 && $confirm === 'yes' && in_array($objp->rowid."_".$i, $toselect)) ? $default_account : $suggestedid, 'codeventil'.$facturefourn_static_det->id, 1, [], 0, 0, 'codeventil maxwidth150 maxwidthonsmartphone', 'cachewithshowemptyone');
+		print $formaccounting->select_account(($default_account > 0 && $confirm === 'yes' && in_array($objp->rowid."_".$i, $toselect)) ? $default_account : $suggestedid, 'codeventil'.$invoicefourn_static_det->id, 1, [], 0, 0, 'codeventil maxwidth150 maxwidthonsmartphone', 'cachewithshowemptyone');
 		print '</td>';
 
 		// Column with checkbox
@@ -801,7 +801,7 @@ if ($result) {
 			}
 		}
 
-		print '<input type="checkbox" class="flat checkforselect checkforselect'.$facturefourn_static_det->id.'" name="toselect[]" value="'.$facturefourn_static_det->id."_".$i.'"'.($ischecked ? " checked" : "").'/>';
+		print '<input type="checkbox" class="flat checkforselect checkforselect'.$invoicefourn_static_det->id.'" name="toselect[]" value="'.$invoicefourn_static_det->id."_".$i.'"'.($ischecked ? " checked" : "").'/>';
 		print '</td>';
 
 		print '</tr>';

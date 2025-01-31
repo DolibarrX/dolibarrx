@@ -31,7 +31,7 @@
 print '<!-- BEGIN object_discounts.tpl.php -->'."\n";
 
 $objclassname = get_class($object);
-$isInvoice = in_array($object->element, array('facture', 'invoice', 'facture_fourn', 'invoice_supplier'));
+$isInvoice = in_array($object->element, array('invoice', 'invoice', 'invoice_fourn', 'invoice_supplier'));
 $isNewObject = empty($object->id) && empty($object->rowid);
 
 // Clean variables not defined

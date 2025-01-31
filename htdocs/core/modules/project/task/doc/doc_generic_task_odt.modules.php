@@ -44,16 +44,16 @@ if (isModEnabled("propal")) {
 	require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 }
 if (isModEnabled('invoice')) {
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 }
 if (isModEnabled('invoice')) {
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice-rec.class.php';
 }
 if (isModEnabled('order')) {
 	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 }
 if (isModEnabled("supplier_invoice")) {
-	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 }
 if (isModEnabled("supplier_order")) {
 	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';

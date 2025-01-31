@@ -50,7 +50,7 @@ if ($user->socid > 0) {
 	$socid = $user->socid;
 }
 
-$dir = $config->facture->dir_output.'/payments';
+$dir = $config->invoice->dir_output.'/payments';
 if (!$user->hasRight('societe', 'client', 'voir')) {
 	$dir .= '/private/'.$user->id; // If user has no permission to see all, output dir is specific to user
 }
@@ -61,11 +61,11 @@ if (!$year) {
 }
 
 // Security check
-if (!$user->hasRight('facture', 'lire')) {
+if (!$user->hasRight('invoice', 'lire')) {
 	accessforbidden();
 }
 
-$permissiontoread = ($user->hasRight('facture', 'lire') == 1);
+$permissiontoread = ($user->hasRight('invoice', 'lire') == 1);
 
 
 /*
@@ -163,7 +163,7 @@ if ($year) {
 		foreach ($files as $f) {
 			$relativepath = $f['level1name'].'/'.$f['name'];
 			print '<tr class="oddeven">';
-			print '<td><a data-ajax="false" href="'.DOL_URL_ROOT.'/document.php?modulepart=facture_paiement&amp;file='.urlencode($relativepath).'">'.img_pdf().' '.$f['name'].'</a>'.$formfile->showPreview($f['name'], 'facture_paiement', $relativepath, 0).'</td>';
+			print '<td><a data-ajax="false" href="'.DOL_URL_ROOT.'/document.php?modulepart=invoice_paiement&amp;file='.urlencode($relativepath).'">'.img_pdf().' '.$f['name'].'</a>'.$formfile->showPreview($f['name'], 'invoice_paiement', $relativepath, 0).'</td>';
 			print '<td class="right">'.dol_print_size($f['size']).'</td>';
 			print '<td class="right">'.dol_print_date($f['date'], "dayhour").'</td>';
 			print '<td class="right"><a href="rapport.php?removefile='.urlencode($relativepath).'&action=removedoc&token='.newToken().'">'.img_delete().'</a></td>';

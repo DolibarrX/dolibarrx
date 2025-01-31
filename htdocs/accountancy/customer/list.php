@@ -33,7 +33,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formaccounting.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingaccount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
@@ -203,7 +203,7 @@ if ($massaction == 'ventil' && $user->hasRight('accounting', 'bind', 'write')) {
 				$msg .= '<div><span style="color:red">'.$langs->trans("Lineofinvoice").' '.$monId.' - '.$langs->trans("NoAccountSelected").'</span></div>';
 				$ko++;
 			} else {
-				$sql = " UPDATE ".MAIN_DB_PREFIX."facturedet";
+				$sql = " UPDATE ".MAIN_DB_PREFIX."invoicedet";
 				$sql .= " SET fk_code_ventilation = ".((int) $monCompte);
 				$sql .= " WHERE rowid = ".((int) $monId);
 
@@ -254,7 +254,7 @@ if (empty($chartaccountcode)) {
 }
 
 // Customer Invoice lines
-$sql = "SELECT f.rowid as facid, f.ref, f.datef, f.type as ftype, f.situation_cycle_ref, f.fk_facture_source,";
+$sql = "SELECT f.rowid as facid, f.ref, f.datef, f.type as ftype, f.situation_cycle_ref, f.fk_invoice_source,";
 $sql .= " l.rowid, l.fk_product, l.description, l.total_ht, l.situation_percent, l.fk_code_ventilation, l.product_type as type_l, l.tva_tx as tva_tx_line, l.vat_src_code,";
 $sql .= " p.rowid as product_id, p.ref as product_ref, p.label as product_label, p.fk_product_type as type, p.tva_tx as tva_tx_prod,";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
@@ -280,13 +280,13 @@ if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 $parameters = [];
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
-$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
+$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f";
 $sql .= " INNER JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co ON co.rowid = s.fk_pays ";
-$sql .= " INNER JOIN ".MAIN_DB_PREFIX."facturedet as l ON f.rowid = l.fk_facture";
+$sql .= " INNER JOIN ".MAIN_DB_PREFIX."invoicedet as l ON f.rowid = l.fk_invoice";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = l.fk_product";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
@@ -359,9 +359,9 @@ if (strlen(trim($search_tvaintra))) {
 	$sql .= natural_search("s.tva_intra", $search_tvaintra);
 }
 if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
-	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.",".Facture::TYPE_REPLACEMENT.",".Facture::TYPE_CREDIT_NOTE.",".Facture::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.",".Invoice::TYPE_REPLACEMENT.",".Invoice::TYPE_CREDIT_NOTE.",".Invoice::TYPE_SITUATION.")";
 } else {
-	$sql .= " AND f.type IN (".Facture::TYPE_STANDARD.",".Facture::TYPE_REPLACEMENT.",".Facture::TYPE_CREDIT_NOTE.",".Facture::TYPE_DEPOSIT.",".Facture::TYPE_SITUATION.")";
+	$sql .= " AND f.type IN (".Invoice::TYPE_STANDARD.",".Invoice::TYPE_REPLACEMENT.",".Invoice::TYPE_CREDIT_NOTE.",".Invoice::TYPE_DEPOSIT.",".Invoice::TYPE_SITUATION.")";
 }
 $sql .= " AND f.entity IN (".getEntity('invoice', 0).")"; // We do not share object for accountancy
 
@@ -552,8 +552,8 @@ if ($result) {
 	print "</tr>\n";
 
 	$thirdpartystatic = new Societe($db);
-	$facture_static = new Facture($db);
-	$facture_static_det = new FactureLigne($db);
+	$invoice_static = new Invoice($db);
+	$invoice_static_det = new InvoiceLine($db);
 	$product_static = new Product($db);
 
 
@@ -565,8 +565,8 @@ if ($result) {
 		$objp = $db->fetch_object($result);
 
 		// product_type: 0 = service, 1 = product
-		// if product does not exist we use the value of product_type provided in facturedet to define if this is a product or service
-		// issue : if we change product_type value in product DB it should differ from the value stored in facturedet DB !
+		// if product does not exist we use the value of product_type provided in invoicedet to define if this is a product or service
+		// issue : if we change product_type value in product DB it should differ from the value stored in invoicedet DB !
 		$code_sell_l = '';
 		$code_sell_p = '';
 		$code_sell_t = '';
@@ -599,18 +599,18 @@ if ($result) {
 		$product_static->accountancy_code_buy_export = $objp->code_buy_export;
 		$product_static->tva_tx = $objp->tva_tx_prod;
 
-		$facture_static->ref = $objp->ref;
-		$facture_static->id = $objp->facid;
-		$facture_static->type = $objp->ftype;
-		$facture_static->date = $db->jdate($objp->datef);
-		$facture_static->fk_facture_source = $objp->fk_facture_source;
+		$invoice_static->ref = $objp->ref;
+		$invoice_static->id = $objp->facid;
+		$invoice_static->type = $objp->ftype;
+		$invoice_static->date = $db->jdate($objp->datef);
+		$invoice_static->fk_invoice_source = $objp->fk_invoice_source;
 
-		$facture_static_det->id = $objp->rowid;
-		$facture_static_det->total_ht = $objp->total_ht;
-		$facture_static_det->tva_tx = $objp->tva_tx_line;
-		$facture_static_det->vat_src_code = $objp->vat_src_code;
-		$facture_static_det->product_type = $objp->type_l;
-		$facture_static_det->desc = $objp->description;
+		$invoice_static_det->id = $objp->rowid;
+		$invoice_static_det->total_ht = $objp->total_ht;
+		$invoice_static_det->tva_tx = $objp->tva_tx_line;
+		$invoice_static_det->vat_src_code = $objp->vat_src_code;
+		$invoice_static_det->product_type = $objp->type_l;
+		$invoice_static_det->desc = $objp->description;
 
 		$accountingAccountArray = array(
 			'dom' => $objp->aarowid,
@@ -623,7 +623,7 @@ if ($result) {
 
 		$suggestedid = 0;
 
-		$return = $accountingAccount->getAccountingCodeToBind($thirdpartystatic, $mysoc, $product_static, $facture_static, $facture_static_det, $accountingAccountArray, 'customer');
+		$return = $accountingAccount->getAccountingCodeToBind($thirdpartystatic, $mysoc, $product_static, $invoice_static, $invoice_static_det, $accountingAccountArray, 'customer');
 		if (!is_array($return) && $return < 0) {
 			setEventMessage($accountingAccount->error, 'errors');
 		} else {
@@ -656,12 +656,12 @@ if ($result) {
 		print '<tr class="oddeven">';
 
 		// Line id
-		print '<td>'.$facture_static_det->id.'</td>';
+		print '<td>'.$invoice_static_det->id.'</td>';
 
 		// Ref Invoice
-		print '<td class="nowraponall">'.$facture_static->getNomUrl(1).'</td>';
+		print '<td class="nowraponall">'.$invoice_static->getNomUrl(1).'</td>';
 
-		print '<td class="center">'.dol_print_date($facture_static->date, 'day').'</td>';
+		print '<td class="center">'.dol_print_date($invoice_static->date, 'day').'</td>';
 
 		// Ref Product
 		print '<td class="tdoverflowmax100">';
@@ -674,7 +674,7 @@ if ($result) {
 		print '</td>';
 
 		// Description of line
-		$text = dolGetFirstLineOfText(dol_string_nohtmltag($facture_static_det->desc, 1));
+		$text = dolGetFirstLineOfText(dol_string_nohtmltag($invoice_static_det->desc, 1));
 		print '<td class="tdoverflowmax150 small classfortooltip" title="'.dol_escape_htmltag($text).'">';
 		$trunclength = getDolGlobalInt('ACCOUNTING_LENGTH_DESCRIPTION');
 		print dol_trunc($text, $trunclength);
@@ -691,7 +691,7 @@ if ($result) {
 				if ($objp->situation_percent == 0) {
 					$situation_ratio = 0;
 				} else {
-					$line = new FactureLigne($db);
+					$line = new InvoiceLine($db);
 					$line->fetch($objp->rowid);
 
 					// Situation invoices handling
@@ -708,11 +708,11 @@ if ($result) {
 
 		// Vat rate
 		$code_vat_differ = '';
-		if ($product_static->tva_tx !== $facture_static_det->tva_tx && price2num($product_static->tva_tx) && price2num($facture_static_det->tva_tx)) {	// Note: having a vat rate of 0 is often the normal case when sells is intra b2b or to export
+		if ($product_static->tva_tx !== $invoice_static_det->tva_tx && price2num($product_static->tva_tx) && price2num($invoice_static_det->tva_tx)) {	// Note: having a vat rate of 0 is often the normal case when sells is intra b2b or to export
 			$code_vat_differ = 'warning bold';
 		}
 		print '<td class="right'.($code_vat_differ ? ' '.$code_vat_differ : '').'">';
-		print vatrate($facture_static_det->tva_tx.($facture_static_det->vat_src_code ? ' ('.$facture_static_det->vat_src_code.')' : ''));
+		print vatrate($invoice_static_det->tva_tx.($invoice_static_det->vat_src_code ? ' ('.$invoice_static_det->vat_src_code.')' : ''));
 		print '</td>';
 
 		// Thirdparty
@@ -730,7 +730,7 @@ if ($result) {
 		// Found accounts
 		print '<td class="small">';
 		// First show default account for any products
-		$s = '1. '.(($facture_static_det->product_type == 1) ? $langs->trans("DefaultForService") : $langs->trans("DefaultForProduct")).': ';
+		$s = '1. '.(($invoice_static_det->product_type == 1) ? $langs->trans("DefaultForService") : $langs->trans("DefaultForProduct")).': ';
 		$shelp = '';
 		$ttype = 'help';
 		if ($suggestedaccountingaccountbydefaultfor == 'eec') {
@@ -748,7 +748,7 @@ if ($result) {
 		// Now show account for product
 		if ($product_static->id > 0) {
 			print '<br>';
-			$s = '2. '.(($facture_static_det->product_type == 1) ? $langs->trans("ThisService") : $langs->trans("ThisProduct")).': ';
+			$s = '2. '.(($invoice_static_det->product_type == 1) ? $langs->trans("ThisService") : $langs->trans("ThisProduct")).': ';
 			$shelp = '';
 			$ttype = 'help';
 			if ($suggestedaccountingaccountfor == 'eec') {
@@ -772,7 +772,7 @@ if ($result) {
 		}
 		if (getDolGlobalString('ACCOUNTANCY_USE_PRODUCT_ACCOUNT_ON_THIRDPARTY')) {
 			print '<br>';
-			$s = '3. '.(($facture_static_det->product_type == 1) ? $langs->trans("ServiceForThisThirdparty") : $langs->trans("ProductForThisThirdparty")).': ';
+			$s = '3. '.(($invoice_static_det->product_type == 1) ? $langs->trans("ServiceForThisThirdparty") : $langs->trans("ProductForThisThirdparty")).': ';
 			$shelp = '';
 			$s .= ($code_sell_t > 0 ? length_accountg($code_sell_t) : '<span style="'.$code_sell_t_notset.'">'.$langs->trans("NotDefined").'</span>');
 			print $form->textWithPicture($s, $shelp, 1, 'help', '', 0, 2, '', 1);
@@ -781,7 +781,7 @@ if ($result) {
 
 		// Suggested accounting account
 		print '<td>';
-		print $formaccounting->select_account(($default_account > 0 && $confirm === 'yes' && in_array($objp->rowid."_".$i, $toselect)) ? $default_account : $suggestedid, 'codeventil'.$facture_static_det->id, 1, [], 0, 0, 'codeventil maxwidth150 maxwidthonsmartphone', 'cachewithshowemptyone');
+		print $formaccounting->select_account(($default_account > 0 && $confirm === 'yes' && in_array($objp->rowid."_".$i, $toselect)) ? $default_account : $suggestedid, 'codeventil'.$invoice_static_det->id, 1, [], 0, 0, 'codeventil maxwidth150 maxwidthonsmartphone', 'cachewithshowemptyone');
 		print '</td>';
 
 		// Column with checkbox
@@ -798,7 +798,7 @@ if ($result) {
 			}
 		}
 
-		print '<input type="checkbox" class="flat checkforselect checkforselect'.$facture_static_det->id.'" name="toselect[]" value="'.$facture_static_det->id."_".$i.'"'.($ischecked ? " checked" : "").'/>';
+		print '<input type="checkbox" class="flat checkforselect checkforselect'.$invoice_static_det->id.'" name="toselect[]" value="'.$invoice_static_det->id."_".$i.'"'.($ischecked ? " checked" : "").'/>';
 		print '</td>';
 
 		print '</tr>';

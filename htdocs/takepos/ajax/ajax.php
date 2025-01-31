@@ -418,24 +418,24 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 			print 'Failed to init printer with ID='.getDolGlobalInt('TAKEPOS_PRINTER_TO_USE'.$term);
 		}
 	}
-} elseif ($action == "printinvoiceticket" && $term != '' && $id > 0 && $user->hasRight('takepos', 'run') && $user->hasRight('facture', 'lire')) {
+} elseif ($action == "printinvoiceticket" && $term != '' && $id > 0 && $user->hasRight('takepos', 'run') && $user->hasRight('invoice', 'lire')) {
 	top_httphead('application/html');
 
 	require_once DOL_DOCUMENT_ROOT.'/core/class/dolreceiptprinter.class.php';
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 	$printer = new dolReceiptPrinter($db);
 	// check printer for terminal
 	if ((getDolGlobalInt('TAKEPOS_PRINTER_TO_USE'.$term) > 0 || getDolGlobalString('TAKEPOS_PRINT_METHOD') == "takeposconnector") && getDolGlobalInt('TAKEPOS_TEMPLATE_TO_USE_FOR_INVOICES'.$term) > 0) {
-		$object = new Facture($db);
+		$object = new Invoice($db);
 		$object->fetch($id);
 		$ret = $printer->sendToPrinter($object, getDolGlobalString('TAKEPOS_TEMPLATE_TO_USE_FOR_INVOICES'.$term), getDolGlobalString('TAKEPOS_PRINTER_TO_USE'.$term));
 	}
 } elseif ($action == 'getInvoice' && $user->hasRight('takepos', 'run')) {
 	top_httphead('application/json');
 
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
-	$object = new Facture($db);
+	$object = new Invoice($db);
 	if ($id > 0) {
 		$object->fetch($id);
 	}
@@ -445,10 +445,10 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 	top_httphead('application/html');
 
 	$place = GETPOST('place', 'alpha');
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/dolreceiptprinter.class.php';
 
-	$object = new Facture($db);
+	$object = new Invoice($db);
 
 	$printer = new dolReceiptPrinter($db);
 	$printer->sendToPrinter($object, getDolGlobalString('TAKEPOS_TEMPLATE_TO_USE_FOR_INVOICES'.$term), getDolGlobalString('TAKEPOS_PRINTER_TO_USE'.$term));

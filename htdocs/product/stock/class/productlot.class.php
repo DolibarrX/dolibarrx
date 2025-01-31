@@ -70,7 +70,7 @@ class Productlot extends CommonObject
 	/**
 	 * @var array{customers:int,nb:int,rows:int,qty:int} stats invoices
 	 */
-	public $stats_facture;
+	public $stats_invoice;
 
 	/**
 	 * @var array{suppliers:int,nb:int,rows:int,qty:int} stats supplier propales
@@ -111,11 +111,11 @@ class Productlot extends CommonObject
 	/**
 	 * @var array{customers:int,nb:int,rows:int,qty:float}
 	 */
-	public $stats_facturerec;
+	public $stats_invoicerec;
 	/**
 	 * @var array{suppliers:int,nb:int,rows:int,qty:float}
 	 */
-	public $stats_facture_fournisseur;
+	public $stats_invoice_fournisseur;
 
 
 	/**

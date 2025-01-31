@@ -1000,10 +1000,10 @@ class Project extends CommonObject
 		$listoftables = array(
 			'propal' => 'fk_projet',
 			'order' => 'fk_projet',
-			'facture' => 'fk_projet',
+			'invoice' => 'fk_projet',
 			'supplier_proposal' => 'fk_projet',
 			'order_fournisseur' => 'fk_projet',
-			'facture_fourn' => 'fk_projet',
+			'invoice_fourn' => 'fk_projet',
 			'expensereport_det' => 'fk_projet',
 			'contract' => 'fk_projet',
 			'fichinter' => 'fk_projet',

@@ -27,7 +27,7 @@ require_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
 //require_once DOL_DOCUMENT_ROOT.'/core/lib/stripe.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 if (isModEnabled('accounting')) {
 	require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingjournal.class.php';
 }
@@ -213,9 +213,9 @@ if (!$rowid) {
 			//	$object->fetch($charge->metadata->dol_id);
 			//	print "<a href='".DOL_URL_ROOT."/order/card.php?id=".$charge->metadata->dol_id."'>".img_picture('', 'object_order')." ".$object->ref."</a>";
 			//} elseif ($charge->metadata->dol_type=="invoice"){
-			//	$object = new Facture($db);
+			//	$object = new Invoice($db);
 			//	$object->fetch($charge->metadata->dol_id);
-			//	print "<a href='".DOL_URL_ROOT."/compta/facture/card.php?facid=".$charge->metadata->dol_id."'>".img_picture('', 'object_invoice')." ".$object->ref."</a>";
+			//	print "<a href='".DOL_URL_ROOT."/compta/invoice/card.php?facid=".$charge->metadata->dol_id."'>".img_picture('', 'object_invoice')." ".$object->ref."</a>";
 			//}
 			//print "</td>\n";
 			// Date payment

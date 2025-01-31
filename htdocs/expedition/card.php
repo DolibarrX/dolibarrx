@@ -263,7 +263,7 @@ if (empty($resHook)) {
 		// We will loop on each line of the original document to complete the shipping object with various info and quantity to deliver
 		$classname = ucfirst($object->origin);
 		$objectsrc = new $classname($db);
-		'@phan-var-force Facture|Order $objectsrc';
+		'@phan-var-force Invoice|Order $objectsrc';
 		$objectsrc->fetch($object->origin_id);
 
 		$object->socid = $objectsrc->socid;
@@ -964,7 +964,7 @@ if ($action == 'create') {
 		$classname = ucfirst($origin);
 
 		$object = new $classname($db);
-		'@phan-var-force Order|Facture $object';
+		'@phan-var-force Order|Invoice $object';
 		if ($object->fetch($origin_id)) {	// This include the fetch_lines
 			$soc = new Societe($db);
 			$soc->fetch($object->socid);
@@ -2793,9 +2793,9 @@ if ($action == 'create') {
 
 			// Create bill
 			if (isModEnabled('invoice') && ($object->status == Expedition::STATUS_VALIDATED || $object->status == Expedition::STATUS_CLOSED)) {
-				if ($user->hasRight('facture', 'creer')) {
+				if ($user->hasRight('invoice', 'creer')) {
 					if (getDolGlobalString('WORKFLOW_BILL_ON_SHIPMENT') !== '0') {
-						print dolGetButtonAction('', $langs->trans('CreateBill'), 'default', DOL_URL_ROOT.'/compta/facture/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->socid, '');
+						print dolGetButtonAction('', $langs->trans('CreateBill'), 'default', DOL_URL_ROOT.'/compta/invoice/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->socid, '');
 					}
 				}
 			}

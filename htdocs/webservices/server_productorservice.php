@@ -583,7 +583,7 @@ function createProductOrService($authentication, $product)
 		$newobject->canvas = isset($product['canvas']) ? $product['canvas'] : '';
 		/*foreach($product['lines'] as $line)
 		{
-			$newline=new FactureLigne($db);
+			$newline=new InvoiceLine($db);
 			$newline->type=$line['type'];
 			$newline->desc=$line['desc'];
 			$newline->fk_product=$line['fk_product'];

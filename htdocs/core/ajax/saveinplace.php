@@ -138,7 +138,7 @@ if (!empty($field) && !empty($element) && !empty($table_element) && !empty($fk_e
 		$subelement = 'order';
 	} elseif ($element == 'invoice_supplier') {
 		$newelement = 'fournisseur';
-		$subelement = 'facture';
+		$subelement = 'invoice';
 	} else {
 		$newelement = $element;
 	}
@@ -156,11 +156,11 @@ if (!empty($field) && !empty($element) && !empty($table_element) && !empty($fk_e
 		$feature = 'order';
 	}
 	if ($feature == 'payment') {
-		$feature = 'facture';
+		$feature = 'invoice';
 	}
 	if ($feature == 'payment_supplier') {
 		$feature = 'fournisseur';
-		$feature2 = 'facture';
+		$feature2 = 'invoice';
 	}
 	//var_dump(GETPOST('action','aZ09'));
 	//var_dump($newelement.'-'.$subelement."-".$feature."-".$object_id);
@@ -169,8 +169,8 @@ if (!empty($field) && !empty($element) && !empty($table_element) && !empty($fk_e
 	/*
 	if (!empty($user->rights->$newelement->creer) || !empty($user->rights->$newelement->create) || !empty($user->rights->$newelement->write)
 		|| (isset($subelement) && (!empty($user->rights->$newelement->$subelement->creer) || !empty($user->rights->$newelement->$subelement->write)))
-		|| ($element == 'payment' && $user->rights->facture->paiement)
-		|| ($element == 'payment_supplier' && $user->rights->fournisseur->facture->creer))
+		|| ($element == 'payment' && $user->rights->invoice->paiement)
+		|| ($element == 'payment_supplier' && $user->rights->fournisseur->invoice->creer))
 	*/
 
 	if ($check_access) {

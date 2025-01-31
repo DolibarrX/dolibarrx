@@ -92,9 +92,9 @@ if (GETPOST('roworder', 'alpha', 3) && GETPOST('table_element_line', 'aZ09', 3)
 		$perm = 1;
 	} elseif ($table_element_line == 'orderdet' && $user->hasRight('order', 'creer')) {
 		$perm = 1;
-	} elseif ($table_element_line == 'facturedet' && $user->hasRight('facture', 'creer')) {
+	} elseif ($table_element_line == 'invoicedet' && $user->hasRight('invoice', 'creer')) {
 		$perm = 1;
-	} elseif ($table_element_line == 'facturedet_rec' && $user->hasRight('facture', 'creer')) {
+	} elseif ($table_element_line == 'invoicedet_rec' && $user->hasRight('invoice', 'creer')) {
 		$perm = 1;
 	} elseif ($table_element_line == 'emailcollector_emailcollectoraction' && $user->admin) {
 		$perm = 1;
@@ -106,9 +106,9 @@ if (GETPOST('roworder', 'alpha', 3) && GETPOST('table_element_line', 'aZ09', 3)
 		$perm = 1;
 	} elseif ($table_element_line == 'order_fournisseurdet' && $user->hasRight('fournisseur', 'order', 'creer')) {
 		$perm = 1;
-	} elseif ($table_element_line == 'facture_fourn_det' && $user->hasRight('fournisseur', 'facture', 'creer')) {
+	} elseif ($table_element_line == 'invoice_fourn_det' && $user->hasRight('fournisseur', 'invoice', 'creer')) {
 		$perm = 1;
-	} elseif ($table_element_line == 'facture_fourn_det_rec' && $user->hasRight('fournisseur', 'facture', 'creer')) {
+	} elseif ($table_element_line == 'invoice_fourn_det_rec' && $user->hasRight('fournisseur', 'invoice', 'creer')) {
 		$perm = 1;
 	} elseif ($table_element_line == 'product_attribute_value' && $fk_element == 'fk_product_attribute' && ($user->hasRight('produit', 'lire') || $user->hasRight('service', 'lire'))) {
 		$perm = 1;
@@ -174,7 +174,7 @@ if (GETPOST('roworder', 'alpha', 3) && GETPOST('table_element_line', 'aZ09', 3)
 
 	// Reorder line to have position of children lines sharing same counter than parent lines
 	// This should be useless because there is no need to have children sharing same counter than parent, but well, it's cleaner into database.
-	if (in_array($fk_element, array('fk_facture', 'fk_propal', 'fk_order','fk_contract'))) {
+	if (in_array($fk_element, array('fk_invoice', 'fk_propal', 'fk_order','fk_contract'))) {
 		$result = $row->line_order(true);
 	}
 } else {

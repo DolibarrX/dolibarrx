@@ -28,7 +28,7 @@
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/margin/lib/margins.lib.php';
 
@@ -110,7 +110,7 @@ $object = new User($db);
 
 $userstatic = new User($db);
 $companystatic = new Societe($db);
-$invoicestatic = new Facture($db);
+$invoicestatic = new Invoice($db);
 
 $form = new Form($db);
 
@@ -155,7 +155,7 @@ print dol_get_fiche_end();
 
 print '</form>';
 
-$invoice_status_except_list = array(Facture::STATUS_DRAFT, Facture::STATUS_ABANDONED);
+$invoice_status_except_list = array(Invoice::STATUS_DRAFT, Invoice::STATUS_ABANDONED);
 
 $sql = "SELECT";
 $sql .= " s.rowid as socid, s.nom as name, s.code_client, s.client,";
@@ -167,9 +167,9 @@ $sql .= " sum(".$db->ifsql('(d.total_ht < 0 OR (d.total_ht = 0 AND f.type = 2))'
 $sql .= " sum(".$db->ifsql('(d.total_ht < 0 OR (d.total_ht = 0 AND f.type = 2))', '-1 * (abs(d.total_ht) - (d.buy_price_ht * d.qty * (d.situation_percent / 100)))', 'd.total_ht - (d.buy_price_ht * d.qty * (d.situation_percent / 100))').") as marge";
 
 $sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-$sql .= ", ".MAIN_DB_PREFIX."facture as f";
+$sql .= ", ".MAIN_DB_PREFIX."invoice as f";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_contact e ON e.element_id = f.rowid and e.statut = 4 and e.fk_c_type_contact = ".(!getDolGlobalString('AGENT_CONTACT_TYPE') ? -1 : $config->global->AGENT_CONTACT_TYPE);
-$sql .= ", ".MAIN_DB_PREFIX."facturedet as d";
+$sql .= ", ".MAIN_DB_PREFIX."invoicedet as d";
 $sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 $sql .= ", ".MAIN_DB_PREFIX."user as u";
 $sql .= " WHERE f.fk_soc = s.rowid";
@@ -183,7 +183,7 @@ if (getDolGlobalString('AGENT_CONTACT_TYPE')) {
 }
 $sql .= " AND f.fk_statut NOT IN (".$db->sanitize(implode(', ', $invoice_status_except_list)).")";
 $sql .= ' AND s.entity IN ('.getEntity('societe').')';
-$sql .= " AND d.fk_facture = f.rowid";
+$sql .= " AND d.fk_invoice = f.rowid";
 if ($agentid > 0) {
 	if (getDolGlobalString('AGENT_CONTACT_TYPE')) {
 		$sql .= " AND ((e.fk_socpeople IS NULL AND sc.fk_user = ".((int) $agentid).") OR (e.fk_socpeople IS NOT NULL AND e.fk_socpeople = ".((int) $agentid)."))";

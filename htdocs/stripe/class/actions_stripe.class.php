@@ -169,11 +169,11 @@ class ActionsStripeconnect extends CommonHookActions
 	{
 		global $config, $langs;
 
-		if (is_object($object) && $object->element == 'facture') {
+		if (is_object($object) && $object->element == 'invoice') {
 			// Verify if the invoice has payments
 			$sql = 'SELECT pf.amount';
-			$sql .= ' FROM '.MAIN_DB_PREFIX.'paiement_facture as pf';
-			$sql .= ' WHERE pf.fk_facture = '.((int) $object->id);
+			$sql .= ' FROM '.MAIN_DB_PREFIX.'paiement_invoice as pf';
+			$sql .= ' WHERE pf.fk_invoice = '.((int) $object->id);
 
 			$totalpaid = 0;
 
@@ -193,7 +193,7 @@ class ActionsStripeconnect extends CommonHookActions
 
 			$resteapayer = $object->total_ttc - $totalpaid;
 			// Request a direct debit order
-			if ($object->statut > Facture::STATUS_DRAFT && $object->statut < Facture::STATUS_ABANDONED && $object->paye == 0) {
+			if ($object->statut > Invoice::STATUS_DRAFT && $object->statut < Invoice::STATUS_ABANDONED && $object->paye == 0) {
 				$stripe = new Stripe($this->db);
 				if ($resteapayer > 0) {
 					if ($stripe->getStripeAccount($config->entity)) {  // a modifier avec droit stripe

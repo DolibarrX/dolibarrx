@@ -753,7 +753,7 @@ class Order extends CommonOrder
 		$this->db->begin();
 
 		$sql = 'UPDATE '.MAIN_DB_PREFIX.$this->table_element;
-		$sql .= ' SET fk_statut='.self::STATUS_VALIDATED.', facture=0,';
+		$sql .= ' SET fk_statut='.self::STATUS_VALIDATED.', invoice=0,';
 		$sql .= " fk_user_modif = ".((int) $user->id);
 		$sql .= " WHERE rowid = ".((int) $this->id);
 
@@ -1892,14 +1892,14 @@ class Order extends CommonOrder
 		$sql .= ', c.date_livraison as delivery_date';
 		$sql .= ', c.fk_shipping_method';
 		$sql .= ', c.fk_warehouse';
-		$sql .= ', c.fk_projet as fk_project, c.source, c.facture as billed';
+		$sql .= ', c.fk_projet as fk_project, c.source, c.invoice as billed';
 		$sql .= ', c.note_private, c.note_public, c.ref_client, c.ref_ext, c.model_pdf, c.last_main_doc, c.fk_delivery_address, c.extraparams';
 		$sql .= ', c.fk_incoterms, c.location_incoterms';
 		$sql .= ", c.fk_multicurrency, c.multicurrency_code, c.multicurrency_tx, c.multicurrency_total_ht, c.multicurrency_total_tva, c.multicurrency_total_ttc";
 		$sql .= ", c.module_source, c.pos_source";
 		$sql .= ", i.libelle as label_incoterms";
 		$sql .= ', p.code as mode_reglement_code, p.libelle as mode_reglement_libelle';
-		$sql .= ', cr.code as cond_reglement_code, cr.libelle as cond_reglement_libelle, cr.libelle_facture as cond_reglement_libelle_doc';
+		$sql .= ', cr.code as cond_reglement_code, cr.libelle as cond_reglement_libelle, cr.libelle_invoice as cond_reglement_libelle_doc';
 		$sql .= ', ca.code as availability_code, ca.label as availability_label';
 		$sql .= ', dr.code as demand_reason_code';
 		$sql .= ' FROM '.MAIN_DB_PREFIX.$this->table_element.' as c';
@@ -2047,7 +2047,7 @@ class Order extends CommonOrder
 		$result = $remise->fetch($idremise);
 
 		if ($result > 0) {
-			if ($remise->fk_facture) {	// Protection against multiple submission
+			if ($remise->fk_invoice) {	// Protection against multiple submission
 				$this->error = $langs->trans("ErrorDiscountAlreadyUsed");
 				$this->db->rollback();
 				return -5;
@@ -2910,7 +2910,7 @@ class Order extends CommonOrder
 
 		$this->db->begin();
 
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.$this->table_element.' SET facture = 1';
+		$sql = 'UPDATE '.MAIN_DB_PREFIX.$this->table_element.' SET invoice = 1';
 		$sql .= " WHERE rowid = ".((int) $this->id).' AND fk_statut > '.self::STATUS_DRAFT;
 
 		dol_syslog(get_class($this)."::classifyBilled", LOG_DEBUG);
@@ -2960,7 +2960,7 @@ class Order extends CommonOrder
 
 		$this->db->begin();
 
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.$this->table_element.' SET facture = 0';
+		$sql = 'UPDATE '.MAIN_DB_PREFIX.$this->table_element.' SET invoice = 0';
 		$sql .= " WHERE rowid = ".((int) $this->id).' AND fk_statut > '.self::STATUS_DRAFT;
 
 		dol_syslog(get_class($this)."::classifyUnBilled", LOG_DEBUG);
@@ -3498,18 +3498,18 @@ class Order extends CommonOrder
 			$clause = " AND";
 		}
 		$sql .= $clause." c.entity IN (".getEntity('order').")";
-		//$sql.= " AND c.fk_statut IN (1,2,3) AND c.facture = 0";
+		//$sql.= " AND c.fk_statut IN (1,2,3) AND c.invoice = 0";
 		if ($mode == 'toship') {
 			// An order to ship is an open order (validated or in progress)
 			$sql .= " AND c.fk_statut IN (" . self::STATUS_VALIDATED . "," . self::STATUS_SHIPMENTONPROCESS . ")";
 		}
 		if ($mode == 'tobill') {
 			// An order to bill is an order not already billed
-			$sql .= " AND c.fk_statut IN (" . self::STATUS_VALIDATED . "," . self::STATUS_SHIPMENTONPROCESS . ", " . self::STATUS_CLOSED . ") AND c.facture = 0";
+			$sql .= " AND c.fk_statut IN (" . self::STATUS_VALIDATED . "," . self::STATUS_SHIPMENTONPROCESS . ", " . self::STATUS_CLOSED . ") AND c.invoice = 0";
 		}
 		if ($mode == 'shippedtobill') {
 			// An order shipped and to bill is a delivered order not already billed
-			$sql .= " AND c.fk_statut IN (" . self::STATUS_CLOSED . ") AND c.facture = 0";
+			$sql .= " AND c.fk_statut IN (" . self::STATUS_CLOSED . ") AND c.invoice = 0";
 		}
 		if ($user->socid) {
 			$sql .= " AND c.fk_soc = ".((int) $user->socid);

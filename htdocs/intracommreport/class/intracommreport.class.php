@@ -333,7 +333,7 @@ class IntracommReport extends CommonObject
 		$declaration->addChild('currencyCode', $config->global->MAIN_MONNAIE);
 		/********************************************************************/
 
-		/**************Ajout des lignes de factures**************************/
+		/**************Ajout des lignes de invoices**************************/
 		$res = $this->addItemsFact($declaration, $type, $period_reference);
 		/********************************************************************/
 
@@ -455,16 +455,16 @@ class IntracommReport extends CommonObject
 
 		if ($type == 'expedition' || $exporttype == 'des') {
 			$sql = "SELECT f.ref as refinvoice, f.total_ht";
-			$table = 'facture';
-			$table_extraf = 'facture_extrafields';
-			$tabledet = 'facturedet';
-			$field_link = 'fk_facture';
+			$table = 'invoice';
+			$table_extraf = 'invoice_extrafields';
+			$tabledet = 'invoicedet';
+			$field_link = 'fk_invoice';
 		} else { // Introduction
 			$sql = "SELECT f.ref_supplier as refinvoice, f.total_ht";
-			$table = 'facture_fourn';
-			$table_extraf = 'facture_fourn_extrafields';
-			$tabledet = 'facture_fourn_det';
-			$field_link = 'fk_facture_fourn';
+			$table = 'invoice_fourn';
+			$table_extraf = 'invoice_fourn_extrafields';
+			$tabledet = 'invoice_fourn_det';
+			$field_link = 'fk_invoice_fourn';
 		}
 		$sql .= ", l.fk_product, l.qty
 				, p.weight, p.rowid as id_prod, p.customcode
@@ -510,8 +510,8 @@ class IntracommReport extends CommonObject
 		$item->addChild('countryOfOriginCode', substr($res->zip, 0, 2)); // code iso pays d'origine
 		$item->addChild('netMass', (string) round($res->weight * $res->qty)); // Poids du produit
 		$item->addChild('quantityInSU', (string) $res->qty); // Quantité de produit dans la ligne
-		$item->addChild('invoicedAmount', (string) round($res->total_ht)); // Montant total ht de la facture (entier attendu)
-		// $item->addChild('invoicedNumber', $res->refinvoice); // Numéro facture
+		$item->addChild('invoicedAmount', (string) round($res->total_ht)); // Montant total ht de la invoice (entier attendu)
+		// $item->addChild('invoicedNumber', $res->refinvoice); // Invoice number
 		if (!empty($res->tva_intra)) {
 			$item->addChild('partnerId', $res->tva_intra);
 		}
@@ -554,14 +554,14 @@ class IntracommReport extends CommonObject
 		global $config;
 
 		if ($type == 'expedition') {
-			$table = 'facture';
-			$tabledet = 'facturedet';
-			$field_link = 'fk_facture';
+			$table = 'invoice';
+			$tabledet = 'invoicedet';
+			$field_link = 'fk_invoice';
 			$more_sql = 'f.ref';
 		} else { // Introduction
-			$table = 'facture_fourn';
-			$tabledet = 'facture_fourn_det';
-			$field_link = 'fk_facture_fourn';
+			$table = 'invoice_fourn';
+			$tabledet = 'invoice_fourn_det';
+			$field_link = 'fk_invoice_fourn';
 			$more_sql = 'f.ref_supplier';
 		}
 

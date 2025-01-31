@@ -622,7 +622,7 @@ class FormMail extends Form
 				$out .= ' &nbsp; ';
 				$out .= '</div>';
 			} elseif (!empty($this->param['models']) && in_array($this->param['models'], array(
-					'propal_send', 'order_send', 'facture_send',
+					'propal_send', 'order_send', 'invoice_send',
 					'shipping_send', 'fichinter_send', 'supplier_proposal_send', 'order_supplier_send',
 					'invoice_supplier_send', 'thirdparty', 'contract', 'user', 'recruitmentcandidature_send', 'all'
 				))) {
@@ -1009,7 +1009,7 @@ class FormMail extends Form
 					if ($this->param["models"] == 'order' || $this->param["models"] == 'order_send') {
 						$typeforonlinepayment = 'order'; // TODO use detection on something else than template
 					}
-					if ($this->param["models"] == 'invoice' || $this->param["models"] == 'facture_send') {
+					if ($this->param["models"] == 'invoice' || $this->param["models"] == 'invoice_send') {
 						$typeforonlinepayment = 'invoice'; // TODO use detection on something else than template
 					}
 					if ($this->param["models"] == 'member') {
@@ -1359,7 +1359,7 @@ class FormMail extends Form
 		if (getDolGlobalString('MAIN_MAIL_AUTOCOPY_ORDER_TO') && !empty($this->param['models']) && $this->param['models'] == 'order_send') {
 			$showinfobcc = getDolGlobalString('MAIN_MAIL_AUTOCOPY_ORDER_TO');
 		}
-		if (getDolGlobalString('MAIN_MAIL_AUTOCOPY_INVOICE_TO') && !empty($this->param['models']) && $this->param['models'] == 'facture_send') {
+		if (getDolGlobalString('MAIN_MAIL_AUTOCOPY_INVOICE_TO') && !empty($this->param['models']) && $this->param['models'] == 'invoice_send') {
 			$showinfobcc = getDolGlobalString('MAIN_MAIL_AUTOCOPY_INVOICE_TO');
 		}
 		if (getDolGlobalString('MAIN_MAIL_AUTOCOPY_SUPPLIER_PROPOSAL_TO') && !empty($this->param['models']) && $this->param['models'] == 'supplier_proposal_send') {
@@ -1435,7 +1435,7 @@ class FormMail extends Form
 			if (getDolGlobalString('MAIL_FORCE_DELIVERY_RECEIPT_ORDER') && !empty($this->param['models']) && $this->param['models'] == 'order_send') {
 				$defaultvaluefordeliveryreceipt = 1;
 			}
-			if (getDolGlobalString('MAIL_FORCE_DELIVERY_RECEIPT_INVOICE') && !empty($this->param['models']) && $this->param['models'] == 'facture_send') {
+			if (getDolGlobalString('MAIL_FORCE_DELIVERY_RECEIPT_INVOICE') && !empty($this->param['models']) && $this->param['models'] == 'invoice_send') {
 				$defaultvaluefordeliveryreceipt = 1;
 			}
 			if (getDolGlobalString('MAIL_FORCE_DELIVERY_RECEIPT_SUPPLIER_ORDER') && !empty($this->param['models']) && $this->param['models'] == 'order_supplier_send') {
@@ -1917,9 +1917,9 @@ class FormMail extends Form
 					if ($type_template == 'body') {
 						// Special case to use this->withbody as content
 						$defaultmessage = $this->withbody;
-					} elseif ($type_template == 'facture_send') {
+					} elseif ($type_template == 'invoice_send') {
 						$defaultmessage = $outputlangs->transnoentities("PredefinedMailContentSendInvoice");
-					} elseif ($type_template == 'facture_relance') {
+					} elseif ($type_template == 'invoice_relance') {
 						$defaultmessage = $outputlangs->transnoentities("PredefinedMailContentSendInvoiceReminder");
 					} elseif ($type_template == 'propal_send') {
 						$defaultmessage = $outputlangs->transnoentities("PredefinedMailContentSendProposal");

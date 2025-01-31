@@ -39,7 +39,7 @@ if (!defined('NOREQUIREAJAX')) {
 
 // Load Dolibarr environment
 require '../main.inc.php'; // Load $user and permissions
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 /**
  * @var Config $config
  * @var DoliDB $db
@@ -84,7 +84,7 @@ if ($action == "getTables" && $user->hasRight('takepos', 'run')) {
 	while ($row = $db->fetch_array($resql)) {
 		$tmpplace = (int) $row['rowid'];
 
-		$invoice = new Facture($db);
+		$invoice = new Invoice($db);
 		$result = $invoice->fetch('', '(PROV-POS'.$_SESSION['takeposterminal'].'-'.$tmpplace.')');
 		if ($result > 0) {
 			$row['occupied'] = "red";

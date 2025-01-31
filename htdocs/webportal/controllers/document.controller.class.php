@@ -162,7 +162,7 @@ class DocumentController extends Controller
 		$moduleNameEn = $moduleName;
 		if ($moduleName == 'order') {
 			$moduleNameEn = 'order';
-		} elseif ($moduleName == 'facture') {
+		} elseif ($moduleName == 'invoice') {
 			$moduleNameEn = 'invoice';
 		}
 		$moduleNameUpperEn = strtoupper($moduleNameEn);

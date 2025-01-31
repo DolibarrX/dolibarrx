@@ -48,7 +48,7 @@ if ($user->socid > 0) {
 	$socid = $user->socid;
 }
 
-if (!$user->hasRight('facture', 'creer')) {
+if (!$user->hasRight('invoice', 'creer')) {
 	accessforbidden();
 }
 
@@ -120,7 +120,7 @@ if ($search_sale && $search_sale != '-1') {
 if ($socid) {
 	$sql .= " AND c.fk_soc = ".((int) $socid);
 }
-$sql .= " AND c.fk_statut in (1, 2) AND c.facture = 0";
+$sql .= " AND c.fk_statut in (1, 2) AND c.invoice = 0";
 $sql .= " GROUP BY s.nom";
 $sql .= $db->order($sortfield, $sortorder);
 

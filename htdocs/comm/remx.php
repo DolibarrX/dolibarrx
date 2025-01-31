@@ -32,8 +32,8 @@ if (! defined('CSRFCHECK_WITH_TOKEN')) {
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/discount.class.php';
 
 /**
@@ -66,7 +66,7 @@ if ($user->socid > 0) {
 }
 $result = restrictedArea($user, 'societe', $id, '&societe', '', 'fk_soc', 'rowid', 0);
 
-$permissiontocreate = ($user->hasRight('societe', 'creer') || $user->hasRight('facture', 'creer'));
+$permissiontocreate = ($user->hasRight('societe', 'creer') || $user->hasRight('invoice', 'creer'));
 
 
 
@@ -97,19 +97,19 @@ if ($action == 'confirm_split' && GETPOST("confirm", "alpha") == 'yes' && $permi
 		$error++;
 		setEventMessages($langs->trans("TotalOfTwoDiscountMustEqualsOriginal"), null, 'errors');
 	}
-	if (!$error && $discount->fk_facture_line) {
+	if (!$error && $discount->fk_invoice_line) {
 		$error++;
 		setEventMessages($langs->trans("ErrorCantSplitAUsedDiscount"), null, 'errors');
 	}
 	if (!$error) {
 		$newdiscount1 = new DiscountAbsolute($db);
 		$newdiscount2 = new DiscountAbsolute($db);
-		$newdiscount1->fk_facture_source = $discount->fk_facture_source;
-		$newdiscount2->fk_facture_source = $discount->fk_facture_source;
-		$newdiscount1->fk_facture = $discount->fk_facture;
-		$newdiscount2->fk_facture = $discount->fk_facture;
-		$newdiscount1->fk_facture_line = $discount->fk_facture_line;
-		$newdiscount2->fk_facture_line = $discount->fk_facture_line;
+		$newdiscount1->fk_invoice_source = $discount->fk_invoice_source;
+		$newdiscount2->fk_invoice_source = $discount->fk_invoice_source;
+		$newdiscount1->fk_invoice = $discount->fk_invoice;
+		$newdiscount2->fk_invoice = $discount->fk_invoice;
+		$newdiscount1->fk_invoice_line = $discount->fk_invoice_line;
+		$newdiscount2->fk_invoice_line = $discount->fk_invoice_line;
 		$newdiscount1->fk_invoice_supplier_source = $discount->fk_invoice_supplier_source;
 		$newdiscount2->fk_invoice_supplier_source = $discount->fk_invoice_supplier_source;
 		$newdiscount1->fk_invoice_supplier = $discount->fk_invoice_supplier;
@@ -154,7 +154,7 @@ if ($action == 'confirm_split' && GETPOST("confirm", "alpha") == 'yes' && $permi
 
 		$db->begin();
 
-		$discount->fk_facture_source = 0; // This is to delete only the require record (that we will recreate with two records) and not all family with same fk_facture_source
+		$discount->fk_invoice_source = 0; // This is to delete only the require record (that we will recreate with two records) and not all family with same fk_invoice_source
 		// This is to delete only the require record (that we will recreate with two records) and not all family with same fk_invoice_supplier_source
 		$discount->fk_invoice_supplier_source = 0;
 		$res = $discount->delete($user);
@@ -229,8 +229,8 @@ if (GETPOST('action', 'aZ09') == 'confirm_remove' && GETPOST("confirm") == 'yes'
  */
 
 $form = new Form($db);
-$facturestatic = new Facture($db);
-$facturefournstatic = new FactureFournisseur($db);
+$invoicestatic = new Invoice($db);
+$invoicefournstatic = new InvoiceSupplier($db);
 $tmpuser = new User($db);
 
 llxHeader('', $langs->trans("GlobalDiscount"));
@@ -285,7 +285,7 @@ if ($socid > 0) {
 		$sql .= " WHERE rc.fk_soc = ".((int) $object->id);
 		$sql .= " AND rc.entity = ".((int) $config->entity);
 		$sql .= " AND discount_type = 0"; // Exclude supplier discounts
-		$sql .= " AND (fk_facture_line IS NULL AND fk_facture IS NULL)";
+		$sql .= " AND (fk_invoice_line IS NULL AND fk_invoice IS NULL)";
 		$sql .= " GROUP BY rc.fk_user";
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -446,16 +446,16 @@ if ($socid > 0) {
 		$sql = "SELECT rc.rowid, rc.amount_ht, rc.amount_tva, rc.amount_ttc, rc.tva_tx, rc.vat_src_code,";
 		$sql .= " rc.multicurrency_amount_ht, rc.multicurrency_amount_tva, rc.multicurrency_amount_ttc,";
 		$sql .= " rc.datec as dc, rc.description,";
-		$sql .= " rc.fk_facture_source,";
+		$sql .= " rc.fk_invoice_source,";
 		$sql .= " u.login, u.rowid as user_id, u.statut as status, u.firstname, u.lastname, u.photo,";
 		$sql .= " fa.ref as ref, fa.type as type";
 		$sql .= " FROM  ".MAIN_DB_PREFIX."user as u, ".MAIN_DB_PREFIX."societe_remise_except as rc";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture as fa ON rc.fk_facture_source = fa.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice as fa ON rc.fk_invoice_source = fa.rowid";
 		$sql .= " WHERE rc.fk_soc = ".((int) $object->id);
 		$sql .= " AND rc.entity = ".((int) $config->entity);
 		$sql .= " AND u.rowid = rc.fk_user";
 		$sql .= " AND rc.discount_type = 0"; // Eliminate supplier discounts
-		$sql .= " AND (rc.fk_facture_line IS NULL AND rc.fk_facture IS NULL)";
+		$sql .= " AND (rc.fk_invoice_line IS NULL AND rc.fk_invoice IS NULL)";
 		$sql .= " ORDER BY rc.datec DESC";
 
 		$resql = $db->query($sql);
@@ -500,24 +500,24 @@ if ($socid > 0) {
 
 					if (preg_match('/\(CREDIT_NOTE\)/', $obj->description)) {
 						print '<td class="tdoverflowmax100">';
-						$facturestatic->id = $obj->fk_facture_source;
-						$facturestatic->ref = $obj->ref;
-						$facturestatic->type = $obj->type;
-						print preg_replace('/\(CREDIT_NOTE\)/', $langs->trans("CreditNote"), $obj->description).' '.$facturestatic->getNomURl(1);
+						$invoicestatic->id = $obj->fk_invoice_source;
+						$invoicestatic->ref = $obj->ref;
+						$invoicestatic->type = $obj->type;
+						print preg_replace('/\(CREDIT_NOTE\)/', $langs->trans("CreditNote"), $obj->description).' '.$invoicestatic->getNomURl(1);
 						print '</td>';
 					} elseif (preg_match('/\(DEPOSIT\)/', $obj->description)) {
 						print '<td class="tdoverflowmax100">';
-						$facturestatic->id = $obj->fk_facture_source;
-						$facturestatic->ref = $obj->ref;
-						$facturestatic->type = $obj->type;
-						print preg_replace('/\(DEPOSIT\)/', $langs->trans("InvoiceDeposit"), $obj->description).' '.$facturestatic->getNomURl(1);
+						$invoicestatic->id = $obj->fk_invoice_source;
+						$invoicestatic->ref = $obj->ref;
+						$invoicestatic->type = $obj->type;
+						print preg_replace('/\(DEPOSIT\)/', $langs->trans("InvoiceDeposit"), $obj->description).' '.$invoicestatic->getNomURl(1);
 						print '</td>';
 					} elseif (preg_match('/\(EXCESS RECEIVED\)/', $obj->description)) {
 						print '<td class="tdoverflowmax100">';
-						$facturestatic->id = $obj->fk_facture_source;
-						$facturestatic->ref = $obj->ref;
-						$facturestatic->type = $obj->type;
-						print preg_replace('/\(EXCESS RECEIVED\)/', $langs->trans("ExcessReceived"), $obj->description).' '.$facturestatic->getNomURl(1);
+						$invoicestatic->id = $obj->fk_invoice_source;
+						$invoicestatic->ref = $obj->ref;
+						$invoicestatic->type = $obj->type;
+						print preg_replace('/\(EXCESS RECEIVED\)/', $langs->trans("ExcessReceived"), $obj->description).' '.$invoicestatic->getNomURl(1);
 						print '</td>';
 					} else {
 						print '<td class="tdoverflowmax100" title="'.dol_escape_htmltag($obj->description).'">';
@@ -542,7 +542,7 @@ if ($socid > 0) {
 					print $tmpuser->getNomUrl(-1);
 					print '</td>';
 
-					if ($user->hasRight('societe', 'creer') || $user->hasRight('facture', 'creer')) {
+					if ($user->hasRight('societe', 'creer') || $user->hasRight('invoice', 'creer')) {
 						print '<td class="center nowraponall">';
 						print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=split&token='.newToken().'&remid='.$obj->rowid.($backtopage ? '&backtopage='.urlencode($backtopage) : '').'">'.img_split($langs->trans("SplitDiscount")).'</a>';
 						print '<a class="reposition marginleftonly" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=remove&token='.newToken().'&remid='.$obj->rowid.($backtopage ? '&backtopage='.urlencode($backtopage) : '').'">'.img_delete($langs->trans("RemoveDiscount")).'</a>';
@@ -594,7 +594,7 @@ if ($socid > 0) {
 		}
 
 		/*
-		 * Liste remises fixes fournisseur restant en cours (= liees a aucune facture ni ligne de facture)
+		 * List of fixed supplier discounts remaining in progress (= linked to no invoice or invoice line)
 		 */
 		$sql = "SELECT rc.rowid, rc.amount_ht, rc.amount_tva, rc.amount_ttc, rc.tva_tx, rc.vat_src_code,";
 		$sql .= " rc.multicurrency_amount_ht, rc.multicurrency_amount_tva, rc.multicurrency_amount_ttc,";
@@ -603,7 +603,7 @@ if ($socid > 0) {
 		$sql .= " u.login, u.rowid as user_id, u.statut as status, u.firstname, u.lastname, u.photo,";
 		$sql .= " fa.ref, fa.type as type";
 		$sql .= " FROM  ".MAIN_DB_PREFIX."user as u, ".MAIN_DB_PREFIX."societe_remise_except as rc";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture_fourn as fa ON rc.fk_invoice_supplier_source = fa.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice_fourn as fa ON rc.fk_invoice_supplier_source = fa.rowid";
 		$sql .= " WHERE rc.fk_soc = ".((int) $object->id);
 		$sql .= " AND rc.entity = ".((int) $config->entity);
 		$sql .= " AND u.rowid = rc.fk_user";
@@ -651,24 +651,24 @@ if ($socid > 0) {
 					print '<td>'.dol_print_date($db->jdate($obj->dc), 'dayhour', 'tzuserrel').'</td>';
 					if (preg_match('/\(CREDIT_NOTE\)/', $obj->description)) {
 						print '<td class="tdoverflowmax100">';
-						$facturefournstatic->id = $obj->fk_invoice_supplier_source;
-						$facturefournstatic->ref = $obj->ref;
-						$facturefournstatic->type = $obj->type;
-						print preg_replace('/\(CREDIT_NOTE\)/', $langs->trans("CreditNote"), $obj->description).' '.$facturefournstatic->getNomURl(1);
+						$invoicefournstatic->id = $obj->fk_invoice_supplier_source;
+						$invoicefournstatic->ref = $obj->ref;
+						$invoicefournstatic->type = $obj->type;
+						print preg_replace('/\(CREDIT_NOTE\)/', $langs->trans("CreditNote"), $obj->description).' '.$invoicefournstatic->getNomURl(1);
 						print '</td>';
 					} elseif (preg_match('/\(DEPOSIT\)/', $obj->description)) {
 						print '<td class="tdoverflowmax100">';
-						$facturefournstatic->id = $obj->fk_invoice_supplier_source;
-						$facturefournstatic->ref = $obj->ref;
-						$facturefournstatic->type = $obj->type;
-						print preg_replace('/\(DEPOSIT\)/', $langs->trans("InvoiceDeposit"), $obj->description).' '.$facturefournstatic->getNomURl(1);
+						$invoicefournstatic->id = $obj->fk_invoice_supplier_source;
+						$invoicefournstatic->ref = $obj->ref;
+						$invoicefournstatic->type = $obj->type;
+						print preg_replace('/\(DEPOSIT\)/', $langs->trans("InvoiceDeposit"), $obj->description).' '.$invoicefournstatic->getNomURl(1);
 						print '</td>';
 					} elseif (preg_match('/\(EXCESS PAID\)/', $obj->description)) {
 						print '<td class="tdoverflowmax100">';
-						$facturefournstatic->id = $obj->fk_invoice_supplier_source;
-						$facturefournstatic->ref = $obj->ref;
-						$facturefournstatic->type = $obj->type;
-						print preg_replace('/\(EXCESS PAID\)/', $langs->trans("ExcessPaid"), $obj->description).' '.$facturefournstatic->getNomURl(1);
+						$invoicefournstatic->id = $obj->fk_invoice_supplier_source;
+						$invoicefournstatic->ref = $obj->ref;
+						$invoicefournstatic->type = $obj->type;
+						print preg_replace('/\(EXCESS PAID\)/', $langs->trans("ExcessPaid"), $obj->description).' '.$invoicefournstatic->getNomURl(1);
 						print '</td>';
 					} else {
 						print '<td class="tdoverflowmax100" title="'.dol_escape_htmltag($obj->description).'">';
@@ -689,7 +689,7 @@ if ($socid > 0) {
 					print $tmpuser->getNomUrl(-1);
 					print '</td>';
 
-					if ($user->hasRight('societe', 'creer') || $user->hasRight('facture', 'creer')) {
+					if ($user->hasRight('societe', 'creer') || $user->hasRight('invoice', 'creer')) {
 						print '<td class="center nowraponall">';
 						print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=split&token='.newToken().'&remid='.$obj->rowid.($backtopage ? '&backtopage='.urlencode($backtopage) : '').'">'.img_split($langs->trans("SplitDiscount")).'</a>';
 						print '<a class="reposition marginleftonly" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=remove&token='.newToken().'&remid='.$obj->rowid.($backtopage ? '&backtopage='.urlencode($backtopage) : '').'">'.img_delete($langs->trans("RemoveDiscount")).'</a>';
@@ -740,7 +740,7 @@ if ($socid > 0) {
 	print '<div class="clearboth"></div><br><br>';
 
 	/*
-	 * List discount consumed (=liees a une ligne de facture ou facture)
+	 * List discount consumed (=linked to an invoice or bill line)
 	 */
 
 	print load_fiche_titre($langs->trans("DiscountAlreadyCounted"));
@@ -755,18 +755,18 @@ if ($socid > 0) {
 		// Discount linked to invoice lines
 		$sql = "SELECT rc.rowid, rc.amount_ht, rc.amount_tva, rc.amount_ttc, rc.tva_tx, rc.vat_src_code,";
 		$sql .= " rc.multicurrency_amount_ht, rc.multicurrency_amount_tva, rc.multicurrency_amount_ttc,";
-		$sql .= " rc.datec as dc, rc.description, rc.fk_facture_line, rc.fk_facture_source,";
+		$sql .= " rc.datec as dc, rc.description, rc.fk_invoice_line, rc.fk_invoice_source,";
 		$sql .= " u.login, u.rowid as user_id, u.statut as status, u.firstname, u.lastname, u.photo,";
 		$sql .= " f.rowid as invoiceid, f.ref,";
 		$sql .= " fa.ref as invoice_source_ref, fa.type as type";
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f";
 		$sql .= " , ".MAIN_DB_PREFIX."user as u";
-		$sql .= " , ".MAIN_DB_PREFIX."facturedet as fc";
+		$sql .= " , ".MAIN_DB_PREFIX."invoicedet as fc";
 		$sql .= " , ".MAIN_DB_PREFIX."societe_remise_except as rc";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture as fa ON rc.fk_facture_source = fa.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice as fa ON rc.fk_invoice_source = fa.rowid";
 		$sql .= " WHERE rc.fk_soc = ".((int) $object->id);
-		$sql .= " AND rc.fk_facture_line = fc.rowid";
-		$sql .= " AND fc.fk_facture = f.rowid";
+		$sql .= " AND rc.fk_invoice_line = fc.rowid";
+		$sql .= " AND fc.fk_invoice = f.rowid";
 		$sql .= " AND rc.fk_user = u.rowid";
 		$sql .= " AND rc.discount_type = 0"; // Eliminate supplier discounts
 		$sql .= " ORDER BY dc DESC";
@@ -774,16 +774,16 @@ if ($socid > 0) {
 		// Discount linked to invoices
 		$sql2 = "SELECT rc.rowid, rc.amount_ht, rc.amount_tva, rc.amount_ttc, rc.tva_tx, rc.vat_src_code,";
 		$sql2 .= " rc.multicurrency_amount_ht, rc.multicurrency_amount_tva, rc.multicurrency_amount_ttc,";
-		$sql2 .= " rc.datec as dc, rc.description, rc.fk_facture, rc.fk_facture_source,";
+		$sql2 .= " rc.datec as dc, rc.description, rc.fk_invoice, rc.fk_invoice_source,";
 		$sql2 .= " u.login, u.rowid as user_id, u.statut as status, u.firstname, u.lastname, u.photo,";
 		$sql2 .= " f.rowid as invoiceid, f.ref,";
 		$sql2 .= " fa.ref as invoice_source_ref, fa.type as type";
-		$sql2 .= " FROM ".MAIN_DB_PREFIX."facture as f";
+		$sql2 .= " FROM ".MAIN_DB_PREFIX."invoice as f";
 		$sql2 .= " , ".MAIN_DB_PREFIX."user as u";
 		$sql2 .= " , ".MAIN_DB_PREFIX."societe_remise_except as rc";
-		$sql2 .= " LEFT JOIN ".MAIN_DB_PREFIX."facture as fa ON rc.fk_facture_source = fa.rowid";
+		$sql2 .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice as fa ON rc.fk_invoice_source = fa.rowid";
 		$sql2 .= " WHERE rc.fk_soc = ".((int) $object->id);
-		$sql2 .= " AND rc.fk_facture = f.rowid";
+		$sql2 .= " AND rc.fk_invoice = f.rowid";
 		$sql2 .= " AND rc.fk_user = u.rowid";
 		$sql2 .= " AND rc.discount_type = 0"; // Eliminate supplier discounts
 		$sql2 .= " ORDER BY dc DESC";
@@ -852,24 +852,24 @@ if ($socid > 0) {
 					print '<td>'.dol_print_date($db->jdate($obj->dc), 'dayhour').'</td>';
 					if (preg_match('/\(CREDIT_NOTE\)/', $obj->description)) {
 						print '<td class="tdoverflowmax100">';
-						$facturestatic->id = $obj->fk_facture_source;
-						$facturestatic->ref = $obj->invoice_source_ref;
-						$facturestatic->type = $obj->type;
-						print preg_replace('/\(CREDIT_NOTE\)/', $langs->trans("CreditNote"), $obj->description).' '.$facturestatic->getNomURl(1);
+						$invoicestatic->id = $obj->fk_invoice_source;
+						$invoicestatic->ref = $obj->invoice_source_ref;
+						$invoicestatic->type = $obj->type;
+						print preg_replace('/\(CREDIT_NOTE\)/', $langs->trans("CreditNote"), $obj->description).' '.$invoicestatic->getNomURl(1);
 						print '</td>';
 					} elseif (preg_match('/\(DEPOSIT\)/', $obj->description)) {
 						print '<td class="tdoverflowmax100">';
-						$facturestatic->id = $obj->fk_facture_source;
-						$facturestatic->ref = $obj->invoice_source_ref;
-						$facturestatic->type = $obj->type;
-						print preg_replace('/\(DEPOSIT\)/', $langs->trans("InvoiceDeposit"), $obj->description).' '.$facturestatic->getNomURl(1);
+						$invoicestatic->id = $obj->fk_invoice_source;
+						$invoicestatic->ref = $obj->invoice_source_ref;
+						$invoicestatic->type = $obj->type;
+						print preg_replace('/\(DEPOSIT\)/', $langs->trans("InvoiceDeposit"), $obj->description).' '.$invoicestatic->getNomURl(1);
 						print '</td>';
 					} elseif (preg_match('/\(EXCESS RECEIVED\)/', $obj->description)) {
 						print '<td class="tdoverflowmax100">';
-						$facturestatic->id = $obj->fk_facture_source;
-						$facturestatic->ref = $obj->invoice_source_ref;
-						$facturestatic->type = $obj->type;
-						print preg_replace('/\(EXCESS RECEIVED\)/', $langs->trans("Invoice"), $obj->description).' '.$facturestatic->getNomURl(1);
+						$invoicestatic->id = $obj->fk_invoice_source;
+						$invoicestatic->ref = $obj->invoice_source_ref;
+						$invoicestatic->type = $obj->type;
+						print preg_replace('/\(EXCESS RECEIVED\)/', $langs->trans("Invoice"), $obj->description).' '.$invoicestatic->getNomURl(1);
 						print '</td>';
 					} else {
 						print '<td class="tdoverflowmax100" title="'.dol_escape_htmltag($obj->description).'">';
@@ -878,7 +878,7 @@ if ($socid > 0) {
 					}
 					print '<td class="left nowrap">';
 					if ($obj->invoiceid) {
-						print '<a href="'.DOL_URL_ROOT.'/compta/facture/card.php?facid='.$obj->invoiceid.'">'.img_object($langs->trans("ShowBill"), 'bill').' '.$obj->ref.'</a>';
+						print '<a href="'.DOL_URL_ROOT.'/compta/invoice/card.php?facid='.$obj->invoiceid.'">'.img_object($langs->trans("ShowBill"), 'bill').' '.$obj->ref.'</a>';
 					}
 					print '</td>';
 					print '<td class="right nowraponall amount">'.price($obj->amount_ht).'</td>';
@@ -928,14 +928,14 @@ if ($socid > 0) {
 		$sql .= " u.login, u.rowid as user_id, u.statut as user_status, u.firstname, u.lastname, u.photo,";
 		$sql .= " f.rowid as invoiceid, f.ref as ref,";
 		$sql .= " fa.ref as invoice_source_ref, fa.type as type";
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f";
 		$sql .= " , ".MAIN_DB_PREFIX."user as u";
-		$sql .= " , ".MAIN_DB_PREFIX."facture_fourn_det as fc";
+		$sql .= " , ".MAIN_DB_PREFIX."invoice_fourn_det as fc";
 		$sql .= " , ".MAIN_DB_PREFIX."societe_remise_except as rc";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture_fourn as fa ON rc.fk_invoice_supplier_source = fa.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice_fourn as fa ON rc.fk_invoice_supplier_source = fa.rowid";
 		$sql .= " WHERE rc.fk_soc = ".((int) $object->id);
 		$sql .= " AND rc.fk_invoice_supplier_line = fc.rowid";
-		$sql .= " AND fc.fk_facture_fourn = f.rowid";
+		$sql .= " AND fc.fk_invoice_fourn = f.rowid";
 		$sql .= " AND rc.fk_user = u.rowid";
 		$sql .= " AND rc.discount_type = 1"; // Eliminate customer discounts
 		$sql .= " ORDER BY dc DESC";
@@ -948,10 +948,10 @@ if ($socid > 0) {
 		$sql2 .= " u.login, u.rowid as user_id, u.statut as user_status, u.firstname, u.lastname, u.photo,";
 		$sql2 .= " f.rowid as invoiceid, f.ref as ref,";
 		$sql2 .= " fa.ref as invoice_source_ref, fa.type as type";
-		$sql2 .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
+		$sql2 .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f";
 		$sql2 .= " , ".MAIN_DB_PREFIX."user as u";
 		$sql2 .= " , ".MAIN_DB_PREFIX."societe_remise_except as rc";
-		$sql2 .= " LEFT JOIN ".MAIN_DB_PREFIX."facture_fourn as fa ON rc.fk_invoice_supplier_source = fa.rowid";
+		$sql2 .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice_fourn as fa ON rc.fk_invoice_supplier_source = fa.rowid";
 		$sql2 .= " WHERE rc.fk_soc = ".((int) $object->id);
 		$sql2 .= " AND rc.fk_invoice_supplier = f.rowid";
 		$sql2 .= " AND rc.fk_user = u.rowid";
@@ -1022,24 +1022,24 @@ if ($socid > 0) {
 					print '<td>'.dol_print_date($db->jdate($obj->dc), 'dayhour').'</td>';
 					if (preg_match('/\(CREDIT_NOTE\)/', $obj->description)) {
 						print '<td class="tdoverflowmax100">';
-						$facturefournstatic->id = $obj->fk_invoice_supplier_source;
-						$facturefournstatic->ref = $obj->invoice_source_ref;
-						$facturefournstatic->type = $obj->type;
-						print preg_replace('/\(CREDIT_NOTE\)/', $langs->trans("CreditNote"), $obj->description).' '.$facturefournstatic->getNomURl(1);
+						$invoicefournstatic->id = $obj->fk_invoice_supplier_source;
+						$invoicefournstatic->ref = $obj->invoice_source_ref;
+						$invoicefournstatic->type = $obj->type;
+						print preg_replace('/\(CREDIT_NOTE\)/', $langs->trans("CreditNote"), $obj->description).' '.$invoicefournstatic->getNomURl(1);
 						print '</td>';
 					} elseif (preg_match('/\(DEPOSIT\)/', $obj->description)) {
 						print '<td class="tdoverflowmax100">';
-						$facturefournstatic->id = $obj->fk_invoice_supplier_source;
-						$facturefournstatic->ref = $obj->invoice_source_ref;
-						$facturefournstatic->type = $obj->type;
-						print preg_replace('/\(DEPOSIT\)/', $langs->trans("InvoiceDeposit"), $obj->description).' '.$facturefournstatic->getNomURl(1);
+						$invoicefournstatic->id = $obj->fk_invoice_supplier_source;
+						$invoicefournstatic->ref = $obj->invoice_source_ref;
+						$invoicefournstatic->type = $obj->type;
+						print preg_replace('/\(DEPOSIT\)/', $langs->trans("InvoiceDeposit"), $obj->description).' '.$invoicefournstatic->getNomURl(1);
 						print '</td>';
 					} elseif (preg_match('/\(EXCESS PAID\)/', $obj->description)) {
 						print '<td class="tdoverflowmax100">';
-						$facturefournstatic->id = $obj->fk_invoice_supplier_source;
-						$facturefournstatic->ref = $obj->invoice_source_ref;
-						$facturefournstatic->type = $obj->type;
-						print preg_replace('/\(EXCESS PAID\)/', $langs->trans("Invoice"), $obj->description).' '.$facturefournstatic->getNomURl(1);
+						$invoicefournstatic->id = $obj->fk_invoice_supplier_source;
+						$invoicefournstatic->ref = $obj->invoice_source_ref;
+						$invoicefournstatic->type = $obj->type;
+						print preg_replace('/\(EXCESS PAID\)/', $langs->trans("Invoice"), $obj->description).' '.$invoicefournstatic->getNomURl(1);
 						print '</td>';
 					} else {
 						print '<td class="tdoverflowmax100" title="'.dol_escape_htmltag($obj->description).'">';
@@ -1048,7 +1048,7 @@ if ($socid > 0) {
 					}
 					print '<td class="left nowrap">';
 					if ($obj->invoiceid) {
-						print '<a href="'.DOL_URL_ROOT.'/fourn/facture/card.php?facid='.$obj->invoiceid.'">'.img_object($langs->trans("ShowBill"), 'bill').' '.$obj->ref.'</a>';
+						print '<a href="'.DOL_URL_ROOT.'/fourn/invoice/card.php?facid='.$obj->invoiceid.'">'.img_object($langs->trans("ShowBill"), 'bill').' '.$obj->ref.'</a>';
 					}
 					print '</td>';
 					print '<td class="right nowraponall amount">'.price($obj->amount_ht).'</td>';

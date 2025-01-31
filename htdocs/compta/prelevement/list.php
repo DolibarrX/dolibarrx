@@ -136,17 +136,17 @@ $sql .= " FROM ".MAIN_DB_PREFIX."prelevement_bons as p";
 $sql .= " , ".MAIN_DB_PREFIX."prelevement_lignes as pl";
 $sql .= " , ".MAIN_DB_PREFIX."prelevement as pf";
 if ($type == 'bank-transfer') {
-	$sql .= " , ".MAIN_DB_PREFIX."facture_fourn as f";
+	$sql .= " , ".MAIN_DB_PREFIX."invoice_fourn as f";
 } else {
-	$sql .= " , ".MAIN_DB_PREFIX."facture as f";
+	$sql .= " , ".MAIN_DB_PREFIX."invoice as f";
 }
 $sql .= " , ".MAIN_DB_PREFIX."societe as s";
 $sql .= " WHERE pl.fk_prelevement_bons = p.rowid";
 $sql .= " AND pf.fk_prelevement_lignes = pl.rowid";
 if ($type == 'bank-transfer') {
-	$sql .= " AND pf.fk_facture_fourn = f.rowid";
+	$sql .= " AND pf.fk_invoice_fourn = f.rowid";
 } else {
-	$sql .= " AND pf.fk_facture = f.rowid";
+	$sql .= " AND pf.fk_invoice = f.rowid";
 }
 $sql .= " AND f.fk_soc = s.rowid";
 $sql .= " AND f.entity IN (".getEntity('invoice').")";
@@ -486,7 +486,7 @@ while ($i < $imaxinloop) {
 
 		// Ref invoice or salary
 		print '<td class="nowraponall">';
-		$link_to_bill = '/compta/facture/card.php?facid=';
+		$link_to_bill = '/compta/invoice/card.php?facid=';
 		$link_title = 'Invoice';
 		$link_picture = 'bill';
 		if ($type == 'bank-transfer') {
@@ -495,7 +495,7 @@ while ($i < $imaxinloop) {
 				$link_title = 'SalaryInvoice';
 				$link_picture = 'salary';
 			} else {
-				$link_to_bill = '/fourn/facture/card.php?facid=';
+				$link_to_bill = '/fourn/invoice/card.php?facid=';
 				$link_title = 'SupplierInvoice';
 				$link_picture = 'supplier_invoice';
 			}

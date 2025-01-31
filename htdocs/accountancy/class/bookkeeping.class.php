@@ -355,7 +355,7 @@ class BookKeeping extends CommonObject
 				$sqlnum .= " WHERE doc_type = '" . $this->db->escape($this->doc_type) . "'"; // For example doc_type = 'bank'
 				$sqlnum .= " AND fk_doc = " . ((int) $this->fk_doc);
 				if (getDolGlobalString('ACCOUNTANCY_ENABLE_FKDOCDET')) {
-					// fk_docdet is rowid into llx_bank or llx_facturedet or llx_facturefourndet, or ...
+					// fk_docdet is rowid into llx_bank or llx_invoicedet or llx_invoicefourndet, or ...
 					$sqlnum .= " AND fk_docdet = " . ((int) $this->fk_docdet);
 				}
 				$sqlnum .= " AND doc_ref = '" . $this->db->escape($this->doc_ref) . "'"; // ref of source object
@@ -2242,7 +2242,7 @@ class BookKeeping extends CommonObject
 				$select_value_out = $obj->account_number;
 			}
 
-			// Remember guy's we store in database llx_facturedet the rowid of accounting_account and not the account_number
+			// Remember guy's we store in database llx_invoicedet the rowid of accounting_account and not the account_number
 			// Because same account_number can be share between different accounting_system and do have the same meaning
 			if (($selectid != '') && $selectid == $select_value_in) {
 				$selected = $select_value_out;

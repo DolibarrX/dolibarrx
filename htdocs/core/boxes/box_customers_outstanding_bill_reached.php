@@ -36,7 +36,7 @@ class box_customers_outstanding_bill_reached extends ModeleBoxes
 	public $boxcode = "customersoutstandingbillreached";
 	public $boximg = "object_company";
 	public $boxlabel = "BoxCustomersOutstandingBillReached";
-	public $depends = array("facture", "societe");
+	public $depends = array("invoice", "societe");
 
 	public $enabled = 1;
 
@@ -97,7 +97,7 @@ class box_customers_outstanding_bill_reached extends ModeleBoxes
 				$sql .= " AND s.rowid = $user->socid";
 			}
 			$sql .= " AND s.outstanding_limit > 0";
-			$sql .= " AND s.rowid IN (SELECT fk_soc from ".MAIN_DB_PREFIX."facture as f WHERE f.fk_statut = 1 and f.fk_soc = s.rowid)";
+			$sql .= " AND s.rowid IN (SELECT fk_soc from ".MAIN_DB_PREFIX."invoice as f WHERE f.fk_statut = 1 and f.fk_soc = s.rowid)";
 			$sql .= " ORDER BY s.tms DESC";
 			//$sql .= $this->db->plimit($max, 0);
 

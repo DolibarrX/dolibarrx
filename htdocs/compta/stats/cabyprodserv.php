@@ -325,8 +325,8 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$hookManager->executeHooks('printFieldListSelect', $parameters);
 	$sql .= $hookManager->resPrint;
 
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
-	$sql .= ",".MAIN_DB_PREFIX."facturedet as l";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f";
+	$sql .= ",".MAIN_DB_PREFIX."invoicedet as l";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON l.fk_product = p.rowid";
 	if ($typent_id > 0) {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as soc ON (soc.rowid = f.fk_soc)";
@@ -335,7 +335,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$hookManager->executeHooks('printFieldListFrom', $parameters);
 	$sql .= $hookManager->resPrint;
 
-	$sql .= " WHERE l.fk_facture = f.rowid";
+	$sql .= " WHERE l.fk_invoice = f.rowid";
 	$sql .= " AND f.fk_statut in (1,2)";
 	$sql .= " AND l.product_type in (0,1)";
 	if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
@@ -604,7 +604,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 			// Amount w/o VAT
 			print '<td class="right">';
 			/*if ($key > 0) {
-				print '<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?productid='.$key.'">';
+				print '<a href="'.DOL_URL_ROOT.'/compta/invoice/list.php?productid='.$key.'">';
 			} else {
 				print '<a href="#">';
 			}*/
@@ -615,7 +615,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 			// Amount with VAT
 			print '<td class="right">';
 			/*if ($key > 0) {
-				print '<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?productid='.$key.'">';
+				print '<a href="'.DOL_URL_ROOT.'/compta/invoice/list.php?productid='.$key.'">';
 			} else {
 				print '<a href="#">';
 			}*/

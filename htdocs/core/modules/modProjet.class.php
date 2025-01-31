@@ -290,7 +290,7 @@ class modProjet extends DolibarrModules
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX."element_time as ptt ON (pt.rowid = ptt.fk_element AND ptt.elementtype = 'task')";
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'societe as s ON p.fk_soc = s.rowid';
 		if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
-			$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'facture as f ON ptt.invoice_id = f.rowid';
+			$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'invoice as f ON ptt.invoice_id = f.rowid';
 		}
 		$this->export_sql_end[$r] .= " WHERE p.entity IN (".getEntity('project').")";
 

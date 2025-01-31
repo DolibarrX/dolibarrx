@@ -794,8 +794,8 @@ class Export
 								if ($obj->f_rowid > 0) {
 									global $tmpobjforcomputecall;
 									if (!is_object($tmpobjforcomputecall)) {
-										include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-										$tmpobjforcomputecall = new Facture($this->db);
+										include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+										$tmpobjforcomputecall = new Invoice($this->db);
 									}
 									$tmpobjforcomputecall->id = $obj->f_rowid;
 									$tmpobjforcomputecall->total_ttc = $obj->f_total_ttc;

@@ -30,10 +30,10 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/tax.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/tva/class/tva.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/localtax/class/localtax.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/paiementfourn.class.php';
 require_once DOL_DOCUMENT_ROOT.'/expensereport/class/expensereport.class.php';
 require_once DOL_DOCUMENT_ROOT.'/expensereport/class/paymentexpensereport.class.php';
@@ -150,8 +150,8 @@ $result = restrictedArea($user, 'tax', '', '', 'charges');
 
 $form = new Form($db);
 $company_static = new Societe($db);
-$invoice_customer = new Facture($db);
-$invoice_supplier = new FactureFournisseur($db);
+$invoice_customer = new Invoice($db);
+$invoice_supplier = new InvoiceSupplier($db);
 $expensereport = new ExpenseReport($db);
 $product_static = new Product($db);
 $payment_static = new Paiement($db);
@@ -326,8 +326,8 @@ if ($modecompta == 'CREANCES-DETTES') {
 		$sql .= " SUM(".$db->ifsql("MONTH(f.datef)=".$i, "fd.total_ht", "0").") AS month".str_pad((string) $i, 2, "0", STR_PAD_LEFT).",";
 	}
 	$sql .= "  SUM(fd.total_ht) as total";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facturedet as fd";
-	$sql .= "  INNER JOIN ".MAIN_DB_PREFIX."facture as f ON f.rowid = fd.fk_facture";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoicedet as fd";
+	$sql .= "  INNER JOIN ".MAIN_DB_PREFIX."invoice as f ON f.rowid = fd.fk_invoice";
 	$sql .= "  INNER JOIN ".MAIN_DB_PREFIX."societe as soc ON soc.rowid = f.fk_soc";
 	$sql .= "  LEFT JOIN ".MAIN_DB_PREFIX."c_country as cc ON cc.rowid = soc.fk_pays";
 	$sql .= " WHERE f.datef >= '".$db->idate($date_start)."'";
@@ -413,8 +413,8 @@ if ($modecompta == 'CREANCES-DETTES') {
 		$sql2 .= " SUM(".$db->ifsql("MONTH(ff.datef)=".$i, "ffd.total_ht", "0").") AS month".str_pad((string) $i, 2, "0", STR_PAD_LEFT).",";
 	}
 	$sql2 .= "  SUM(ffd.total_ht) as total";
-	$sql2 .= " FROM ".MAIN_DB_PREFIX."facture_fourn_det as ffd";
-	$sql2 .= "  INNER JOIN ".MAIN_DB_PREFIX."facture_fourn as ff ON ff.rowid = ffd.fk_facture_fourn";
+	$sql2 .= " FROM ".MAIN_DB_PREFIX."invoice_fourn_det as ffd";
+	$sql2 .= "  INNER JOIN ".MAIN_DB_PREFIX."invoice_fourn as ff ON ff.rowid = ffd.fk_invoice_fourn";
 	$sql2 .= "  INNER JOIN ".MAIN_DB_PREFIX."societe as soc ON soc.rowid = ff.fk_soc";
 	$sql2 .= "  LEFT JOIN ".MAIN_DB_PREFIX."c_country as cc ON cc.rowid = soc.fk_pays";
 	$sql2 .= " WHERE ff.datef >= '".$db->idate($date_start)."'";
@@ -425,7 +425,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	} else {
 		$sql .= " AND ff.type IN (0,1,2,3,5)";
 	}
-	$sql2 .= " AND ff.entity IN (".getEntity("facture_fourn", 0).")";
+	$sql2 .= " AND ff.entity IN (".getEntity("invoice_fourn", 0).")";
 	$sql2 .= " GROUP BY ffd.tva_tx, ffd.product_type, cc.label, cc.code ";
 	$sql2 .= " ORDER BY country, product_type, vatrate";
 

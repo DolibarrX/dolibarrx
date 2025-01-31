@@ -37,8 +37,8 @@
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
@@ -46,7 +46,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/invoice.lib.php';
 
 // L'espace compta/treso doit toujours etre actif car c'est un espace partage
-// par de nombreux modules (bank, facture, order a facturer, etc...) independamment
+// par de nombreux modules (bank, invoice, order a invoicer, etc...) independamment
 // de l'utilisation de la compta ou non. C'est au sein de cet espace que chaque sous fonction
 // est protegee par le droit qui va bien du module concerne.
 
@@ -142,9 +142,9 @@ print '</div><div class="secondcolumn fichehalfright boxhalfright" id="boxhalfri
 
 
 // Latest modified customer invoices
-if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
+if (isModEnabled('invoice') && $user->hasRight('invoice', 'lire')) {
 	$langs->load("boxes");
-	$tmpinvoice = new Facture($db);
+	$tmpinvoice = new Invoice($db);
 
 	$sql = "SELECT f.rowid, f.ref, f.fk_statut as status, f.type, f.total_ht, f.total_tva, f.total_ttc, f.paye, f.tms";
 	$sql .= ", f.date_lim_reglement as datelimite";
@@ -152,8 +152,8 @@ if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
 	$sql .= ", s.rowid as socid";
 	$sql .= ", s.code_client, s.code_compta as code_compta_client, s.email";
 	$sql .= ", cc.rowid as country_id, cc.code as country_code";
-	$sql .= ", (SELECT SUM(pf.amount) FROM ".$db->prefix()."paiement_facture as pf WHERE pf.fk_facture = f.rowid) as am";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
+	$sql .= ", (SELECT SUM(pf.amount) FROM ".$db->prefix()."paiement_invoice as pf WHERE pf.fk_invoice = f.rowid) as am";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f";
 	$sql .= " INNER JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as cc ON cc.rowid = s.fk_pays";
 	$sql .= " WHERE f.entity IN (".getEntity('invoice').")";
@@ -182,7 +182,7 @@ if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
 		print '<table class="noborder centpercent">';
 
 		print '<tr class="liste_titre"><th colspan="2">'.$langs->trans("BoxTitleLastCustomerBills", $max);
-		print '<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?sortfield=f.tms&sortorder=desc"><span class="badge marginleftonly">...</span></a>';
+		print '<a href="'.DOL_URL_ROOT.'/compta/invoice/list.php?sortfield=f.tms&sortorder=desc"><span class="badge marginleftonly">...</span></a>';
 		print '</th>';
 		if (getDolGlobalString('MAIN_SHOW_HT_ON_SUMMARY')) {
 			print '<th class="right">'.$langs->trans("AmountHT").'</th>';
@@ -245,7 +245,7 @@ if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
 				}
 				print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $config->facture->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->invoice->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?facid='.$obj->rowid;
 				print $formfile->getDocumentsLink($tmpinvoice->element, $filename, $filedir);
 				print '</td></tr></table>';
@@ -296,18 +296,18 @@ if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
 
 
 // Last modified supplier invoices
-if ((isModEnabled('fournisseur') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight("fournisseur", "facture", "lire")) || (isModEnabled('supplier_invoice') && $user->hasRight("supplier_invoice", "lire"))) {
+if ((isModEnabled('fournisseur') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight("fournisseur", "invoice", "lire")) || (isModEnabled('supplier_invoice') && $user->hasRight("supplier_invoice", "lire"))) {
 	$langs->load("boxes");
-	$facstatic = new FactureFournisseur($db);
+	$facstatic = new InvoiceSupplier($db);
 
 	$sql = "SELECT ff.rowid, ff.ref, ff.fk_statut as status, ff.type, ff.libelle, ff.total_ht, ff.total_tva, ff.total_ttc, ff.tms, ff.paye, ff.ref_supplier";
 	$sql .= ", s.nom as name";
 	$sql .= ", s.rowid as socid";
 	$sql .= ", s.code_fournisseur, s.code_compta_fournisseur, s.email";
-	$sql .= ", (SELECT SUM(pf.amount) FROM ".$db->prefix()."paiementfourn_facturefourn as pf WHERE pf.fk_facturefourn = ff.rowid) as am";
-	$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."facture_fourn as ff";
+	$sql .= ", (SELECT SUM(pf.amount) FROM ".$db->prefix()."paiementfourn_invoicefourn as pf WHERE pf.fk_invoicefourn = ff.rowid) as am";
+	$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."invoice_fourn as ff";
 	$sql .= " WHERE s.rowid = ff.fk_soc";
-	$sql .= " AND ff.entity IN (".getEntity('facture_fourn').")";
+	$sql .= " AND ff.entity IN (".getEntity('invoice_fourn').")";
 	if ($socid > 0) {
 		$sql .= " AND ff.fk_soc = ".((int) $socid);
 	}
@@ -330,7 +330,7 @@ if ((isModEnabled('fournisseur') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMO
 		print '<div class="div-table-responsive-no-min">';
 		print '<table class="noborder centpercent">';
 		print '<tr class="liste_titre"><th colspan="2">'.$langs->trans("BoxTitleLastSupplierBills", $max);
-		print '<a href="'.DOL_URL_ROOT.'/fourn/facture/list.php?sortfield=f.tms&sortorder=desc"><span class="badge marginleftonly">...</span></a>';
+		print '<a href="'.DOL_URL_ROOT.'/fourn/invoice/list.php?sortfield=f.tms&sortorder=desc"><span class="badge marginleftonly">...</span></a>';
 		print '</th>';
 		if (getDolGlobalString('MAIN_SHOW_HT_ON_SUMMARY')) {
 			print '<th class="right">'.$langs->trans("AmountHT").'</th>';
@@ -621,19 +621,19 @@ if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("order",
 	$sql .= ", s.nom as name, s.email";
 	$sql .= ", s.rowid as socid";
 	$sql .= ", s.code_client, s.code_compta as code_compta_client";
-	$sql .= ", c.rowid, c.ref, c.facture, c.fk_statut as status, c.total_ht, c.total_tva, c.total_ttc,";
+	$sql .= ", c.rowid, c.ref, c.invoice, c.fk_statut as status, c.total_ht, c.total_tva, c.total_ttc,";
 	$sql .= " cc.rowid as country_id, cc.code as country_code";
 	$sql .= " FROM ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."c_country as cc ON cc.rowid = s.fk_pays";
 	$sql .= ", ".MAIN_DB_PREFIX."order as c";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as el ON el.fk_source = c.rowid AND el.sourcetype = 'order'";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture AS f ON el.fk_target = f.rowid AND el.targettype = 'facture'";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice AS f ON el.fk_target = f.rowid AND el.targettype = 'invoice'";
 	$sql .= " WHERE c.fk_soc = s.rowid";
 	$sql .= " AND c.entity IN (".getEntity('order').")";
 	if ($socid) {
 		$sql .= " AND c.fk_soc = ".((int) $socid);
 	}
 	$sql .= " AND c.fk_statut = ".((int) Order::STATUS_CLOSED);
-	$sql .= " AND c.facture = 0";
+	$sql .= " AND c.invoice = 0";
 	// Filter on sale representative
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= " AND EXISTS (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_soc = c.fk_soc AND sc.fk_user = ".((int) $user->id).")";
@@ -644,7 +644,7 @@ if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("order",
 	$resHook = $hookManager->executeHooks('printFieldListWhereCustomerOrderToBill', $parameters);
 	$sql .= $hookManager->resPrint;
 
-	$sql .= " GROUP BY s.nom, s.email, s.rowid, s.code_client, s.code_compta, c.rowid, c.ref, c.facture, c.fk_statut, c.total_ht, c.total_tva, c.total_ttc, cc.rowid, cc.code";
+	$sql .= " GROUP BY s.nom, s.email, s.rowid, s.code_client, s.code_compta, c.rowid, c.ref, c.invoice, c.fk_statut, c.total_ht, c.total_tva, c.total_ttc, cc.rowid, cc.code";
 
 	$resql = $db->query($sql);
 	if ($resql) {
@@ -700,7 +700,7 @@ if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("order",
 				$orderstatic->id = $obj->rowid;
 				$orderstatic->ref = $obj->ref;
 				$orderstatic->statut = $obj->status;
-				$orderstatic->billed = $obj->facture;
+				$orderstatic->billed = $obj->invoice;
 
 				print '<tr class="oddeven">';
 				print '<td class="nowrap">';

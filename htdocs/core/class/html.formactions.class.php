@@ -220,9 +220,9 @@ class FormActions
 				$url .= '&backtopage='.urlencode($urlbacktopage);
 
 				if ($typeelement == 'invoice_supplier') {
-					$messagingUrl = DOL_URL_ROOT.'/fourn/facture/messaging.php?id='.$object->id;
+					$messagingUrl = DOL_URL_ROOT.'/fourn/invoice/messaging.php?id='.$object->id;
 					$morehtmlright .= dolGetButtonTitle($langs->trans('ShowAsConversation'), '', 'fa fa-comments imgforviewmode', $messagingUrl, '', 1);
-					$messagingUrl = DOL_URL_ROOT.'/fourn/facture/agenda.php?id='.$object->id;
+					$messagingUrl = DOL_URL_ROOT.'/fourn/invoice/agenda.php?id='.$object->id;
 					$morehtmlright .= dolGetButtonTitle($langs->trans('MessageListViewType'), '', 'fa fa-bars imgforviewmode', $messagingUrl, '', 2);
 				}
 

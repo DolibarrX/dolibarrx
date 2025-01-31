@@ -44,7 +44,7 @@ if (!defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')) {
 }
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
 /**
  * @var Config $config
@@ -130,7 +130,7 @@ if ($action == "productinfo" && $user->hasRight('takepos', 'run')) {
 	if (GETPOSTISSET("payment")) {
 		print '<h1>'.$langs->trans('Ordered').'</h1>';
 		require_once DOL_DOCUMENT_ROOT.'/core/class/dolreceiptprinter.class.php';
-		require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 		$printer = new dolReceiptPrinter($db);
 		$printer->initPrinter(getDolGlobalString('TAKEPOS_PRINTER_TO_USE'.$_SESSION["takeposterminal"]));
 		if ($printer->getPrintConnector()) {
@@ -158,7 +158,7 @@ if ($action == "productinfo" && $user->hasRight('takepos', 'run')) {
 } elseif ($action == "editline" && $user->hasRight('takepos', 'run')) {
 	$placeid = GETPOSTINT('placeid');
 	$selectedline = GETPOSTINT('selectedline');
-	$invoice = new Facture($db);
+	$invoice = new Invoice($db);
 	$invoice->fetch($placeid);
 	foreach ($invoice->lines as $line) {
 		if ($line->id == $selectedline) {

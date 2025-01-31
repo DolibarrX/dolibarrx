@@ -577,17 +577,17 @@ class FormProjets extends Form
 			case "loan":
 				$sql = "SELECT t.rowid, t.label as ref";
 				break;
-			case "facture":
+			case "invoice":
 				$sql = "SELECT t.rowid, t.ref as ref";
 				break;
-			case "facture_fourn":
+			case "invoice_fourn":
 				$sql = "SELECT t.rowid, t.ref, t.ref_supplier";
 				break;
 			case "order_fourn":
 			case "order_fournisseur":
 				$sql = "SELECT t.rowid, t.ref, t.ref_supplier";
 				break;
-			case "facture_rec":
+			case "invoice_rec":
 				$sql = "SELECT t.rowid, t.titre as ref";
 				break;
 			case "actioncomm":
@@ -841,7 +841,7 @@ class FormProjets extends Form
 			$sql .= ' s.nom as name';
 			$sql .= ' FROM ' . $this->db->prefix() . 'projet as p';
 			$sql .= ' INNER JOIN ' . $this->db->prefix() . 'societe as s ON s.rowid = p.fk_soc';
-			$sql .= ' INNER JOIN ' . $this->db->prefix() . 'facture as f ON f.fk_projet = p.rowid';
+			$sql .= ' INNER JOIN ' . $this->db->prefix() . 'invoice as f ON f.fk_projet = p.rowid';
 			$sql .= " WHERE p.entity IN (" . getEntity('project') . ")";
 			if (!empty($filters)) {
 				foreach ($filters as $key => $value) {
@@ -892,8 +892,8 @@ class FormProjets extends Form
 		$sql = "SELECT fd.rowid, fd.label, fd.description";
 		$sql .= ' FROM ' . $this->db->prefix() . 'projet as p';
 		$sql .= ' INNER JOIN ' . $this->db->prefix() . 'societe as s ON s.rowid = p.fk_soc';
-		$sql .= ' INNER JOIN ' . $this->db->prefix() . 'facture as f ON f.fk_projet = p.rowid';
-		$sql .= ' INNER JOIN ' . $this->db->prefix() . 'facturedet as fd ON fd.fk_facture = f.rowid';
+		$sql .= ' INNER JOIN ' . $this->db->prefix() . 'invoice as f ON f.fk_projet = p.rowid';
+		$sql .= ' INNER JOIN ' . $this->db->prefix() . 'invoicedet as fd ON fd.fk_invoice = f.rowid';
 		$sql .= " WHERE p.entity IN (" . getEntity('project') . ")";
 		if (!empty($filters)) {
 			foreach ($filters as $key => $value) {

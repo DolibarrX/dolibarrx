@@ -25,12 +25,12 @@
  */
 
 // Put here all includes required by your class file
-require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT . '/compta/invoice/class/invoice.class.php';
 
 /**
  * Class for WebPortalInvoice
  */
-class WebPortalInvoice extends Facture
+class WebPortalInvoice extends Invoice
 {
 	/**
 	 * @var string ID of module.
@@ -41,14 +41,14 @@ class WebPortalInvoice extends Facture
 	 * Status list (short label)
 	 */
 	const ARRAY_STATUS_LABEL = array(
-		Facture::STATUS_DRAFT => 'BillShortStatusDraft',
-		Facture::STATUS_VALIDATED => 'BillShortStatusNotPaid',
-		Facture::STATUS_CLOSED => 'BillShortStatusPaid',
-		Facture::STATUS_ABANDONED => 'BillShortStatusCanceled',
+		Invoice::STATUS_DRAFT => 'BillShortStatusDraft',
+		Invoice::STATUS_VALIDATED => 'BillShortStatusNotPaid',
+		Invoice::STATUS_CLOSED => 'BillShortStatusPaid',
+		Invoice::STATUS_ABANDONED => 'BillShortStatusCanceled',
 	);
 
 	/**
-	 * @var Facture Invoice for static methods
+	 * @var Invoice Invoice for static methods
 	 */
 	protected $invoice_static = null;
 
@@ -135,12 +135,12 @@ class WebPortalInvoice extends Facture
 	/**
 	 * Get invoice for static methods
 	 *
-	 * @return	Facture
+	 * @return	Invoice
 	 */
 	protected function getInvoiceStatic()
 	{
 		if (!$this->invoice_static) {
-			$this->invoice_static = new Facture($this->db);
+			$this->invoice_static = new Invoice($this->db);
 		}
 
 		return $this->invoice_static;

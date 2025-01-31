@@ -394,12 +394,12 @@ if ($rowid && $action != 'edit') {
 	// Generated documents
 	/*
 	$filename = dol_sanitizeFileName($object->ref);
-	$filedir = $config->facture->dir_output . '/' . dol_sanitizeFileName($object->ref);
+	$filedir = $config->invoice->dir_output . '/' . dol_sanitizeFileName($object->ref);
 	$urlsource = $_SERVER['PHP_SELF'] . '?facid=' . $object->id;
-	$genallowed = $user->hasRight('facture', 'lire');
-	$delallowed = $user->hasRight('facture', 'creer');
+	$genallowed = $user->hasRight('invoice', 'lire');
+	$delallowed = $user->hasRight('invoice', 'creer');
 
-	print $formfile->showdocuments('facture', $filename, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', '', '', $soc->default_lang);
+	print $formfile->showdocuments('invoice', $filename, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', '', '', $soc->default_lang);
 	$somethingshown = $formfile->numoffiles;
 	*/
 	// Show links to link elements

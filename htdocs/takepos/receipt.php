@@ -49,7 +49,7 @@ if (!isset($action)) {
 
 	require '../main.inc.php'; // If this file is called from send.php avoid load again
 }
-include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 /**
  * @var Config $config
  * @var DoliDB $db
@@ -79,7 +79,7 @@ if (!$user->hasRight('takepos', 'run')) {
 top_htmlhead('', '', 1);
 
 if ((string) $place != '') {
-	$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."facture";
+	$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."invoice";
 	$sql .= " WHERE ref = '(PROV-POS".$db->escape($_SESSION["takeposterminal"]."-".$place).")'";
 	$sql .= " AND entity IN (".getEntity('invoice').")";
 
@@ -89,7 +89,7 @@ if ((string) $place != '') {
 		$facid = $obj->rowid;
 	}
 }
-$object = new Facture($db);
+$object = new Invoice($db);
 $object->fetch($facid);
 
 
@@ -172,7 +172,7 @@ print $langs->trans('Date')." ".dol_print_date($object->date, 'day').'<br>';
 if (getDolGlobalString('TAKEPOS_RECEIPT_NAME')) {
 	print getDolGlobalString('TAKEPOS_RECEIPT_NAME') . " ";
 }
-if ($object->status == Facture::STATUS_DRAFT) {
+if ($object->status == Invoice::STATUS_DRAFT) {
 	print str_replace(")", "", str_replace("-", " ".$langs->trans('Place')." ", str_replace("(PROV-POS", $langs->trans("Terminal")." ", $object->ref)));
 } else {
 	print $object->ref;
@@ -348,9 +348,9 @@ if (getDolGlobalString('TAKEPOS_PRINT_PAYMENT_METHOD')) {
 		$sql .= " f.multicurrency_code,";
 		$sql .= " pf.amount as amount, pf.multicurrency_amount,";
 		$sql .= " cp.code";
-		$sql .= " FROM ".MAIN_DB_PREFIX."paiement_facture as pf, ".MAIN_DB_PREFIX."facture as f, ".MAIN_DB_PREFIX."paiement as p";
+		$sql .= " FROM ".MAIN_DB_PREFIX."paiement_invoice as pf, ".MAIN_DB_PREFIX."invoice as f, ".MAIN_DB_PREFIX."paiement as p";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_paiement as cp ON p.fk_paiement = cp.id";
-		$sql .= " WHERE pf.fk_facture = f.rowid AND pf.fk_paiement = p.rowid AND pf.fk_facture = ".((int) $facid);
+		$sql .= " WHERE pf.fk_invoice = f.rowid AND pf.fk_paiement = p.rowid AND pf.fk_invoice = ".((int) $facid);
 		$sql .= " ORDER BY p.datep";
 
 		$resql = $db->query($sql);

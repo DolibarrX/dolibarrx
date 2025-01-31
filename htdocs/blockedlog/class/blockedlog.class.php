@@ -166,7 +166,7 @@ class BlockedLog
 
 		$this->trackedevents = [];
 
-		// Customer Invoice/Facture / Payment
+		// Customer Invoice / Payment
 		if (isModEnabled('invoice')) {
 			$this->trackedevents['BILL_VALIDATE'] = 'logBILL_VALIDATE';
 			//$this->trackedevents['BILL_UPDATE'] = 'logBILL_UPDATE';
@@ -250,10 +250,10 @@ class BlockedLog
 	{
 		global $langs;
 
-		if ($this->element === 'facture') {
-			require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+		if ($this->element === 'invoice') {
+			require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
-			$object = new Facture($this->db);
+			$object = new Invoice($this->db);
 			if ($object->fetch($this->fk_object) > 0) {
 				return $object->getNomUrl(1);
 			} else {
@@ -261,9 +261,9 @@ class BlockedLog
 			}
 		}
 		if ($this->element === 'invoice_supplier') {
-			require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 
-			$object = new FactureFournisseur($this->db);
+			$object = new InvoiceSupplier($this->db);
 			if ($object->fetch($this->fk_object) > 0) {
 				return $object->getNomUrl(1);
 			} else {
@@ -525,8 +525,8 @@ class BlockedLog
 		}
 
 		// Field specific to object
-		if ($this->element == 'facture') {
-			'@phan-var-force Facture $object';
+		if ($this->element == 'invoice') {
+			'@phan-var-force Invoice $object';
 			foreach ($object as $key => $value) {
 				if (in_array($key, $arrayoffieldstoexclude)) {
 					continue; // Discard some properties
@@ -539,7 +539,7 @@ class BlockedLog
 				}
 				if ($key == 'lines') {
 					$lineid = 0;
-					foreach ($value as $tmpline) {	// $tmpline is object FactureLine
+					foreach ($value as $tmpline) {	// $tmpline is object InvoiceLine
 						$lineid++;
 						foreach ($tmpline as $keyline => $valueline) {
 							if (!in_array($keyline, array(
@@ -572,7 +572,7 @@ class BlockedLog
 				$this->object_data->ref = $object->newref;
 			}
 		} elseif ($this->element == 'invoice_supplier') {
-			'@phan-var-force FactureFournisseur $object';
+			'@phan-var-force InvoiceSupplier $object';
 			foreach ($object as $key => $value) {
 				if (in_array($key, $arrayoffieldstoexclude)) {
 					continue; // Discard some properties
@@ -622,11 +622,11 @@ class BlockedLog
 
 					$tmpobject = null;
 					if ($this->element == 'payment_supplier') {
-						include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-						$tmpobject = new FactureFournisseur($this->db);
+						include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
+						$tmpobject = new InvoiceSupplier($this->db);
 					} elseif ($this->element == 'payment') {
-						include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-						$tmpobject = new Facture($this->db);
+						include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+						$tmpobject = new Invoice($this->db);
 					} elseif ($this->element == 'payment_donation') {
 						include_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 						$tmpobject = new Don($this->db);

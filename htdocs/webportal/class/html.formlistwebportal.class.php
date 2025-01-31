@@ -130,7 +130,7 @@ class FormListWebPortal
 		// keep compatibility
 		if ($elementEn == 'order') {
 			$elementEn = 'order';
-		} elseif ($elementEn == 'facture') {
+		} elseif ($elementEn == 'invoice') {
 			$elementEn = 'invoice';
 		}
 
@@ -275,7 +275,7 @@ class FormListWebPortal
 		$elementEn = $object->element;
 		if ($object->element == 'order') {
 			$elementEn = 'order';
-		} elseif ($object->element == 'facture') {
+		} elseif ($object->element == 'invoice') {
 			$elementEn = 'invoice';
 		}
 
@@ -630,7 +630,7 @@ class FormListWebPortal
 			// specific to get invoice status (depends on payment)
 			$payment = -1;
 			if ($elementEn == 'invoice') {
-				'@phan-var-force Facture $object';
+				'@phan-var-force Invoice $object';
 				// paid sum
 				$payment = $object->getSommePaiement();
 				$totalcreditnotes = $object->getSumCreditNotesUsed();
@@ -639,11 +639,11 @@ class FormListWebPortal
 				// remain to pay
 				$totalpay = $payment + $totalcreditnotes + $totaldeposits;
 				$remaintopay = price2num($object->total_ttc - $totalpay);
-				if ($object->status == Facture::STATUS_CLOSED && $object->close_code == 'discount_vat') {        // If invoice closed with discount for anticipated payment
+				if ($object->status == Invoice::STATUS_CLOSED && $object->close_code == 'discount_vat') {        // If invoice closed with discount for anticipated payment
 					$remaintopay = 0;
 				}
-				if ($object->type == Facture::TYPE_CREDIT_NOTE && $obj->paye == 1 && $discount) {
-					$remaincreditnote = $discount->getAvailableDiscounts($companyStatic, null, 'rc.fk_facture_source=' . $object->id);
+				if ($object->type == Invoice::TYPE_CREDIT_NOTE && $obj->paye == 1 && $discount) {
+					$remaincreditnote = $discount->getAvailableDiscounts($companyStatic, null, 'rc.fk_invoice_source=' . $object->id);
 					$remaintopay = -$remaincreditnote;
 				}
 			}

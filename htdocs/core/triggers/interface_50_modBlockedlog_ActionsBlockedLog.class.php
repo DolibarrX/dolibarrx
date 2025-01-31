@@ -65,7 +65,7 @@ class InterfaceActionsBlockedLog extends DolibarrTriggers
 		// Test if event/record is qualified
 		if (!getDolGlobalString('BLOCKEDLOG_ADD_ACTIONS_SUPPORTED') || !in_array($action, explode(',', getDolGlobalString('BLOCKEDLOG_ADD_ACTIONS_SUPPORTED')))) {
 			// If custom actions are not set or if action not into custom actions, we can exclude action if object->elementis not valid
-			$listofqualifiedelement = array('facture', 'donation', 'payment', 'payment_donation', 'subscription', 'payment_various', 'cashcontrol');
+			$listofqualifiedelement = array('invoice', 'donation', 'payment', 'payment_donation', 'subscription', 'payment_various', 'cashcontrol');
 			if (!is_object($object) || !property_exists($object, 'element') || !in_array($object->element, $listofqualifiedelement)) {
 				return 1;
 			}
@@ -90,8 +90,8 @@ class InterfaceActionsBlockedLog extends DolibarrTriggers
 			|| $action === 'MEMBER_SUBSCRIPTION_CREATE' || $action === 'MEMBER_SUBSCRIPTION_MODIFY' || $action === 'MEMBER_SUBSCRIPTION_DELETE'
 			|| $action === 'DON_VALIDATE' || (($action === 'DON_MODIFY' || $action === 'DON_DELETE') && $object->statut != 0)
 			|| $action === 'CASHCONTROL_VALIDATE'
-			|| (in_array($object->element, array('facture', 'supplier_invoice')) && $action === 'DOC_DOWNLOAD' && $object->statut != 0)
-			|| (in_array($object->element, array('facture', 'supplier_invoice')) && $action === 'DOC_PREVIEW' && $object->statut != 0)
+			|| (in_array($object->element, array('invoice', 'supplier_invoice')) && $action === 'DOC_DOWNLOAD' && $object->statut != 0)
+			|| (in_array($object->element, array('invoice', 'supplier_invoice')) && $action === 'DOC_PREVIEW' && $object->statut != 0)
 			|| (getDolGlobalString('BLOCKEDLOG_ADD_ACTIONS_SUPPORTED') && in_array($action, explode(',', getDolGlobalString('BLOCKEDLOG_ADD_ACTIONS_SUPPORTED'))))
 		) {
 			$qualified++;

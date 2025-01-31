@@ -882,14 +882,14 @@ class User extends CommonObject
 			'task' => 'task@projet',
 			'fichinter' => 'ficheinter',
 			'inventory' => 'stock',
-			'invoice' => 'facture',
+			'invoice' => 'invoice',
 			'invoice_supplier' => 'fournisseur',
 			'order_supplier' => 'fournisseur',
 			'knowledgerecord' => 'knowledgerecord@knowledgemanagement',
 			'skill@hrm' => 'all@hrm', // skill / job / position objects rights are for the moment grouped into right level "all"
 			'job@hrm' => 'all@hrm', // skill / job / position objects rights are for the moment grouped into right level "all"
 			'position@hrm' => 'all@hrm', // skill / job / position objects rights are for the moment grouped into right level "all"
-			'facturerec' => 'facture',
+			'invoicerec' => 'invoice',
 			'margins' => 'margin',
 		);
 
@@ -925,8 +925,8 @@ class User extends CommonObject
 			}
 		}
 
-		// In $config->modules, we have 'accounting', 'product', 'facture', ...
-		// In $user->rights, we have 'accounting', 'produit', 'facture', ...
+		// In $config->modules, we have 'accounting', 'product', 'invoice', ...
+		// In $user->rights, we have 'accounting', 'produit', 'invoice', ...
 		//var_dump($this->rights->$rightsPath);
 		//var_dump($config->modules);
 		//if ($module == 'fournisseur') { var_dump($module.' '.isModEnabled($module).' '.$rightsPath.' '.$permlevel1.' '.$permlevel2); }

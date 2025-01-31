@@ -29,8 +29,8 @@
 // Load Dolibarr environment
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/modules/modPrelevement.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 require_once DOL_DOCUMENT_ROOT.'/salaries/class/salary.class.php';
@@ -57,7 +57,7 @@ $optioncss  = GETPOST('optioncss', 'aZ'); // Option for the css output (always '
 $type = GETPOST('type', 'aZ09');
 $sourcetype = GETPOST('sourcetype', 'aZ');
 
-$search_facture = GETPOST('search_facture', 'alpha');
+$search_invoice = GETPOST('search_invoice', 'alpha');
 $search_societe = GETPOST('search_societe', 'alpha');
 
 // Load variable for pagination
@@ -104,7 +104,7 @@ if ($resHook < 0) {
 
 // Purge search criteria
 if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')) { // All tests are required to be compatible with all browsers
-	$search_facture = '';
+	$search_invoice = '';
 	$search_societe = '';
 	$search_array_options = [];
 }
@@ -135,9 +135,9 @@ llxHeader('', $title);
 
 $thirdpartystatic = new Societe($db);
 if ($type == 'bank-transfer') {
-	$invoicestatic = new FactureFournisseur($db);
+	$invoicestatic = new InvoiceSupplier($db);
 } else {
-	$invoicestatic = new Facture($db);
+	$invoicestatic = new Invoice($db);
 }
 
 // List of requests
@@ -146,9 +146,9 @@ if ($sourcetype != 'salary') {
 	$sql .= " s.nom as name, s.rowid as socid,";
 	$sql .= " pd.date_demande as date_demande, pd.amount, pd.fk_user_demande";
 	if ($type != 'bank-transfer') {
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture as f,";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f,";
 	} else {
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f,";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f,";
 	}
 	$sql .= " ".MAIN_DB_PREFIX."societe as s,";
 	$sql .= " ".MAIN_DB_PREFIX."prelevement_demande as pd";
@@ -172,15 +172,15 @@ if ($sourcetype != 'salary') {
 	}
 	$sql .= " AND f.total_ttc > 0";
 	if (!getDolGlobalString('WITHDRAWAL_ALLOW_ANY_INVOICE_STATUS')) {
-		$sql .= " AND f.fk_statut = ".Facture::STATUS_VALIDATED;
+		$sql .= " AND f.fk_statut = ".Invoice::STATUS_VALIDATED;
 	}
 	if ($type != 'bank-transfer') {
-		$sql .= " AND pd.fk_facture = f.rowid";
+		$sql .= " AND pd.fk_invoice = f.rowid";
 	} else {
-		$sql .= " AND pd.fk_facture_fourn = f.rowid";
+		$sql .= " AND pd.fk_invoice_fourn = f.rowid";
 	}
-	if ($search_facture) {
-		$sql .= natural_search("f.ref", $search_facture);
+	if ($search_invoice) {
+		$sql .= natural_search("f.ref", $search_invoice);
 	}
 	if ($search_societe) {
 		$sql .= natural_search("s.nom", $search_societe);
@@ -206,8 +206,8 @@ if ($sourcetype != 'salary') {
 	}
 	$sql .= " AND s.amount > 0";
 	$sql .= " AND s.paye = ".Salary::STATUS_UNPAID;
-	if ($search_facture) {
-		$sql .= natural_search("s.rowid", $search_facture);
+	if ($search_invoice) {
+		$sql .= natural_search("s.rowid", $search_invoice);
 	}
 	if ($search_societe) {
 		$sql .= natural_search("CONCAT(u.firstname,' ',u.lastname)", $search_societe);
@@ -285,7 +285,7 @@ if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print $searchPicture;
 	print '</td>';
 }
-print '<td class="liste_titre"><input type="text" class="flat maxwidth150" name="search_facture" value="'.dol_escape_htmltag($search_facture).'"></td>';
+print '<td class="liste_titre"><input type="text" class="flat maxwidth150" name="search_invoice" value="'.dol_escape_htmltag($search_invoice).'"></td>';
 print '<td class="liste_titre"><input type="text" class="flat maxwidth150" name="search_societe" value="'.dol_escape_htmltag($search_societe).'"></td>';
 print '<td class="liste_titre"></td>';
 print '<td class="liste_titre"></td>';
@@ -333,7 +333,7 @@ while ($i < min($num, $limit)) {
 		print '<td class="right"></td>';
 	}
 
-	// Ref facture
+	// Ref invoice
 	print '<td>';
 	if ($sourcetype != 'salary') {
 		print $invoicestatic->getNomUrl(1, 'withdraw');

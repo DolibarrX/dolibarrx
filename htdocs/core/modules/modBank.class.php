@@ -192,8 +192,8 @@ class modBank extends DolibarrModules
 		$this->export_sql_end[$r]  = ' FROM ('.MAIN_DB_PREFIX.'bordereau_cheque as bch, '.MAIN_DB_PREFIX.'bank_account as ba, '.MAIN_DB_PREFIX.'bank as b)';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX."bank_url as bu ON (bu.fk_bank = b.rowid AND bu.type = 'company')";
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiement as p ON b.rowid = p.fk_bank';
-		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiement_facture as pf ON p.rowid = pf.fk_paiement';
-		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'facture as f ON f.rowid = pf.fk_facture';
+		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiement_invoice as pf ON p.rowid = pf.fk_paiement';
+		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'invoice as f ON f.rowid = pf.fk_invoice';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'societe as s ON f.fk_soc = s.rowid';
 		$this->export_sql_end[$r] .= ' WHERE ba.rowid = b.fk_account AND bch.rowid = b.fk_bordereau and bch.fk_bank_account=ba.rowid';
 		$this->export_sql_end[$r] .= " AND b.fk_type = 'CHQ'";

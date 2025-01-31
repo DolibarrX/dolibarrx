@@ -19,13 +19,13 @@
 /**
  *	\file       htdocs/margin/tabs/productMargins.php
  *	\ingroup    product margins
- *	\brief      Page des marges des factures clients pour un produit
+ *	\brief      Page des marges des invoices clients pour un produit
  */
 
 // Load Dolibarr environment
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 /**
@@ -126,7 +126,7 @@ if (empty($search_invoice_date_start) && empty($search_invoice_date_end) && !GET
  * View
  */
 
-$invoicestatic = new Facture($db);
+$invoicestatic = new Invoice($db);
 
 $form = new Form($db);
 $totalMargin = 0;
@@ -204,7 +204,7 @@ if ($id > 0 || !empty($ref)) {
 		print dol_get_fiche_end();
 
 
-		if ($user->hasRight("facture", "read")) {
+		if ($user->hasRight("invoice", "read")) {
 			$sql = "SELECT s.nom as name, s.rowid as socid, s.code_client,";
 			$sql .= " f.rowid as facid, f.ref, f.total_ht,";
 			$sql .= " f.datef, f.paye, f.fk_statut as statut, f.type,";
@@ -216,15 +216,15 @@ if ($id > 0 || !empty($ref)) {
 			$sql .= " ".$db->ifsql('f.type = 2', -1, 1)." * sum(d.qty * d.buy_price_ht * (d.situation_percent / 100)) as buying_price,"; // not always positive in case of Credit note
 			$sql .= " ".$db->ifsql('f.type = 2', -1, 1)." * sum(abs(d.total_ht) - (d.buy_price_ht * d.qty * (d.situation_percent / 100))) as marge"; // not always positive in case of Credit note
 			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-			$sql .= ", ".MAIN_DB_PREFIX."facture as f";
-			$sql .= ", ".MAIN_DB_PREFIX."facturedet as d";
+			$sql .= ", ".MAIN_DB_PREFIX."invoice as f";
+			$sql .= ", ".MAIN_DB_PREFIX."invoicedet as d";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 			}
 			$sql .= " WHERE f.fk_soc = s.rowid";
 			$sql .= " AND f.fk_statut > 0";
 			$sql .= " AND f.entity IN (".getEntity('invoice').")";
-			$sql .= " AND d.fk_facture = f.rowid";
+			$sql .= " AND d.fk_invoice = f.rowid";
 			$sql .= " AND d.fk_product = ".((int) $object->id);
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);

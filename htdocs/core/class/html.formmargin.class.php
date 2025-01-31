@@ -103,15 +103,15 @@ class FormMargin
 
 			// $line->pa_ht is always positive in database, so we guess the correct sign
 
-			'@phan-var-force Facture|FactureFournisseur $object';
-			$pa_ht = (($pv < 0 || ($pv == 0 && in_array($object->element, array('facture', 'facture_fourn')) && $object->type == $object::TYPE_CREDIT_NOTE)) ? -$line->pa_ht : $line->pa_ht);
+			'@phan-var-force Invoice|InvoiceSupplier $object';
+			$pa_ht = (($pv < 0 || ($pv == 0 && in_array($object->element, array('invoice', 'invoice_fourn')) && $object->type == $object::TYPE_CREDIT_NOTE)) ? -$line->pa_ht : $line->pa_ht);
 			'@phan-var-force CommonObject $object';
 
 			if (getDolGlobalInt('INVOICE_USE_SITUATION') == 1) {	// Special case for old situation mode
-				'@phan-var-force Facture $object';
-				/** @var Facture $object */
-				if (($object->element == 'facture' && $object->type == $object::TYPE_SITUATION)
-					|| ($object->element == 'facture' && $object->type == $object::TYPE_CREDIT_NOTE && getDolGlobalInt('INVOICE_USE_SITUATION_CREDIT_NOTE') && $object->situation_counter > 0)) {
+				'@phan-var-force Invoice $object';
+				/** @var Invoice $object */
+				if (($object->element == 'invoice' && $object->type == $object::TYPE_SITUATION)
+					|| ($object->element == 'invoice' && $object->type == $object::TYPE_CREDIT_NOTE && getDolGlobalInt('INVOICE_USE_SITUATION_CREDIT_NOTE') && $object->situation_counter > 0)) {
 					// We need a compensation relative to $line->situation_percent
 					$pa = $line->qty * $pa_ht * ($line->situation_percent / 100);
 				} else {

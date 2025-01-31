@@ -39,14 +39,14 @@ require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
 require_once DOL_DOCUMENT_ROOT.'/salaries/class/paymentsalary.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
 require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 require_once DOL_DOCUMENT_ROOT.'/expensereport/class/expensereport.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/paymentvarious.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/loan/class/paymentloan.class.php';
@@ -146,8 +146,8 @@ if (empty($entity)) {
 $error = 0;
 
 $listofchoices = array(
-	'selectinvoices' => array('label' => 'Invoices', 'picture' => 'bill', 'lang' => 'bills', 'enabled' => isModEnabled('invoice'), 'perms' => $user->hasRight('facture', 'lire')),
-	'selectsupplierinvoices' => array('label' => 'BillsSuppliers', 'picture' => 'supplier_invoice', 'lang' => 'bills', 'enabled' => isModEnabled('supplier_invoice'), 'perms' => $user->hasRight('fournisseur', 'facture', 'lire')),
+	'selectinvoices' => array('label' => 'Invoices', 'picture' => 'bill', 'lang' => 'bills', 'enabled' => isModEnabled('invoice'), 'perms' => $user->hasRight('invoice', 'lire')),
+	'selectsupplierinvoices' => array('label' => 'BillsSuppliers', 'picture' => 'supplier_invoice', 'lang' => 'bills', 'enabled' => isModEnabled('supplier_invoice'), 'perms' => $user->hasRight('fournisseur', 'invoice', 'lire')),
 	'selectexpensereports' => array('label' => 'ExpenseReports', 'picture' => 'expensereport', 'lang' => 'trips', 'enabled' => isModEnabled('expensereport'), 'perms' => $user->hasRight('expensereport', 'lire')),
 	'selectdonations' => array('label' => 'Donations', 'picture' => 'donation', 'lang' => 'donation', 'enabled' => isModEnabled('donation'), 'perms' => $user->hasRight('donation', 'lire')),
 	'selectsocialcontributions' => array('label' => 'SocialContributions', 'picture' => 'bill', 'enabled' => isModEnabled('tax'), 'perms' => $user->hasRight('tax', 'charges', 'lire')),
@@ -194,10 +194,10 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 			$sql .= "SELECT t.rowid as id, t.entity, t.ref, t.paye as paid, t.total_ht, t.total_ttc, t.total_tva as total_vat,";
 			$sql .= " t.localtax1, t.localtax2, t.revenuestamp,";
 			$sql .= " t.multicurrency_code as currency, t.fk_soc, t.datef as date, t.date_lim_reglement as date_due, 'Invoice' as item, s.nom as thirdparty_name, s.code_client as thirdparty_code, c.code as country_code, s.tva_intra as vatnum, ".PAY_CREDIT." as sens";
-			$sql .= " FROM ".MAIN_DB_PREFIX."facture as t LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = t.fk_soc LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON c.rowid = s.fk_pays";
+			$sql .= " FROM ".MAIN_DB_PREFIX."invoice as t LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = t.fk_soc LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON c.rowid = s.fk_pays";
 			$sql .= " WHERE datef between ".$wheretail;
 			$sql .= " AND t.entity IN (".$db->sanitize($entity == 1 ? '0,1' : $entity).')';
-			$sql .= " AND t.fk_statut <> ".Facture::STATUS_DRAFT;
+			$sql .= " AND t.fk_statut <> ".Invoice::STATUS_DRAFT;
 			if (!empty($projectid)) {
 				$sql .= " AND fk_projet = ".((int) $projectid);
 			}
@@ -210,10 +210,10 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 			$sql .= " SELECT t.rowid as id, t.entity, t.ref, t.paye as paid, t.total_ht, t.total_ttc, t.total_tva as total_vat,";
 			$sql .= " t.localtax1, t.localtax2, 0 as revenuestamp,";
 			$sql .= " t.multicurrency_code as currency, t.fk_soc, t.datef as date, t.date_lim_reglement as date_due, 'SupplierInvoice' as item, s.nom as thirdparty_name, s.code_fournisseur as thirdparty_code, c.code as country_code, s.tva_intra as vatnum, ".PAY_DEBIT." as sens";
-			$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as t LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = t.fk_soc LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON c.rowid = s.fk_pays";
+			$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as t LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = t.fk_soc LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON c.rowid = s.fk_pays";
 			$sql .= " WHERE datef between ".$wheretail;
 			$sql .= " AND t.entity IN (".$db->sanitize($entity == 1 ? '0,1' : $entity).')';
-			$sql .= " AND t.fk_statut <> ".FactureFournisseur::STATUS_DRAFT;
+			$sql .= " AND t.fk_statut <> ".InvoiceSupplier::STATUS_DRAFT;
 			if (!empty($projectid)) {
 				$sql .= " AND fk_projet = ".((int) $projectid);
 			}
@@ -334,8 +334,8 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 			if ($resd) {
 				$numd = $db->num_rows($resd);
 
-				$tmpinvoice = new Facture($db);
-				$tmpinvoicesupplier = new FactureFournisseur($db);
+				$tmpinvoice = new Invoice($db);
+				$tmpinvoicesupplier = new InvoiceSupplier($db);
 				$tmpdonation = new Don($db);
 
 				$upload_dir = '';
@@ -347,17 +347,17 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 						case "Invoice":
 							$subdir = '';
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->ref);
-							$upload_dir = $config->facture->dir_output.'/'.$subdir;
-							$link = "document.php?modulepart=facture&file=".str_replace('/', '%2F', $subdir).'%2F';
-							$modulePart = "facture";
+							$upload_dir = $config->invoice->dir_output.'/'.$subdir;
+							$link = "document.php?modulepart=invoice&file=".str_replace('/', '%2F', $subdir).'%2F';
+							$modulePart = "invoice";
 							break;
 						case "SupplierInvoice":
 							$tmpinvoicesupplier->fetch($objd->id);
 							$subdir = get_exdir($tmpinvoicesupplier->id, 2, 0, 1, $tmpinvoicesupplier, 'invoice_supplier'); // TODO Use first file
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->ref);
-							$upload_dir = $config->fournisseur->facture->dir_output.'/'.$subdir;
-							$link = "document.php?modulepart=facture_fournisseur&file=".str_replace('/', '%2F', $subdir).'%2F';
-							$modulePart = "facture_fournisseur";
+							$upload_dir = $config->fournisseur->invoice->dir_output.'/'.$subdir;
+							$link = "document.php?modulepart=invoice_fournisseur&file=".str_replace('/', '%2F', $subdir).'%2F';
+							$modulePart = "invoice_fournisseur";
 							break;
 						case "ExpenseReport":
 							$subdir = '';
@@ -613,8 +613,8 @@ if ($result && $action == "dl" && !$error) {	// Test on permission not required 
 $form = new Form($db);
 $formfile = new FormFile($db);
 $userstatic = new User($db);
-$invoice = new Facture($db);
-$supplier_invoice = new FactureFournisseur($db);
+$invoice = new Invoice($db);
+$supplier_invoice = new InvoiceSupplier($db);
 $expensereport = new ExpenseReport($db);
 $donation = new Don($db);
 $salary_payment = new PaymentSalary($db);
@@ -795,7 +795,7 @@ if (!empty($date_start) && !empty($date_stop)) {
 		// Display array
 		foreach ($TData as $data) {
 			$html_class = '';
-			//if (!empty($data['fk_facture'])) $html_class = 'facid-'.$data['fk_facture'];
+			//if (!empty($data['fk_invoice'])) $html_class = 'facid-'.$data['fk_invoice'];
 			//elseif (!empty($data['fk_paiement'])) $html_class = 'payid-'.$data['fk_paiement'];
 			print '<tr class="oddeven '.$html_class.'">';
 

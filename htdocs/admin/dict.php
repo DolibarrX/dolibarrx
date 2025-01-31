@@ -277,7 +277,7 @@ $tabsql[DICT_TYPENT] = "SELECT t.id	 as rowid, t.code as code, t.libelle, t.fk_c
 $tabsql[DICT_CURRENCIES] = "SELECT c.code_iso as code, c.label, c.unicode, c.active FROM ".MAIN_DB_PREFIX."c_currencies AS c";
 $tabsql[DICT_TVA] = "SELECT t.rowid, t.entity, t.code, t.type_vat, t.taux, t.localtax1_type, t.localtax1, t.localtax2_type, t.localtax2, c.label as country, c.code as country_code, t.fk_pays as country_id, t.fk_department_buyer as department_buyer_id, db.nom as department_buyer, t.recuperableonly, t.note, t.active, t.accountancy_code_sell, t.accountancy_code_buy FROM ".MAIN_DB_PREFIX."c_tva as t INNER JOIN ".MAIN_DB_PREFIX."c_country as c ON t.fk_pays = c.rowid LEFT JOIN ".MAIN_DB_PREFIX."c_departements as db ON t.fk_department_buyer = db.rowid WHERE t.entity IN (".getEntity($tabname[DICT_TVA]).")";
 $tabsql[DICT_TYPE_CONTACT] = "SELECT t.rowid as rowid, t.element, t.source, t.code, t.libelle, t.position, t.active FROM ".MAIN_DB_PREFIX."c_type_contact AS t";
-$tabsql[DICT_PAYMENT_TERM] = "SELECT c.rowid as rowid, c.code, c.libelle, c.libelle_facture, c.deposit_percent, c.nbjour, c.type_cdr, c.decalage, c.active, c.sortorder, c.entity FROM ".MAIN_DB_PREFIX."c_payment_term AS c WHERE c.entity IN (".getEntity($tabname[DICT_PAYMENT_TERM]).")";
+$tabsql[DICT_PAYMENT_TERM] = "SELECT c.rowid as rowid, c.code, c.libelle, c.libelle_invoice, c.deposit_percent, c.nbjour, c.type_cdr, c.decalage, c.active, c.sortorder, c.entity FROM ".MAIN_DB_PREFIX."c_payment_term AS c WHERE c.entity IN (".getEntity($tabname[DICT_PAYMENT_TERM]).")";
 $tabsql[DICT_PAIEMENT] = "SELECT c.id    as rowid, c.code, c.libelle, c.type, c.active, c.entity FROM ".MAIN_DB_PREFIX."c_paiement AS c WHERE c.entity IN (".getEntity($tabname[DICT_PAIEMENT]).")";
 $tabsql[DICT_ECOTAXE] = "SELECT e.rowid as rowid, e.code as code, e.label, e.price, e.organization, e.fk_pays as country_id, c.code as country_code, c.label as country, e.active FROM ".MAIN_DB_PREFIX."c_ecotaxe AS e, ".MAIN_DB_PREFIX."c_country as c WHERE e.fk_pays=c.rowid and c.active=1";
 $tabsql[DICT_PAPER_FORMAT] = "SELECT t.rowid as rowid, t.code, t.label as libelle, t.width, t.height, t.unit, t.active FROM ".MAIN_DB_PREFIX."c_paper_format as t";
@@ -371,7 +371,7 @@ $tabfield[DICT_TYPENT] = "code,libelle,country_id,country".(getDolGlobalString('
 $tabfield[DICT_CURRENCIES] = "code,label,unicode";
 $tabfield[DICT_TVA] = "country_id,country,department_buyer_id,department_buyer,code,type_vat,taux,localtax1_type,localtax1,localtax2_type,localtax2,recuperableonly,accountancy_code_sell,accountancy_code_buy,note";
 $tabfield[DICT_TYPE_CONTACT] = "element,source,code,libelle,position";
-$tabfield[DICT_PAYMENT_TERM] = "code,libelle,libelle_facture,deposit_percent,nbjour,type_cdr,decalage,sortorder";
+$tabfield[DICT_PAYMENT_TERM] = "code,libelle,libelle_invoice,deposit_percent,nbjour,type_cdr,decalage,sortorder";
 $tabfield[DICT_PAIEMENT] = "code,libelle,type";
 $tabfield[DICT_ECOTAXE] = "code,label,price,organization,country";
 $tabfield[DICT_PAPER_FORMAT] = "code,libelle,width,height,unit";
@@ -418,7 +418,7 @@ $tabfieldvalue[DICT_TYPENT] = "code,libelle,country".(getDolGlobalString('SOCIET
 $tabfieldvalue[DICT_CURRENCIES] = "code,label,unicode";
 $tabfieldvalue[DICT_TVA] = "country,department_buyer_id,code,type_vat,taux,localtax1_type,localtax1,localtax2_type,localtax2,recuperableonly,accountancy_code_sell,accountancy_code_buy,note";
 $tabfieldvalue[DICT_TYPE_CONTACT] = "element,source,code,libelle,position";
-$tabfieldvalue[DICT_PAYMENT_TERM] = "code,libelle,libelle_facture,deposit_percent,nbjour,type_cdr,decalage,sortorder";
+$tabfieldvalue[DICT_PAYMENT_TERM] = "code,libelle,libelle_invoice,deposit_percent,nbjour,type_cdr,decalage,sortorder";
 $tabfieldvalue[DICT_PAIEMENT] = "code,libelle,type";
 $tabfieldvalue[DICT_ECOTAXE] = "code,label,price,organization,country";
 $tabfieldvalue[DICT_PAPER_FORMAT] = "code,libelle,width,height,unit";
@@ -465,7 +465,7 @@ $tabfieldinsert[DICT_TYPENT] = "code,libelle,fk_country".(getDolGlobalString('SO
 $tabfieldinsert[DICT_CURRENCIES] = "code_iso,label,unicode";
 $tabfieldinsert[DICT_TVA] = "fk_pays,fk_department_buyer,code,type_vat,taux,localtax1_type,localtax1,localtax2_type,localtax2,recuperableonly,accountancy_code_sell,accountancy_code_buy,note,entity";
 $tabfieldinsert[DICT_TYPE_CONTACT] = "element,source,code,libelle,position";
-$tabfieldinsert[DICT_PAYMENT_TERM] = "code,libelle,libelle_facture,deposit_percent,nbjour,type_cdr,decalage,sortorder,entity";
+$tabfieldinsert[DICT_PAYMENT_TERM] = "code,libelle,libelle_invoice,deposit_percent,nbjour,type_cdr,decalage,sortorder,entity";
 $tabfieldinsert[DICT_PAIEMENT] = "code,libelle,type,entity";
 $tabfieldinsert[DICT_ECOTAXE] = "code,label,price,organization,fk_pays";
 $tabfieldinsert[DICT_PAPER_FORMAT] = "code,label,width,height,unit";
@@ -716,7 +716,7 @@ if ($id == DICT_TYPE_CONTACT) {
 		'project_task' => img_picture('', 'projecttask', 'class="picturefixedwidth"').$langs->trans('Task'),
 		'propal' => img_picture('', 'propal', 'class="picturefixedwidth"').$langs->trans('Proposal'),
 		'order' => img_picture('', 'order', 'class="picturefixedwidth"').$langs->trans('Order'),
-		'facture' => img_picture('', 'bill', 'class="picturefixedwidth"').$langs->trans('Bill'),
+		'invoice' => img_picture('', 'bill', 'class="picturefixedwidth"').$langs->trans('Bill'),
 		'fichinter' => img_picture('', 'intervention', 'class="picturefixedwidth"').$langs->trans('InterventionCard'),
 		'contract' => img_picture('', 'contract', 'class="picturefixedwidth"').$langs->trans('Contract'),
 		'ticket' => img_picture('', 'ticket', 'class="picturefixedwidth"').$langs->trans('Ticket'),
@@ -847,7 +847,7 @@ if (empty($resHook)) {
 				if ($fieldnamekey == 'libelle' || ($fieldnamekey == 'label')) {
 					$fieldnamekey = 'Label';
 				}
-				if ($fieldnamekey == 'libelle_facture') {
+				if ($fieldnamekey == 'libelle_invoice') {
 					$fieldnamekey = 'LabelOnDocuments';
 				}
 				if ($fieldnamekey == 'deposit_percent') {
@@ -1590,7 +1590,7 @@ if ($id > 0) {
 					if ($value == 'libelle' || $value == 'label') {
 						$valuetoshow = $form->textwithtooltip($langs->trans("Label"), $langs->trans("LabelUsedByDefault"), 2, 1, img_help(1, ''));
 					}
-					if ($value == 'libelle_facture') {
+					if ($value == 'libelle_invoice') {
 						$valuetoshow = $form->textwithtooltip($langs->trans("LabelOnDocuments"), $langs->trans("LabelUsedByDefault"), 2, 1, img_help(1, ''));
 					}
 					if ($value == 'deposit_percent') {
@@ -1959,7 +1959,7 @@ if ($id > 0) {
 				continue;
 			}
 
-			if (in_array($value, array('label', 'libelle', 'libelle_facture')) && empty($tabcomplete[$tabname[$id]]['help'][$value])) {
+			if (in_array($value, array('label', 'libelle', 'libelle_invoice')) && empty($tabcomplete[$tabname[$id]]['help'][$value])) {
 				if (!isset($tabcomplete[$tabname[$id]]['help']) || !is_array($tabcomplete[$tabname[$id]]['help'])) {	// protection when $tabcomplete[$tabname[$id]]['help'] is a an empty string, we must force it into an array
 					$tabcomplete[$tabname[$id]]['help'] = [];
 				}
@@ -2034,7 +2034,7 @@ if ($id > 0) {
 			if ($value == 'libelle' || $value == 'label') {
 				$valuetoshow = $langs->trans("Label");
 			}
-			if ($value == 'libelle_facture') {
+			if ($value == 'libelle_invoice') {
 				$valuetoshow = $langs->trans("LabelOnDocuments");
 			}
 			if ($value == 'deposit_percent') {
@@ -2402,7 +2402,7 @@ if ($id > 0) {
 								if ($valuetoshow) {
 									$valuetoshow = yn($valuetoshow);
 								}
-							} elseif ($value == 'libelle_facture') {
+							} elseif ($value == 'libelle_invoice') {
 								$key = $langs->trans("PaymentCondition".strtoupper($obj->code));
 								$valuetoshow = ($obj->code && $key != "PaymentCondition".strtoupper($obj->code) ? $key : $obj->$value);
 								$valuetoshow = nl2br($valuetoshow);
@@ -2866,7 +2866,7 @@ function dictFieldList($fieldlist, $obj = null, $tabname = '', $context = '')
 			print '<td class="'.$class.'">';
 			print '<input type="text" class="flat" value="'.(isset($obj->{$value}) ? $obj->{$value} : '').'" size="3" name="'. $value .'">';
 			print '</td>';
-		} elseif (in_array($value, array('libelle_facture'))) {
+		} elseif (in_array($value, array('libelle_invoice'))) {
 			print '<td>';
 			$transfound = 0;
 			$transkey = '';

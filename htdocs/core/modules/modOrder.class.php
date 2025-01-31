@@ -206,7 +206,7 @@ class modOrder extends DolibarrModules
 			'co.code' => "CountryCode", 's.phone' => 'Phone', 's.siren' => 'ProfId1', 's.siret' => 'ProfId2', 's.ape' => 'ProfId3', 's.idprof4' => 'ProfId4', 'c.rowid' => "Id",
 			'c.ref' => "Ref", 'c.ref_client' => "RefCustomer", 'c.fk_soc' => "IdCompany", 'c.date_creation' => "DateCreation", 'c.date_order' => "OrderDate",
 			'c.date_livraison' => "DateDeliveryPlanned", 'c.amount_ht' => "Amount", 'c.total_ht' => "TotalHT",
-			'c.total_ttc' => "TotalTTC", 'c.facture' => "Billed", 'c.fk_statut' => 'Status', 'c.note_public' => "Note", 'sm.code' => 'SendingMethod',
+			'c.total_ttc' => "TotalTTC", 'c.invoice' => "Billed", 'c.fk_statut' => 'Status', 'c.note_public' => "Note", 'sm.code' => 'SendingMethod',
 			'c.fk_user_author' => 'CreatedById', 'uc.login' => 'CreatedByLogin', 'c.fk_user_valid' => 'ValidatedById', 'uv.login' => 'ValidatedByLogin',
 			'pj.ref' => 'ProjectRef', 'cd.rowid' => 'LineId', 'cd.description' => "LineDescription", 'cd.product_type' => 'TypeOfLineServiceOrProduct',
 			'cd.tva_tx' => "LineVATRate", 'cd.qty' => "LineQty", 'cd.total_ht' => "LineTotalHT", 'cd.total_tva' => "LineTotalVAT", 'cd.total_ttc' => "LineTotalTTC",
@@ -231,7 +231,7 @@ class modOrder extends DolibarrModules
 		//	's.rowid'=>"Numeric",'s.nom'=>'Text','s.address'=>'Text','s.zip'=>'Text','s.town'=>'Text','co.label'=>'List:c_country:label:label',
 		//	'co.code'=>'Text','s.phone'=>'Text','s.siren'=>'Text','s.siret'=>'Text','s.ape'=>'Text','s.idprof4'=>'Text','c.ref'=>"Text",'c.ref_client'=>"Text",
 		//	'c.date_creation'=>"Date",'c.date_order'=>"Date",'c.amount_ht'=>"Numeric",'c.total_ht'=>"Numeric",
-		//	'c.total_ttc'=>"Numeric",'c.facture'=>"Boolean",'c.fk_statut'=>'Status','c.note_public'=>"Text",'c.date_livraison'=>'Date','cd.description'=>"Text",
+		//	'c.total_ttc'=>"Numeric",'c.invoice'=>"Boolean",'c.fk_statut'=>'Status','c.note_public'=>"Text",'c.date_livraison'=>'Date','cd.description'=>"Text",
 		//	'cd.product_type'=>'Boolean','cd.tva_tx'=>"Numeric",'cd.qty'=>"Numeric",'cd.total_ht'=>"Numeric",'cd.total_tva'=>"Numeric",'cd.total_ttc'=>"Numeric",
 		//	'p.rowid'=>'List:product:ref','p.ref'=>'Text','p.label'=>'Text'
 		//);
@@ -239,7 +239,7 @@ class modOrder extends DolibarrModules
 			's.nom' => 'Text', 'ps.nom' => 'Text', 's.name_alias' => 'Text', 's.code_client' => 'Text', 's.address' => 'Text', 's.zip' => 'Text', 's.town' => 'Text', 'co.label' => 'List:c_country:label:label', 'co.code' => 'Text', 's.phone' => 'Text',
 			's.siren' => 'Text', 's.siret' => 'Text', 's.ape' => 'Text', 's.idprof4' => 'Text', 'c.ref' => "Text", 'c.ref_client' => "Text", 'c.date_creation' => "Date",
 			'c.date_order' => "Date", 'c.date_livraison' => "Date", 'sm.code' => "Text", 'c.amount_ht' => "Numeric", 'c.total_ht' => "Numeric",
-			'c.total_ttc' => "Numeric", 'c.facture' => "Boolean", 'c.fk_statut' => 'Status', 'c.note_public' => "Text", 'pj.ref' => 'Text',
+			'c.total_ttc' => "Numeric", 'c.invoice' => "Boolean", 'c.fk_statut' => 'Status', 'c.note_public' => "Text", 'pj.ref' => 'Text',
 			'cd.description' => "Text", 'cd.product_type' => 'Boolean', 'cd.tva_tx' => "Numeric", 'cd.qty' => "Numeric", 'cd.total_ht' => "Numeric", 'cd.total_tva' => "Numeric",
 			'cd.total_ttc' => "Numeric", 'p.rowid' => 'List:product:ref::product', 'p.ref' => 'Text', 'p.label' => 'Text', 'd.nom' => 'Text',
 			'c.entity' => 'List:entity:label:rowid',
@@ -249,7 +249,7 @@ class modOrder extends DolibarrModules
 			's.rowid' => "company", 's.nom' => 'company', 's.name_alias' => 'company', 'ps.nom' => 'company', 's.code_client' => 'company', 's.address' => 'company', 's.zip' => 'company', 's.town' => 'company', 'd.nom' => 'company', 'co.label' => 'company',
 			'co.code' => 'company', 's.phone' => 'company', 's.siren' => 'company', 's.ape' => 'company', 's.idprof4' => 'company', 's.siret' => 'company', 'c.rowid' => "order",
 			'c.ref' => "order", 'c.ref_client' => "order", 'c.fk_soc' => "order", 'c.date_creation' => "order", 'c.date_order' => "order", 'c.amount_ht' => "order",
-			'c.total_ht' => "order", 'c.total_ttc' => "order", 'c.facture' => "order", 'c.fk_statut' => "order", 'c.note' => "order",
+			'c.total_ht' => "order", 'c.total_ttc' => "order", 'c.invoice' => "order", 'c.fk_statut' => "order", 'c.note' => "order",
 			'c.date_livraison' => "order", 'sm.code' => "order", 'pj.ref' => 'project', 'cd.rowid' => 'order_line', 'cd.description' => "order_line",
 			'cd.product_type' => 'order_line', 'cd.tva_tx' => "order_line", 'cd.qty' => "order_line", 'cd.total_ht' => "order_line", 'cd.total_tva' => "order_line",
 			'cd.total_ttc' => "order_line", 'p.rowid' => 'product', 'p.ref' => 'product', 'p.label' => 'product'
@@ -309,7 +309,7 @@ class modOrder extends DolibarrModules
 		$this->import_entities_array[$r] = [];
 		$this->import_tables_array[$r] = array('c' => MAIN_DB_PREFIX.'order', 'extra' => MAIN_DB_PREFIX.'order_extrafields');
 		$this->import_tables_creator_array[$r] = array('c' => 'fk_user_author'); // Fields to store import user id
-		$import_sample = array('c.facture' => '0 or 1');
+		$import_sample = array('c.invoice' => '0 or 1');
 		$this->import_fields_array[$r] = array(
 			'c.ref'               => 'Ref*',
 			'c.ref_client'        => 'RefCustomer',
@@ -325,7 +325,7 @@ class modOrder extends DolibarrModules
 			'c.total_ttc'         => 'TotalTTC',
 			'c.note_private'      => 'NotePrivate',
 			'c.note_public'       => 'Note',
-			'c.facture'           => 'Billed',
+			'c.invoice'           => 'Billed',
 			'c.date_livraison'    => 'DeliveryDate',
 			'c.fk_cond_reglement' => 'Payment Condition',
 			'c.fk_mode_reglement' => 'Payment Mode',

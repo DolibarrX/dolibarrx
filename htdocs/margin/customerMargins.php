@@ -27,7 +27,7 @@
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/margin/lib/margins.lib.php';
 
@@ -89,7 +89,7 @@ $result = restrictedArea($user, 'margins');
  */
 
 $companystatic = new Societe($db);
-$invoicestatic = new Facture($db);
+$invoicestatic = new Invoice($db);
 
 $form = new Form($db);
 
@@ -221,7 +221,7 @@ print dol_get_fiche_end();
 
 print '</form>';
 
-$invoice_status_except_list = array(Facture::STATUS_DRAFT, Facture::STATUS_ABANDONED);
+$invoice_status_except_list = array(Invoice::STATUS_DRAFT, Invoice::STATUS_ABANDONED);
 
 $sql = "SELECT";
 $sql .= " s.rowid as socid, s.nom as name, s.code_client, s.client,";
@@ -235,8 +235,8 @@ $sql .= " sum(".$db->ifsql('(d.total_ht < 0 OR (d.total_ht = 0 AND f.type = 2))'
 $sql .= " sum(".$db->ifsql('(d.total_ht < 0 OR (d.total_ht = 0 AND f.type = 2))', '-1 * (abs(d.total_ht) - (d.buy_price_ht * d.qty * (d.situation_percent / 100)))', 'd.total_ht - (d.buy_price_ht * d.qty * (d.situation_percent / 100))').") as marge";
 
 $sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-$sql .= ", ".MAIN_DB_PREFIX."facture as f";
-$sql .= ", ".MAIN_DB_PREFIX."facturedet as d";
+$sql .= ", ".MAIN_DB_PREFIX."invoice as f";
+$sql .= ", ".MAIN_DB_PREFIX."invoicedet as d";
 if (!empty($TSelectedCats)) {
 	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'category_product as cp ON cp.fk_product=d.fk_product';
 }
@@ -254,7 +254,7 @@ if (!$user->hasRight('societe', 'client', 'voir')) {
 $sql .= " AND f.fk_statut NOT IN (".$db->sanitize(implode(', ', $invoice_status_except_list)).")";
 $sql .= ' AND s.entity IN ('.getEntity('societe').')';
 $sql .= ' AND f.entity IN ('.getEntity('invoice').')';
-$sql .= " AND d.fk_facture = f.rowid";
+$sql .= " AND d.fk_invoice = f.rowid";
 $sql .= " AND (d.product_type = 0 OR d.product_type = 1)";
 if (!empty($TSelectedProducts)) {
 	$sql .= ' AND d.fk_product IN ('.$db->sanitize(implode(',', $TSelectedProducts)).')';

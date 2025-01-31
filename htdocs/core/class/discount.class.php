@@ -22,7 +22,7 @@
 
 /**
  *		\file       htdocs/core/class/discount.class.php
- * 		\ingroup    core propal facture order
+ * 		\ingroup    core propal invoice order
  *		\brief      File of class to manage absolute discounts
  */
 
@@ -148,25 +148,25 @@ class DiscountAbsolute extends CommonObject
 	/**
 	 * @var int ID invoice line when a discount is used into an invoice line (for absolute discounts)
 	 */
-	public $fk_facture_line;
+	public $fk_invoice_line;
 
 	/**
 	 * @var int ID invoice when a discount line is used into an invoice (for credit note)
 	 */
-	public $fk_facture;
+	public $fk_invoice;
 
 	/**
 	 * @var int ID credit note or deposit used to create the discount
 	 */
-	public $fk_facture_source;
+	public $fk_invoice_source;
 	/**
 	 * @var string
 	 */
-	public $ref_facture_source; // Ref credit note or deposit used to create the discount
+	public $ref_invoice_source; // Ref credit note or deposit used to create the discount
 	/**
 	 * @var int
 	 */
-	public $type_facture_source;
+	public $type_invoice_source;
 
 	/**
 	 * @var int
@@ -202,14 +202,14 @@ class DiscountAbsolute extends CommonObject
 	 *	Load object from database into memory
 	 *
 	 *  @param      int		$rowid       					id discount to load
-	 *  @param      int		$fk_facture_source				fk_facture_source
+	 *  @param      int		$fk_invoice_source				fk_invoice_source
 	 *  @param		int		$fk_invoice_supplier_source		fk_invoice_supplier_source
 	 *	@return		int<-1,1>								Return integer <0 if KO, =0 if not found, >0 if OK
 	 */
-	public function fetch($rowid, $fk_facture_source = 0, $fk_invoice_supplier_source = 0)
+	public function fetch($rowid, $fk_invoice_source = 0, $fk_invoice_supplier_source = 0)
 	{
 		// Check parameters
-		if (!$rowid && !$fk_facture_source && !$fk_invoice_supplier_source) {
+		if (!$rowid && !$fk_invoice_source && !$fk_invoice_supplier_source) {
 			$this->error = 'ErrorBadParameters';
 			return -1;
 		}
@@ -218,19 +218,19 @@ class DiscountAbsolute extends CommonObject
 		$sql .= " sr.fk_user,";
 		$sql .= " sr.amount_ht, sr.amount_tva, sr.amount_ttc, sr.tva_tx, sr.vat_src_code,";
 		$sql .= " sr.multicurrency_amount_ht, sr.multicurrency_amount_tva, sr.multicurrency_amount_ttc,";
-		$sql .= " sr.fk_facture_line, sr.fk_facture, sr.fk_facture_source, sr.fk_invoice_supplier_line, sr.fk_invoice_supplier, sr.fk_invoice_supplier_source, sr.description,";
+		$sql .= " sr.fk_invoice_line, sr.fk_invoice, sr.fk_invoice_source, sr.fk_invoice_supplier_line, sr.fk_invoice_supplier, sr.fk_invoice_supplier_source, sr.description,";
 		$sql .= " sr.datec,";
-		$sql .= " f.ref as ref_facture_source, f.type as type_facture_source,";
+		$sql .= " f.ref as ref_invoice_source, f.type as type_invoice_source,";
 		$sql .= " fsup.ref as ref_invoice_supplier_source, fsup.type as type_invoice_supplier_source";
 		$sql .= " FROM ".$this->db->prefix()."societe_remise_except as sr";
-		$sql .= " LEFT JOIN ".$this->db->prefix()."facture as f ON sr.fk_facture_source = f.rowid";
-		$sql .= " LEFT JOIN ".$this->db->prefix()."facture_fourn as fsup ON sr.fk_invoice_supplier_source = fsup.rowid";
+		$sql .= " LEFT JOIN ".$this->db->prefix()."invoice as f ON sr.fk_invoice_source = f.rowid";
+		$sql .= " LEFT JOIN ".$this->db->prefix()."invoice_fourn as fsup ON sr.fk_invoice_supplier_source = fsup.rowid";
 		$sql .= " WHERE sr.entity IN (".getEntity('invoice').")";
 		if ($rowid) {
 			$sql .= " AND sr.rowid = ".((int) $rowid);
 		}
-		if ($fk_facture_source) {
-			$sql .= " AND sr.fk_facture_source = ".((int) $fk_facture_source);
+		if ($fk_invoice_source) {
+			$sql .= " AND sr.fk_invoice_source = ".((int) $fk_invoice_source);
 		}
 		if ($fk_invoice_supplier_source) {
 			$sql .= " AND sr.fk_invoice_supplier_source = ".((int) $fk_invoice_supplier_source);
@@ -267,11 +267,11 @@ class DiscountAbsolute extends CommonObject
 				$this->vat_src_code = $obj->vat_src_code;
 
 				$this->fk_user = $obj->fk_user;
-				$this->fk_facture_line = $obj->fk_facture_line;
-				$this->fk_facture = $obj->fk_facture;
-				$this->fk_facture_source = $obj->fk_facture_source; // Id credit note or deposit source
-				$this->ref_facture_source = $obj->ref_facture_source; // Ref credit note or deposit  source
-				$this->type_facture_source = $obj->type_facture_source; // Type credit note or deposit  source
+				$this->fk_invoice_line = $obj->fk_invoice_line;
+				$this->fk_invoice = $obj->fk_invoice;
+				$this->fk_invoice_source = $obj->fk_invoice_source; // Id credit note or deposit source
+				$this->ref_invoice_source = $obj->ref_invoice_source; // Ref credit note or deposit  source
+				$this->type_invoice_source = $obj->type_invoice_source; // Type credit note or deposit  source
 				$this->fk_invoice_supplier_line = $obj->fk_invoice_supplier_line;
 				$this->fk_invoice_supplier = $obj->fk_invoice_supplier;
 				$this->fk_invoice_supplier_source = $obj->fk_invoice_supplier_source; // Id credit note or deposit source
@@ -336,9 +336,9 @@ class DiscountAbsolute extends CommonObject
 
 		$userId = $user->id;
 		if (!($userId > 0)) {		// For example when record is saved into an anonymous context with a not loaded object $user.
-			include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-			$tmpinvoice = new Facture($this->db);
-			$tmpinvoice->fetch($this->fk_facture_source);
+			include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+			$tmpinvoice = new Invoice($this->db);
+			$tmpinvoice->fetch($this->fk_invoice_source);
 			$userId = $tmpinvoice->fk_user_author; // We use the author of invoice
 		}
 
@@ -347,12 +347,12 @@ class DiscountAbsolute extends CommonObject
 		$sql .= " (entity, datec, fk_soc, discount_type, fk_user, description,";
 		$sql .= " amount_ht, amount_tva, amount_ttc, tva_tx, vat_src_code,";
 		$sql .= " multicurrency_amount_ht, multicurrency_amount_tva, multicurrency_amount_ttc,";
-		$sql .= " fk_facture_source, fk_invoice_supplier_source";
+		$sql .= " fk_invoice_source, fk_invoice_supplier_source";
 		$sql .= ")";
 		$sql .= " VALUES (".$config->entity.", '".$this->db->idate($this->datec != '' ? $this->datec : dol_now())."', ".((int) $this->socid).", ".(empty($this->discount_type) ? 0 : intval($this->discount_type)).", ".((int) $userId).", '".$this->db->escape($this->description)."',";
 		$sql .= " ".price2num($this->amount_ht).", ".price2num($this->amount_tva).", ".price2num($this->amount_ttc).", ".price2num($this->tva_tx).", '".$this->db->escape($this->vat_src_code)."',";
 		$sql .= " ".price2num($this->multicurrency_amount_ht).", ".price2num($this->multicurrency_amount_tva).", ".price2num($this->multicurrency_amount_ttc).", ";
-		$sql .= " ".($this->fk_facture_source ? ((int) $this->fk_facture_source) : "null").",";
+		$sql .= " ".($this->fk_invoice_source ? ((int) $this->fk_invoice_source) : "null").",";
 		$sql .= " ".($this->fk_invoice_supplier_source ? ((int) $this->fk_invoice_supplier_source) : "null");
 		$sql .= ")";
 
@@ -369,7 +369,7 @@ class DiscountAbsolute extends CommonObject
 
 
 	/**
-	 *  Delete object in database. If fk_facture_source is defined, we delete all family with same fk_facture_source. If not, only with id is removed
+	 *  Delete object in database. If fk_invoice_source is defined, we delete all family with same fk_invoice_source. If not, only with id is removed
 	 *
 	 *  @param	User	$user		Object of user asking to delete
 	 *  @return	int<-2,1>			Return integer <0 if KO, >0 if OK
@@ -379,12 +379,12 @@ class DiscountAbsolute extends CommonObject
 		global $config, $langs;
 
 		// Check if we can remove the discount
-		if ($this->fk_facture_source) {
+		if ($this->fk_invoice_source) {
 			$sql = "SELECT COUNT(rowid) as nb";
 			$sql .= " FROM ".$this->db->prefix()."societe_remise_except";
-			$sql .= " WHERE (fk_facture_line IS NOT NULL"; // Not used as absolute simple discount
-			$sql .= " OR fk_facture IS NOT NULL)"; // Not used as credit note and not used as deposit
-			$sql .= " AND fk_facture_source = ".((int) $this->fk_facture_source);
+			$sql .= " WHERE (fk_invoice_line IS NOT NULL"; // Not used as absolute simple discount
+			$sql .= " OR fk_invoice IS NOT NULL)"; // Not used as credit note and not used as deposit
+			$sql .= " AND fk_invoice_source = ".((int) $this->fk_invoice_source);
 			//$sql.=" AND rowid != ".$this->id;
 
 			dol_syslog(get_class($this)."::delete Check if we can remove discount", LOG_DEBUG);
@@ -428,15 +428,15 @@ class DiscountAbsolute extends CommonObject
 
 		// Delete but only if not used
 		$sql = "DELETE FROM ".$this->db->prefix()."societe_remise_except ";
-		if ($this->fk_facture_source) {
-			$sql .= " WHERE fk_facture_source = ".((int) $this->fk_facture_source); // Delete all lines of same series
+		if ($this->fk_invoice_source) {
+			$sql .= " WHERE fk_invoice_source = ".((int) $this->fk_invoice_source); // Delete all lines of same series
 		} elseif ($this->fk_invoice_supplier_source) {
 			$sql .= " WHERE fk_invoice_supplier_source = ".((int) $this->fk_invoice_supplier_source); // Delete all lines of same series
 		} else {
 			$sql .= " WHERE rowid = ".((int) $this->id); // Delete only line
 		}
-		$sql .= " AND (fk_facture_line IS NULL"; // Not used as absolute simple discount
-		$sql .= " AND fk_facture IS NULL)"; // Not used as credit note and not used as deposit
+		$sql .= " AND (fk_invoice_line IS NULL"; // Not used as absolute simple discount
+		$sql .= " AND fk_invoice IS NULL)"; // Not used as credit note and not used as deposit
 		$sql .= " AND (fk_invoice_supplier_line IS NULL"; // Not used as absolute simple discount
 		$sql .= " AND fk_invoice_supplier IS NULL)"; // Not used as credit note and not used as deposit
 
@@ -446,10 +446,10 @@ class DiscountAbsolute extends CommonObject
 		$result = $this->db->query($sql);
 		if ($result) {
 			// If source of discount was a credit note or deposit, we change source statut.
-			if ($this->fk_facture_source) {
-				$sql = "UPDATE ".$this->db->prefix()."facture";
+			if ($this->fk_invoice_source) {
+				$sql = "UPDATE ".$this->db->prefix()."invoice";
 				$sql .= " set paye=0, fk_statut=1";
-				$sql .= " WHERE type IN (".$this->db->sanitize(CommonInvoice::TYPE_CREDIT_NOTE.", ".CommonInvoice::TYPE_DEPOSIT).") AND rowid = ".((int) $this->fk_facture_source);
+				$sql .= " WHERE type IN (".$this->db->sanitize(CommonInvoice::TYPE_CREDIT_NOTE.", ".CommonInvoice::TYPE_DEPOSIT).") AND rowid = ".((int) $this->fk_invoice_source);
 
 				dol_syslog(get_class($this)."::delete Update credit note or deposit invoice statut", LOG_DEBUG);
 				$result = $this->db->query($sql);
@@ -462,7 +462,7 @@ class DiscountAbsolute extends CommonObject
 					return -1;
 				}
 			} elseif ($this->fk_invoice_supplier_source) {
-				$sql = "UPDATE ".$this->db->prefix()."facture_fourn";
+				$sql = "UPDATE ".$this->db->prefix()."invoice_fourn";
 				$sql .= " set paye=0, fk_statut=1";
 				$sql .= " WHERE type IN (".$this->db->sanitize(CommonInvoice::TYPE_CREDIT_NOTE.", ".CommonInvoice::TYPE_DEPOSIT).") AND rowid = ".((int) $this->fk_invoice_supplier_source);
 
@@ -525,10 +525,10 @@ class DiscountAbsolute extends CommonObject
 			}
 		} else {
 			if ($rowidline) {
-				$sql .= " SET fk_facture_line = ".((int) $rowidline);
+				$sql .= " SET fk_invoice_line = ".((int) $rowidline);
 			}
 			if ($rowidinvoice) {
-				$sql .= " SET fk_facture = ".((int) $rowidinvoice);
+				$sql .= " SET fk_invoice = ".((int) $rowidinvoice);
 			}
 		}
 		$sql .= " WHERE rowid = ".((int) $this->id);
@@ -540,8 +540,8 @@ class DiscountAbsolute extends CommonObject
 				$this->fk_invoice_supplier_line = $rowidline;
 				$this->fk_invoice_supplier = $rowidinvoice;
 			} else {
-				$this->fk_facture_line = $rowidline;
-				$this->fk_facture = $rowidinvoice;
+				$this->fk_invoice_line = $rowidline;
+				$this->fk_invoice = $rowidinvoice;
 			}
 			if (!$notrigger) {
 				// Call trigger
@@ -576,7 +576,7 @@ class DiscountAbsolute extends CommonObject
 		if (!empty($this->discount_type)) {
 			$sql .= " SET fk_invoice_supplier_line = NULL, fk_invoice_supplier = NULL";
 		} else {
-			$sql .= " SET fk_facture_line = NULL, fk_facture = NULL";
+			$sql .= " SET fk_invoice_line = NULL, fk_invoice = NULL";
 		}
 		$sql .= " WHERE rowid = ".((int) $this->id);
 
@@ -623,7 +623,7 @@ class DiscountAbsolute extends CommonObject
 		if (!empty($discount_type)) {
 			$sql .= " AND (rc.fk_invoice_supplier IS NULL AND rc.fk_invoice_supplier_line IS NULL)"; // Available from supplier
 		} else {
-			$sql .= " AND (rc.fk_facture IS NULL AND rc.fk_facture_line IS NULL)"; // Available to customer
+			$sql .= " AND (rc.fk_invoice IS NULL AND rc.fk_invoice_line IS NULL)"; // Available to customer
 		}
 		if (is_object($company)) {
 			$sql .= " AND rc.fk_soc = ".((int) $company->id);
@@ -668,14 +668,14 @@ class DiscountAbsolute extends CommonObject
 	{
 		dol_syslog(get_class($this)."::getSumDepositsUsed", LOG_DEBUG);
 
-		if ($invoice->element == 'facture' || $invoice->element == 'invoice') {
+		if ($invoice->element == 'invoice' || $invoice->element == 'invoice') {
 			$sql = "SELECT sum(rc.amount_ttc) as amount, sum(rc.multicurrency_amount_ttc) as multicurrency_amount";
-			$sql .= " FROM ".$this->db->prefix()."societe_remise_except as rc, ".$this->db->prefix()."facture as f";
-			$sql .= " WHERE rc.fk_facture_source=f.rowid AND rc.fk_facture = ".((int) $invoice->id);
+			$sql .= " FROM ".$this->db->prefix()."societe_remise_except as rc, ".$this->db->prefix()."invoice as f";
+			$sql .= " WHERE rc.fk_invoice_source=f.rowid AND rc.fk_invoice = ".((int) $invoice->id);
 			$sql .= " AND f.type = ". (int) $invoice::TYPE_DEPOSIT;
 		} elseif ($invoice->element == 'invoice_supplier') {
 			$sql = "SELECT sum(rc.amount_ttc) as amount, sum(rc.multicurrency_amount_ttc) as multicurrency_amount";
-			$sql .= " FROM ".$this->db->prefix()."societe_remise_except as rc, ".$this->db->prefix()."facture_fourn as f";
+			$sql .= " FROM ".$this->db->prefix()."societe_remise_except as rc, ".$this->db->prefix()."invoice_fourn as f";
 			$sql .= " WHERE rc.fk_invoice_supplier_source=f.rowid AND rc.fk_invoice_supplier = ".((int) $invoice->id);
 			$sql .= " AND f.type = ". (int) $invoice::TYPE_DEPOSIT;
 		} else {
@@ -709,14 +709,14 @@ class DiscountAbsolute extends CommonObject
 	{
 		dol_syslog(get_class($this)."::getSumCreditNotesUsed", LOG_DEBUG);
 
-		if ($invoice->element == 'facture' || $invoice->element == 'invoice') {
+		if ($invoice->element == 'invoice' || $invoice->element == 'invoice') {
 			$sql = "SELECT sum(rc.amount_ttc) as amount, sum(rc.multicurrency_amount_ttc) as multicurrency_amount";
-			$sql .= " FROM ".$this->db->prefix()."societe_remise_except as rc, ".$this->db->prefix()."facture as f";
-			$sql .= " WHERE rc.fk_facture_source=f.rowid AND rc.fk_facture = ".((int) $invoice->id);
+			$sql .= " FROM ".$this->db->prefix()."societe_remise_except as rc, ".$this->db->prefix()."invoice as f";
+			$sql .= " WHERE rc.fk_invoice_source=f.rowid AND rc.fk_invoice = ".((int) $invoice->id);
 			$sql .= " AND f.type IN (".$this->db->sanitize($invoice::TYPE_STANDARD.", ".$invoice::TYPE_CREDIT_NOTE.", ".$invoice::TYPE_SITUATION).")"; // Find discount coming from credit note or excess received
 		} elseif ($invoice->element == 'invoice_supplier') {
 			$sql = "SELECT sum(rc.amount_ttc) as amount, sum(rc.multicurrency_amount_ttc) as multicurrency_amount";
-			$sql .= " FROM ".$this->db->prefix()."societe_remise_except as rc, ".$this->db->prefix()."facture_fourn as f";
+			$sql .= " FROM ".$this->db->prefix()."societe_remise_except as rc, ".$this->db->prefix()."invoice_fourn as f";
 			$sql .= " WHERE rc.fk_invoice_supplier_source=f.rowid AND rc.fk_invoice_supplier = ".((int) $invoice->id);
 			$sql .= " AND f.type IN (".$this->db->sanitize($invoice::TYPE_STANDARD.", ".$invoice::TYPE_CREDIT_NOTE).")"; // Find discount coming from credit note or excess paid
 		} else {
@@ -749,10 +749,10 @@ class DiscountAbsolute extends CommonObject
 	{
 		dol_syslog(get_class($this)."::getSumCreditNotesUsed", LOG_DEBUG);
 
-		if ($invoice->element == 'facture' || $invoice->element == 'invoice') {
+		if ($invoice->element == 'invoice' || $invoice->element == 'invoice') {
 			$sql = "SELECT sum(rc.amount_ttc) as amount, sum(rc.multicurrency_amount_ttc) as multicurrency_amount";
 			$sql .= " FROM ".$this->db->prefix()."societe_remise_except as rc";
-			$sql .= " WHERE rc.fk_facture IS NULL AND rc.fk_facture_source = ".((int) $invoice->id);
+			$sql .= " WHERE rc.fk_invoice IS NULL AND rc.fk_invoice_source = ".((int) $invoice->id);
 		} elseif ($invoice->element == 'invoice_supplier') {
 			$sql = "SELECT sum(rc.amount_ttc) as amount, sum(rc.multicurrency_amount_ttc) as multicurrency_amount";
 			$sql .= " FROM ".$this->db->prefix()."societe_remise_except as rc";
@@ -796,12 +796,12 @@ class DiscountAbsolute extends CommonObject
 		$ref = '';
 
 		if ($option == 'invoice') {
-			$facid = !empty($this->discount_type) ? $this->fk_invoice_supplier_source : $this->fk_facture_source;
-			$link = !empty($this->discount_type) ? '/fourn/facture/card.php' : '/compta/facture/card.php';
-			$label = $langs->trans("ShowSourceInvoice").': '.$this->ref_facture_source;
+			$facid = !empty($this->discount_type) ? $this->fk_invoice_supplier_source : $this->fk_invoice_source;
+			$link = !empty($this->discount_type) ? '/fourn/invoice/card.php' : '/compta/invoice/card.php';
+			$label = $langs->trans("ShowSourceInvoice").': '.$this->ref_invoice_source;
 			$link = '<a href="'.DOL_URL_ROOT.$link.'?facid='.$facid.'" title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';
 			$linkend = '</a>';
-			$ref = !empty($this->discount_type) ? $this->ref_invoice_supplier_source : $this->ref_facture_source;
+			$ref = !empty($this->discount_type) ? $this->ref_invoice_supplier_source : $this->ref_invoice_source;
 			$picture = 'bill';
 		}
 		if ($option == 'discount') {

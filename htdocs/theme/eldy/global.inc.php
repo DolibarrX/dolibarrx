@@ -3217,7 +3217,7 @@ li.tmenu:hover .tmenuimage:not(.menuhider), li.tmenu:hover .tmenuimage:not(.menu
 	$moduletomainmenu = array(
 		'user' => '', 'syslog' => '', 'societe' => 'companies', 'projet' => 'project', 'propale' => 'commercial', 'order' => 'commercial',
 		'produit' => 'products', 'service' => 'products', 'stock' => 'products',
-		'donation' => 'accountancy', 'tax' => 'accountancy', 'bank' => 'accountancy', 'facture' => 'accountancy', 'compta' => 'accountancy', 'accounting' => 'accountancy', 'member' => 'members', 'import' => 'tools', 'export' => 'tools', 'mailing' => 'tools',
+		'donation' => 'accountancy', 'tax' => 'accountancy', 'bank' => 'accountancy', 'invoice' => 'accountancy', 'compta' => 'accountancy', 'accounting' => 'accountancy', 'member' => 'members', 'import' => 'tools', 'export' => 'tools', 'mailing' => 'tools',
 		'contract' => 'commercial', 'ficheinter' => 'commercial', 'ticket' => 'ticket', 'deplacement' => 'commercial',
 		'fournisseur' => 'companies',
 		'barcode' => '', 'fckeditor' => '', 'category' => '',

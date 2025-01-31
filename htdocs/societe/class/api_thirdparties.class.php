@@ -994,14 +994,14 @@ class Thirdparties extends DolibarrApi
 		}
 
 
-		$sql = "SELECT f.ref, f.type as factype, re.fk_facture_source, re.rowid, re.amount_ht, re.amount_tva, re.amount_ttc, re.description, re.fk_facture, re.fk_facture_line";
-		$sql .= " FROM ".MAIN_DB_PREFIX."societe_remise_except as re, ".MAIN_DB_PREFIX."facture as f";
-		$sql .= " WHERE f.rowid = re.fk_facture_source AND re.fk_soc = ".((int) $id);
+		$sql = "SELECT f.ref, f.type as factype, re.fk_invoice_source, re.rowid, re.amount_ht, re.amount_tva, re.amount_ttc, re.description, re.fk_invoice, re.fk_invoice_line";
+		$sql .= " FROM ".MAIN_DB_PREFIX."societe_remise_except as re, ".MAIN_DB_PREFIX."invoice as f";
+		$sql .= " WHERE f.rowid = re.fk_invoice_source AND re.fk_soc = ".((int) $id);
 		if ($filter == "available") {
-			$sql .= " AND re.fk_facture IS NULL AND re.fk_facture_line IS NULL";
+			$sql .= " AND re.fk_invoice IS NULL AND re.fk_invoice_line IS NULL";
 		}
 		if ($filter == "used") {
-			$sql .= " AND (re.fk_facture IS NOT NULL OR re.fk_facture_line IS NOT NULL)";
+			$sql .= " AND (re.fk_invoice IS NOT NULL OR re.fk_invoice_line IS NOT NULL)";
 		}
 
 		$sql .= $this->db->order($sortfield, $sortorder);
@@ -1036,7 +1036,7 @@ class Thirdparties extends DolibarrApi
 	 */
 	public function getInvoicesQualifiedForReplacement($id)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('facture', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('invoice', 'lire')) {
 			throw new RestException(403);
 		}
 		if (empty($id)) {
@@ -1052,8 +1052,8 @@ class Thirdparties extends DolibarrApi
 		 throw new RestException(404, 'Thirdparty not found');
 		 }*/
 
-		require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-		$invoice = new Facture($this->db);
+		require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+		$invoice = new Invoice($this->db);
 		$result = $invoice->list_replacable_invoices($id);
 		if ($result < 0) {
 			throw new RestException(405, $invoice->error);
@@ -1080,7 +1080,7 @@ class Thirdparties extends DolibarrApi
 	 */
 	public function getInvoicesQualifiedForCreditNote($id)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('facture', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('invoice', 'lire')) {
 			throw new RestException(403);
 		}
 		if (empty($id)) {
@@ -1096,8 +1096,8 @@ class Thirdparties extends DolibarrApi
 		 throw new RestException(404, 'Thirdparty not found');
 		 }*/
 
-		require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-		$invoice = new Facture($this->db);
+		require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+		$invoice = new Invoice($this->db);
 		$result = $invoice->list_qualified_avoir_invoices($id);
 		if ($result < 0) {
 			throw new RestException(405, $invoice->error);
@@ -2181,11 +2181,11 @@ class Thirdparties extends DolibarrApi
 		}
 
 		if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
-			$filterabsolutediscount = "fk_facture_source IS NULL"; // If we want deposit to be subtracted to payments only and not to total of final invoice
-			$filtercreditnote = "fk_facture_source IS NOT NULL"; // If we want deposit to be subtracted to payments only and not to total of final invoice
+			$filterabsolutediscount = "fk_invoice_source IS NULL"; // If we want deposit to be subtracted to payments only and not to total of final invoice
+			$filtercreditnote = "fk_invoice_source IS NOT NULL"; // If we want deposit to be subtracted to payments only and not to total of final invoice
 		} else {
-			$filterabsolutediscount = "fk_facture_source IS NULL OR (description LIKE '(DEPOSIT)%' AND description NOT LIKE '(EXCESS RECEIVED)%')";
-			$filtercreditnote = "fk_facture_source IS NOT NULL AND (description NOT LIKE '(DEPOSIT)%' OR description LIKE '(EXCESS RECEIVED)%')";
+			$filterabsolutediscount = "fk_invoice_source IS NULL OR (description LIKE '(DEPOSIT)%' AND description NOT LIKE '(EXCESS RECEIVED)%')";
+			$filtercreditnote = "fk_invoice_source IS NOT NULL AND (description NOT LIKE '(DEPOSIT)%' OR description LIKE '(EXCESS RECEIVED)%')";
 		}
 
 		$absolute_discount = $this->company->getAvailableDiscounts('', $filterabsolutediscount);

@@ -45,8 +45,8 @@ require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT . '/projet/class/project.class.php';
 if (isModEnabled('invoice')) {
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice-rec.class.php';
 }
 if (isModEnabled("propal")) {
 	require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
@@ -798,7 +798,7 @@ if ($object->id > 0) {
 		}
 	}
 
-	if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
+	if (isModEnabled('invoice') && $user->hasRight('invoice', 'lire')) {
 		// Box invoices
 		$tmp = $object->getOutstandingBills('customer', 0);
 		$outstandingOpened = $tmp['opened'];
@@ -806,7 +806,7 @@ if ($object->id > 0) {
 		$outstandingTotalIncTax = $tmp['total_ttc'];
 
 		$text = $langs->trans("OverAllInvoices");
-		$link = DOL_URL_ROOT.'/compta/facture/list.php?socid='.$object->id;
+		$link = DOL_URL_ROOT.'/compta/invoice/list.php?socid='.$object->id;
 		$icon = 'bill';
 		if ($link) {
 			$boxstat .= '<a href="'.$link.'" class="boxstatsindicator thumbstat nobold nounderline">';
@@ -987,9 +987,9 @@ if ($object->id > 0) {
 		$sql .= ", c.rowid as cid, c.entity, c.fk_projet, c.total_ht";
 		$sql .= ", c.total_tva";
 		$sql .= ", c.total_ttc";
-		$sql .= ", c.ref, c.ref_client, c.fk_statut, c.facture";
+		$sql .= ", c.ref, c.ref_client, c.fk_statut, c.invoice";
 		$sql .= ", c.date_order as dc";
-		$sql .= ", c.facture as billed";
+		$sql .= ", c.invoice as billed";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."order as c";
 		$sql .= " WHERE c.fk_soc = s.rowid ";
 		$sql .= " AND s.rowid = ".((int) $object->id);
@@ -1004,13 +1004,13 @@ if ($object->id > 0) {
 			if ($num > 0) {
 				// Check if there are orders billable
 				$sql2 = 'SELECT s.nom, s.rowid as socid, s.client, c.rowid, c.ref, c.total_ht, c.ref_client,';
-				$sql2 .= ' c.date_valid, c.date_order, c.date_livraison, c.fk_statut, c.facture as billed';
+				$sql2 .= ' c.date_valid, c.date_order, c.date_livraison, c.fk_statut, c.invoice as billed';
 				$sql2 .= ' FROM '.MAIN_DB_PREFIX.'societe as s';
 				$sql2 .= ', '.MAIN_DB_PREFIX.'order as c';
 				$sql2 .= ' WHERE c.fk_soc = s.rowid';
 				$sql2 .= ' AND s.rowid = '.((int) $object->id);
 				// Show orders with status validated, shipping started and delivered (well any order we can bill)
-				$sql2 .= " AND ((c.fk_statut IN (1,2)) OR (c.fk_statut = 3 AND c.facture = 0))";
+				$sql2 .= " AND ((c.fk_statut IN (1,2)) OR (c.fk_statut = 3 AND c.invoice = 0))";
 
 				$resql2 = $db->query($sql2);
 				$orders2invoice = $db->num_rows($resql2);
@@ -1081,7 +1081,7 @@ if ($object->id > 0) {
 
 				print '<td class="right" width="80px">'.dol_print_date($db->jdate($objp->dc), 'day')."</td>\n";
 				print '<td class="right nowraponall">'.price($objp->total_ht).'</td>';
-				print '<td class="right" style="min-width: 60px" class="nowrap">'.$order_static->LibStatut($objp->fk_statut, $objp->facture, 5).'</td></tr>';
+				print '<td class="right" style="min-width: 60px" class="nowrap">'.$order_static->LibStatut($objp->fk_statut, $objp->invoice, 5).'</td></tr>';
 				$i++;
 			}
 			$db->free($resql);
@@ -1414,7 +1414,7 @@ if ($object->id > 0) {
 	/*
 	 *   Latest invoices templates
 	 */
-	if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
+	if (isModEnabled('invoice') && $user->hasRight('invoice', 'lire')) {
 		$sql = 'SELECT f.rowid as id, f.titre as ref, f.fk_projet';
 		$sql .= ', f.total_ht';
 		$sql .= ', f.total_tva';
@@ -1425,7 +1425,7 @@ if ($object->id > 0) {
 		$sql .= ', f.unit_frequency';
 		$sql .= ', f.suspended as suspended';
 		$sql .= ', s.nom, s.rowid as socid';
-		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."facture_rec as f";
+		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."invoice_rec as f";
 		$sql .= " WHERE f.fk_soc = s.rowid AND s.rowid = ".((int) $object->id);
 		$sql .= " AND f.entity IN (".getEntity('invoice').")";
 		$sql .= ' GROUP BY f.rowid, f.titre, f.fk_projet, f.total_ht, f.total_tva, f.total_ttc,';
@@ -1436,7 +1436,7 @@ if ($object->id > 0) {
 
 		$resql = $db->query($sql);
 		if ($resql) {
-			$invoicetemplate = new FactureRec($db);
+			$invoicetemplate = new InvoiceRec($db);
 
 			$num = $db->num_rows($resql);
 			if ($num > 0) {
@@ -1449,7 +1449,7 @@ if ($object->id > 0) {
 				}
 				print '<td colspan="'.$colspan.'">';
 				print '<table class="centpercent nobordernopadding"><tr>';
-				print '<td>'.$langs->trans("LatestCustomerTemplateInvoices", ($num <= $MAXLIST ? "" : $MAXLIST)).'</td><td class="right"><a class="notasortlink" href="'.DOL_URL_ROOT.'/compta/facture/invoicetemplate_list.php?socid='.$object->id.'"><span class="hideonsmartphone">'.$langs->trans("AllCustomerTemplateInvoices").'</span><span class="badge marginleftonlyshort">'.$num.'</span></a></td>';
+				print '<td>'.$langs->trans("LatestCustomerTemplateInvoices", ($num <= $MAXLIST ? "" : $MAXLIST)).'</td><td class="right"><a class="notasortlink" href="'.DOL_URL_ROOT.'/compta/invoice/invoicetemplate_list.php?socid='.$object->id.'"><span class="hideonsmartphone">'.$langs->trans("AllCustomerTemplateInvoices").'</span><span class="badge marginleftonlyshort">'.$num.'</span></a></td>';
 				print '</tr></table>';
 				print '</td>';
 				print '</tr>';
@@ -1521,7 +1521,7 @@ if ($object->id > 0) {
 	/*
 	 *   Latest invoices
 	 */
-	if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
+	if (isModEnabled('invoice') && $user->hasRight('invoice', 'lire')) {
 		$sql = 'SELECT f.rowid as facid, f.ref, f.type, f.ref_client, f.fk_projet';
 		$sql .= ', f.total_ht';
 		$sql .= ', f.total_tva';
@@ -1530,8 +1530,8 @@ if ($object->id > 0) {
 		$sql .= ', f.datef as df, f.date_lim_reglement as dl, f.datec as dc, f.paye as paye, f.fk_statut as status';
 		$sql .= ', s.nom, s.rowid as socid';
 		$sql .= ', SUM(pf.amount) as am';
-		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."facture as f";
-		$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiement_facture as pf ON f.rowid=pf.fk_facture';
+		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."invoice as f";
+		$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiement_invoice as pf ON f.rowid=pf.fk_invoice';
 		$sql .= " WHERE f.fk_soc = s.rowid AND s.rowid = ".((int) $object->id);
 		$sql .= " AND f.entity IN (".getEntity('invoice').")";
 		$sql .= ' GROUP BY f.rowid, f.ref, f.type, f.ref_client, f.fk_projet, f.total_ht, f.total_tva, f.total_ttc,';
@@ -1541,7 +1541,7 @@ if ($object->id > 0) {
 
 		$resql = $db->query($sql);
 		if ($resql) {
-			$facturestatic = new Facture($db);
+			$invoicestatic = new Invoice($db);
 
 			$num = $db->num_rows($resql);
 			if ($num > 0) {
@@ -1556,8 +1556,8 @@ if ($object->id > 0) {
 					$colspan++;
 				}
 				print '<td colspan="'.$colspan.'">';
-				print '<table class="centpercent nobordernopadding"><tr><td>'.$langs->trans("LastCustomersBills", ($num <= $MAXLIST ? "" : $MAXLIST)).'</td><td class="right"><a class="notasortlink" href="'.DOL_URL_ROOT.'/compta/facture/list.php?socid='.$object->id.'"><span class="hideonsmartphone">'.$langs->trans("AllBills").'</span><span class="badge marginleftonlyshort">'.$num.'</span></a></td>';
-				print '<td width="20px" class="right"><a href="'.DOL_URL_ROOT.'/compta/facture/stats/index.php?socid='.$object->id.'">'.img_picture($langs->trans("Statistics"), 'stats').'</a></td>';
+				print '<table class="centpercent nobordernopadding"><tr><td>'.$langs->trans("LastCustomersBills", ($num <= $MAXLIST ? "" : $MAXLIST)).'</td><td class="right"><a class="notasortlink" href="'.DOL_URL_ROOT.'/compta/invoice/list.php?socid='.$object->id.'"><span class="hideonsmartphone">'.$langs->trans("AllBills").'</span><span class="badge marginleftonlyshort">'.$num.'</span></a></td>';
+				print '<td width="20px" class="right"><a href="'.DOL_URL_ROOT.'/compta/invoice/stats/index.php?socid='.$object->id.'">'.img_picture($langs->trans("Statistics"), 'stats').'</a></td>';
 				print '</tr></table>';
 				print '</td>';
 				print '</tr>';
@@ -1567,27 +1567,27 @@ if ($object->id > 0) {
 			while ($i < $num && $i < $MAXLIST) {
 				$objp = $db->fetch_object($resql);
 
-				$facturestatic->id = $objp->facid;
-				$facturestatic->ref = $objp->ref;
-				$facturestatic->ref_client = $objp->ref_client;
-				$facturestatic->fk_project = $objp->fk_projet;
-				$facturestatic->type = $objp->type;
-				$facturestatic->total_ht = $objp->total_ht;
-				$facturestatic->total_tva = $objp->total_tva;
-				$facturestatic->total_ttc = $objp->total_ttc;
-				$facturestatic->statut = $objp->status;
-				$facturestatic->status = $objp->status;
-				$facturestatic->paye = $objp->paye;
-				$facturestatic->alreadypaid = $objp->am;
-				$facturestatic->totalpaid = $objp->am;
-				$facturestatic->date = $db->jdate($objp->df);
-				$facturestatic->date_lim_reglement = $db->jdate($objp->dl);
+				$invoicestatic->id = $objp->facid;
+				$invoicestatic->ref = $objp->ref;
+				$invoicestatic->ref_client = $objp->ref_client;
+				$invoicestatic->fk_project = $objp->fk_projet;
+				$invoicestatic->type = $objp->type;
+				$invoicestatic->total_ht = $objp->total_ht;
+				$invoicestatic->total_tva = $objp->total_tva;
+				$invoicestatic->total_ttc = $objp->total_ttc;
+				$invoicestatic->statut = $objp->status;
+				$invoicestatic->status = $objp->status;
+				$invoicestatic->paye = $objp->paye;
+				$invoicestatic->alreadypaid = $objp->am;
+				$invoicestatic->totalpaid = $objp->am;
+				$invoicestatic->date = $db->jdate($objp->df);
+				$invoicestatic->date_lim_reglement = $db->jdate($objp->dl);
 
 				print '<tr class="oddeven">';
 				print '<td class="nowraponall">';
-				print $facturestatic->getNomUrl(1);
+				print $invoicestatic->getNomUrl(1);
 				// Preview
-				$filedir = $config->facture->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				$filedir = $config->invoice->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 				$file_list = null;
 				if (!empty($filedir)) {
 					$file_list = dol_dir_list($filedir, 'files', 0, dol_sanitizeFileName($objp->ref).'.pdf', '(\.meta|_preview.*.*\.png)$', 'date', SORT_DESC);
@@ -1610,17 +1610,17 @@ if ($object->id > 0) {
 						}
 					}
 					$relativepath = dol_sanitizeFileName($objp->ref).'/'.dol_sanitizeFileName($objp->ref).'.pdf';
-					print $formfile->showPreview($file_list, $facturestatic->element, $relativepath, 0);
+					print $formfile->showPreview($file_list, $invoicestatic->element, $relativepath, 0);
 				}
 				print '</td><td class="left">';
-				if ($facturestatic->fk_project > 0) {
-					$project->fetch($facturestatic->fk_project);
+				if ($invoicestatic->fk_project > 0) {
+					$project->fetch($invoicestatic->fk_project);
 					print $project->getNomUrl(1);
 				}
 				// $filename = dol_sanitizeFileName($objp->ref);
-				// $filedir = $config->facture->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
-				// $urlsource = '/compta/facture/card.php?id='.$objp->cid;
-				//print $formfile->getDocumentsLink($facturestatic->element, $filename, $filedir);
+				// $filedir = $config->invoice->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				// $urlsource = '/compta/invoice/card.php?id='.$objp->cid;
+				//print $formfile->getDocumentsLink($invoicestatic->element, $filename, $filedir);
 				print '</td>';
 				if (getDolGlobalString('MAIN_SHOW_REF_CUSTOMER_INVOICES')) {
 					print '<td class="left nowraponall">';
@@ -1648,7 +1648,7 @@ if ($object->id > 0) {
 					print '</td>';
 				}
 
-				print '<td class="nowrap right" style="min-width: 60px">'.($facturestatic->LibStatut($objp->paye, $objp->status, 5, $objp->am)).'</td>';
+				print '<td class="nowrap right" style="min-width: 60px">'.($invoicestatic->LibStatut($objp->paye, $objp->status, 5, $objp->am)).'</td>';
 				print "</tr>\n";
 				$i++;
 			}
@@ -1718,14 +1718,14 @@ if ($object->id > 0) {
 		}
 
 		if (isModEnabled('invoice') && $object->status == 1) {
-			if (!$user->hasRight('facture', 'creer')) {
+			if (!$user->hasRight('invoice', 'creer')) {
 				$langs->load("bills");
 				print '<div class="inline-block divButAction"><a class="butActionRefused classfortooltip" title="'.dol_escape_js($langs->trans("NotAllowed")).'" href="#">'.$langs->trans("AddBill").'</a></div>';
 			} else {
 				$langs->loadLangs(array("orders", "bills"));
 
 				if ($object->client != 0 && $object->client != 2) {
-					print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/compta/facture/card.php?action=create&socid='.$object->id.'">'.$langs->trans("AddBill").'</a></div>';
+					print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/compta/invoice/card.php?action=create&socid='.$object->id.'">'.$langs->trans("AddBill").'</a></div>';
 				} else {
 					print '<div class="inline-block divButAction"><a class="butActionRefused classfortooltip" title="'.dol_escape_js($langs->trans("ThirdPartyMustBeEditAsCustomer")).'" href="#">'.$langs->trans("AddBill").'</a></div>';
 				}
@@ -1733,7 +1733,7 @@ if ($object->id > 0) {
 		}
 
 		if (isModEnabled('invoice') && $object->status == 1) {
-			if ($user->hasRight('facture', 'creer')) {
+			if ($user->hasRight('invoice', 'creer')) {
 				if (isModEnabled('order')) {
 					if ($object->client != 0 && $object->client != 2) {
 						if (!empty($orders2invoice) && $orders2invoice > 0) {

@@ -30,8 +30,8 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/prelevement.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/bonprelevement.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/rejetprelevement.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
@@ -97,8 +97,8 @@ if ($type == 'bank-transfer') {
 $form = new Form($db);
 
 $thirdpartystatic = new Societe($db);
-$invoicestatic = new Facture($db);
-$invoicesupplierstatic = new FactureFournisseur($db);
+$invoicestatic = new Invoice($db);
+$invoicesupplierstatic = new InvoiceSupplier($db);
 $rej = new RejetPrelevement($db, $user, $type);
 
 
@@ -216,14 +216,14 @@ if ($id > 0 || $ref) {
 
 $sql = "SELECT pl.rowid, pl.amount, pl.statut";
 $sql .= " , s.rowid as socid, s.nom as name";
-$sql .= " , pr.motif, pr.afacturer, pr.fk_facture";
+$sql .= " , pr.motif, pr.ainvoicer, pr.fk_invoice";
 $sql .= " FROM ".MAIN_DB_PREFIX."prelevement_bons as p";
 $sql .= " , ".MAIN_DB_PREFIX."prelevement_lignes as pl";
 $sql .= " , ".MAIN_DB_PREFIX."societe as s";
 $sql .= " , ".MAIN_DB_PREFIX."prelevement_rejet as pr";
 $sql .= " WHERE p.rowid=".((int) $object->id);
 $sql .= " AND pl.fk_prelevement_bons = p.rowid";
-$sql .= " AND p.entity IN (".getEntity('facture').")";
+$sql .= " AND p.entity IN (".getEntity('invoice').")";
 $sql .= " AND pl.fk_soc = s.rowid";
 $sql .= " AND pl.statut = 3 ";
 $sql .= " AND pr.fk_prelevement_lignes = pl.rowid";
@@ -274,8 +274,8 @@ if ($resql) {
 			$thirdpartystatic->id = $obj->socid;
 			$thirdpartystatic->name = $obj->name;
 
-			if ($obj->fk_facture > 0) {
-				$invoicestatic->fetch($obj->fk_facture);
+			if ($obj->fk_invoice > 0) {
+				$invoicestatic->fetch($obj->fk_invoice);
 			}
 
 			print '<tr class="oddeven">';
@@ -295,11 +295,11 @@ if ($resql) {
 			print '<td class="right"><span class="amount">'.price($obj->amount)."</span></td>\n";
 			print '<td>'.dol_escape_htmltag($rej->motifs[$obj->motif]).'</td>';
 
-			print '<td class="center">'.yn($obj->afacturer).'</td>';
+			print '<td class="center">'.yn($obj->ainvoicer).'</td>';
 
 			// Invoice used to charge the error
 			print '<td class="center">';
-			if ($obj->fk_facture > 0) {
+			if ($obj->fk_invoice > 0) {
 				print $invoicestatic->getNomUrl(1);
 			}
 			print '</td>';

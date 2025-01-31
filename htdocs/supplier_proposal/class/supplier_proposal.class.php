@@ -361,7 +361,7 @@ class SupplierProposal extends CommonObject
 		$result = $remise->fetch($idremise);
 
 		if ($result > 0) {
-			if ($remise->fk_facture) {	// Protection against multiple submission
+			if ($remise->fk_invoice) {	// Protection against multiple submission
 				$this->error = $langs->trans("ErrorDiscountAlreadyUsed");
 				$this->db->rollback();
 				return -5;
@@ -1257,7 +1257,7 @@ class SupplierProposal extends CommonObject
 		$sql .= ", p.fk_shipping_method";
 		$sql .= ", p.fk_multicurrency, p.multicurrency_code, p.multicurrency_tx, p.multicurrency_total_ht, p.multicurrency_total_tva, p.multicurrency_total_ttc";
 		$sql .= ", c.label as statut_label";
-		$sql .= ", cr.code as cond_reglement_code, cr.libelle as cond_reglement, cr.libelle_facture as cond_reglement_libelle_doc";
+		$sql .= ", cr.code as cond_reglement_code, cr.libelle as cond_reglement, cr.libelle_invoice as cond_reglement_libelle_doc";
 		$sql .= ", cp.code as mode_reglement_code, cp.libelle as mode_reglement";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_propalst as c, ".MAIN_DB_PREFIX."supplier_proposal as p";
 		$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_paiement as cp ON p.fk_mode_reglement = cp.id';
@@ -2319,8 +2319,8 @@ class SupplierProposal extends CommonObject
 						$response->nbtodolate++;
 					}
 				}
-				// TODO Definir regle des propales a facturer en retard
-				// if ($mode == 'signed' && ! count($this->FactureListeArray($obj->rowid))) $this->nbtodolate++;
+				// TODO Define rule for late billing proposals
+				// if ($mode == 'signed' && ! count($this->InvoiceListArray($obj->rowid))) $this->nbtodolate++;
 			}
 			return $response;
 		} else {

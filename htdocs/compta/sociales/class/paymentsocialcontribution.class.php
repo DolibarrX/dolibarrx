@@ -236,7 +236,7 @@ class PaymentSocialContribution extends CommonObject
 			if ($resql) {
 				$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."paiementcharge");
 
-				// Insere tableau des montants / factures
+				// Insere tableau des montants / invoices
 				foreach ($this->amounts as $key => $amount) {
 					$contribid = $key;
 					if (is_numeric($amount) && $amount != 0) {

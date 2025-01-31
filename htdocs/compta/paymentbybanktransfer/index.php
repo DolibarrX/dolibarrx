@@ -31,7 +31,7 @@
 // Load Dolibarr environment
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/bonprelevement.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/prelevement.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
@@ -77,7 +77,7 @@ if (prelevement_check_config('bank-transfer') < 0) {
 }
 
 $thirdpartystatic = new Societe($db);
-$invoicestatic = new FactureFournisseur($db);
+$invoicestatic = new InvoiceSupplier($db);
 $bprev = new BonPrelevement($db);
 $salary = new Salary($db);
 $user = new User($db);
@@ -134,18 +134,18 @@ if (isModEnabled('supplier_invoice')) {
 	$sql = "SELECT f.ref, f.rowid, f.total_ttc, f.fk_statut, f.paye, f.type, f.datef, f.date_lim_reglement,";
 	$sql .= " pfd.date_demande, pfd.amount,";
 	$sql .= " s.nom as name, s.email, s.rowid as socid, s.tva_intra, s.siren as idprof1, s.siret as idprof2, s.ape as idprof3, s.idprof4, s.idprof5, s.idprof6";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f,";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f,";
 	$sql .= " ".MAIN_DB_PREFIX."societe as s,";
 	$sql .= " ".MAIN_DB_PREFIX."prelevement_demande as pfd";
 	$sql .= " WHERE s.rowid = f.fk_soc";
 	$sql .= " AND f.entity IN (".getEntity('supplier_invoice').")";
 	$sql .= " AND f.total_ttc > 0";
 	if (!getDolGlobalString('WITHDRAWAL_ALLOW_ANY_INVOICE_STATUS')) {
-		$sql .= " AND f.fk_statut = ".FactureFournisseur::STATUS_VALIDATED;
+		$sql .= " AND f.fk_statut = ".InvoiceSupplier::STATUS_VALIDATED;
 	}
 	$sql .= " AND pfd.traite = 0";
 	$sql .= " AND pfd.ext_payment_id IS NULL";
-	$sql .= " AND pfd.fk_facture_fourn = f.rowid";
+	$sql .= " AND pfd.fk_invoice_fourn = f.rowid";
 	if ($socid) {
 		$sql .= " AND f.fk_soc = ".((int) $socid);
 	}

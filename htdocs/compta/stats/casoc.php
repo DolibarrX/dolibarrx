@@ -286,7 +286,7 @@ $catotal_ht = 0;
 if ($modecompta == 'CREANCES-DETTES') {
 	$sql = "SELECT DISTINCT s.rowid as socid, s.nom as name, s.name_alias, s.zip, s.town, s.fk_pays,";
 	$sql .= " sum(f.total_ht) as amount, sum(f.total_ttc) as amount_ttc";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture as f, ".MAIN_DB_PREFIX."societe as s";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f, ".MAIN_DB_PREFIX."societe as s";
 	if ($selected_cat === -2) {	// Without any category
 		$sql .= " LEFT OUTER JOIN ".MAIN_DB_PREFIX."category_societe as cs ON s.rowid = cs.fk_soc";
 	} elseif ($selected_cat) { 	// Into a specific category
@@ -315,11 +315,11 @@ if ($modecompta == 'CREANCES-DETTES') {
 } elseif ($modecompta == "RECETTES-DEPENSES") {
 	/*
 	 * List of payments (old payments are not seen by this query because on older versions,
-	 * they were not linked via the table llx_paiement_facture. They are added later)
+	 * they were not linked via the table llx_paiement_invoice. They are added later)
 	 */
 	$sql = "SELECT s.rowid as socid, s.nom as name, s.name_alias, s.zip, s.town, s.fk_pays, sum(pf.amount) as amount_ttc";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
-	$sql .= ", ".MAIN_DB_PREFIX."paiement_facture as pf";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f";
+	$sql .= ", ".MAIN_DB_PREFIX."paiement_invoice as pf";
 	$sql .= ", ".MAIN_DB_PREFIX."paiement as p";
 	$sql .= ", ".MAIN_DB_PREFIX."societe as s";
 	if ($selected_cat === -2) {	// Without any category
@@ -328,7 +328,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 		$sql .= ", ".MAIN_DB_PREFIX."category as c, ".MAIN_DB_PREFIX."category_societe as cs";
 	}
 	$sql .= " WHERE p.rowid = pf.fk_paiement";
-	$sql .= " AND pf.fk_facture = f.rowid";
+	$sql .= " AND pf.fk_invoice = f.rowid";
 	$sql .= " AND f.fk_soc = s.rowid";
 	if ($date_start && $date_end) {
 		$sql .= " AND p.datep >= '".$db->idate($date_start)."' AND p.datep <= '".$db->idate($date_end)."'";
@@ -401,13 +401,13 @@ if ($result) {
 	dol_print_error($db);
 }
 
-// We add the old versions of payments, not linked by table llx_paiement_facture
+// We add the old versions of payments, not linked by table llx_payment_invoice
 if ($modecompta == "RECETTES-DEPENSES") {
 	$sql = "SELECT '0' as socid, 'Autres' as name, sum(p.amount) as amount_ttc";
 	$sql .= " FROM ".MAIN_DB_PREFIX."bank as b";
 	$sql .= ", ".MAIN_DB_PREFIX."bank_account as ba";
 	$sql .= ", ".MAIN_DB_PREFIX."paiement as p";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON p.rowid = pf.fk_paiement";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON p.rowid = pf.fk_paiement";
 	$sql .= " WHERE pf.rowid IS NULL";
 	$sql .= " AND p.fk_bank = b.rowid";
 	$sql .= " AND b.fk_account = ba.rowid";
@@ -673,7 +673,7 @@ if (count($amount)) {
 			}
 		} else {
 			if ($key > 0) {
-				print '<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?socid='.$key.'">';
+				print '<a href="'.DOL_URL_ROOT.'/compta/invoice/list.php?socid='.$key.'">';
 			} else {
 				print '<a href="#">';
 			}
@@ -691,7 +691,7 @@ if (count($amount)) {
 			}
 		} else {
 			if ($key > 0) {
-				print '<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?socid='.$key.'">';
+				print '<a href="'.DOL_URL_ROOT.'/compta/invoice/list.php?socid='.$key.'">';
 			} else {
 				print '<a href="#">';
 			}
@@ -712,7 +712,7 @@ if (count($amount)) {
 			print '&nbsp;<a href="'.DOL_URL_ROOT.'/order/stats/index.php?socid='.$key.'">'.img_picture($langs->trans("OrderStats"), "stats").'</a>&nbsp;';
 		}
 		if (isModEnabled('invoice') && $key > 0) {
-			print '&nbsp;<a href="'.DOL_URL_ROOT.'/compta/facture/stats/index.php?socid='.$key.'">'.img_picture($langs->trans("InvoiceStats"), "stats").'</a>&nbsp;';
+			print '&nbsp;<a href="'.DOL_URL_ROOT.'/compta/invoice/stats/index.php?socid='.$key.'">'.img_picture($langs->trans("InvoiceStats"), "stats").'</a>&nbsp;';
 		}
 		print '</td>';
 		print "</tr>\n";

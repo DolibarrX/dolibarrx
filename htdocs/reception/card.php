@@ -2205,9 +2205,9 @@ if ($action == 'create') {
 
 			// Create bill
 			if (isModEnabled("supplier_invoice") && ($object->statut == Reception::STATUS_VALIDATED || $object->statut == Reception::STATUS_CLOSED)) {
-				if ($user->hasRight('fournisseur', 'facture', 'creer') || $user->hasRight('supplier_invoice', 'creer')) {
+				if ($user->hasRight('fournisseur', 'invoice', 'creer') || $user->hasRight('supplier_invoice', 'creer')) {
 					if (getDolGlobalString('WORKFLOW_BILL_ON_RECEPTION') !== '0') {
-						print '<a class="butAction" href="'.DOL_URL_ROOT.'/fourn/facture/card.php?action=create&amp;origin='.$object->element.'&amp;originid='.$object->id.'&amp;socid='.$object->socid.'">'.$langs->trans("CreateBill").'</a>';
+						print '<a class="butAction" href="'.DOL_URL_ROOT.'/fourn/invoice/card.php?action=create&amp;origin='.$object->element.'&amp;originid='.$object->id.'&amp;socid='.$object->socid.'">'.$langs->trans("CreateBill").'</a>';
 					}
 				}
 			}

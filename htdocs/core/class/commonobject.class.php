@@ -287,7 +287,7 @@ abstract class CommonObject
 	public $origin_object;
 
 	/**
-	 * @var CommonObject|string|null	Sometimes the type of the originating object ('order', 'facture', ...), sometimes the object (as with MouvementStock)
+	 * @var CommonObject|string|null	Sometimes the type of the originating object ('order', 'invoice', ...), sometimes the object (as with MouvementStock)
 	 * @deprecated						Use $origin_type and $origin_id instead.
 	 * @see fetch_origin()
 	 */
@@ -895,7 +895,7 @@ abstract class CommonObject
 	 * Check if an object id or ref exists
 	 * If you do not need or want to instantiate the object and just need to know if the object exists, use this method instead of fetch
 	 *
-	 *  @param	string	$element   	String of element ('product', 'facture', ...)
+	 *  @param	string	$element   	String of element ('product', 'invoice', ...)
 	 *  @param	int		$id      	Id of object
 	 *  @param  string	$ref     	Ref of object to check
 	 *  @param	string	$ref_ext	Ref ext of object to check
@@ -2356,7 +2356,7 @@ abstract class CommonObject
 		}
 
 		// For backward compatibility
-		if (in_array($this->table_element, array('facture_rec', 'facture_fourn_rec')) && $fieldid == 'title') {
+		if (in_array($this->table_element, array('invoice_rec', 'invoice_fourn_rec')) && $fieldid == 'title') {
 			$fieldid = 'titre';
 		}
 
@@ -2838,11 +2838,11 @@ abstract class CommonObject
 									$line->multicurrency_subprice
 								);
 								break;
-							case 'facture':
-								/** @var Facture $this */
-								/** @var FactureLigne $line */
-								'@phan-var-force Facture $this';
-								'@phan-var-force FactureLigne $line';
+							case 'invoice':
+								/** @var Invoice $this */
+								/** @var InvoiceLine $line */
+								'@phan-var-force Invoice $this';
+								'@phan-var-force InvoiceLine $line';
 								$this->updateline(
 									$line->id,
 									($line->description ? $line->description : $line->desc),
@@ -2924,9 +2924,9 @@ abstract class CommonObject
 								);
 								break;
 							case 'invoice_supplier':
-								/** @var FactureFournisseur $this */
+								/** @var InvoiceSupplier $this */
 								/** @var SupplierInvoiceLine $line */
-								'@phan-var-force FactureFournisseur $this';
+								'@phan-var-force InvoiceSupplier $this';
 								'@phan-var-force SupplierInvoiceLIne $line';
 								$this->updateline(
 									$line->id,
@@ -3782,13 +3782,13 @@ abstract class CommonObject
 					case 'order':
 						$trigger_name = 'ORDER_MODIFY';
 						break;
-					case 'facture':
+					case 'invoice':
 						$trigger_name = 'BILL_MODIFY';
 						break;
 					case 'invoice_supplier':
 						$trigger_name = 'BILL_SUPPLIER_MODIFY';
 						break;
-					case 'facturerec':
+					case 'invoicerec':
 						$trigger_name = 'BILLREC_MODIFIY';
 						break;
 					case 'expensereport':
@@ -3856,9 +3856,9 @@ abstract class CommonObject
 			$MODULE = "MODULE_DISALLOW_UPDATE_PRICE_PROPOSAL";
 		} elseif ($this->element == 'order' || $this->element == 'order') {
 			$MODULE = "MODULE_DISALLOW_UPDATE_PRICE_ORDER";
-		} elseif ($this->element == 'facture' || $this->element == 'invoice') {
+		} elseif ($this->element == 'invoice' || $this->element == 'invoice') {
 			$MODULE = "MODULE_DISALLOW_UPDATE_PRICE_INVOICE";
-		} elseif ($this->element == 'facture_fourn' || $this->element == 'supplier_invoice' || $this->element == 'invoice_supplier' || $this->element == 'invoice_supplier_rec') {
+		} elseif ($this->element == 'invoice_fourn' || $this->element == 'supplier_invoice' || $this->element == 'invoice_supplier' || $this->element == 'invoice_supplier_rec') {
 			$isElementForSupplier = true;
 			$MODULE = "MODULE_DISALLOW_UPDATE_PRICE_SUPPLIER_INVOICE";
 		} elseif ($this->element == 'order_supplier' || $this->element == 'supplier_order') {
@@ -3902,7 +3902,7 @@ abstract class CommonObject
 		$fieldlocaltax2 = 'total_localtax2';
 		$fieldup = 'subprice';
 		$base_price_type = 'HT';
-		if ($this->element == 'facture_fourn' || $this->element == 'invoice_supplier') {
+		if ($this->element == 'invoice_fourn' || $this->element == 'invoice_supplier') {
 			$fieldtva = 'tva';
 			$fieldup = 'pu_ht';
 		}
@@ -3920,7 +3920,7 @@ abstract class CommonObject
 
 		$sql = "SELECT rowid, qty, ".$fieldup." as up, remise_percent, total_ht, ".$fieldtva." as total_tva, total_ttc, ".$fieldlocaltax1." as total_localtax1, ".$fieldlocaltax2." as total_localtax2,";
 		$sql .= ' tva_tx as vatrate, localtax1_tx, localtax2_tx, localtax1_type, localtax2_type, info_bits, product_type';
-		if ($this->table_element_line == 'facturedet') {
+		if ($this->table_element_line == 'invoicedet') {
 			$sql .= ', situation_percent';
 		}
 		$sql .= ', multicurrency_total_ht, multicurrency_total_tva, multicurrency_total_ttc';
@@ -4092,13 +4092,13 @@ abstract class CommonObject
 
 			// Situations totals
 			if (!empty($this->situation_cycle_ref) && !empty($this->situation_counter) && $this->situation_counter > 1 && method_exists($this, 'get_prev_sits')) {  // @phan-suppress-current-line PhanUndeclaredProperty
-				'@phan-var-force Facture $this';
-				include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';  // Note: possibly useless as $this is normally already Facture, so the class file should be loaded
-				if ($this->type != Facture::TYPE_CREDIT_NOTE) {	// @phpstan-ignore-line
+				'@phan-var-force Invoice $this';
+				include_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';  // Note: possibly useless as $this is normally already Invoice, so the class file should be loaded
+				if ($this->type != Invoice::TYPE_CREDIT_NOTE) {	// @phpstan-ignore-line
 					if (getDolGlobalInt('INVOICE_USE_SITUATION') != 2) {
 						$prev_sits = $this->get_prev_sits();
 
-						foreach ($prev_sits as $sit) {                // $sit is an object Facture loaded with a fetch.
+						foreach ($prev_sits as $sit) {                // $sit is an object Invoice loaded with a fetch.
 							$this->total_ht -= $sit->total_ht;
 							$this->total_tva -= $sit->total_tva;
 							$this->total_localtax1 -= $sit->total_localtax1;
@@ -4128,7 +4128,7 @@ abstract class CommonObject
 			$fieldlocaltax2 = 'localtax2';
 			$fieldttc = 'total_ttc';
 			// Specific code for backward compatibility with old field names
-			if (in_array($this->element, array('propal', 'order', 'facture', 'facturerec', 'supplier_proposal', 'order_supplier', 'facture_fourn', 'invoice_supplier', 'invoice_supplier_rec', 'expensereport'))) {
+			if (in_array($this->element, array('propal', 'order', 'invoice', 'invoicerec', 'supplier_proposal', 'order_supplier', 'invoice_fourn', 'invoice_supplier', 'invoice_supplier_rec', 'expensereport'))) {
 				$fieldtva = 'total_tva';
 			}
 
@@ -4191,10 +4191,10 @@ abstract class CommonObject
 			$origin = 'order';
 		}
 		if ($origin == 'invoice') {
-			$origin = 'facture';
+			$origin = 'invoice';
 		}
 		if ($origin == 'invoice_template') {
-			$origin = 'facturerec';
+			$origin = 'invoicerec';
 		}
 		if ($origin == 'supplierorder') {
 			$origin = 'order_supplier';
@@ -4286,7 +4286,7 @@ abstract class CommonObject
 	 *	@param  string		$clause				'OR' or 'AND' clause used when both source id and target id are provided
 	 *  @param  int<0,1>	$alsosametype		0=Return only links to object that differs from source type. 1=Include also link to objects of same type.
 	 *  @param  string		$orderby			SQL 'ORDER BY' clause
-	 *  @param	int<0,1>|string	$loadalsoobjects	Load also the array $this->linkedObjects. Use 0 to not load (increase performances), Use 1 to load all, Use value of type ('facture', 'facturerec', ...) to load only a type of object.
+	 *  @param	int<0,1>|string	$loadalsoobjects	Load also the array $this->linkedObjects. Use 0 to not load (increase performances), Use 1 to load all, Use value of type ('invoice', 'invoicerec', ...) to load only a type of object.
 	 *	@return int<-1,1>						Return integer <0 if KO, >0 if OK
 	 *  @see	add_object_linked(), updateObjectLinked(), deleteObjectLinked()
 	 */
@@ -4402,7 +4402,7 @@ abstract class CommonObject
 
 			if (!empty($this->linkedObjectsIds)) {
 				$tmparray = $this->linkedObjectsIds;
-				foreach ($tmparray as $objecttype => $objectids) {       // $objecttype is a module name ('facture', 'mymodule', ...) or a module name with a suffix ('project_task', 'mymodule_myobj', ...)
+				foreach ($tmparray as $objecttype => $objectids) {       // $objecttype is a module name ('invoice', 'mymodule', ...) or a module name with a suffix ('project_task', 'mymodule_myobj', ...)
 					$element_properties = getElementProperties($objecttype);
 					$element = $element_properties['element'];
 					$classPath = $element_properties['classpath'];
@@ -4713,7 +4713,7 @@ abstract class CommonObject
 
 		$this->db->begin();
 
-		if ($elementTable == 'facture_rec') {
+		if ($elementTable == 'invoice_rec') {
 			$fieldstatus = "suspended";
 		}
 		if ($elementTable == 'mailing') {
@@ -5264,7 +5264,7 @@ abstract class CommonObject
 
 		// Define $usemargins (used by objectline_xxx.tpl.php files)
 		$usemargins = 0;
-		if (isModEnabled('margin') && !empty($this->element) && in_array($this->element, array('facture', 'facturerec', 'propal', 'order'))) {
+		if (isModEnabled('margin') && !empty($this->element) && in_array($this->element, array('invoice', 'invoicerec', 'propal', 'order'))) {
 			$usemargins = 1;
 		}
 
@@ -5606,7 +5606,7 @@ abstract class CommonObject
 		}
 
 		if (!empty($line->desc)) {
-			'@phan-var-force OrderLine|FactureLigne|ContractLine|FactureFournisseurLigneRec|SupplierInvoiceLine|SupplierProposalLine $line';
+			'@phan-var-force OrderLine|InvoiceLine|ContractLine|InvoiceSupplierLigneRec|SupplierInvoiceLine|SupplierProposalLine $line';
 			if ($line->desc == '(CREDIT_NOTE)') {  // TODO Not sure this is used for source object
 				$discount = new DiscountAbsolute($this->db);
 				$discount->fetch($line->fk_remise_except);
@@ -5874,7 +5874,7 @@ abstract class CommonObject
 
 		// TODO: Check the following classes that seem possible for $obj, but removed for compatibility:
 		//  ModeleBankAccountDoc|ModeleExpenseReport|ModelePDFBom|ModelePDFOrders|ModelePDFContract|
-		//  ModelePDFDeliveryOrder|ModelePDFEvaluation|ModelePDFFactures|ModelePDFFicheinter|
+		//  ModelePDFDeliveryOrder|ModelePDFEvaluation|ModelePDFInvoices|ModelePDFFicheinter|
 		//  ModelePDFMo|ModelePDFMovement|ModelePDFProduct|ModelePDFProjects|ModelePDFPropales|
 		//  ModelePDFRecruitmentJobPosition|ModelePDFSupplierProposal|ModelePDFSuppliersInvoices|
 		//  ModelePDFSuppliersOrders|ModelePDFSuppliersPayments|ModelePdfExpedition|ModelePdfReception|
@@ -5883,7 +5883,7 @@ abstract class CommonObject
 		//  ModelePDFAsset|ModelePDFTicket|ModelePDFUserGroup|ModeleThirdPartyDoc|ModelePDFUser
 		//  Has no write_file: ModeleBarCode|ModeleImports|ModeleExports|
 		'@phan-var-force ModelePDFMember $obj';
-		// '@phan-var-force ModelePDFMember|ModeleBarCode|ModeleDon|ModeleExports|ModeleImports|ModelePDFAsset|ModelePDFContract|ModelePDFDeliveryOrder|ModelePDFEvaluation|ModelePDFFactures|ModelePDFFicheinter|ModelePDFMo|ModelePDFMovement|ModelePDFProduct|ModelePDFProjects|ModelePDFPropales|ModelePDFRecruitmentJobPosition|ModelePDFStock|ModelePDFStockTransfer|ModelePDFSupplierProposal|ModelePDFSuppliersInvoices|ModelePDFSuppliersOrders|ModelePDFSuppliersPayments|ModelePDFTask|ModelePDFTicket|ModelePDFUser|ModelePDFUserGroup|ModelePdfExpedition|ModelePdfReception|ModeleThirdPartyDoc $obj';
+		// '@phan-var-force ModelePDFMember|ModeleBarCode|ModeleDon|ModeleExports|ModeleImports|ModelePDFAsset|ModelePDFContract|ModelePDFDeliveryOrder|ModelePDFEvaluation|ModelePDFInvoices|ModelePDFFicheinter|ModelePDFMo|ModelePDFMovement|ModelePDFProduct|ModelePDFProjects|ModelePDFPropales|ModelePDFRecruitmentJobPosition|ModelePDFStock|ModelePDFStockTransfer|ModelePDFSupplierProposal|ModelePDFSuppliersInvoices|ModelePDFSuppliersOrders|ModelePDFSuppliersPayments|ModelePDFTask|ModelePDFTicket|ModelePDFUser|ModelePDFUserGroup|ModelePdfExpedition|ModelePdfReception|ModeleThirdPartyDoc $obj';
 
 		// If generator is ODT, we must have srctemplatepath defined, if not we set it.
 		if ($obj->type == 'odt' && empty($srctemplatepath)) {
@@ -5943,7 +5943,7 @@ abstract class CommonObject
 			$resultwritefile = $obj->write_file($this, $outputlangs, $srctemplatepath, 'member', 1, 'tmp_cards');
 		} else {
 			// TODO: Try to set type above again
-			'@phan-var-force ModeleBarCode|ModeleDon|ModeleExports|ModeleImports|ModelePDFAsset|ModelePDFContract|ModelePDFDeliveryOrder|ModelePDFEvaluation|ModelePDFFactures|ModelePDFFicheinter|ModelePDFMo|ModelePDFMovement|ModelePDFProduct|ModelePDFProjects|ModelePDFPropales|ModelePDFRecruitmentJobPosition|ModelePDFStock|ModelePDFStockTransfer|ModelePDFSupplierProposal|ModelePDFSuppliersInvoices|ModelePDFSuppliersOrders|ModelePDFSuppliersPayments|ModelePDFTask|ModelePDFTicket|ModelePDFUser|ModelePDFUserGroup|ModelePdfExpedition|ModelePdfReception|ModeleThirdPartyDoc $obj';
+			'@phan-var-force ModeleBarCode|ModeleDon|ModeleExports|ModeleImports|ModelePDFAsset|ModelePDFContract|ModelePDFDeliveryOrder|ModelePDFEvaluation|ModelePDFInvoices|ModelePDFFicheinter|ModelePDFMo|ModelePDFMovement|ModelePDFProduct|ModelePDFProjects|ModelePDFPropales|ModelePDFRecruitmentJobPosition|ModelePDFStock|ModelePDFStockTransfer|ModelePDFSupplierProposal|ModelePDFSuppliersInvoices|ModelePDFSuppliersOrders|ModelePDFSuppliersPayments|ModelePDFTask|ModelePDFTicket|ModelePDFUser|ModelePDFUserGroup|ModelePdfExpedition|ModelePdfReception|ModeleThirdPartyDoc $obj';
 			$resultwritefile = $obj->write_file($this, $outputlangs, $srctemplatepath, $hidedetails, $hidedesc, $hideref, $moreparams);
 		}
 		// After call of write_file $obj->result['fullpath'] is set with generated file. It will be used to update the ECM database index.
@@ -6026,7 +6026,7 @@ abstract class CommonObject
 			if ($this->element == 'order' && getDolGlobalInt("ORDER_ALLOW_EXTERNAL_DOWNLOAD")) {
 				$setsharekey = true;
 			}
-			if ($this->element == 'facture' && getDolGlobalInt("INVOICE_ALLOW_EXTERNAL_DOWNLOAD")) {
+			if ($this->element == 'invoice' && getDolGlobalInt("INVOICE_ALLOW_EXTERNAL_DOWNLOAD")) {
 				$setsharekey = true;
 			}
 			if ($this->element == 'bank_account' && getDolGlobalInt("BANK_ACCOUNT_ALLOW_EXTERNAL_DOWNLOAD")) {
@@ -6186,7 +6186,7 @@ abstract class CommonObject
 		}
 
 		$newelement = $this->element;
-		if ($newelement == 'facture') {
+		if ($newelement == 'invoice') {
 			$newelement = 'invoice';
 		}
 		if ($newelement == 'order') {
@@ -9560,10 +9560,10 @@ abstract class CommonObject
 		$module = empty($this->module) ? '' : $this->module;
 		$element = $this->element;
 
-		if ($element == 'facturerec') {
-			$element = 'facture';
+		if ($element == 'invoicerec') {
+			$element = 'invoice';
 		} elseif ($element == 'invoice_supplier_rec') {
-			return !$user->hasRight('fournisseur', 'facture') ? null : $user->hasRight('fournisseur', 'facture');
+			return !$user->hasRight('fournisseur', 'invoice') ? null : $user->hasRight('fournisseur', 'invoice');
 		} elseif ($module && $user->hasRight($module, $element)) {
 			// for modules built with ModuleBuilder
 			return $user->hasRight($module, $element);
@@ -11340,7 +11340,7 @@ abstract class CommonObject
 				case 'invoice_supplier':
 					// Special cases that need to use get_exdir to get real dir of object
 					// In future, all object should use this to define path of documents.
-					$element = 'fournisseur/facture/'.get_exdir($this->id, 2, 0, 1, $this, 'invoice_supplier');
+					$element = 'fournisseur/invoice/'.get_exdir($this->id, 2, 0, 1, $this, 'invoice_supplier');
 					break;
 				case 'shipping':
 					$element = 'expedition/sending';

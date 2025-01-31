@@ -514,7 +514,7 @@ if ($tabname[$id]) {
 		if ($fieldlist[$field] == 'libelle' || $fieldlist[$field] == 'label') {
 			$valuetoshow = $langs->trans("Label");
 		}
-		if ($fieldlist[$field] == 'libelle_facture') {
+		if ($fieldlist[$field] == 'libelle_invoice') {
 			$valuetoshow = $langs->trans("LabelOnDocuments");
 		}
 		if ($fieldlist[$field] == 'country') {

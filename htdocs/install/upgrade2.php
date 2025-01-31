@@ -47,7 +47,7 @@ if (!file_exists($conffile)) {
 	print 'Error: Dolibarr config file was not found. This may means that Dolibarr is not installed yet. Please call the page "/install/index.php" instead of "/install/upgrade.php").';
 }
 require_once $conffile;
-require_once $dolibarr_main_document_root.'/compta/facture/class/facture.class.php';
+require_once $dolibarr_main_document_root.'/compta/invoice/class/invoice.class.php';
 require_once $dolibarr_main_document_root.'/comm/propal/class/propal.class.php';
 require_once $dolibarr_main_document_root.'/contract/class/contract.class.php';
 require_once $dolibarr_main_document_root.'/order/class/order.class.php';
@@ -283,7 +283,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 				migrate_price_contract($db, $langs, $config);
 
-				migrate_paiementfourn_facturefourn($db, $langs, $config);
+				migrate_paiementfourn_invoicefourn($db, $langs, $config);
 
 
 				// Script pour V2.1 -> V2.2
@@ -323,7 +323,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			$beforeversionarray = explode('.', '2.8.9');
 			//print $versionto.' '.versioncompare($versiontoarray,$afterversionarray).' '.versioncompare($versiontoarray,$beforeversionarray);
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
-				migrate_price_facture($db, $langs, $config); // Code of this function works for 2.8+ because need a field tva_tx
+				migrate_price_invoice($db, $langs, $config); // Code of this function works for 2.8+ because need a field tva_tx
 
 				migrate_relationship_tables($db, $langs, $config, 'co_exp', 'fk_order', 'order', 'fk_expedition', 'shipping');
 
@@ -335,9 +335,9 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 				migrate_relationship_tables($db, $langs, $config, 'co_pr', 'fk_propale', 'propal', 'fk_order', 'order');
 
-				migrate_relationship_tables($db, $langs, $config, 'fa_pr', 'fk_propal', 'propal', 'fk_facture', 'facture');
+				migrate_relationship_tables($db, $langs, $config, 'fa_pr', 'fk_propal', 'propal', 'fk_invoice', 'invoice');
 
-				migrate_relationship_tables($db, $langs, $config, 'co_fa', 'fk_order', 'order', 'fk_facture', 'facture');
+				migrate_relationship_tables($db, $langs, $config, 'co_fa', 'fk_order', 'order', 'fk_invoice', 'invoice');
 
 				migrate_project_user_resp($db, $langs, $config);
 
@@ -778,12 +778,12 @@ function migrate_paiements($db, $langs, $config)
 	print '<br>';
 	print '<b>'.$langs->trans('MigrationPaymentsUpdate')."</b><br>\n";
 
-	$result = $db->DDLDescTable(MAIN_DB_PREFIX."paiement", "fk_facture");
+	$result = $db->DDLDescTable(MAIN_DB_PREFIX."paiement", "fk_invoice");
 	$obj = $db->fetch_object($result);
 	if ($obj) {
-		$sql = "SELECT p.rowid, p.fk_facture, p.amount";
+		$sql = "SELECT p.rowid, p.fk_invoice, p.amount";
 		$sql .= " FROM ".MAIN_DB_PREFIX."paiement as p";
-		$sql .= " WHERE p.fk_facture > 0";
+		$sql .= " WHERE p.fk_invoice > 0";
 
 		$resql = $db->query($sql);
 		$row = [];
@@ -797,7 +797,7 @@ function migrate_paiements($db, $langs, $config)
 			while ($i < $num) {
 				$obj = $db->fetch_object($resql);
 				$row[$i][0] = $obj->rowid;
-				$row[$i][1] = $obj->fk_facture;
+				$row[$i][1] = $obj->fk_invoice;
 				$row[$i][2] = $obj->amount;
 				$i++;
 			}
@@ -811,12 +811,12 @@ function migrate_paiements($db, $langs, $config)
 			if ($db->begin()) {
 				$num = count($row);
 				for ($i = 0; $i < $num; $i++) {
-					$sql = "INSERT INTO ".MAIN_DB_PREFIX."paiement_facture (fk_facture, fk_paiement, amount)";
+					$sql = "INSERT INTO ".MAIN_DB_PREFIX."paiement_invoice (fk_invoice, fk_paiement, amount)";
 					$sql .= " VALUES (".((int) $row[$i][1]).",".((int) $row[$i][0]).",".((float) $row[$i][2]).")";
 
 					$res += $db->query($sql);
 
-					$sql = "UPDATE ".MAIN_DB_PREFIX."paiement SET fk_facture = 0 WHERE rowid = ".((int) $row[$i][0]);
+					$sql = "UPDATE ".MAIN_DB_PREFIX."paiement SET fk_invoice = 0 WHERE rowid = ".((int) $row[$i][0]);
 
 					$res += $db->query($sql);
 
@@ -844,7 +844,7 @@ function migrate_paiements($db, $langs, $config)
 /**
  * Repair orphan payments (lost relations due to bugs)
  * Query to check if there are still orphans:
- * select * from llx_paiement as p left join llx_paiement_facture as pf on pf.fk_paiement=p.rowid WHERE pf.rowid IS NULL AND (p.fk_facture = 0 OR p.fk_facture IS NULL)
+ * select * from llx_paiement as p left join llx_paiement_invoice as pf on pf.fk_paiement=p.rowid WHERE pf.rowid IS NULL AND (p.fk_invoice = 0 OR p.fk_invoice IS NULL)
  *
  * @param	DoliDB		$db		Database handler
  * @param	Translate	$langs	Object langs
@@ -858,18 +858,18 @@ function migrate_paiements_orphelins_1($db, $langs, $config)
 	print '<br>';
 	print '<b>'.$langs->trans('MigrationPaymentsUpdate')."</b><br>\n";
 
-	$result = $db->DDLDescTable(MAIN_DB_PREFIX."paiement", "fk_facture");
+	$result = $db->DDLDescTable(MAIN_DB_PREFIX."paiement", "fk_invoice");
 	$obj = $db->fetch_object($result);
 	if ($obj) {
-		// Tous les enregistrements qui sortent de cette requete devrait avoir un pere dans llx_paiement_facture
+		// All records that come out of this query should have a parent in llx_payment_invoice
 		$sql = "SELECT distinct p.rowid, p.datec, p.amount as pamount, bu.fk_bank, b.amount as bamount,";
 		$sql .= " bu2.url_id as socid";
 		$sql .= " FROM (".MAIN_DB_PREFIX."paiement as p, ".MAIN_DB_PREFIX."bank_url as bu, ".MAIN_DB_PREFIX."bank as b)";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON pf.fk_paiement = p.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON pf.fk_paiement = p.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu2 ON (bu.fk_bank=bu2.fk_bank AND bu2.type = 'company')";
 		$sql .= " WHERE pf.rowid IS NULL AND (p.rowid=bu.url_id AND bu.type='payment') AND bu.fk_bank = b.rowid";
 		$sql .= " AND b.rappro = 1";
-		$sql .= " AND (p.fk_facture = 0 OR p.fk_facture IS NULL)";
+		$sql .= " AND (p.fk_invoice = 0 OR p.fk_invoice IS NULL)";
 
 		$resql = $db->query($sql);
 
@@ -908,10 +908,10 @@ function migrate_paiements_orphelins_1($db, $langs, $config)
 				}
 
 				// Look for invoices without payment relations with the same amount and same comppany
-				$sql = " SELECT distinct f.rowid from ".MAIN_DB_PREFIX."facture as f";
-				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON f.rowid = pf.fk_facture";
+				$sql = " SELECT distinct f.rowid from ".MAIN_DB_PREFIX."invoice as f";
+				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON f.rowid = pf.fk_invoice";
 				$sql .= " WHERE f.fk_statut in (2,3) AND fk_soc = ".((int) $row[$i]['socid'])." AND total_ttc = ".((float) $row[$i]['pamount']);
-				$sql .= " AND pf.fk_facture IS NULL";
+				$sql .= " AND pf.fk_invoice IS NULL";
 				$sql .= " ORDER BY f.fk_statut";
 				//print $sql.'<br>';
 				$resql = $db->query($sql);
@@ -922,7 +922,7 @@ function migrate_paiements_orphelins_1($db, $langs, $config)
 						$obj = $db->fetch_object($resql);
 						$facid = $obj->rowid;
 
-						$sql = "INSERT INTO ".MAIN_DB_PREFIX."paiement_facture (fk_facture, fk_paiement, amount)";
+						$sql = "INSERT INTO ".MAIN_DB_PREFIX."paiement_invoice (fk_invoice, fk_paiement, amount)";
 						$sql .= " VALUES (".((int) $facid).",".((int) $row[$i]['paymentid']).", ".((float) $row[$i]['pamount']).")";
 
 						$res += $db->query($sql);
@@ -954,7 +954,7 @@ function migrate_paiements_orphelins_1($db, $langs, $config)
 /**
  * Repair orphan payments (lost relations due to bugs)
  * Query to check if there are still orphans:
- * select * from llx_paiement as p left join llx_paiement_facture as pf on pf.fk_paiement=p.rowid WHERE pf.rowid IS NULL AND (p.fk_facture = 0 OR p.fk_facture IS NULL)
+ * select * from llx_paiement as p left join llx_paiement_invoice as pf on pf.fk_paiement=p.rowid WHERE pf.rowid IS NULL AND (p.fk_invoice = 0 OR p.fk_invoice IS NULL)
  *
  * @param	DoliDB		$db		Database handler
  * @param	Translate	$langs	Object langs
@@ -968,17 +968,17 @@ function migrate_paiements_orphelins_2($db, $langs, $config)
 	print '<br>';
 	print '<b>'.$langs->trans('MigrationPaymentsUpdate')."</b><br>\n";
 
-	$result = $db->DDLDescTable(MAIN_DB_PREFIX."paiement", "fk_facture");
+	$result = $db->DDLDescTable(MAIN_DB_PREFIX."paiement", "fk_invoice");
 	$obj = $db->fetch_object($result);
 	if ($obj) {
-		// Tous les enregistrements qui sortent de cette requete devrait avoir un pere dans llx_paiement_facture
+		// All records that come out of this query should have a parent in llx_payment_invoice
 		$sql = "SELECT distinct p.rowid, p.datec, p.amount as pamount, bu.fk_bank, b.amount as bamount,";
 		$sql .= " bu2.url_id as socid";
 		$sql .= " FROM (".MAIN_DB_PREFIX."paiement as p, ".MAIN_DB_PREFIX."bank_url as bu, ".MAIN_DB_PREFIX."bank as b)";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON pf.fk_paiement = p.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON pf.fk_paiement = p.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu2 ON (bu.fk_bank = bu2.fk_bank AND bu2.type = 'company')";
 		$sql .= " WHERE pf.rowid IS NULL AND (p.fk_bank = bu.fk_bank AND bu.type = 'payment') AND bu.fk_bank = b.rowid";
-		$sql .= " AND (p.fk_facture = 0 OR p.fk_facture IS NULL)";
+		$sql .= " AND (p.fk_invoice = 0 OR p.fk_invoice IS NULL)";
 
 		$resql = $db->query($sql);
 
@@ -1019,10 +1019,10 @@ function migrate_paiements_orphelins_2($db, $langs, $config)
 				}
 
 				// Look for invoices without payment relations with the same amount and same comppany
-				$sql = " SELECT distinct f.rowid from ".MAIN_DB_PREFIX."facture as f";
-				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON f.rowid = pf.fk_facture";
+				$sql = " SELECT distinct f.rowid from ".MAIN_DB_PREFIX."invoice as f";
+				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON f.rowid = pf.fk_invoice";
 				$sql .= " WHERE f.fk_statut in (2,3) AND fk_soc = ".((int) $row[$i]['socid'])." AND total_ttc = ".((float) $row[$i]['pamount']);
-				$sql .= " AND pf.fk_facture IS NULL";
+				$sql .= " AND pf.fk_invoice IS NULL";
 				$sql .= " ORDER BY f.fk_statut";
 				//print $sql.'<br>';
 				$resql = $db->query($sql);
@@ -1033,7 +1033,7 @@ function migrate_paiements_orphelins_2($db, $langs, $config)
 						$obj = $db->fetch_object($resql);
 						$facid = $obj->rowid;
 
-						$sql = "INSERT INTO ".MAIN_DB_PREFIX."paiement_facture (fk_facture, fk_paiement, amount)";
+						$sql = "INSERT INTO ".MAIN_DB_PREFIX."paiement_invoice (fk_invoice, fk_paiement, amount)";
 						$sql .= " VALUES (".((int) $facid).",".((int) $row[$i]['paymentid']).", ".((float) $row[$i]['pamount']).")";
 
 						$res += $db->query($sql);
@@ -1057,10 +1057,10 @@ function migrate_paiements_orphelins_2($db, $langs, $config)
 			print $langs->trans('MigrationPaymentsNothingUpdatable')."<br>\n";
 		}
 
-		// Delete obsolete fields fk_facture
+		// Delete obsolete fields fk_invoice
 		$db->begin();
 
-		$sql = "ALTER TABLE ".MAIN_DB_PREFIX."paiement DROP COLUMN fk_facture";
+		$sql = "ALTER TABLE ".MAIN_DB_PREFIX."paiement DROP COLUMN fk_invoice";
 		$db->query($sql);
 
 		if (!$nberr) {
@@ -1094,7 +1094,7 @@ function migrate_contracts_det($db, $langs, $config)
 	print '<br>';
 	print '<b>'.$langs->trans('MigrationContractsUpdate')."</b><br>\n";
 
-	$sql = "SELECT c.rowid as cref, c.date_contract, c.statut, c.fk_product, c.fk_facture, c.fk_user_author,";
+	$sql = "SELECT c.rowid as cref, c.date_contract, c.statut, c.fk_product, c.fk_invoice, c.fk_user_author,";
 	$sql .= " p.ref, p.label, p.description, p.price, p.tva_tx, p.duration, cd.rowid";
 	$sql .= " FROM ".MAIN_DB_PREFIX."contract as c";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p";
@@ -1440,14 +1440,14 @@ function migrate_contracts_open($db, $langs, $config)
 }
 
 /**
- * Factures fournisseurs
+ * Invoices fournisseurs
  *
  * @param	DoliDB		$db		Database handler
  * @param	Translate	$langs	Object langs
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_paiementfourn_facturefourn($db, $langs, $config)
+function migrate_paiementfourn_invoicefourn($db, $langs, $config)
 {
 	global $bc;
 
@@ -1456,30 +1456,30 @@ function migrate_paiementfourn_facturefourn($db, $langs, $config)
 	print '<b>'.$langs->trans('SuppliersInvoices')."</b><br>\n";
 	print '</td></tr>';
 
-	$result = $db->DDLDescTable(MAIN_DB_PREFIX."paiementfourn", "fk_facture_fourn");
+	$result = $db->DDLDescTable(MAIN_DB_PREFIX."paiementfourn", "fk_invoice_fourn");
 	$obj = $db->fetch_object($result);
 	if ($obj) {
 		$error = 0;
 		$nb = 0;
 
-		$select_sql = 'SELECT rowid, fk_facture_fourn, amount';
+		$select_sql = 'SELECT rowid, fk_invoice_fourn, amount';
 		$select_sql .= ' FROM '.MAIN_DB_PREFIX.'paiementfourn';
-		$select_sql .= ' WHERE fk_facture_fourn IS NOT NULL';
+		$select_sql .= ' WHERE fk_invoice_fourn IS NOT NULL';
 
-		dolibarr_install_syslog("upgrade2::migrate_paiementfourn_facturefourn");
+		dolibarr_install_syslog("upgrade2::migrate_paiementfourn_invoicefourn");
 		$select_resql = $db->query($select_sql);
 		if ($select_resql) {
 			$select_num = $db->num_rows($select_resql);
 			$i = 0;
 
-			// Pour chaque paiement fournisseur, on insere une ligne dans paiementfourn_facturefourn
+			// Pour chaque paiement fournisseur, on insere une ligne dans paiementfourn_invoicefourn
 			while (($i < $select_num) && (!$error)) {
 				$select_obj = $db->fetch_object($select_resql);
 
 				// Verifier si la ligne est deja dans la nouvelle table. On ne veut pas inserer de doublons.
-				$check_sql = 'SELECT fk_paiementfourn, fk_facturefourn';
-				$check_sql .= ' FROM '.MAIN_DB_PREFIX.'paiementfourn_facturefourn';
-				$check_sql .= ' WHERE fk_paiementfourn = '.((int) $select_obj->rowid).' AND fk_facturefourn = '.((int) $select_obj->fk_facture_fourn);
+				$check_sql = 'SELECT fk_paiementfourn, fk_invoicefourn';
+				$check_sql .= ' FROM '.MAIN_DB_PREFIX.'paiementfourn_invoicefourn';
+				$check_sql .= ' WHERE fk_paiementfourn = '.((int) $select_obj->rowid).' AND fk_invoicefourn = '.((int) $select_obj->fk_invoice_fourn);
 				$check_resql = $db->query($check_sql);
 				if ($check_resql) {
 					$check_num = $db->num_rows($check_resql);
@@ -1488,15 +1488,15 @@ function migrate_paiementfourn_facturefourn($db, $langs, $config)
 
 						if ($nb == 0) {
 							print '<tr><td colspan="4" class="nowrap"><b>'.$langs->trans('SuppliersInvoices').'</b></td></tr>';
-							print '<tr><td>fk_paiementfourn</td><td>fk_facturefourn</td><td>'.$langs->trans('Amount').'</td><td>&nbsp;</td></tr>';
+							print '<tr><td>fk_paiementfourn</td><td>fk_invoicefourn</td><td>'.$langs->trans('Amount').'</td><td>&nbsp;</td></tr>';
 						}
 
 						print '<tr class="oddeven">';
-						print '<td>'.$select_obj->rowid.'</td><td>'.$select_obj->fk_facture_fourn.'</td><td>'.$select_obj->amount.'</td>';
+						print '<td>'.$select_obj->rowid.'</td><td>'.$select_obj->fk_invoice_fourn.'</td><td>'.$select_obj->amount.'</td>';
 
-						$insert_sql = 'INSERT INTO '.MAIN_DB_PREFIX.'paiementfourn_facturefourn SET ';
+						$insert_sql = 'INSERT INTO '.MAIN_DB_PREFIX.'paiementfourn_invoicefourn SET ';
 						$insert_sql .= ' fk_paiementfourn = \''.$select_obj->rowid.'\',';
-						$insert_sql .= ' fk_facturefourn  = \''.$select_obj->fk_facture_fourn.'\',';
+						$insert_sql .= ' fk_invoicefourn  = \''.$select_obj->fk_invoice_fourn.'\',';
 						$insert_sql .= ' amount           = \''.$select_obj->amount.'\'';
 						$insert_resql = $db->query($insert_sql);
 
@@ -1524,7 +1524,7 @@ function migrate_paiementfourn_facturefourn($db, $langs, $config)
 			}
 			$db->commit();
 
-			$sql = "ALTER TABLE ".MAIN_DB_PREFIX."paiementfourn DROP COLUMN fk_facture_fourn";
+			$sql = "ALTER TABLE ".MAIN_DB_PREFIX."paiementfourn DROP COLUMN fk_invoice_fourn";
 			$db->query($sql);
 		} else {
 			print '<tr><td>'.$langs->trans("Error").'</td></tr>';
@@ -1543,7 +1543,7 @@ function migrate_paiementfourn_facturefourn($db, $langs, $config)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_price_facture($db, $langs, $config)
+function migrate_price_invoice($db, $langs, $config)
 {
 	$err = 0;
 
@@ -1560,12 +1560,12 @@ function migrate_price_facture($db, $langs, $config)
 	// List of invoice lines not up to date
 	$sql = "SELECT fd.rowid, fd.qty, fd.subprice, fd.remise_percent, fd.tva_tx as vatrate, fd.total_ttc, fd.info_bits,";
 	$sql .= " f.rowid as facid, f.remise_percent as remise_percent_global, f.total_ttc as total_ttc_f";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facturedet as fd, ".MAIN_DB_PREFIX."facture as f";
-	$sql .= " WHERE fd.fk_facture = f.rowid";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoicedet as fd, ".MAIN_DB_PREFIX."invoice as f";
+	$sql .= " WHERE fd.fk_invoice = f.rowid";
 	$sql .= " AND (((fd.total_ttc = 0 AND fd.remise_percent != 100) or fd.total_ttc IS NULL) or f.total_ttc IS NULL)";
 	//print $sql;
 
-	dolibarr_install_syslog("upgrade2::migrate_price_facture");
+	dolibarr_install_syslog("upgrade2::migrate_price_invoice");
 	$resql = $db->query($sql);
 	if ($resql) {
 		$num = $db->num_rows($resql);
@@ -1584,7 +1584,7 @@ function migrate_price_facture($db, $langs, $config)
 				$info_bits = $obj->info_bits;
 
 				// On met a jour les 3 nouveaux champs
-				$facligne = new FactureLigne($db);
+				$facligne = new InvoiceLine($db);
 				$facligne->fetch($rowid);
 
 				$result = calcul_price_total($qty, $pu, $remise_percent, $vatrate, 0, 0, $remise_percent_global, 'HT', $info_bits, $facligne->product_type, $tmpmysoc);
@@ -1601,16 +1601,16 @@ function migrate_price_facture($db, $langs, $config)
 				$facligne->update_total();
 
 
-				/* On touche a facture mere uniquement si total_ttc = 0 */
+				/* On touche a invoice mere uniquement si total_ttc = 0 */
 				if (!$total_ttc_f) {
-					$facture = new Facture($db);
-					$facture->id = $obj->facid;
+					$invoice = new Invoice($db);
+					$invoice->id = $obj->facid;
 
-					if ($facture->fetch($facture->id) >= 0) {
-						if ($facture->update_price() > 0) {
-							//print $facture->id;
+					if ($invoice->fetch($invoice->id) >= 0) {
+						if ($invoice->update_price() > 0) {
+							//print $invoice->id;
 						} else {
-							print "Error id=".$facture->id;
+							print "Error id=".$invoice->id;
 							$err++;
 						}
 					} else {
@@ -2005,8 +2005,8 @@ function migrate_modeles($db, $langs, $config)
 	dolibarr_install_syslog("upgrade2::migrate_modeles");
 
 	if (isModEnabled('invoice')) {
-		include_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
-		$modellist = ModelePDFFactures::liste_modeles($db);
+		include_once DOL_DOCUMENT_ROOT.'/core/modules/invoice/modules_invoice.php';
+		$modellist = ModelePDFInvoices::liste_modeles($db);
 		if (count($modellist) == 0) {
 			// Aucun model par default.
 			$sql = " insert into ".MAIN_DB_PREFIX."document_model(nom,type) values('crabe','invoice')";
@@ -2493,8 +2493,8 @@ function migrate_order_deliveryaddress($db, $langs, $config)
 }
 
 /**
- * Migration du champ fk_remise_except dans llx_facturedet doit correspondre a
- * Link in `llx_societe_remise_except` to `llx_facturedet`
+ * Migration du champ fk_remise_except dans llx_invoicedet doit correspondre a
+ * Link in `llx_societe_remise_except` to `llx_invoicedet`
  *
  * @param	DoliDB		$db		Database handler
  * @param	Translate	$langs	Object langs
@@ -2520,10 +2520,10 @@ function migrate_restore_missing_links($db, $langs, $config)
 
 
 	// Restore missing link for this cross foreign key (link 1 <=> 1). Direction 1.
-	$table1 = 'facturedet';
+	$table1 = 'invoicedet';
 	$field1 = 'fk_remise_except';
 	$table2 = 'societe_remise_except';
-	$field2 = 'fk_facture_line';
+	$field2 = 'fk_invoice_line';
 
 	$db->begin();
 
@@ -2580,10 +2580,10 @@ function migrate_restore_missing_links($db, $langs, $config)
 	print '<b>'.$langs->trans('MigrationFixData')."</b> (2)<br>\n";
 
 	// Restore missing link for this cross foreign key (link 1 <=> 1). Direction 2.
-	$table2 = 'facturedet';
+	$table2 = 'invoicedet';
 	$field2 = 'fk_remise_except';
 	$table1 = 'societe_remise_except';
-	$field1 = 'fk_facture_line';
+	$field1 = 'fk_invoice_line';
 
 	$db->begin();
 
@@ -3253,7 +3253,7 @@ function migrate_actioncomm_element($db, $langs, $config)
 	$elements = array(
 		'propal' => 'propalrowid',
 		'order' => 'fk_order',
-		'invoice' => 'fk_facture',
+		'invoice' => 'fk_invoice',
 		'contract' => 'fk_contract',
 		'order_supplier' => 'fk_supplier_order',
 		'invoice_supplier' => 'fk_supplier_invoice'
@@ -3313,7 +3313,7 @@ function migrate_mode_reglement($db, $langs, $config)
 		'old_id' => array(5, 8, 9, 10, 11),
 		'new_id' => array(50, 51, 52, 53, 54),
 		'code' => array('VAD', 'TRA', 'LCR', 'FAC', 'PRO'),
-		'tables' => array('order_fournisseur', 'order', 'facture_rec', 'facture', 'propal')
+		'tables' => array('order_fournisseur', 'order', 'invoice_rec', 'invoice', 'propal')
 	);
 	$count = 0;
 
@@ -3844,7 +3844,7 @@ function migrate_remise_except_entity($db, $langs, $config)
 
 	$db->begin();
 
-	$sqlSelect = "SELECT sr.rowid, sr.fk_soc, sr.fk_facture_source, sr.fk_facture, sr.fk_facture_line";
+	$sqlSelect = "SELECT sr.rowid, sr.fk_soc, sr.fk_invoice_source, sr.fk_invoice, sr.fk_invoice_line";
 	$sqlSelect .= " FROM ".MAIN_DB_PREFIX."societe_remise_except as sr";
 	//print $sqlSelect;
 
@@ -3857,17 +3857,17 @@ function migrate_remise_except_entity($db, $langs, $config)
 			while ($i < $num) {
 				$obj = $db->fetch_object($resql);
 
-				if (!empty($obj->fk_facture_source) || !empty($obj->fk_facture)) {
-					$fk_facture = (!empty($obj->fk_facture_source) ? $obj->fk_facture_source : $obj->fk_facture);
+				if (!empty($obj->fk_invoice_source) || !empty($obj->fk_invoice)) {
+					$fk_invoice = (!empty($obj->fk_invoice_source) ? $obj->fk_invoice_source : $obj->fk_invoice);
 
 					$sqlSelect2 = "SELECT f.entity";
-					$sqlSelect2 .= " FROM ".MAIN_DB_PREFIX."facture as f";
-					$sqlSelect2 .= " WHERE f.rowid = ".((int) $fk_facture);
-				} elseif (!empty($obj->fk_facture_line)) {
+					$sqlSelect2 .= " FROM ".MAIN_DB_PREFIX."invoice as f";
+					$sqlSelect2 .= " WHERE f.rowid = ".((int) $fk_invoice);
+				} elseif (!empty($obj->fk_invoice_line)) {
 					$sqlSelect2 = "SELECT f.entity";
-					$sqlSelect2 .= " FROM ".MAIN_DB_PREFIX."facture as f, ".MAIN_DB_PREFIX."facturedet as fd";
-					$sqlSelect2 .= " WHERE fd.rowid = ".((int) $obj->fk_facture_line);
-					$sqlSelect2 .= " AND fd.fk_facture = f.rowid";
+					$sqlSelect2 .= " FROM ".MAIN_DB_PREFIX."invoice as f, ".MAIN_DB_PREFIX."invoicedet as fd";
+					$sqlSelect2 .= " WHERE fd.rowid = ".((int) $obj->fk_invoice_line);
+					$sqlSelect2 .= " AND fd.fk_invoice = f.rowid";
 				} else {
 					$sqlSelect2 = "SELECT s.entity";
 					$sqlSelect2 .= " FROM ".MAIN_DB_PREFIX."societe as s";
@@ -4107,8 +4107,8 @@ function migrate_delete_old_files($db, $langs, $config)
 		'/core/modules/export/export_csv.modules.php',
 		'/core/modules/export/exportcsv.modules.php',
 		'/core/modules/export/export_excel2007new.modules.php',
-		'/core/modules/facture/pdf_crabe.modules.php',
-		'/core/modules/facture/pdf_oursin.modules.php',
+		'/core/modules/invoice/pdf_crabe.modules.php',
+		'/core/modules/invoice/pdf_oursin.modules.php',
 		'/core/modules/mailings/contacts2.modules.php',
 		'/core/modules/mailings/contacts3.modules.php',
 		'/core/modules/mailings/contacts4.modules.php',
@@ -4128,7 +4128,7 @@ function migrate_delete_old_files($db, $langs, $config)
 		'/asterisk/cidlookup.php',
 		'/categories/class/api_category.class.php',
 		'/categories/class/api_deprecated_category.class.php',
-		'/compta/facture/class/api_invoice.class.php',
+		'/compta/invoice/class/api_invoice.class.php',
 		'/order/class/api_order.class.php',
 		'/partnership/class/api_partnership.class.php',
 		'/product/class/api_product.class.php',
@@ -4187,8 +4187,8 @@ function migrate_delete_old_dir($db, $langs, $config)
 
 	// List of files to delete
 	$filetodeletearray = array(
-		DOL_DOCUMENT_ROOT.'/core/modules/facture/terre',
-		DOL_DOCUMENT_ROOT.'/core/modules/facture/mercure',
+		DOL_DOCUMENT_ROOT.'/core/modules/invoice/terre',
+		DOL_DOCUMENT_ROOT.'/core/modules/invoice/mercure',
 	);
 
 	// On linux, we can also removed old directory with a different case than new directory.
@@ -4251,7 +4251,7 @@ function migrate_reload_modules($db, $langs, $config, $listofmodule = [], $force
 		'MAIN_MODULE_SERVICE' => array('class' => 'modService'),
 		'MAIN_MODULE_COMMANDE' => array('class' => 'modOrder'),
 		'MAIN_MODULE_DON' => array('class' => 'modDonation'),
-		'MAIN_MODULE_FACTURE' => array('class' => 'modFacture'),
+		'MAIN_MODULE_FACTURE' => array('class' => 'modInvoice'),
 		'MAIN_MODULE_FICHEINTER' => array('class' => 'modFicheinter'),
 		'MAIN_MODULE_FOURNISSEUR' => array('class' => 'modFournisseur'),
 		'MAIN_MODULE_EXPEDITION' => array('class' => 'modExpedition'),
@@ -4625,14 +4625,14 @@ function migrate_user_photospath2()
 }
 
 
-/* A faire egalement: Modif statut paye et fk_facture des factures payes completement
+/* A faire egalement: Modif statut paye et fk_invoice des invoices payes completement
 
-On recherche facture incorrecte:
-select f.rowid, f.total_ttc as t1, sum(pf.amount) as t2 from llx_facture as f, llx_paiement_facture as pf where pf.fk_facture=f.rowid and f.fk_statut in(2,3) and paye=0 and close_code is null group by f.rowid
+On recherche invoice incorrecte:
+select f.rowid, f.total_ttc as t1, sum(pf.amount) as t2 from llx_invoice as f, llx_paiement_invoice as pf where pf.fk_invoice=f.rowid and f.fk_statut in(2,3) and paye=0 and close_code is null group by f.rowid
 having  f.total_ttc = sum(pf.amount)
 
 On les corrige:
-update llx_facture set paye=1, fk_statut=2 where close_code is null
+update llx_invoice set paye=1, fk_statut=2 where close_code is null
 and rowid in (...)
 */
 
@@ -5028,7 +5028,7 @@ function migrate_export_import_profiles($mode = 'export')
 		$sql .= ', filter';
 	}
 	$sql .= ' FROM '.MAIN_DB_PREFIX.$mode.'_model WHERE';
-	$sql .= " type LIKE 'propale_%' OR type LIKE 'order_%' OR type LIKE 'facture_%'";
+	$sql .= " type LIKE 'propale_%' OR type LIKE 'order_%' OR type LIKE 'invoice_%'";
 	//print $sql;
 	$resql = $db->query($sql);
 	if ($resql) {

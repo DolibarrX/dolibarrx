@@ -1940,12 +1940,12 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = " . ((int) $filterobj->id);
 				}
-			} elseif (is_object($filterobj) && get_class($filterobj) == 'Facture') {
+			} elseif (is_object($filterobj) && get_class($filterobj) == 'Invoice') {
 				$sql .= " AND a.fk_element = o.rowid AND a.elementtype = 'invoice'";
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = " . ((int) $filterobj->id);
 				}
-			} elseif (is_object($filterobj) && get_class($filterobj) == 'FactureFournisseur') {
+			} elseif (is_object($filterobj) && get_class($filterobj) == 'InvoiceSupplier') {
 				$sql .= " AND a.fk_element = o.rowid AND a.elementtype = 'invoice_supplier'";
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = " . ((int) $filterobj->id);

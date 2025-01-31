@@ -264,7 +264,7 @@ class Config extends stdClass
 	 * @var stdClass
 	 * @deprecated Use invoice
 	 */
-	public $facture;
+	public $invoice;
 
 	/**
 	 * @var stdClass
@@ -393,7 +393,7 @@ class Config extends stdClass
 		$this->agenda = new stdClass();
 		$this->order = new stdClass();
 		$this->propal = new stdClass();
-		$this->facture = new stdClass();
+		$this->invoice = new stdClass();
 		$this->user	= new stdClass();
 		$this->member = new stdClass();
 		$this->bank = new stdClass();
@@ -464,7 +464,7 @@ class Config extends stdClass
 		$this->agenda = new stdClass();
 		$this->order = new stdClass();
 		$this->propal = new stdClass();
-		$this->facture = new stdClass();
+		$this->invoice = new stdClass();
 		$this->user	= new stdClass();
 		$this->member = new stdClass();
 		$this->bank = new stdClass();
@@ -767,11 +767,11 @@ class Config extends stdClass
 				$this->fournisseur->order->dir_output = $rootfordata."/fournisseur/order"; // For backward compatibility
 				$this->fournisseur->order->dir_temp = $rootfortemp."/fournisseur/order/temp"; // For backward compatibility
 
-				$this->fournisseur->facture = new stdClass();
-				$this->fournisseur->facture->multidir_output = array($this->entity => $rootfordata."/fournisseur/facture");
-				$this->fournisseur->facture->multidir_temp = array($this->entity => $rootfortemp."/fournisseur/facture/temp");
-				$this->fournisseur->facture->dir_output = $rootfordata."/fournisseur/facture"; // For backward compatibility
-				$this->fournisseur->facture->dir_temp = $rootfortemp."/fournisseur/facture/temp"; // For backward compatibility
+				$this->fournisseur->invoice = new stdClass();
+				$this->fournisseur->invoice->multidir_output = array($this->entity => $rootfordata."/fournisseur/invoice");
+				$this->fournisseur->invoice->multidir_temp = array($this->entity => $rootfortemp."/fournisseur/invoice/temp");
+				$this->fournisseur->invoice->dir_output = $rootfordata."/fournisseur/invoice"; // For backward compatibility
+				$this->fournisseur->invoice->dir_temp = $rootfortemp."/fournisseur/invoice/temp"; // For backward compatibility
 
 				$this->supplier_proposal = new stdClass();
 				$this->supplier_proposal->multidir_output = array($this->entity => $rootfordata."/supplier_proposal");
@@ -796,10 +796,10 @@ class Config extends stdClass
 
 					$this->supplier_invoice = new stdClass();
 					$this->supplier_invoice->enabled = 1;
-					$this->supplier_invoice->multidir_output = array($this->entity => $rootfordata."/fournisseur/facture");
-					$this->supplier_invoice->multidir_temp = array($this->entity => $rootfortemp."/fournisseur/facture/temp");
-					$this->supplier_invoice->dir_output = $rootfordata."/fournisseur/facture"; // For backward compatibility
-					$this->supplier_invoice->dir_temp = $rootfortemp."/fournisseur/facture/temp"; // For backward compatibility
+					$this->supplier_invoice->multidir_output = array($this->entity => $rootfordata."/fournisseur/invoice");
+					$this->supplier_invoice->multidir_temp = array($this->entity => $rootfortemp."/fournisseur/invoice/temp");
+					$this->supplier_invoice->dir_output = $rootfordata."/fournisseur/invoice"; // For backward compatibility
+					$this->supplier_invoice->dir_temp = $rootfortemp."/fournisseur/invoice/temp"; // For backward compatibility
 				}
 			}
 
@@ -1094,7 +1094,7 @@ class Config extends stdClass
 
 			// Define list of limited modules (value must be key found for "name" property of module, so for example 'supplierproposal' for Module "Supplier Proposal"
 			if (!isset($this->global->MAIN_MODULES_FOR_EXTERNAL)) {
-				$this->global->MAIN_MODULES_FOR_EXTERNAL = 'user,societe,propal,order,facture,category,supplierproposal,fournisseur,contact,projet,contract,ficheinter,expedition,reception,agenda,resource,member,blockedlog,ticket'; // '' means 'all'. Note that contact is added here as it should be a module later.
+				$this->global->MAIN_MODULES_FOR_EXTERNAL = 'user,societe,propal,order,invoice,category,supplierproposal,fournisseur,contact,projet,contract,ficheinter,expedition,reception,agenda,resource,member,blockedlog,ticket'; // '' means 'all'. Note that contact is added here as it should be a module later.
 			}
 			if (!empty($this->modules_parts['moduleforexternal'])) {		// Module part to include an external module into the MAIN_MODULES_FOR_EXTERNAL list
 				foreach ($this->modules_parts['moduleforexternal'] as $key => $value) {
@@ -1157,11 +1157,11 @@ class Config extends stdClass
 				$this->propal->cloture->warning_delay = (isset($this->global->MAIN_DELAY_PROPALS_TO_CLOSE) ? (int) $this->global->MAIN_DELAY_PROPALS_TO_CLOSE : 0) * 86400;
 				$this->propal->facturation->warning_delay = (isset($this->global->MAIN_DELAY_PROPALS_TO_BILL) ? (int) $this->global->MAIN_DELAY_PROPALS_TO_BILL : 0) * 86400;
 			}
-			if (isset($this->facture)) {
-				$this->facture->client = new stdClass();
-				$this->facture->fournisseur = new stdClass();
-				$this->facture->client->warning_delay = (isset($this->global->MAIN_DELAY_CUSTOMER_BILLS_UNPAYED) ? (int) $this->global->MAIN_DELAY_CUSTOMER_BILLS_UNPAYED : 0) * 86400;
-				$this->facture->fournisseur->warning_delay = (isset($this->global->MAIN_DELAY_SUPPLIER_BILLS_TO_PAY) ? (int) $this->global->MAIN_DELAY_SUPPLIER_BILLS_TO_PAY : 0) * 86400;
+			if (isset($this->invoice)) {
+				$this->invoice->client = new stdClass();
+				$this->invoice->fournisseur = new stdClass();
+				$this->invoice->client->warning_delay = (isset($this->global->MAIN_DELAY_CUSTOMER_BILLS_UNPAYED) ? (int) $this->global->MAIN_DELAY_CUSTOMER_BILLS_UNPAYED : 0) * 86400;
+				$this->invoice->fournisseur->warning_delay = (isset($this->global->MAIN_DELAY_SUPPLIER_BILLS_TO_PAY) ? (int) $this->global->MAIN_DELAY_SUPPLIER_BILLS_TO_PAY : 0) * 86400;
 			}
 			if (isset($this->contract)) {
 				$this->contract->services = new stdClass();
@@ -1296,9 +1296,9 @@ class Config extends stdClass
 				// For backward compatibility
 				$this->produit = $this->product;
 			}
-			// invoice is new use, facture is old use still initialised
-			if (isset($this->facture)) {
-				$this->invoice = $this->facture;
+			// invoice is new use, invoice is old use still initialised
+			if (isset($this->invoice)) {
+				$this->invoice = $this->invoice;
 			}
 			// order is new use, order is old use still initialised
 			if (isset($this->order)) {

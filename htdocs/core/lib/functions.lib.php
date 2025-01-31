@@ -336,7 +336,7 @@ define(
 		'category' => 'category', // Has old directory
 		'order' => 'order',    // Has old directory
 		'expedition' => 'shipping', // Has old directory
-		'facture' => 'invoice', // Has old directory
+		'invoice' => 'invoice', // Has old directory
 		'fichinter' => 'intervention', // Has old directory
 		'ficheinter' => 'intervention',  // Backup for 'fichinter'
 		'propale' => 'propal', // Has old directory
@@ -470,7 +470,7 @@ function getEntity($element, $shared = 1, $currentobject = null)
 			break; // "/fourn/class/fournisseur.order.class.php"
 		case 'invoice_supplier':
 			$element = 'supplier_invoice';
-			break; // "/fourn/class/fournisseur.facture.class.php"
+			break; // "/fourn/class/fournisseur.invoice.class.php"
 	}
 
 	if (is_object($mc)) {
@@ -2948,7 +2948,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 	}
 
 	if (class_exists("Imagick")) {
-		if ($object->element == 'expensereport' || $object->element == 'propal' || $object->element == 'order' || $object->element == 'facture' || $object->element == 'supplier_proposal') {
+		if ($object->element == 'expensereport' || $object->element == 'propal' || $object->element == 'order' || $object->element == 'invoice' || $object->element == 'supplier_proposal') {
 			$modulePart = $object->element;
 		} elseif ($object->element == 'fichinter' || $object->element == 'intervention') {
 			$modulePart = 'ficheinter';
@@ -3060,7 +3060,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 			if ($modulePart != 'unknown' || method_exists($object, 'getDataToShowPhoto')) {
 				$phototoshow = '';
 				// Check if a preview file is available
-				if (in_array($modulePart, array('propal', 'order', 'facture', 'ficheinter', 'contract', 'supplier_order', 'supplier_proposal', 'supplier_invoice', 'expensereport')) && class_exists("Imagick")) {
+				if (in_array($modulePart, array('propal', 'order', 'invoice', 'ficheinter', 'contract', 'supplier_order', 'supplier_proposal', 'supplier_invoice', 'expensereport')) && class_exists("Imagick")) {
 					$objectref = dol_sanitizeFileName($object->ref);
 					$dir_output = (empty($config->$modulePart->multidir_output[$entity]) ? $config->$modulePart->dir_output : $config->$modulePart->multidir_output[$entity])."/";
 					if (in_array($modulePart, array('invoice_supplier', 'supplier_invoice'))) {
@@ -3178,7 +3178,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 			$tmptxt = $object->getLibStatut(5, $object->alreadypaid);
 		}
 		$morehtmlstatus .= $tmptxt;
-	} elseif (in_array($object->element, array('facture', 'invoice', 'invoice_supplier'))) {	// TODO Move this to use ->alreadypaid
+	} elseif (in_array($object->element, array('invoice', 'invoice', 'invoice_supplier'))) {	// TODO Move this to use ->alreadypaid
 		$totalallpayments = $object->getSommePaiement(0);
 		$totalallpayments += $object->getSumCreditNotesUsed(0);
 		$totalallpayments += $object->getSumDepositsUsed(0);
@@ -3199,8 +3199,8 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 		} else {
 			$morehtmlstatus .= $object->getLibStatut(4);
 		}
-	} elseif ($object->element == 'facturerec') {
-		'@phan-var-force FactureRec $object';
+	} elseif ($object->element == 'invoicerec') {
+		'@phan-var-force InvoiceRec $object';
 		if ($object->frequency == 0) {
 			$morehtmlstatus .= $object->getLibStatut(2);
 		} else {
@@ -3228,7 +3228,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 	}
 
 	// Add if object was dispatched "into accountancy"
-	if (isModEnabled('accounting') && in_array($object->element, array('bank', 'paiementcharge', 'facture', 'invoice', 'invoice_supplier', 'expensereport', 'payment_various'))) {
+	if (isModEnabled('accounting') && in_array($object->element, array('bank', 'paiementcharge', 'invoice', 'invoice', 'invoice_supplier', 'expensereport', 'payment_various'))) {
 		// Note: For 'chargesociales', 'salaries'... this is the payments that are dispatched (so element = 'bank')
 		if (method_exists($object, 'getVentilExportCompta')) {
 			$accounted = $object->getVentilExportCompta();
@@ -5102,7 +5102,7 @@ function img_picture($titlealt, $picture, $moreatt = '', $pictureIsFullPath = 0,
 		$pictureWithoutText = str_replace('_nocolor', '', $pictureWithoutText);
 
 		// Fix some values of $pictureWithoutText
-		$pictureconvertkey = array('facture' => 'bill', 'shipping' => 'shipment', 'fichinter' => 'intervention', 'agenda' => 'calendar', 'invoice_supplier' => 'supplier_invoice', 'order_supplier' => 'supplier_order');
+		$pictureconvertkey = array('invoice' => 'bill', 'shipping' => 'shipment', 'fichinter' => 'intervention', 'agenda' => 'calendar', 'invoice_supplier' => 'supplier_invoice', 'order_supplier' => 'supplier_order');
 		if (in_array($pictureWithoutText, array_keys($pictureconvertkey))) {
 			$pictureWithoutText = $pictureconvertkey[$pictureWithoutText];
 		}
@@ -9350,8 +9350,8 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 				}
 			}
 
-			if (is_object($object) && $object->element == 'facture') {
-				'@phan-var-force Facture $object';
+			if (is_object($object) && $object->element == 'invoice') {
+				'@phan-var-force Invoice $object';
 				$substitutionArray['__INVOICE_SITUATION_NUMBER__'] = isset($object->situation_counter) ? $object->situation_counter : '';
 			}
 			if (is_object($object) && $object->element == 'shipping') {
@@ -9456,7 +9456,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 				if (is_object($object) && $object->element == 'order') {
 					$typeforonlinepayment = 'order';
 				}
-				if (is_object($object) && $object->element == 'facture') {
+				if (is_object($object) && $object->element == 'invoice') {
 					$typeforonlinepayment = 'invoice';
 				}
 				if (is_object($object) && $object->element == 'member') {
@@ -9481,7 +9481,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 				$substitutionArray['__ONLINE_PAYMENT_URL__'] = $paymenturl;
 
 				// Show structured communication
-				if (getDolGlobalString('INVOICE_PAYMENT_ENABLE_STRUCTURED_COMMUNICATION') && $object->element == 'facture') {
+				if (getDolGlobalString('INVOICE_PAYMENT_ENABLE_STRUCTURED_COMMUNICATION') && $object->element == 'invoice') {
 					include_once DOL_DOCUMENT_ROOT.'/core/lib/functions_be.lib.php';
 					$substitutionArray['__PAYMENT_STRUCTURED_COMMUNICATION__'] = dolBECalculateStructuredCommunication($object->ref, $object->type);
 				}
@@ -9496,7 +9496,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 				} else {
 					$substitutionArray['__DIRECTDOWNLOAD_URL_ORDER__'] = '';
 				}
-				if (getDolGlobalString('INVOICE_ALLOW_EXTERNAL_DOWNLOAD') && is_object($object) && $object->element == 'facture') {
+				if (getDolGlobalString('INVOICE_ALLOW_EXTERNAL_DOWNLOAD') && is_object($object) && $object->element == 'invoice') {
 					$substitutionArray['__DIRECTDOWNLOAD_URL_INVOICE__'] = $object->getLastMainDocLink($object->element);
 				} else {
 					$substitutionArray['__DIRECTDOWNLOAD_URL_INVOICE__'] = '';
@@ -9527,9 +9527,9 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 					'@phan-var-force Order $object';
 					$substitutionArray['__URL_ORDER__'] = DOL_MAIN_URL_ROOT."/order/card.php?id=".$object->id;
 				}
-				if (is_object($object) && $object->element == 'facture') {
-					'@phan-var-force Facture $object';
-					$substitutionArray['__URL_INVOICE__'] = DOL_MAIN_URL_ROOT."/compta/facture/card.php?id=".$object->id;
+				if (is_object($object) && $object->element == 'invoice') {
+					'@phan-var-force Invoice $object';
+					$substitutionArray['__URL_INVOICE__'] = DOL_MAIN_URL_ROOT."/compta/invoice/card.php?id=".$object->id;
 				}
 				if (is_object($object) && $object->element == 'contract') {
 					'@phan-var-force Contract $object';
@@ -9548,8 +9548,8 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 					$substitutionArray['__URL_SUPPLIER_PROPOSAL__'] = DOL_MAIN_URL_ROOT."/supplier_proposal/card.php?id=".$object->id;
 				}
 				if (is_object($object) && $object->element == 'invoice_supplier') {
-					'@phan-var-force FactureFournisseur $object';
-					$substitutionArray['__URL_SUPPLIER_INVOICE__'] = DOL_MAIN_URL_ROOT."/fourn/facture/card.php?id=".$object->id;
+					'@phan-var-force InvoiceSupplier $object';
+					$substitutionArray['__URL_SUPPLIER_INVOICE__'] = DOL_MAIN_URL_ROOT."/fourn/invoice/card.php?id=".$object->id;
 				}
 				if (is_object($object) && $object->element == 'shipping') {
 					'@phan-var-force Expedition $object';
@@ -9567,7 +9567,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 		}
 	}
 	if ((empty($exclude) || !in_array('objectamount', $exclude)) && (empty($include) || in_array('objectamount', $include))) {
-		'@phan-var-force Facture|FactureRec $object';
+		'@phan-var-force Invoice|InvoiceRec $object';
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/functionsnumtoword.lib.php';
 
 		$substitutionArray['__DATE_YMD__']          = is_object($object) ? (isset($object->date) ? dol_print_date($object->date, 'day', false, $outputlangs) : null) : '';
@@ -9576,7 +9576,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 		$substitutionArray['__DATE_DUE_YMD_TEXT__'] = is_object($object) ? (isset($object->date_lim_reglement) ? dol_print_date($object->date_lim_reglement, 'daytext', false, $outputlangs) : null) : '';
 
 		$already_payed_all = 0;
-		if (is_object($object) && ($object instanceof Facture)) {
+		if (is_object($object) && ($object instanceof Invoice)) {
 			$already_payed_all = $object->sumpayed + $object->sumdeposit + $object->sumcreditnote;
 		}
 
@@ -11925,7 +11925,7 @@ function getImageFileNameForSize($file, $extName, $extImgTarget = '')
 /**
  * Return URL we can use for advanced preview links
  *
- * @param   string    $modulePart     propal, facture, facture_fourn, ...
+ * @param   string    $modulePart     propal, invoice, invoice_fourn, ...
  * @param   string    $relativepath   Relative path of docs.
  * @param	int<0,1>	  $alldata		  Return array with all components (1 is recommended, then use a simple a href link with the class, target and mime attribute added. 'documentpreview' css class is handled by jquery code into main.inc.php)
  * @param	string	  $param		  More param on http links
@@ -13082,7 +13082,7 @@ function dolGetButtonTitle($label, $helpText = '', $iconClass = 'fa fa-file', $u
  * Get an array with properties of an element.
  *
  * @param   string $elementType       Element type (Value of $object->element or value of $object->element@$object->module). Example:
- *                                    'action', 'facture', 'project', 'project_task' or
+ *                                    'action', 'invoice', 'project', 'project_task' or
  *                                    'myobject@mymodule' (or old syntax 'mymodule_myobject' like 'project_task')
  * @return  array{module:string,element:string,table_element:string,subelement:string,classpath:string,classfile:string,classname:string,dir_output:string,dir_temp:string,parent_element:string}		array('module'=>, 'classpath'=>, 'element'=>, 'subelement'=>, 'classfile'=>, 'classname'=>, 'dir_output'=>, 'dir_temp'=>)
  * @see fetchObjectByElement(), getMultidirOutput()
@@ -13093,7 +13093,7 @@ function getElementProperties($elementType)
 
 	$regs = [];
 
-	//$element_type='facture';
+	//$element_type='invoice';
 
 	$classfile = $classname = $classpath = $subdir = $dir_output = $dir_temp = $parent_element = '';
 
@@ -13123,7 +13123,7 @@ function getElementProperties($elementType)
 		$classpath = $module.'/class';
 		$classfile = $module;
 		$classname = preg_replace('/det$/', 'Line', $element);
-		if (in_array($module, array('expedition', 'propale', 'facture', 'contract', 'fichinter', 'orderfournisseur'))) {
+		if (in_array($module, array('expedition', 'propale', 'invoice', 'contract', 'fichinter', 'orderfournisseur'))) {
 			$classname = preg_replace('/det$/', 'Ligne', $element);
 		}
 	}
@@ -13183,22 +13183,22 @@ function getElementProperties($elementType)
 		$module = 'projet';
 		$subelement = 'task';
 		$table_element = 'projet_task';
-	} elseif ($elementType == 'facture' || $elementType == 'invoice') {
-		$classpath = 'compta/facture/class';
-		$module = 'facture';
-		$subelement = 'facture';
-		$table_element = 'facture';
-	} elseif ($elementType == 'facturedet') {
-		$classpath = 'compta/facture/class';
-		$classfile = 'facture';
-		$classname = 'FactureLigne';
-		$module = 'facture';
-		$table_element = 'facturedet';
-		$parent_element = 'facture';
-	} elseif ($elementType == 'facturerec') {
-		$classpath = 'compta/facture/class';
-		$module = 'facture';
-		$classname = 'FactureRec';
+	} elseif ($elementType == 'invoice' || $elementType == 'invoice') {
+		$classpath = 'compta/invoice/class';
+		$module = 'invoice';
+		$subelement = 'invoice';
+		$table_element = 'invoice';
+	} elseif ($elementType == 'invoicedet') {
+		$classpath = 'compta/invoice/class';
+		$classfile = 'invoice';
+		$classname = 'InvoiceLine';
+		$module = 'invoice';
+		$table_element = 'invoicedet';
+		$parent_element = 'invoice';
+	} elseif ($elementType == 'invoicerec') {
+		$classpath = 'compta/invoice/class';
+		$module = 'invoice';
+		$classname = 'InvoiceRec';
 	} elseif ($elementType == 'order' || $elementType == 'order') {
 		$classpath = 'order/class';
 		$module = 'order';
@@ -13334,19 +13334,19 @@ function getElementProperties($elementType)
 	} elseif ($elementType == 'invoice_supplier') {
 		$classpath = 'fourn/class';
 		$module = 'fournisseur';
-		$classfile = 'fournisseur.facture';
+		$classfile = 'fournisseur.invoice';
 		$element = 'invoice_supplier';
 		$subelement = '';
-		$classname = 'FactureFournisseur';
-		$table_element = 'facture_fourn';
-	} elseif ($elementType == 'facture_fourn_det') {
+		$classname = 'InvoiceSupplier';
+		$table_element = 'invoice_fourn';
+	} elseif ($elementType == 'invoice_fourn_det') {
 		$classpath = 'fourn/class';
 		$module = 'fournisseur';
-		$classfile = 'fournisseur.facture';
-		$element = 'facture_fourn_det';
+		$classfile = 'fournisseur.invoice';
+		$element = 'invoice_fourn_det';
 		$subelement = '';
 		$classname = 'SupplierInvoiceLine';
-		$table_element = 'facture_fourn_det';
+		$table_element = 'invoice_fourn_det';
 		$parent_element = 'invoice_supplier';
 	} elseif ($elementType == "service") {
 		$classpath = 'product/class';
@@ -13468,8 +13468,8 @@ function getElementProperties($elementType)
 		$dir_output = $config->fournisseur->order->dir_output;
 		$dir_temp = $config->fournisseur->order->dir_temp;
 	} elseif ($element == 'invoice_supplier') {
-		$dir_output = $config->fournisseur->facture->dir_output;
-		$dir_temp = $config->fournisseur->facture->dir_temp;
+		$dir_output = $config->fournisseur->invoice->dir_output;
+		$dir_temp = $config->fournisseur->invoice->dir_temp;
 	}
 	$dir_output .= $subdir;
 	$dir_temp .= $subdir;
@@ -14346,7 +14346,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 			$sql .= ", sp.lastname, sp.firstname";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 			$sql .= ", m.lastname, m.firstname";
-		} elseif (is_object($filterobj) && in_array(get_class($filterobj), array('Order', 'OrderFournisseur', 'Product', 'Ticket', 'BOM', 'Contract', 'Facture', 'FactureFournisseur'))) {
+		} elseif (is_object($filterobj) && in_array(get_class($filterobj), array('Order', 'OrderFournisseur', 'Product', 'Ticket', 'BOM', 'Contract', 'Invoice', 'InvoiceSupplier'))) {
 			$sql .= ", o.ref";
 		}
 		$sql .= " FROM ".MAIN_DB_PREFIX."actioncomm as a";
@@ -14380,10 +14380,10 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 			$sql .= ", ".MAIN_DB_PREFIX."bom_bom as o";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Contract') {
 			$sql .= ", ".MAIN_DB_PREFIX."contract as o";
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'Facture') {
-			$sql .= ", ".MAIN_DB_PREFIX."facture as o";
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'FactureFournisseur') {
-			$sql .= ", ".MAIN_DB_PREFIX."facture_fourn as o";
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'Invoice') {
+			$sql .= ", ".MAIN_DB_PREFIX."invoice as o";
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'InvoiceSupplier') {
+			$sql .= ", ".MAIN_DB_PREFIX."invoice_fourn as o";
 		}
 
 		$sql .= " WHERE a.entity IN (".getEntity('agenda').")";
@@ -14432,12 +14432,12 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_contact = ".((int) $filterobj->id);
 				}
-			} elseif (is_object($filterobj) && get_class($filterobj) == 'Facture') {
+			} elseif (is_object($filterobj) && get_class($filterobj) == 'Invoice') {
 				$sql .= " AND a.fk_element = o.rowid";
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = ".((int) $filterobj->id)." AND a.elementtype = 'invoice'";
 				}
-			} elseif (is_object($filterobj) && get_class($filterobj) == 'FactureFournisseur') {
+			} elseif (is_object($filterobj) && get_class($filterobj) == 'InvoiceSupplier') {
 				$sql .= " AND a.fk_element = o.rowid";
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = ".((int) $filterobj->id)." AND a.elementtype = 'invoice_supplier'";

@@ -22,7 +22,7 @@
 
 /**
  * \file    htdocs/compta/paiement/class/cpaiement.class.php
- * \ingroup facture
+ * \ingroup invoice
  * \brief   This file is to manage CRUD function of type of payments
  */
 

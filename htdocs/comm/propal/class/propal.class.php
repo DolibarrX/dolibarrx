@@ -544,7 +544,7 @@ class Propal extends CommonObject
 		$result = $remise->fetch($idremise);
 
 		if ($result > 0) {
-			if ($remise->fk_facture) {	// Protection against multiple submission
+			if ($remise->fk_invoice) {	// Protection against multiple submission
 				$this->error = $langs->trans("ErrorDiscountAlreadyUsed");
 				$this->db->rollback();
 				return -5;
@@ -1639,7 +1639,7 @@ class Propal extends CommonObject
 		$sql .= ", c.label as statut_label";
 		$sql .= ", ca.code as availability_code, ca.label as availability";
 		$sql .= ", dr.code as demand_reason_code, dr.label as demand_reason";
-		$sql .= ", cr.code as cond_reglement_code, cr.libelle as cond_reglement, cr.libelle_facture as cond_reglement_libelle_doc, p.deposit_percent";
+		$sql .= ", cr.code as cond_reglement_code, cr.libelle as cond_reglement, cr.libelle_invoice as cond_reglement_libelle_doc, p.deposit_percent";
 		$sql .= ", cp.code as mode_reglement_code, cp.libelle as mode_reglement";
 		$sql .= " FROM ".MAIN_DB_PREFIX."propal as p";
 		$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_propalst as c ON p.fk_statut = c.id';
@@ -3005,15 +3005,15 @@ class Propal extends CommonObject
 			// Nouveau système du common object renvoi des rowid et non un id linéaire de 1 à n
 			// On parcourt donc une liste d'objets en tant qu'objet unique
 			foreach ($objectid as $key => $object) {
-				// Cas des factures liees directement
-				if ($objecttype == 'facture') {
+				// Cas des invoices liees directement
+				if ($objecttype == 'invoice') {
 					$linkedInvoices[] = $object;
 				} else {
-					// Cas des factures liees par un autre object (ex: order)
+					// Cas des invoices liees par un autre object (ex: order)
 					$this->fetchObjectLinked($object, $objecttype);
 					foreach ($this->linkedObjectsIds as $subobjecttype => $subobjectid) {
 						foreach ($subobjectid as $subkey => $subobject) {
-							if ($subobjecttype == 'facture') {
+							if ($subobjecttype == 'invoice') {
 								$linkedInvoices[] = $subobject;
 							}
 						}
@@ -3024,7 +3024,7 @@ class Propal extends CommonObject
 
 		if (count($linkedInvoices) > 0) {
 			$sql = "SELECT rowid as facid, ref, total_ht as total, datef as df, fk_user_author, fk_statut, paye";
-			$sql .= " FROM ".MAIN_DB_PREFIX."facture";
+			$sql .= " FROM ".MAIN_DB_PREFIX."invoice";
 			$sql .= " WHERE rowid IN (".$this->db->sanitize(implode(',', $linkedInvoices)).")";
 
 			dol_syslog(get_class($this)."::InvoiceArrayList", LOG_DEBUG);
@@ -3500,8 +3500,8 @@ class Propal extends CommonObject
 						$response->nbtodolate++;
 					}
 				}
-				// TODO Definir regle des propales a facturer en retard
-				// if ($mode == 'signed' && ! count($this->FactureListeArray($obj->rowid))) $this->nbtodolate++;
+				// TODO Define rule for late billing proposals
+				// if ($mode == 'signed' && ! count($this->InvoiceListArray($obj->rowid))) $this->nbtodolate++;
 			}
 
 			return $response;

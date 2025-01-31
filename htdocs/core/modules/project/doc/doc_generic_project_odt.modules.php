@@ -43,16 +43,16 @@ if (isModEnabled("propal")) {
 	require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 }
 if (isModEnabled('invoice')) {
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 }
 if (isModEnabled('invoice')) {
-	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice-rec.class.php';
 }
 if (isModEnabled('order')) {
 	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 }
 if (isModEnabled("supplier_invoice")) {
-	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 }
 if (isModEnabled("supplier_order")) {
 	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
@@ -938,15 +938,15 @@ class doc_generic_project_odt extends ModelePDFProjects
 					),
 					'invoice' => array(
 						'title' => "ListInvoicesAssociatedProject",
-						'class' => 'Facture',
-						'table' => 'facture',
-						'test' => isModEnabled('invoice') && $user->hasRight('facture', 'lire')
+						'class' => 'Invoice',
+						'table' => 'invoice',
+						'test' => isModEnabled('invoice') && $user->hasRight('invoice', 'lire')
 					),
 					'invoice_predefined' => array(
 						'title' => "ListPredefinedInvoicesAssociatedProject",
-						'class' => 'FactureRec',
-						'table' => 'facture_rec',
-						'test' => isModEnabled('invoice') && $user->hasRight('facture', 'lire')
+						'class' => 'InvoiceRec',
+						'table' => 'invoice_rec',
+						'test' => isModEnabled('invoice') && $user->hasRight('invoice', 'lire')
 					),
 					'proposal_supplier' => array(
 						'title' => "ListSupplierProposalsAssociatedProject",
@@ -962,9 +962,9 @@ class doc_generic_project_odt extends ModelePDFProjects
 					),
 					'invoice_supplier' => array(
 						'title' => "ListSupplierInvoicesAssociatedProject",
-						'table' => 'facture_fourn',
-						'class' => 'FactureFournisseur',
-						'test' => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'facture', 'lire')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire'))
+						'table' => 'invoice_fourn',
+						'class' => 'InvoiceSupplier',
+						'test' => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'invoice', 'lire')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire'))
 					),
 					'contract' => array(
 						'title' => "ListContractAssociatedProject",

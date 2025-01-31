@@ -245,7 +245,7 @@ if ($resql) {
 			$orderstatic->ref = $obj->ref;
 			$orderstatic->ref_supplier = $obj->ref_supplier;
 			$orderstatic->statut = $obj->status;
-			$orderstatic->facturee = $obj->billed;
+			$orderstatic->invoicee = $obj->billed;
 
 			$companystatic->name = $obj->name;
 			$companystatic->id = $obj->socid;

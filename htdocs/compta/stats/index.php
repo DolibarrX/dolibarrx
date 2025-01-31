@@ -252,7 +252,7 @@ if (isModEnabled('accounting')) {
 
 if ($modecompta == 'CREANCES-DETTES') {
 	$sql = "SELECT date_format(f.datef,'%Y-%m') as dm, sum(f.total_ht) as amount, sum(f.total_ttc) as amount_ttc";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f";
 	$sql .= " WHERE f.fk_statut in (1,2)";
 	if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
 		$sql .= " AND f.type IN (0,1,2,5)";
@@ -266,14 +266,14 @@ if ($modecompta == 'CREANCES-DETTES') {
 } elseif ($modecompta == "RECETTES-DEPENSES") {
 	/*
 	 * Liste des paiements (les anciens paiements ne sont pas vus par cette requete car, sur les
-	 * vieilles versions, ils n'etaient pas lies via paiement_facture. On les ajoute plus loin)
+	 * vieilles versions, ils n'etaient pas lies via paiement_invoice. On les ajoute plus loin)
 	 */
 	$sql = "SELECT date_format(p.datep, '%Y-%m') as dm, sum(pf.amount) as amount_ttc";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
-	$sql .= ", ".MAIN_DB_PREFIX."paiement_facture as pf";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f";
+	$sql .= ", ".MAIN_DB_PREFIX."paiement_invoice as pf";
 	$sql .= ", ".MAIN_DB_PREFIX."paiement as p";
 	$sql .= " WHERE p.rowid = pf.fk_paiement";
-	$sql .= " AND pf.fk_facture = f.rowid";
+	$sql .= " AND pf.fk_invoice = f.rowid";
 	$sql .= " AND f.entity IN (".getEntity('invoice').")";
 	if ($socid) {
 		$sql .= " AND f.fk_soc = ".((int) $socid);
@@ -326,13 +326,13 @@ if ($result) {
 	dol_print_error($db);
 }
 
-// On ajoute les paiements anciennes version, non lies par paiement_facture (very old versions)
+// On ajoute les paiements anciennes version, non lies par paiement_invoice (very old versions)
 if ($modecompta == 'RECETTES-DEPENSES') {
 	$sql = "SELECT date_format(p.datep,'%Y-%m') as dm, sum(p.amount) as amount_ttc";
 	$sql .= " FROM ".MAIN_DB_PREFIX."bank as b";
 	$sql .= ", ".MAIN_DB_PREFIX."bank_account as ba";
 	$sql .= ", ".MAIN_DB_PREFIX."paiement as p";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON p.rowid = pf.fk_paiement";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON p.rowid = pf.fk_paiement";
 	$sql .= " WHERE pf.rowid IS NULL";
 	$sql .= " AND p.fk_bank = b.rowid";
 	$sql .= " AND b.fk_account = ba.rowid";
@@ -689,10 +689,10 @@ print '</div>';
 
 
 /*
- * En mode recettes/depenses, on complete avec les montants factures non regles
- * et les propales signees mais pas facturees. En effet, en recettes-depenses,
- * on comptabilise lorsque le montant est sur le compte donc il est interessant
- * d'avoir une vision de ce qui va arriver.
+ * In income/expenses mode, we complete with the unpaid invoice amounts
+ * and the proposals signed but not invoiced. Indeed, in receipts-expenditures,
+ * we count when the amount is in the account so it is interesting
+ * to have a vision of what is going to happen.
  */
 
 /*
@@ -708,7 +708,7 @@ print '</div>';
  // There is a bug here.  We need to use the remaining to pay and not the total of unpaid invoices!
 
  $sql = "SELECT f.ref, f.rowid, s.nom, s.rowid as socid, f.total_ttc, sum(pf.amount) as am";
- $sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."facture as f left join ".MAIN_DB_PREFIX."paiement_facture as pf on f.rowid=pf.fk_facture";
+ $sql .= " FROM ".MAIN_DB_PREFIX."societe as s,".MAIN_DB_PREFIX."invoice as f left join ".MAIN_DB_PREFIX."paiement_invoice as pf on f.rowid=pf.fk_invoice";
  $sql .= " WHERE s.rowid = f.fk_soc AND f.paye = 0 AND f.fk_statut = 1";
  if ($socid)
  {
@@ -733,7 +733,7 @@ print '</div>';
  $i++;
  }
 
- print "<tr class="oddeven"><td class=\"right\" colspan=\"5\"><i>Facture a encaisser : </i></td><td class=\"right\"><i>".price($total_ttc_Rac)."</i></td><td colspan=\"5\"><-- bug ici car n'exclut pas le deja r?gl? des factures partiellement r?gl?es</td></tr>";
+ print "<tr class="oddeven"><td class=\"right\" colspan=\"5\"><i>Invoice to be collected : </i></td><td class=\"right\"><i>".price($total_ttc_Rac)."</i></td><td colspan=\"5\"><-- bug ici car n'exclut pas le deja r?gl? des invoices partiellement r?gl?es</td></tr>";
  }
  $db->free($resql);
  }
@@ -745,7 +745,7 @@ print '</div>';
 
 /*
  *
- * Propales signees, et non facturees
+ * Proposals signed, not invoiced
  *
  */
 
@@ -756,10 +756,10 @@ print '</div>';
  $sql = "SELECT sum(f.total_ht) as tot_fht,sum(f.total_ttc) as tot_fttc, p.rowid, p.ref, s.nom, s.rowid as socid, p.total_ht, p.total_ttc
  FROM ".MAIN_DB_PREFIX."order AS p, ".MAIN_DB_PREFIX."societe AS s
  LEFT JOIN ".MAIN_DB_PREFIX."co_fa AS co_fa ON co_fa.fk_order = p.rowid
- LEFT JOIN ".MAIN_DB_PREFIX."facture AS f ON co_fa.fk_facture = f.rowid
+ LEFT JOIN ".MAIN_DB_PREFIX."invoice AS f ON co_fa.fk_invoice = f.rowid
  WHERE p.fk_soc = s.rowid
  AND p.fk_statut >=1
- AND p.facture =0";
+ AND p.invoice =0";
  if ($socid)
  {
  $sql .= " AND f.fk_soc = ".((int) $socid);
@@ -782,7 +782,7 @@ print '</div>';
  $i++;
  }
 
- print "<tr class="oddeven"><td class=\"right\" colspan=\"5\"><i>Signe et non facture:</i></td><td class=\"right\"><i>".price($total_pr)."</i></td><td colspan=\"5\"><-- bug ici, ca devrait exclure le deja facture</td></tr>";
+ print "<tr class="oddeven"><td class=\"right\" colspan=\"5\"><i>Sign and not invoice:</i></td><td class=\"right\"><i>".price($total_pr)."</i></td><td colspan=\"5\"><-- bug here, it should exclude the already invoiced</td></tr>";
  }
  $db->free($resql);
  }

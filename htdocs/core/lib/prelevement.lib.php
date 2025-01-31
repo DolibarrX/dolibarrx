@@ -61,7 +61,7 @@ function prelevement_prepare_head(BonPrelevement $object)
 		$titleoftab = $langs->trans("Salaries");
 	}
 
-	$head[$h][0] = DOL_URL_ROOT.'/compta/prelevement/factures.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT.'/compta/prelevement/invoices.php?id='.$object->id;
 	$head[$h][1] = $titleoftab;
 	$head[$h][2] = 'invoices';
 	$h++;

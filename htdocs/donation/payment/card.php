@@ -27,8 +27,8 @@
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/donation/class/don.class.php';
 require_once DOL_DOCUMENT_ROOT.'/donation/class/paymentdonation.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/invoice/modules_invoice.php';
 if (isModEnabled("bank")) {
 	require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 }
@@ -52,7 +52,7 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 // TODO Add rule to restrict access payment
-//$result = restrictedArea($user, 'facture', $id,'');
+//$result = restrictedArea($user, 'invoice', $id,'');
 
 $object = new PaymentDonation($db);
 if ($id > 0) {

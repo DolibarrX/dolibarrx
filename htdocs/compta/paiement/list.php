@@ -137,7 +137,7 @@ if (!$user->hasRight('societe', 'client', 'voir')) {
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'facture', $facid, '');
+$result = restrictedArea($user, 'invoice', $facid, '');
 
 
 /*
@@ -205,9 +205,9 @@ if (GETPOST("orphelins", "alpha")) {
 	$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 	$sql .= " FROM ".MAIN_DB_PREFIX."paiement as p LEFT JOIN ".MAIN_DB_PREFIX."c_paiement as c ON p.fk_paiement = c.id";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON p.rowid = pf.fk_paiement";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON p.rowid = pf.fk_paiement";
 	$sql .= " WHERE p.entity IN (".getEntity('invoice').")";
-	$sql .= " AND pf.fk_facture IS NULL";
+	$sql .= " AND pf.fk_invoice IS NULL";
 
 	// Add where from hooks
 	$parameters = [];
@@ -234,14 +234,14 @@ if (GETPOST("orphelins", "alpha")) {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b ON p.fk_bank = b.rowid";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank_account as ba ON b.fk_account = ba.rowid";
 
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf ON p.rowid = pf.fk_paiement";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture as f ON pf.fk_facture = f.rowid";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_invoice as pf ON p.rowid = pf.fk_paiement";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."invoice as f ON pf.fk_invoice = f.rowid";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON f.fk_soc = s.rowid";
 
 	$sql .= " WHERE p.entity IN (".getEntity('invoice').")";
 	if ($socid > 0) {
-		$sql .= " AND EXISTS (SELECT f.fk_soc FROM ".MAIN_DB_PREFIX."facture as f, ".MAIN_DB_PREFIX."paiement_facture as pf";
-		$sql .= " WHERE p.rowid = pf.fk_paiement AND pf.fk_facture = f.rowid AND f.fk_soc = ".((int) $socid).")";
+		$sql .= " AND EXISTS (SELECT f.fk_soc FROM ".MAIN_DB_PREFIX."invoice as f, ".MAIN_DB_PREFIX."paiement_invoice as pf";
+		$sql .= " WHERE p.rowid = pf.fk_paiement AND pf.fk_invoice = f.rowid AND f.fk_soc = ".((int) $socid).")";
 	}
 	if ($userId) {
 		if ($userId == -1) {

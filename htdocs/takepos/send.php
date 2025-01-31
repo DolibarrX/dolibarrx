@@ -43,7 +43,7 @@ if (!defined('NOREQUIREAJAX')) {
 // Load Dolibarr environment
 require '../main.inc.php'; // Load $user and permissions
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
 
 /**
  * @var Config $config
@@ -62,7 +62,7 @@ if (!$user->hasRight('takepos', 'run')) {
 
 $langs->loadLangs(array("main", "bills", "cashdesk"));
 
-$invoice = new Facture($db);
+$invoice = new Invoice($db);
 $invoice->fetch($facid);
 $customer = new Societe($db);
 $customer->fetch($invoice->socid);
@@ -78,7 +78,7 @@ if ($action == "send" && $user->hasRight('takepos', 'run')) {
 	$formmail = new FormMail($db);
 	$outputlangs = new Translate('', $config);
 	$model_id = getDolGlobalString('TAKEPOS_EMAIL_TEMPLATE_INVOICE');
-	$arraydefaultmessage = $formmail->getEMailTemplate($db, 'facture_send', $user, $outputlangs, $model_id);
+	$arraydefaultmessage = $formmail->getEMailTemplate($db, 'invoice_send', $user, $outputlangs, $model_id);
 	$subject = $arraydefaultmessage->topic;
 
 	ob_start(); // turn on output receipt

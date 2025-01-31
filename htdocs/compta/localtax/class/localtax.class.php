@@ -380,7 +380,7 @@ class Localtax extends CommonObject
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *	Total de la localtax des factures emises par la societe.
+	 *	Total de la localtax des invoices emises par la societe.
 	 *
 	 *	@param	int		$year		Year
 	 *	@return	int					???
@@ -389,7 +389,7 @@ class Localtax extends CommonObject
 	{
 		// phpcs:enable
 		$sql = "SELECT sum(f.localtax) as amount";
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice as f";
 		$sql .= " WHERE f.paye = 1";
 		if ($year) {
 			$sql .= " AND f.datef BETWEEN '".$this->db->idate(dol_get_first_day($year, 1, 'gmt'))."' AND '".$this->db->idate(dol_get_last_day($year, 1, 'gmt'))."'";
@@ -424,7 +424,7 @@ class Localtax extends CommonObject
 		// phpcs:enable
 
 		$sql = "SELECT sum(f.total_localtax) as total_localtax";
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
+		$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn as f";
 		if ($year) {
 			$sql .= " WHERE f.datef BETWEEN '".$this->db->idate(dol_get_first_day($year, 1, 'gmt'))."' AND '".$this->db->idate(dol_get_last_day($year, 1, 'gmt'))."'";
 		}

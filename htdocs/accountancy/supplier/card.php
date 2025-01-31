@@ -29,7 +29,7 @@
  */
 require '../../main.inc.php';
 
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.invoice.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formaccounting.class.php';
 
 /**
@@ -72,7 +72,7 @@ if ($action == 'ventil' && $user->hasRight('accounting', 'bind', 'write')) {
 			$codeventil = 0;
 		}
 
-		$sql = " UPDATE ".MAIN_DB_PREFIX."facture_fourn_det";
+		$sql = " UPDATE ".MAIN_DB_PREFIX."invoice_fourn_det";
 		$sql .= " SET fk_code_ventilation = ".((int) $codeventil);
 		$sql .= " WHERE rowid = ".((int) $id);
 
@@ -107,7 +107,7 @@ if ($cancel == $langs->trans("Cancel")) {
 
 // Create
 $form = new Form($db);
-$facturefournisseur_static = new FactureFournisseur($db);
+$invoicefournisseur_static = new InvoiceSupplier($db);
 $formaccounting = new FormAccounting($db);
 
 if (!empty($id)) {
@@ -119,15 +119,15 @@ if (!empty($id)) {
 		$sql .= " p.accountancy_code_buy as code_buy,";
 	}
 	$sql .= " aa.account_number, aa.label";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn_det as l";
+	$sql .= " FROM ".MAIN_DB_PREFIX."invoice_fourn_det as l";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = l.fk_product";
 	if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 		$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 	}
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON l.fk_code_ventilation = aa.rowid";
-	$sql .= " INNER JOIN ".MAIN_DB_PREFIX."facture_fourn as f ON f.rowid = l.fk_facture_fourn ";
+	$sql .= " INNER JOIN ".MAIN_DB_PREFIX."invoice_fourn as f ON f.rowid = l.fk_invoice_fourn ";
 	$sql .= " WHERE f.fk_statut > 0 AND l.rowid = ".((int) $id);
-	$sql .= " AND f.entity IN (".getEntity('facture_fourn', 0).")"; // We do not share object for accountancy
+	$sql .= " AND f.entity IN (".getEntity('invoice_fourn', 0).")"; // We do not share object for accountancy
 
 	dol_syslog("/accounting/supplier/card.php", LOG_DEBUG);
 	$result = $db->query($sql);
@@ -152,9 +152,9 @@ if (!empty($id)) {
 
 			// Ref invoice
 			print '<tr><td>'.$langs->trans("BillsSuppliers").'</td>';
-			$facturefournisseur_static->ref = $objp->ref;
-			$facturefournisseur_static->id = $objp->facid;
-			print '<td>'.$facturefournisseur_static->getNomUrl(1).'</td>';
+			$invoicefournisseur_static->ref = $objp->ref;
+			$invoicefournisseur_static->id = $objp->facid;
+			print '<td>'.$invoicefournisseur_static->getNomUrl(1).'</td>';
 			print '</tr>';
 
 			print '<tr><td>'.$langs->trans("Description").'</td>';

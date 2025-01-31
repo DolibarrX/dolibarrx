@@ -56,8 +56,8 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/eventorganization/class/conferenceorbooth.class.php';
 require_once DOL_DOCUMENT_ROOT.'/eventorganization/class/conferenceorboothattendee.class.php';
 require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/paymentterm.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/invoice.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/invoice/class/paymentterm.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
@@ -549,48 +549,48 @@ if (empty($resHook) && $action == 'add' && (!empty($conference->id) && $conferen
 				$resultprod = $productforinvoicerow->fetch(getDolGlobalString('SERVICE_CONFERENCE_ATTENDEE_SUBSCRIPTION'));
 			}
 
-			$facture = null;
+			$invoice = null;
 			// Create the draft invoice for the payment
 			if ($resultprod < 0) {
 				$error++;
 				$errmsg .= $productforinvoicerow->error;
 				$errors = array_merge($errors, $productforinvoicerow->errors);
 			} else {
-				$facture = new Facture($db);
+				$invoice = new Invoice($db);
 				if (empty($confattendee->fk_invoice)) {
-					$facture->type = Facture::TYPE_STANDARD;
-					$facture->socid = $thirdparty->id;
-					$facture->paye = 0;
-					$facture->date = dol_now();
-					$facture->cond_reglement_id = $confattendee->cond_reglement_id;
-					$facture->fk_project = $project->id;
-					$facture->status = Facture::STATUS_DRAFT;
+					$invoice->type = Invoice::TYPE_STANDARD;
+					$invoice->socid = $thirdparty->id;
+					$invoice->paye = 0;
+					$invoice->date = dol_now();
+					$invoice->cond_reglement_id = $confattendee->cond_reglement_id;
+					$invoice->fk_project = $project->id;
+					$invoice->status = Invoice::STATUS_DRAFT;
 
-					if (empty($facture->cond_reglement_id)) {
+					if (empty($invoice->cond_reglement_id)) {
 						$paymenttermstatic = new PaymentTerm($confattendee->db);
-						$facture->cond_reglement_id = $paymenttermstatic->getDefaultId();
-						if (empty($facture->cond_reglement_id)) {
+						$invoice->cond_reglement_id = $paymenttermstatic->getDefaultId();
+						if (empty($invoice->cond_reglement_id)) {
 							$error++;
 							$confattendee->error = 'ErrorNoPaymentTermRECEPFound';
 							$confattendee->errors[] = $confattendee->error;
 						}
 					}
-					$resultfacture = $facture->create($user);
-					if ($resultfacture <= 0) {
-						$confattendee->error = $facture->error;
-						$confattendee->errors = $facture->errors;
+					$resultinvoice = $invoice->create($user);
+					if ($resultinvoice <= 0) {
+						$confattendee->error = $invoice->error;
+						$confattendee->errors = $invoice->errors;
 						$error++;
 					} else {
-						$confattendee->fk_invoice = $resultfacture;
+						$confattendee->fk_invoice = $resultinvoice;
 						$confattendee->update($user);
 					}
 				} else {
-					$facture->fetch($confattendee->fk_invoice);
+					$invoice->fetch($confattendee->fk_invoice);
 				}
 
 				// Add link between invoice and the attendee registration
 				/*if (!$error) {
-				 $facture->add_object_linked($confattendee->element, $confattendee->id);
+				 $invoice->add_object_linked($confattendee->element, $confattendee->id);
 				 }*/
 			}
 
@@ -606,21 +606,21 @@ if (empty($resHook) && $action == 'add' && (!empty($conference->id) && $conferen
 				$date_end = $project->date_end_event;
 
 				// If there is no lines yet, we add one
-				if (empty($facture->lines)) {
+				if (empty($invoice->lines)) {
 					$pu_ttc = (float) $project->price_registration;
 					$pu_ht = 0;
 					$price_base_type = 'TTC';
 
-					$result = $facture->addline($labelforproduct, $pu_ht, 1, $vattouse, 0, 0, $productforinvoicerow->id, 0, $date_start, $date_end, 0, 0, 0, $price_base_type, $pu_ttc, 1);
+					$result = $invoice->addline($labelforproduct, $pu_ht, 1, $vattouse, 0, 0, $productforinvoicerow->id, 0, $date_start, $date_end, 0, 0, 0, $price_base_type, $pu_ttc, 1);
 					if ($result <= 0) {
-						$confattendee->error = $facture->error;
-						$confattendee->errors = $facture->errors;
+						$confattendee->error = $invoice->error;
+						$confattendee->errors = $invoice->errors;
 						$error++;
 					}
 				}
 			}
 
-			if (!$error && is_object($facture)) {
+			if (!$error && is_object($invoice)) {
 				$db->commit();
 
 				// Registration was recorded and invoice was generated, but payment not yet done.
@@ -630,7 +630,7 @@ if (empty($resHook) && $action == 'add' && (!empty($conference->id) && $conferen
 
 				// Now we redirect to the payment page
 				$sourcetouse = 'organizedeventregistration';
-				$reftouse = $facture->id;
+				$reftouse = $invoice->id;
 				$redirection = $dolibarr_main_url_root.'/public/payment/newpayment.php?source='.urlencode((string) ($sourcetouse)).'&ref='.urlencode((string) ($reftouse));
 				if (getDolGlobalString('PAYMENT_SECURITY_TOKEN')) {
 					if (getDolGlobalString('PAYMENT_SECURITY_TOKEN_UNIQUE')) {
